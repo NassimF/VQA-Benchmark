@@ -9,14 +9,47 @@
 
 ## What We Are Building
 
-A Visual Question Answering (VQA) benchmark for **long lecture videos**, paired with a full
-Retrieval-Augmented Generation (RAG) pipeline that can answer questions about lecture content
-and cite the exact video timestamp where the answer was spoken (or shown on slides).
+A **multi-hop** Visual Question Answering (VQA) benchmark for **long lecture videos**, paired with a full Retrieval-Augmented Generation (RAG) pipeline. Questions are designed so the answer requires connecting information from **two or more non-adjacent segments** of the video — not just finding a single relevant clip.
 
-> **RAG in plain terms:** Instead of asking an LLM to answer from memory, we first *retrieve*
-> relevant transcript chunks from a vector database (like searching a library), then feed those
-> chunks as context to the LLM. The LLM answers using only the retrieved text and cites its sources.
-> For this project, sources are timestamp ranges in lecture videos.
+> **Multi-hop in plain terms:** A single-hop question ("What is memoization?") has one answer location. A multi-hop question ("How does the subproblem property introduced at the start of the lecture justify the complexity claim made at the end?") requires the model to retrieve chunks from two different parts of the video and synthesize them. This is harder, more realistic, and more useful as a benchmark.
+
+> **RAG in plain terms:** Instead of asking an LLM to answer from memory, we first *retrieve* relevant transcript chunks from a vector database (like searching a library), then feed those chunks as context to the LLM. The LLM answers using only the retrieved text and cites its sources — here, timestamp ranges in the video.
+
+---
+
+## Selected Lectures
+
+### Selected Lectures
+
+| Video ID | Course | Topic | Multi-hop value | Frame-caption value | License | URL |
+|----------|--------|-------|----------------|---------------------|---------|-----|
+| `mit_6046_lec10` | MIT 6.046J Algorithms | Dynamic Programming: Advanced DP | ✅ High — DP fundamentals reused, builds recurrence → memoization → complexity | Medium (slides) | CC BY-NC-SA 4.0 ✓ | https://www.youtube.com/watch?v=Tw1k46ywN6E (80 min) |
+| `mit_18065_lec06` | MIT 18.065 Matrix Methods | Singular Value Decomposition (SVD) | ✅ Very high — eigenvalues → factorization → geometry → low-rank approx | High (whiteboard) | CC BY-NC-SA 4.0 ✓ | https://www.youtube.com/watch?v=rYz83XPxiZo (54 min) |
+| `nyu_dl_week6` | NYU Deep Learning (LeCun/Canziani) | CNN + RNN + Attention | ✅ Very high — CNN → RNN → attention built incrementally | Medium (diagrams) | **CC BY ✓** | https://www.youtube.com/watch?v=ycbMGyCPzvE |
+| `nyu_dl_week7` | NYU Deep Learning (LeCun/Canziani) | Energy-Based Models + Self-Supervised Learning | ✅ High — EBM framing reused throughout | Low–Medium | **CC BY ✓** | https://www.youtube.com/watch?v=PHxKk5Y5ayc |
+
+**Start with:** `mit_6046_lec01` + `mit_18065_lec01` (Phase 1). Add NYU lectures in a later phase once the pipeline is validated.
+
+All four lectures were selected because concepts introduced early are explicitly reused and extended later — the structural requirement for meaningful multi-hop questions. NYU Week 6 is particularly strong: attention is derived from CNN and RNN concepts introduced earlier in the same 89-minute lecture.
+
+### Stanford Candidates (reserve, verify license before use)
+
+| Video ID | Course | Topic | Multi-hop value | Frame-caption value | License |
+|----------|--------|-------|----------------|---------------------|---------|
+| `stanford_cs231n_lec4` | CS231N CNNs | Backpropagation & Neural Nets | ✅ Very high | High (diagrams) | ❌ Standard YouTube License |
+| `stanford_cs224n_lec8` | CS224N NLP | Self-Attention & Transformers | ✅ Very high | Medium (diagrams) | ❌ Standard YouTube License |
+| `stanford_cs229_lec1` | CS229 ML (Andrew Ng, SEE 2008) | Linear Regression | Medium | Low | ⚠️ SEE site says CC BY-NC-SA 3.0 but YouTube field is unset |
+
+**License check result (verified 2026-04-19):**
+All Stanford YouTube uploads return `license: None` (Standard YouTube License), including CS229 SEE videos.
+- MIT OCW is the only source with an unambiguous CC BY-NC-SA 4.0 YouTube license field.
+- Stanford videos are **safe for the class assignment** (academic, non-public use).
+- Stanford videos are **not safe for the published benchmark** without explicit permission.
+
+**Options if Stanford content is desired:**
+1. Email course staff requesting permission (e.g., cs231n-staff@cs.stanford.edu) — many say yes
+2. Use MIT OCW only for the published benchmark (recommended default)
+3. Use Stanford for personal experimentation, MIT OCW for the submitted benchmark
 
 ---
 
@@ -90,8 +123,8 @@ VQA_Benchmark/
 
 | Phase | Description | Status |
 |-------|-------------|--------|
-| 0 | Setup: CLAUDE.md, PROJECT_PLAN.md, git/GitHub, literature review | 🔄 In Progress |
-| 1 | Video selection (licensing confirmed) + download | ⏳ Pending |
+| 0 | Setup: CLAUDE.md, PROJECT_PLAN.md, git/GitHub, literature review | ✅ Complete |
+| 1 | Video selection (licensing confirmed) + download | ✅ Complete |
 | 2 | Transcription with whisper-large-v3 | ⏳ Pending |
 | 3 | Chunking (45s windows, 10s overlap) | ⏳ Pending |
 | 4 | Frame extraction + caption generation | ⏳ Pending |
@@ -114,15 +147,27 @@ VQA_Benchmark/
 - Confirm lecture selection with TA before downloading
 
 ### Phase 1 — Video Collection
-- Download audio-only `.m4a` with `yt-dlp` (saves space vs `.mp4`)
-- Write `data/raw/metadata.json`: `video_id`, `title`, `url`, `duration_seconds`, `license`
+- Download full video `.mp4` with `yt-dlp` — required for frame extraction in Phase 4
+  - Audio-only `.m4a` is NOT sufficient; frames are needed for the transcript+frames retrieval config
+  - `ffmpeg` will extract the audio track from `.mp4` for Whisper; no separate audio download needed
+- Write `data/raw/metadata.json`: `video_id`, `title`, `url`, `youtube_id`, `duration_seconds`, `license`
 - Verify CC license for each video before proceeding
 
 ### Phase 2 — Transcription
-- `whisper-large-v3`, `word_timestamps=True`, `language="en"`
+**Option A — YouTube auto-captions (check first, faster):**
+- `yt-dlp --write-auto-sub --sub-lang en --skip-download` to download existing captions
+- Timestamps are segment-level (phrases), not word-level — acceptable if precision is sufficient
+- Manually spot-check 2–3 technical terms (algorithm names, math notation) for errors
+- Use if available and quality is acceptable; note choice in report
+
+**Option B — Whisper-large-v3 (fallback or if captions are missing/poor):**
+- Extract audio: `ffmpeg -i video.mp4 -ar 16000 -ac 1 audio.wav`
+- Run: `whisper-large-v3`, `word_timestamps=True`, `language="en"`
 - ~15–25 min per 90-min lecture on GPU; ~3–5 hrs on CPU
-- Fallback: `whisper-medium` for iteration, large-v3 for finals
+- Fallback for iteration: `whisper-medium` (faster), large-v3 for final transcripts
 - Output: `data/transcripts/{video_id}.json` (full Whisper dict with word-level start/end)
+
+**Report note:** Document which option was used per lecture and why. If both were tried, compare WER on a sample.
 
 ### Phase 3 — Chunking (prescribed: 45s / 10s)
 - Slide a 45s window every 35s (stride = window − overlap)
@@ -232,6 +277,10 @@ VQA_Benchmark/
 
 ## Key Metrics to Report
 
+Multi-hop VQA requires separate metrics for single-hop and multi-hop questions, reported side-by-side across both retrieval configs.
+
+### Single-hop questions
+
 | Metric | Config 1: Transcript-Only | Config 2: Transcript+Frames |
 |--------|--------------------------|------------------------------|
 | Mean Temporal IoU | | |
@@ -240,6 +289,17 @@ VQA_Benchmark/
 | Hit Rate@1 | | |
 | Hit Rate@3 | | |
 | Hit Rate@5 | | |
+| LLM-Judge Score (1–5) | | |
+| Citation Accuracy | | |
+
+### Multi-hop questions
+
+| Metric | Config 1: Transcript-Only | Config 2: Transcript+Frames |
+|--------|--------------------------|------------------------------|
+| Mean Per-Hop IoU | | |
+| Complete Retrieval Rate@5 | | |
+| Per-Hop Recall@5 | | |
+| Multi-hop IoU@0.3 (union) | | |
 | LLM-Judge Score (1–5) | | |
 | Citation Accuracy | | |
 
@@ -311,31 +371,53 @@ qa_generation:
 
 ## Evaluation Metric Formulas
 
-### Temporal IoU
+### Single-hop Temporal IoU
 ```python
 def temporal_iou(pred_start, pred_end, gt_start, gt_end):
     intersection = max(0, min(pred_end, gt_end) - max(pred_start, gt_start))
     union = (pred_end - pred_start) + (gt_end - gt_start) - intersection
     return intersection / union if union > 0 else 0.0
 ```
-Thresholds: IoU@0.3 and IoU@0.5. Predicted span = union of cited chunk spans.
+Predicted span = union of cited chunk spans. Thresholds: IoU@0.3 and IoU@0.5.
+
+### Multi-hop Temporal IoU
+Ground truth is a **list of spans** (one per hop). Two metrics:
+
+```python
+def multihop_per_hop_iou(pred_spans, gt_spans):
+    """Mean IoU between each GT hop and its best-matching predicted span."""
+    scores = []
+    for gt_start, gt_end in gt_spans:
+        best = max(temporal_iou(ps, pe, gt_start, gt_end) for ps, pe in pred_spans)
+        scores.append(best)
+    return sum(scores) / len(scores)
+
+def multihop_union_iou(pred_spans, gt_spans):
+    """IoU between the union of all predicted spans and union of all GT spans."""
+    # merge overlapping spans, then compute single IoU on merged intervals
+    ...
+```
 
 ### Hit Rate @ k (k = 1, 3, 5)
-Fraction of questions where at least 1 of the top-k retrieved chunks has IoU > 0.3 with the ground truth span.
+- **Single-hop:** ≥1 of top-k chunks has IoU > 0.3 with the GT span
+- **Multi-hop — Per-hop recall:** fraction of GT hops covered by ≥1 top-k chunk (IoU > 0.3)
+- **Multi-hop — Complete retrieval rate:** fraction of questions where ALL hops are covered by top-k
 
 ### LLM-Judge Score
-Feed `question + generated_answer + reference_answer` to an LLM; ask it to score 1–5 for accuracy and grounding. More reliable than ROUGE for long-form answers.
+Feed `question + generated_answer + reference_answer` to an LLM; score 1–5 for accuracy and grounding. Applied to both single-hop and multi-hop questions.
 
 ### Citation Accuracy
-Of the chunks the LLM cited `[1]`, `[2]` etc., what fraction actually contained the answer.
+Of the chunks the LLM cited `[1]`, `[2]` etc., what fraction actually contained the answer. For multi-hop, check that at least one citation per hop is relevant.
 
 ### Cross-Validation IAA
 Cohen's Kappa on the `answerable` field between your annotation and the original author's.
-Temporal IoU between your annotated span and the original span.
+Mean temporal IoU between your annotated spans and the original spans.
 
 ---
 
 ## QA Pair Standard Schema
+
+Single-hop and multi-hop questions use the same schema, with multi-hop using a list of spans instead of one.
 
 ```json
 {
@@ -343,19 +425,37 @@ Temporal IoU between your annotated span and the original span.
   "video_id": "mit_6046_lec01",
   "question": "...",
   "answer": "...",
-  "ground_truth_start": 1823.4,
-  "ground_truth_end": 1901.2,
-  "source_chunk_id": "mit_6046_lec01_chunk_042",
-  "question_type": "conceptual|procedural|factual|visual",
+
+  "num_hops": 2,
+  "ground_truth_spans": [
+    {"start": 320.0, "end": 398.0, "hop": 1, "description": "subproblem property introduced"},
+    {"start": 2870.0, "end": 2940.0, "hop": 2, "description": "complexity claim relying on subproblem property"}
+  ],
+
+  "source_chunk_ids": ["mit_6046_lec01_chunk_009", "mit_6046_lec01_chunk_082"],
+  "question_type": "multi-hop|conceptual|procedural|factual|visual",
   "difficulty": "easy|medium|hard",
   "answerable": true,
-  "key_concepts": ["concept1"],
+  "key_concepts": ["memoization", "optimal substructure"],
   "reviewed_by": "human",
   "review_date": "2026-04-20"
 }
 ```
 
-Target mix per lecture: 6 conceptual, 4 procedural, 3 factual, 2+ visual (slide/whiteboard), 1 unanswerable.
+**Notes:**
+- Single-hop questions: `num_hops: 1`, `ground_truth_spans` has one entry, `source_chunk_ids` has one entry
+- The `description` field per hop is essential for human review — it records *why* that span is needed
+- Unanswerable questions: `answerable: false`, `ground_truth_spans: []`
+
+**Target question mix per lecture (12–15 accepted):**
+
+| Type | Count | Notes |
+|------|-------|-------|
+| Multi-hop | 5–6 | Core contribution; require 2+ non-adjacent spans |
+| Single-hop conceptual | 3–4 | Explain a concept from one segment |
+| Single-hop factual | 2–3 | Direct fact stated at one timestamp |
+| Visual-dependent | 2+ | Require reading a slide/whiteboard; add manually |
+| Unanswerable | 1 | Exactly 1 per lecture |
 
 ---
 
@@ -385,23 +485,10 @@ Target mix per lecture: 6 conceptual, 4 procedural, 3 factual, 2+ visual (slide/
 
 ---
 
-## Candidate Lectures (pending confirmation)
-
-| ID | Course | Topic | Why Good |
-|----|--------|-------|----------|
-| `mit_6046_lec01` | MIT 6.046J | Dynamic Programming | Dense slides, clear concept moments |
-| `mit_6046_lec02` | MIT 6.046J | Graph Algorithms | Multiple steps = good temporal QA |
-| `mit_18065_lec01` | MIT 18.065 | SVD | Whiteboard-heavy = good frame-caption test |
-| `mit_6006_lec01` | MIT 6.006 | Peak Finding | Classic, YouTube available |
-
-**Action required:** Confirm with TA if lectures are pre-assigned, or choose 2–4 from above.
-
----
-
 ## Notes & Observations
 
 *(Updated as the project progresses)*
 
 ---
 
-*Last updated: 2026-04-18*
+*Last updated: 2026-04-19*
