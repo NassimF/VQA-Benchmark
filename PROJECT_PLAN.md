@@ -286,6 +286,12 @@ Multi-hop VQA requires separate metrics for single-hop and multi-hop questions, 
 
 ---
 
+## Git Reminder
+
+After every major phase checkpoint: stage the relevant files, commit, and push to `origin/main`. Never leave more than one phase worth of work uncommitted.
+
+---
+
 ## Git Checkpoints
 
 | Checkpoint | Commit Message | Date |

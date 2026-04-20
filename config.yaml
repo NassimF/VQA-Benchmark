@@ -1,0 +1,41 @@
+data:
+  raw_dir: "data/raw"
+  videos_dir: "data/raw/videos"
+  transcripts_dir: "data/transcripts"
+  chunks_dir: "data/chunks"
+  frame_captions_dir: "data/frame_captions"
+  qa_pairs_dir: "data/qa_pairs"
+  benchmark_dir: "data/benchmark"
+  metadata_file: "data/raw/metadata.json"
+
+embedding:
+  model: "sentence-transformers/all-MiniLM-L6-v2"
+  device: "cuda"  # change to "cpu" if no GPU
+
+retrieval:
+  top_k: 4
+  k_values: [1, 3, 5]
+  distance_metric: "cosine"
+  iou_threshold: 0.3
+
+vector_db:
+  path: "./chroma_db"
+  transcript_only_collection: "lecture_transcript_only"
+  transcript_frames_collection: "lecture_transcript_plus_frames"
+
+chunking:
+  window_seconds: 45
+  overlap_seconds: 10  # stride = 35s
+
+frame_extraction:
+  interval_seconds: 30
+
+generator:
+  model: "gpt-4o-mini"  # options: "utsa-llama", "gpt-4o-mini", "claude-haiku"
+  temperature: 0.1
+  max_tokens: 512
+  citation_format: "[{video_id} @ {start_mm}:{start_ss} to {end_mm}:{end_ss}]"
+
+qa_generation:
+  questions_per_lecture: 15
+  target_accepted: 12
