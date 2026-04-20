@@ -478,6 +478,10 @@ Single-hop and multi-hop questions use the same schema, with multi-hop using a l
 
 ## Notes & Observations
 
+**Scale context:**
+- 4 lectures (2 MIT + 2 NYU) with ~50–60 total QA pairs is enough for a workshop paper or course project
+- For a full venue (EMNLP, ACL, NeurIPS datasets track), you'd want 10–20 lectures and 150–200 QA pairs
+
 **Transcription (Phase 2):**
 - YouTube auto-captions chosen over Whisper — pre-downloaded VTTs were clean on technical terms (eigenvectors, memoization, hash table verified). This saves ~1–2 hrs of GPU time per lecture.
 - VTT "rolling caption" format alternates word-timing cues (~2s) with display cues (~10ms). The display cues carry one clean subtitle phrase each — these are the source of segments.
