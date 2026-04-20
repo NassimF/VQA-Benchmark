@@ -28,28 +28,9 @@ A **multi-hop** Visual Question Answering (VQA) benchmark for **long lecture vid
 | `nyu_dl_week6` | NYU Deep Learning (LeCun/Canziani) | CNN + RNN + Attention | ✅ Very high — CNN → RNN → attention built incrementally | Medium (diagrams) | **CC BY ✓** | https://www.youtube.com/watch?v=ycbMGyCPzvE |
 | `nyu_dl_week7` | NYU Deep Learning (LeCun/Canziani) | Energy-Based Models + Self-Supervised Learning | ✅ High — EBM framing reused throughout | Low–Medium | **CC BY ✓** | https://www.youtube.com/watch?v=PHxKk5Y5ayc |
 
-**Start with:** `mit_6046_lec01` + `mit_18065_lec01` (Phase 1). Add NYU lectures in a later phase once the pipeline is validated.
+**Start with:** `mit_6046_lec10` + `mit_18065_lec06` (Phase 1). Add NYU lectures in a later phase once the pipeline is validated.
 
 All four lectures were selected because concepts introduced early are explicitly reused and extended later — the structural requirement for meaningful multi-hop questions. NYU Week 6 is particularly strong: attention is derived from CNN and RNN concepts introduced earlier in the same 89-minute lecture.
-
-### Stanford Candidates (reserve, verify license before use)
-
-| Video ID | Course | Topic | Multi-hop value | Frame-caption value | License |
-|----------|--------|-------|----------------|---------------------|---------|
-| `stanford_cs231n_lec4` | CS231N CNNs | Backpropagation & Neural Nets | ✅ Very high | High (diagrams) | ❌ Standard YouTube License |
-| `stanford_cs224n_lec8` | CS224N NLP | Self-Attention & Transformers | ✅ Very high | Medium (diagrams) | ❌ Standard YouTube License |
-| `stanford_cs229_lec1` | CS229 ML (Andrew Ng, SEE 2008) | Linear Regression | Medium | Low | ⚠️ SEE site says CC BY-NC-SA 3.0 but YouTube field is unset |
-
-**License check result (verified 2026-04-19):**
-All Stanford YouTube uploads return `license: None` (Standard YouTube License), including CS229 SEE videos.
-- MIT OCW is the only source with an unambiguous CC BY-NC-SA 4.0 YouTube license field.
-- Stanford videos are **safe for the class assignment** (academic, non-public use).
-- Stanford videos are **not safe for the published benchmark** without explicit permission.
-
-**Options if Stanford content is desired:**
-1. Email course staff requesting permission (e.g., cs231n-staff@cs.stanford.edu) — many say yes
-2. Use MIT OCW only for the published benchmark (recommended default)
-3. Use Stanford for personal experimentation, MIT OCW for the submitted benchmark
 
 ---
 
@@ -326,8 +307,9 @@ Multi-hop VQA requires separate metrics for single-hop and multi-hop questions, 
 ## Video Licensing Notes
 
 - **MIT OpenCourseWare**: CC BY-NC-SA 4.0 — academic/non-commercial use with attribution is allowed. No permission request needed.
-- **Stanford Online**: License varies per course — must verify before using.
-- Assignment states: *"each student is assigned 2–4 specific lectures"* — confirm with TA whether lectures are pre-assigned.
+- **NYU Deep Learning (LeCun/Canziani)**: CC BY — most permissive; attribution only.
+- **Stanford**: All YouTube uploads return Standard YouTube License (verified 2026-04-19). Not suitable for this benchmark.
+- Assignment states: *"each student is assigned 2–4 specific lectures"* — confirmed with TA that selection is free choice.
 
 ---
 
@@ -491,4 +473,4 @@ Single-hop and multi-hop questions use the same schema, with multi-hop using a l
 
 ---
 
-*Last updated: 2026-04-19*
+*Last updated: 2026-04-20*
