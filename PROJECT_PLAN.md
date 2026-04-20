@@ -109,7 +109,7 @@ VQA_Benchmark/
 | 1 | Video selection (licensing confirmed) + download | ✅ Complete |
 | 2 | Transcription (YouTube VTT → segment JSON) | ✅ Complete |
 | 3 | Chunking (45s windows, 10s overlap) | ✅ Complete |
-| 4 | Frame extraction + caption generation | ⏳ Pending |
+| 4 | Frame extraction + caption generation | ✅ Complete |
 | 5 | RAG ingestion — two ChromaDB collections | ⏳ Pending |
 | 6 | Generator module (grounded prompt + citations) | ⏳ Pending |
 | 7 | QA generation + human review (12–15 per lecture) | ⏳ Pending |
@@ -486,6 +486,15 @@ Single-hop and multi-hop questions use the same schema, with multi-hop using a l
 - YouTube auto-captions chosen over Whisper — pre-downloaded VTTs were clean on technical terms (eigenvectors, memoization, hash table verified). This saves ~1–2 hrs of GPU time per lecture.
 - VTT "rolling caption" format alternates word-timing cues (~2s) with display cues (~10ms). The display cues carry one clean subtitle phrase each — these are the source of segments.
 - Segment granularity: ~3s per phrase → 1,569 segments for 80-min lecture.
+
+**NYU Lectures (Phases 2–3):**
+- nyu_dl_week6: 1,761 segments, 153 chunks (89 min); nyu_dl_week7: 1,966 segments, 167 chunks (97 min)
+- Downloaded as MKV (AV1 codec) — cv2 cannot decode AV1; frame extractor updated to use ffmpeg instead
+
+**Frame Captioning (Phase 4):**
+- BLIP base (`Salesforce/blip-image-captioning-base`) chosen over BLIP-2 — no GPU required, runs on CPU (~10s/frame)
+- 642 frames extracted at 30s intervals across all 4 lectures; augmented chunk files written
+- Limitation: BLIP base produces generic captions for lecture content ("a man standing in front of a blackboard") — not trained on slide/whiteboard academic content. This is a measurable research finding: if transcript+frames config does not outperform transcript-only, caption quality is the likely cause. To be discussed in report failure-mode analysis.
 
 **Chunking (Phase 3):**
 - Pure time-based windowing: segment belongs to chunk if `segment.start ∈ [win_start, win_start+45s)`. No silence-gap detection implemented — not needed given dense lecture speech.
