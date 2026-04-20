@@ -1,0 +1,1505 @@
+[
+  {
+    "chunk_id": "nyu_dl_week7_chunk_000",
+    "video_id": "nyu_dl_week7",
+    "start_time": 0.0,
+    "end_time": 45.0,
+    "text": "right so we're going to talk about energy based models and it's basically a farm arc which we can through which we can express a lot of different learning algorithms not the ones that are kind simple like like we've seen in supervised running but but things that are a little more sophisticated and it sort of encompasses also a lot of our basic methods but it's a little simpler to understand I think then the probably sick methods and probably sick methods really are kind of a special case if you want off of energy based models and I think it's kind of informally that said you know sort of enlightening in the sense that it explains a lot of things that seem very different when when you [frame caption: a video of a man in a suit and tie]",
+    "frame_caption": "a video of a man in a suit and tie",
+    "frame_time": 30.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_001",
+    "video_id": "nyu_dl_week7",
+    "start_time": 35.0,
+    "end_time": 80.0,
+    "text": "want off of energy based models and I think it's kind of informally that said you know sort of enlightening in the sense that it explains a lot of things that seem very different when when you don't get this sort of unifying view of things so what I'm going to talk about first applies equally well to supervised learning what some people call supervised running or whatever we call self supervised running we shall talk about a little bit today and it's basically we're going to talk about models that observe a set of variables X and we're asking the model to predict a set of variables Y and I'm not specifying that X is an image or [frame caption: a video of a woman in a room with a purple background]",
+    "frame_caption": "a video of a woman in a room with a purple background",
+    "frame_time": 60.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_002",
+    "video_id": "nyu_dl_week7",
+    "start_time": 70.0,
+    "end_time": 115.0,
+    "text": "models that observe a set of variables X and we're asking the model to predict a set of variables Y and I'm not specifying that X is an image or whatever and Y is a is a discrete variable like for classification Y could be like an integral Y and X could be an interview or X could be an image and Y a piece of text that describes it or X could be a sentence in one language and Y sentence in another language X could be an entire text and Y could be a simplified version of that text or an abstract so it could be anything really I'm not kind of specifying necessarily here but it comes from the fact that these two issues with sort of [frame caption: energy models to produce a number of energy]",
+    "frame_caption": "energy models to produce a number of energy",
+    "frame_time": 90.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_003",
+    "video_id": "nyu_dl_week7",
+    "start_time": 105.0,
+    "end_time": 150.0,
+    "text": "I'm not kind of specifying necessarily here but it comes from the fact that these two issues with sort of feed-forward models whether there are neural nets or something else doesn't matter a classical model precedes by you know doing if a finite fixed number of calculations to produce an output if you have a multi-layer net you know there is a fixed number of layers even if you have a recurrent net there is some sort of limit to how many times you can unfold it so it's you know basically a fixed amount of computation but there are there are two issues for which this is not entirely appropriate [frame caption: energy models to produce a number of energy]",
+    "frame_caption": "energy models to produce a number of energy",
+    "frame_time": 120.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_004",
+    "video_id": "nyu_dl_week7",
+    "start_time": 140.0,
+    "end_time": 185.0,
+    "text": "times you can unfold it so it's you know basically a fixed amount of computation but there are there are two issues for which this is not entirely appropriate the the the first one or two situations the first situation is when computing the output we acquire some more complex calculation and just virtual weighted sums and non-linearity in a kind of finite number when the inference is complex and the second situation is when we're trying to train the machine to produce not a single output but a possible set of outputs so in the case of classification we're actually training a machine to produce multiple outputs we are training it to produce a separate score for every possible category that we have in our in a system [frame caption: energy models to produce a number of energy]",
+    "frame_caption": "energy models to produce a number of energy",
+    "frame_time": 150.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_005",
+    "video_id": "nyu_dl_week7",
+    "start_time": 175.0,
+    "end_time": 220.0,
+    "text": "possible set of outputs so in the case of classification we're actually training a machine to produce multiple outputs we are training it to produce a separate score for every possible category that we have in our in a system ideally the system would prove we produce the the best score for the correct class and you know if it's a small scores for for the other ones in practice you know when we run the output of a neural net through soft max it produces the kind of scores and we just pick the one that has a high score but basically what we are telling the mission to do is produce a score for every category and then we'll pick the best okay now this is not possible when the output is continuous and high-dimensional so the output is let's say an image we [frame caption: a presentation with a man in a suit and tie]",
+    "frame_caption": "a presentation with a man in a suit and tie",
+    "frame_time": 210.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_006",
+    "video_id": "nyu_dl_week7",
+    "start_time": 210.0,
+    "end_time": 255.0,
+    "text": "now this is not possible when the output is continuous and high-dimensional so the output is let's say an image we don't have soft maxes over images okay we don't have a way of listing all possible images and then you know normalizing a distribution over them because it's high dimensional continuous space even if it were a low dimensional continuous space it would not be possible we would have to build that continuous space into discrete discrete bins and then do a swap max over that but that doesn't work very well I don't know it only works in small dimension in low dimension okay so when we have a high dimensional continuous space we can do soft max we can't ask the system to give us a score for all possible outputs [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 240.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_007",
+    "video_id": "nyu_dl_week7",
+    "start_time": 245.0,
+    "end_time": 290.0,
+    "text": "low dimension okay so when we have a high dimensional continuous space we can do soft max we can't ask the system to give us a score for all possible outputs similarly even if it's discrete but potentially infinite so things like we're producing text text is compositional and there is a very very large number of of possible text of a given length and we can't just do a soft max over all possible texts same problem so how do we how do we represent a distribution or a bunch of scores over all possible texts in a compact form that's where energy based models come in or probabilistic model so that matter but energy business models in particular and the solution that energy based models give us there [frame caption: energy models to produce a number of energy]",
+    "frame_caption": "energy models to produce a number of energy",
+    "frame_time": 270.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_008",
+    "video_id": "nyu_dl_week7",
+    "start_time": 280.0,
+    "end_time": 325.0,
+    "text": "based models come in or probabilistic model so that matter but energy business models in particular and the solution that energy based models give us there is the idea that we're going to use an implicit function in other words we're going to we're not going to a score system to produce a why we're just going to ask you to tell us whether the next and a particular way we show it are compatible with each other so it's this text a good translation of that text okay that sounds kind of weak right because how are we going to come up with with that text that or machine is comparing but let's let's film let's hold this for a bit okay so with an end [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 300.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_009",
+    "video_id": "nyu_dl_week7",
+    "start_time": 315.0,
+    "end_time": 360.0,
+    "text": "with that text that or machine is comparing but let's let's film let's hold this for a bit okay so with an end is function f of X Y is going to take an X on a wine it's going to tell us if those two values are compatible with each other or not okay so is why a good label for the image X is y it would a good hide it high resolution version of this really low resolution image if Y a good translation of that sentence in German etc and so the inference procedure now is going to be given an x find a y that produces a low value for [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 330.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_010",
+    "video_id": "nyu_dl_week7",
+    "start_time": 350.0,
+    "end_time": 395.0,
+    "text": "German etc and so the inference procedure now is going to be given an x find a y that produces a low value for which f of X Y produces a low value in other words finally far away that's compatible with X okay so search hover over a possible wise for a value of y that produces a low value for f of X Y okay so this is the idea of influenced by minimizing some function and pretty much every model problems take on probabilistic whatever that you get that people have thought about gonna work this way I mean except you know even classification multi-class classification with neural nets or whatever implicitly worked by energy [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 360.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_011",
+    "video_id": "nyu_dl_week7",
+    "start_time": 385.0,
+    "end_time": 430.0,
+    "text": "this way I mean except you know even classification multi-class classification with neural nets or whatever implicitly worked by energy minimization by basically finding the class that has the the best score which you can think of as the lowest energy so basically we're going to try to find an output that satisfies a bunch of constraints and those constraints are implemented by this function f of X Y okay and if you've heard of graphical models Bayesian networks you know all that stuff or even classical AI or Sat problems they basically they can all be formulated in those terms as finding the value of a set of variables that will minimize some function that measures [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 420.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_012",
+    "video_id": "nyu_dl_week7",
+    "start_time": 420.0,
+    "end_time": 465.0,
+    "text": "stuff or even classical AI or Sat problems they basically they can all be formulated in those terms as finding the value of a set of variables that will minimize some function that measures their compatibility okay so we're not talking about learning right now okay we're just are talking about inference we're assuming this function f of X Y is given to you we're gonna talk about how we learn it a little later okay so the energy function is not what we need measuring running it's what we realize during inference so inference is competing Y from X so this energy function is scalar value it takes low values when Y is compatible with X and [frame caption: energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy]",
+    "frame_caption": "energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy",
+    "frame_time": 450.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_013",
+    "video_id": "nyu_dl_week7",
+    "start_time": 455.0,
+    "end_time": 500.0,
+    "text": "competing Y from X so this energy function is scalar value it takes low values when Y is compatible with X and higher values when Y is not comparable with X so you'd like this function to have shape in such a way that for a given x over values of Y that are compatible with this X have low energy and all the values that are not compatible with that given X have higher energy and that's all you need because then the inference procedure is going to find the Y Y check that written here which is the value of y that minimizes F of XY it's not going to be the value is will be a value because they might be multiple values okay and your inference [frame caption: energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy]",
+    "frame_caption": "energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy",
+    "frame_time": 480.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_014",
+    "video_id": "nyu_dl_week7",
+    "start_time": 490.0,
+    "end_time": 535.0,
+    "text": "find the Y Y check that written here which is the value of y that minimizes F of XY it's not going to be the value is will be a value because they might be multiple values okay and your inference algorithm might actually go through multiple values or examine multiple values before kind of giving you one or several okay let's take an example very simple example in one dimension of scalar variable so X here is a is a real value and Y is the real value and the what you want is if you want to capture the dependency between x and y in the [frame caption: energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy]",
+    "frame_caption": "energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy",
+    "frame_time": 510.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_015",
+    "video_id": "nyu_dl_week7",
+    "start_time": 525.0,
+    "end_time": 570.0,
+    "text": "what you want is if you want to capture the dependency between x and y in the data is that you would like an energy function that has either this shape or that shape or some other shape but which is has a shape that in such a way that if you take a particular value of x the value of weather has a lowest value is near the blue points near the blue dots which are the data points ok so a function like this captures the dependency between x and y now to do the inference of what is the best y for given x if you have a function like this you can use gradient descent so if they give you an x to figure out what's the best value of y that corresponds to this X you can start from some random Y and then by gradient descent [frame caption: energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy]",
+    "frame_caption": "energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy",
+    "frame_time": 540.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_016",
+    "video_id": "nyu_dl_week7",
+    "start_time": 560.0,
+    "end_time": 605.0,
+    "text": "you can use gradient descent so if they give you an x to figure out what's the best value of y that corresponds to this X you can start from some random Y and then by gradient descent find the minimum of the function and you'll fall down to the Rubies here maybe a little harder for this one but from the point of view of characterizing the dependency between those two variables those two energy functions are just about as good as each other I'll the discrete case when y is discrete is the easy is the easy case okay and we've already talked about this and I'll kind of reformulate this in terms of energy [frame caption: energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy]",
+    "frame_caption": "energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy",
+    "frame_time": 570.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_017",
+    "video_id": "nyu_dl_week7",
+    "start_time": 595.0,
+    "end_time": 640.0,
+    "text": "the discrete case when y is discrete is the easy is the easy case okay and we've already talked about this and I'll kind of reformulate this in terms of energy in just a couple minutes okay so a FIFO model is an explicit function in that it computes the prediction Y from from X but it can only make one prediction we can cheating in the case of a discrete variable but putting out multiple outputs which correspond to a skort for every possible classification but it effect but you can't use this trick for high dimensional continuous values or compositional values as I as I said earlier so religion is model is really [frame caption: energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy]",
+    "frame_caption": "energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy",
+    "frame_time": 630.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_018",
+    "video_id": "nyu_dl_week7",
+    "start_time": 630.0,
+    "end_time": 675.0,
+    "text": "effect but you can't use this trick for high dimensional continuous values or compositional values as I as I said earlier so religion is model is really an implicit function so remember you know in calculus for an implicit function you want the equation of a circle as a function of x and y you can't write Y as a function of X you write an equation that says you know X square plus y square equal 1 that gives you the unit circle okay so XY plus y square equal 1 is I mean s square plus y square minus 1 is only is an implicit function and when you solve it equal to 0 you get the you get the so called so [frame caption: a man is standing in front of a whiteboard with a diagram of a line]",
+    "frame_caption": "a man is standing in front of a whiteboard with a diagram of a line",
+    "frame_time": 660.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_019",
+    "video_id": "nyu_dl_week7",
+    "start_time": 665.0,
+    "end_time": 710.0,
+    "text": "function and when you solve it equal to 0 you get the you get the so called so here's another example here again scalar values for x and y and the black dots here are data points so for the three value of x indicated by the red bar there's multiple value of y that are compatible ones and some of them are actually so a continuum of values so we'd like our energy function to be is something that looks like this it's basically here I'm sort of drawing the [frame caption: a man is standing in front of a whiteboard with a diagram of a circle]",
+    "frame_caption": "a man is standing in front of a whiteboard with a diagram of a circle",
+    "frame_time": 690.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_020",
+    "video_id": "nyu_dl_week7",
+    "start_time": 700.0,
+    "end_time": 745.0,
+    "text": "we'd like our energy function to be is something that looks like this it's basically here I'm sort of drawing the sort of level level set of that of that energy function so it takes low energy on the data points on higher energy outside this is kind of a slightly more complicated version of the the dual kind the questio is how do we train a system so that it adapts so that the energy function it [frame caption: energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy]",
+    "frame_caption": "energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy",
+    "frame_time": 720.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_021",
+    "video_id": "nyu_dl_week7",
+    "start_time": 735.0,
+    "end_time": 780.0,
+    "text": "it's nice when y is continuous that F be smooth and differentiable so that we can use gradient based inference algorithms right so if we have a function like this and I give you a point X Y you can you know through gradient descent you can find the point on the data of any pole that is closest to it or something similar to that if I give you a value for x you can you know search by gradient descent along the y direction for a value that kind of minimizes it so well sorry an algorithm is really a prescription then the algorithm is how you do this minimization and for that there's all kinds of different methods gradient based methods are one of them [frame caption: energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy]",
+    "frame_caption": "energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy",
+    "frame_time": 750.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_022",
+    "video_id": "nyu_dl_week7",
+    "start_time": 770.0,
+    "end_time": 815.0,
+    "text": "well sorry an algorithm is really a prescription then the algorithm is how you do this minimization and for that there's all kinds of different methods gradient based methods are one of them but there are all kinds of methods are in the case where F is complicated you you may not have it may not be possible to to rely on the search methods so you may have to use other tricks in most cases though it simplifies so just as an aside for those of you who know a graphical models are a graphical model is basically an energy based model where the energy function decomposes as a sum of energy terms and each energy turn [frame caption: energy - based gradients energy - based gradients energy - based gradients energy - based gradients energy - based gradients energy - based]",
+    "frame_caption": "energy - based gradients energy - based gradients energy - based gradients energy - based gradients energy - based gradients energy - based",
+    "frame_time": 780.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_023",
+    "video_id": "nyu_dl_week7",
+    "start_time": 805.0,
+    "end_time": 850.0,
+    "text": "is basically an energy based model where the energy function decomposes as a sum of energy terms and each energy turn takes into account a subset of the variables that you're dealing with so the beacon of a collection of F's and some of some FS would take a subset of Y someone else who take a subset of x and y's etc and if they organize in a particular form then there are efficient inference algorithms to find the minimum of the sum of those terms with respect to the variable you're interested in inferring so this is what you know beef application and all those algorithms do for in graphical models this is an aside you don't if you don't know what I'm [frame caption: energy - based gradients in the energy - based gradients in the energy - based gradients]",
+    "frame_caption": "energy - based gradients in the energy - based gradients in the energy - based gradients",
+    "frame_time": 840.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_024",
+    "video_id": "nyu_dl_week7",
+    "start_time": 840.0,
+    "end_time": 885.0,
+    "text": "inferring so this is what you know beef application and all those algorithms do for in graphical models this is an aside you don't if you don't know what I'm so as I said the situations where you might want to use this is when influence basically is more complex than just you know running through a few layers of neural net when the output is high dimensional and has structure like a sequence or C or an image or a sequence of images which is a video when the output has compositional structure whether it's text action sequences you [frame caption: a diagram of a computer with a picture of a person]",
+    "frame_caption": "a diagram of a computer with a picture of a person",
+    "frame_time": 870.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_025",
+    "video_id": "nyu_dl_week7",
+    "start_time": 875.0,
+    "end_time": 920.0,
+    "text": "sequence or C or an image or a sequence of images which is a video when the output has compositional structure whether it's text action sequences you know things like that or when the output should result from sort of a long chain of reasoning so it's not just you know I can just compute the output you need to kind of solve a constraint satisfaction problem to basically produce the output or you know do kind of long chains of reasoning okay this is a particular type of energy based models which is really where where they start becoming interesting is energy based model and [frame caption: a diagram of a person in a room with a whiteboard]",
+    "frame_caption": "a diagram of a person in a room with a whiteboard",
+    "frame_time": 900.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_026",
+    "video_id": "nyu_dl_week7",
+    "start_time": 910.0,
+    "end_time": 955.0,
+    "text": "reasoning okay this is a particular type of energy based models which is really where where they start becoming interesting is energy based model and evolve latent variables okay so so an initiative model that depends on latent variable written variable EBM in this case we depend not just on the variable that you observe X and the variable you wanna predict Y but also we depend on some extra variable Z that nobody tells you the value of okay and the way you use this latent variable is is that you build your model in such a way that the it depends on the latent variable that if you use a value of this latent variable the inference problem would [frame caption: a whiteboard with a blackboard and a purple background]",
+    "frame_caption": "a whiteboard with a blackboard and a purple background",
+    "frame_time": 930.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_027",
+    "video_id": "nyu_dl_week7",
+    "start_time": 945.0,
+    "end_time": 990.0,
+    "text": "use this latent variable is is that you build your model in such a way that the it depends on the latent variable that if you use a value of this latent variable the inference problem would become easier so let's say you want to do my team recognition and I like this example which I told you about already if you know what the characters are reading this where it becomes much easier okay the the main problem here in reading this word is not just to read the individual characters but to actually figure out where the characters are like where where one character ends well where the other one begins and if I were to tell you that it would be much easier for you to read that to read to read that word if I were quite good at this [frame caption: a whiteboard with a blackboard and a whiteboard with a blackboard and a whiteboard with a]",
+    "frame_caption": "a whiteboard with a blackboard and a whiteboard with a blackboard and a whiteboard with a",
+    "frame_time": 960.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_028",
+    "video_id": "nyu_dl_week7",
+    "start_time": 980.0,
+    "end_time": 1025.0,
+    "text": "where the other one begins and if I were to tell you that it would be much easier for you to read that to read to read that word if I were quite good at this if you read this sequence of characters here in English if you understand English you can probably pass it you can probably figure out where the word boundaries are because you have this for a high level knowledge for weather where you know what the words are in English I think the same thing to you inferential you have no idea what the word boundaries are okay unless you speak French so the word batteries in this case and the character boundaries on top [frame caption: a whiteboard with a blackboard and a whiteboard with a blackboard]",
+    "frame_caption": "a whiteboard with a blackboard and a whiteboard with a blackboard",
+    "frame_time": 990.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_029",
+    "video_id": "nyu_dl_week7",
+    "start_time": 1015.0,
+    "end_time": 1060.0,
+    "text": "French so the word batteries in this case and the character boundaries on top would be useful to solve a problem it would allow you for example to in the case of character recognition to have individual character recognizers apply to each character but you don't know where they are so how do you know how do you solve that problem so that's that would be a useful latent variable if I told you so for speech recognition the problem is is that you don't know where other boundaries between the words are you don't know where the boundaries between the phonemes are either speech is very [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 1050.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_030",
+    "video_id": "nyu_dl_week7",
+    "start_time": 1050.0,
+    "end_time": 1095.0,
+    "text": "so for speech recognition the problem is is that you don't know where other boundaries between the words are you don't know where the boundaries between the phonemes are either speech is very much like like this continuous text continuous speech we can parse their words because we know where the words are because we understand the language but some ways speaking a language you don't understand you have a very faint idea where the word boundaries are most of the time you can't in languages where there is no stress in English it's kind of easy because the stress on the word so if you can figure out what the stress is you can probably figure out more or less where the word boundaries are in French where there is no stress you can't yeah like no way of figuring [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 1080.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_031",
+    "video_id": "nyu_dl_week7",
+    "start_time": 1085.0,
+    "end_time": 1130.0,
+    "text": "can figure out what the stress is you can probably figure out more or less where the word boundaries are in French where there is no stress you can't yeah like no way of figuring out your video now phasma say okay we do only a font or move right so you know it's it's kind of a continuous string of phonemes and it's very hard to tell where the word boundaries are unless you know the language so that would be a useful later enviable to have because if someone told you where where those boundaries were then you will be able to do the to do the task so that's that's how you would use latent variables and this way of using latent variable latent variables has been used for decades in the context of speech [frame caption: a whiteboard with a blackboard and a purple background]",
+    "frame_caption": "a whiteboard with a blackboard and a purple background",
+    "frame_time": 1110.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_032",
+    "video_id": "nyu_dl_week7",
+    "start_time": 1120.0,
+    "end_time": 1165.0,
+    "text": "how you would use latent variables and this way of using latent variable latent variables has been used for decades in the context of speech recognition in the context of natural language processing in the context of character recognition as I said OCR and you know number of different other applications particularly ones that involve sequences but also in computation so things like you know you want to kind of detect where a person is but you don't know how that person is is [frame caption: a whiteboard with a blackboard and a whiteboard with a blackboard and a whiteboard with a]",
+    "frame_caption": "a whiteboard with a blackboard and a whiteboard with a blackboard and a whiteboard with a",
+    "frame_time": 1140.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_033",
+    "video_id": "nyu_dl_week7",
+    "start_time": 1155.0,
+    "end_time": 1200.0,
+    "text": "want to kind of detect where a person is but you don't know how that person is is dressed or what what position that person is in things like this so you know those are variables that if you knew that I'm what can I help you solve the task although nowadays vision just works okay so if you have a little variable model this is how you doing firms so you have a new energy function now it's called not F G of X Y Z and two in France your 1703 memorize it with respect to Z and Y okay so you ask the [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 1170.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_034",
+    "video_id": "nyu_dl_week7",
+    "start_time": 1190.0,
+    "end_time": 1235.0,
+    "text": "now it's called not F G of X Y Z and two in France your 1703 memorize it with respect to Z and Y okay so you ask the system give me the combination of variables of y&amp;z that minimize this energy function I actually don't care about the values of Z I only care about the value of y but I have to do this and I'll give you some more concrete in fact that's equivalent to defining a new energy a new energy function f which I call F infinity here that only depends on x and y f infinity of XY is the min [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 1200.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_035",
+    "video_id": "nyu_dl_week7",
+    "start_time": 1225.0,
+    "end_time": 1270.0,
+    "text": "in fact that's equivalent to defining a new energy a new energy function f which I call F infinity here that only depends on x and y f infinity of XY is the min over Z of a of XYZ you take a function of XYZ you find the minimum of this function over Z Z now gets eliminated you get a function of x and y okay in practice you never do that so I didn't practice to minimize with respect to Z in y7 industry because we don't but there is an alternative to this which is to define F here with I write F of beta or if f.indexof ADA of XY is [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 1260.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_036",
+    "video_id": "nyu_dl_week7",
+    "start_time": 1260.0,
+    "end_time": 1305.0,
+    "text": "which is to define F here with I write F of beta or if f.indexof ADA of XY is minus 1 over beta log so more integral over Z of e to the minus beta e of XYZ now a little bit of competition well well you will see that if you make beta a go to infinity this kind of F beta converges to F infinity which is why I called it f infinity and I went to this exercise a little earlier in the class in this integral over Z if beta is very large the only term that is going to matter is the term Y of X Y Z that has [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 1290.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_037",
+    "video_id": "nyu_dl_week7",
+    "start_time": 1295.0,
+    "end_time": 1340.0,
+    "text": "exercise a little earlier in the class in this integral over Z if beta is very large the only term that is going to matter is the term Y of X Y Z that has the lowest value which is the the one that has the the lowest value over all possible values of Z right because all the other ones are going to be much bigger because beta is very very large and so they are valuing the exponential is not going to count really the only one that's going to count is the one that has the lowest value and so if you have only one term in there which is e of X Y Z for the value of Z that produces the smallest value then the log cancels the exponential and the minus 1 over beta I can't cancel the minus beta [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 1320.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_038",
+    "video_id": "nyu_dl_week7",
+    "start_time": 1330.0,
+    "end_time": 1375.0,
+    "text": "produces the smallest value then the log cancels the exponential and the minus 1 over beta I can't cancel the minus beta and you're left with just min over Z of Z of X Y Z ok so that's the limit that you see above so if I define f of X Y in this way and again then I'm back to the previous problem of just minimizing F of ok so I think an enviable model doesn't make much of a difference you have an extra minimization with respect to the latent variable to do but other than [frame caption: a person is standing in front of a whiteboard]",
+    "frame_caption": "a person is standing in front of a whiteboard",
+    "frame_time": 1350.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_039",
+    "video_id": "nyu_dl_week7",
+    "start_time": 1365.0,
+    "end_time": 1410.0,
+    "text": "ok so I think an enviable model doesn't make much of a difference you have an extra minimization with respect to the latent variable to do but other than so there's a big advantage also to allowing latent variables which has said by varying the latent variable over set I can make the output the prediction of the system vary over a set as well so here's a particular architecture here where X goes into what I'll call a predictor which is some sort of neural net it produces some representation future representation of X and then X and Z the written viable go into what I [frame caption: a diagram of a machine with a lever]",
+    "frame_caption": "a diagram of a machine with a lever",
+    "frame_time": 1380.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_040",
+    "video_id": "nyu_dl_week7",
+    "start_time": 1400.0,
+    "end_time": 1445.0,
+    "text": "net it produces some representation future representation of X and then X and Z the written viable go into what I call here decoder which produces a prediction Y bar okay it's a prediction for the variable Y that is the one that we want to predict and our energy function here just compares Y bar and y it's simply the distance between them okay you're familiar with this kind of diagram we talked about about them earlier so if I choose to vary Z over a set let's say 20 missional square here symbolized by this gray diagram then the the prediction Y bar is going to vary also over a set in this case here some sort of ribbon to the mercial ribbon and [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 1410.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_041",
+    "video_id": "nyu_dl_week7",
+    "start_time": 1435.0,
+    "end_time": 1480.0,
+    "text": "symbolized by this gray diagram then the the prediction Y bar is going to vary also over a set in this case here some sort of ribbon to the mercial ribbon and what that allows me to do is basically have a machine now they can produce multiple outputs okay by varying the latent variable I can have this machine produce multiple outputs not just one so let's say you're trying to do video prediction so there's many ways many reasons why you might want to do video production when one good reason is to build a very good video compression [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 1470.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_042",
+    "video_id": "nyu_dl_week7",
+    "start_time": 1470.0,
+    "end_time": 1515.0,
+    "text": "prediction so there's many ways many reasons why you might want to do video production when one good reason is to build a very good video compression compression system for example another good reason is the video you're trying to predict is the video you are looking at from your windchill when you're driving a car and you'd like to be able to predict what cars around you are gonna do this is what afraid always working and so it's very useful to be able to predict what's gonna happen before before it happens in fact that's kind of the essence of intelligence really the ability to predict now you looking at me right now just a minute you're looking at me right now I'm talking you're some idea of the word that is going to come out of my mouth in [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 1500.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_043",
+    "video_id": "nyu_dl_week7",
+    "start_time": 1505.0,
+    "end_time": 1550.0,
+    "text": "looking at me right now just a minute you're looking at me right now I'm talking you're some idea of the word that is going to come out of my mouth in a few seconds is some idea of what gesture I'm going to do yet some idea or what direction are going to move in but not a precise idea right so if you train your neural net to make a single prediction for what I'm going to look like two seconds from now there's no way you can make an accurate prediction if you train yourself with least square okay we should try to come from that or something to predict the view of me here Willie square the best the system can do is produce a blurry image of me because it doesn't know if I'm going to move left or right doesn't know if my hands are going to be like this or like that and so it's going to produce the average [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 1530.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_044",
+    "video_id": "nyu_dl_week7",
+    "start_time": 1540.0,
+    "end_time": 1585.0,
+    "text": "Willie square the best the system can do is produce a blurry image of me because it doesn't know if I'm going to move left or right doesn't know if my hands are going to be like this or like that and so it's going to produce the average of all the possible outcomes and that's gonna be a blurry image okay so it's very important that your predictor whatever it is be able to deal with uncertainty and be able to make multiple predictions and the way to parameterize the set of predictions is through a little variable and not yet talking about distributions or probably stick modeling this is this is way before okay way before we're talking about this question there see again well Suzy Zen is not a is not a a [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 1560.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_045",
+    "video_id": "nyu_dl_week7",
+    "start_time": 1575.0,
+    "end_time": 1620.0,
+    "text": "question there see again well Suzy Zen is not a is not a a parameter it's not a weight it's a value that changes for every sample right so basically during training we haven't talked about training yet but during training I give you an X and y you find new Mises the energy function with the current values of the parameters of of those neural nets okay that's the best yes your best guess for what the value of Z is and then you feed that to some loss function that you're going to realize with respect to the parameters of the network the loss function is not [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 1590.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_046",
+    "video_id": "nyu_dl_week7",
+    "start_time": 1610.0,
+    "end_time": 1655.0,
+    "text": "of Z is and then you feed that to some loss function that you're going to realize with respect to the parameters of the network the loss function is not necessarily the average not necessarily the energy it might be something else okay in fact most of the time is something else so in that sense you you're on Z you info Z okay you don't want to use the term learn because learning means you have one value of the vibe all you you learn for a whole training set here for Z you have different value for every sample in your training set or every sample your test site for that matter okay so they're not learned in that sense [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 1620.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_047",
+    "video_id": "nyu_dl_week7",
+    "start_time": 1645.0,
+    "end_time": 1690.0,
+    "text": "sample your test site for that matter okay so they're not learned in that sense they're inferred yeah another example of this is his translation so translation has is a big problem language translation because there is no single correct translation of a piece of text from one language to another usually there is a lot of different ways to express the same idea and and why would you pick one over the other and so it might be nice if there was some way of characterizing all the possible translations that the system could [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 1680.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_048",
+    "video_id": "nyu_dl_week7",
+    "start_time": 1680.0,
+    "end_time": 1725.0,
+    "text": "express the same idea and and why would you pick one over the other and so it might be nice if there was some way of characterizing all the possible translations that the system could produce that would correspond to a given text it's in German that you want to translate into English there could be a multiple translation in English are all correct and by varying some written by ball you might you know vary the translation that is produced okay so now let's connect this with probabilistic pricing model there is a way of turning energies which you can think of as kind of negative scores if you want because low energy is good and high energy is [frame caption: a purple background with the words wek 7 - lecture part 1]",
+    "frame_caption": "a purple background with the words wek 7 - lecture part 1",
+    "frame_time": 1710.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_049",
+    "video_id": "nyu_dl_week7",
+    "start_time": 1715.0,
+    "end_time": 1760.0,
+    "text": "energies which you can think of as kind of negative scores if you want because low energy is good and high energy is bad to turn energies into probabilities and the way to twenty illusion to probabilities we talked about this already a little bit is to use what's called a Gibbs Boltzmann distribution so the the form of this you know goes back to classical statistical physics in the nineteenth century and the P of Y given X is exponential minus beta where beta is some constant the energy of x and y and then you want to so that turns all those energies into positive numbers when we take the exponential of a number [frame caption: energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy]",
+    "frame_caption": "energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy",
+    "frame_time": 1740.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_050",
+    "video_id": "nyu_dl_week7",
+    "start_time": 1750.0,
+    "end_time": 1795.0,
+    "text": "is some constant the energy of x and y and then you want to so that turns all those energies into positive numbers when we take the exponential of a number makes it positive and the minus sign is there to turn low energy into a high probabilities and vice versa okay and I'm using this convention because this is what physicists have been using for the last century more century and a half so taking Exponential's you you turn the energies into positive numbers and then you normalize so you normalize in such a way that the the P of Y X is a properly normalized distribution over Y and to make it a properly distribution normal distribution or why you divide by the [frame caption: energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy]",
+    "frame_caption": "energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy",
+    "frame_time": 1770.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_051",
+    "video_id": "nyu_dl_week7",
+    "start_time": 1785.0,
+    "end_time": 1830.0,
+    "text": "you normalize so you normalize in such a way that the the P of Y X is a properly normalized distribution over Y and to make it a properly distribution normal distribution or why you divide by the integral or the sum if weighs discrete over Y of e to the minus beta f of X Y which is the same thing as the top except you you integrate over all possible values of Y now if you compute the integral of this over Y is equal to 1 because obviously you get the integral on top the integral at the bottom which is a constant and you get 1 okay so that confirms that this is kind of this has this satisfies the axioms of probability distributions that it has to be positive [frame caption: energy models for energy models]",
+    "frame_caption": "energy models for energy models",
+    "frame_time": 1800.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_052",
+    "video_id": "nyu_dl_week7",
+    "start_time": 1820.0,
+    "end_time": 1865.0,
+    "text": "confirms that this is kind of this has this satisfies the axioms of probability distributions that it has to be positive numbers that integrate to one this is a particular like there's many ways to turn a bunch of like a function into a function that integrates to 1 a positive function e 2 is to 1 what's this one has interesting properties which are not going to go through but corresponds to the so-called maximum entropy distribution the beta parameter is kind of arbitrary it's is the way you calibrate your probability as a function of your energy so the larger the beta the most of binary or at [frame caption: energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy]",
+    "frame_caption": "energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy",
+    "frame_time": 1830.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_053",
+    "video_id": "nyu_dl_week7",
+    "start_time": 1855.0,
+    "end_time": 1900.0,
+    "text": "of arbitrary it's is the way you calibrate your probability as a function of your energy so the larger the beta the most of binary or at your probability will be for a given energy function if beta is very very large is basically just the the the U of X Y that pretty for the Y that produces the lowest energy that will have high probability and everything else will have very low probability and for small beta for a small beta then you'll get kind of a smoother distribution okay beta in physics term is a came to an inverse temperature okay so the delayed was to infinity is equal to zero [frame caption: energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy]",
+    "frame_caption": "energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy",
+    "frame_time": 1890.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_054",
+    "video_id": "nyu_dl_week7",
+    "start_time": 1890.0,
+    "end_time": 1935.0,
+    "text": "beta in physics term is a came to an inverse temperature okay so the delayed was to infinity is equal to zero temperature okay a little bit of math it's not that scary to show you where the formula for F beta comes from that I talked about earlier so let's go through this slowly here the joint probability of P of y and z given x okay I apply the same bossman gives Boltzmann [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 1920.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_055",
+    "video_id": "nyu_dl_week7",
+    "start_time": 1925.0,
+    "end_time": 1970.0,
+    "text": "this slowly here the joint probability of P of y and z given x okay I apply the same bossman gives Boltzmann distribution formula as I used before except now it's a joint distribution over y&amp;z instead of just a distribution over Y this is for a latent variable model okay so it's e to the minus the energy of X Y Z and then I have to normalize I have to integrate in the denominator with respect to y and z so that I get a normalized distribution over the joint domain of y&amp;z okay so that's the formula at the top left I can imagine y Z so if I integrate P of [frame caption: a man standing in front of a whiteboard with a whiteboard]",
+    "frame_caption": "a man standing in front of a whiteboard with a whiteboard",
+    "frame_time": 1950.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_056",
+    "video_id": "nyu_dl_week7",
+    "start_time": 1960.0,
+    "end_time": 2005.0,
+    "text": "over the joint domain of y&amp;z okay so that's the formula at the top left I can imagine y Z so if I integrate P of y and z given x I integrate this over Z I get just P of Y okay that's the marginalization formula which is at the top right and so now if I write P of Y X is simply the integral over Z of the one at the top left okay which is written in the second line so at the top we have integral over zero e to the minus beta energy of XYZ and bottom is equal to Y integral over Z of e to the minus beta e to the X Y Z alright ok now I'm going to do something [frame caption: a man standing in front of a whiteboard with a whiteboard]",
+    "frame_caption": "a man standing in front of a whiteboard with a whiteboard",
+    "frame_time": 1980.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_057",
+    "video_id": "nyu_dl_week7",
+    "start_time": 1995.0,
+    "end_time": 2040.0,
+    "text": "bottom is equal to Y integral over Z of e to the minus beta e to the X Y Z alright ok now I'm going to do something very sneaky no stupid which is that I'm going to take the log of this formula x minus 1 over beta then x minus beta and then take the exponential all of those things cancel out ok the log cancels the exponential the minus 1 over beta cancels the minus beta right so I haven't done anything by doing this e to the minus beta times minus 1 over beta log I've done nothing because everything cancels ok and I do the same at the bottom and what I see [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 2010.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_058",
+    "video_id": "nyu_dl_week7",
+    "start_time": 2030.0,
+    "end_time": 2075.0,
+    "text": "because everything cancels ok and I do the same at the bottom and what I see now is that the stuff in the bracket in store formula were previously F beta of X y equals minus 1 over beta log some over Z integral over Z of e to the minus beta e of X Y Z and so I can rewrite this horrible complicated formula here as in to the minus beta F theta of X Y divided by integral over Y of e to the minus beta F of XY what does this all mean it means that if you have a latent viable model and you want to eliminate the Z variable the latent variable in a probabilistic correct way you just [frame caption: a whiteboard with a blackboard and a whiteboard with a blackboard and a whiteboard with a]",
+    "frame_caption": "a whiteboard with a blackboard and a whiteboard with a blackboard and a whiteboard with a",
+    "frame_time": 2040.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_059",
+    "video_id": "nyu_dl_week7",
+    "start_time": 2065.0,
+    "end_time": 2110.0,
+    "text": "mean it means that if you have a latent viable model and you want to eliminate the Z variable the latent variable in a probabilistic correct way you just really find that the energy F as this as a function of V of X Y Z and you're done okay you're done is a little bit of a shortcut because actually computing this can be very hard okay can be intractable in fact in most cases probably it's I am using a minus in the denominator [frame caption: a man standing in front of a whiteboard with a whiteboard]",
+    "frame_caption": "a man standing in front of a whiteboard with a whiteboard",
+    "frame_time": 2100.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_060",
+    "video_id": "nyu_dl_week7",
+    "start_time": 2100.0,
+    "end_time": 2145.0,
+    "text": "I am using a minus in the denominator you are correct okay so the last few slides were to say if you have an it enjoyable that you minimize over inside of your model or you have a little variable that you want to marginalize over which is which you do by defining mimicing corresponds to the infinite beta limit of this formula it can be [frame caption: a man standing in front of a whiteboard with a whiteboard]",
+    "frame_caption": "a man standing in front of a whiteboard with a whiteboard",
+    "frame_time": 2130.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_061",
+    "video_id": "nyu_dl_week7",
+    "start_time": 2135.0,
+    "end_time": 2180.0,
+    "text": "mimicing corresponds to the infinite beta limit of this formula it can be done okay I mean just to get a substitution in the second line okay the the last two terms in the second line the bracket are replaced by F theta of X Y because and I just define a video of X Y this way okay let's just define it this way and if I define f of X Y this [frame caption: a whiteboard with a blackboard and a whiteboard with a blackboard and a whiteboard with a]",
+    "frame_caption": "a whiteboard with a blackboard and a whiteboard with a blackboard and a whiteboard with a",
+    "frame_time": 2160.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_062",
+    "video_id": "nyu_dl_week7",
+    "start_time": 2170.0,
+    "end_time": 2215.0,
+    "text": "Y this way okay let's just define it this way and if I define f of X Y this way then P of Y given X is just an application of the gifts awesome and formula right and Z has been kind of marginalize implicitly inside of of this okay so physicists call this a free energy by the way which is why I call it f okay so [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 2190.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_063",
+    "video_id": "nyu_dl_week7",
+    "start_time": 2205.0,
+    "end_time": 2250.0,
+    "text": "so the difference is in prognostic models you basically don't have the choice of the objective function you're going to minimize and you have to stay true to the sort of probabilistic remark in in a sense that every object you manipulate has to be a normalize distribution which you may approximate using variational methods or whatever here I'm saying ultimately what you want to make you know what you want to do with those models is make decisions and if you're if you're if you build a [frame caption: a man standing in front of a whiteboard with a whiteboard]",
+    "frame_caption": "a man standing in front of a whiteboard with a whiteboard",
+    "frame_time": 2220.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_064",
+    "video_id": "nyu_dl_week7",
+    "start_time": 2240.0,
+    "end_time": 2285.0,
+    "text": "here I'm saying ultimately what you want to make you know what you want to do with those models is make decisions and if you're if you're if you build a system that drives a car and the system tells you you know I need to turn left with probably tip on a tour turn right fits for you to point to your gonna turn left okay the the fact that the probabilities there are point two and point eight doesn't matter what you wanted to make the decision that is the the best right because you have to make a decision you're forced to make a decision so if you want a system that so so probabilities are completely useless if you want to make decisions okay if you want to combine the output of a [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 2250.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_065",
+    "video_id": "nyu_dl_week7",
+    "start_time": 2275.0,
+    "end_time": 2320.0,
+    "text": "you're forced to make a decision so if you want a system that so so probabilities are completely useless if you want to make decisions okay if you want to combine the output of a automated system with another one for example a human or some other system and this system haven't been trained together but they've been trained separately then what you want to calibrate it scores so that you can combine the scores of the two systems to make a good decision and there is only one way to care about scores and is to kind of turn them into probabilities all other ways are you doing carrier or equivalent okay but if you're gonna train the system end-to-end to make decisions then then know then whatever scoring function you use is fine as long as it gives the best score to the [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 2310.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_066",
+    "video_id": "nyu_dl_week7",
+    "start_time": 2310.0,
+    "end_time": 2355.0,
+    "text": "decisions then then know then whatever scoring function you use is fine as long as it gives the best score to the gives you way more choices in how you head all the model where more choices of how you train it what objective function you use basically if you if you insist that your model be probabilistic you have to do maximum likelihood so we basically have to train your model in such a way that the probably gave to the data you observe is maximum okay the problem is that this is this can only be proven to work in the case where your model is correct and your model is never correct in a sense that [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 2340.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_067",
+    "video_id": "nyu_dl_week7",
+    "start_time": 2345.0,
+    "end_time": 2390.0,
+    "text": "okay the problem is that this is this can only be proven to work in the case where your model is correct and your model is never correct in a sense that you know there's this famous quit by the famous statistician box that said all models are wrong but some are useful so probably seek models particularly a party seek model in high dimensional spaces and producing models in community community all situations like texts and things like this are approximate models they're all wrong in a way and if you try to normalize them you make them more wrong so you're better off kind of not normalizing them there's another point that's actually more important and I [frame caption: a man standing in front of a whiteboard with a whiteboard]",
+    "frame_caption": "a man standing in front of a whiteboard with a whiteboard",
+    "frame_time": 2370.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_068",
+    "video_id": "nyu_dl_week7",
+    "start_time": 2380.0,
+    "end_time": 2425.0,
+    "text": "normalizing them there's another point that's actually more important and I this one so this is meant to be an energy function that captures the dependency between x and y ok and it's it's like a mountain range if you want okay the values are where the black dots are these are the data points and then there's kind of mountains all around now if you try to progress each model with this imagine that the points are actually on a thin manifold of of infinitely an infinitely thin manifold [frame caption: energy - based gradients in the energy - based gradients in the energy - based gradients]",
+    "frame_caption": "energy - based gradients in the energy - based gradients in the energy - based gradients",
+    "frame_time": 2400.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_069",
+    "video_id": "nyu_dl_week7",
+    "start_time": 2415.0,
+    "end_time": 2460.0,
+    "text": "if you try to progress each model with this imagine that the points are actually on a thin manifold of of infinitely an infinitely thin manifold okay so the the data distribution for the white dot for the black dots is actually a just a line okay it's one line to line three lines but their lines they don't have any any width if you want so if you're trying to probably sick model on this you're probably sick model should give you your density model should tell you when you are on this manifold the the outputs should be infinite the density is infinite and just actually on that side of it it should be zero okay that would be the correct model distribution of the of [frame caption: energy - based gradients in the energy - based gradients in the energy - based gradients]",
+    "frame_caption": "energy - based gradients in the energy - based gradients in the energy - based gradients",
+    "frame_time": 2430.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_070",
+    "video_id": "nyu_dl_week7",
+    "start_time": 2450.0,
+    "end_time": 2495.0,
+    "text": "just actually on that side of it it should be zero okay that would be the correct model distribution of the of not some idiot that should be infinite but the integral of it should be one okay it's very difficult to implement on the computer that's only that is basically impossible because let's say you want to compute this function through some sort of neural net your neural net will have to have infinite weights and infinite ways that are calibrated in such a way that the integral of the output of that of that system over the entire domain is one it's basically impossible you cannot have accurate probablistic model the accurate correct probabilistic model for this particular data that I just told [frame caption: energy - based gradients in the energy - based gradients in the energy - based gradients]",
+    "frame_caption": "energy - based gradients in the energy - based gradients in the energy - based gradients",
+    "frame_time": 2460.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_071",
+    "video_id": "nyu_dl_week7",
+    "start_time": 2485.0,
+    "end_time": 2530.0,
+    "text": "system over the entire domain is one it's basically impossible you cannot have accurate probablistic model the accurate correct probabilistic model for this particular data that I just told you is impossible this is what maximum likelihood we want you to produce and there is no computer in the world I can compute this okay so in fact it's not even interesting because imagine that you had a perfect density model for the density I just I just mentioned which is a thin plate in that XY space I can't do [frame caption: energy - based gradients in the energy - based gradients in the energy - based gradients]",
+    "frame_caption": "energy - based gradients in the energy - based gradients in the energy - based gradients",
+    "frame_time": 2520.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_072",
+    "video_id": "nyu_dl_week7",
+    "start_time": 2520.0,
+    "end_time": 2565.0,
+    "text": "a thin plate in that XY space I can't do inference if I give you a value of x and I ask you what's the best value of y you will be able to find it because all values of Y except a set of zero probability have priority zero and it's just you know a few values like for example for this value of x there are three values that are possible okay and there are infinitely now and so you wouldn't be able to find them there's no inference algorithm that will allow you [frame caption: a person is standing in front of a whiteboard]",
+    "frame_caption": "a person is standing in front of a whiteboard",
+    "frame_time": 2550.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_073",
+    "video_id": "nyu_dl_week7",
+    "start_time": 2555.0,
+    "end_time": 2600.0,
+    "text": "there are infinitely now and so you wouldn't be able to find them there's no inference algorithm that will allow you to find them because there is roof there just derive functions how do you find so the only way you can find them is if you make that if you make your contrast function smooth and differentiable and then you know you can start from any point and buy a gradient descent you can find a good value for y for any value of x but this is not gonna be a good probabilistic model of the distribution if if the distribution is of the type I mentioned okay so here is a case where insisting to have a good politic model [frame caption: energy - based gradients in the energy - based gradients in the energy - based gradients]",
+    "frame_caption": "energy - based gradients in the energy - based gradients in the energy - based gradients",
+    "frame_time": 2580.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_074",
+    "video_id": "nyu_dl_week7",
+    "start_time": 2590.0,
+    "end_time": 2635.0,
+    "text": "mentioned okay so here is a case where insisting to have a good politic model actually is bad okay maximum likelihood sucks so if you are a true Bayesian you say oh but like you know you can correct this by I think you're strong prior where the prior says your density function has to be smooth and you know you can think of this as a prior so but everything you're doing so Bayesian terms take the logarithm they're off forget about normalization and you get energy based models so energy based models that have a regularizer which is additive to your energy function a completely equivalent to Bayesian models [frame caption: energy - based gradients in the energy - based gradients in the energy - based gradients]",
+    "frame_caption": "energy - based gradients in the energy - based gradients in the energy - based gradients",
+    "frame_time": 2610.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_075",
+    "video_id": "nyu_dl_week7",
+    "start_time": 2625.0,
+    "end_time": 2670.0,
+    "text": "energy based models so energy based models that have a regularizer which is additive to your energy function a completely equivalent to Bayesian models where the likelihood is next exponential of the energy and now you get exponential when term energy per you know times exponential regularizer and so it's equal to exponential energy plus regularizer and if you remove the exponential you have an energy based model with an additive regularizer so there is kind of a correspondence between you know probably seek invasion methods there but insisting that you do maximum likelihood is sometimes bad for you particularly in high dimensional spaces or community or spaces where your politic model is very wrong it's not [frame caption: energy - based gradients in the energy - based gradients in the energy - based gradients]",
+    "frame_caption": "energy - based gradients in the energy - based gradients in the energy - based gradients",
+    "frame_time": 2640.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_076",
+    "video_id": "nyu_dl_week7",
+    "start_time": 2660.0,
+    "end_time": 2705.0,
+    "text": "maximum likelihood is sometimes bad for you particularly in high dimensional spaces or community or spaces where your politic model is very wrong it's not very wrong in discrete distributions it's okay but in that case you know it's really one and all models are wrong okay so there is a form of learning and I'll come back to this to this at length in future lectures called supervised running and it's really sort of encompasses first of all supervised learning but also kind of what people used to call unsupervised running and all of things and I think it's the [frame caption: energy - based gradients in the energy - based gradients in the energy - based gradients]",
+    "frame_caption": "energy - based gradients in the energy - based gradients in the energy - based gradients",
+    "frame_time": 2670.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_077",
+    "video_id": "nyu_dl_week7",
+    "start_time": 2695.0,
+    "end_time": 2740.0,
+    "text": "running and it's really sort of encompasses first of all supervised learning but also kind of what people used to call unsupervised running and all of things and I think it's the really the future of machine learning is in sub supervised running and you start seeing this these days you know over the last year and a half there's been enormous progress in NLP because of systems like Bert and those systems are trained using supervised running a particular form of stuff super Arsenal denoising auto-encoder which we'll talk there's been also quite a bit of progress over the last three months or so in using such supervised learning to train systems to run vision systems to learn features using a you know it's all [frame caption: self - supervised self self self self self self self self self self self self self self self self self self self self self self self self self self self self]",
+    "frame_caption": "self - supervised self self self self self self self self self self self self self self self self self self self self self self self self self self self self",
+    "frame_time": 2730.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_078",
+    "video_id": "nyu_dl_week7",
+    "start_time": 2730.0,
+    "end_time": 2775.0,
+    "text": "so in using such supervised learning to train systems to run vision systems to learn features using a you know it's all supervised pre-tax tasks and the purpose of such supervised running is to train a system to learn good representations of the input so that you can subsequently use those representations as input to a supervised task or reinforcement learning task or whatever the thing is there is a lot more information that the system can use in the context of such supervised running so let me tell you what I mean by itself supervised learning so surprised learning is that someone gives you a chunk of data and [frame caption: self - supervised self self self self self self self self self self self self self self self self self self self self self self self self self self self self]",
+    "frame_caption": "self - supervised self self self self self self self self self self self self self self self self self self self self self self self self self self self self",
+    "frame_time": 2760.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_079",
+    "video_id": "nyu_dl_week7",
+    "start_time": 2765.0,
+    "end_time": 2810.0,
+    "text": "supervised running so let me tell you what I mean by itself supervised learning so surprised learning is that someone gives you a chunk of data and you go to train a system to predict a piece of that data given another piece of that data okay so for example I give you a piece of video and ask you use the first half of the video and train a model to predict the second half of that video why would that be good why would that be good in the context of running features for for vision systems for example if I train myself to predict what the world is going to look like [frame caption: a man standing in front of a whiteboard]",
+    "frame_caption": "a man standing in front of a whiteboard",
+    "frame_time": 2790.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_080",
+    "video_id": "nyu_dl_week7",
+    "start_time": 2800.0,
+    "end_time": 2845.0,
+    "text": "running features for for vision systems for example if I train myself to predict what the world is going to look like what my view of this room will look like if I shave my head a little bit to the left the best explanation for how do how the view changes is that every point in space has a depth as a distance for my eyes okay in fact if I sort of infer somehow that every point has a distance from I is there and I can very simply explain how the world changes when I move because things that are closer can have more products motion than things that are far and you get this sort of you know [frame caption: a man standing in front of a screen with a text that reads self - supervised firing]",
+    "frame_caption": "a man standing in front of a screen with a text that reads self - supervised firing",
+    "frame_time": 2820.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_081",
+    "video_id": "nyu_dl_week7",
+    "start_time": 2835.0,
+    "end_time": 2880.0,
+    "text": "there and I can very simply explain how the world changes when I move because things that are closer can have more products motion than things that are far and you get this sort of you know there is this idea somehow that if I train a system to predict whether what is going to look like if I move a camera the system implicitly will run about depth you will not have you will not have to be training it to predict depth in a supervised fashion it will have to internally kind of discover that there is such a thing as depth if you wants to do a good job at that prediction which [frame caption: a man is standing in front of a screen]",
+    "frame_caption": "a man is standing in front of a screen",
+    "frame_time": 2850.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_082",
+    "video_id": "nyu_dl_week7",
+    "start_time": 2870.0,
+    "end_time": 2915.0,
+    "text": "internally kind of discover that there is such a thing as depth if you wants to do a good job at that prediction which means you don't have to hardwired into the system that the world is three-dimensional is going to learn this in minutes by just predicting highs view of the world changes but you know when you move the camera now once the system has figured out that every point has a depth in the world then the notion that there are distinct objects that are in front of the background immediately pops up because objects are things that move differently from things are behind ok there's nothing that pops up immediately [frame caption: a man standing in front of a whiteboard with a purple background]",
+    "frame_caption": "a man standing in front of a whiteboard with a purple background",
+    "frame_time": 2880.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_083",
+    "video_id": "nyu_dl_week7",
+    "start_time": 2905.0,
+    "end_time": 2950.0,
+    "text": "up because objects are things that move differently from things are behind ok there's nothing that pops up immediately which is the fact that objects that are now not visible he don't buy another one or still there ok it's just that you don't see them because they are behind but this concept that objects still exist when you don't see them it's not completely obvious you know babies run this really really early but it's not clear exactly when because we can measure that when they are very little once you have identified this concept of [frame caption: a man standing in front of a whiteboard with a purple background]",
+    "frame_caption": "a man standing in front of a whiteboard with a purple background",
+    "frame_time": 2940.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_084",
+    "video_id": "nyu_dl_week7",
+    "start_time": 2940.0,
+    "end_time": 2985.0,
+    "text": "measure that when they are very little once you have identified this concept of objects perhaps you'll you'll figure out that a lot of objects in the world don't move spontaneously ok so there are inanimate objects and then there are objects whose trajectories are not entirely predictable and those are animate objects or other types of objects that you know move in not entirely predictable ways like like you know the waves in the water on water but are not animate this is Sally or like the leaves of a tree and then after a while you also you also realize that [frame caption: a man is standing in front of a screen]",
+    "frame_caption": "a man is standing in front of a screen",
+    "frame_time": 2970.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_085",
+    "video_id": "nyu_dl_week7",
+    "start_time": 2975.0,
+    "end_time": 3020.0,
+    "text": "are not animate this is Sally or like the leaves of a tree and then after a while you also you also realize that objects that have predictable trajectories generally don't float in the air if they're not supported they fall okay so you you can start learning about so intuitive physics about gravity about inertia babies run this around the age of nine months so this is not something you're born with you cannot run this around nine months you as a baby you run that gravity is a thing before that you don't know so the motivation for such supervised learning and this is one reason I think such [frame caption: a man standing in front of a screen with a whiteboard]",
+    "frame_caption": "a man standing in front of a screen with a whiteboard",
+    "frame_time": 3000.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_086",
+    "video_id": "nyu_dl_week7",
+    "start_time": 3010.0,
+    "end_time": 3055.0,
+    "text": "before that you don't know so the motivation for such supervised learning and this is one reason I think such supervised learning is really the future of machine learning so and the future of AI is the fact that animals and humans seem to run an enormous amount of background knowledge about the world just by observation by basically training themselves to predict so one big question in AI in fact the question I almost exclusively work on is how do we do this okay we haven't found a complete answer yet right so I give you a piece of data it's a video and the machine is going to pretend there is a [frame caption: a man is standing in front of a screen]",
+    "frame_caption": "a man is standing in front of a screen",
+    "frame_time": 3030.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_087",
+    "video_id": "nyu_dl_week7",
+    "start_time": 3045.0,
+    "end_time": 3090.0,
+    "text": "complete answer yet right so I give you a piece of data it's a video and the machine is going to pretend there is a piece of that data that it doesn't see and then another piece that it season is going to try to predict the piece that it doesn't see from the piece that it sees okay so pretty future friends in the video predict missing words in the sentence or I give you a sentence I block some of the words and the system trends itself to predict the words that are missing or I show you a bunch of a video when I block you a piece of the frames of some of the some of the frames piece of the image for some of the frames you know putting the less half from the right half you know right now right now you only see my right side but [frame caption: a man is standing in front of a screen]",
+    "frame_caption": "a man is standing in front of a screen",
+    "frame_time": 3060.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_088",
+    "video_id": "nyu_dl_week7",
+    "start_time": 3080.0,
+    "end_time": 3125.0,
+    "text": "video when I block you a piece of the frames of some of the some of the frames piece of the image for some of the frames you know putting the less half from the right half you know right now right now you only see my right side but even if you've never seen my left side you could more or less predict what I look like from the other side most people are more or less symmetric except so when instance we're so surprised running has been unbelievably successful and it it only happens over the last year and a half is its text so text use a particular type it's a supervised running called denoising auto-encoder so [frame caption: a man is standing in front of a screen]",
+    "frame_caption": "a man is standing in front of a screen",
+    "frame_time": 3090.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_089",
+    "video_id": "nyu_dl_week7",
+    "start_time": 3115.0,
+    "end_time": 3160.0,
+    "text": "year and a half is its text so text use a particular type it's a supervised running called denoising auto-encoder so you take a piece of text you remove some of the words typically ten fifteen twenty percent of the words so you replace the the token indicates a word by basically blank and then you train some giant neural net to predict the words that are missing it's the system cannot make an exact prediction about which words are missing and so you train it as a classifier by producing a big softmax vector for each word which corresponds to a probability probability [frame caption: a person is standing in front of a screen]",
+    "frame_caption": "a person is standing in front of a screen",
+    "frame_time": 3150.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_090",
+    "video_id": "nyu_dl_week7",
+    "start_time": 3150.0,
+    "end_time": 3195.0,
+    "text": "softmax vector for each word which corresponds to a probability probability and once you've trained this system you chop off the last layer and you use the second last layer as a representation of any text you feed it is a particularly texture of this network that makes it work well but it's irrelevant to the point that we're making I'm making right now those transformer networks that we talked about last week a little bit so but it's a reasonable task of completion tasks filling in the blanks take a sentence remove some of the words train the system to predict the words that are [frame caption: a man is standing in front of a building]",
+    "frame_caption": "a man is standing in front of a building",
+    "frame_time": 3180.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_091",
+    "video_id": "nyu_dl_week7",
+    "start_time": 3185.0,
+    "end_time": 3230.0,
+    "text": "tasks filling in the blanks take a sentence remove some of the words train the system to predict the words that are although type in our pieces stands now that have the best performance of all the benchmarks basically are pre-trained using a method like this and the cool thing about it is that you know you have as much text as you want on the web to pre train those systems you don't need to label anything is very cheap is very expensive in terms of computation because those networks are enormous for them to work well but it works really well so immediately people try to translate that success into a similar success for images so let's say I take an image [frame caption: a man is standing in front of a building]",
+    "frame_caption": "a man is standing in front of a building",
+    "frame_time": 3210.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_092",
+    "video_id": "nyu_dl_week7",
+    "start_time": 3220.0,
+    "end_time": 3265.0,
+    "text": "so immediately people try to translate that success into a similar success for images so let's say I take an image block out some pieces of it and then train some commercial net or something to predict the missing pieces in the image and the results have been extremely disappointing it doesn't work really I mean it works well in the sense that the images get completed we sort of you know things that make sense but then if you use the internal representation along this way as input to a computer vision system you can't beat a computer vision system that has been pre trained [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 3240.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_093",
+    "video_id": "nyu_dl_week7",
+    "start_time": 3255.0,
+    "end_time": 3300.0,
+    "text": "use the internal representation along this way as input to a computer vision system you can't beat a computer vision system that has been pre trained supervisors on imagenet so what's the difference you know why does it work for an LP and it doesn't work for images and it is that the difference is that NLP is discrete or as images or continuous people also try to do this for video so same idea as as both except replaced words by video frames so if you a big video to transform a light system or something similar remove some of the frames or blocks of frames and then [frame caption: a diagram of a computer screen with a picture of a building]",
+    "frame_caption": "a diagram of a computer screen with a picture of a building",
+    "frame_time": 3270.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_094",
+    "video_id": "nyu_dl_week7",
+    "start_time": 3290.0,
+    "end_time": 3335.0,
+    "text": "words by video frames so if you a big video to transform a light system or something similar remove some of the frames or blocks of frames and then train the system to predict the missing frames and the features we get another not so great so that's the the difference is things seems to work in the discrete world they don't seem to work in the continuous world and the reason is because in discrete in the discrete world we know how to represent uncertainty by a big softmax vector over words you continuous spaces we don't so if I want to try the system to do video [frame caption: a man is standing in front of a screen]",
+    "frame_caption": "a man is standing in front of a screen",
+    "frame_time": 3300.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_095",
+    "video_id": "nyu_dl_week7",
+    "start_time": 3325.0,
+    "end_time": 3370.0,
+    "text": "uncertainty by a big softmax vector over words you continuous spaces we don't so if I want to try the system to do video production I don't know how to represent the probability distribution over so here's another reason why we might want to use a supervisor on e and deal with uncertainty and again this is what our Friday was working on others it's the fact that we'd like to have we'd like our machines to be able to kind of reason about the world predict what's gonna happen so I told you before an [frame caption: learning models for autonomouss]",
+    "frame_caption": "learning models for autonomouss",
+    "frame_time": 3360.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_096",
+    "video_id": "nyu_dl_week7",
+    "start_time": 3360.0,
+    "end_time": 3405.0,
+    "text": "our Friday was working on others it's the fact that we'd like to have we'd like our machines to be able to kind of reason about the world predict what's gonna happen so I told you before an example where to be able to build a machine that drives a car you it's probably good idea to be able to predict what caused around you are going to be able to predict what your car is going to do if you run you know if you're driving you're a cliff and you turn the wheel to the right and you want to predict in advance that your car is going to run off the cliff and you don't you can if you can predict that you're not gonna do it ok so if you have a good predictive model of the world the system that will predict the next state of the world as a function of the current state of the world and the action you take then you can do you can be you can act [frame caption: learning the basics of the algorithm and algorithm]",
+    "frame_caption": "learning the basics of the algorithm and algorithm",
+    "frame_time": 3390.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_097",
+    "video_id": "nyu_dl_week7",
+    "start_time": 3395.0,
+    "end_time": 3440.0,
+    "text": "predictive model of the world the system that will predict the next state of the world as a function of the current state of the world and the action you take then you can do you can be you can act intelligently okay well you need other components to act intelligently but I'll come back to that but again this ability to predict is the essence of intelligence really the fact that you know some animals are intelligent is because they really have a much better model of the world and the as a consequence are better at acting on this so the problem with the world is that [frame caption: learning the basics of the algorithm and algorithm]",
+    "frame_caption": "learning the basics of the algorithm and algorithm",
+    "frame_time": 3420.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_098",
+    "video_id": "nyu_dl_week7",
+    "start_time": 3430.0,
+    "end_time": 3475.0,
+    "text": "consequence are better at acting on this so the problem with the world is that the world is not deterministic or I mean maybe it is deterministic but we can't predict exactly what's going to happen so the fact that is deterministic or not is irrelevant or when have a limited capacity or computers have limited capacity and we can't exactly predict what's gonna what's going to happen and so we need to be able to train our system to train our brains to train our AI systems to predict in the presence of uncertainty and that's the most difficult of today to make significant progress in AI [frame caption: learning models for autonomouss]",
+    "frame_caption": "learning models for autonomouss",
+    "frame_time": 3450.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_099",
+    "video_id": "nyu_dl_week7",
+    "start_time": 3465.0,
+    "end_time": 3510.0,
+    "text": "uncertainty and that's the most difficult of today to make significant progress in AI how to train the system to make high dimensional predictions under uncertainty and here with this and as I said before probably stick models are basically hopeless okay so let's take an example with video prediction here are four frames what's the continuation of those frames so it's hard to see that the little girl is about to grow on her birthday cake [frame caption: learning models for autonomouss]",
+    "frame_caption": "learning models for autonomouss",
+    "frame_time": 3480.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_100",
+    "video_id": "nyu_dl_week7",
+    "start_time": 3500.0,
+    "end_time": 3545.0,
+    "text": "what's the continuation of those frames so it's hard to see that the little girl is about to grow on her birthday cake and if you train a neural net with least square to make predictions so you train it on thousands of videos of this type if not millions this is the kind of prediction you get very brewery y system cannot predict exactly what's gonna happen so it predicts the average of all the possible futures which is the best way to minimize the squared error okay and if you want sort of a model version of this let's say your entire training set consists of someone putting a pen on the table and letting it go and the person always put the pen exactly at the [frame caption: a woman is standing in front of a fan]",
+    "frame_caption": "a woman is standing in front of a fan",
+    "frame_time": 3510.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_101",
+    "video_id": "nyu_dl_week7",
+    "start_time": 3535.0,
+    "end_time": 3580.0,
+    "text": "set consists of someone putting a pen on the table and letting it go and the person always put the pen exactly at the same place the same way but every time you do the experiment the pen falls into you know in a different direction so basically X is the same for every training sample but Y is different because the the pen can fall in any direction probably with the uniform distribution so if you try and hour on that to predict Polly square you'll get the average of all the possible predictions which is a transparent pen you know all around the circle which is that's why you need latent variable [frame caption: a person is standing in front of a table]",
+    "frame_caption": "a person is standing in front of a table",
+    "frame_time": 3570.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_102",
+    "video_id": "nyu_dl_week7",
+    "start_time": 3570.0,
+    "end_time": 3615.0,
+    "text": "you know all around the circle which is that's why you need latent variable models okay so if you make a prediction by the system but you have latent variables which indicate what you don't know about the world okay so X is what you know about the well here is the initial segment of the video of someone putting a pen you know that when the person gives the figure the pen will fall but you don't know in which direction so what you want the system to tell you is the particular here that goes from X - H edge to be a representation that tells you the pen is on the on the table but I can't tell you [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 3600.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_103",
+    "video_id": "nyu_dl_week7",
+    "start_time": 3605.0,
+    "end_time": 3650.0,
+    "text": "system to tell you is the particular here that goes from X - H edge to be a representation that tells you the pen is on the on the table but I can't tell you in which direction and then Z will have the complimentary variable here is the direction in which the pen actually fell and then the combination of those two pieces of information the stuff you can extract from the observation and stuff you cannot gives you the prediction Y bar which hopefully is close to what actually occurs okay so the way you use something like this you don't use it for I mean if you want to use it to kind of rate a particular [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 3630.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_104",
+    "video_id": "nyu_dl_week7",
+    "start_time": 3640.0,
+    "end_time": 3685.0,
+    "text": "something like this you don't use it for I mean if you want to use it to kind of rate a particular scenario you give it X you give it Y then you ask it what's the value of the Z variable that minimizes the prediction error in my model and then the resulting prediction error is the energy and it's how you model rate the compatibility to predict wise but you have to do is you observe X and then you kind of dream up a value of y within a certain domain [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 3660.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_105",
+    "video_id": "nyu_dl_week7",
+    "start_time": 3675.0,
+    "end_time": 3720.0,
+    "text": "to predict wise but you have to do is you observe X and then you kind of dream up a value of y within a certain domain and that produces a y bar and then dream up another value of Z and that will produce it and produce another way bar and you can produce a whole set of Y bars by kind of drawing multiple values of Z with either set or within the distribution yes well so if what you're predicting are the future frames which observing other the past and current [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 3690.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_106",
+    "video_id": "nyu_dl_week7",
+    "start_time": 3710.0,
+    "end_time": 3755.0,
+    "text": "distribution yes well so if what you're predicting are the future frames which observing other the past and current frame like increasing you mean increasing the past frames are you looking at a little bit but you know after a while things are gonna happen that really don't depend I mean the information about what's gonna happen new future really is not present in the in the best friends yes so in this [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 3720.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_107",
+    "video_id": "nyu_dl_week7",
+    "start_time": 3745.0,
+    "end_time": 3790.0,
+    "text": "in the best friends yes so in this particular case there would be variables are necessary to make a good prediction but the information is not present in X ok so the question was what's the wall of Z really like you know doesn't implement a constraint between x and y or something else and in the this particular example here that i showed the latent variable I should several example right one example I showed is character recognition if you knew where the characters are then the task of recognizing the characters would be easier and so by making the inference about where the characters are you know [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 3780.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_108",
+    "video_id": "nyu_dl_week7",
+    "start_time": 3780.0,
+    "end_time": 3825.0,
+    "text": "recognition if you knew where the characters are then the task of recognizing the characters would be easier and so by making the inference about where the characters are you know user help in system you have you build the system in such a way that it can use that in this particular case here it's different here the role of the latent variable is to basically parameterize the set of possible outputs that can occur and in the end what you want is Z the information about the about why that is not present in X okay so the information about you know where I'm gonna move next I'm agree we've left or right this is not present in anything you can observe right now it's inside my [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 3810.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_109",
+    "video_id": "nyu_dl_week7",
+    "start_time": 3815.0,
+    "end_time": 3860.0,
+    "text": "information about you know where I'm gonna move next I'm agree we've left or right this is not present in anything you can observe right now it's inside my brain you can you know you can tell yes I mean right now here I'm not assuming anything other than you know Fred of X is a big neuron that and deco that of H [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 3840.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_110",
+    "video_id": "nyu_dl_week7",
+    "start_time": 3850.0,
+    "end_time": 3895.0,
+    "text": "okay so this is sort of an example of a visualization of a energy landscape where we've trained a neural net basically to compute an energy function here it's not a neural net it's a very simple thing actually to capture the dependency between two variables x and y and the data points are along this little spiral here so the data points are kind of sample uniformly along this spiral and then we train a system to give you energy to to those points and [frame caption: energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy]",
+    "frame_caption": "energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy",
+    "frame_time": 3870.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_111",
+    "video_id": "nyu_dl_week7",
+    "start_time": 3885.0,
+    "end_time": 3930.0,
+    "text": "little spiral here so the data points are kind of sample uniformly along this spiral and then we train a system to give you energy to to those points and and higher energy to everything else now these two forms there is this is sort of a conditional but you can call conditional energy in this model which where there is two sets of viable X&amp;Y and you're trying to predict Y from X but it's also another form of energy based model which are unconditional there's only a Y no X okay so you're trying to predict the mutual dependencies between the various components of Y the distribution over Y [frame caption: energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy]",
+    "frame_caption": "energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy",
+    "frame_time": 3900.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_112",
+    "video_id": "nyu_dl_week7",
+    "start_time": 3920.0,
+    "end_time": 3965.0,
+    "text": "based model which are unconditional there's only a Y no X okay so you're trying to predict the mutual dependencies between the various components of Y the distribution over Y if you want but there's no X ok so this is something you won't want to use if you want to say to image generation unconditionally right you want to just you know model the initial dependencies between things but you don't know which you don't know at any point if you're going to be able to observe Why Why Norway - or none of them the math is the [frame caption: energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy]",
+    "frame_caption": "energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy",
+    "frame_time": 3930.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_113",
+    "video_id": "nyu_dl_week7",
+    "start_time": 3955.0,
+    "end_time": 4000.0,
+    "text": "Norway - or none of them the math is the okay so how are you going to train those energy this model this is really where things become interesting it's the question of training so training you should do something like the little animation at the top here it should kind of shape the energy function because or machine now is computes an energy function as a virtual base and why it should shape the energy function in such a way that the data points have lower energy than everything else okay because that's the way the inference is going to work if if the correct value of y has really [frame caption: a man is standing in front of a screen]",
+    "frame_caption": "a man is standing in front of a screen",
+    "frame_time": 3990.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_114",
+    "video_id": "nyu_dl_week7",
+    "start_time": 3990.0,
+    "end_time": 4035.0,
+    "text": "energy than everything else okay because that's the way the inference is going to work if if the correct value of y has really lower energy than the incorrect values of Y then or inference algorithm that finds the value of y that produces the lowest energy is going to work okay so we need to shape the energy function so that gives you energy to the good whites for a given X and high energy to bad Y's for given X it goes from R I mean it goes from any domain you want to scaler [frame caption: a man is standing in front of a screen]",
+    "frame_caption": "a man is standing in front of a screen",
+    "frame_time": 4020.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_115",
+    "video_id": "nyu_dl_week7",
+    "start_time": 4025.0,
+    "end_time": 4070.0,
+    "text": "goes from any domain you want to scaler yes that is Sally so this model actually is a written variable model in fact most of you are probably very familiar with the energy the model is used here is k-means so how this is produced okay [frame caption: energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy]",
+    "frame_caption": "energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy",
+    "frame_time": 4050.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_116",
+    "video_id": "nyu_dl_week7",
+    "start_time": 4060.0,
+    "end_time": 4105.0,
+    "text": "k-means so how this is produced okay okay let me delay this for a bit okay but this is the energy surface of which is a latent variable model let's let's keep the little viable thing kind of aside for a minute you know just think of this as you have an energy f of X Y and the fact that there may be underlying latent variable for now is you relevant okay there's two classes of methods to train energy based models and again probably seek methods are all kind [frame caption: a video showing a person in a room with a whiteboard]",
+    "frame_caption": "a video showing a person in a room with a whiteboard",
+    "frame_time": 4080.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_117",
+    "video_id": "nyu_dl_week7",
+    "start_time": 4095.0,
+    "end_time": 4140.0,
+    "text": "underlying latent variable for now is you relevant okay there's two classes of methods to train energy based models and again probably seek methods are all kind of you know special cases within those one class is called contrasting methods and this idea is very natural take your training sample X X over X I Y I and change the parameters of the energy function so that its energy goes down okay easy enough conversely take other points outside of the manifold of data so have some process by which you pick for given X you keep you pick it bad Y and then push [frame caption: a screen with a picture of a person in the background]",
+    "frame_caption": "a screen with a picture of a person in the background",
+    "frame_time": 4110.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_118",
+    "video_id": "nyu_dl_week7",
+    "start_time": 4130.0,
+    "end_time": 4175.0,
+    "text": "the manifold of data so have some process by which you pick for given X you keep you pick it bad Y and then push the guy up okay if you keep doing this with the last function that takes into account those different different energies then the energy function is going to take a shape such that the correct wire will have lower lower energy than the bag wise okay keep pushing down on the good values of so those are called contrastive methods and they all differ by how you pick the Y's that you push up and they all differ [frame caption: a man is standing in front of a whiteboard with a red and yellow object]",
+    "frame_caption": "a man is standing in front of a whiteboard with a red and yellow object",
+    "frame_time": 4140.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_119",
+    "video_id": "nyu_dl_week7",
+    "start_time": 4165.0,
+    "end_time": 4210.0,
+    "text": "and they all differ by how you pick the Y's that you push up and they all differ by the last function you use to do this pushing up and pushing down there's a second category of methods and I'll call them architectural methods in that case you build the energy function f of X Y so that the volume of low-energy regions is limited or or is minimized through regularization so you build a model in such a way that whatever you push down on the energy of data points the rest goes up more or less automatically because the volume of cells I can take [frame caption: a man is standing in front of a screen]",
+    "frame_caption": "a man is standing in front of a screen",
+    "frame_time": 4200.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_120",
+    "video_id": "nyu_dl_week7",
+    "start_time": 4200.0,
+    "end_time": 4245.0,
+    "text": "such a way that whatever you push down on the energy of data points the rest goes up more or less automatically because the volume of cells I can take low energy is limited or minimized to some organization okay those are very that's one set of techniques but there's many so there is a set of methods like score matching for example that says the [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 4230.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_121",
+    "video_id": "nyu_dl_week7",
+    "start_time": 4235.0,
+    "end_time": 4280.0,
+    "text": "many so there is a set of methods like score matching for example that says the gradient of the energy around the sample should be zero and the second derivative should be as large as possible the trace of the Hessian should be large and so basically you're telling it you know make the make every data point a minimum of the energy by making sure the energy curls up around a Richmond example it's very very hard to apply in practice because you have to compute the gradient with respect to the ways of the trace of the Hessian of the energy function with respect to the inputs I mean it's compute L but yeah for simple models by touch you can do it yeah simple models [frame caption: a man is standing in front of a screen]",
+    "frame_caption": "a man is standing in front of a screen",
+    "frame_time": 4260.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_122",
+    "video_id": "nyu_dl_week7",
+    "start_time": 4270.0,
+    "end_time": 4315.0,
+    "text": "respect to the inputs I mean it's compute L but yeah for simple models by touch you can do it yeah simple models like for linear models but it's hell let's stay away from it okay so there's a number of different strategies here it says seven strategies but I kind of ran Isis into those two categories of contrastive methods and architectural methods and there are kind of three sub categories but you know in contrast even for subcategories in architectural and there are some names or voice algorithms here that you might recognize some other that you may not recognize which is okay [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 4290.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_123",
+    "video_id": "nyu_dl_week7",
+    "start_time": 4305.0,
+    "end_time": 4350.0,
+    "text": "categories but you know in contrast even for subcategories in architectural and there are some names or voice algorithms here that you might recognize some other that you may not recognize which is okay and I'm gonna try to go through some of it's called score matching okay bear [frame caption: a slide presentation on the energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy]",
+    "frame_caption": "a slide presentation on the energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy energy",
+    "frame_time": 4320.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_124",
+    "video_id": "nyu_dl_week7",
+    "start_time": 4340.0,
+    "end_time": 4385.0,
+    "text": "it's called score matching okay bear with me for just one second okay so see [frame caption: a video of a person in a room with a sign that says, ' syns stage energy ']",
+    "frame_caption": "a video of a person in a room with a sign that says, ' syns stage energy '",
+    "frame_time": 4350.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_125",
+    "video_id": "nyu_dl_week7",
+    "start_time": 4375.0,
+    "end_time": 4420.0,
+    "text": "with me for just one second okay so see one contrastive Sergei one push down the energy of data point push up everywhere else and this is what maximum-likelihood does and maximum likelihood pushes down the energy of data points to minus infinity and pushes up the energy of other points to plus infinity which is the problem that we were just talking about earlier and so here is what happens so you have this gift both on distribution that gives the likelihood of Y given X which is for a particular data point y I X I it gives you the [frame caption: a whiteboard with a blackboard and a whiteboard with a redboard and a whiteboard with a]",
+    "frame_caption": "a whiteboard with a blackboard and a whiteboard with a redboard and a whiteboard with a",
+    "frame_time": 4410.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_126",
+    "video_id": "nyu_dl_week7",
+    "start_time": 4410.0,
+    "end_time": 4455.0,
+    "text": "happens so you have this gift both on distribution that gives the likelihood of Y given X which is for a particular data point y I X I it gives you the probability that your model gives to this particular value of y I forgiving X I and it's you know exponential minus beta the energy divided by exponential minus beta the energy integrated over all wise okay so if you want to maximize so let's say you have a bunch of data points and you want to maximize so here are not writing X because it doesn't matter and you want to maximize the poverty at your model gives to this particular value of y you want to make [frame caption: a whiteboard with a blackboard and a whiteboard with a whiteboard and a whiteboard with a]",
+    "frame_caption": "a whiteboard with a blackboard and a whiteboard with a whiteboard and a whiteboard with a",
+    "frame_time": 4440.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_127",
+    "video_id": "nyu_dl_week7",
+    "start_time": 4445.0,
+    "end_time": 4490.0,
+    "text": "poverty at your model gives to this particular value of y you want to make the energy of this Y small which means you want to make the e to the minus beta the energy of this big and you want to make the stuff at the bottom as small as possible so instead of maximizing P of Y we're going to minimize minus log P of y okay so minus log P of Y so if I take the log of this ratio I'm going to take I'm going to get the difference of those two terms the log of the difference you know the the difference of the logs of those two terms the log of the ratio is the difference of the logs right so I get log [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 4470.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_128",
+    "video_id": "nyu_dl_week7",
+    "start_time": 4480.0,
+    "end_time": 4525.0,
+    "text": "two terms the log of the difference you know the the difference of the logs of those two terms the log of the ratio is the difference of the logs right so I get log e to the minus beta e of Y and then I guess I get minus log integral over Y you eaten - beta Y of Y I did I take the negative of this because I want to minimize okay so negative log probability is what I want to minimize and I get the last function here at the bottom I divided everything by beta which makes no difference as far as the minimum is concerned okay so to go from the top formula to the volume formula [frame caption: a whiteboard with a person standing in front of it]",
+    "frame_caption": "a whiteboard with a person standing in front of it",
+    "frame_time": 4500.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_129",
+    "video_id": "nyu_dl_week7",
+    "start_time": 4515.0,
+    "end_time": 4560.0,
+    "text": "bottom I divided everything by beta which makes no difference as far as the minimum is concerned okay so to go from the top formula to the volume formula you take minus log of the top formula and you divide by beta so now we have a that gives us a loss function and this source function where we realize it says make the energy of the day a point y as low as possible yi of Y should be small and make the second term as small as possible which means which means make the energies that are inside of this exponential - as large as possible so the the second term is going to push up on the energy of every point [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 4530.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_130",
+    "video_id": "nyu_dl_week7",
+    "start_time": 4550.0,
+    "end_time": 4595.0,
+    "text": "possible so the the second term is going to push up on the energy of every point including the data point now if I compute the gradient of this objective function so this is the probabilistic approach okay thanks for actively so compute the gradient of this jockey function I get the gradient of the energy at the data point why okay - this formula here which is the expected value over Y of the probability that my model gives to Y that is given by the gives awesome and distribution and that is used as a coefficient to weigh the [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 4560.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_131",
+    "video_id": "nyu_dl_week7",
+    "start_time": 4585.0,
+    "end_time": 4630.0,
+    "text": "over Y of the probability that my model gives to Y that is given by the gives awesome and distribution and that is used as a coefficient to weigh the gradient of the energy function at that location okay so this integral here the second term is basically the expected value of the gradient I compute the gradient for the energy function at every point I weigh every point by the probability that the model gives to my to that particular Y and I compute that weighted sum essentially if Y is discrete this is discrete sum Y is so the first term so now if I use this in a gradient you know I get stochastic [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 4620.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_132",
+    "video_id": "nyu_dl_week7",
+    "start_time": 4620.0,
+    "end_time": 4665.0,
+    "text": "so the first term so now if I use this in a gradient you know I get stochastic gradient algorithm the first term is going to try to make the energy of my data point as well as possible and the second term is going to push out the energy of every single point every why okay and the problem is can i compute this at all can i compute this integral so an enormous chunk of publications in probabilistic modeling have to do with how do you either compute this estimate this or approximate this because that integral is in interesting cases is [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 4650.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_133",
+    "video_id": "nyu_dl_week7",
+    "start_time": 4655.0,
+    "end_time": 4700.0,
+    "text": "how do you either compute this estimate this or approximate this because that integral is in interesting cases is intractable okay if Y is a space of images I cannot compute an integral over all possible images there's no way except if the energy function of the gradient of the energy function is very very simple okay most of the time it's not that simple if you want a complex model to capture the dependency of the world it's not going to be that simple it's gonna be some big neural net so this an integral is going to be completely intractable now there is little servation in the fact that this is an expected value and so to compute an approximation and an expected value you can compute an average of a finite [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 4680.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_134",
+    "video_id": "nyu_dl_week7",
+    "start_time": 4690.0,
+    "end_time": 4735.0,
+    "text": "intractable now there is little servation in the fact that this is an expected value and so to compute an approximation and an expected value you can compute an average of a finite number of samples so if I sample why it's from this distribution which is the distribution of my model gives to Y and I compute the average of the gradient over those samples I get some finite approximation of this it's called Monte Carlo methods okay it's called a Monte Carlo approximation invented by physicists when they were trying to build a time bomb in the 40s there are other methods that are based on rational methods so I don't really know how to compute P I can't compute this integral [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 4710.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_135",
+    "video_id": "nyu_dl_week7",
+    "start_time": 4725.0,
+    "end_time": 4770.0,
+    "text": "build a time bomb in the 40s there are other methods that are based on rational methods so I don't really know how to compute P I can't compute this integral but let's say I replace K by another distribution Q for which I can't compute this average let's say Gaussian or something and then I try to make you as close to P as possible that's called variational methods okay you've probably heard that term many times that's basically a variational methods you approximate an expectation over a distribution by replacing the distribution by something you can actually compute you try to make this computable distribution as close as possible to the real distribution using [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 4740.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_136",
+    "video_id": "nyu_dl_week7",
+    "start_time": 4760.0,
+    "end_time": 4805.0,
+    "text": "actually compute you try to make this computable distribution as close as possible to the real distribution using some measure KL divergence right so here is came in so k-means is a you can think of k-means as a energy based models energy Bismil you can interpret candies in terms of energy of this model is anyone okay with what cadiz is or you forgotten we came into this okay so k-means is this very simple clustering algorithm where the energy function if you've never heard of it this is a way to explain he means the energy function is written at the top here ye of Y Z is [frame caption: the text on the purple background reads, ' wek 7 lecture part 3 ']",
+    "frame_caption": "the text on the purple background reads, ' wek 7 lecture part 3 '",
+    "frame_time": 4770.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_137",
+    "video_id": "nyu_dl_week7",
+    "start_time": 4795.0,
+    "end_time": 4840.0,
+    "text": "algorithm where the energy function if you've never heard of it this is a way to explain he means the energy function is written at the top here ye of Y Z is y minus w zy w is a matrix and Z is a set of one heart vectors okay so see this discrete variable with K possible values and it's a K dimensional vector with one component equal to one and all the other ones equal to zero okay so you multiply Z by the matrix W the effect is that what you get as this product is one of the columns of W ok the kernel W that gets multiplied by the component of Z that's equal to one yes we produced and everything else is is gone ok so that [frame caption: a man is standing in front of a whiteboard with a blackboard]",
+    "frame_caption": "a man is standing in front of a whiteboard with a blackboard",
+    "frame_time": 4830.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_138",
+    "video_id": "nyu_dl_week7",
+    "start_time": 4830.0,
+    "end_time": 4875.0,
+    "text": "of the columns of W ok the kernel W that gets multiplied by the component of Z that's equal to one yes we produced and everything else is is gone ok so that product selects one column from the V the columns of W are called prototypes okay and if I give you a Y the way you do inference is that you figure out which Z which of the K possible vectors of Z minimizes the reconstruction error realizes the squared distance between the corresponding column of W and the data point that I'm looking at and the energy is just is quite distance between the two okay now the energy function you see here [frame caption: a man is standing in front of a whiteboard with a blackboard]",
+    "frame_caption": "a man is standing in front of a whiteboard with a blackboard",
+    "frame_time": 4860.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_139",
+    "video_id": "nyu_dl_week7",
+    "start_time": 4865.0,
+    "end_time": 4910.0,
+    "text": "energy is just is quite distance between the two okay now the energy function you see here represented in this chart EWP's right here what you see here are kind of black blobs and those correspond to quadratic wells around each of the prototypes of W so the system he has been trained and he placed the columns of W along the manifold of training samples which is the spiral that's where all the training samples are selected and the way this is trained is very simple you just minimize [frame caption: a diagram of a particle with a gravitational]",
+    "frame_caption": "a diagram of a particle with a gravitational",
+    "frame_time": 4890.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_140",
+    "video_id": "nyu_dl_week7",
+    "start_time": 4900.0,
+    "end_time": 4945.0,
+    "text": "manifold of training samples which is the spiral that's where all the training samples are selected and the way this is trained is very simple you just minimize the expected the average energy over a training site okay so basically I give you why why is a training sample you find a Z that memorizes the energy so you find the prototype that is closest to Y the column of W that's closest to Y and then they do run step of gradient descent so you move that vector close to Y closer to Y then you take another Y select which columns of W is closest to it and move that colin little bit closer [frame caption: a man is standing in front of a whiteboard with a blackboard]",
+    "frame_caption": "a man is standing in front of a whiteboard with a blackboard",
+    "frame_time": 4920.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_141",
+    "video_id": "nyu_dl_week7",
+    "start_time": 4935.0,
+    "end_time": 4980.0,
+    "text": "Y closer to Y then you take another Y select which columns of W is closest to it and move that colin little bit closer to Y then you keep doing this that's not exactly the KB's algorithm this is the kind of stochastic gradient form of the k-means algorithm the real k-means algorithm actually Canada's sort of coordinate descent if you want so it fails both with the entire training set and figures out for each data point which column of W is closest to it and then after you've done this you compute every data point every corner W as the average of all the data points to which its associated and it goes a bit faster [frame caption: a man is standing in front of a whiteboard with a blackboard]",
+    "frame_caption": "a man is standing in front of a whiteboard with a blackboard",
+    "frame_time": 4950.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_142",
+    "video_id": "nyu_dl_week7",
+    "start_time": 4970.0,
+    "end_time": 5015.0,
+    "text": "every data point every corner W as the average of all the data points to which its associated and it goes a bit faster if you do it this way as opposed to stochastic gradient but the results are the same in the end you minimize the average of the energy over the training set okay so that's an example if there was a question about latent variable earlier that's an example of a latent variable model very simple one where the decoder is linear is no dependent dependency on X and what you're just trying to do is model the distribution over Y ok here Y is two-dimensional and you're just trying to say you know if I know what value of y can you put can you tell me if I knew why one can you tell me anything about you y2 and once you have this energy [frame caption: a man is standing in front of a whiteboard with a blackboard]",
+    "frame_caption": "a man is standing in front of a whiteboard with a blackboard",
+    "frame_time": 4980.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_143",
+    "video_id": "nyu_dl_week7",
+    "start_time": 5005.0,
+    "end_time": 5050.0,
+    "text": "over Y ok here Y is two-dimensional and you're just trying to say you know if I know what value of y can you put can you tell me if I knew why one can you tell me anything about you y2 and once you have this energy function you can I give you Y one you can predict what the value of y two should be I give you a random point you can tell me what's the closest point on the day of a fold by just searching for the closest prototype basically okay so he means that just explained here belongs to the architectural methods it's not a contrastive methods as you can observe I do not push up on the energy of anything I just push down on the energy of stuff but k-means is built [frame caption: a man is standing in front of a whiteboard with a blackboard]",
+    "frame_caption": "a man is standing in front of a whiteboard with a blackboard",
+    "frame_time": 5040.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_144",
+    "video_id": "nyu_dl_week7",
+    "start_time": 5040.0,
+    "end_time": 5085.0,
+    "text": "it's not a contrastive methods as you can observe I do not push up on the energy of anything I just push down on the energy of stuff but k-means is built in such a way that there is only K points in the space that can have zero energy and everything else will have higher energy okay it's just designed this way right so it's architectural in that sense once I've decided on K have limited the volume of space in a in Y they can take low energy because these everything else grows quadratically as I move away from them now let's talk about if there's a bunch of other methods these are my favorite methods I think ultimately everybody will be using [frame caption: a man is standing in front of a whiteboard with a blackboard]",
+    "frame_caption": "a man is standing in front of a whiteboard with a blackboard",
+    "frame_time": 5070.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_145",
+    "video_id": "nyu_dl_week7",
+    "start_time": 5075.0,
+    "end_time": 5120.0,
+    "text": "everything else grows quadratically as I move away from them now let's talk about if there's a bunch of other methods these are my favorite methods I think ultimately everybody will be using architectural methods but right now the stuff that works in images is contrastive I say okay so contrastive methods I have data points and my model computes an energy function let's say that looks like this so I'm [frame caption: a person is standing in front of a whiteboard]",
+    "frame_caption": "a person is standing in front of a whiteboard",
+    "frame_time": 5100.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_146",
+    "video_id": "nyu_dl_week7",
+    "start_time": 5110.0,
+    "end_time": 5155.0,
+    "text": "methods I have data points and my model computes an energy function let's say that looks like this so I'm drawing the contours of equal cost okay it's like a topographic map so obviously that model is bad right because it gives you energy to those points here right those points have low energy and they should not and then those points have high energy and they should not so what should I do so obviously if I take if I take a a [frame caption: a whiteboard with a drawing of a hand]",
+    "frame_caption": "a whiteboard with a drawing of a hand",
+    "frame_time": 5130.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_147",
+    "video_id": "nyu_dl_week7",
+    "start_time": 5145.0,
+    "end_time": 5190.0,
+    "text": "should not so what should I do so obviously if I take if I take a a training sample here and I change the parameters of F F of an X Y so that the energy goes down it's very going to move the the function to have can lower values in that region but that may not be sufficient because it could be that my energy functions permit rise in such a way that it could be flat could be zero everywhere so I need to explicitly push up on other places okay and so a good a good location to push up would be those red locations here these are locations that my model gives you energy [frame caption: a drawing of a heart with the words deep learning spring 2020]",
+    "frame_caption": "a drawing of a heart with the words deep learning spring 2020",
+    "frame_time": 5160.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_148",
+    "video_id": "nyu_dl_week7",
+    "start_time": 5180.0,
+    "end_time": 5225.0,
+    "text": "push up on other places okay and so a good a good location to push up would be those red locations here these are locations that my model gives you energy to but should not have low energy okay so let's say let's say this is my training sample right now okay the the big black dot here that's my training sample one way I can try to contrastive system is by saying I'm going to push down on the energy of that point and I'm going to retrieve that point a little bit by corrupting it some way adding noise to it and we will push up on the [frame caption: a drawing of a person with a pencil]",
+    "frame_caption": "a drawing of a person with a pencil",
+    "frame_time": 5190.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_149",
+    "video_id": "nyu_dl_week7",
+    "start_time": 5215.0,
+    "end_time": 5260.0,
+    "text": "going to retrieve that point a little bit by corrupting it some way adding noise to it and we will push up on the energy of a point that's nearby okay and do this sufficiently many times eventually the energy function is going to curl up around every sample because I modify a sample and I push up you know I corrupt it a little bit and I push up on the energy of that corrected sample the contrastive sample and so eventually the energy is going to take the right place something a little smarter instead of [frame caption: a person is standing in front of a whiteboard]",
+    "frame_caption": "a person is standing in front of a whiteboard",
+    "frame_time": 5250.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_150",
+    "video_id": "nyu_dl_week7",
+    "start_time": 5250.0,
+    "end_time": 5295.0,
+    "text": "contrastive sample and so eventually the energy is going to take the right place something a little smarter instead of sort of randomly perturbing the this Trini sample by you know some perturbation around it I'm going to use great in descent to kind of go down in the energy surface and then I'm going to get this point and push it up okay that makes more sense right because I'm going I'm going for the jiggler here I you know the system kind of finds the point that the system gives that it gives her [frame caption: a drawing of a person with a pencil]",
+    "frame_caption": "a drawing of a person with a pencil",
+    "frame_time": 5280.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_151",
+    "video_id": "nyu_dl_week7",
+    "start_time": 5285.0,
+    "end_time": 5330.0,
+    "text": "I'm going for the jiggler here I you know the system kind of finds the point that the system gives that it gives her right so the procedure is here is a training sample move down in the energy surface you'll find a value of y that has lower energy than the one you started from and then that's a contra to sample push it up push down on the original sample push up on this new sample you just got now this might be expensive and your energy function may be complicated may have local minima so here's another technique the other technique is start from the same [frame caption: a person is standing in front of a whiteboard]",
+    "frame_caption": "a person is standing in front of a whiteboard",
+    "frame_time": 5310.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_152",
+    "video_id": "nyu_dl_week7",
+    "start_time": 5320.0,
+    "end_time": 5365.0,
+    "text": "sample you just got now this might be expensive and your energy function may be complicated may have local minima so here's another technique the other technique is start from the same training sample and imagine that this surface is like is like a you know like a smooth mountain range and then give a kick to the to this marble think of it as a marble you're gonna give it a random kick in a random direction and you're gonna simulate this as a marble rolling down this energy surface so let's say I'm going to kick it in this direction it's going to go in this direction for a while and then it's going to go down and the energy after [frame caption: a drawing of a person in a room]",
+    "frame_caption": "a drawing of a person in a room",
+    "frame_time": 5340.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_153",
+    "video_id": "nyu_dl_week7",
+    "start_time": 5355.0,
+    "end_time": 5400.0,
+    "text": "rolling down this energy surface so let's say I'm going to kick it in this direction it's going to go in this direction for a while and then it's going to go down and the energy after where I cut it off you get a point at the end of this trajectory push it up okay so I'm doing this very informally but in fact there are so depending on how you do this Here I am explaining the principles of how those methods work but in fact if you are interested in producing modeling and what you're interested in is to you maximum likelihood what you need to do is send sample produce samples according to the probability your model gives to the same thing the samples and there's ways to run those algorithms in such a way that the ratio of the probability with which [frame caption: a person is standing in front of a whiteboard]",
+    "frame_caption": "a person is standing in front of a whiteboard",
+    "frame_time": 5370.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_154",
+    "video_id": "nyu_dl_week7",
+    "start_time": 5390.0,
+    "end_time": 5435.0,
+    "text": "sample produce samples according to the probability your model gives to the same thing the samples and there's ways to run those algorithms in such a way that the ratio of the probability with which you will you will pick two samples corresponds to the ratio of their probabilities in the given by the model which is all you need and that's essentially done by you know the details of how you implement those kind of trajectories basically and like the noise that you used to so okay so did you give you names for this okay the the random noise e corresponds to an algorithm called denoising auto-encoder [frame caption: a man is standing in front of a whiteboard]",
+    "frame_caption": "a man is standing in front of a whiteboard",
+    "frame_time": 5400.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_155",
+    "video_id": "nyu_dl_week7",
+    "start_time": 5425.0,
+    "end_time": 5470.0,
+    "text": "the the random noise e corresponds to an algorithm called denoising auto-encoder and alfred was going to tell you more about this the the gradient descent and that's called contrastive divergence and their form of this for and if I search through the space by kind of random perturbation sort of trying to find low-energy space with noise it's a [frame caption: a whiteboard with a drawing of a person]",
+    "frame_caption": "a whiteboard with a drawing of a person",
+    "frame_time": 5460.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_156",
+    "video_id": "nyu_dl_week7",
+    "start_time": 5460.0,
+    "end_time": 5505.0,
+    "text": "I search through the space by kind of random perturbation sort of trying to find low-energy space with noise it's a special case of Monte Carlo methods and if it's a continuous trajectory not a continuous but if it's a trajectory could be discrete is called Markov chain Monte Carlo methods or MCMC and if it's in a continuous space where you use kind of this rolling ball with a random kick method that's called Hamiltonian Monte [frame caption: a whiteboard with a drawing of a person holding a pencil]",
+    "frame_caption": "a whiteboard with a drawing of a person holding a pencil",
+    "frame_time": 5490.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_157",
+    "video_id": "nyu_dl_week7",
+    "start_time": 5495.0,
+    "end_time": 5540.0,
+    "text": "of this rolling ball with a random kick method that's called Hamiltonian Monte where the time you let me just talk about Dan using auto encoder so what's the Dino Dino to encoder it's a particular type of energy based model where you start with a Y so that you [frame caption: a whiteboard with a drawing of a person holding a knife]",
+    "frame_caption": "a whiteboard with a drawing of a person holding a knife",
+    "frame_time": 5520.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_158",
+    "video_id": "nyu_dl_week7",
+    "start_time": 5530.0,
+    "end_time": 5575.0,
+    "text": "where you start with a Y so that you correct it so this is the little diagram that I showed earlier you correct this sample okay you get another sample that I I'm not gonna call and you pass this through an encoder which is a neural net and a decoder which is another neural net and then you compare the output [frame caption: a whiteboard with a drawing of a person in the middle school]",
+    "frame_caption": "a whiteboard with a drawing of a person in the middle school",
+    "frame_time": 5550.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_159",
+    "video_id": "nyu_dl_week7",
+    "start_time": 5565.0,
+    "end_time": 5610.0,
+    "text": "through an encoder which is a neural net and a decoder which is another neural net and then you compare the output in the classical form this is the okay and they see here in the network on the left is just some some neural net that you train the corruption is built by hand okay it's not trained so what does that do for you this actually pushes up the [frame caption: a drawing of a person standing in front of a whiteboard]",
+    "frame_caption": "a drawing of a person standing in front of a whiteboard",
+    "frame_time": 5580.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_160",
+    "video_id": "nyu_dl_week7",
+    "start_time": 5600.0,
+    "end_time": 5645.0,
+    "text": "okay it's not trained so what does that do for you this actually pushes up the energy of corrupted points okay so here the energy is so this is how you train the system but the actual system doesn't have the corruption you give it a why you run it through the encoder and the decoder and measure the reconstruction error okay so it's exactly the same diagram except no corruption so the [frame caption: a drawing of a person standing in front of a whiteboard]",
+    "frame_caption": "a drawing of a person standing in front of a whiteboard",
+    "frame_time": 5610.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_161",
+    "video_id": "nyu_dl_week7",
+    "start_time": 5635.0,
+    "end_time": 5680.0,
+    "text": "error okay so it's exactly the same diagram except no corruption so the corruption is for training and this is how you use it okay what does that do for you you have space of Y you have data points take a point Y and corrupt okay and now you trade this neuron that this encoder decoder to basically reconstruct this corrupted point to from [frame caption: a drawing of a person standing in front of a whiteboard]",
+    "frame_caption": "a drawing of a person standing in front of a whiteboard",
+    "frame_time": 5670.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_162",
+    "video_id": "nyu_dl_week7",
+    "start_time": 5670.0,
+    "end_time": 5715.0,
+    "text": "okay and now you trade this neuron that this encoder decoder to basically reconstruct this corrupted point to from the corrected point to produce the original point the original turning point okay so the the neural net function is going to map it's going to map this point to that point okay what does that mean that means when you when you plug a vector here Y and you do this for every training sample and a large number of corruptions okay what that means is that when you plug a a point Y here on the input and you measure its [frame caption: a drawing of a person standing in front of a whiteboard]",
+    "frame_caption": "a drawing of a person standing in front of a whiteboard",
+    "frame_time": 5700.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_163",
+    "video_id": "nyu_dl_week7",
+    "start_time": 5705.0,
+    "end_time": 5750.0,
+    "text": "for every training sample and a large number of corruptions okay what that means is that when you plug a a point Y here on the input and you measure its energy which is a reconstruction error this point if it's on the manifold if it's on the menu full of data is going to be reconstructed as itself therefore its energy here which is a reconstruction air will be zero okay if he's trained properly whereas if you put on the input a point that is outside the manifold it's going to get reconstructed as the closest point on the manifold because it's been trying to do that therefore the reconstruction error here [frame caption: a whiteboard with a drawing of a person in the middle school]",
+    "frame_caption": "a whiteboard with a drawing of a person in the middle school",
+    "frame_time": 5730.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_164",
+    "video_id": "nyu_dl_week7",
+    "start_time": 5740.0,
+    "end_time": 5785.0,
+    "text": "as the closest point on the manifold because it's been trying to do that therefore the reconstruction error here will be that will be this distance okay well that means is now that the energy it such that it grows quadratically as you move away from the manifold of data if the thing is properly trained okay so that's an example of contrastive methods because you you say all the manifold [frame caption: a whiteboard with a drawing of a person in the middle school]",
+    "frame_caption": "a whiteboard with a drawing of a person in the middle school",
+    "frame_time": 5760.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_165",
+    "video_id": "nyu_dl_week7",
+    "start_time": 5775.0,
+    "end_time": 5820.0,
+    "text": "if the thing is properly trained okay so that's an example of contrastive methods because you you say all the manifold things should be zero the reconstruction energy to be zero outside the manifold the reconstruction energy should be the so Bertha's trained this way except the space is discrete though community toriel because it's text and the corruption technique consists in masking some of the some of the words and then the reconstruction consists in predicting the words are missing you can always copy the words that are not missing so you don't need to do it [frame caption: a whiteboard with a drawing of a person in the middle school]",
+    "frame_caption": "a whiteboard with a drawing of a person in the middle school",
+    "frame_time": 5790.0
+  },
+  {
+    "chunk_id": "nyu_dl_week7_chunk_166",
+    "video_id": "nyu_dl_week7",
+    "start_time": 5810.0,
+    "end_time": 5855.0,
+    "text": "the reconstruction consists in predicting the words are missing you can always copy the words that are not missing so you don't need to do it okay so it's a special case of you as you go to encoder it's actually called a masked rotary encoder because the type of corruption you do is masking pieces of the input okay all right out of time we'll talk about more of those [frame caption: a person is standing in front of a whiteboard]",
+    "frame_caption": "a person is standing in front of a whiteboard",
+    "frame_time": 5820.0
+  }
+]
