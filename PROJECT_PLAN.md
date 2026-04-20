@@ -49,7 +49,7 @@ VQA_Benchmark/
 │   ├── raw/
 │   │   ├── videos/                    # git-ignored
 │   │   └── metadata.json              # video_id, title, URL, duration, license
-│   ├── transcripts/                   # Whisper JSON (word-level timestamps)
+│   ├── transcripts/                   # Segment JSON from YouTube VTT captions
 │   ├── chunks/                        # 45s windows, 10s overlap
 │   ├── frame_captions/                # CLIP/LLaVA captions per keyframe
 │   ├── qa_pairs/
@@ -64,7 +64,7 @@ VQA_Benchmark/
 │
 ├── src/
 │   ├── config.py                      # Loads config.yaml, validates all settings
-│   ├── transcriber.py                 # Whisper-large-v3 transcription
+│   ├── transcriber.py                 # YouTube VTT parser → segment JSON
 │   ├── chunker.py                     # 45s windows, 10s overlap (prescribed)
 │   ├── frame_extractor.py             # Extract keyframes from video
 │   ├── frame_captioner.py             # CLIP or LLaVA captions
@@ -77,7 +77,8 @@ VQA_Benchmark/
 ├── run_part2.py                       # Deliverable: benchmark eval (both configs)
 │
 ├── scripts/
-│   ├── download_videos.py             # yt-dlp wrapper
+│   ├── parse_vtt.py                   # ✅ VTT → transcript JSON
+│   ├── build_chunks.py                # ✅ transcript JSON → chunk JSON
 │   ├── build_benchmark.py             # Merge reviewed QA → benchmark_v1.json
 │   ├── validate_benchmark.py          # Schema + quality checks
 │   └── cross_validate.py             # IAA metrics for cross-student annotation
@@ -106,8 +107,8 @@ VQA_Benchmark/
 |-------|-------------|--------|
 | 0 | Setup: CLAUDE.md, PROJECT_PLAN.md, git/GitHub, literature review | ✅ Complete |
 | 1 | Video selection (licensing confirmed) + download | ✅ Complete |
-| 2 | Transcription with whisper-large-v3 | ⏳ Pending |
-| 3 | Chunking (45s windows, 10s overlap) | ⏳ Pending |
+| 2 | Transcription (YouTube VTT → segment JSON) | ✅ Complete |
+| 3 | Chunking (45s windows, 10s overlap) | ✅ Complete |
 | 4 | Frame extraction + caption generation | ⏳ Pending |
 | 5 | RAG ingestion — two ChromaDB collections | ⏳ Pending |
 | 6 | Generator module (grounded prompt + citations) | ⏳ Pending |
@@ -134,26 +135,27 @@ VQA_Benchmark/
 - Write `data/raw/metadata.json`: `video_id`, `title`, `url`, `youtube_id`, `duration_seconds`, `license`
 - Verify CC license for each video before proceeding
 
-### Phase 2 — Transcription
-**Option A — YouTube auto-captions (check first, faster):**
-- `yt-dlp --write-auto-sub --sub-lang en --skip-download` to download existing captions
-- Timestamps are segment-level (phrases), not word-level — acceptable if precision is sufficient
-- Manually spot-check 2–3 technical terms (algorithm names, math notation) for errors
-- Use if available and quality is acceptable; note choice in report
+### Phase 2 — Transcription ✅
+**Option A used — YouTube auto-captions:**
+- VTT files pre-downloaded to `data/raw/videos/{video_id}.en.vtt`
+- `src/transcriber.py` parses rolling-caption VTT: collects ~10ms "display" cues (one clean phrase each), strips inline timing tags, de-duplicates consecutive identical lines
+- Output: `data/transcripts/{video_id}.json` — 1,569 segments (mit_6046_lec10), 909 (mit_18065_lec06)
+- Quality spot-checked at 20-min mark of both lectures; 0 errors on technical terms
+- Run: `python scripts/parse_vtt.py --all`
 
-**Option B — Whisper-large-v3 (fallback or if captions are missing/poor):**
+**Option B — Whisper-large-v3 (fallback, not needed):**
+- Would be used if captions were missing or had significant technical errors
 - Extract audio: `ffmpeg -i video.mp4 -ar 16000 -ac 1 audio.wav`
 - Run: `whisper-large-v3`, `word_timestamps=True`, `language="en"`
-- ~15–25 min per 90-min lecture on GPU; ~3–5 hrs on CPU
-- Fallback for iteration: `whisper-medium` (faster), large-v3 for final transcripts
-- Output: `data/transcripts/{video_id}.json` (full Whisper dict with word-level start/end)
 
-**Report note:** Document which option was used per lecture and why. If both were tried, compare WER on a sample.
+**Report note:** Used Option A; quality verified; VTT phrase-level timestamps (~3s per segment) are sufficient for 45s chunking windows.
 
-### Phase 3 — Chunking (prescribed: 45s / 10s)
+### Phase 3 — Chunking (prescribed: 45s / 10s) ✅
 - Slide a 45s window every 35s (stride = window − overlap)
-- Force new chunk at silence gaps > 5s (topic breaks)
+- Segments assigned to chunk if `start` falls in `[win_start, win_start+45s)` — half-open interval
+- Empty windows (no segments) are skipped automatically
 - Output: `data/chunks/{video_id}_chunks.json`
+- Result: 138 chunks (mit_6046_lec10, 80 min), 92 chunks (mit_18065_lec06, 54 min)
 - Report justification: 45s captures one concept; 10s overlap prevents answers at boundaries
 
 ### Phase 4 — Frame Captions
@@ -202,7 +204,7 @@ VQA_Benchmark/
 
 | Decision | Choice | Reason |
 |----------|--------|--------|
-| Chunking strategy | Whisper segment grouping, 45s/10s | Prescribed; respects speech boundaries |
+| Chunking strategy | YouTube VTT phrase segments, 45s/10s time window | Prescribed; phrase boundaries from VTT naturally align with speech |
 | Overlapping chunks | Yes, 10s overlap | Prevents answers falling at chunk edges |
 | Embedding model | all-MiniLM-L6-v2 | Prescribed; fast, lightweight, strong retrieval |
 | Vector DB | ChromaDB persistent | Prescribed |
@@ -234,20 +236,21 @@ VQA_Benchmark/
 | 2026-04-18 | Track C selected | Research exposure + co-authorship eligibility |
 | 2026-04-18 | Chunking: 45s window, 10s overlap | Prescribed by assignment |
 | 2026-04-18 | Embedding: all-MiniLM-L6-v2 | Prescribed by assignment |
-| — | Lectures: TBD | Need TA assignment or user choice |
-| — | Generator model: TBD | UTSA Llama / Claude / GPT-4o-mini |
+| 2026-04-20 | Lectures: mit_6046_lec10 + mit_18065_lec06 | CC BY-NC-SA 4.0; strong multi-hop potential; VTTs pre-downloaded |
+| 2026-04-20 | Transcription: YouTube auto-captions (Option A) | Quality spot-checked at 20-min mark; 0 errors on technical terms |
+| 2026-04-20 | Generator model: gpt-4o-mini | Cost-effective; reliable structured JSON output |
 | — | Frame captioner: TBD | CLIP vs BLIP-2/LLaVA |
 
 ---
 
 ## Required Deliverables
 
-- [ ] `config.yaml`
+- [x] `config.yaml`
 - [ ] `src/retriever.py` (transcript-only and transcript+frames modes)
 - [ ] `src/generator.py`
 - [ ] `run_part1.py` — end-to-end RAG demo
 - [ ] `run_part2.py` — full benchmark evaluation (both retrieval configs)
-- [ ] `requirements.txt`
+- [x] `requirements.txt`
 - [ ] `data/benchmark/benchmark_v1.json` (12–15 QA × 2–4 lectures)
 - [ ] Cross-validation annotations (5 questions from a classmate)
 - [ ] 4–6 page report (`report/main.tex`)
@@ -296,9 +299,9 @@ After every major phase checkpoint: stage the relevant files, commit, and push t
 
 | Checkpoint | Commit Message | Date |
 |------------|---------------|------|
-| Phase 0 complete | `feat: project skeleton and docs` | — |
-| Phase 2 complete | `feat: transcription pipeline` | — |
-| Phase 3 complete | `feat: chunking pipeline` | — |
+| Phase 0 complete | `feat: project skeleton and docs` | 2026-04-18 |
+| Phase 2 complete | `feat: transcription pipeline (Phase 2)` | 2026-04-20 |
+| Phase 3 complete | `feat: chunking pipeline (Phase 3)` | 2026-04-20 |
 | Phase 4 complete | `feat: frame caption pipeline` | — |
 | Phase 5 complete | `feat: RAG ingestion (both configs)` | — |
 | Phase 6 complete | `feat: generator module` | — |
@@ -345,7 +348,7 @@ frame_extraction:
   interval_seconds: 30
 
 generator:
-  model: "utsa-llama"         # or "claude-3-haiku-20240307" / "gpt-4o-mini"
+  model: "gpt-4o-mini"        # or "utsa-llama" / "claude-3-haiku-20240307"
   temperature: 0.1
   max_tokens: 512
   citation_format: "[{video_id} @ {start_mm}:{start_ss} to {end_mm}:{end_ss}]"
@@ -475,7 +478,16 @@ Single-hop and multi-hop questions use the same schema, with multi-hop using a l
 
 ## Notes & Observations
 
-*(Updated as the project progresses)*
+**Transcription (Phase 2):**
+- YouTube auto-captions chosen over Whisper — pre-downloaded VTTs were clean on technical terms (eigenvectors, memoization, hash table verified). This saves ~1–2 hrs of GPU time per lecture.
+- VTT "rolling caption" format alternates word-timing cues (~2s) with display cues (~10ms). The display cues carry one clean subtitle phrase each — these are the source of segments.
+- Segment granularity: ~3s per phrase → 1,569 segments for 80-min lecture.
+
+**Chunking (Phase 3):**
+- Pure time-based windowing: segment belongs to chunk if `segment.start ∈ [win_start, win_start+45s)`. No silence-gap detection implemented — not needed given dense lecture speech.
+- Overlap confirmed by unit test: segment starting at 40s appears in both chunk [0–45s) and chunk [35–80s).
+- Chunk counts match theoretical ⌈duration/stride⌉: 138 for 80 min, 92 for 54 min.
+- 8/8 unit tests passing (pytest).
 
 ---
 
