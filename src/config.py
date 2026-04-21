@@ -62,6 +62,13 @@ class FrameExtractionConfig:
 
 
 @dataclass
+class FrameCaptionerConfig:
+    model: str
+    device: str
+    max_new_tokens: int
+
+
+@dataclass
 class GeneratorConfig:
     model: str
     temperature: float
@@ -83,6 +90,7 @@ class Config:
     vector_db: VectorDBConfig
     chunking: ChunkingConfig
     frame_extraction: FrameExtractionConfig
+    frame_captioner: FrameCaptionerConfig
     generator: GeneratorConfig
     qa_generation: QAGenerationConfig
 
@@ -137,6 +145,13 @@ def load_config(config_path: Path | None = None) -> Config:
     fe = raw["frame_extraction"]
     frame_extraction = FrameExtractionConfig(interval_seconds=float(fe["interval_seconds"]))
 
+    fc_raw = raw["frame_captioner"]
+    frame_captioner = FrameCaptionerConfig(
+        model=fc_raw["model"],
+        device=fc_raw["device"],
+        max_new_tokens=int(fc_raw["max_new_tokens"]),
+    )
+
     g = raw["generator"]
     generator = GeneratorConfig(
         model=g["model"],
@@ -158,6 +173,7 @@ def load_config(config_path: Path | None = None) -> Config:
         vector_db=vector_db,
         chunking=chunking,
         frame_extraction=frame_extraction,
+        frame_captioner=frame_captioner,
         generator=generator,
         qa_generation=qa_generation,
     )

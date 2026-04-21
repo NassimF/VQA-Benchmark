@@ -1,4 +1,4 @@
-"""CLI: extract frames + generate BLIP captions → data/frame_captions/{video_id}_frame_captions.json
+"""CLI: extract frames + generate Qwen2-VL captions → data/frame_captions/{video_id}_frame_captions.json
 Also writes augmented chunks (transcript + nearest caption) to data/chunks/{video_id}_chunks_augmented.json
 
 Usage:
@@ -60,7 +60,9 @@ def process(video_id: str, cfg, device: str) -> None:
 
     # --- Captioning ---
     logging.info(f"Captioning {len(frames)} frames on {device}...")
-    captions = caption_frames(frames, device=device)
+    captions = caption_frames(frames, device=device,
+                              model_name=cfg.frame_captioner.model,
+                              max_new_tokens=cfg.frame_captioner.max_new_tokens)
 
     # --- Save frame captions ---
     caption_records = [
@@ -87,7 +89,7 @@ def process(video_id: str, cfg, device: str) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Extract frames and generate BLIP captions")
+    parser = argparse.ArgumentParser(description="Extract frames and generate Qwen2-VL captions")
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--video_id", help="Single video ID to process")
     group.add_argument("--all", action="store_true", help="Process all videos in metadata.json")
