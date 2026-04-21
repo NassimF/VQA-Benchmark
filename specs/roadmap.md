@@ -282,12 +282,83 @@ def temporal_iou(pred_start, pred_end, gt_start, gt_end) -> float:
 
 - **IoU@0.3, IoU@0.5** — fraction of questions where temporal IoU exceeds threshold
 - **Hit Rate@k** (k=1,3,5) — ≥1 of top-k chunks has IoU > 0.3 with GT span
-- **Multi-hop per-hop IoU** — mean IoU between each GT hop and best-matching predicted span
-- **Multi-hop complete retrieval rate@5** — fraction of questions where ALL hops covered
+- **Hit Rate@k multi-hop (per-hop recall)** — fraction of GT hops covered by ≥1 top-k chunk (IoU > 0.3)
+- **Hit Rate@k multi-hop (complete retrieval)** — fraction of questions where ALL hops covered by top-k
 - **LLM-judge score (1–5)** — feed `question + generated_answer + reference_answer` to LLM
-- **Citation accuracy** — fraction of cited chunks that actually contained the answer
+- **Citation accuracy** — fraction of cited chunks that actually contained the answer; for multi-hop, check ≥1 citation per hop
+
+**Multi-hop metric implementations:**
+
+```python
+def multihop_per_hop_iou(pred_spans: list[tuple], gt_spans: list[tuple]) -> float:
+    """Mean IoU between each GT hop and its best-matching predicted span."""
+    scores = []
+    for gt_start, gt_end in gt_spans:
+        best = max(temporal_iou(ps, pe, gt_start, gt_end) for ps, pe in pred_spans)
+        scores.append(best)
+    return sum(scores) / len(scores)
+
+def multihop_union_iou(pred_spans: list[tuple], gt_spans: list[tuple]) -> float:
+    """IoU between the union of all predicted spans and union of all GT spans."""
+    def merge_spans(spans):
+        merged = []
+        for start, end in sorted(spans):
+            if merged and start <= merged[-1][1]:
+                merged[-1] = (merged[-1][0], max(merged[-1][1], end))
+            else:
+                merged.append((start, end))
+        return merged
+
+    pred_merged = merge_spans(pred_spans)
+    gt_merged = merge_spans(gt_spans)
+
+    def total_length(spans):
+        return sum(e - s for s, e in spans)
+
+    def intersection_length(a_spans, b_spans):
+        total = 0.0
+        for a_s, a_e in a_spans:
+            for b_s, b_e in b_spans:
+                total += max(0.0, min(a_e, b_e) - max(a_s, b_s))
+        return total
+
+    inter = intersection_length(pred_merged, gt_merged)
+    union = total_length(pred_merged) + total_length(gt_merged) - inter
+    return inter / union if union > 0 else 0.0
+```
 
 Runs both configs × all verified questions; saves per-question results to `data/benchmark/evaluation_results.json`.
+
+---
+
+## Report Results Tables
+
+Fill these in after Phase 9. Both configs side by side, split by question type.
+
+### Single-hop questions
+
+| Metric | Config 1: Transcript-Only | Config 2: Transcript+Frames |
+|--------|--------------------------|------------------------------|
+| Mean Temporal IoU | | |
+| IoU@0.3 | | |
+| IoU@0.5 | | |
+| Hit Rate@1 | | |
+| Hit Rate@3 | | |
+| Hit Rate@5 | | |
+| LLM-Judge Score (1–5) | | |
+| Citation Accuracy | | |
+
+### Multi-hop questions
+
+| Metric | Config 1: Transcript-Only | Config 2: Transcript+Frames |
+|--------|--------------------------|------------------------------|
+| Mean Per-Hop IoU | | |
+| Multi-hop Union IoU | | |
+| Complete Retrieval Rate@5 | | |
+| Per-Hop Recall@5 | | |
+| Multi-hop IoU@0.3 (union) | | |
+| LLM-Judge Score (1–5) | | |
+| Citation Accuracy | | |
 
 **Git checkpoint:** `feat: evaluation pipeline (Phase 9)`
 
