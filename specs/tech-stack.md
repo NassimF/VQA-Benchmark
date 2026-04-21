@@ -92,3 +92,123 @@ These values are set by the assignment and must not be changed without explicit 
 | IoU thresholds | 0.3, 0.5 | Assignment spec |
 | Frame interval | 30 seconds | Design choice — balances coverage vs. storage |
 | Frame captioner max tokens | 128 | Design choice — sufficient for slide descriptions |
+
+---
+
+## config.yaml Reference
+
+```yaml
+embedding:
+  model: "sentence-transformers/all-MiniLM-L6-v2"
+  device: "cuda"  # or "cpu"
+
+retrieval:
+  top_k: 4
+  k_values: [1, 3, 5]        # for hit rate evaluation
+  distance_metric: "cosine"
+  iou_threshold: 0.3
+
+vector_db:
+  path: "./chroma_db"
+  transcript_only_collection: "lecture_transcript_only"
+  transcript_frames_collection: "lecture_transcript_plus_frames"
+
+chunking:
+  window_seconds: 45
+  overlap_seconds: 10         # stride = 35s
+
+frame_extraction:
+  interval_seconds: 30
+
+frame_captioner:
+  model: "Qwen/Qwen2-VL-7B-Instruct"
+  device: "cuda"
+  max_new_tokens: 128
+
+generator:
+  model: "gpt-4o-mini"        # or "utsa-llama" / "claude-haiku-4-5"
+  temperature: 0.1
+  max_tokens: 512
+  citation_format: "[{video_id} @ {start_mm}:{start_ss} to {end_mm}:{end_ss}]"
+
+qa_generation:
+  questions_per_lecture: 15
+  target_accepted: 12
+```
+
+---
+
+## Project Directory Structure
+
+```
+VQA_Benchmark/
+├── CLAUDE.md
+├── PROJECT_PLAN.md                    # Living progress tracker
+├── README.md                          # Track declaration, setup, usage
+├── requirements.txt
+├── config.yaml
+├── .gitignore                         # chroma_db/, *.mp4, *.m4a, .env, __pycache__/
+│
+├── specs/                             # Project constitution
+│   ├── mission.md
+│   ├── tech-stack.md
+│   ├── roadmap.md
+│   └── corpus.md
+│
+├── data/
+│   ├── raw/
+│   │   ├── videos/                    # git-ignored
+│   │   └── metadata.json              # 60 entries — video_id, title, URL, duration, license
+│   ├── transcripts/                   # Segment JSON from YouTube VTT captions
+│   ├── chunks/                        # 45s windows, 10s overlap
+│   ├── frame_captions/                # Qwen2-VL-7B captions per keyframe
+│   ├── qa_pairs/
+│   │   ├── raw/                       # LLM-generated before human review
+│   │   └── reviewed/                  # Human-approved, standard schema
+│   └── benchmark/
+│       └── benchmark_v1.json          # Merged final benchmark
+│
+├── chroma_db/                         # git-ignored
+│   ├── transcript_only/               # Collection 1
+│   └── transcript_plus_frames/        # Collection 2
+│
+├── src/
+│   ├── config.py                      # Loads config.yaml, validates all settings
+│   ├── transcriber.py                 # YouTube VTT parser → segment JSON
+│   ├── chunker.py                     # 45s windows, 10s overlap (prescribed)
+│   ├── frame_extractor.py             # Extract keyframes from video
+│   ├── frame_captioner.py             # Qwen2-VL-7B captions for keyframes
+│   ├── retriever.py                   # Two modes: transcript-only / +frames
+│   ├── generator.py                   # Grounded prompt + [video_id @ mm:ss] citations
+│   ├── qa_generator.py                # 15 draft QA per lecture via LLM
+│   └── evaluator.py                   # Temporal IoU, hit rate@k, LLM-judge
+│
+├── run_part1.py                       # Deliverable: end-to-end RAG demo
+├── run_part2.py                       # Deliverable: benchmark eval (both configs)
+│
+├── scripts/
+│   ├── parse_vtt.py                   # ✅ VTT → transcript JSON
+│   ├── build_chunks.py                # ✅ transcript JSON → chunk JSON
+│   ├── download_videos.py             # yt-dlp wrapper for all 60 videos
+│   ├── build_frame_captions.py        # frame extraction + Qwen2-VL captioning
+│   ├── build_index.py                 # ingest chunks into both ChromaDB collections
+│   ├── generate_qa.py                 # CLI for LLM draft QA generation
+│   ├── build_benchmark.py             # merge reviewed QA → benchmark_v1.json
+│   ├── validate_benchmark.py          # schema + quality checks
+│   └── cross_validate.py             # IAA metrics for cross-student annotation
+│
+├── notebooks/
+│   ├── 01_transcription_exploration.ipynb
+│   ├── 02_chunking_analysis.ipynb
+│   ├── 03_qa_generation_review.ipynb
+│   └── 04_evaluation_analysis.ipynb
+│
+├── tests/
+│   ├── test_chunker.py
+│   ├── test_retriever.py
+│   └── test_evaluator.py
+│
+└── report/
+    ├── main.tex
+    └── figures/
+```
