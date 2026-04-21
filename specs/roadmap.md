@@ -49,6 +49,18 @@ Status: ✅ Complete | ⚠️ Partial | ⏳ Pending
 - [x] `/literature-review` skill run; 28 papers across 7 clusters
 - [x] `literature-review/literature_review_report.md` committed
 
+**Key papers by cluster:**
+
+| Topic | Key Papers |
+|-------|-----------|
+| Video QA Benchmarks | ActivityNet-QA, NExT-QA, EgoSchema, MSVD-QA |
+| Temporal Grounding | Gao et al. 2017 (defines temporal IoU), 2D-TAN, Moment-DETR |
+| RAG Systems | Lewis et al. 2020 (original RAG), REALM, REPLUG |
+| Whisper ASR | Radford et al. 2023 |
+| Educational Video QA | LectureSQA and similar |
+| Chunking & Retrieval | RAPTOR, HyDE |
+| Multimodal Retrieval | CLIP (Radford 2021), Qwen2-VL |
+
 **Git checkpoint:** `feat: project skeleton and docs`
 
 ---

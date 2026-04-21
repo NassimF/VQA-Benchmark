@@ -51,3 +51,22 @@ Target: 12 accepted QA pairs per lecture after review.
 
 ### 5. Temporal citation is the unit of evaluation
 Every generated answer cites `[video_id @ mm:ss to mm:ss]` with a YouTube deep link. Evaluation is grounded in **temporal IoU** between predicted and ground-truth spans — not just semantic similarity. This makes the benchmark measurably harder than text-only QA and directly evaluates the retrieval system's precision.
+
+---
+
+## Required Deliverables
+
+| Deliverable | Status |
+|-------------|--------|
+| `config.yaml` | ✅ |
+| `requirements.txt` | ✅ |
+| `CLAUDE.md` | ✅ |
+| `.gitignore` | ✅ |
+| `src/retriever.py` (transcript-only and transcript+frames modes) | ⏳ |
+| `src/generator.py` | ⏳ |
+| `run_part1.py` — end-to-end RAG demo | ⏳ |
+| `run_part2.py` — full benchmark evaluation (both retrieval configs) | ⏳ |
+| `data/benchmark/benchmark_v1.json` (12–15 QA × 60 lectures) | ⏳ |
+| Cross-validation annotations (5 questions from a classmate) | ⏳ |
+| 4–6 page report (`report/main.tex`) | ⏳ |
+| `README.md` (declares Track C, setup and usage instructions) | ⏳ |
