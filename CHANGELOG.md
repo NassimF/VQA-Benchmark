@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-04-22
+
+- data: all 60 VTTs + metadata downloaded (Phase 1.2 ✅) (6e7492b)
+- fix: add webm support and initialize downloaded field for all entries (f021580)
+- docs: mark Phase 1.1 complete in roadmap (d4fd51a)
+- feat: download_videos.py + Phase 1.1 feature spec (Phase 1.1) (969d75d)
+- docs: remove log.md (migrated to CHANGELOG.md), fix tech-stack header (aa1825c)
+
+## 2026-04-21
+
+- docs: add CHANGELOG.md with git history, decisions, and observations (8d2fdba)
+
 ## 2026-04-21
 
 - docs: add deliverables, lit review, decisions log, and observations (cad5a5c)
