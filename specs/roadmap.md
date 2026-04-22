@@ -12,7 +12,7 @@ Status: ✅ Complete | ⚠️ Partial | ⏳ Pending
 |-------|-------------|--------|
 | 0.1 | Project skeleton (CLAUDE.md, config, .gitignore) | ✅ |
 | 0.2 | Literature review | ✅ |
-| 1.1 | `scripts/download_videos.py` | ⏳ |
+| 1.1 | `scripts/download_videos.py` | ✅ |
 | 1.2 | Download all 60 videos + VTTs | ⚠️ 4/60 done |
 | 2.1 | `scripts/parse_vtt.py` — VTT → transcript JSON | ✅ |
 | 2.2 | Run transcription for remaining 56 lectures | ⏳ |
@@ -67,7 +67,7 @@ Status: ✅ Complete | ⚠️ Partial | ⏳ Pending
 
 ## Phase 1 — Video Collection ⚠️ (4/60 downloaded)
 
-### 1.1 — Download script
+### 1.1 — Download script ✅
 **File:** `scripts/download_videos.py`
 
 - Reads `data/raw/metadata.json`; iterates all 60 entries
