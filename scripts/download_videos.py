@@ -16,7 +16,7 @@ _VIDEOS_DIR = _PROJECT_ROOT / "data" / "raw" / "videos"
 
 
 def _video_on_disk(video_id: str) -> Path | None:
-    for ext in ("mp4", "mkv"):
+    for ext in ("mp4", "mkv", "webm"):
         p = _VIDEOS_DIR / f"{video_id}.{ext}"
         if p.exists():
             return p
@@ -77,6 +77,10 @@ def main() -> None:
         targets = [entry["video_id"] for entry in metadata]
 
     _VIDEOS_DIR.mkdir(parents=True, exist_ok=True)
+
+    # Reflect current disk state for all entries before processing any targets.
+    for entry in metadata:
+        entry["downloaded"] = _already_downloaded(entry["video_id"])
 
     n_downloaded = n_skipped = n_failed = 0
     failed_ids: list[str] = []
