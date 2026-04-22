@@ -13,7 +13,7 @@ Status: ✅ Complete | ⚠️ Partial | ⏳ Pending
 | 0.1 | Project skeleton (CLAUDE.md, config, .gitignore) | ✅ |
 | 0.2 | Literature review | ✅ |
 | 1.1 | `scripts/download_videos.py` | ✅ |
-| 1.2 | Download all 60 videos + VTTs | ⚠️ 4/60 done |
+| 1.2 | Download all 60 videos + VTTs | ✅ 60/60 done |
 | 2.1 | `scripts/parse_vtt.py` — VTT → transcript JSON | ✅ |
 | 2.2 | Run transcription for remaining 56 lectures | ⏳ |
 | 3.1 | `scripts/build_chunks.py` — chunking pipeline | ✅ |
@@ -65,7 +65,7 @@ Status: ✅ Complete | ⚠️ Partial | ⏳ Pending
 
 ---
 
-## Phase 1 — Video Collection ⚠️ (4/60 downloaded)
+## Phase 1 — Video Collection ✅ (60/60 downloaded)
 
 ### 1.1 — Download script ✅
 **File:** `scripts/download_videos.py`
@@ -80,9 +80,11 @@ Notes:
 - MKV output (NYU DL videos, AV1 codec) is fine — ffmpeg handles it downstream
 - Do not download audio-only; frames are required for Phase 4
 
-### 1.2 — Execute downloads
-- Run `python scripts/download_videos.py --all` for all 56 remaining lectures
-- Verify each `video_file` path exists before moving to Phase 2
+### 1.2 — Execute downloads ✅
+- All 60 videos and VTTs on disk as of 2026-04-22
+- Mix of `.mkv` and `.webm` formats (yt-dlp format selection)
+- 2 videos (`mit_6042_lec06`, `mit_6042_lec22`) required `--remote-components ejs:github` for subtitle retrieval
+- 1 video (`nyu_dl_week1`) temp file renamed to `.webm` after interrupted merge
 
 **Git checkpoint:** `feat: download pipeline`
 
