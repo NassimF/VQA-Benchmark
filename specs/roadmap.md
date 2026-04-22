@@ -65,7 +65,7 @@ Status: ✅ Complete | ⚠️ Partial | ⏳ Pending
 
 ---
 
-## Phase 1 — Video Collection ✅ (60/60 downloaded)
+## Phase 1 — Video Collection ✅
 
 ### 1.1 — Download script ✅
 **File:** `scripts/download_videos.py`
