@@ -171,6 +171,12 @@ Unit tests: 8/8 passing — verified overlap (segment at 40s in two chunks), bou
 
 **Must complete before Phase 5** — Collection 2 ingests augmented chunks.
 
+**Design rationale — 30s frame interval:**
+The 30s interval is a project design choice (not prescribed by the assignment). A 30s interval yields ~1.5 frames per 45s chunk on average — dense enough to capture slide transitions without redundancy or excessive CPU captioning time (~10s/frame on CPU with Qwen2-VL-7B).
+
+**Design rationale — frames and chunk overlap:**
+A frame can be assigned to more than one chunk. Because chunk windows overlap by 10s (e.g., Chunk A: 0:00–0:45, Chunk B: 0:35–1:20), a frame at t=0:35 falls inside both windows. The implementation appends that frame's caption to both chunks — this is intentional. The overlap exists so that evidence near a chunk boundary appears in both neighboring chunks, improving retrieval recall.
+
 **Git checkpoint:** `feat: frame caption pipeline (Phase 4)`
 
 ---
