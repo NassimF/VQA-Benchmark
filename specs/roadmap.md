@@ -42,7 +42,7 @@ Status: ✅ Complete | ⚠️ Partial | ⏳ Pending
 - [x] `CLAUDE.md` — coding conventions, architecture rules
 - [x] `config.yaml` — all parameters; nothing hardcoded in source
 - [x] `requirements.txt`
-- [x] `.gitignore` — excludes `chroma_db/`, `*.mp4`, `*.mkv`, `*.m4a`, `.env`, `__pycache__/`, `data/raw/videos/`
+- [x] `.gitignore` — excludes `chroma_db/`, `*.mp4`, `*.mkv`, `*.webm`, `*.m4a`, `.env`, `__pycache__/`, `data/raw/videos/`
 - [x] `data/raw/metadata.json` — 60 entries with video_id, URL, license, duration
 
 ### 0.2 — Literature review
@@ -71,13 +71,13 @@ Status: ✅ Complete | ⚠️ Partial | ⏳ Pending
 **File:** `scripts/download_videos.py`
 
 - Reads `data/raw/metadata.json`; iterates all 60 entries
-- Uses `yt-dlp` to download full video (`.mp4` or `.mkv`) — full video required for frame extraction
+- Uses `yt-dlp` to download full video (`.mp4`, `.mkv`, or `.webm`) — full video required for frame extraction
 - Downloads `.en.vtt` auto-caption file in same pass
 - Skips entries where both video file and VTT already exist
 - CLI: `python scripts/download_videos.py --all` or `--video_id <id>`
 
 Notes:
-- MKV output (NYU DL videos, AV1 codec) is fine — ffmpeg handles it downstream
+- MKV and WEBM output (AV1/VP9 codec) is fine — ffmpeg handles all formats downstream
 - Do not download audio-only; frames are required for Phase 4
 
 ### 1.2 — Execute downloads ✅
@@ -90,7 +90,7 @@ Notes:
 
 ---
 
-## Phase 2 — Transcription ✅ (4/60 complete)
+## Phase 2 — Transcription ⚠️ (4/60 complete; 2.2 pending)
 
 ### 2.1 — VTT parser (already written)
 **File:** `scripts/parse_vtt.py` | **Module:** `src/transcriber.py`
@@ -121,7 +121,7 @@ Quality checks:
 
 ---
 
-## Phase 3 — Chunking ✅ (4/60 complete)
+## Phase 3 — Chunking ⚠️ (4/60 complete; 3.2 pending)
 
 ### 3.1 — Chunking pipeline (already written)
 **File:** `scripts/build_chunks.py` | **Module:** `src/chunker.py`
@@ -163,7 +163,7 @@ Unit tests: 8/8 passing — verified overlap (segment at 40s in two chunks), bou
 ### 4.2 — Run frame extraction + captioning
 **File:** `scripts/build_frame_captions.py`
 
-- Extracts 1 frame every 30s via ffmpeg (AV1/MKV-compatible)
+- Extracts 1 frame every 30s via ffmpeg (handles mp4/mkv/webm, AV1/VP9/H.264)
 - Calls `caption_frames()` with `cfg.frame_captioner.model` and `cfg.frame_captioner.max_new_tokens`
 - Saves: `data/frame_captions/{video_id}_frame_captions.json`
 - Builds augmented chunks: appends `[frame caption: ...]` to each chunk's text; saves `data/chunks/{video_id}_chunks_augmented.json`
@@ -172,7 +172,7 @@ Unit tests: 8/8 passing — verified overlap (segment at 40s in two chunks), bou
 **Must complete before Phase 5** — Collection 2 ingests augmented chunks.
 
 **Design rationale — 30s frame interval:**
-The 30s interval is a project design choice (not prescribed by the assignment). A 30s interval yields ~1.5 frames per 45s chunk on average — dense enough to capture slide transitions without redundancy or excessive CPU captioning time (~10s/frame on CPU with Qwen2-VL-7B).
+The 30s interval is a project design choice (not prescribed by the assignment). A 30s interval yields ~1.5 frames per 45s chunk on average — dense enough to capture slide transitions without redundancy. At ~0.5–2s/frame on an A100 (Qwen2-VL-7B in bfloat16), 60 lectures × ~180 frames/lecture ≈ 10,800 frames total, or roughly 1.5–6 GPU-hours.
 
 **Design rationale — frames and chunk overlap:**
 A frame can be assigned to more than one chunk. Because chunk windows overlap by 10s (e.g., Chunk A: 0:00–0:45, Chunk B: 0:35–1:20), a frame at t=0:35 falls inside both windows. The implementation appends that frame's caption to both chunks — this is intentional. The overlap exists so that evidence near a chunk boundary appears in both neighboring chunks, improving retrieval recall.
@@ -507,5 +507,5 @@ Results saved to `data/benchmark/evaluation_results.json` after Phase 9.
 | LLM citation output unreliable | Structured JSON output, not `[1]` regex parsing |
 | Trivial QA pairs | Reject if answer < 10 words or verbatim in question |
 | Predicted span too wide | Factual Qs: intersection; multi-chunk: union of cited spans |
-| MKV/AV1 codec (NYU videos) | Use ffmpeg, not cv2, for frame extraction |
+| MKV/WEBM with AV1/VP9 codec | Use ffmpeg, not cv2, for frame extraction — affects NYU (MKV) and many MIT (WEBM) videos |
 | nyu_dl_week7 duration mismatch | Metadata says 75 min; chunk count implies ~97 min — verify with `yt-dlp --get-duration` |
