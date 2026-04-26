@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-04-26 (latest)
+
+- fix: BMVC compliance (ack, tables) + bib missing entries (a95ebc8)
+- docs: sync Overleaf submodule — paper skeleton (83f724c)
+- docs: add Specs & Roadmap section to CLAUDE.md (7b6d14c)
+
 ## 2026-04-26
 
 - docs: reflect Overleaf submodule in specs (e469714)

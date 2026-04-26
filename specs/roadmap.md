@@ -31,7 +31,7 @@ Status: ✅ Complete | ⚠️ Partial | ⏳ Pending
 | 9.1 | `src/evaluator.py` — temporal IoU, hit rate@k, LLM-judge | ⏳ |
 | 10.1 | `run_part1.py` — end-to-end RAG demo | ⏳ |
 | 10.2 | `run_part2.py` — full benchmark eval, both configs | ⏳ |
-| 11.1 | `report/main.tex` | ⏳ |
+| 11.1 | `overleaf/assets/vqa_benchmark.tex` — paper skeleton | ⚠️ |
 | 11.2 | `README.md` | ⏳ |
 
 ---
@@ -409,7 +409,7 @@ Fill these in after Phase 9. Both configs side by side, split by question type.
 ## Phase 11 — Report & README ⏳
 
 ### 11.1 — Report
-**File:** `overleaf/assets/` (git submodule → Overleaf; local mirror at `report/main.tex`)
+**File:** `overleaf/assets/vqa_benchmark.tex` (git submodule → Overleaf; sections in `overleaf/assets/sections/`)
 
 Overleaf submodule set up under `overleaf/` with sync scripts (`sync_overleaf.sh`, `push_to_overleaf.sh`, `check_status.sh`). Edit in Overleaf, pull via `sync_overleaf.sh`, push local changes via `push_to_overleaf.sh`.
 
