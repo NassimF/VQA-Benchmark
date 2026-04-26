@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-04-23
+
+- docs: fix roadmap discrepancies in phases 1-4 (75ef8f4)
+- docs: add frame interval and overlap rationale to Phase 4.2 (a2faf93)
+
+## 2026-04-22
+
+- docs: update CHANGELOG.md for Phase 1 completion (3f7ae76)
+- docs: mark Phase 1 complete in roadmap (e0e3213)
+
 ## 2026-04-22
 
 - data: all 60 VTTs + metadata downloaded (Phase 1.2 ✅) (6e7492b)
