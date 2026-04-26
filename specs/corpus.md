@@ -13,7 +13,7 @@ Status: ✓ = downloaded and processed | ⏳ = queued
 | CC BY-NC-SA 4.0 | Yes — academic use ✓ | Yes — benchmark must carry same license | MIT OCW, Stanford SEE |
 | CC BY 4.0 | No restriction | No restriction | NYU DL 2020 |
 
-**NC clause:** This project is academic coursework and non-commercial research — satisfied.
+**NC clause:** This project is non-commercial academic research — satisfied.
 
 **SA clause (publication-critical):** CC BY-NC-SA requires derivative works to carry the same license. The benchmark dataset includes transcript excerpts and Qwen2-VL frame captions derived from MIT and Stanford videos — those are derivative works.
 

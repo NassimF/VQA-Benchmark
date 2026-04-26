@@ -61,7 +61,7 @@ a# Tech Stack
 | Component | Tool | Version Pin | Reason |
 |-----------|------|-------------|--------|
 | Primary LLM | gpt-4o-mini (OpenAI) | openai `≥1.30` | Cost-effective; reliable structured JSON output for citations; fast |
-| Alternative LLMs | `utsa-llama`, `claude-haiku-4-5` | anthropic `≥0.28` | UTSA-hosted Llama avoids API cost; Claude Haiku as fallback |
+| Alternative LLMs | `claude-haiku-4-5`, `gpt-4o-mini` | anthropic `≥0.28` | Haiku / GPT-4o-mini as cost-effective fallbacks |
 | Output format | Structured JSON | — | More reliable than regex-parsing bracket citations `[1]`; allows strict schema validation |
 | Citation format | `[video_id @ mm:ss to mm:ss](youtube_deep_link)` | — | Prescribed by assignment; human-readable and directly verifiable |
 
@@ -74,7 +74,6 @@ a# Tech Stack
 | Draft QA generation | Claude / GPT-4 (strong model) | — | 15 drafts per lecture; stronger model produces better question diversity than gpt-4o-mini |
 | LLM judge | Claude / GPT-4 | — | Scores generated answers 1–5 for accuracy and grounding; more reliable than ROUGE for long-form answers |
 | Numeric evaluation | NumPy | `≥1.26` | Temporal IoU, hit rate@k computations |
-| IAA metrics | SciPy | `≥1.13` | Cohen's Kappa on `answerable` field for cross-student validation |
 
 ---
 
@@ -195,7 +194,6 @@ VQA_Benchmark/
 │   ├── generate_qa.py                 # CLI for LLM draft QA generation
 │   ├── build_benchmark.py             # merge reviewed QA → benchmark_v1.json
 │   ├── validate_benchmark.py          # schema + quality checks
-│   └── cross_validate.py             # IAA metrics for cross-student annotation
 │
 ├── notebooks/
 │   ├── 01_transcription_exploration.ipynb

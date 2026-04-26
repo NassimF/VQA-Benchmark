@@ -27,12 +27,11 @@ Status: ✅ Complete | ⚠️ Partial | ⏳ Pending
 | 7.2 | `scripts/generate_qa.py` — CLI for draft generation | ⏳ |
 | 7.3 | Human review — populate `data/qa_pairs/reviewed/` | ⏳ |
 | 7.4 | `scripts/build_benchmark.py` + `validate_benchmark.py` | ⏳ |
-| 8.1 | `scripts/cross_validate.py` + annotate received QA pairs | ⏳ |
-| 9.1 | `src/evaluator.py` — temporal IoU, hit rate@k, LLM-judge | ⏳ |
-| 10.1 | `run_part1.py` — end-to-end RAG demo | ⏳ |
-| 10.2 | `run_part2.py` — full benchmark eval, both configs | ⏳ |
-| 11.1 | `overleaf/assets/vqa_benchmark.tex` — paper skeleton | ⚠️ |
-| 11.2 | `README.md` | ⏳ |
+| 8.1 | `src/evaluator.py` — temporal IoU, hit rate@k, LLM-judge | ⏳ |
+| 9.1 | `run_part1.py` — end-to-end RAG demo | ⏳ |
+| 9.2 | `run_part2.py` — full benchmark eval, both configs | ⏳ |
+| 10.1 | `overleaf/assets/vqa_benchmark.tex` — conference paper | ⚠️ |
+| 10.2 | `README.md` | ⏳ |
 
 ---
 
@@ -277,30 +276,13 @@ Target: 12 accepted per lecture. Reject if answer < 10 words or is verbatim in t
 
 **Git checkpoint:** `data: reviewed QA pairs, all lectures`
 
-**Paper reminder — `sections/benchmark.tex`:** Draft the Benchmark Contribution section now (~1 page): lecture selection rationale, QA generation process, human review procedure, QA type breakdown table (multi-hop / conceptual / factual / visual / unanswerable counts), IAA numbers from Phase 8.
+**Paper reminder — `sections/benchmark.tex`:** Draft the Benchmark Contribution section now (~1 page): lecture selection rationale, QA generation process, human review procedure, QA type breakdown table (multi-hop / conceptual / factual / visual / unanswerable counts).
 
 ---
 
-## Phase 8 — Cross-Student Validation ⏳
+## Phase 8 — Evaluation ⏳
 
-### 8.1 — IAA script + annotation
-**File:** `scripts/cross_validate.py`
-
-Receive 5 QA pairs written by a classmate. For each:
-1. Annotate: verify answer by watching the span, check span accuracy, flag if unanswerable
-2. Record annotations in the same JSON schema
-
-`cross_validate.py` computes:
-- **Cohen's Kappa** on `answerable` field between your annotation and the original author's
-- **Mean temporal IoU** between your annotated spans and the original spans
-
-**Git checkpoint:** `data: cross-validation annotations (Phase 8)`
-
----
-
-## Phase 9 — Evaluation ⏳
-
-### 9.1 — Evaluator module
+### 8.1 — Evaluator module
 **File:** `src/evaluator.py`
 
 Implements all required metrics:
@@ -365,7 +347,7 @@ Runs both configs × all verified questions; saves per-question results to `data
 
 ## Report Results Tables
 
-Fill these in after Phase 9. Both configs side by side, split by question type.
+Fill these in after Phase 8. Both configs side by side, split by question type.
 
 ### Single-hop questions
 
@@ -392,7 +374,7 @@ Fill these in after Phase 9. Both configs side by side, split by question type.
 | LLM-Judge Score (1–5) | | |
 | Citation Accuracy | | |
 
-**Git checkpoint:** `feat: evaluation pipeline (Phase 9)`
+**Git checkpoint:** `feat: evaluation pipeline (Phase 8)`
 
 **Paper reminder — `sections/results.tex`:** Fill the results tables (both configs side by side) from `data/benchmark/evaluation_results.json`. Include failure mode analysis — if transcript+frames ≤ transcript-only, explain likely cause (generic Qwen2-VL captions on slides).
 
@@ -404,9 +386,9 @@ Fill these in after Phase 9. Both configs side by side, split by question type.
 
 ---
 
-## Phase 10 — Deliverable Scripts ⏳
+## Phase 9 — Deliverable Scripts ⏳
 
-### 10.1 — Demo script
+### 9.1 — Demo script
 **File:** `run_part1.py`
 
 - Accepts a question via `argparse` (or uses 3 hardcoded examples if none provided)
@@ -414,7 +396,7 @@ Fill these in after Phase 9. Both configs side by side, split by question type.
 - Uses `print` for output (not `logging`) — this is the demo entrypoint
 - Example citation output: `[mit_6046_lec10 @ 30:23 to 31:41](https://youtu.be/Tw1k46ywN6E?t=1823)`
 
-### 10.2 — Full evaluation script
+### 9.2 — Full evaluation script
 **File:** `run_part2.py`
 
 - Runs full eval loop: both configs × all benchmark questions
@@ -422,13 +404,13 @@ Fill these in after Phase 9. Both configs side by side, split by question type.
 - Saves `data/benchmark/evaluation_results.json`
 - Generates summary plots for the report
 
-**Git checkpoint:** `feat: run_part1 and run_part2 (Phase 10)`
+**Git checkpoint:** `feat: run_part1 and run_part2 (Phase 9)`
 
 ---
 
-## Phase 11 — Report & README ⏳
+## Phase 10 — Report & README ⏳
 
-### 11.1 — Report
+### 10.1 — Report
 **File:** `overleaf/assets/vqa_benchmark.tex` (git submodule → Overleaf; sections in `overleaf/assets/sections/`)
 
 Overleaf submodule set up under `overleaf/` with sync scripts (`sync_overleaf.sh`, `push_to_overleaf.sh`, `check_status.sh`). Edit in Overleaf, pull via `sync_overleaf.sh`, push local changes via `push_to_overleaf.sh`.
@@ -439,7 +421,7 @@ Overleaf submodule set up under `overleaf/` with sync scripts (`sync_overleaf.sh
 | Introduction | ~0.5 page | Motivation, gap in long-video QA |
 | Related Work | ~0.75 page | Video QA benchmarks, temporal grounding, RAG, Whisper |
 | Pipeline | ~1 page | Transcription, chunking, frame captions, retrieval, generation — every parameter justified |
-| Benchmark Contribution | ~1 page | Lecture selection, QA generation, IAA numbers, QA type breakdown |
+| Benchmark Contribution | ~1 page | Lecture selection, QA generation, QA type breakdown |
 | Results | ~1 page | Both configs side-by-side; failure mode analysis |
 | Conclusion | ~0.25 page | Limitations, future work |
 
@@ -447,15 +429,14 @@ Every parameter choice (window size, overlap, k values, embedding model, frame i
 
 **Dataset release note:** License as CC BY-NC-SA 4.0 — required by the ShareAlike clause of the MIT OCW and Stanford SEE source material.
 
-### 11.2 — README
+### 10.2 — README
 **File:** `README.md`
 
-- Declares Track C
 - Setup instructions (Python env, system deps: ffmpeg, yt-dlp)
 - Usage: `run_part1.py` and `run_part2.py`
 - Dataset description and license
 
-**Git checkpoint:** `docs: final report and README (Phase 11)`
+**Git checkpoint:** `docs: final report and README (Phase 10)`
 
 ---
 

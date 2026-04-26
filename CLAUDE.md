@@ -1,7 +1,7 @@
 # CLAUDE.md
 
 ## Project
-**Long-Lecture Video RAG Benchmark** — Track C, CS 6263 Assignment 4, UTSA.
+**Long-Lecture Video RAG Benchmark** — a conference paper project.
 GitHub: https://github.com/NassimF/VQA-Benchmark
 
 The user is new to RAG systems. When introducing RAG-related concepts for the first time,

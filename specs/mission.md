@@ -4,16 +4,6 @@
 
 **Long-Lecture Video RAG Benchmark** — a retrieval-augmented generation benchmark built on CC-licensed academic lecture videos, evaluating a system's ability to retrieve temporally grounded answers from long-form educational content.
 
-## Course Context
-
-| | |
-|---|---|
-| Course | CS 6263 LLM and Agentic Systems, UTSA |
-| Track | C — Long-Lecture Video RAG and Benchmark Construction |
-| Instructor | Dr. Peyman Najafirad |
-| TA | Mohammad Bahrami |
-| GitHub | https://github.com/NassimF/VQA-Benchmark |
-
 ## Publication Goal
 
 Build a benchmark at full venue quality for submission to EMNLP, ACL, or NeurIPS (datasets track):
@@ -67,6 +57,5 @@ Every generated answer cites `[video_id @ mm:ss to mm:ss]` with a YouTube deep l
 | `run_part1.py` — end-to-end RAG demo | ⏳ |
 | `run_part2.py` — full benchmark evaluation (both retrieval configs) | ⏳ |
 | `data/benchmark/benchmark_v1.json` (12–15 QA × 60 lectures) | ⏳ |
-| Cross-validation annotations (5 questions from a classmate) | ⏳ |
-| 4–6 page report (`report/main.tex`) | ⏳ |
-| `README.md` (declares Track C, setup and usage instructions) | ⏳ |
+| Conference paper (`report/main.tex`) | ⏳ |
+| `README.md` (setup and usage instructions, dataset description) | ⏳ |
