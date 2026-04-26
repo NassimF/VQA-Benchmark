@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-04-26
+
+- docs: reflect Overleaf submodule in specs (e469714)
+- docs: update CHANGELOG.md (2b08e1a)
+- Add Overleaf submodule under overleaf/ (e12f6e8)
+
 ## 2026-04-23
 
 - docs: fix roadmap discrepancies in phases 1-4 (75ef8f4)
