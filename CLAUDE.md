@@ -17,6 +17,8 @@ The `specs/` directory is the project constitution — read it before starting a
 
 Keep specs in sync with any implementation changes. Run `/changelog` before merging.
 
+**Overleaf sync rule:** Any time `overleaf/assets/` is edited (locally or in Overleaf), follow the workflow in `overleaf/Overleaf sync instructions.md` before committing. Never commit submodule changes without syncing first.
+
 ## Language & Style
 - Python 3.10+
 - Type hints on all function signatures

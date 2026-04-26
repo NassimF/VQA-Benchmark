@@ -415,6 +415,8 @@ Fill these in after Phase 8. Both configs side by side, split by question type.
 
 Overleaf submodule set up under `overleaf/` with sync scripts (`sync_overleaf.sh`, `push_to_overleaf.sh`, `check_status.sh`). Edit in Overleaf, pull via `sync_overleaf.sh`, push local changes via `push_to_overleaf.sh`.
 
+> **Sync rule:** Any time `overleaf/assets/` is edited — locally or in Overleaf — follow the workflow in `overleaf/Overleaf sync instructions.md` before committing. Do not commit changes to the submodule without syncing first.
+
 | Section | Target length | Content |
 |---------|--------------|---------|
 | Abstract | ~150 words | What was built, key metrics |
