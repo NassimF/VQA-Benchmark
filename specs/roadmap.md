@@ -63,6 +63,8 @@ Status: ✅ Complete | ⚠️ Partial | ⏳ Pending
 
 **Git checkpoint:** `feat: project skeleton and docs`
 
+**Paper reminder — `sections/related_work.tex`:** Literature review is complete. Draft the Related Work section now (~0.75 page): Video QA benchmarks (ActivityNet-QA, NExT-QA, EgoSchema), temporal grounding (Gao et al. 2017, 2D-TAN, Moment-DETR), RAG (Lewis et al. 2020, REALM, REPLUG), Whisper (Radford 2023), educational video QA (LectureSQA), multimodal retrieval (CLIP, Qwen2-VL).
+
 ---
 
 ## Phase 1 — Video Collection ✅
@@ -119,6 +121,8 @@ Quality checks:
 
 **Git checkpoint:** `feat: transcription pipeline (Phase 2)`
 
+**Paper reminder — `sections/pipeline.tex` (transcription):** Add the Transcription subsection: YouTube auto-captions chosen over Whisper, VTT phrase-level timestamps (~3s/segment), deduplication of rolling-caption cues. Justify the choice (saves ~1–2 GPU-hours/lecture; timestamps sufficient for 45s chunks).
+
 ---
 
 ## Phase 3 — Chunking ⚠️ (4/60 complete; 3.2 pending)
@@ -146,6 +150,8 @@ Unit tests: 8/8 passing — verified overlap (segment at 40s in two chunks), bou
 **Report justification:** 45s captures one complete concept explanation; 10s overlap prevents answers from falling at chunk boundaries.
 
 **Git checkpoint:** `feat: chunking pipeline (Phase 3)`
+
+**Paper reminder — `sections/pipeline.tex` (chunking):** Add the Chunking subsection: 45s windows, 10s overlap (stride 35s), half-open interval assignment, empty-window skipping. Justify: 45s captures one complete concept; 10s overlap prevents answers falling at chunk boundaries.
 
 ---
 
@@ -179,6 +185,8 @@ A frame can be assigned to more than one chunk. Because chunk windows overlap by
 
 **Git checkpoint:** `feat: frame caption pipeline (Phase 4)`
 
+**Paper reminder — `sections/pipeline.tex` (frame captions):** Add the Frame Caption subsection: 1 frame every 30s via ffmpeg, Qwen2-VL-7B-Instruct in bfloat16 on A100, Approach A (captions appended to chunk text). Justify: Qwen2-VL reads slide text and equations; Approach A keeps both collections under the same embedding model as prescribed.
+
 ---
 
 ## Phase 5 — RAG Ingestion ⏳
@@ -204,6 +212,8 @@ Metadata stored per chunk: `video_id`, `start_time`, `end_time`, `chunk_id`
 - CLI: `python scripts/build_index.py --all [--rebuild]`
 
 **Git checkpoint:** `feat: RAG ingestion, both configs (Phase 5)`
+
+**Paper reminder — `sections/pipeline.tex` (retrieval):** Add the Retrieval subsection: two ChromaDB collections, all-MiniLM-L6-v2 embeddings (prescribed), cosine distance, top-k=4. Finalize and review the full Pipeline section — it should now be complete.
 
 ---
 
@@ -266,6 +276,8 @@ Target: 12 accepted per lecture. Reject if answer < 10 words or is verbatim in t
 - `validate_benchmark.py`: checks schema completeness, span validity, `num_hops` consistency, unanswerable count per lecture
 
 **Git checkpoint:** `data: reviewed QA pairs, all lectures`
+
+**Paper reminder — `sections/benchmark.tex`:** Draft the Benchmark Contribution section now (~1 page): lecture selection rationale, QA generation process, human review procedure, QA type breakdown table (multi-hop / conceptual / factual / visual / unanswerable counts), IAA numbers from Phase 8.
 
 ---
 
@@ -381,6 +393,14 @@ Fill these in after Phase 9. Both configs side by side, split by question type.
 | Citation Accuracy | | |
 
 **Git checkpoint:** `feat: evaluation pipeline (Phase 9)`
+
+**Paper reminder — `sections/results.tex`:** Fill the results tables (both configs side by side) from `data/benchmark/evaluation_results.json`. Include failure mode analysis — if transcript+frames ≤ transcript-only, explain likely cause (generic Qwen2-VL captions on slides).
+
+**Paper reminder — `sections/introduction.tex`:** Draft Introduction now that results are known (~0.5 page): motivate long-video RAG benchmarks, state the gap, summarise contributions and key findings.
+
+**Paper reminder — `sections/conclusion.tex`:** Draft Conclusion (~0.25 page): summarise findings, limitations (corpus size, single embedding model), future work (larger corpus, multimodal retrieval).
+
+**Paper reminder — `sections/abstract.tex`:** Write Abstract last (~150 words): what was built, key metrics from results tables, one-sentence contribution claim.
 
 ---
 
