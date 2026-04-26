@@ -7,6 +7,16 @@ GitHub: https://github.com/NassimF/VQA-Benchmark
 The user is new to RAG systems. When introducing RAG-related concepts for the first time,
 include a brief plain-English explanation before diving into implementation details.
 
+## Specs & Roadmap
+The `specs/` directory is the project constitution — read it before starting any task:
+- `specs/roadmap.md` — phase-by-phase plan with statuses (✅/⚠️/⏳); always check for the current phase
+- `specs/tech-stack.md` — tools, dependencies, project directory structure, config reference
+- `specs/corpus.md` — full 60-video library with licensing and metadata
+- `specs/mission.md` — project goals and required deliverables
+- `specs/YYYY-MM-DD-<feature>/` — per-feature plan, requirements, and validation docs
+
+Keep specs in sync with any implementation changes. Run `/changelog` before merging.
+
 ## Language & Style
 - Python 3.10+
 - Type hints on all function signatures
