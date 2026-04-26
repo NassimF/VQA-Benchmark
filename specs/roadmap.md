@@ -409,7 +409,9 @@ Fill these in after Phase 9. Both configs side by side, split by question type.
 ## Phase 11 — Report & README ⏳
 
 ### 11.1 — Report
-**File:** `report/main.tex`
+**File:** `overleaf/assets/` (git submodule → Overleaf; local mirror at `report/main.tex`)
+
+Overleaf submodule set up under `overleaf/` with sync scripts (`sync_overleaf.sh`, `push_to_overleaf.sh`, `check_status.sh`). Edit in Overleaf, pull via `sync_overleaf.sh`, push local changes via `push_to_overleaf.sh`.
 
 | Section | Target length | Content |
 |---------|--------------|---------|

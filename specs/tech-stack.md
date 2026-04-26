@@ -208,7 +208,13 @@ VQA_Benchmark/
 │   ├── test_retriever.py
 │   └── test_evaluator.py
 │
-└── report/
-    ├── main.tex
-    └── figures/
+├── report/
+│   ├── main.tex
+│   └── figures/
+│
+└── overleaf/                          # Overleaf integration
+    ├── assets/                        # git submodule → git.overleaf.com
+    ├── sync_overleaf.sh               # pull from Overleaf
+    ├── push_to_overleaf.sh            # push to Overleaf
+    └── check_status.sh                # diff status
 ```
