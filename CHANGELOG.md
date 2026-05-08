@@ -2,6 +2,10 @@
 
 ## 2026-05-08
 
+- docs: update CHANGELOG.md (22d6993)
+
+## 2026-05-08
+
 - docs: record open decision on Phase 7.3 QA review method (255a97d)
 - docs: update CHANGELOG.md — fix (latest) tag, add phase 4.2 notes (4ff36dd)
 
