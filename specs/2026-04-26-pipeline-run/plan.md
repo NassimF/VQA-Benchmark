@@ -1,44 +1,26 @@
 # Plan — Full Pipeline Run (Phases 2.2, 3.2, 4.2)
 
-## Current Status (as of 2026-04-26)
+## Current Status (as of 2026-05-08)
 
 | Task Group | Status | Notes |
 |------------|--------|-------|
 | 1 — VTT Parsing (2.2) | ✅ Done | 60/60 transcripts in `data/transcripts/` |
 | 2 — Chunking (3.2) | ✅ Done | 60/60 chunk files in `data/chunks/` |
-| 3 — Frame Captions (4.2) | ⏳ Blocked | System fork limit (~90K processes); see below |
-| 4 — Validation & Merge | ⏳ Pending | Awaiting Task Group 3 |
+| 3 — Frame Captions (4.2) | ✅ Done | 60/60 frame caption + augmented chunk files; 17,180 total captions |
+| 4 — Validation & Merge | ✅ Done | All checks passed; committed 8a811bb; pushed to remote |
 
-### Resuming Phase 4.2 after system load drops
+### Completion notes (2026-05-08)
 
-Before running, verify ffmpeg can fork with this quick test:
-```bash
-ffmpeg -threads 1 -ss 30 -i data/raw/videos/mit_6046_lec10.mp4 -frames:v 1 -threads 1 -q:v 2 /tmp/test_frame.jpg && echo "OK"
-```
-
-If the test passes, run:
-```bash
-OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python scripts/build_frame_captions.py --all --device cuda >> logs/phase4_2_frame_captions.log 2>&1
-```
-
-The script skips videos whose `data/frame_captions/{video_id}_frame_captions.json` already
-exists — safe to re-run after a partial failure.
-
-**Note on existing 4 frame caption files:** The 4 files already in `data/frame_captions/`
-(mit_6046_lec10, mit_18065_lec06, nyu_dl_week6, nyu_dl_week7) were produced under the old
-30s interval with the old nearest-midpoint schema (`frame_caption` scalar field). They must
-be regenerated with the new 15s interval + all-in-window schema (`frame_captions` list).
-Delete them before running so the skip logic re-processes them:
-```bash
-rm data/frame_captions/*.json data/chunks/*_chunks_augmented.json
-```
-
-**What was fixed in this session (already in current code):**
-- `src/frame_extractor.py` — added `-threads 1` to ffmpeg input and output args
-- `scripts/build_frame_captions.py` — fixed `ValueError: min() arg is an empty sequence`
-  in fallback path; switched augmented chunks to `frame_captions` list schema
-- `data/raw/metadata.json` — corrected 43 entries with wrong `.mp4` extension
-  (actual files are `.webm`/`.mkv`)
+**Issues encountered and fixed during run:**
+- `spec-kit-mcp` runaway (~90K processes) blocked forking → removed from `/root/.claude.json`
+- `qwen_vl_utils` not installed for system Python 3.10 → `python3 -m pip install qwen-vl-utils`
+- `transformers` 5.x incompatible with torch 2.3 → pinned to `transformers>=4.45,<5.0`
+- `UnicodeEncodeError` on JSON write (math symbols in captions) → added `encoding="utf-8"` to `write_text()`
+- Skip logic missing from `main()` → added check before calling `process()`
+- `mit_6046_lec10` had 0-byte output file (pre-fix run) → deleted and reprocessed
+- conda env `vqa-benchmark` created for reproducible future runs; system Python used for actual run
+  (conda torch 2.5.1+cu121 had cuDNN mismatch with this machine's CUDA 12.4)
+- Required env vars: `OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python`
 
 ---
 
