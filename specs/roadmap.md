@@ -243,6 +243,12 @@ Metadata stored per chunk: `video_id`, `start_time`, `end_time`, `chunk_id`
 
 ## Phase 7 — QA Generation & Review ⏳
 
+> ⚠️ **Stop before Phase 7.3.** The QA review/evaluation method is undecided.
+> Phases 7.1 and 7.2 are safe to run — they only generate raw QA pairs and are
+> independent of the review method. Do not proceed to 7.3 or beyond until the
+> evaluation approach is confirmed. See `specs/tech-stack.md` → "Open Decision —
+> Phase 7.3 QA Review Method" for full analysis and recommendation.
+
 ### 7.1 — QA generator module
 **File:** `src/qa_generator.py`
 
@@ -256,16 +262,25 @@ Metadata stored per chunk: `video_id`, `start_time`, `end_time`, `chunk_id`
 - CLI: `python scripts/generate_qa.py --video_id <id>` or `--all`
 - Saves raw drafts to `data/qa_pairs/raw/{video_id}_qa_raw.json`
 
-### 7.3 — Human review
-For each lecture:
-1. Open `data/qa_pairs/raw/{video_id}_qa_raw.json`
-2. Watch each cited video span (YouTube deep link in draft)
-3. Verify or correct the answer; tighten `ground_truth_spans` to exact evidence window
-4. Add 2–4 visual-dependent questions (slide text, whiteboard equations) the LLM missed
-5. Mark exactly 1 question `"answerable": false`
-6. Save accepted questions to `data/qa_pairs/reviewed/{video_id}_qa_reviewed.json`
+### 7.3 — QA Review ⚠️ STOP — evaluation method undecided
 
-Target: 12 accepted per lecture. Reject if answer < 10 words or is verbatim in the question.
+> **Do not implement Phase 7.3 without explicit user approval.**
+>
+> The review/evaluation method is under discussion. Original plan was human review.
+> Proposed change: replace with a strong LLM (GPT-4o / Claude Opus) given access to
+> source chunks + augmented captions to evaluate QA quality automatically.
+>
+> **Key open questions before proceeding:**
+> 1. How to handle `ground_truth_spans` tightening — LLMs cannot reliably produce exact timestamps; human spot-check may still be needed for spans
+> 2. Whether to use `transcript_only` chunks or `transcript_plus_frames` (augmented) as context for the evaluator LLM
+> 3. Circularity risk: same model family generating and evaluating QA pairs
+> 4. Multi-hop verification: LLMs often miss cases where a "multi-hop" question is answerable from a single span
+>
+> **Resume here after the evaluation method is decided.**
+
+~~Human review (original plan):~~
+~~For each lecture: open raw QA, watch cited spans, tighten ground_truth_spans, add visual questions, mark 1 unanswerable, save to `data/qa_pairs/reviewed/`.~~
+~~Target: 12 accepted per lecture.~~
 
 **Target question mix per lecture:**
 

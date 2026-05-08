@@ -75,6 +75,39 @@ a# Tech Stack
 | LLM judge | Claude / GPT-4 | — | Scores generated answers 1–5 for accuracy and grounding; more reliable than ROUGE for long-form answers |
 | Numeric evaluation | NumPy | `≥1.26` | Temporal IoU, hit rate@k computations |
 
+### ⚠️ Open Decision — Phase 7.3 QA Review Method
+
+**Status:** Undecided. Do not implement Phase 7.3 until resolved.
+
+**Proposed change:** Replace human review (original plan) with a strong LLM (GPT-4o / Claude Opus) given access to source chunks + augmented captions to evaluate and filter the raw QA pairs automatically.
+
+**Why this is appealing:**
+- Scales to 900 pairs (60 videos × 15) without manual effort
+- Consistent scoring — no inter-annotator variability
+- LLM can verify factual accuracy against the chunk text it generated from
+
+**Problems and concerns:**
+
+1. **Ground truth span tightening (critical):** Phase 7.3 is not just quality scoring — it also tightens `ground_truth_spans` to exact `start_time`/`end_time` timestamps. An LLM reading text chunks cannot reliably produce precise video timestamps. If spans remain as LLM estimates, temporal IoU scores in Phase 8 measure noise, not retrieval quality.
+
+2. **Circularity risk:** The same model family that generated the QA pairs evaluates them. Systematic blind spots are shared — both models may miss the same errors or favor the same phrasing. Using a *different* model (e.g. GPT-4o evaluating Claude-generated pairs) reduces but does not eliminate this.
+
+3. **Multi-hop verification:** Confirming a question genuinely requires 2+ non-adjacent spans is subtle. LLMs often fail to detect cases where a "multi-hop" question is actually answerable from a single span, inflating the multi-hop count.
+
+4. **Visual-dependent questions:** An LLM evaluating text-only chunks cannot verify whether a question truly requires a frame caption. Must use augmented chunks (`transcript_plus_frames`) as context for this to work at all.
+
+5. **Unanswerable question verification:** Confirming exactly 1 unanswerable question per lecture requires careful cross-checking against all chunk content — an LLM may miss partial answers scattered across chunks.
+
+6. **Academic validity:** LLM-judged benchmarks are increasingly accepted in NLP (MT-Bench, AlpacaEval) but may be questioned by reviewers for a benchmark contribution paper. The claim "human-verified ground truth" is stronger than "LLM-verified."
+
+**Recommendation:**
+Use LLM evaluation for answer quality scoring (replacing the 1–5 human quality judgment), but retain human review specifically for:
+- Tightening `ground_truth_spans` timestamps (cannot be reliably automated)
+- Multi-hop span verification (confirm each hop is genuinely necessary)
+- Spot-checking unanswerable questions
+
+This hybrid approach keeps the benchmark credible for the paper while reducing manual effort from ~900 full reviews to targeted span corrections only.
+
 ---
 
 ## Prescribed Hyperparameters
