@@ -1,0 +1,5456 @@
+{
+  "video_id": "mit_6006sp20_lec07",
+  "source": "youtube_auto_captions",
+  "segments": [
+    {
+      "start": 14.629,
+      "end": 18.429,
+      "text": "all right welcome back to data"
+    },
+    {
+      "start": 18.429,
+      "end": 21.39,
+      "text": "structures land today we continue and"
+    },
+    {
+      "start": 21.39,
+      "end": 23.87,
+      "text": "complete our segment on binary trees so"
+    },
+    {
+      "start": 23.87,
+      "end": 26.79,
+      "text": "this is part two if you missed part one"
+    },
+    {
+      "start": 26.79,
+      "end": 30.349,
+      "text": "go back and watch part one um last time"
+    },
+    {
+      "start": 30.349,
+      "end": 35.069,
+      "text": "we talked about binary trees in general"
+    },
+    {
+      "start": 35.069,
+      "end": 37.19,
+      "text": "uh we had uh each node stored an item uh"
+    },
+    {
+      "start": 37.19,
+      "end": 38.79,
+      "text": "which and also a left pointer and a"
+    },
+    {
+      "start": 38.79,
+      "end": 41.549,
+      "text": "right pointer to other nodes and a"
+    },
+    {
+      "start": 41.549,
+      "end": 45.27,
+      "text": "parent pointer to another node uh this"
+    },
+    {
+      "start": 45.27,
+      "end": 48.31,
+      "text": "was an example of a tree B and C or A's"
+    },
+    {
+      "start": 48.31,
+      "end": 50.43,
+      "text": "children a is the parent of B and C and"
+    },
+    {
+      "start": 50.43,
+      "end": 52.11,
+      "text": "also the root of the entire tree we"
+    },
+    {
+      "start": 52.11,
+      "end": 53.549,
+      "text": "defined the height of a node we didn't"
+    },
+    {
+      "start": 53.549,
+      "end": 55.349,
+      "text": "use this too much yet but we're going to"
+    },
+    {
+      "start": 55.349,
+      "end": 58.59,
+      "text": "use it a lot today so remember the"
+    },
+    {
+      "start": 58.59,
+      "end": 61.43,
+      "text": "height is as drawn in red here um height"
+    },
+    {
+      "start": 61.43,
+      "end": 63.869,
+      "text": "of the node is the length of the longest"
+    },
+    {
+      "start": 63.869,
+      "end": 65.71,
+      "text": "downward path counting edges so B for"
+    },
+    {
+      "start": 65.71,
+      "end": 67.83,
+      "text": "example has a length two path so we"
+    },
+    {
+      "start": 67.83,
+      "end": 71.27,
+      "text": "write a two here you can also think of"
+    },
+    {
+      "start": 71.27,
+      "end": 75.789,
+      "text": "it is if you just live within the sub"
+    },
+    {
+      "start": 75.789,
+      "end": 77.789,
+      "text": "tree rooted at b b's subtree uh then uh"
+    },
+    {
+      "start": 77.789,
+      "end": 79.19,
+      "text": "what is the maximum depth of those nodes"
+    },
+    {
+      "start": 79.19,
+      "end": 81.51,
+      "text": "if you prefer to think about it that way"
+    },
+    {
+      "start": 81.51,
+      "end": 84.10900000000001,
+      "text": "either way is fine um and in particular"
+    },
+    {
+      "start": 84.10900000000001,
+      "end": 86.31,
+      "text": "we distinguished H the height of the"
+    },
+    {
+      "start": 86.31,
+      "end": 88.83,
+      "text": "root node as the height of the entire"
+    },
+    {
+      "start": 88.83,
+      "end": 91.069,
+      "text": "tree and what we achieved last time was"
+    },
+    {
+      "start": 91.069,
+      "end": 95.63,
+      "text": "basically all of our operations ran in"
+    },
+    {
+      "start": 95.63,
+      "end": 98.27000000000001,
+      "text": "order H time so um we had subtree insert"
+    },
+    {
+      "start": 98.27000000000001,
+      "end": 99.59,
+      "text": "subtree delete subtree first and last we"
+    },
+    {
+      "start": 99.59,
+      "end": 102.63,
+      "text": "could compute the predecessor and"
+    },
+    {
+      "start": 102.63,
+      "end": 106.99000000000001,
+      "text": "successor of a node all in order H time"
+    },
+    {
+      "start": 106.99000000000001,
+      "end": 109.03,
+      "text": "so as long as H was small uh we were"
+    },
+    {
+      "start": 109.03,
+      "end": 110.91,
+      "text": "happy um and remember what does"
+    },
+    {
+      "start": 110.91,
+      "end": 113.22999999999999,
+      "text": "predecessor and successor mean it's"
+    },
+    {
+      "start": 113.22999999999999,
+      "end": 115.55,
+      "text": "talking about an implicit order in the"
+    },
+    {
+      "start": 115.55,
+      "end": 118.55,
+      "text": "tree which is what we call traversal"
+    },
+    {
+      "start": 118.55,
+      "end": 121.35,
+      "text": "order which is defined recursively as"
+    },
+    {
+      "start": 121.35,
+      "end": 123.19,
+      "text": "recursively Traverse left sub tree then"
+    },
+    {
+      "start": 123.19,
+      "end": 125.95,
+      "text": "output the root then recursively"
+    },
+    {
+      "start": 125.95,
+      "end": 130.51,
+      "text": "Traverse the right sub tree so in this"
+    },
+    {
+      "start": 130.51,
+      "end": 132.63,
+      "text": "example the traversal order is f is the"
+    },
+    {
+      "start": 132.63,
+      "end": 135.91,
+      "text": "if you go all the way left that was the"
+    },
+    {
+      "start": 135.91,
+      "end": 139.589,
+      "text": "first in the traversal order uh then we"
+    },
+    {
+      "start": 139.589,
+      "end": 142.91,
+      "text": "have right make some space here uh then"
+    },
+    {
+      "start": 142.91,
+      "end": 145.75,
+      "text": "we have D then we have"
+    },
+    {
+      "start": 145.75,
+      "end": 146.67000000000002,
+      "text": "B then we do the right sub tree of B"
+    },
+    {
+      "start": 146.67000000000002,
+      "end": 150.22899999999998,
+      "text": "which is"
+    },
+    {
+      "start": 150.22899999999998,
+      "end": 152.22899999999998,
+      "text": "e then we have the root because we"
+    },
+    {
+      "start": 152.22899999999998,
+      "end": 156.03,
+      "text": "finished the left sub tree of the root"
+    },
+    {
+      "start": 156.03,
+      "end": 158.589,
+      "text": "so that's a and then we have"
+    },
+    {
+      "start": 158.589,
+      "end": 161.50900000000001,
+      "text": "C okay so there's an implicit linear"
+    },
+    {
+      "start": 161.50900000000001,
+      "end": 163.43,
+      "text": "order encoded by this tree and the whole"
+    },
+    {
+      "start": 163.43,
+      "end": 165.869,
+      "text": "point of binary trees is that we can"
+    },
+    {
+      "start": 165.869,
+      "end": 167.869,
+      "text": "efficiently update the tree uh much"
+    },
+    {
+      "start": 167.869,
+      "end": 169.55,
+      "text": "faster than we could explicitly write"
+    },
+    {
+      "start": 169.55,
+      "end": 173.47,
+      "text": "down an order in an array or something"
+    },
+    {
+      "start": 173.47,
+      "end": 175.55,
+      "text": "like that so binary trees let us quickly"
+    },
+    {
+      "start": 175.55,
+      "end": 177.35,
+      "text": "Now quickly is not so quick right now"
+    },
+    {
+      "start": 177.35,
+      "end": 179.19,
+      "text": "because everything is order H and in the"
+    },
+    {
+      "start": 179.19,
+      "end": 184.91,
+      "text": "worst case h is linear because we could"
+    },
+    {
+      "start": 184.91,
+      "end": 187.63,
+      "text": "this but today we're going to make we're"
+    },
+    {
+      "start": 187.63,
+      "end": 189.43,
+      "text": "going to guarantee that H is log n and"
+    },
+    {
+      "start": 189.43,
+      "end": 191.50900000000001,
+      "text": "so the goal of today is to take all of"
+    },
+    {
+      "start": 191.50900000000001,
+      "end": 193.91,
+      "text": "these operations that run in order H"
+    },
+    {
+      "start": 193.91,
+      "end": 195.309,
+      "text": "time and get them to run in order log n"
+    },
+    {
+      "start": 195.309,
+      "end": 196.63,
+      "text": "time just by modifying the data"
+    },
+    {
+      "start": 196.63,
+      "end": 198.22899999999998,
+      "text": "structure we've already seen so we've"
+    },
+    {
+      "start": 198.22899999999998,
+      "end": 200.27,
+      "text": "done a lot of the hard work just a"
+    },
+    {
+      "start": 200.27,
+      "end": 204.19,
+      "text": "little bit more work we need to do today"
+    },
+    {
+      "start": 204.19,
+      "end": 206.91,
+      "text": "in something called AVL trees or height"
+    },
+    {
+      "start": 206.91,
+      "end": 208.869,
+      "text": "balance okay but before we get there I"
+    },
+    {
+      "start": 208.869,
+      "end": 210.99,
+      "text": "want to talk a little bit more at the"
+    },
+    {
+      "start": 210.99,
+      "end": 212.82999999999998,
+      "text": "very end of last leure we talked about"
+    },
+    {
+      "start": 212.82999999999998,
+      "end": 215.47,
+      "text": "once you have these subtree operations"
+    },
+    {
+      "start": 215.47,
+      "end": 217.55,
+      "text": "so I can insert and delete into subtree"
+    },
+    {
+      "start": 217.55,
+      "end": 219.149,
+      "text": "um how do I actually use that to solve"
+    },
+    {
+      "start": 219.149,
+      "end": 221.07,
+      "text": "the problems that we care about in this"
+    },
+    {
+      "start": 221.07,
+      "end": 225.47,
+      "text": "class which are sequence data structure"
+    },
+    {
+      "start": 225.47,
+      "end": 227.35,
+      "text": "and set data structure so um we talked"
+    },
+    {
+      "start": 227.35,
+      "end": 229.35,
+      "text": "mostly about the set data structure last"
+    },
+    {
+      "start": 229.35,
+      "end": 232.50900000000001,
+      "text": "time so in general we're going to Define"
+    },
+    {
+      "start": 232.50900000000001,
+      "end": 237.19,
+      "text": "what traversal order we maintain by a"
+    },
+    {
+      "start": 237.19,
+      "end": 238.82999999999998,
+      "text": "binary tree and so for a set um because"
+    },
+    {
+      "start": 238.82999999999998,
+      "end": 240.229,
+      "text": "we're for the set interface we're"
+    },
+    {
+      "start": 240.229,
+      "end": 242.03,
+      "text": "interested in doing"
+    },
+    {
+      "start": 242.03,
+      "end": 244.63,
+      "text": "uh queries like find next and find"
+    },
+    {
+      "start": 244.63,
+      "end": 246.309,
+      "text": "previous given a key if it's not there"
+    },
+    {
+      "start": 246.309,
+      "end": 247.35,
+      "text": "tell me the previous one or the next one"
+    },
+    {
+      "start": 247.35,
+      "end": 250.589,
+      "text": "this is something we could do with"
+    },
+    {
+      "start": 250.589,
+      "end": 252.91,
+      "text": "binary search and so the the big cool"
+    },
+    {
+      "start": 252.91,
+      "end": 255.589,
+      "text": "thing that binary trees let us do if we"
+    },
+    {
+      "start": 255.589,
+      "end": 257.43,
+      "text": "let the traversal order always be uh all"
+    },
+    {
+      "start": 257.43,
+      "end": 259.469,
+      "text": "of the items stored in increasing key"
+    },
+    {
+      "start": 259.469,
+      "end": 262.11,
+      "text": "order then we are effectively"
+    },
+    {
+      "start": 262.11,
+      "end": 264.67,
+      "text": "maintaining the items in"
+    },
+    {
+      "start": 264.67,
+      "end": 266.189,
+      "text": "order in in the traversal order sense"
+    },
+    {
+      "start": 266.189,
+      "end": 268.59,
+      "text": "again we're not explicitly maintaining"
+    },
+    {
+      "start": 268.59,
+      "end": 270.39,
+      "text": "them in order but up here we're"
+    },
+    {
+      "start": 270.39,
+      "end": 273.87,
+      "text": "maintaining a tree that that represents"
+    },
+    {
+      "start": 273.87,
+      "end": 277.87,
+      "text": "items in key order and so this lets us"
+    },
+    {
+      "start": 277.87,
+      "end": 280.11,
+      "text": "do uh a sub tree find operation which"
+    },
+    {
+      "start": 280.11,
+      "end": 282.83,
+      "text": "you could easily use to implement find"
+    },
+    {
+      "start": 282.83,
+      "end": 285.99,
+      "text": "and find previous and so on um as"
+    },
+    {
+      "start": 285.99,
+      "end": 287.83,
+      "text": "follows we start at the root of the tree"
+    },
+    {
+      "start": 287.83,
+      "end": 290.029,
+      "text": "so we could say node equals root"
+    },
+    {
+      "start": 290.029,
+      "end": 293.35,
+      "text": "initially and then we can recursively"
+    },
+    {
+      "start": 293.35,
+      "end": 297.51,
+      "text": "search for a key K as follows we check"
+    },
+    {
+      "start": 297.51,
+      "end": 300.189,
+      "text": "well if the item at the root has a key"
+    },
+    {
+      "start": 300.189,
+      "end": 301.11,
+      "text": "that's bigger than K let me draw a"
+    },
+    {
+      "start": 301.11,
+      "end": 303.11,
+      "text": "little"
+    },
+    {
+      "start": 303.11,
+      "end": 307.469,
+      "text": "picture"
+    },
+    {
+      "start": 307.469,
+      "end": 309.39,
+      "text": "uh so we're at some node"
+    },
+    {
+      "start": 309.39,
+      "end": 312.71,
+      "text": "here this is a"
+    },
+    {
+      "start": 312.71,
+      "end": 314.83,
+      "text": "node and it has a left sub tree and a"
+    },
+    {
+      "start": 314.83,
+      "end": 317.95,
+      "text": "right sub tree and there's some"
+    },
+    {
+      "start": 317.95,
+      "end": 320.35,
+      "text": "item with some key so if the key we're"
+    },
+    {
+      "start": 320.35,
+      "end": 322.469,
+      "text": "looking for is less than the nodes item"
+    },
+    {
+      "start": 322.469,
+      "end": 325.55,
+      "text": "that means it's down here in the left"
+    },
+    {
+      "start": 325.55,
+      "end": 327.59,
+      "text": "sub tree and so we recurse on node. left"
+    },
+    {
+      "start": 327.59,
+      "end": 329.189,
+      "text": "if they're equal that means that this"
+    },
+    {
+      "start": 329.189,
+      "end": 331.15,
+      "text": "item is the item we're looking for so we"
+    },
+    {
+      "start": 331.15,
+      "end": 333.23,
+      "text": "can just turn it or the node depending"
+    },
+    {
+      "start": 333.23,
+      "end": 334.629,
+      "text": "on what you're looking for and if the"
+    },
+    {
+      "start": 334.629,
+      "end": 336.11,
+      "text": "key in here is greater than the key"
+    },
+    {
+      "start": 336.11,
+      "end": 337.27,
+      "text": "we're looking for then we'll recurse to"
+    },
+    {
+      "start": 337.27,
+      "end": 340.029,
+      "text": "the"
+    },
+    {
+      "start": 340.029,
+      "end": 342.469,
+      "text": "right this if you think about it a"
+    },
+    {
+      "start": 342.469,
+      "end": 344.83,
+      "text": "little bit this is exactly binary search"
+    },
+    {
+      "start": 344.83,
+      "end": 355.87,
+      "text": "on an array it just happens to be on a"
+    },
+    {
+      "start": 355.87,
+      "end": 357.71,
+      "text": "array um like this B where does binary"
+    },
+    {
+      "start": 357.71,
+      "end": 359.189,
+      "text": "stretch do it first looks at the key in"
+    },
+    {
+      "start": 359.189,
+      "end": 362.629,
+      "text": "the middle I'm going to draw that as the"
+    },
+    {
+      "start": 362.629,
+      "end": 364.87,
+      "text": "root uh and then uh it recurses either"
+    },
+    {
+      "start": 364.87,
+      "end": 367.189,
+      "text": "on the left chunk which I will draw"
+    },
+    {
+      "start": 367.189,
+      "end": 369.51,
+      "text": "recursively or on the right"
+    },
+    {
+      "start": 369.51,
+      "end": 371.589,
+      "text": "chunk and so if you happen to have a"
+    },
+    {
+      "start": 371.589,
+      "end": 374.629,
+      "text": "perfect binary tree like this one it is"
+    },
+    {
+      "start": 374.629,
+      "end": 376.23,
+      "text": "simulating exactly uh binary search in"
+    },
+    {
+      "start": 376.23,
+      "end": 377.95,
+      "text": "this array but this we're going to be"
+    },
+    {
+      "start": 377.95,
+      "end": 380.27,
+      "text": "able to maintain dynamically not perfect"
+    },
+    {
+      "start": 380.27,
+      "end": 383.23,
+      "text": "anymore but close uh whereas this we"
+    },
+    {
+      "start": 383.23,
+      "end": 386.51,
+      "text": "could not maintain in sorted order okay"
+    },
+    {
+      "start": 386.51,
+      "end": 388.629,
+      "text": "so uh this is like a generalization of"
+    },
+    {
+      "start": 388.629,
+      "end": 392.469,
+      "text": "binary search to work on trees instead"
+    },
+    {
+      "start": 392.469,
+      "end": 394.43,
+      "text": "of on arrays and for this reason set"
+    },
+    {
+      "start": 394.43,
+      "end": 395.99,
+      "text": "binary trees are called binary search"
+    },
+    {
+      "start": 395.99,
+      "end": 397.27,
+      "text": "trees because they are the tree version"
+    },
+    {
+      "start": 397.27,
+      "end": 399.30899999999997,
+      "text": "of binary search so there's many"
+    },
+    {
+      "start": 399.30899999999997,
+      "end": 401.35,
+      "text": "equivalent names so binary search tree"
+    },
+    {
+      "start": 401.35,
+      "end": 403.15,
+      "text": "is another name for set binary tree and"
+    },
+    {
+      "start": 403.15,
+      "end": 405.23,
+      "text": "the key thing that makes this algorithm"
+    },
+    {
+      "start": 405.23,
+      "end": 408.79,
+      "text": "work is so-called binary search tree"
+    },
+    {
+      "start": 408.79,
+      "end": 411.30899999999997,
+      "text": "property which is um all the keys in the"
+    },
+    {
+      "start": 411.30899999999997,
+      "end": 414.589,
+      "text": "left sub tree of a node are less than uh"
+    },
+    {
+      "start": 414.589,
+      "end": 416.71,
+      "text": "the root and all or of that node and"
+    },
+    {
+      "start": 416.71,
+      "end": 418.23,
+      "text": "that key that key is less than all the"
+    },
+    {
+      "start": 418.23,
+      "end": 420.35,
+      "text": "keys in the right sub tree and this is"
+    },
+    {
+      "start": 420.35,
+      "end": 422.23,
+      "text": "true recursively all the way down"
+    },
+    {
+      "start": 422.23,
+      "end": 424.11,
+      "text": "and so that's that's how you prove that"
+    },
+    {
+      "start": 424.11,
+      "end": 427.71,
+      "text": "this algorithm is correct by this"
+    },
+    {
+      "start": 427.71,
+      "end": 429.43,
+      "text": "property why is this true because uh if"
+    },
+    {
+      "start": 429.43,
+      "end": 433.189,
+      "text": "we can maintain traversal order to be"
+    },
+    {
+      "start": 433.189,
+      "end": 434.83,
+      "text": "increasing key then that's exactly what"
+    },
+    {
+      "start": 434.83,
+      "end": 436.15,
+      "text": "traversal order means it tells you all"
+    },
+    {
+      "start": 436.15,
+      "end": 437.629,
+      "text": "the things in the left sub tree come"
+    },
+    {
+      "start": 437.629,
+      "end": 439.99,
+      "text": "before the root which come before all"
+    },
+    {
+      "start": 439.99,
+      "end": 442.749,
+      "text": "the things in the right sub tree so uh"
+    },
+    {
+      "start": 442.749,
+      "end": 445.07,
+      "text": "this property implies this"
+    },
+    {
+      "start": 445.07,
+      "end": 447.79,
+      "text": "one and how do you maintain things in"
+    },
+    {
+      "start": 447.79,
+      "end": 450.189,
+      "text": "increasing key order it's pretty easy uh"
+    },
+    {
+      "start": 450.189,
+      "end": 452.71,
+      "text": "if you want to insert an item where does"
+    },
+    {
+      "start": 452.71,
+      "end": 454.67,
+      "text": "it belong well you do this search to"
+    },
+    {
+      "start": 454.67,
+      "end": 456.67,
+      "text": "find where it would belong if it was"
+    },
+    {
+      "start": 456.67,
+      "end": 458.67,
+      "text": "there if it's there you can overwrite"
+    },
+    {
+      "start": 458.67,
+      "end": 460.07,
+      "text": "the values stored with that key if it's"
+    },
+    {
+      "start": 460.07,
+      "end": 462.95,
+      "text": "not"
+    },
+    {
+      "start": 462.95,
+      "end": 465.23,
+      "text": "um this search will fall off the tree at"
+    },
+    {
+      "start": 465.23,
+      "end": 468.79,
+      "text": "some point and that's where you insert"
+    },
+    {
+      "start": 468.79,
+      "end": 470.189,
+      "text": "your uh a new node in your tree okay"
+    },
+    {
+      "start": 470.189,
+      "end": 472.029,
+      "text": "that was discovered in recitation so I"
+    },
+    {
+      "start": 472.029,
+      "end": 474.869,
+      "text": "don't want to dwell on it what I want to"
+    },
+    {
+      "start": 474.869,
+      "end": 476.95,
+      "text": "focus on today is the other application"
+    },
+    {
+      "start": 476.95,
+      "end": 480.629,
+      "text": "how do we this is for representing a set"
+    },
+    {
+      "start": 480.629,
+      "end": 482.11,
+      "text": "which is relatively easy uh a CH"
+    },
+    {
+      "start": 482.11,
+      "end": 484.67,
+      "text": "we sort of set ourselves up for but we"
+    },
+    {
+      "start": 484.67,
+      "end": 486.55,
+      "text": "need a little more work is to make"
+    },
+    {
+      "start": 486.55,
+      "end": 489.39,
+      "text": "sequence binary"
+    },
+    {
+      "start": 489.39,
+      "end": 491.51,
+      "text": "trees so suppose I have a binary tree"
+    },
+    {
+      "start": 491.51,
+      "end": 493.39,
+      "text": "and what I would like mentioned at the"
+    },
+    {
+      "start": 493.39,
+      "end": 497.11,
+      "text": "end of last time is that I want the"
+    },
+    {
+      "start": 497.11,
+      "end": 498.749,
+      "text": "traversal order of my tree to be the"
+    },
+    {
+      "start": 498.749,
+      "end": 500.749,
+      "text": "sequence"
+    },
+    {
+      "start": 500.749,
+      "end": 502.909,
+      "text": "order the order that I'm trying to"
+    },
+    {
+      "start": 502.909,
+      "end": 505.07,
+      "text": "represent that's changed by operations"
+    },
+    {
+      "start": 505.07,
+      "end": 507.909,
+      "text": "like insert"
+    },
+    {
+      "start": 507.909,
+      "end": 509.83,
+      "text": "at and so I just like to do the same"
+    },
+    {
+      "start": 509.83,
+      "end": 511.629,
+      "text": "thing but now I have to think about how"
+    },
+    {
+      "start": 511.629,
+      "end": 514.31,
+      "text": "do I do a search how do I do insert at"
+    },
+    {
+      "start": 514.31,
+      "end": 516.75,
+      "text": "that sort of thing and here is an"
+    },
+    {
+      "start": 516.75,
+      "end": 520.35,
+      "text": "algorithm for what I would like to work"
+    },
+    {
+      "start": 520.35,
+      "end": 523.99,
+      "text": "but it's not going to quite work yet so"
+    },
+    {
+      "start": 523.99,
+      "end": 527.07,
+      "text": "suppose I give you a sub tree so"
+    },
+    {
+      "start": 527.07,
+      "end": 529.71,
+      "text": "specified by a node so there's all the"
+    },
+    {
+      "start": 529.71,
+      "end": 532.55,
+      "text": "descendants of that node and I'd like to"
+    },
+    {
+      "start": 532.55,
+      "end": 535.31,
+      "text": "know what is in the traversal order of"
+    },
+    {
+      "start": 535.31,
+      "end": 536.59,
+      "text": "that subtree which starts here and ends"
+    },
+    {
+      "start": 536.59,
+      "end": 537.269,
+      "text": "here and the root will be somewhere in"
+    },
+    {
+      "start": 537.269,
+      "end": 539.949,
+      "text": "the"
+    },
+    {
+      "start": 539.949,
+      "end": 542.99,
+      "text": "middle give me the"
+    },
+    {
+      "start": 542.99,
+      "end": 545.63,
+      "text": "node so this if I ask I equals z i want"
+    },
+    {
+      "start": 545.63,
+      "end": 548.43,
+      "text": "to get this leftmost descendant if I ask"
+    },
+    {
+      "start": 548.43,
+      "end": 550.43,
+      "text": "for I equals the size of the tree minus"
+    },
+    {
+      "start": 550.43,
+      "end": 552.63,
+      "text": "one I want to get The rightmost"
+    },
+    {
+      "start": 552.63,
+      "end": 554.829,
+      "text": "Descendant that was the first and last"
+    },
+    {
+      "start": 554.829,
+      "end": 556.35,
+      "text": "in the sub tree that we talked about but"
+    },
+    {
+      "start": 556.35,
+      "end": 558.23,
+      "text": "we don't we know how to find the first"
+    },
+    {
+      "start": 558.23,
+      "end": 561.269,
+      "text": "and last just walk left or walk right"
+    },
+    {
+      "start": 561.269,
+      "end": 564.19,
+      "text": "but we don't know how to find the I"
+    },
+    {
+      "start": 564.19,
+      "end": 568.47,
+      "text": "node in order H time is the goal right"
+    },
+    {
+      "start": 568.47,
+      "end": 570.389,
+      "text": "now not log in and the idea is well it"
+    },
+    {
+      "start": 570.389,
+      "end": 573.99,
+      "text": "seems like size"
+    },
+    {
+      "start": 573.99,
+      "end": 576.949,
+      "text": "matters sorry if you heard otherwise um"
+    },
+    {
+      "start": 576.949,
+      "end": 579.35,
+      "text": "so in particular I I mentioned size when"
+    },
+    {
+      "start": 579.35,
+      "end": 581.87,
+      "text": "I was talking about the the last node in"
+    },
+    {
+      "start": 581.87,
+      "end": 585.03,
+      "text": "the sequence that the index of that node"
+    },
+    {
+      "start": 585.03,
+      "end": 595.71,
+      "text": "is size of this subtree minus one so"
+    },
+    {
+      "start": 595.71,
+      "end": 598.75,
+      "text": "node to be uh the number of nodes in its"
+    },
+    {
+      "start": 598.75,
+      "end": 608.03,
+      "text": "sub tree we're calling that subtree"
+    },
+    {
+      "start": 608.03,
+      "end": 611.15,
+      "text": "node okay including the node"
+    },
+    {
+      "start": 611.15,
+      "end": 612.99,
+      "text": "itself so if I somehow knew the size"
+    },
+    {
+      "start": 612.99,
+      "end": 614.99,
+      "text": "this seems important for understanding"
+    },
+    {
+      "start": 614.99,
+      "end": 617.75,
+      "text": "indexes let's just assume that I knew"
+    },
+    {
+      "start": 617.75,
+      "end": 622.03,
+      "text": "that magically in constant"
+    },
+    {
+      "start": 622.03,
+      "end": 623.79,
+      "text": "time okay uh then I claim that the size"
+    },
+    {
+      "start": 623.79,
+      "end": 631.03,
+      "text": "of the left sub tree so why don't I"
+    },
+    {
+      "start": 631.03,
+      "end": 634.63,
+      "text": "bit so we we have node as"
+    },
+    {
+      "start": 634.63,
+      "end": 636.91,
+      "text": "before but we have a left sub tree and a"
+    },
+    {
+      "start": 636.91,
+      "end": 639.069,
+      "text": "right sub tree so this node here is"
+    },
+    {
+      "start": 639.069,
+      "end": 641.47,
+      "text": "node. left this node here is node. right"
+    },
+    {
+      "start": 641.47,
+      "end": 643.99,
+      "text": "they might not exist but let's ignore"
+    },
+    {
+      "start": 643.99,
+      "end": 646.509,
+      "text": "those exceptional cases for now let's"
+    },
+    {
+      "start": 646.509,
+      "end": 649.269,
+      "text": "suppose we knew not only the size of"
+    },
+    {
+      "start": 649.269,
+      "end": 652.67,
+      "text": "node but we knew the size of node. left"
+    },
+    {
+      "start": 652.67,
+      "end": 655.43,
+      "text": "so that is the size of this tree on the"
+    },
+    {
+      "start": 655.43,
+      "end": 657.91,
+      "text": "left I'm going to call that NL so let's"
+    },
+    {
+      "start": 657.91,
+      "end": 660.91,
+      "text": "suppose that there are NL nodes down"
+    },
+    {
+      "start": 660.91,
+      "end": 662.79,
+      "text": "here why I claim that lets me do the"
+    },
+    {
+      "start": 662.79,
+      "end": 666.509,
+      "text": "equivalent of a binary"
+    },
+    {
+      "start": 666.509,
+      "end": 669.67,
+      "text": "search cuz I'm looking for some index I"
+    },
+    {
+      "start": 669.67,
+      "end": 671.15,
+      "text": "and if I is less than NL then I know"
+    },
+    {
+      "start": 671.15,
+      "end": 672.91,
+      "text": "that it must be down here for example if"
+    },
+    {
+      "start": 672.91,
+      "end": 675.79,
+      "text": "I equals z it's going to be in the left"
+    },
+    {
+      "start": 675.79,
+      "end": 678.91,
+      "text": "sub tree as long as NL is greater than"
+    },
+    {
+      "start": 678.91,
+      "end": 680.509,
+      "text": "zero right so uh that's exactly this"
+    },
+    {
+      "start": 680.509,
+      "end": 683.71,
+      "text": "check if I is less than NL I'm going to"
+    },
+    {
+      "start": 683.71,
+      "end": 685.23,
+      "text": "recurse to the left call subt tree at of"
+    },
+    {
+      "start": 685.23,
+      "end": 688.31,
+      "text": "no do left comma"
+    },
+    {
+      "start": 688.31,
+      "end": 689.87,
+      "text": "I that's what's written here um if I"
+    },
+    {
+      "start": 689.87,
+      "end": 691.389,
+      "text": "equals NL"
+    },
+    {
+      "start": 691.389,
+      "end": 693.55,
+      "text": "if you think about it for a second so NL"
+    },
+    {
+      "start": 693.55,
+      "end": 697.75,
+      "text": "is the number of nodes here and so that"
+    },
+    {
+      "start": 697.75,
+      "end": 701.15,
+      "text": "means this node has index NL the index"
+    },
+    {
+      "start": 701.15,
+      "end": 702.79,
+      "text": "of this node is NL and so if I equals"
+    },
+    {
+      "start": 702.79,
+      "end": 704.47,
+      "text": "the if the one index we're looking for"
+    },
+    {
+      "start": 704.47,
+      "end": 705.629,
+      "text": "is that one then we just return this"
+    },
+    {
+      "start": 705.629,
+      "end": 708.949,
+      "text": "node we're"
+    },
+    {
+      "start": 708.949,
+      "end": 710.31,
+      "text": "done and otherwise I is greater than NL"
+    },
+    {
+      "start": 710.31,
+      "end": 712.79,
+      "text": "and that means that the node we're"
+    },
+    {
+      "start": 712.79,
+      "end": 715.43,
+      "text": "looking for is in the right sub tree"
+    },
+    {
+      "start": 715.43,
+      "end": 716.67,
+      "text": "because it comes after the root again"
+    },
+    {
+      "start": 716.67,
+      "end": 718.35,
+      "text": "that's what it means that's what"
+    },
+    {
+      "start": 718.35,
+      "end": 720.629,
+      "text": "traversal order means so if we Define it"
+    },
+    {
+      "start": 720.629,
+      "end": 722.75,
+      "text": "to be sequence order"
+    },
+    {
+      "start": 722.75,
+      "end": 725.15,
+      "text": "uh then we know all the things that come"
+    },
+    {
+      "start": 725.15,
+      "end": 727.11,
+      "text": "after this node which is index NL must"
+    },
+    {
+      "start": 727.11,
+      "end": 728.99,
+      "text": "be over here now when we recurse down"
+    },
+    {
+      "start": 728.99,
+      "end": 732.47,
+      "text": "here our numbering system changes"
+    },
+    {
+      "start": 732.47,
+      "end": 735.35,
+      "text": "because out in for node zero is here and"
+    },
+    {
+      "start": 735.35,
+      "end": 737.15,
+      "text": "then for node. right Zer is here so we"
+    },
+    {
+      "start": 737.15,
+      "end": 738.629,
+      "text": "need to do a little bit of subtraction"
+    },
+    {
+      "start": 738.629,
+      "end": 741.949,
+      "text": "here which is when we recurse to the"
+    },
+    {
+      "start": 741.949,
+      "end": 745.15,
+      "text": "right we take IUS NL minus one minus NL"
+    },
+    {
+      "start": 745.15,
+      "end": 747.389,
+      "text": "for these guys minus one for the root"
+    },
+    {
+      "start": 747.389,
+      "end": 750.79,
+      "text": "node um and that will give us the index"
+    },
+    {
+      "start": 750.79,
+      "end": 753.269,
+      "text": "we're looking for within this sub"
+    },
+    {
+      "start": 753.269,
+      "end": 755.629,
+      "text": "okay so it's my point is this algorithm"
+    },
+    {
+      "start": 755.629,
+      "end": 758.269,
+      "text": "is basically the same as this algorithm"
+    },
+    {
+      "start": 758.269,
+      "end": 760.389,
+      "text": "but this one uses keys because we're"
+    },
+    {
+      "start": 760.389,
+      "end": 762.71,
+      "text": "dealing with a set and in sets we assume"
+    },
+    {
+      "start": 762.71,
+      "end": 763.99,
+      "text": "items have keys over here we items don't"
+    },
+    {
+      "start": 763.99,
+      "end": 765.99,
+      "text": "have to have keys in fact we're not"
+    },
+    {
+      "start": 765.99,
+      "end": 769.829,
+      "text": "touching the items at all we're just"
+    },
+    {
+      "start": 769.829,
+      "end": 771.31,
+      "text": "asking what is the I item in my sequence"
+    },
+    {
+      "start": 771.31,
+      "end": 772.75,
+      "text": "which is the same thing as what is the I"
+    },
+    {
+      "start": 772.75,
+      "end": 775.35,
+      "text": "item in my traversal order which is the"
+    },
+    {
+      "start": 775.35,
+      "end": 776.99,
+      "text": "same thing as asking what is the I node"
+    },
+    {
+      "start": 776.99,
+      "end": 778.79,
+      "text": "in the traversal order and this"
+    },
+    {
+      "start": 778.79,
+      "end": 779.67,
+      "text": "algorithm gives it to you exactly the"
+    },
+    {
+      "start": 779.67,
+      "end": 782.67,
+      "text": "same way"
+    },
+    {
+      "start": 782.67,
+      "end": 784.67,
+      "text": "in order H"
+    },
+    {
+      "start": 784.67,
+      "end": 787.03,
+      "text": "time okay now I'm not going to show you"
+    },
+    {
+      "start": 787.03,
+      "end": 788.79,
+      "text": "all the operations but you can use subt"
+    },
+    {
+      "start": 788.79,
+      "end": 792.43,
+      "text": "tree at to"
+    },
+    {
+      "start": 792.43,
+      "end": 794.629,
+      "text": "implement uh get at and set at you just"
+    },
+    {
+      "start": 794.629,
+      "end": 797.71,
+      "text": "find the appropriate node and return the"
+    },
+    {
+      "start": 797.71,
+      "end": 800.15,
+      "text": "item or modify the item uh or you can"
+    },
+    {
+      "start": 800.15,
+      "end": 802.31,
+      "text": "use it to most crucially you can use it"
+    },
+    {
+      "start": 802.31,
+      "end": 803.91,
+      "text": "to do insert at and delete at this is a"
+    },
+    {
+      "start": 803.91,
+      "end": 806.79,
+      "text": "new thing we've never been able to do"
+    },
+    {
+      "start": 806.79,
+      "end": 809.87,
+      "text": "before uh what do you do just like over"
+    },
+    {
+      "start": 809.87,
+      "end": 813.43,
+      "text": "here if I'm trying to insert an item I"
+    },
+    {
+      "start": 813.43,
+      "end": 815.55,
+      "text": "search for that item over here uh so if"
+    },
+    {
+      "start": 815.55,
+      "end": 819.43,
+      "text": "I'm trying to insert at I for example I"
+    },
+    {
+      "start": 819.43,
+      "end": 822.87,
+      "text": "look for I and then"
+    },
+    {
+      "start": 822.87,
+      "end": 825.31,
+      "text": "uh for insert at I I want to add a new"
+    },
+    {
+      "start": 825.31,
+      "end": 828.23,
+      "text": "item just before that one and"
+    },
+    {
+      "start": 828.23,
+      "end": 831.069,
+      "text": "conveniently we already have I didn't"
+    },
+    {
+      "start": 831.069,
+      "end": 837.35,
+      "text": "mention but we have a subtree insert we"
+    },
+    {
+      "start": 837.35,
+      "end": 840.03,
+      "text": "after I think we cover it"
+    },
+    {
+      "start": 840.03,
+      "end": 843.35,
+      "text": "after which is success before use"
+    },
+    {
+      "start": 843.35,
+      "end": 846.71,
+      "text": "predecessor uh but we can just call"
+    },
+    {
+      "start": 846.71,
+      "end": 850.31,
+      "text": "subtree insert before at that node and"
+    },
+    {
+      "start": 850.31,
+      "end": 854.389,
+      "text": "boom we will have added a new item just"
+    },
+    {
+      "start": 854.389,
+      "end": 856.389,
+      "text": "before it um and great so magically"
+    },
+    {
+      "start": 856.389,
+      "end": 858.949,
+      "text": "somehow uh we have inserted in the"
+    },
+    {
+      "start": 858.949,
+      "end": 862.23,
+      "text": "middle of the sequence and all of the"
+    },
+    {
+      "start": 862.23,
+      "end": 864.749,
+      "text": "indices update because I'm not storing"
+    },
+    {
+      "start": 864.749,
+      "end": 867.87,
+      "text": "indices instead I'm to search for an"
+    },
+    {
+      "start": 867.87,
+      "end": 869.71,
+      "text": "item at index I I'm using the search"
+    },
+    {
+      "start": 869.71,
+      "end": 877.749,
+      "text": "algorithm but"
+    },
+    {
+      "start": 877.749,
+      "end": 878.47,
+      "text": "problem this seems a little too good to"
+    },
+    {
+      "start": 878.47,
+      "end": 881.55,
+      "text": "be"
+    },
+    {
+      "start": 881.55,
+      "end": 883.829,
+      "text": "true I insert in the middle of this tree"
+    },
+    {
+      "start": 883.829,
+      "end": 886.069,
+      "text": "and then somehow I can magically search"
+    },
+    {
+      "start": 886.069,
+      "end": 887.55,
+      "text": "and still find the I item even though"
+    },
+    {
+      "start": 887.55,
+      "end": 899.71,
+      "text": "all the indices to the right of that"
+    },
+    {
+      "start": 899.71,
+      "end": 901.59,
+      "text": "answer yeah"
+    },
+    {
+      "start": 901.59,
+      "end": 903.23,
+      "text": "because we have to update the SI because"
+    },
+    {
+      "start": 903.23,
+      "end": 905.35,
+      "text": "we have to update the sizes right I"
+    },
+    {
+      "start": 905.35,
+      "end": 913.59,
+      "text": "didn't say how do I compute the size of"
+    },
+    {
+      "start": 913.59,
+      "end": 916.87,
+      "text": "topic we're almost done this this will"
+    },
+    {
+      "start": 916.87,
+      "end": 918.829,
+      "text": "actually work it's really quite awesome"
+    },
+    {
+      "start": 918.829,
+      "end": 921.59,
+      "text": "but uh for it to work we need something"
+    },
+    {
+      "start": 921.59,
+      "end": 923.43,
+      "text": "called sub tree"
+    },
+    {
+      "start": 923.43,
+      "end": 925.189,
+      "text": "augmentation which I'll talk about"
+    },
+    {
+      "start": 925.189,
+      "end": 933.03,
+      "text": "generally and then we'll apply it to"
+    },
+    {
+      "start": 933.03,
+      "end": 937.87,
+      "text": "so the idea with subtree augmentation is"
+    },
+    {
+      "start": 937.87,
+      "end": 939.269,
+      "text": "that uh each node in our binary tree uh"
+    },
+    {
+      "start": 939.269,
+      "end": 944.15,
+      "text": "can"
+    },
+    {
+      "start": 944.15,
+      "end": 945.949,
+      "text": "store uh constant number of extra"
+    },
+    {
+      "start": 945.949,
+      "end": 949.67,
+      "text": "Fields why"
+    },
+    {
+      "start": 949.67,
+      "end": 951.91,
+      "text": "not and in particular if these fields"
+    },
+    {
+      "start": 951.91,
+      "end": 959.189,
+      "text": "are of a particular type or maybe I'll"
+    },
+    {
+      "start": 959.189,
+      "end": 983.069,
+      "text": "properties I'm going to define a a"
+    },
+    {
+      "start": 983.069,
+      "end": 1000.91,
+      "text": "computed from the"
+    },
+    {
+      "start": 1000.91,
+      "end": 1003.87,
+      "text": "node so children are node. left and no."
+    },
+    {
+      "start": 1003.87,
+      "end": 1005.43,
+      "text": "right uh you can also access constant"
+    },
+    {
+      "start": 1005.43,
+      "end": 1006.389,
+      "text": "amount of other stuff for example the"
+    },
+    {
+      "start": 1006.389,
+      "end": 1008.749,
+      "text": "node"
+    },
+    {
+      "start": 1008.749,
+      "end": 1010.79,
+      "text": "itself uh but the point of a subtree"
+    },
+    {
+      "start": 1010.79,
+      "end": 1012.189,
+      "text": "property is it's downward looking if I"
+    },
+    {
+      "start": 1012.189,
+      "end": 1014.11,
+      "text": "have a"
+    },
+    {
+      "start": 1014.11,
+      "end": 1015.949,
+      "text": "node"
+    },
+    {
+      "start": 1015.949,
+      "end": 1019.389,
+      "text": "here"
+    },
+    {
+      "start": 1019.389,
+      "end": 1024.11,
+      "text": "and I want to compute some property"
+    },
+    {
+      "start": 1024.11,
+      "end": 1028.35,
+      "text": "about it call it uh we want to store P"
+    },
+    {
+      "start": 1028.35,
+      "end": 1030.909,
+      "text": "of the node and suppose we already know"
+    },
+    {
+      "start": 1030.909,
+      "end": 1033.069,
+      "text": "p over here the property computed for"
+    },
+    {
+      "start": 1033.069,
+      "end": 1034.99,
+      "text": "the left subtree or for the left node"
+    },
+    {
+      "start": 1034.99,
+      "end": 1038.35,
+      "text": "and we already know the property for the"
+    },
+    {
+      "start": 1038.35,
+      "end": 1048.35,
+      "text": "right node then uh what I'd like is for"
+    },
+    {
+      "start": 1048.35,
+      "end": 1050.27,
+      "text": "time so I can compute P of this node"
+    },
+    {
+      "start": 1050.27,
+      "end": 1052.35,
+      "text": "given P of the left node and P of the"
+    },
+    {
+      "start": 1052.35,
+      "end": 1053.23,
+      "text": "right node that's a sub tree property"
+    },
+    {
+      "start": 1053.23,
+      "end": 1057.549,
+      "text": "now in"
+    },
+    {
+      "start": 1057.549,
+      "end": 1060.19,
+      "text": "particular size is a sub tree"
+    },
+    {
+      "start": 1060.19,
+      "end": 1062.669,
+      "text": "property why"
+    },
+    {
+      "start": 1062.669,
+      "end": 1065.51,
+      "text": "because I can write this kind of"
+    },
+    {
+      "start": 1065.51,
+      "end": 1068.63,
+      "text": "recurrence uh node."
+    },
+    {
+      "start": 1068.63,
+      "end": 1071.59,
+      "text": "size equals no do left do"
+    },
+    {
+      "start": 1071.59,
+      "end": 1085.43,
+      "text": "size is very tedious to"
+    },
+    {
+      "start": 1085.43,
+      "end": 1088.51,
+      "text": "plus one thank"
+    },
+    {
+      "start": 1088.51,
+      "end": 1092.029,
+      "text": "you size of the sub of the entire sub"
+    },
+    {
+      "start": 1092.029,
+      "end": 1093.31,
+      "text": "tree here called node um is the size of"
+    },
+    {
+      "start": 1093.31,
+      "end": 1096.11,
+      "text": "the left sub tree plus the size of the"
+    },
+    {
+      "start": 1096.11,
+      "end": 1099.11,
+      "text": "right sub tree plus one for that node"
+    },
+    {
+      "start": 1099.11,
+      "end": 1101.95,
+      "text": "itself okay so this is an update rule"
+    },
+    {
+      "start": 1101.95,
+      "end": 1104.27,
+      "text": "takes constant time to evaluate it's two"
+    },
+    {
+      "start": 1104.27,
+      "end": 1117.029,
+      "text": "additions sorry my T's look kind of like"
+    },
+    {
+      "start": 1117.029,
+      "end": 1121.149,
+      "text": "bigger okay so we're summing those three"
+    },
+    {
+      "start": 1121.149,
+      "end": 1125.43,
+      "text": "things boom we can get node do size so I"
+    },
+    {
+      "start": 1125.43,
+      "end": 1128.23,
+      "text": "claim that uh if as long as my property"
+    },
+    {
+      "start": 1128.23,
+      "end": 1130.43,
+      "text": "has this feature I can maintain it"
+    },
+    {
+      "start": 1130.43,
+      "end": 1133.39,
+      "text": "dynamically as I'm changing the"
+    },
+    {
+      "start": 1133.39,
+      "end": 1134.549,
+      "text": "tree okay now this is a little bit of a"
+    },
+    {
+      "start": 1134.549,
+      "end": 1135.75,
+      "text": "forward reference because we haven't"
+    },
+    {
+      "start": 1135.75,
+      "end": 1139.669,
+      "text": "said exactly how we're going to change"
+    },
+    {
+      "start": 1139.669,
+      "end": 1144.59,
+      "text": "the tree yet but uh question if um no SI"
+    },
+    {
+      "start": 1144.59,
+      "end": 1147.63,
+      "text": "is recursive yeah how is it happen would"
+    },
+    {
+      "start": 1147.63,
+      "end": 1149.47,
+      "text": "okay why is this okay good question so"
+    },
+    {
+      "start": 1149.47,
+      "end": 1151.549,
+      "text": "one natural way you can think of this as"
+    },
+    {
+      "start": 1151.549,
+      "end": 1154.23,
+      "text": "a recursion which gives you a recursive"
+    },
+    {
+      "start": 1154.23,
+      "end": 1155.99,
+      "text": "algorithm uh so I wrote but I didn't"
+    },
+    {
+      "start": 1155.99,
+      "end": 1159.31,
+      "text": "write it but I could have written size"
+    },
+    {
+      "start": 1159.31,
+      "end": 1160.71,
+      "text": "of node equals this size of node. left"
+    },
+    {
+      "start": 1160.71,
+      "end": 1163.27,
+      "text": "plus and that would give you a linear"
+    },
+    {
+      "start": 1163.27,
+      "end": 1165.669,
+      "text": "time algorithm to count the size and if"
+    },
+    {
+      "start": 1165.669,
+      "end": 1167.71,
+      "text": "you don't have any information that"
+    },
+    {
+      "start": 1167.71,
+      "end": 1168.99,
+      "text": "is what you would do and that would be"
+    },
+    {
+      "start": 1168.99,
+      "end": 1170.549,
+      "text": "very painful so that would would make"
+    },
+    {
+      "start": 1170.549,
+      "end": 1172.71,
+      "text": "this algorithm really slow if I'm"
+    },
+    {
+      "start": 1172.71,
+      "end": 1175.669,
+      "text": "calling sizes a recursive function it's"
+    },
+    {
+      "start": 1175.669,
+      "end": 1177.87,
+      "text": "bad uh what I'm instead doing is storing"
+    },
+    {
+      "start": 1177.87,
+      "end": 1181.83,
+      "text": "the sizes on every single"
+    },
+    {
+      "start": 1181.83,
+      "end": 1185.71,
+      "text": "node okay and precomputing this so in"
+    },
+    {
+      "start": 1185.71,
+      "end": 1187.549,
+      "text": "fact I'm going to Define uh size of node"
+    },
+    {
+      "start": 1187.549,
+      "end": 1189.39,
+      "text": "in so this is the definition"
+    },
+    {
+      "start": 1189.39,
+      "end": 1191.47,
+      "text": "mathematically but the algorithm for"
+    },
+    {
+      "start": 1191.47,
+      "end": 1195.63,
+      "text": "this function is just going to be return"
+    },
+    {
+      "start": 1195.63,
+      "end": 1197.43,
+      "text": "node. size okay so that's constant time"
+    },
+    {
+      "start": 1197.43,
+      "end": 1199.149,
+      "text": "so I the challenge now is I have to keep"
+    },
+    {
+      "start": 1199.149,
+      "end": 1201.63,
+      "text": "these sizes up to dat no matter what I"
+    },
+    {
+      "start": 1201.63,
+      "end": 1203.39,
+      "text": "do to the tree and you could look back"
+    },
+    {
+      "start": 1203.39,
+      "end": 1206.51,
+      "text": "at last lecture and see okay what were"
+    },
+    {
+      "start": 1206.51,
+      "end": 1208.75,
+      "text": "all the changes that I did in a tree uh"
+    },
+    {
+      "start": 1208.75,
+      "end": 1212.549,
+      "text": "we only did changes during insert and"
+    },
+    {
+      "start": 1212.549,
+      "end": 1215.99,
+      "text": "delete and I will just claim to you when"
+    },
+    {
+      "start": 1215.99,
+      "end": 1218.71,
+      "text": "we did uh insert and"
+    },
+    {
+      "start": 1218.71,
+      "end": 1221.789,
+      "text": "delete what they ended up"
+    },
+    {
+      "start": 1221.789,
+      "end": 1226.59,
+      "text": "doing uh in the"
+    },
+    {
+      "start": 1226.59,
+      "end": 1236.07,
+      "text": "end they add or"
+    },
+    {
+      "start": 1236.07,
+      "end": 1240.19,
+      "text": "tree okay remember Leaf was a node with"
+    },
+    {
+      "start": 1240.19,
+      "end": 1242.99,
+      "text": "no children um so let's just think about"
+    },
+    {
+      "start": 1242.99,
+      "end": 1245.909,
+      "text": "if I add a new Leaf in a tree here's a"
+    },
+    {
+      "start": 1245.909,
+      "end": 1247.23,
+      "text": "tree suppose I add a leaf here which sub"
+    },
+    {
+      "start": 1247.23,
+      "end": 1251.35,
+      "text": "trees"
+    },
+    {
+      "start": 1251.35,
+      "end": 1254.23,
+      "text": "change well which sub trees contain that"
+    },
+    {
+      "start": 1254.23,
+      "end": 1256.39,
+      "text": "node it it is its own new sub tree then"
+    },
+    {
+      "start": 1256.39,
+      "end": 1258.43,
+      "text": "its parents it's in it's in its parents"
+    },
+    {
+      "start": 1258.43,
+      "end": 1260.99,
+      "text": "sub tree and its grandparents sub tree"
+    },
+    {
+      "start": 1260.99,
+      "end": 1263.27,
+      "text": "and and the overall sub tree okay in"
+    },
+    {
+      "start": 1263.27,
+      "end": 1266.549,
+      "text": "general these nodes are called the"
+    },
+    {
+      "start": 1266.549,
+      "end": 1268.31,
+      "text": "ancestors of this node that we added and"
+    },
+    {
+      "start": 1268.31,
+      "end": 1270.71,
+      "text": "those are the ones that update this sub"
+    },
+    {
+      "start": 1270.71,
+      "end": 1273.39,
+      "text": "tree over here didn't change it didn't"
+    },
+    {
+      "start": 1273.39,
+      "end": 1275.11,
+      "text": "change size and because it's a sub tree"
+    },
+    {
+      "start": 1275.11,
+      "end": 1277.149,
+      "text": "property no subtree property will change"
+    },
+    {
+      "start": 1277.149,
+      "end": 1280.11,
+      "text": "over here because the sub tree was"
+    },
+    {
+      "start": 1280.11,
+      "end": 1282.71,
+      "text": "untouched okay so"
+    },
+    {
+      "start": 1282.71,
+      "end": 1284.87,
+      "text": "um when I touch this guy I just have to"
+    },
+    {
+      "start": 1284.87,
+      "end": 1286.23,
+      "text": "update the sub tree property here update"
+    },
+    {
+      "start": 1286.23,
+      "end": 1287.71,
+      "text": "the subtree property here update the"
+    },
+    {
+      "start": 1287.71,
+      "end": 1296.669,
+      "text": "subtree property here how many of these"
+    },
+    {
+      "start": 1296.669,
+      "end": 1300.87,
+      "text": "yeah H I'll say order H to be safe but I"
+    },
+    {
+      "start": 1300.87,
+      "end": 1303.149,
+      "text": "think it's exactly H um so also when I"
+    },
+    {
+      "start": 1303.149,
+      "end": 1304.83,
+      "text": "remove a leaf the same thing if I remove"
+    },
+    {
+      "start": 1304.83,
+      "end": 1310.51,
+      "text": "this Leaf then the the sub trees that"
+    },
+    {
+      "start": 1310.51,
+      "end": 1314.75,
+      "text": "ancestors"
+    },
+    {
+      "start": 1314.75,
+      "end": 1319.35,
+      "text": "uh cool so"
+    },
+    {
+      "start": 1319.35,
+      "end": 1329.669,
+      "text": "um we're going to update those order"
+    },
+    {
+      "start": 1329.669,
+      "end": 1332.63,
+      "text": "ancestors um in"
+    },
+    {
+      "start": 1332.63,
+      "end": 1336.909,
+      "text": "order up the"
+    },
+    {
+      "start": 1336.909,
+      "end": 1340.95,
+      "text": "tree so what do I mean by update I mean"
+    },
+    {
+      "start": 1340.95,
+      "end": 1343.149,
+      "text": "apply this rule for sub for size it's"
+    },
+    {
+      "start": 1343.149,
+      "end": 1344.669,
+      "text": "this rule but for in general the subtree"
+    },
+    {
+      "start": 1344.669,
+      "end": 1347.07,
+      "text": "property gives me an update rule that"
+    },
+    {
+      "start": 1347.07,
+      "end": 1350.11,
+      "text": "takes constant time and so I'm going to"
+    },
+    {
+      "start": 1350.11,
+      "end": 1352.19,
+      "text": "apply that update rule to this node"
+    },
+    {
+      "start": 1352.19,
+      "end": 1354.23,
+      "text": "which will fix whatever property is"
+    },
+    {
+      "start": 1354.23,
+      "end": 1355.99,
+      "text": "stored in there maybe there's more than"
+    },
+    {
+      "start": 1355.99,
+      "end": 1358.029,
+      "text": "one property and then I'll apply it to"
+    },
+    {
+      "start": 1358.029,
+      "end": 1360.87,
+      "text": "this node and because this is already"
+    },
+    {
+      "start": 1360.87,
+      "end": 1362.39,
+      "text": "correct by induction and this is already"
+    },
+    {
+      "start": 1362.39,
+      "end": 1365.39,
+      "text": "correct because I didn't touch this"
+    },
+    {
+      "start": 1365.39,
+      "end": 1367.47,
+      "text": "subre it's unchanged then I can update"
+    },
+    {
+      "start": 1367.47,
+      "end": 1369.909,
+      "text": "the value at this node the property at"
+    },
+    {
+      "start": 1369.909,
+      "end": 1372.47,
+      "text": "this node in constant time then I update"
+    },
+    {
+      "start": 1372.47,
+      "end": 1374.39,
+      "text": "this one and because this one is already"
+    },
+    {
+      "start": 1374.39,
+      "end": 1375.71,
+      "text": "correct by induction and this one is"
+    },
+    {
+      "start": 1375.71,
+      "end": 1378.029,
+      "text": "already correct because this sub tree is"
+    },
+    {
+      "start": 1378.029,
+      "end": 1380.59,
+      "text": "unchanged I can update the property"
+    },
+    {
+      "start": 1380.59,
+      "end": 1383.149,
+      "text": "correctly here in constant time okay so"
+    },
+    {
+      "start": 1383.149,
+      "end": 1384.99,
+      "text": "when I make a change in order H time"
+    },
+    {
+      "start": 1384.99,
+      "end": 1387.269,
+      "text": "because I'm making H calls to this"
+    },
+    {
+      "start": 1387.269,
+      "end": 1390.59,
+      "text": "constant time algorithm I can update a"
+    },
+    {
+      "start": 1390.59,
+      "end": 1392.75,
+      "text": "constant number of sub tree"
+    },
+    {
+      "start": 1392.75,
+      "end": 1394.549,
+      "text": "properties this is very powerful data"
+    },
+    {
+      "start": 1394.549,
+      "end": 1396.19,
+      "text": "structure argumentation is super useful"
+    },
+    {
+      "start": 1396.19,
+      "end": 1397.99,
+      "text": "you will use it on your problem set we"
+    },
+    {
+      "start": 1397.99,
+      "end": 1401.31,
+      "text": "will use it again"
+    },
+    {
+      "start": 1401.31,
+      "end": 1410.19,
+      "text": "today let me give you some examples of"
+    },
+    {
+      "start": 1410.19,
+      "end": 1415.31,
+      "text": "properties they could would be uh common"
+    },
+    {
+      "start": 1415.31,
+      "end": 1422.99,
+      "text": "ones are like the sum or the product or"
+    },
+    {
+      "start": 1422.99,
+      "end": 1425.47,
+      "text": "max or sum of squares or all sorts of"
+    },
+    {
+      "start": 1425.47,
+      "end": 1439.23,
+      "text": "things of"
+    },
+    {
+      "start": 1439.23,
+      "end": 1441.11,
+      "text": "subtree okay in fact"
+    },
+    {
+      "start": 1441.11,
+      "end": 1443.23,
+      "text": "uh sub tree size is an example of such a"
+    },
+    {
+      "start": 1443.23,
+      "end": 1445.909,
+      "text": "thing it is the sum over all nodes in"
+    },
+    {
+      "start": 1445.909,
+      "end": 1447.149,
+      "text": "the sub tree of the value one okay"
+    },
+    {
+      "start": 1447.149,
+      "end": 1449.149,
+      "text": "that's another way to say count the"
+    },
+    {
+      "start": 1449.149,
+      "end": 1451.35,
+      "text": "number of nodes okay but you could also"
+    },
+    {
+      "start": 1451.35,
+      "end": 1452.789,
+      "text": "say what's the sum of the keys in these"
+    },
+    {
+      "start": 1452.789,
+      "end": 1454.63,
+      "text": "nodes or you could say what's the"
+    },
+    {
+      "start": 1454.63,
+      "end": 1456.789,
+      "text": "maximum key in these nodes or you could"
+    },
+    {
+      "start": 1456.789,
+      "end": 1459.75,
+      "text": "say"
+    },
+    {
+      "start": 1459.75,
+      "end": 1461.95,
+      "text": "uh um what is the"
+    },
+    {
+      "start": 1461.95,
+      "end": 1463.47,
+      "text": "maximum value in these notes you can"
+    },
+    {
+      "start": 1463.47,
+      "end": 1465.029,
+      "text": "take any property it doesn't have to be"
+    },
+    {
+      "start": 1465.029,
+      "end": 1466.83,
+      "text": "key it doesn't have to be anything in"
+    },
+    {
+      "start": 1466.83,
+      "end": 1468.669,
+      "text": "particular it's very powerful you can"
+    },
+    {
+      "start": 1468.669,
+      "end": 1470.269,
+      "text": "take all sums products and Main maintain"
+    },
+    {
+      "start": 1470.269,
+      "end": 1471.43,
+      "text": "them as long as they're downward looking"
+    },
+    {
+      "start": 1471.43,
+      "end": 1472.389,
+      "text": "as long as you're only thinking about"
+    },
+    {
+      "start": 1472.389,
+      "end": 1475.59,
+      "text": "the sub"
+    },
+    {
+      "start": 1475.59,
+      "end": 1477.389,
+      "text": "tree okay uh some examples of things you"
+    },
+    {
+      "start": 1477.389,
+      "end": 1483.51,
+      "text": "cannot"
+    },
+    {
+      "start": 1483.51,
+      "end": 1490.31,
+      "text": "are"
+    },
+    {
+      "start": 1490.31,
+      "end": 1491.909,
+      "text": "index so if you get a little bit too"
+    },
+    {
+      "start": 1491.909,
+      "end": 1494.149,
+      "text": "excited about augmentation you might"
+    },
+    {
+      "start": 1494.149,
+      "end": 1496.789,
+      "text": "think oh it could do everything right I"
+    },
+    {
+      "start": 1496.789,
+      "end": 1499.389,
+      "text": "needed to support subtree at or let's"
+    },
+    {
+      "start": 1499.389,
+      "end": 1501.99,
+      "text": "just say uh get at globally I wanted to"
+    },
+    {
+      "start": 1501.99,
+      "end": 1503.07,
+      "text": "know what is the I node in my tree well"
+    },
+    {
+      "start": 1503.07,
+      "end": 1504.909,
+      "text": "I'll just use data structure"
+    },
+    {
+      "start": 1504.909,
+      "end": 1508.31,
+      "text": "augumentation and store in every node"
+    },
+    {
+      "start": 1508.31,
+      "end": 1511.47,
+      "text": "what is its index zero through n minus"
+    },
+    {
+      "start": 1511.47,
+      "end": 1514.149,
+      "text": "one I can't maintain that efficiently"
+    },
+    {
+      "start": 1514.149,
+      "end": 1517.07,
+      "text": "because if I insert at the beginning of"
+    },
+    {
+      "start": 1517.07,
+      "end": 1519.269,
+      "text": "my traversal order then all the indices"
+    },
+    {
+      "start": 1519.269,
+      "end": 1522.43,
+      "text": "change right so that that's an example"
+    },
+    {
+      "start": 1522.43,
+      "end": 1525.029,
+      "text": "of a of a edit so if I insert a new Noe"
+    },
+    {
+      "start": 1525.029,
+      "end": 1526.909,
+      "text": "over here so this guy's index was Zero"
+    },
+    {
+      "start": 1526.909,
+      "end": 1528.789,
+      "text": "now it's one this guy's index was one"
+    },
+    {
+      "start": 1528.789,
+      "end": 1530.51,
+      "text": "now it's two this was two two now it's"
+    },
+    {
+      "start": 1530.51,
+      "end": 1533.389,
+      "text": "three and so on every node changes its"
+    },
+    {
+      "start": 1533.389,
+      "end": 1535.35,
+      "text": "index index is not a subtree property"
+    },
+    {
+      "start": 1535.35,
+      "end": 1537.07,
+      "text": "and that's why we can't maintain it"
+    },
+    {
+      "start": 1537.07,
+      "end": 1538.389,
+      "text": "because it depends on all of the nodes"
+    },
+    {
+      "start": 1538.389,
+      "end": 1540.75,
+      "text": "in the tree or it depends on all the"
+    },
+    {
+      "start": 1540.75,
+      "end": 1543.43,
+      "text": "nodes to its left all the predecessors"
+    },
+    {
+      "start": 1543.43,
+      "end": 1545.07,
+      "text": "so for example this guy's index depends"
+    },
+    {
+      "start": 1545.07,
+      "end": 1546.87,
+      "text": "on how many nodes are over here on the"
+    },
+    {
+      "start": 1546.87,
+      "end": 1549.35,
+      "text": "left which is not in the sub tree of"
+    },
+    {
+      "start": 1549.35,
+      "end": 1551.71,
+      "text": "that Noe so that's where you have to be"
+    },
+    {
+      "start": 1551.71,
+      "end": 1554.149,
+      "text": "careful don't use Global properties of"
+    },
+    {
+      "start": 1554.149,
+      "end": 1556.43,
+      "text": "the tree you can only use"
+    },
+    {
+      "start": 1556.43,
+      "end": 1560.87,
+      "text": "subtree sub tree"
+    },
+    {
+      "start": 1560.87,
+      "end": 1564.99,
+      "text": "properties okay another example is uh"
+    },
+    {
+      "start": 1564.99,
+      "end": 1568.19,
+      "text": "depth depth is annoying to"
+    },
+    {
+      "start": 1568.19,
+      "end": 1576.389,
+      "text": "maintain uh but it's not obvious why yet"
+    },
+    {
+      "start": 1576.389,
+      "end": 1581.71,
+      "text": "moment okay the rest of today is about"
+    },
+    {
+      "start": 1581.71,
+      "end": 1584.51,
+      "text": "going from order H to order log n which"
+    },
+    {
+      "start": 1584.51,
+      "end": 1585.63,
+      "text": "is what this slide is showing us so at"
+    },
+    {
+      "start": 1585.63,
+      "end": 1587.87,
+      "text": "this point you should believe that we"
+    },
+    {
+      "start": 1587.87,
+      "end": 1590.149,
+      "text": "can do all of the sequence data"
+    },
+    {
+      "start": 1590.149,
+      "end": 1591.549,
+      "text": "structure operations in order H time"
+    },
+    {
+      "start": 1591.549,
+      "end": 1594.31,
+      "text": "except for build and iterate which take"
+    },
+    {
+      "start": 1594.31,
+      "end": 1596.75,
+      "text": "linear time uh and that we can do all of"
+    },
+    {
+      "start": 1596.75,
+      "end": 1598.63,
+      "text": "the set operations in order H time"
+    },
+    {
+      "start": 1598.63,
+      "end": 1601.87,
+      "text": "except build and iterate which Take N"
+    },
+    {
+      "start": 1601.87,
+      "end": 1604.83,
+      "text": "log n and n respectively and our goal is"
+    },
+    {
+      "start": 1604.83,
+      "end": 1613.07,
+      "text": "to now"
+    },
+    {
+      "start": 1613.07,
+      "end": 1614.99,
+      "text": "uh H by log n we know it's possible at"
+    },
+    {
+      "start": 1614.99,
+      "end": 1617.549,
+      "text": "some level because there are"
+    },
+    {
+      "start": 1617.549,
+      "end": 1619.59,
+      "text": "trees that have logarithmic height"
+    },
+    {
+      "start": 1619.59,
+      "end": 1621.83,
+      "text": "that's like this Perfect Tree"
+    },
+    {
+      "start": 1621.83,
+      "end": 1623.549,
+      "text": "here but we also know we have to be"
+    },
+    {
+      "start": 1623.549,
+      "end": 1628.95,
+      "text": "careful because there are some bad trees"
+    },
+    {
+      "start": 1628.95,
+      "end": 1633.43,
+      "text": "chain so"
+    },
+    {
+      "start": 1633.43,
+      "end": 1640.789,
+      "text": "um if H equals log n we call this a"
+    },
+    {
+      "start": 1640.789,
+      "end": 1643.549,
+      "text": "tree there are many balanced binary"
+    },
+    {
+      "start": 1643.549,
+      "end": 1645.83,
+      "text": "trees in the world maybe a dozen or"
+    },
+    {
+      "start": 1645.83,
+      "end": 1649.35,
+      "text": "two a lot of different data structures"
+    },
+    {
+      "start": 1649.35,
+      "end": 1651.269,
+      "text": "question hi you um you said like not to"
+    },
+    {
+      "start": 1651.269,
+      "end": 1652.75,
+      "text": "think about things on a global level"
+    },
+    {
+      "start": 1652.75,
+      "end": 1653.95,
+      "text": "think of them at a sub level can you"
+    },
+    {
+      "start": 1653.95,
+      "end": 1656.51,
+      "text": "explain what"
+    },
+    {
+      "start": 1656.51,
+      "end": 1659.549,
+      "text": "that okay what does it mean for property"
+    },
+    {
+      "start": 1659.549,
+      "end": 1662.269,
+      "text": "to be uh local to a sub tree versus"
+    },
+    {
+      "start": 1662.269,
+      "end": 1664.31,
+      "text": "global the best answer is this"
+    },
+    {
+      "start": 1664.31,
+      "end": 1665.95,
+      "text": "definition but that's maybe not the most"
+    },
+    {
+      "start": 1665.95,
+      "end": 1667.87,
+      "text": "intuitive definition this is what I mean"
+    },
+    {
+      "start": 1667.87,
+      "end": 1669.35,
+      "text": "something that can be computed just"
+    },
+    {
+      "start": 1669.35,
+      "end": 1671.31,
+      "text": "knowing information about your left and"
+    },
+    {
+      "start": 1671.31,
+      "end": 1672.83,
+      "text": "right children that is the meaning of"
+    },
+    {
+      "start": 1672.83,
+      "end": 1674.35,
+      "text": "subre property and those are the only"
+    },
+    {
+      "start": 1674.35,
+      "end": 1675.87,
+      "text": "things you're allowed to maintain"
+    },
+    {
+      "start": 1675.87,
+      "end": 1678.789,
+      "text": "because those are the only"
+    },
+    {
+      "start": 1678.789,
+      "end": 1681.87,
+      "text": "things uh that are easy to update by"
+    },
+    {
+      "start": 1681.87,
+      "end": 1684.63,
+      "text": "walking up this path and the contrast is"
+    },
+    {
+      "start": 1684.63,
+      "end": 1687.509,
+      "text": "that a global property like"
+    },
+    {
+      "start": 1687.509,
+      "end": 1690.47,
+      "text": "index I it's Global in particular"
+    },
+    {
+      "start": 1690.47,
+      "end": 1692.509,
+      "text": "because I can do one change add one no"
+    },
+    {
+      "start": 1692.509,
+      "end": 1694.43,
+      "text": "node and all of the nodes properties"
+    },
+    {
+      "start": 1694.43,
+      "end": 1696.83,
+      "text": "change so that's an extreme example of"
+    },
+    {
+      "start": 1696.83,
+      "end": 1698.31,
+      "text": "global we want this very particular"
+    },
+    {
+      "start": 1698.31,
+      "end": 1701.19,
+      "text": "notion of"
+    },
+    {
+      "start": 1701.19,
+      "end": 1703.83,
+      "text": "local uh because that's what we can"
+    },
+    {
+      "start": 1703.83,
+      "end": 1706.11,
+      "text": "actually afford to recompute hopefully"
+    },
+    {
+      "start": 1706.11,
+      "end": 1714.07,
+      "text": "that clarifies"
+    },
+    {
+      "start": 1714.07,
+      "end": 1715.669,
+      "text": "you're right that if we added oh no"
+    },
+    {
+      "start": 1715.669,
+      "end": 1717.43,
+      "text": "let's okay let's think about that if we"
+    },
+    {
+      "start": 1717.43,
+      "end": 1720.63,
+      "text": "added a new parent to the tree this is"
+    },
+    {
+      "start": 1720.63,
+      "end": 1723.509,
+      "text": "not something that we've ever done um"
+    },
+    {
+      "start": 1723.509,
+      "end": 1726.509,
+      "text": "but even if we did that which sub trees"
+    },
+    {
+      "start": 1726.509,
+      "end": 1729.149,
+      "text": "change only this"
+    },
+    {
+      "start": 1729.149,
+      "end": 1731.07,
+      "text": "one right this node it's it's a new"
+    },
+    {
+      "start": 1731.07,
+      "end": 1732.909,
+      "text": "totally new sub tree but the sub tree of"
+    },
+    {
+      "start": 1732.909,
+      "end": 1734.07,
+      "text": "this node is completely unchanged"
+    },
+    {
+      "start": 1734.07,
+      "end": 1737.149,
+      "text": "because sub trees are always downward"
+    },
+    {
+      "start": 1737.149,
+      "end": 1740.11,
+      "text": "looking if I added a new root um I"
+    },
+    {
+      "start": 1740.11,
+      "end": 1743.63,
+      "text": "didn't change any sub except for one so"
+    },
+    {
+      "start": 1743.63,
+      "end": 1745.549,
+      "text": "size is a sube property now there are I"
+    },
+    {
+      "start": 1745.549,
+      "end": 1747.149,
+      "text": "mean I can completely redraw the tree"
+    },
+    {
+      "start": 1747.149,
+      "end": 1749.149,
+      "text": "and that's an operation that requires"
+    },
+    {
+      "start": 1749.149,
+      "end": 1750.75,
+      "text": "everything to be recomputed okay so it"
+    },
+    {
+      "start": 1750.75,
+      "end": 1752.63,
+      "text": "is limited exactly what I'm allowed to"
+    },
+    {
+      "start": 1752.63,
+      "end": 1756.149,
+      "text": "do in the tree but I claim everything"
+    },
+    {
+      "start": 1756.149,
+      "end": 1757.31,
+      "text": "will do last class and today uh we can"
+    },
+    {
+      "start": 1757.31,
+      "end": 1759.99,
+      "text": "afford this"
+    },
+    {
+      "start": 1759.99,
+      "end": 1761.669,
+      "text": "augmentation so it's a feature not of"
+    },
+    {
+      "start": 1761.669,
+      "end": 1763.35,
+      "text": "all binary trees necessarily but the"
+    },
+    {
+      "start": 1763.35,
+      "end": 1765.99,
+      "text": "ones that we would cover"
+    },
+    {
+      "start": 1765.99,
+      "end": 1773.149,
+      "text": "yeah what is a"
+    },
+    {
+      "start": 1773.149,
+      "end": 1776.19,
+      "text": "yeah okay let's uh this will make a"
+    },
+    {
+      "start": 1776.19,
+      "end": 1788.029,
+      "text": "little more sense in a moment when I say"
+    },
+    {
+      "start": 1788.029,
+      "end": 1792.909,
+      "text": "trees we"
+    },
+    {
+      "start": 1792.909,
+      "end": 1795.149,
+      "text": "uh we need a new tool for manipulating a"
+    },
+    {
+      "start": 1795.149,
+      "end": 1798.11,
+      "text": "tree what we've done so far we've done"
+    },
+    {
+      "start": 1798.11,
+      "end": 1800.11,
+      "text": "some swapping of items and we did adding"
+    },
+    {
+      "start": 1800.11,
+      "end": 1801.99,
+      "text": "removing a leaf that's not enough we're"
+    },
+    {
+      "start": 1801.99,
+      "end": 1804.43,
+      "text": "going to need something else to let us"
+    },
+    {
+      "start": 1804.43,
+      "end": 1806.71,
+      "text": "guarantee logarithmic"
+    },
+    {
+      "start": 1806.71,
+      "end": 1813.11,
+      "text": "height and that's something else is"
+    },
+    {
+      "start": 1813.11,
+      "end": 1816.75,
+      "text": "rotation what does this something else"
+    },
+    {
+      "start": 1816.75,
+      "end": 1819.669,
+      "text": "need to do this is just a tool for"
+    },
+    {
+      "start": 1819.669,
+      "end": 1821.63,
+      "text": "rebalancing the tree so it should not"
+    },
+    {
+      "start": 1821.63,
+      "end": 1823.549,
+      "text": "change the data that's represented by"
+    },
+    {
+      "start": 1823.549,
+      "end": 1826.75,
+      "text": "the tree what is the data represented by"
+    },
+    {
+      "start": 1826.75,
+      "end": 1828.909,
+      "text": "the tree traversal order traversal order"
+    },
+    {
+      "start": 1828.909,
+      "end": 1831.19,
+      "text": "is sacran where not allowed to touch it"
+    },
+    {
+      "start": 1831.19,
+      "end": 1832.669,
+      "text": "it's already defined two different ways"
+    },
+    {
+      "start": 1832.669,
+      "end": 1835.95,
+      "text": "depending on whether you're using a set"
+    },
+    {
+      "start": 1835.95,
+      "end": 1838.029,
+      "text": "or sequence so we want to modify the"
+    },
+    {
+      "start": 1838.029,
+      "end": 1840.83,
+      "text": "tree in a way that doesn't modify the"
+    },
+    {
+      "start": 1840.83,
+      "end": 1842.31,
+      "text": "traversal order so this we're exploiting"
+    },
+    {
+      "start": 1842.31,
+      "end": 1844.11,
+      "text": "redundancy if you wrote down the"
+    },
+    {
+      "start": 1844.11,
+      "end": 1845.95,
+      "text": "traversal order in an array there's"
+    },
+    {
+      "start": 1845.95,
+      "end": 1848.35,
+      "text": "exactly one representation of a given"
+    },
+    {
+      "start": 1848.35,
+      "end": 1850.87,
+      "text": "order but in a tree there's many"
+    },
+    {
+      "start": 1850.87,
+      "end": 1852.87,
+      "text": "representations it could be a long line"
+    },
+    {
+      "start": 1852.87,
+      "end": 1854.43,
+      "text": "it could be a balanced thing they could"
+    },
+    {
+      "start": 1854.43,
+      "end": 1856.669,
+      "text": "represent the exact same order on the"
+    },
+    {
+      "start": 1856.669,
+      "end": 1858.389,
+      "text": "nodes if you label them right okay in"
+    },
+    {
+      "start": 1858.389,
+      "end": 1859.789,
+      "text": "fact they're exponentially many"
+    },
+    {
+      "start": 1859.789,
+      "end": 1861.629,
+      "text": "different representations of the same"
+    },
+    {
+      "start": 1861.629,
+      "end": 1862.95,
+      "text": "thing and we're going to exploit that"
+    },
+    {
+      "start": 1862.95,
+      "end": 1865.669,
+      "text": "the same"
+    },
+    {
+      "start": 1865.669,
+      "end": 1886.149,
+      "text": "order and Define this is just a thing"
+    },
+    {
+      "start": 1886.149,
+      "end": 1888.99,
+      "text": "know me label a x b y"
+    },
+    {
+      "start": 1888.99,
+      "end": 1892.389,
+      "text": "c you can tell I've drawn this diagram"
+    },
+    {
+      "start": 1892.389,
+      "end": 1894.389,
+      "text": "before many many times this is a very"
+    },
+    {
+      "start": 1894.389,
+      "end": 1895.95,
+      "text": "powerful tool in all tree data"
+    },
+    {
+      "start": 1895.95,
+      "end": 1916.07,
+      "text": "structures which are most of data"
+    },
+    {
+      "start": 1916.07,
+      "end": 1918.35,
+      "text": "x uh so if I have this tree which I'm"
+    },
+    {
+      "start": 1918.35,
+      "end": 1921.23,
+      "text": "just blackboxing some of the sub into"
+    },
+    {
+      "start": 1921.23,
+      "end": 1923.99,
+      "text": "little triangles if I have a node and it"
+    },
+    {
+      "start": 1923.99,
+      "end": 1925.59,
+      "text": "it has a left child then I'm allowed to"
+    },
+    {
+      "start": 1925.59,
+      "end": 1928.43,
+      "text": "right rotate this Edge which means take"
+    },
+    {
+      "start": 1928.43,
+      "end": 1930.31,
+      "text": "this Edge and go like this 90 Dees kind"
+    },
+    {
+      "start": 1930.31,
+      "end": 1932.23,
+      "text": "of uh or you could just think of it as"
+    },
+    {
+      "start": 1932.23,
+      "end": 1934.269,
+      "text": "rewriting it this way now you might also"
+    },
+    {
+      "start": 1934.269,
+      "end": 1937.149,
+      "text": "keep in track of the parent pointer"
+    },
+    {
+      "start": 1937.149,
+      "end": 1939.07,
+      "text": "parent pointer uh moves around before"
+    },
+    {
+      "start": 1939.07,
+      "end": 1940.11,
+      "text": "this was the parent of Y now it's the"
+    },
+    {
+      "start": 1940.11,
+      "end": 1943.389,
+      "text": "parent of"
+    },
+    {
+      "start": 1943.389,
+      "end": 1946.59,
+      "text": "X okay so we X and Y are switching"
+    },
+    {
+      "start": 1946.59,
+      "end": 1948.71,
+      "text": "places but if we we couldn't just swap"
+    },
+    {
+      "start": 1948.71,
+      "end": 1951.629,
+      "text": "these items around that would change"
+    },
+    {
+      "start": 1951.629,
+      "end": 1954.389,
+      "text": "traversal order in this picture X comes"
+    },
+    {
+      "start": 1954.389,
+      "end": 1957.35,
+      "text": "before y because X is in the left sub"
+    },
+    {
+      "start": 1957.35,
+      "end": 1959.95,
+      "text": "tree of Y in traversal order and over"
+    },
+    {
+      "start": 1959.95,
+      "end": 1962.59,
+      "text": "here now Y is in the right sub tree of X"
+    },
+    {
+      "start": 1962.59,
+      "end": 1965.149,
+      "text": "so it comes after X so in both cases X"
+    },
+    {
+      "start": 1965.149,
+      "end": 1966.029,
+      "text": "comes before Y and indeed in all of"
+    },
+    {
+      "start": 1966.029,
+      "end": 1968.83,
+      "text": "these"
+    },
+    {
+      "start": 1968.83,
+      "end": 1970.629,
+      "text": "pictures uh the traversal order I mean"
+    },
+    {
+      "start": 1970.629,
+      "end": 1973.269,
+      "text": "not just for X and Y but also for a b"
+    },
+    {
+      "start": 1973.269,
+      "end": 1974.31,
+      "text": "and c the traversal order is consistent"
+    },
+    {
+      "start": 1974.31,
+      "end": 1979.029,
+      "text": "it is"
+    },
+    {
+      "start": 1979.029,
+      "end": 1982.31,
+      "text": "a uh x b"
+    },
+    {
+      "start": 1982.31,
+      "end": 1983.83,
+      "text": "y c where when I write a triangle I mean"
+    },
+    {
+      "start": 1983.83,
+      "end": 1985.95,
+      "text": "recursively the traversal order of all"
+    },
+    {
+      "start": 1985.95,
+      "end": 1987.71,
+      "text": "the things in the Triangle so if you"
+    },
+    {
+      "start": 1987.71,
+      "end": 1989.83,
+      "text": "just apply the traversal order algorithm"
+    },
+    {
+      "start": 1989.83,
+      "end": 1991.83,
+      "text": "here versus here you get the same output"
+    },
+    {
+      "start": 1991.83,
+      "end": 2001.31,
+      "text": "which means these these operations"
+    },
+    {
+      "start": 2001.31,
+      "end": 2004.269,
+      "text": "order great so this is a thing that we"
+    },
+    {
+      "start": 2004.269,
+      "end": 2006.669,
+      "text": "can do in a tree that won't affect any"
+    },
+    {
+      "start": 2006.669,
+      "end": 2008.87,
+      "text": "of the stuff we've done so far it's a"
+    },
+    {
+      "start": 2008.87,
+      "end": 2010.389,
+      "text": "tool that we can used to rebalance"
+    },
+    {
+      "start": 2010.389,
+      "end": 2012.95,
+      "text": "notice"
+    },
+    {
+      "start": 2012.95,
+      "end": 2016.11,
+      "text": "um you know how deep things are in the"
+    },
+    {
+      "start": 2016.11,
+      "end": 2018.269,
+      "text": "tree changes our problem with this"
+    },
+    {
+      "start": 2018.269,
+      "end": 2020.029,
+      "text": "linear tree is that there are some nodes"
+    },
+    {
+      "start": 2020.029,
+      "end": 2022.269,
+      "text": "of linear depth we want to get rid of"
+    },
+    {
+      "start": 2022.269,
+      "end": 2024.59,
+      "text": "those how we could take these edges and"
+    },
+    {
+      "start": 2024.59,
+      "end": 2028.07,
+      "text": "start rotating them up if you look at"
+    },
+    {
+      "start": 2028.07,
+      "end": 2031.43,
+      "text": "depths um you know in this picture A and"
+    },
+    {
+      "start": 2031.43,
+      "end": 2033.83,
+      "text": "B are deeper than C and in this picture"
+    },
+    {
+      "start": 2033.83,
+      "end": 2037.509,
+      "text": "uh B and C are deeper than a so you know"
+    },
+    {
+      "start": 2037.509,
+      "end": 2039.23,
+      "text": "there a trade-off this one moved up this"
+    },
+    {
+      "start": 2039.23,
+      "end": 2040.11,
+      "text": "one moved down this one stayed at the"
+    },
+    {
+      "start": 2040.11,
+      "end": 2044.149,
+      "text": "same"
+    },
+    {
+      "start": 2044.149,
+      "end": 2047.83,
+      "text": "depth so hopefully if if a is too deep"
+    },
+    {
+      "start": 2047.83,
+      "end": 2050.19,
+      "text": "and C is too shallow uh they can trade"
+    },
+    {
+      "start": 2050.19,
+      "end": 2051.43,
+      "text": "off like this okay it may sound"
+    },
+    {
+      "start": 2051.43,
+      "end": 2060.149,
+      "text": "difficult but in fact there's a pretty"
+    },
+    {
+      "start": 2060.149,
+      "end": 2062.51,
+      "text": "trees uh that maintain balance in a"
+    },
+    {
+      "start": 2062.51,
+      "end": 2080.389,
+      "text": "particular"
+    },
+    {
+      "start": 2080.389,
+      "end": 2088.95,
+      "text": "this is uh if we take the"
+    },
+    {
+      "start": 2088.95,
+      "end": 2094.349,
+      "text": "left uh actually I'd prefer"
+    },
+    {
+      "start": 2094.349,
+      "end": 2107.19,
+      "text": "right"
+    },
+    {
+      "start": 2107.19,
+      "end": 2110.109,
+      "text": "so this thing is called um"
+    },
+    {
+      "start": 2110.109,
+      "end": 2114.23,
+      "text": "skew of the"
+    },
+    {
+      "start": 2114.23,
+      "end": 2116.71,
+      "text": "node I want this to always be minus1 0"
+    },
+    {
+      "start": 2116.71,
+      "end": 2119.95,
+      "text": "or plus"
+    },
+    {
+      "start": 2119.95,
+      "end": 2123.109,
+      "text": "one okay so this is saying that if I"
+    },
+    {
+      "start": 2123.109,
+      "end": 2126.03,
+      "text": "have any node and I look if it's left"
+    },
+    {
+      "start": 2126.03,
+      "end": 2127.71,
+      "text": "sube and it's right sub tree I measure"
+    },
+    {
+      "start": 2127.71,
+      "end": 2130.79,
+      "text": "their heights remember that's downward"
+    },
+    {
+      "start": 2130.79,
+      "end": 2132.87,
+      "text": "dist to maximum distance to a leaf I"
+    },
+    {
+      "start": 2132.87,
+      "end": 2134.39,
+      "text": "measure the height of this tree maximum"
+    },
+    {
+      "start": 2134.39,
+      "end": 2136.91,
+      "text": "height I measure the maximum height of"
+    },
+    {
+      "start": 2136.91,
+      "end": 2139.55,
+      "text": "this sube I want these to be within one"
+    },
+    {
+      "start": 2139.55,
+      "end": 2142.43,
+      "text": "of each other maybe ideally they're"
+    },
+    {
+      "start": 2142.43,
+      "end": 2144.79,
+      "text": "equal that would be the perfect case but"
+    },
+    {
+      "start": 2144.79,
+      "end": 2148.63,
+      "text": "let's let them differ by one so maybe"
+    },
+    {
+      "start": 2148.63,
+      "end": 2151.309,
+      "text": "this is K and this is k + one or maybe"
+    },
+    {
+      "start": 2151.309,
+      "end": 2152.79,
+      "text": "this is K and this is K minus one what's"
+    },
+    {
+      "start": 2152.79,
+      "end": 2156.03,
+      "text": "the in this picture what is the height"
+    },
+    {
+      "start": 2156.03,
+      "end": 2158.63,
+      "text": "of this node it's good"
+    },
+    {
+      "start": 2158.63,
+      "end": 2160.829,
+      "text": "practice k+ 2"
+    },
+    {
+      "start": 2160.829,
+      "end": 2162.589,
+      "text": "good what's the longest path from this"
+    },
+    {
+      "start": 2162.589,
+      "end": 2164.63,
+      "text": "node to a leaf well it could go through"
+    },
+    {
+      "start": 2164.63,
+      "end": 2166.75,
+      "text": "this sub tree and that would be length"
+    },
+    {
+      "start": 2166.75,
+      "end": 2168.63,
+      "text": "k+ 1 cuz it's K in here plus one for"
+    },
+    {
+      "start": 2168.63,
+      "end": 2171.15,
+      "text": "this Edge or it could be through here"
+    },
+    {
+      "start": 2171.15,
+      "end": 2173.589,
+      "text": "and that's k+ 1 plus one so the biggest"
+    },
+    {
+      "start": 2173.589,
+      "end": 2174.829,
+      "text": "is to go to the right so the height if I"
+    },
+    {
+      "start": 2174.829,
+      "end": 2176.19,
+      "text": "told you the height of these sub trees"
+    },
+    {
+      "start": 2176.19,
+      "end": 2178.43,
+      "text": "we can derive the height of this note"
+    },
+    {
+      "start": 2178.43,
+      "end": 2181.43,
+      "text": "we're going to use that a lot in a"
+    },
+    {
+      "start": 2181.43,
+      "end": 2185.15,
+      "text": "moment so first claim is that if I could"
+    },
+    {
+      "start": 2185.15,
+      "end": 2188.19,
+      "text": "maintain height balance then I"
+    },
+    {
+      "start": 2188.19,
+      "end": 2189.79,
+      "text": "can uh I will guarantee that H equals"
+    },
+    {
+      "start": 2189.79,
+      "end": 2191.309,
+      "text": "log n so in other words height balance"
+    },
+    {
+      "start": 2191.309,
+      "end": 2193.95,
+      "text": "implies"
+    },
+    {
+      "start": 2193.95,
+      "end": 2198.39,
+      "text": "balance so let's prove that"
+    },
+    {
+      "start": 2198.39,
+      "end": 2206.349,
+      "text": "first quickly and then the interesting"
+    },
+    {
+      "start": 2206.349,
+      "end": 2208.349,
+      "text": "prove or how do we actually maintain the"
+    },
+    {
+      "start": 2208.349,
+      "end": 2211.109,
+      "text": "balance property we're going to do that"
+    },
+    {
+      "start": 2211.109,
+      "end": 2239.75,
+      "text": "using rotations but how is a big"
+    },
+    {
+      "start": 2239.75,
+      "end": 2242.15,
+      "text": "balance so uh what this is saying is"
+    },
+    {
+      "start": 2242.15,
+      "end": 2243.71,
+      "text": "that all height balanc trees have"
+    },
+    {
+      "start": 2243.71,
+      "end": 2246.15,
+      "text": "logarithmic"
+    },
+    {
+      "start": 2246.15,
+      "end": 2249.19,
+      "text": "height so what I'd like to think about"
+    },
+    {
+      "start": 2249.19,
+      "end": 2251.99,
+      "text": "is sort of the Le least balanced height"
+    },
+    {
+      "start": 2251.99,
+      "end": 2254.349,
+      "text": "balanced tree uh the least balanced one"
+    },
+    {
+      "start": 2254.349,
+      "end": 2256.63,
+      "text": "is going to have at every node a"
+    },
+    {
+      "start": 2256.63,
+      "end": 2260.47,
+      "text": "mismatch the the left let's say the left"
+    },
+    {
+      "start": 2260.47,
+      "end": 2262.71,
+      "text": "sube is shallower than the right subtree"
+    },
+    {
+      "start": 2262.71,
+      "end": 2266.15,
+      "text": "by one and recursively all the way down"
+    },
+    {
+      "start": 2266.15,
+      "end": 2268.589,
+      "text": "so every node has a a Gap"
+    },
+    {
+      "start": 2268.589,
+      "end": 2273.99,
+      "text": "a"
+    },
+    {
+      "start": 2273.99,
+      "end": 2276.63,
+      "text": "uh what do we call it uh a skew of"
+    },
+    {
+      "start": 2276.63,
+      "end": 2278.15,
+      "text": "one okay which I'm going to write I'm"
+    },
+    {
+      "start": 2278.15,
+      "end": 2279.99,
+      "text": "going to introduce some notation I'll"
+    },
+    {
+      "start": 2279.99,
+      "end": 2284.95,
+      "text": "write a descending rightward Arrow if"
+    },
+    {
+      "start": 2284.95,
+      "end": 2287.91,
+      "text": "this one is is higher than the left sub"
+    },
+    {
+      "start": 2287.91,
+      "end": 2289.829,
+      "text": "tree uh so the easy way to think about"
+    },
+    {
+      "start": 2289.829,
+      "end": 2292.03,
+      "text": "this is this is sort of the our worst"
+    },
+    {
+      "start": 2292.03,
+      "end": 2294.95,
+      "text": "case this is going to be the the fewest"
+    },
+    {
+      "start": 2294.95,
+      "end": 2297.39,
+      "text": "nodes for the maximum depth let's just"
+    },
+    {
+      "start": 2297.39,
+      "end": 2299.79,
+      "text": "count how many nodes are in this"
+    },
+    {
+      "start": 2299.79,
+      "end": 2302.069,
+      "text": "tree I'm going to write that as a"
+    },
+    {
+      "start": 2302.069,
+      "end": 2304.63,
+      "text": "recurrence um which is the number of"
+    },
+    {
+      "start": 2304.63,
+      "end": 2312.99,
+      "text": "nodes in a tree of height"
+    },
+    {
+      "start": 2312.99,
+      "end": 2315.67,
+      "text": "H uh as we said in this picture if I"
+    },
+    {
+      "start": 2315.67,
+      "end": 2320.309,
+      "text": "just subtract two from all these numbers"
+    },
+    {
+      "start": 2320.309,
+      "end": 2322.87,
+      "text": "then this one has height uh H minus 2"
+    },
+    {
+      "start": 2322.87,
+      "end": 2325.99,
+      "text": "and this one has height H minus"
+    },
+    {
+      "start": 2325.99,
+      "end": 2327.55,
+      "text": "one okay so how many nodes are in here"
+    },
+    {
+      "start": 2327.55,
+      "end": 2332.15,
+      "text": "well this is a recurrence I'm going to"
+    },
+    {
+      "start": 2332.15,
+      "end": 2334.349,
+      "text": "write so this will be N Sub h-2 this"
+    },
+    {
+      "start": 2334.349,
+      "end": 2336.43,
+      "text": "will be N Sub"
+    },
+    {
+      "start": 2336.43,
+      "end": 2337.99,
+      "text": "hus1 and then I just count how many"
+    },
+    {
+      "start": 2337.99,
+      "end": 2344.75,
+      "text": "nodes are in this picture"
+    },
+    {
+      "start": 2344.75,
+      "end": 2347.589,
+      "text": "it is n subh -1 plus n subh - 2 + 1 or"
+    },
+    {
+      "start": 2347.589,
+      "end": 2350.23,
+      "text": "this note now you might ask what is NH"
+    },
+    {
+      "start": 2350.23,
+      "end": 2353.63,
+      "text": "or recurrence for uh but it is the"
+    },
+    {
+      "start": 2353.63,
+      "end": 2357.19,
+      "text": "number of nodes in this sort of worst"
+    },
+    {
+      "start": 2357.19,
+      "end": 2360.15,
+      "text": "case uh for if the worst case has total"
+    },
+    {
+      "start": 2360.15,
+      "end": 2361.91,
+      "text": "height H so you can also think of it as"
+    },
+    {
+      "start": 2361.91,
+      "end": 2363.75,
+      "text": "what is the minimum number of nodes I"
+    },
+    {
+      "start": 2363.75,
+      "end": 2377.63,
+      "text": "could have in an AVL tree which is a"
+    },
+    {
+      "start": 2377.63,
+      "end": 2379.75,
+      "text": "in a height balanced"
+    },
+    {
+      "start": 2379.75,
+      "end": 2387.109,
+      "text": "tree okay so now I just need to solve"
+    },
+    {
+      "start": 2387.109,
+      "end": 2389.67,
+      "text": "familiar"
+    },
+    {
+      "start": 2389.67,
+      "end": 2392.27,
+      "text": "is it's like Fibonacci numbers if I"
+    },
+    {
+      "start": 2392.27,
+      "end": 2393.55,
+      "text": "remove the plus one it's Fibonacci and"
+    },
+    {
+      "start": 2393.55,
+      "end": 2395.91,
+      "text": "if you happen to know the Fibonacci"
+    },
+    {
+      "start": 2395.91,
+      "end": 2397.87,
+      "text": "numbers grow as like a golden ratio to"
+    },
+    {
+      "start": 2397.87,
+      "end": 2399.67,
+      "text": "the N then we know that this is"
+    },
+    {
+      "start": 2399.67,
+      "end": 2402.79,
+      "text": "exponential which is what we want"
+    },
+    {
+      "start": 2402.79,
+      "end": 2405.069,
+      "text": "because if NH is exponential in h that"
+    },
+    {
+      "start": 2405.069,
+      "end": 2407.15,
+      "text": "means H is logarithmic in N because log"
+    },
+    {
+      "start": 2407.15,
+      "end": 2408.67,
+      "text": "is inverse of exponential okay but maybe"
+    },
+    {
+      "start": 2408.67,
+      "end": 2412.91,
+      "text": "you don't know about Fibonacci numbers"
+    },
+    {
+      "start": 2412.91,
+      "end": 2416.109,
+      "text": "and uh so we can still uh easily show"
+    },
+    {
+      "start": 2416.109,
+      "end": 2417.63,
+      "text": "that this is exponential as follows I"
+    },
+    {
+      "start": 2417.63,
+      "end": 2419.51,
+      "text": "want to prove that it's at least an"
+    },
+    {
+      "start": 2419.51,
+      "end": 2421.23,
+      "text": "exponential because that gives me that H"
+    },
+    {
+      "start": 2421.23,
+      "end": 2424.39,
+      "text": "is at most"
+    },
+    {
+      "start": 2424.39,
+      "end": 2425.829,
+      "text": "logarithmic um so we need a lower bound"
+    },
+    {
+      "start": 2425.829,
+      "end": 2428.15,
+      "text": "and so we have these two terms which are"
+    },
+    {
+      "start": 2428.15,
+      "end": 2430.589,
+      "text": "hard to compare n subh minus 1 and N Sub"
+    },
+    {
+      "start": 2430.589,
+      "end": 2432.109,
+      "text": "hus 2 it's kind of ugly uh but if we're"
+    },
+    {
+      "start": 2432.109,
+      "end": 2433.91,
+      "text": "allowed to be sloppy and we'll see if"
+    },
+    {
+      "start": 2433.91,
+      "end": 2436.39,
+      "text": "we're not too sloppy and still get an"
+    },
+    {
+      "start": 2436.39,
+      "end": 2438.349,
+      "text": "exponential answer um let's just make"
+    },
+    {
+      "start": 2438.349,
+      "end": 2440.55,
+      "text": "them"
+    },
+    {
+      "start": 2440.55,
+      "end": 2443.15,
+      "text": "equal uh like"
+    },
+    {
+      "start": 2443.15,
+      "end": 2446.39,
+      "text": "so"
+    },
+    {
+      "start": 2446.39,
+      "end": 2449.39,
+      "text": "um so this is a true statement in fact"
+    },
+    {
+      "start": 2449.39,
+      "end": 2450.91,
+      "text": "strictly greater than uh why because so"
+    },
+    {
+      "start": 2450.91,
+      "end": 2454.349,
+      "text": "I removed the plus one that should only"
+    },
+    {
+      "start": 2454.349,
+      "end": 2456.75,
+      "text": "make something smaller and um I replaced"
+    },
+    {
+      "start": 2456.75,
+      "end": 2459.23,
+      "text": "n subh minus1 with n subh minus 2 here"
+    },
+    {
+      "start": 2459.23,
+      "end": 2463.19,
+      "text": "I'm implic using a fact which is obvious"
+    },
+    {
+      "start": 2463.19,
+      "end": 2465.309,
+      "text": "by induction that uh this tree on height"
+    },
+    {
+      "start": 2465.309,
+      "end": 2467.63,
+      "text": "if I take this tree versus this tree"
+    },
+    {
+      "start": 2467.63,
+      "end": 2469.55,
+      "text": "this one has more nodes than this one"
+    },
+    {
+      "start": 2469.55,
+      "end": 2471.23,
+      "text": "right if I have larger height this"
+    },
+    {
+      "start": 2471.23,
+      "end": 2474.109,
+      "text": "construction is going to build a bigger"
+    },
+    {
+      "start": 2474.109,
+      "end": 2476.309,
+      "text": "tree at least as big doesn't need even"
+    },
+    {
+      "start": 2476.309,
+      "end": 2477.91,
+      "text": "need to be strictly bigger so certainly"
+    },
+    {
+      "start": 2477.91,
+      "end": 2482.39,
+      "text": "n subh minus one is greater than or"
+    },
+    {
+      "start": 2482.39,
+      "end": 2485.63,
+      "text": "equal to n subh minus 2 now this is 2 *"
+    },
+    {
+      "start": 2485.63,
+      "end": 2488.19,
+      "text": "n subus 2 and this is an easy recurrence"
+    },
+    {
+      "start": 2488.19,
+      "end": 2490.43,
+      "text": "this is just powers of two right I keep"
+    },
+    {
+      "start": 2490.43,
+      "end": 2495.19,
+      "text": "multiplying by two and subtracting two"
+    },
+    {
+      "start": 2495.19,
+      "end": 2498.79,
+      "text": "from H so this solves to 2 to the h 2"
+    },
+    {
+      "start": 2498.79,
+      "end": 2501.71,
+      "text": "maybe with a floor or something okay but"
+    },
+    {
+      "start": 2501.71,
+      "end": 2504.03,
+      "text": "uh it is I'm using a base case here"
+    },
+    {
+      "start": 2504.03,
+      "end": 2507.589,
+      "text": "which is N Sub 0al"
+    },
+    {
+      "start": 2507.589,
+      "end": 2509.67,
+      "text": "1 uh maybe it's a ceiling then but the"
+    },
+    {
+      "start": 2509.67,
+      "end": 2512.39,
+      "text": "point is this is exponential so this"
+    },
+    {
+      "start": 2512.39,
+      "end": 2514.589,
+      "text": "implies that the height is always at"
+    },
+    {
+      "start": 2514.589,
+      "end": 2517.75,
+      "text": "most 2 * log"
+    },
+    {
+      "start": 2517.75,
+      "end": 2519.79,
+      "text": "n uh this two corresponds to this to if"
+    },
+    {
+      "start": 2519.79,
+      "end": 2523.03,
+      "text": "you just invert this formula this was"
+    },
+    {
+      "start": 2523.03,
+      "end": 2526.91,
+      "text": "number of nodes is going to be at"
+    },
+    {
+      "start": 2526.91,
+      "end": 2529.349,
+      "text": "least uh 2 the H2 and so H is at most to"
+    },
+    {
+      "start": 2529.349,
+      "end": 2531.39,
+      "text": "log n so it's not log n that would be"
+    },
+    {
+      "start": 2531.39,
+      "end": 2534.55,
+      "text": "perfect but it's within a factor of two"
+    },
+    {
+      "start": 2534.55,
+      "end": 2536.71,
+      "text": "of log n so AVL trees are always quite"
+    },
+    {
+      "start": 2536.71,
+      "end": 2547.67,
+      "text": "balanced number of levels is at most"
+    },
+    {
+      "start": 2547.67,
+      "end": 2551.75,
+      "text": "great we're left with the main Magic"
+    },
+    {
+      "start": 2551.75,
+      "end": 2568.109,
+      "text": "not domain magic that's different uh and"
+    },
+    {
+      "start": 2568.109,
+      "end": 2570.109,
+      "text": "that big remaining challenge is how do"
+    },
+    {
+      "start": 2570.109,
+      "end": 2571.829,
+      "text": "we maintain this height balance property"
+    },
+    {
+      "start": 2571.829,
+      "end": 2574.67,
+      "text": "using rotations we have all the"
+    },
+    {
+      "start": 2574.67,
+      "end": 2575.63,
+      "text": "ingredients lined up for us we have sub"
+    },
+    {
+      "start": 2575.63,
+      "end": 2583.19,
+      "text": "Tre"
+    },
+    {
+      "start": 2583.19,
+      "end": 2585.39,
+      "text": "do that's relevant to AVL trees well it"
+    },
+    {
+      "start": 2585.39,
+      "end": 2587.91,
+      "text": "lets me store"
+    },
+    {
+      "start": 2587.91,
+      "end": 2590.309,
+      "text": "height right I need to be able to"
+    },
+    {
+      "start": 2590.309,
+      "end": 2593.03,
+      "text": "compute the height of a"
+    },
+    {
+      "start": 2593.03,
+      "end": 2594.03,
+      "text": "node that in general takes linear time"
+    },
+    {
+      "start": 2594.03,
+      "end": 2595.51,
+      "text": "because I have to look at all the"
+    },
+    {
+      "start": 2595.51,
+      "end": 2599.63,
+      "text": "downward paths all the leaves within"
+    },
+    {
+      "start": 2599.63,
+      "end": 2603.829,
+      "text": "that sub tree but height is a sub tree"
+    },
+    {
+      "start": 2603.829,
+      "end": 2609.829,
+      "text": "property so uh"
+    },
+    {
+      "start": 2609.829,
+      "end": 2613.63,
+      "text": "why"
+    },
+    {
+      "start": 2613.63,
+      "end": 2639.51,
+      "text": "because uh let me just write it here"
+    },
+    {
+      "start": 2639.51,
+      "end": 2641.27,
+      "text": "height and of Max let me put this in a"
+    },
+    {
+      "start": 2641.27,
+      "end": 2643.829,
+      "text": "box"
+    },
+    {
+      "start": 2643.829,
+      "end": 2647.549,
+      "text": "this equation or I guess it's an"
+    },
+    {
+      "start": 2647.549,
+      "end": 2649.67,
+      "text": "assignment operation this is a"
+    },
+    {
+      "start": 2649.67,
+      "end": 2651.03,
+      "text": "one is the thing we've been doing over"
+    },
+    {
+      "start": 2651.03,
+      "end": 2652.67,
+      "text": "and over when I said what is the height"
+    },
+    {
+      "start": 2652.67,
+      "end": 2653.75,
+      "text": "of this node you just figured that out"
+    },
+    {
+      "start": 2653.75,
+      "end": 2655.109,
+      "text": "right you took the height of the left"
+    },
+    {
+      "start": 2655.109,
+      "end": 2657.349,
+      "text": "sub tree maxed with the height of the"
+    },
+    {
+      "start": 2657.349,
+      "end": 2659.75,
+      "text": "right sub tree and added one for to"
+    },
+    {
+      "start": 2659.75,
+      "end": 2661.79,
+      "text": "count for these edges okay so this is a"
+    },
+    {
+      "start": 2661.79,
+      "end": 2664.069,
+      "text": "general update rule it matches this"
+    },
+    {
+      "start": 2664.069,
+      "end": 2665.91,
+      "text": "subtree property pattern if I have the"
+    },
+    {
+      "start": 2665.91,
+      "end": 2667.91,
+      "text": "property of left and right I can compute"
+    },
+    {
+      "start": 2667.91,
+      "end": 2669.67,
+      "text": "it for node"
+    },
+    {
+      "start": 2669.67,
+      "end": 2671.15,
+      "text": "and this takes constant time to do and"
+    },
+    {
+      "start": 2671.15,
+      "end": 2672.95,
+      "text": "so it's a sub tree property and so I can"
+    },
+    {
+      "start": 2672.95,
+      "end": 2674.95,
+      "text": "maintain through all the things I'm"
+    },
+    {
+      "start": 2674.95,
+      "end": 2678.27,
+      "text": "doing the height of every node oh by the"
+    },
+    {
+      "start": 2678.27,
+      "end": 2680.23,
+      "text": "way whenever I do a rotation I'm also"
+    },
+    {
+      "start": 2680.23,
+      "end": 2683.95,
+      "text": "going to have to update my sube"
+    },
+    {
+      "start": 2683.95,
+      "end": 2686.069,
+      "text": "properties when I rotate this Edge a"
+    },
+    {
+      "start": 2686.069,
+      "end": 2689.15,
+      "text": "does not change B does not change C does"
+    },
+    {
+      "start": 2689.15,
+      "end": 2691.23,
+      "text": "not change so that's good but X's sub"
+    },
+    {
+      "start": 2691.23,
+      "end": 2694.43,
+      "text": "tree changes it now has why it didn't"
+    },
+    {
+      "start": 2694.43,
+      "end": 2698.109,
+      "text": "before so we're going to have to also uh"
+    },
+    {
+      "start": 2698.109,
+      "end": 2700.309,
+      "text": "update the augmentation here"
+    },
+    {
+      "start": 2700.309,
+      "end": 2702.79,
+      "text": "Y and we're going to have to update the"
+    },
+    {
+      "start": 2702.79,
+      "end": 2705.03,
+      "text": "augmentation in"
+    },
+    {
+      "start": 2705.03,
+      "end": 2707.19,
+      "text": "X and we're going to have to update the"
+    },
+    {
+      "start": 2707.19,
+      "end": 2712.27,
+      "text": "augmentation of all of the ancestors of"
+    },
+    {
+      "start": 2712.27,
+      "end": 2713.549,
+      "text": "X eventually um so rotation is locally"
+    },
+    {
+      "start": 2713.549,
+      "end": 2715.15,
+      "text": "just changing a constant number of"
+    },
+    {
+      "start": 2715.15,
+      "end": 2716.95,
+      "text": "pointers so I usually think of rotations"
+    },
+    {
+      "start": 2716.95,
+      "end": 2719.79,
+      "text": "as taking constant"
+    },
+    {
+      "start": 2719.79,
+      "end": 2722.67,
+      "text": "time uh but eventually we will have to"
+    },
+    {
+      "start": 2722.67,
+      "end": 2724.39,
+      "text": "do this is constant time"
+    },
+    {
+      "start": 2724.39,
+      "end": 2734.27,
+      "text": "locally"
+    },
+    {
+      "start": 2734.27,
+      "end": 2736.91,
+      "text": "uh H"
+    },
+    {
+      "start": 2736.91,
+      "end": 2739.349,
+      "text": "ancestors in order to store all of keep"
+    },
+    {
+      "start": 2739.349,
+      "end": 2744.75,
+      "text": "all of our augmentations up to date okay"
+    },
+    {
+      "start": 2744.75,
+      "end": 2746.27,
+      "text": "later all right so great now we have the"
+    },
+    {
+      "start": 2746.27,
+      "end": 2750.829,
+      "text": "height of all the nodes we can compute"
+    },
+    {
+      "start": 2750.829,
+      "end": 2752.87,
+      "text": "the SK skew of all the nodes cool uh we"
+    },
+    {
+      "start": 2752.87,
+      "end": 2753.829,
+      "text": "have this rotation operation and we want"
+    },
+    {
+      "start": 2753.829,
+      "end": 2755.67,
+      "text": "to"
+    },
+    {
+      "start": 2755.67,
+      "end": 2758.47,
+      "text": "maintain"
+    },
+    {
+      "start": 2758.47,
+      "end": 2760.67,
+      "text": "uh this height balance property height"
+    },
+    {
+      "start": 2760.67,
+      "end": 2763.67,
+      "text": "of left node left and right of every"
+    },
+    {
+      "start": 2763.67,
+      "end": 2765.309,
+      "text": "node is within is plus or minus one or"
+    },
+    {
+      "start": 2765.309,
+      "end": 2768.15,
+      "text": "zero"
+    },
+    {
+      "start": 2768.15,
+      "end": 2771.79,
+      "text": "um"
+    },
+    {
+      "start": 2771.79,
+      "end": 2774.63,
+      "text": "cool so uh I said over here"
+    },
+    {
+      "start": 2774.63,
+      "end": 2775.95,
+      "text": "somewhere whenever we so the only things"
+    },
+    {
+      "start": 2775.95,
+      "end": 2778.47,
+      "text": "that change the tree are when we insert"
+    },
+    {
+      "start": 2778.47,
+      "end": 2780.51,
+      "text": "or delete a new node and it and the way"
+    },
+    {
+      "start": 2780.51,
+      "end": 2782.71,
+      "text": "that we implemented those so far is to"
+    },
+    {
+      "start": 2782.71,
+      "end": 2784.829,
+      "text": "add or remove a leaf so we should still"
+    },
+    {
+      "start": 2784.829,
+      "end": 2786.47,
+      "text": "be thinking about adding or removing a"
+    },
+    {
+      "start": 2786.47,
+      "end": 2787.51,
+      "text": "leaf the problem is when I add a new"
+    },
+    {
+      "start": 2787.51,
+      "end": 2790.109,
+      "text": "Leaf"
+    },
+    {
+      "start": 2790.109,
+      "end": 2793.63,
+      "text": "now maybe this tree is higher than it"
+    },
+    {
+      "start": 2793.63,
+      "end": 2795.91,
+      "text": "used to be so um some node here may no"
+    },
+    {
+      "start": 2795.91,
+      "end": 2797.87,
+      "text": "longer be height balanced but because"
+    },
+    {
+      "start": 2797.87,
+      "end": 2800.309,
+      "text": "height is a subtree property the only"
+    },
+    {
+      "start": 2800.309,
+      "end": 2802.71,
+      "text": "nodes we need to check are the ones up"
+    },
+    {
+      "start": 2802.71,
+      "end": 2804.43,
+      "text": "this ancestor path so and there's only"
+    },
+    {
+      "start": 2804.43,
+      "end": 2806.79,
+      "text": "log n of them because now height is log"
+    },
+    {
+      "start": 2806.79,
+      "end": 2808.43,
+      "text": "n that's what we just proved as long as"
+    },
+    {
+      "start": 2808.43,
+      "end": 2811.15,
+      "text": "we have this property now we right now"
+    },
+    {
+      "start": 2811.15,
+      "end": 2813.47,
+      "text": "don't have it for like maybe these few"
+    },
+    {
+      "start": 2813.47,
+      "end": 2815.63,
+      "text": "notes but it will be it was log n before"
+    },
+    {
+      "start": 2815.63,
+      "end": 2818.309,
+      "text": "it's at most log n 2 log n plus one"
+    },
+    {
+      "start": 2818.309,
+      "end": 2820.069,
+      "text": "right now cuz we just added a Noe"
+    },
+    {
+      "start": 2820.069,
+      "end": 2822.63,
+      "text": "so what I want to do is check all of"
+    },
+    {
+      "start": 2822.63,
+      "end": 2825.43,
+      "text": "these ancestor nodes in sequence from"
+    },
+    {
+      "start": 2825.43,
+      "end": 2833.349,
+      "text": "bottom up and find one that's out of"
+    },
+    {
+      "start": 2833.349,
+      "end": 2845.109,
+      "text": "um"
+    },
+    {
+      "start": 2845.109,
+      "end": 2846.99,
+      "text": "node I'm going to call that X now"
+    },
+    {
+      "start": 2846.99,
+      "end": 2850.39,
+      "text": "because we just inserted or deleted a"
+    },
+    {
+      "start": 2850.39,
+      "end": 2853.67,
+      "text": "single leaf it's only out of balance by"
+    },
+    {
+      "start": 2853.67,
+      "end": 2855.47,
+      "text": "one right because we only changed height"
+    },
+    {
+      "start": 2855.47,
+      "end": 2858.309,
+      "text": "one height went up by one or one height"
+    },
+    {
+      "start": 2858.309,
+      "end": 2860.99,
+      "text": "went down by one and before all of our"
+    },
+    {
+      "start": 2860.99,
+      "end": 2862.99,
+      "text": "SKS were plus or minus one or zero so"
+    },
+    {
+      "start": 2862.99,
+      "end": 2865.47,
+      "text": "now it's going the bad case is when it's"
+    },
+    {
+      "start": 2865.47,
+      "end": 2866.79,
+      "text": "plus or minus two if it happens to still"
+    },
+    {
+      "start": 2866.79,
+      "end": 2868.71,
+      "text": "be in this range for all the nodes we're"
+    },
+    {
+      "start": 2868.71,
+      "end": 2871.349,
+      "text": "happy but if it's outside this range"
+    },
+    {
+      "start": 2871.349,
+      "end": 2872.75,
+      "text": "it's only going to be out by one uh so"
+    },
+    {
+      "start": 2872.75,
+      "end": 2877.71,
+      "text": "this means the"
+    },
+    {
+      "start": 2877.71,
+      "end": 2881.15,
+      "text": "skew is in plus 2 orus"
+    },
+    {
+      "start": 2881.15,
+      "end": 2884.95,
+      "text": "2 and let's say that it's two by"
+    },
+    {
+      "start": 2884.95,
+      "end": 2888.99,
+      "text": "symmetry so um my picture"
+    },
+    {
+      "start": 2888.99,
+      "end": 2897.15,
+      "text": "is I'm going to draw double right"
+    },
+    {
+      "start": 2897.15,
+      "end": 2899.91,
+      "text": "that this sub tree is two higher than"
+    },
+    {
+      "start": 2899.91,
+      "end": 2903.51,
+      "text": "this sub tree okay so that's bad and we"
+    },
+    {
+      "start": 2903.51,
+      "end": 2905.79,
+      "text": "want to fix it the obvious thing to do"
+    },
+    {
+      "start": 2905.79,
+      "end": 2907.99,
+      "text": "is to rotate this Edge because that'll"
+    },
+    {
+      "start": 2907.99,
+      "end": 2911.47,
+      "text": "make this this is"
+    },
+    {
+      "start": 2911.47,
+      "end": 2913.15,
+      "text": "too this is too high and this is too low"
+    },
+    {
+      "start": 2913.15,
+      "end": 2914.67,
+      "text": "so if we rotate this should go down by"
+    },
+    {
+      "start": 2914.67,
+      "end": 2917.069,
+      "text": "one and this should go up by one and"
+    },
+    {
+      "start": 2917.069,
+      "end": 2920.109,
+      "text": "that works most of the"
+    },
+    {
+      "start": 2920.109,
+      "end": 2922.829,
+      "text": "time so case"
+    },
+    {
+      "start": 2922.829,
+      "end": 2927.19,
+      "text": "one is that"
+    },
+    {
+      "start": 2927.19,
+      "end": 2931.03,
+      "text": "skew of Y what is y I want y to be the"
+    },
+    {
+      "start": 2931.03,
+      "end": 2933.349,
+      "text": "right child of X because we have"
+    },
+    {
+      "start": 2933.349,
+      "end": 2936.349,
+      "text": "positive skew we know there is a right"
+    },
+    {
+      "start": 2936.349,
+      "end": 2938.99,
+      "text": "child now uh because this was the lowest"
+    },
+    {
+      "start": 2938.99,
+      "end": 2941.99,
+      "text": "bad we know that Y is actually good it's"
+    },
+    {
+      "start": 2941.99,
+      "end": 2944.829,
+      "text": "either right heavy or even the two sub"
+    },
+    {
+      "start": 2944.829,
+      "end": 2945.99,
+      "text": "trees have the same height or left heavy"
+    },
+    {
+      "start": 2945.99,
+      "end": 2972.39,
+      "text": "the easy"
+    },
+    {
+      "start": 2972.39,
+      "end": 2982.309,
+      "text": "all right so double right arrow let's"
+    },
+    {
+      "start": 2982.309,
+      "end": 2991.309,
+      "text": "arrow so this uh I'm just going to add"
+    },
+    {
+      "start": 2991.309,
+      "end": 2993.43,
+      "text": "consistent uh k + one K plus two I'm"
+    },
+    {
+      "start": 2993.43,
+      "end": 2997.19,
+      "text": "writing the heights so this is an"
+    },
+    {
+      "start": 2997.19,
+      "end": 2999.23,
+      "text": "example where C is is taller than b"
+    },
+    {
+      "start": 2999.23,
+      "end": 3000.829,
+      "text": "uh B A and B are the same height and"
+    },
+    {
+      "start": 3000.829,
+      "end": 3003.589,
+      "text": "then if you compute the heights up here"
+    },
+    {
+      "start": 3003.589,
+      "end": 3005.829,
+      "text": "indeed uh this one is right leaning this"
+    },
+    {
+      "start": 3005.829,
+      "end": 3007.47,
+      "text": "one is doubly right leaning this one has"
+    },
+    {
+      "start": 3007.47,
+      "end": 3009.51,
+      "text": "height K plus one this one has height K"
+    },
+    {
+      "start": 3009.51,
+      "end": 3013.589,
+      "text": "minus one that's bad but if we do this"
+    },
+    {
+      "start": 3013.589,
+      "end": 3019.63,
+      "text": "right rotation on X we get exactly what"
+    },
+    {
+      "start": 3019.63,
+      "end": 3022.67,
+      "text": "want so I'm just going to copy the"
+    },
+    {
+      "start": 3022.67,
+      "end": 3024.95,
+      "text": "labels on ABC we have k minus1 k minus"
+    },
+    {
+      "start": 3024.95,
+      "end": 3027.109,
+      "text": "one and K and then recompute that means"
+    },
+    {
+      "start": 3027.109,
+      "end": 3030.51,
+      "text": "this guy has height K this one has"
+    },
+    {
+      "start": 3030.51,
+      "end": 3032.03,
+      "text": "height k + 1 and now all the nodes in"
+    },
+    {
+      "start": 3032.03,
+      "end": 3033.23,
+      "text": "this picture that I've highlighted A and"
+    },
+    {
+      "start": 3033.23,
+      "end": 3035.63,
+      "text": "C haven't changed they were height"
+    },
+    {
+      "start": 3035.63,
+      "end": 3037.789,
+      "text": "balanced before they still are um but"
+    },
+    {
+      "start": 3037.789,
+      "end": 3041.069,
+      "text": "now X and Y X wasn't height balanced"
+    },
+    {
+      "start": 3041.069,
+      "end": 3044.91,
+      "text": "before y was now both X and Y are height"
+    },
+    {
+      "start": 3044.91,
+      "end": 3050.67,
+      "text": "balanced okay that's case one in case"
+    },
+    {
+      "start": 3050.67,
+      "end": 3055.349,
+      "text": "two the SK of Y is flat which means that"
+    },
+    {
+      "start": 3055.349,
+      "end": 3058.39,
+      "text": "this is a k and this is a k and this is"
+    },
+    {
+      "start": 3058.39,
+      "end": 3059.789,
+      "text": "a k + one and this this is a K plus 2"
+    },
+    {
+      "start": 3059.789,
+      "end": 3061.71,
+      "text": "okay but still all the nodes are"
+    },
+    {
+      "start": 3061.71,
+      "end": 3063.95,
+      "text": "balanced height balanced they're still"
+    },
+    {
+      "start": 3063.95,
+      "end": 3066.43,
+      "text": "plus or minus one so those are the easy"
+    },
+    {
+      "start": 3066.43,
+      "end": 3070.15,
+      "text": "cases unfortunately there is a hard"
+    },
+    {
+      "start": 3070.15,
+      "end": 3080.87,
+      "text": "case case three but there's only one and"
+    },
+    {
+      "start": 3080.87,
+      "end": 3083.47,
+      "text": "harder so it's when skew of Y is minus"
+    },
+    {
+      "start": 3083.47,
+      "end": 3087.309,
+      "text": "one in this case we need to look at the"
+    },
+    {
+      "start": 3087.309,
+      "end": 3090.589,
+      "text": "left child of Y"
+    },
+    {
+      "start": 3090.589,
+      "end": 3092.27,
+      "text": "uh okay and to be alphabetical I'm going"
+    },
+    {
+      "start": 3092.27,
+      "end": 3095.71,
+      "text": "to rename this to"
+    },
+    {
+      "start": 3095.71,
+      "end": 3098.67,
+      "text": "Z sorry so this one again is double"
+    },
+    {
+      "start": 3098.67,
+      "end": 3102.549,
+      "text": "right arrow this one is now left"
+    },
+    {
+      "start": 3102.549,
+      "end": 3104.87,
+      "text": "arrow and this is letter Y and so we"
+    },
+    {
+      "start": 3104.87,
+      "end": 3109.71,
+      "text": "have a"
+    },
+    {
+      "start": 3109.71,
+      "end": 3112.15,
+      "text": "b c and d potential sub trees hanging"
+    },
+    {
+      "start": 3112.15,
+      "end": 3115.03,
+      "text": "off of them and I'm going to label the"
+    },
+    {
+      "start": 3115.03,
+      "end": 3119.71,
+      "text": "heights of these things these are each K"
+    },
+    {
+      "start": 3119.71,
+      "end": 3122.47,
+      "text": "minus one or K minus 2 this one's K"
+    },
+    {
+      "start": 3122.47,
+      "end": 3124.589,
+      "text": "minus one and now compute the inside so"
+    },
+    {
+      "start": 3124.589,
+      "end": 3128.95,
+      "text": "this is going to be height k for this to"
+    },
+    {
+      "start": 3128.95,
+      "end": 3132.23,
+      "text": "be uh left leaning so this is k + 1 and"
+    },
+    {
+      "start": 3132.23,
+      "end": 3133.91,
+      "text": "this is k + 2 okay but the problem is"
+    },
+    {
+      "start": 3133.91,
+      "end": 3137.15,
+      "text": "this is two higher than this the height"
+    },
+    {
+      "start": 3137.15,
+      "end": 3138.95,
+      "text": "of Z is two higher than the height of a"
+    },
+    {
+      "start": 3138.95,
+      "end": 3141.67,
+      "text": "in this case if I do this rotation"
+    },
+    {
+      "start": 3141.67,
+      "end": 3143.789,
+      "text": "things get worse actually I'll just tell"
+    },
+    {
+      "start": 3143.789,
+      "end": 3145.51,
+      "text": "you the right thing to"
+    },
+    {
+      "start": 3145.51,
+      "end": 3163.87,
+      "text": "do"
+    },
+    {
+      "start": 3163.87,
+      "end": 3165.309,
+      "text": "memorize and let me draw the result you"
+    },
+    {
+      "start": 3165.309,
+      "end": 3168.549,
+      "text": "can also just think of it as redrawing"
+    },
+    {
+      "start": 3168.549,
+      "end": 3170.15,
+      "text": "the tree like this uh but it's easier"
+    },
+    {
+      "start": 3170.15,
+      "end": 3172.109,
+      "text": "from an analysis perspective to think"
+    },
+    {
+      "start": 3172.109,
+      "end": 3173.95,
+      "text": "about it is two rotations so then we can"
+    },
+    {
+      "start": 3173.95,
+      "end": 3176.51,
+      "text": "just reduce as long as we know rotations"
+    },
+    {
+      "start": 3176.51,
+      "end": 3178.51,
+      "text": "work then we know that this thing works"
+    },
+    {
+      "start": 3178.51,
+      "end": 3180.15,
+      "text": "Works meaning it preserves traversal"
+    },
+    {
+      "start": 3180.15,
+      "end": 3182.63,
+      "text": "order and we can maintain all the"
+    },
+    {
+      "start": 3182.63,
+      "end": 3184.71,
+      "text": "augmentations so now if I copy over"
+    },
+    {
+      "start": 3184.71,
+      "end": 3186.67,
+      "text": "these labels the height labels I have K"
+    },
+    {
+      "start": 3186.67,
+      "end": 3189.87,
+      "text": "minus one I have for these two guys K"
+    },
+    {
+      "start": 3189.87,
+      "end": 3193.67,
+      "text": "minus one or k minus 2 biggest one is"
+    },
+    {
+      "start": 3193.67,
+      "end": 3198.069,
+      "text": "Kus one this is K minus one and so this"
+    },
+    {
+      "start": 3198.069,
+      "end": 3200.99,
+      "text": "will be K this will be K this will be k"
+    },
+    {
+      "start": 3200.99,
+      "end": 3204.47,
+      "text": "+ one and lo and behold we have a nice"
+    },
+    {
+      "start": 3204.47,
+      "end": 3206.75,
+      "text": "height balanc Tree in all three cases"
+    },
+    {
+      "start": 3206.75,
+      "end": 3209.15,
+      "text": "for this one node now this was the low"
+    },
+    {
+      "start": 3209.15,
+      "end": 3211.789,
+      "text": "node once we update this one it could be"
+    },
+    {
+      "start": 3211.789,
+      "end": 3215.71,
+      "text": "that um we changed the height of the"
+    },
+    {
+      "start": 3215.71,
+      "end": 3217.549,
+      "text": "root before it was k + 2 now it's k+ one"
+    },
+    {
+      "start": 3217.549,
+      "end": 3220.349,
+      "text": "or sometimes we keep it the same like"
+    },
+    {
+      "start": 3220.349,
+      "end": 3221.91,
+      "text": "over in this case uh and so now we have"
+    },
+    {
+      "start": 3221.91,
+      "end": 3224.23,
+      "text": "to check the parent maybe the parent is"
+    },
+    {
+      "start": 3224.23,
+      "end": 3226.069,
+      "text": "out of balance we just keep walking up"
+    },
+    {
+      "start": 3226.069,
+      "end": 3228.15,
+      "text": "the node and also maintain all the"
+    },
+    {
+      "start": 3228.15,
+      "end": 3229.99,
+      "text": "augmentations as we go then we'll keep"
+    },
+    {
+      "start": 3229.99,
+      "end": 3232.309,
+      "text": "track of height and subtree size if we"
+    },
+    {
+      "start": 3232.309,
+      "end": 3234.63,
+      "text": "want them or any other augmentations and"
+    },
+    {
+      "start": 3234.63,
+      "end": 3236.069,
+      "text": "after order H operations we will have"
+    },
+    {
+      "start": 3236.069,
+      "end": 3238.47,
+      "text": "restored the height balance property"
+    },
+    {
+      "start": 3238.47,
+      "end": 3240.349,
+      "text": "which means all the way through H equals"
+    },
+    {
+      "start": 3240.349,
+      "end": 3243.349,
+      "text": "order log n and so all of our operations"
+    }
+  ]
+}

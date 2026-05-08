@@ -1,0 +1,891 @@
+[
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_000",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 0.0,
+    "end_time": 45.0,
+    "text": "this presentation is delivered by the development so good morning and welcome back um what I want to do today is actually begin a new chapter in 229 in which um I'm going to start to talk about unsupervised learning so um brief outline for today is I'm going to just very briefly talk about clustering let's talk about C's algorithm um let's talk"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_001",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 35.0,
+    "end_time": 80.0,
+    "text": "about unsupervised learning so um brief outline for today is I'm going to just very briefly talk about clustering let's talk about C's algorithm um let's talk about the mixture of Gan model and the special case of the EM expectation maximization ALB for the mixture of Gans model um described something called gance inequality and then we'll use that to to derive um a general form of of something called the em or expectation maximization algorithm which is very useful algorithm that sort of turns out to be used all over the place in different um unsupervised machine learning [Applause] so you know the standard cartoons that I"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_002",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 70.0,
+    "end_time": 115.0,
+    "text": "learning [Applause] so you know the standard cartoons that I used to draw for supervised learning was um if you're given a data set like this right and you use you know logistic regression or sbm or whatever to classify between the positive and negative classes and we called this supervised learning because you know you're sort of told what the right Clause label is for every training example um and that was the Supervision in unsupervised learning we a slightly different"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_003",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 105.0,
+    "end_time": 150.0,
+    "text": "a slightly different set that maybe just comprises a set of points just given a data set with no labels and no indication of what the quote right answer is or what the supervision is and um is a job of the algorithm to discover structure in the data um so in this lecture in the next couple of weeks we'll talk about a variety of unsupervised learning algorithms they can look at data sets like these and discover various different types of structure in it um in this particular cartoon that I've drawn you one type of structure that you and I can probably see is that this data lives"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_004",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 140.0,
+    "end_time": 185.0,
+    "text": "different types of structure in it um in this particular cartoon that I've drawn you one type of structure that you and I can probably see is that this data lives in two different class and so um the first unsupervised learning algorithm that I'm actually going to talk about will be a clustering algorithm it will be an algorithm that looks a data set like this and um automatically breaks the data set into different smaller clusters um so let's see my laptop comes back up I'll show you an example um so clustering algs like these have um a variety of applications um just to Rattle off a few of the better known ones I guess in bi biology"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_005",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 175.0,
+    "end_time": 220.0,
+    "text": "clustering algs like these have um a variety of applications um just to Rattle off a few of the better known ones I guess in bi biology application you often clust different things together we have data on genes you may cluster different genes together in order to examine them and understand the biological function better um another common application of clustering is market research so imagine you have a c you have a customer database of how your different customers behave um very common practice to apply clustering algorithms to break your database of customers into different market segments so that you can you know Target your products towards different market segments or Target your sales pictures specifically to different market segments um some you do later today I I"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_006",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 210.0,
+    "end_time": 255.0,
+    "text": "so that you can you know Target your products towards different market segments or Target your sales pictures specifically to different market segments um some you do later today I I don't want to I don't do this now but um if you actually go to a website like um that's an example of a website that uses a clustering algorithm to um everyday group related news articles together to display to you so that you can see you know what of the Thousand news articles today on whatever the top story of today and what are the 500 news articles on all the different websites on different story of the day um at a very start of class actually talks about image segmentation which is the example which is the application of when you"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_007",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 245.0,
+    "end_time": 290.0,
+    "text": "on different story of the day um at a very start of class actually talks about image segmentation which is the example which is the application of when you might um take a picture and group together different subsets of the picture into coherent pieces of of of pixels um to try to understand what's contained in the picture so that's a yet another application of clustering um but the basic idea is given a data set like this given a set of points can you automatically group the data set into um into coherent clusters so let's see I'm so of waiting for the laptop to come back so show you an example you know what let me just well"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_008",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 280.0,
+    "end_time": 325.0,
+    "text": "clusters so let's see I'm so of waiting for the laptop to come back so show you an example you know what let me just well what's coming up want me just start to write out the specific clustering algorith and I'll show the animation um so this is called the K means clustering algorithm for finding clusters in your data set um the input to your algorithm will be an unlabeled data set which I write as X1 X2 after XM and because we're now talking about UNS supervised learning you see a lot of data sets that look"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_009",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 315.0,
+    "end_time": 360.0,
+    "text": "an unlabeled data set which I write as X1 X2 after XM and because we're now talking about UNS supervised learning you see a lot of data sets that look like these with just the x's and no class labels y so what a camean algorithm does is the following and this will all make a bit more sense when I show you the um animation on on my laptop um it's going to initialize a set of cluster initialize a set of points um mu1 through mu K randomly and so if your uh input so of training data are vectors in r n then"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_010",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 350.0,
+    "end_time": 395.0,
+    "text": "um mu1 through mu K randomly and so if your uh input so of training data are vectors in r n then your cluster centroids these M's will also be um vectors in"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_011",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 385.0,
+    "end_time": 430.0,
+    "text": "excuse me so the excuse me the cluster centroids will be your guesses for where the centers of each of the Clusters are and so um in one of the steps you you know look at each point XI and you look at which cluster centroid muj is closest to it and then you this step is called assigning your point XI to Cluster J right inste of looking at each point and picking the cluster centroid that's"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_012",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 420.0,
+    "end_time": 465.0,
+    "text": "picking the cluster centroid that's centroids to be the mean of all the points that have been assigned to it um"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_013",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 455.0,
+    "end_time": 500.0,
+    "text": "um just um let's see actually can I could you [Music]"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_014",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 490.0,
+    "end_time": 535.0,
+    "text": "oops excuse"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_015",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 525.0,
+    "end_time": 570.0,
+    "text": "okay there we okay so here's an example of the C's algorithm hopefully with this animation this this will make more sense this is a the names chopped off this this particular example I got from Michael Jordan in Berkeley so these points in green on my uh data points and so I'm going to randomly initialize a pair of cluster C chice so the red and the blue crosses denote the positions of mu1 and mu2 say if I'm going to guess it two clusters in"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_016",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 560.0,
+    "end_time": 605.0,
+    "text": "randomly initialize a pair of cluster C chice so the red and the blue crosses denote the positions of mu1 and mu2 say if I'm going to guess it two clusters in this data so um Step K means excuse me STS K means Al as follows I'm going to repeatedly go to all of the points in my data set and I'm going to um associate each of the green dots with the closer of the two closer centroids so um visually I'm going to denote that by you know painting each of the dots either blue or red depending on which is the closer closest Android okay so all the points closest to the blue Crosser Point are painted blue and so on"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_017",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 595.0,
+    "end_time": 640.0,
+    "text": "the dots either blue or red depending on which is the closer closest Android okay so all the points closest to the blue Crosser Point are painted blue and so on um the other step is updating the cluster centroid and so I'm going to repeatedly look at all the points that painted blue and um compute the average of all of the blue dots and I'll simply compute look at all the red dots and compute the average of all the red dots and then I'll move the cluster croise as follows to the average of the respective locations so this is now after one iteration of K means um here and now repeat the same process I look at all the points and assign all the points closer to the Blue Cross to be you know the color blue and and simly"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_018",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 630.0,
+    "end_time": 675.0,
+    "text": "and now repeat the same process I look at all the points and assign all the points closer to the Blue Cross to be you know the color blue and and simly red and so now I have thata assignments of points to the cluster centroids and um finally I'll again compute the average of all the blue points and compute the average of all the red points and update the cluster centr again as follows and um now K means has actually converge if you keep running you know these two steps of K means over and over the cluster centroids and the assignments of the points of the cluster centroids where I should remain the same second"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_019",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 665.0,
+    "end_time": 710.0,
+    "text": "centroids where I should remain the same second okay so um just going switch back to CH for pleas [Music] so actually let just take a take a second to look at this again and make sure you understand how this maps on to um uh how the how the um equ how the Alm I wrote How It maps onto the animation question I see okay let me let me also"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_020",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 700.0,
+    "end_time": 745.0,
+    "text": "um uh how the how the um equ how the Alm I wrote How It maps onto the animation question I see okay let me let me also answer that a second okay so these are two steps this step 2.1 was assigning the points to close to centroid and 2 point two was Shifting the cluster centroids to be the mean of all the points assigned to that cluster centroid right um okay so briefly answer the two questions I just had one is does the Alum converge um the answer is yes C is guaranteed to converge in a certain sense in particular if you"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_021",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 735.0,
+    "end_time": 780.0,
+    "text": "converge in a certain sense in particular if you um if you define the Distortion function mu um squared excuse me if you define the Distortion function to be a function of the cluster assignments and cluster centroids and this is the sum of square distances between the points and the cluster CID that they're assigned to then um you can show I won't really"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_022",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 770.0,
+    "end_time": 815.0,
+    "text": "of the cluster assignments and cluster centroids and this is the sum of square distances between the points and the cluster CID that they're assigned to then um you can show I won't really prove this here but um you can show that asent on the function J um in particular remember we talked about coordinate Ascent as an optimization algor like I don't know maybe about two weeks ago um so coordinate Ascent is the algum that will repeatedly hold cix and optimize with respect to Mu or hold mu fix and op with respect to C right so that's C in the sense and so what you can prove is go"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_023",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 805.0,
+    "end_time": 850.0,
+    "text": "repeatedly hold cix and optimize with respect to Mu or hold mu fix and op with respect to C right so that's C in the sense and so what you can prove is go home and prove this yourself um is that K means the two iterative steps of K means are exactly optimizing this function with respect to C and with respect to mu alternat and therefore um uh this function J of C comma mu must be decreasing monotonically on every iteration and so the sense that in which K converges is that D function JFC comma mu can only go down and therefore this function will actually eventually converge in the sense that it"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_024",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 840.0,
+    "end_time": 885.0,
+    "text": "K converges is that D function JFC comma mu can only go down and therefore this function will actually eventually converge in the sense that it will not it will stop going down okay um is actually possible that there may be you know several clusterings that give the same value of J of C comma mu and so K means may actually switch back and forth between different clusterings if they if in the in the S of really in the extremely unlikely case that the multiple clusterings that give exactly the same value for this objective function K means May oscillate between um in practice that just about never happens um but but but but even if that happens you know dysfunction JFC comma M will converge um that question is Guess How do you choose the number of clusters so it turns out that um I think in in the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_025",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 875.0,
+    "end_time": 920.0,
+    "text": "happens you know dysfunction JFC comma M will converge um that question is Guess How do you choose the number of clusters so it turns out that um I think in in the vast majority of time when people apply K Mees you you sort of just manually pick a number of clusters or you manually try a few different numbers of clusters and um um uh you know pick the one that seems to work best um the number of clusters in this album is sort of just one parameter so usually I think it's not very hard to choose automatically um there are some automatic ways for choosing the number of clusters but but I I'm so I'm not going to talk about them when when I do this I usually just pick the number of clusters manually and the reason is um I think for many clustering problems the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_026",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 910.0,
+    "end_time": 955.0,
+    "text": "going to talk about them when when I do this I usually just pick the number of clusters manually and the reason is um I think for many clustering problems the quote true number of clusters is actually ambiguous so for example if you have a data set that looks like this you know some of you may see four clusters right and some of you may see two clusters and so the right answer for the actual number of clusters is sort of ambiguous um so I yeah yeah what if you were to initialize your clusters way so that one of the Clusters is far away from the data point"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_027",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 945.0,
+    "end_time": 990.0,
+    "text": "yeah yeah what if you were to initialize your clusters way so that one of the Clusters is far away from the data point couldn't your could your algorithm converts to clustering all the points in the same same clust um I see right so yes K means is susceptible to local optim eror so coordinat so um this function JFC comma mu is a highly non-convex this is not a convex function and so um K means so coordin Sense on the non-convex function is not guaranteed to converge the global minimum so K means is susceptible to um uh what is susceptible to local optimer and um if you're an application in which"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_028",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 980.0,
+    "end_time": 1025.0,
+    "text": "minimum so K means is susceptible to um uh what is susceptible to local optimer and um if you're an application in which where you think C might be running into local optimer one thing you can do is try multiple random initializations and then run clustering a bunch of times and then and pick the solution that ended up with the lowest value for the Distortion function eliminated um yeah again there are sort of uh let's see right so what if one clust the central has no points assigned to it then one thing you could do is just eliminate it exactly the saying another"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_029",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 1015.0,
+    "end_time": 1060.0,
+    "text": "of uh let's see right so what if one clust the central has no points assigned to it then one thing you could do is just eliminate it exactly the saying another thing you can do is um uh just re initialize it randomly if you really clusters L questions yeah Norm as a norm or like can you take also the one Norm or the infinity Norm or I see right is it usual is it usually take two Norms so um let's see for the vast majority of applications are seen for k me you do take two Norm when you have data and RN um I'm sure there are others who have taken Infinity norm and one Norm as well I I I personally haven't seen that very often but you can"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_030",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 1050.0,
+    "end_time": 1095.0,
+    "text": "for k me you do take two Norm when you have data and RN um I'm sure there are others who have taken Infinity norm and one Norm as well I I I personally haven't seen that very often but you can also yeah there there there other there there other variations in this ALG that use different Gomes but this is what I'm what I'm descri is probably the most okay so that was um came um what I want to do next and um this will take longer to describe is actually"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_031",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 1085.0,
+    "end_time": 1130.0,
+    "text": "um what I want to do next and um this will take longer to describe is actually [Music] um in particular what I want to do is estimation so so um as Mo example this is a problem that I know some guys that works on um let's say you have aircraft engine rolling off an assembly line so you let's say you work for an aircraft company You're Building aircraft engines they roll off your assembly line and um as the aircraft engines roll off the assembly line you test these aircraft"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_032",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 1120.0,
+    "end_time": 1165.0,
+    "text": "let's say you work for an aircraft company You're Building aircraft engines they roll off your assembly line and um as the aircraft engines roll off the assembly line you test these aircraft engines and measure various different properties of it and you know to use a simplii example I'm going to write these properties as heat and vibrations right in reality you measure different vibrations and different frequencies and so on we just write you know the amounts of heat produced vibrations produced that um you get us so if you have a data set like this you could run a clustering algorthm and characterizes as two"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_033",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 1155.0,
+    "end_time": 1200.0,
+    "text": "that um you get us so if you have a data set like this you could run a clustering algorthm and characterizes as two that you know I don't know that maybe looks like that and what you would like to do is estimate the density of these properties of the The Joint distribution of the amount of heat produced and amount of vibrations um because you would like to say detect outliers so that as a new aircraft engine rolls off the assembly line you can then measure you know the same heat and vibration properties you ALS if you get a point there you can then ask How likely is it that there was an undetected flow in this aircraft engine and it it needs"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_034",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 1190.0,
+    "end_time": 1235.0,
+    "text": "properties you ALS if you get a point there you can then ask How likely is it that there was an undetected flow in this aircraft engine and it it needs under go undergo further inspections and so um if we look at you know look at the typical distribution of features we get um can we build a model for p of X and then if um P of X is very small for some new aircraft engine then that will raise a red flag we'll say there's an anomalous aircraft engine and we should you know subject it to further inspections before we let someone fly the engine okay so um this particular so this particular problem I just described is an instance of what's called anomaly"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_035",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 1225.0,
+    "end_time": 1270.0,
+    "text": "the engine okay so um this particular so this particular problem I just described is an instance of what's called anomaly detection and so a common way of doing anomaly detection is to take your training set um again just your unlabeled examples X1 through XM and from this data set build the model P ofx of the density of um the data so the typical data you're seeing and if you ever then see an example with very low probability on the P of X then you may flag that as an anomalous example okay um so anomal detection is also used in you know security applications you know figure out something is doing something unusual at"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_036",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 1260.0,
+    "end_time": 1305.0,
+    "text": "example okay um so anomal detection is also used in you know security applications you know figure out something is doing something unusual at a physical plant or in your computer system um is used for detecting fraud in transactions if if you know if my if someone thought if my credit card if if many very unusual transactions St to appear on my credit card that's a sign that maybe someone stole them my credit card um and what I want to do now is talk with specific algorithm for density estimation um and in particular one they work for data sets like these two that you know this distribution this distribution like that right let's get of that distribution like this doesn't really fall into any of the standard textbook distributions this is not"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_037",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 1295.0,
+    "end_time": 1340.0,
+    "text": "you know this distribution this distribution like that right let's get of that distribution like this doesn't really fall into any of the standard textbook distributions this is not really like a g or a proone explanation or anything so uh can we come with a model to estimate densities that may look like these somewhat unusual shapes so to describe the a bit more I'm actually going to use a onedimensional example rather than a 2d example um and the and in the example I'm going to describe I'm going to say"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_038",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 1330.0,
+    "end_time": 1375.0,
+    "text": "in the example I'm going to describe I'm going to say um maybe a data set that looks like this where the horizontal axis here is the x-axis and you know these Dot represent the the the positions of the data set that I have Okay so this data set looks density that looks like that um as if this were the sum of two Gan distributions and so the specific model I'm going to describe next is a will be what's called a mixture of gan's model um and just to be"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_039",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 1365.0,
+    "end_time": 1410.0,
+    "text": "distributions and so the specific model I'm going to describe next is a will be what's called a mixture of gan's model um and just to be clear the picture I have is that we're envisioning that generated that maybe there were two separate Gans that generated this data set and if only I knew what the two Gans were then I could fill the g into my crosses fill the g into the O's and then you know sum them up right to get the overall density for the two but um the problem is I don't actually have access to these labels I"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_040",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 1400.0,
+    "end_time": 1445.0,
+    "text": "up right to get the overall density for the two but um the problem is I don't actually have access to these labels I don't actually know which of the two gaussians each of my data points came from and so um what I like to do is to come up with an algorithm to fit this mixture of gan's model um even when I don't know which of the two Gans each of my data points came from yeah have no idea what this is let it okay so here's the in this model I'm going to"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_041",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 1435.0,
+    "end_time": 1480.0,
+    "text": "it okay so here's the in this model I'm going to [Music] imagine variable um and latent just is is just okay so I'm going to imagine that is um"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_042",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 1470.0,
+    "end_time": 1515.0,
+    "text": "okay so I'm going to imagine that is um latent random variable Z and um x i distribution that is given as follows um we have that P of x x i comma Z well by the uh Cham R of probability this is always like that true and moreover I'll assume that P of"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_043",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 1505.0,
+    "end_time": 1550.0,
+    "text": "probability this is always like that true and moreover I'll assume that P of Z is given by the following Z is in the special case where I have just a mixture of two galum then Z will be know and these parameters five are the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_044",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 1540.0,
+    "end_time": 1585.0,
+    "text": "know and these parameters five are the parameters of a multinomial distribution and um the distribution of XI conditioned on Z being equal to J so so P of XI given as Z is equal to J that's going to be a galaxian distribution with mean mu J and Co variant Sigma J okay um so this should actually look extremely familiar to you what I've written down are pretty much these are not not quite but almost the same"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_045",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 1575.0,
+    "end_time": 1620.0,
+    "text": "okay um so this should actually look extremely familiar to you what I've written down are pretty much these are not not quite but almost the same equations as I wrote down for the gussian discriminant analysis algorithm that we saw way back right except that the difference is um instead of I guess supervis learning were where we were given the class labels y I've now replaced why in Gan discrimin analysis of these latent random variables or these unobserved random variables Z and we don't actually know what the values of Z are"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_046",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 1610.0,
+    "end_time": 1655.0,
+    "text": "of Z are um so just to make the link to gussan discrimin analysis even even a little more explicit right um if we knew what were um which which we actually don't but you know supposed for the sake of argument that we actually knew which of say the two Gans each of our data points came from then um you can use maximum likelihood estimation right you can write down the likelihood or the log likelihood of the parameters"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_047",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 1645.0,
+    "end_time": 1690.0,
+    "text": "came from then um you can use maximum likelihood estimation right you can write down the likelihood or the log likelihood of the parameters that and um you can then use Maxim likely estimation you know and you get exactly the same formulas as in Gan discrimin"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_048",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 1680.0,
+    "end_time": 1725.0,
+    "text": "okay so if you knew the values for Z you can write down the log likelihood um and do maximum likelihood this way and you can then estimate all the parameters of your model um does this make sense raise your hand if this makes sense yeah okay cool some of you did"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_049",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 1715.0,
+    "end_time": 1760.0,
+    "text": "your model um does this make sense raise your hand if this makes sense yeah okay cool some of you did some of you have questions some of you didn't raise your hand yeah so each Z is it's just a label like an X or an o oh so right so if you knew the CLA label if if if you knew the values of Z's Z playing a similar role to the CL labels in Galan disc analysis then you could"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_050",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 1750.0,
+    "end_time": 1795.0,
+    "text": "so right so if you knew the CLA label if if if you knew the values of Z's Z playing a similar role to the CL labels in Galan disc analysis then you could use M then you could use maximum likely estimation of the parameters um but in reality we don't actually know the values of the Z's all we're given is this unlabeled data set and so let me WR write down a specific bootstrap procedure in which the idea is that um we're going to use our model to try to guess what the values of Z is so we don't know the Val of Z but we'll just take a guess at the values of Z and um we'll then use you know so the values of Z that we guess to fit the parameters of the rest of the model and then we"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_051",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 1785.0,
+    "end_time": 1830.0,
+    "text": "just take a guess at the values of Z and um we'll then use you know so the values of Z that we guess to fit the parameters of the rest of the model and then we actually should iterate and now that we have a slightly better estimate for the parameters of the rest the model we'll then take another guess for what the values of Z are and then we'll sort of use something like the maxim lik estimation formulas to F even better setting of paramis with the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_052",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 1820.0,
+    "end_time": 1865.0,
+    "text": "so the Al I'm going to write down is um algorithm and it proceeds as convergence in the esep we're going to values of the unknown zis and in"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_053",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 1855.0,
+    "end_time": 1900.0,
+    "text": "values of the unknown zis and in J okay so I'm going to compute the probability that Z is equal to J so I'm going to use the rest of the parameters of my model I'm going to compute the probability that um Point XI came from Gan number J um and just to be S of concrete about"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_054",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 1890.0,
+    "end_time": 1935.0,
+    "text": "probability that um Point XI came from Gan number J um and just to be S of concrete about what I mean by this this means that I'm XI this step is um sort of by Bas zero I"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_055",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 1925.0,
+    "end_time": 1970.0,
+    "text": "um and and again just be completely concrete about what I mean by this the numerator P of XI given Z equals J you know well that's the gussian density"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_056",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 1960.0,
+    "end_time": 2005.0,
+    "text": "the right that's P of x i given zal J time P of Z equals J um that is just equal to f j and then divide it by you know sum from Lal 1 to K of so the same thing of of of you essentially the same thing but with J replaced by L okay so you plug in the formula for the gcia in the numerator and the sum over similar terms in the denominator excuse me this is a sum from"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_057",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 1995.0,
+    "end_time": 2040.0,
+    "text": "and the sum over similar terms in the denominator excuse me this is a sum from well some from Lal 1 through K in the um see so that was the first half of the algorithm um the other step is the m step"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_058",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 2030.0,
+    "end_time": 2075.0,
+    "text": "see so that was the first half of the algorithm um the other step is the m step um the maximization step where you would then update your estimates of the parameters so I'll just write down the formulas here um when you see these you should compare them to um the formulas"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_059",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 2065.0,
+    "end_time": 2110.0,
+    "text": "like so and um so"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_060",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 2100.0,
+    "end_time": 2145.0,
+    "text": "like so and um so um these two formulas on top are very similar to what you saw for G discre analysis except that now um we have these soft weights so wij is you remember was the probability we computed that point I came from you know gaussian Al so of quote I don't want to call it cluster J but let's call it Point probably the point time came from gussian J um rather than an indicator for where the point I came from Gan J right and um the one slight difference between this and one one one other sort of"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_061",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 2135.0,
+    "end_time": 2180.0,
+    "text": "gussian J um rather than an indicator for where the point I came from Gan J right and um the one slight difference between this and one one one other sort of difference between this and the forms we have Gan disc analysis is that in the mixture of Gans we often we more commonly use different coari matrices for the different Gins so in Gin discre analysis so by convention you usually model all all of the classes of the same covariance Matrix Sigma um when you fing mixes of Gans models is is sort of uh not always but sometimes you allow the covariance Matrix for your different Gans to vary and so represent on the formulation we have a different ciance Matrix Sigma J for every calcium and"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_062",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 2170.0,
+    "end_time": 2215.0,
+    "text": "not always but sometimes you allow the covariance Matrix for your different Gans to vary and so represent on the formulation we have a different ciance Matrix Sigma J for every calcium and that's the corresponding way of estimating it okay so I just wrote down a lot of equations let just take a second to look at this and make sure it"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_063",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 2205.0,
+    "end_time": 2250.0,
+    "text": "this [Applause] raise your hand if this makes intuitive sense why this seems reasonable by analogy to GDA yeah okay only some of you um let's see so let try to explain that a little analysis right if we knew if well or rather if we knew the values for the zis"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_064",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 2240.0,
+    "end_time": 2285.0,
+    "text": "analysis right if we knew if well or rather if we knew the values for the zis so um let's see suppose I was to give you a label data set supposed I were to tell you the values of the zis for each example then not be giving you a data set that looks like this right right so here's my 1D data set that's sort of a typical 1D G discre analysis problem and so um for G discre analysis we we figured out the maximum likelihood estimation the maximum likelihood estimate for the parameters of GDA and um you know one of the estimates"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_065",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 2275.0,
+    "end_time": 2320.0,
+    "text": "analysis problem and so um for G discre analysis we we figured out the maximum likelihood estimation the maximum likelihood estimate for the parameters of GDA and um you know one of the estimates for the parameters for GDA was um FJ which is the probability right that um I guess Z equals J you know you would estimate that as sum over IAL sum over I from 1 to M zal J divide by n okay um when we when we have when we're deriving GDA we wrote y instead of Z right but if you knew the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_066",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 2310.0,
+    "end_time": 2355.0,
+    "text": "J divide by n okay um when we when we have when we're deriving GDA we wrote y instead of Z right but if you knew the class labels for every example in your class then this was your maximum likely estimate for the chance that um your labels came from the positive CLA versus the negative CLA it's just the fraction of example you maximum like could estimate for the you know probability of getting an example from class J is just just the fraction of examples in your trading set that actually came from class J so this is a maxim likely analysis now in the mixture of gaussian's model in in the EM problem we don't actually have these class labels"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_067",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 2345.0,
+    "end_time": 2390.0,
+    "text": "analysis now in the mixture of gaussian's model in in the EM problem we don't actually have these class labels right we just have an unlabeled data set like this you just have a set of dots just I'm trying to draw the same data set as I had above but just with the Clause labels removed so now is as if you only get to observe the X right so the class labels unknown so in the EM"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_068",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 2380.0,
+    "end_time": 2425.0,
+    "text": "right so the class labels unknown so in the EM algorithm we're going to try to take a guess for the values of the zis and specifically typically um in the Eep we computed you know wij was our current best guess for the probability that Z equals J given that data point okay so this just means given my current hypothesis so where the gaussians are and given everything else um can I compute the posterior probability what is the posterior probability that the point XI"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_069",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 2415.0,
+    "end_time": 2460.0,
+    "text": "so where the gaussians are and given everything else um can I compute the posterior probability what is the posterior probability that the point XI actually came from class J what what what is the probability that this point was a cross versus o what's the probity that this point was a cross versus of O and so on and now in the M step my formula for estimating the you know for for for trying to estimate my parameters 5j will be given by 1 / M sum from I = 1 through M sum of w i j okay and so the WIS here you know play the role of um soft versions I guess of"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_070",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 2450.0,
+    "end_time": 2495.0,
+    "text": "j okay and so the WIS here you know play the role of um soft versions I guess of of these indicated functions so wi J is right the probability is my best guess for the probability that point I belongs to um Gan or belongs to CL J and um so so I'll estimate my 5j using this formula instead of this one okay and um similarly this is my formula for the estimate for muj and if you replace the WIS with these indicator functions you get back to the formula that you had in G Indus"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_071",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 2485.0,
+    "end_time": 2530.0,
+    "text": "you replace the WIS with these indicator functions you get back to the formula that you had in G Indus analysis does this make some more sense just I'm trying to just convey an intuitive sense of why this algor would make sense can you raise your hand if this makes sense now okay um okay so that's the intuition of the EM algorithm um it turns out that the way I came up with these formulas is actually via slightly more General principle V via more General version of the EM algorithm which is what I'm going to talk about next so sort of I hope so so hope so I guess hopefully these equations making two to sense but"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_072",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 2520.0,
+    "end_time": 2565.0,
+    "text": "via more General version of the EM algorithm which is what I'm going to talk about next so sort of I hope so so hope so I guess hopefully these equations making two to sense but exactly where they came from is an answer is a question I have answer a little bit later so what I want to do now is actually um present a broader view of the EM"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_073",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 2555.0,
+    "end_time": 2600.0,
+    "text": "so what I want to do now is actually um present a broader view of the EM algorithm um what you just saw was a special case of the EM algorithm for specifically the mixture of gan's model um in the remaining half hour I have today I'm going to describe a General view of the the what the general description of the EM algorithm and everything you just saw will be derived s of as a special case of this more General view that I'll and as a precursor to actually presenting this to to deriving this more"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_074",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 2590.0,
+    "end_time": 2635.0,
+    "text": "and as a precursor to actually presenting this to to deriving this more General view of the EM algorithm um we going to have to describe something called Jensen's inequality which we used in the derivation um so here's Jensen's um so a function is convex of a second derivative which I've written F prime or F prime prime is greater than zero right functions don't don't have to be"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_075",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 2625.0,
+    "end_time": 2670.0,
+    "text": "um so a function is convex of a second derivative which I've written F prime or F prime prime is greater than zero right functions don't don't have to be differentiable to be convex but if it have has a secondary Conservative then frime Prime should be greater than variable then um the F applied to the expectation of X is less than or equal to the expectation of f ofx okay um and I hope"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_076",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 2660.0,
+    "end_time": 2705.0,
+    "text": "then um the F applied to the expectation of X is less than or equal to the expectation of f ofx okay um and I hope you remember I often I'll drop the square brackets so F of e of X is you know this is the same as F of the expected value of x but when I'm writing expectations I often drop the square brackets um so let me draw a picture that will explain this and I think so many many many of my friends and I often you know don't remember so is this less than or greater than or whatever and and the way to remember remember this is is the way many of us remember the sign um of that inequality is by drawing exact the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_077",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 2695.0,
+    "end_time": 2740.0,
+    "text": "than or whatever and and the way to remember remember this is is the way many of us remember the sign um of that inequality is by drawing exact the function here's a function f um okay um for this example let's say x is equal to 1 with probability 12 and X is"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_078",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 2730.0,
+    "end_time": 2775.0,
+    "text": "okay um for this example let's say x is equal to 1 with probability 12 and X is equal to 6 with probability 12 okay so this a illustrate this inequality with an example so let's see so X is 1 with probability 1/2 and X is 6 with probably 1 and so the expected value of x is 3.5 right it'll be in the middle here so that's the expected value of x right the the the horizontal axis here is the x axis and so um f of the expected value of"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_079",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 2765.0,
+    "end_time": 2810.0,
+    "text": "right the the the horizontal axis here is the x axis and so um f of the expected value of x you can read off as this point here so this is f of the expected value of x whereas in contrast let's see if x is equal to 1 then well you know here's F of one and if x equal to 6 then here's F of 6 and the expected value of f"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_080",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 2800.0,
+    "end_time": 2845.0,
+    "text": "6 then here's F of 6 and the expected value of f out is now averaging on the vertical with 50% chance um you get F of one with 50% chance you get F of six and so the expected value of f ofx is the average of f of one and F of 6 which is going to be you know the value in the middle here and so in this example you see that"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_081",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 2835.0,
+    "end_time": 2880.0,
+    "text": "expected value of f ofx is the average of f of one and F of 6 which is going to be you know the value in the middle here and so in this example you see that you know the expected value of f ofx is greater than or equal to F of the expected value of x okay and um so an illustration of why G in equality holds um um and it turns out that"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_082",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 2870.0,
+    "end_time": 2915.0,
+    "text": "um um and it turns out that further if um f Prime of X exists and is strictly greater than zero um if this convex then the inequality holds of equality or in other words e of f"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_083",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 2905.0,
+    "end_time": 2950.0,
+    "text": "constant right with probability one well I guess I should write well another way of writing this is xals x okay so in other words if f is a strictly convex function then the only way for this inequality to hold with equality is if the random variable X you know always takes on the same value if x is equal to expect the value of probably"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_084",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 2940.0,
+    "end_time": 2985.0,
+    "text": "way for this inequality to hold with equality is if the random variable X you know always takes on the same value if x is equal to expect the value of probably it um further um s State everything for convex functions um turns out that if F Prime is less than equal to zero so if f is concave say um then everything holds but with the direction of the inequality reverse so F of e x is greater than equal to"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_085",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 2975.0,
+    "end_time": 3020.0,
+    "text": "direction of the inequality reverse so F of e x is greater than equal to FX Etc okay so just if you have a concave function then um all the inequalities held the same way but just with the direction of the inequality of reverse um and it turns out later on when we derive the EM algorithm we actually use the concave version with this"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_086",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 3010.0,
+    "end_time": 3055.0,
+    "text": "this yeah oh other what is the strictly this oh I couldn't hear that what is what oh what is the strictly convex oh oh I see if F Prime of X is strictly greater than zero that's my definition for strictly convex um if if the second derivative of x is strictly greater than zero that's what it means for f to be strictly convex I see sure so um for example um this is an example of a convex function that's not strictly convex"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_087",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 3045.0,
+    "end_time": 3090.0,
+    "text": "convex I see sure so um for example um this is an example of a convex function that's not strictly convex because there's po function is a straight line and so um f Prime will be zero in this portion so um so for example a quadratic function would be strictly convex um uh let's see yeah just a less form we saying strictly convex just means that you can't have a convex function within a straight line portion and then another straight it's speaking very informly and think of this as meaning that there"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_088",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 3080.0,
+    "end_time": 3125.0,
+    "text": "straight it's speaking very informly and think of this as meaning that there so here's the derivation for um you the general version of um the problem we face is as follows we"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_089",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 3115.0,
+    "end_time": 3160.0,
+    "text": "um the problem we face is as follows we model right we have some model for the joint distribution of x and observe only X and our goal is"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_090",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 3150.0,
+    "end_time": 3195.0,
+    "text": "um the log likelihood of the parametes model right so um we have a model for the joint distribu ution for x and z and our goal is to find the maximum likel estimate of the parameters Theta where um the likelihood is defined as you know Su from 1 to M log of the probity of a data as"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_091",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 3185.0,
+    "end_time": 3230.0,
+    "text": "Su from 1 to M log of the probity of a data as um and P of X parameterized by Theta is now given by um a sum over all the values of T parameterized by Theta okay so this is by it's by taking out model of the joint distribution of x and z and marginalizing out Z that we get p of x i"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_092",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 3220.0,
+    "end_time": 3265.0,
+    "text": "marginalizing out Z that we get p of x i um the EM algorithm will be a way of Performing this maximum likelihood estimation problem okay which is Complicated by the fact that we have these zis in our model that are"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_093",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 3255.0,
+    "end_time": 3300.0,
+    "text": "so before I do the math um here's a mind so the horizontal axis in this Caron is the Theta axis and there some function you know the log likelihood of maximize okay and um usually maximizing L of theta you know by taking derivatives and saying the zero that would be very hard to do what the EM Alm will do is the following um let's you"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_094",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 3290.0,
+    "end_time": 3335.0,
+    "text": "L of theta you know by taking derivatives and saying the zero that would be very hard to do what the EM Alm will do is the following um let's you initialize the some value Theta 0 what the EM alv will end up doing is it will construct a lower Bound for this log likelihood function and this lower bound will be tight when other there a hold of equality um at your current guess of the parameters and we then maximize this lower bound with respect to Theta so we'll end up with say that value so so that will be Theta 1 okay and then em Al look at Theta 1 and they'll then"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_095",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 3325.0,
+    "end_time": 3370.0,
+    "text": "we'll end up with say that value so so that will be Theta 1 okay and then em Al look at Theta 1 and they'll then bound um on L of theta and it'll maximize that say you jump here so that's index Thea 2 and we'll do that again to get to Thea 3 the 4 and so on until you converge to to a local Optimum On The Log likelihood function Okay so so this is a cartoon that you know describes what the EM album would do so let's actually make"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_096",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 3360.0,
+    "end_time": 3405.0,
+    "text": "album would do so let's actually make so we want to maximize with respect to the log Theta um so this is sum over I"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_097",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 3395.0,
+    "end_time": 3440.0,
+    "text": "log Theta um so this is sum over I Z so well I'm going to do is um multiply and divide by the same thing I'm going Q okay so um I'm going to construct the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_098",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 3430.0,
+    "end_time": 3475.0,
+    "text": "Q okay so um I'm going to construct the probability distribution Qi that'll be over these lat and random variables Z and and so you know these Qi would be a distribution so right each of the QI greater zero and sum over all the values of Z of Qi will be one so these Q's will be a prior distribution that I get to construct okay and I'll and I'll later go and I I'll later describe my the specific choice of this distribution Qi that I'll"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_099",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 3465.0,
+    "end_time": 3510.0,
+    "text": "go and I I'll later describe my the specific choice of this distribution Qi that I'll um so now you know this Qi is a probability distribution over the random variable Z so this in summation is sort of sum over Z of the probability of Z times some function of Z and so this in summation is really an expectation well is really the expected value of that of the thing"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_100",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 3500.0,
+    "end_time": 3545.0,
+    "text": "of that of the thing right where the expectation is with respect to the distribution of the random variable Z drawn from the distribution Qi right so if so you think what does it mean to take the expected value of this formula respect to Z drawn from a distribution Qi well it's just sum over all the values of Z of the prob probility of Z times that function of Z right I'm seeing some frowning I'm seeing some frowns you have questions"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_101",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 3535.0,
+    "end_time": 3580.0,
+    "text": "probility of Z times that function of Z right I'm seeing some frowning I'm seeing some frowns you have questions"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_102",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 3570.0,
+    "end_time": 3615.0,
+    "text": "so right this is the um so the log function looks like that and it's a concave function so that tells us that the log of e e of X is greater than or equal to the expected value of log X by S of the you know the concave function form of Jensen's inequality and so continuing from the previous expression um we have um what's this right log of an expectation well"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_103",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 3605.0,
+    "end_time": 3650.0,
+    "text": "inequality and so continuing from the previous expression um we have um what's this right log of an expectation well this is Sumari of log of an expectation that must therefore be greater than or equal value of the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_104",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 3640.0,
+    "end_time": 3685.0,
+    "text": "inquality and lastly just to expand out that okay"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_105",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 3675.0,
+    "end_time": 3720.0,
+    "text": "that okay oh how I got from this set to this set yeah okay so how this we'll see so well um here's well let's say let's say I have some random variable Z right and you know Z has some distribution written by denoted p and let's say it has some function G of"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_106",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 3710.0,
+    "end_time": 3755.0,
+    "text": "you know Z has some distribution written by denoted p and let's say it has some function G of Z okay then by definition the expectation the expected value of G of Z right by definition that's equal to sum over all the values of Z the probability of that value of Z times G of Z right that's that's the definition of an expectation of a random variable and so the way I got from this step to this step is by using that um so in particular now um I'm I've been using the distribution"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_107",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 3745.0,
+    "end_time": 3790.0,
+    "text": "step to this step is by using that um so in particular now um I'm I've been using the distribution Qi to denote the distribution of Z so this is like sum over Z of P of Z * G of Z right so this thing is you know this thing plays a row of P of Z and this here plays a role of G of Z in that in what I wrote above right and so um this is just you know the expected value we respect to a random variable Z drawn from the distribution Q of G of Z does"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_108",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 3780.0,
+    "end_time": 3825.0,
+    "text": "is just you know the expected value we respect to a random variable Z drawn from the distribution Q of G of Z does that make sense yeah are there other questions yeah so so in general when you're doing um maximum likelihood estimation choose the probability of or the likelihood of the data um but in this case you only say probability of X because you only have observed X whereas previously we say probability of x given the labels yeah right exactly right so right normally in Maxim estimation uh we want to choose the parameters that maximizes the probability of the data so right and in this case our data comprises only the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_109",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 3815.0,
+    "end_time": 3860.0,
+    "text": "Maxim estimation uh we want to choose the parameters that maximizes the probability of the data so right and in this case our data comprises only the X's so because we don't observe the Z's and therefore um you know the log likelihood of our data excuse me the the log likelihood of parameters is given by the probability of the data which is log P of X right exactly okay um so notice what we've done right we've um we wanted to maximize the log likelihood of theta and what we've done is through these manipulations we've now constructed a lower bound on the log likelihood of"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_110",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 3850.0,
+    "end_time": 3895.0,
+    "text": "um we wanted to maximize the log likelihood of theta and what we've done is through these manipulations we've now constructed a lower bound on the log likelihood of theta and in particular this formula they came up with we you think of this as a fun if if you think of this formula as a function for Theta then your Theta are the parameters of your model right if you think of this as a function of your parameters Theta what we've just shown is that the log likelihood of your parameters Theta is um lower"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_111",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 3885.0,
+    "end_time": 3930.0,
+    "text": "Okay so we've just um r that cartoon of repeatedly constructing a lower bound and optimizing a lower bound so what we've just done is construct a lower Bound for the log likelihood for Theta now the last piece we want for this lower bound is um we actually want just inequality to hold with equality"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_112",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 3920.0,
+    "end_time": 3965.0,
+    "text": "Theta now the last piece we want for this lower bound is um we actually want just inequality to hold with equality for the current value for Theta right so just referring back to the previous cartoon um you know if this was the log l for Theta we then construct some lower bound of it that's some function of theta and if you know and if this is my current value for Theta then I want my lower bound to be tight or I want my lower bound to be equal to the log l of theta because that's what I need to guarantee that when I optimize my lower bound then actually do even better on the true objective function um and so to do that to ensure that this"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_113",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 3955.0,
+    "end_time": 4000.0,
+    "text": "bound then actually do even better on the true objective function um and so to do that to ensure that this inequality actually holds true of equality what I need is going back through the derivation what I need is in the step that I use Jensen's inequality right I need this inequality to hold with equality and in particular I'm going to choose my distrib so this bound holds true of any probability distribution CU that I might choose and so what I'm going to do is I choose my probability distribution Q to ensure that this inequality holds true with equality for"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_114",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 3990.0,
+    "end_time": 4035.0,
+    "text": "that I might choose and so what I'm going to do is I choose my probability distribution Q to ensure that this inequality holds true with equality for is excuse me um yeah great question how do I know that function is concave um yeah I don't think I've shown it it actually turns out to be true from for all the models will work with uh but I don't um do I know that the lower Bal is a concave function of theta I think you're right in general this may not be a concave function of theta for many of the models we work with this will turn out to be a concave function but that's"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_115",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 4025.0,
+    "end_time": 4070.0,
+    "text": "the models we work with this will turn out to be a concave function but that's true um okay so let me go and now choose the value for Q and um if refer back to Jon inequality we said that this inequality will become an equality if you know if the random variable inside is a constant right if you're taking an expectation with respect to a constant valued random"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_116",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 4060.0,
+    "end_time": 4105.0,
+    "text": "what we want is to choose the that is equal to constant um and by constants I mean this is a this takes on the same"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_117",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 4095.0,
+    "end_time": 4140.0,
+    "text": "that is equal to constant um and by constants I mean this is a this takes on the same for all values of Z okay that no matter what value of zi you plug in you end up with the same value for this ratio um and so you would set Qi of to that right to ensure that this ratio remains constant um but you also know that these zis must be um uh excuse me this Qi must be a"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_118",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 4130.0,
+    "end_time": 4175.0,
+    "text": "constant um but you also know that these zis must be um uh excuse me this Qi must be a so um that sum is equal to one and um I don't know there's a step or two that I might be skipping here but you convince yourself that the choice you should"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_119",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 4200.0,
+    "end_time": 4245.0,
+    "text": "um so the uh Qi of zis must sum must sum to one and so you know to Compu you I just take P of x i z par by Theta and just normalize the sum to one there is a step that I'm skipping here to show that this is always is really the right thing to do hopefully you just be convinced it's true um for the actual so two extra steps I ski is actually written know the lecture notes"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_120",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 4235.0,
+    "end_time": 4280.0,
+    "text": "to do hopefully you just be convinced it's true um for the actual so two extra steps I ski is actually written know the lecture notes have um the denominator by definition is of conditional probability Qi of Z is just equal to P of Z given x i and parameterized by Theta"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_121",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 4270.0,
+    "end_time": 4315.0,
+    "text": "just equal to P of Z given x i and parameterized by Theta Eep we set"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_122",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 4305.0,
+    "end_time": 4350.0,
+    "text": "Eep we set we choose the distributions Qi so Qi of to um P of Z given X par by Theta that's out and so by this step we've now created a lower bound on the log likelihood function that is now tight at the current value of theta and in the M step we then optimize that lower bound"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_123",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 4340.0,
+    "end_time": 4385.0,
+    "text": "created a lower bound on the log likelihood function that is now tight at the current value of theta and in the M step we then optimize that lower bound with respect to our parameters Theta and specifically take the Alat okay and so that's the um that's the EM algorithm um I won't"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_124",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 4375.0,
+    "end_time": 4420.0,
+    "text": "okay and so that's the um that's the EM algorithm um I won't have time to do it today but excuse me probably show this in the next lecture but the uh em algorithm that I wrote down for the mixtures of gan's algorithm is actually a special case of this more General template where um the Eep and the M step corresponded so pretty much exactly to this Eep and this m step I wrote down and so right just in pictures again there's my log likelihood function it's function of theta um the Eep con constructs this lower bound and make sure that it is tight to the current"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_125",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 4410.0,
+    "end_time": 4455.0,
+    "text": "again there's my log likelihood function it's function of theta um the Eep con constructs this lower bound and make sure that it is tight to the current value of theta that's in my choice of Q and then the M step optimizes the lower bound with respective pars sta okay so um have lot lotss more to say about this in the next lecture let's check if there any close Okay cool so let's wrap up for today and we'll continue talking about"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec12_chunk_126",
+    "video_id": "stanford_cs229_lec12",
+    "start_time": 4445.0,
+    "end_time": 4490.0,
+    "text": "today and we'll continue talking about"
+  }
+]

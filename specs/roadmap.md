@@ -15,11 +15,11 @@ Status: ✅ Complete | ⚠️ Partial | ⏳ Pending
 | 1.1 | `scripts/download_videos.py` | ✅ |
 | 1.2 | Download all 60 videos + VTTs | ✅ 60/60 done |
 | 2.1 | `scripts/parse_vtt.py` — VTT → transcript JSON | ✅ |
-| 2.2 | Run transcription for remaining 56 lectures | ⏳ |
+| 2.2 | Run transcription for remaining 56 lectures | ✅ 60/60 done |
 | 3.1 | `scripts/build_chunks.py` — chunking pipeline | ✅ |
-| 3.2 | Run chunking for remaining 56 lectures | ⏳ |
+| 3.2 | Run chunking for remaining 56 lectures | ✅ 60/60 done |
 | 4.1 | `src/frame_captioner.py` — Qwen2-VL-7B captioner | ✅ |
-| 4.2 | Run `scripts/build_frame_captions.py --all --device cuda` | ⏳ |
+| 4.2 | Run `scripts/build_frame_captions.py --all --device cuda` | ✅ 60/60 done |
 | 5.1 | `src/retriever.py` — two ChromaDB collections | ⏳ |
 | 5.2 | `scripts/build_index.py` — ingest all chunks | ⏳ |
 | 6.1 | `src/generator.py` — grounded prompt + citations | ⏳ |
@@ -91,7 +91,7 @@ Notes:
 
 ---
 
-## Phase 2 — Transcription ⚠️ (4/60 complete; 2.2 pending)
+## Phase 2 — Transcription ✅
 
 ### 2.1 — VTT parser (already written)
 **File:** `scripts/parse_vtt.py` | **Module:** `src/transcriber.py`
@@ -124,7 +124,7 @@ Quality checks:
 
 ---
 
-## Phase 3 — Chunking ⚠️ (4/60 complete; 3.2 pending)
+## Phase 3 — Chunking ✅
 
 ### 3.1 — Chunking pipeline (already written)
 **File:** `scripts/build_chunks.py` | **Module:** `src/chunker.py`
@@ -154,7 +154,7 @@ Unit tests: 8/8 passing — verified overlap (segment at 40s in two chunks), bou
 
 ---
 
-## Phase 4 — Frame Captions ⏳
+## Phase 4 — Frame Captions ✅
 
 ### 4.1 — Frame captioner (already written)
 **File:** `src/frame_captioner.py`
@@ -168,7 +168,7 @@ Unit tests: 8/8 passing — verified overlap (segment at 40s in two chunks), bou
 ### 4.2 — Run frame extraction + captioning
 **File:** `scripts/build_frame_captions.py`
 
-- Extracts 1 frame every 30s via ffmpeg (handles mp4/mkv/webm, AV1/VP9/H.264)
+- Extracts 1 frame every 15s via ffmpeg (handles mp4/mkv/webm, AV1/VP9/H.264)
 - Calls `caption_frames()` with `cfg.frame_captioner.model` and `cfg.frame_captioner.max_new_tokens`
 - Saves: `data/frame_captions/{video_id}_frame_captions.json`
 - Builds augmented chunks: appends `[frame caption: ...]` to each chunk's text; saves `data/chunks/{video_id}_chunks_augmented.json`
@@ -176,15 +176,24 @@ Unit tests: 8/8 passing — verified overlap (segment at 40s in two chunks), bou
 
 **Must complete before Phase 5** — Collection 2 ingests augmented chunks.
 
-**Design rationale — 30s frame interval:**
-The 30s interval is a project design choice (not prescribed by the assignment). A 30s interval yields ~1.5 frames per 45s chunk on average — dense enough to capture slide transitions without redundancy. At ~0.5–2s/frame on an A100 (Qwen2-VL-7B in bfloat16), 60 lectures × ~180 frames/lecture ≈ 10,800 frames total, or roughly 1.5–6 GPU-hours.
+**Design rationale — 15s frame interval (changed from 30s):**
+The original 30s interval used a nearest-midpoint strategy (one caption per chunk), which
+could assign a frame up to 22.5s from one edge of the window — missing a slide transition
+or mid-chunk whiteboard step. Changed to 15s with all-in-window assignment: all frames
+whose timestamp falls within `[chunk.start_time, chunk.end_time)` are concatenated into
+the chunk text, giving ~3 captions per 45s chunk consistently. This better supports visual
+multi-hop questions (slide text + equations captured across the full window).
+At ~0.5–2s/frame on an A100 (Qwen2-VL-7B in bfloat16): 15,020 frames ≈ 4–8 GPU-hours.
 
 **Design rationale — frames and chunk overlap:**
-A frame can be assigned to more than one chunk. Because chunk windows overlap by 10s (e.g., Chunk A: 0:00–0:45, Chunk B: 0:35–1:20), a frame at t=0:35 falls inside both windows. The implementation appends that frame's caption to both chunks — this is intentional. The overlap exists so that evidence near a chunk boundary appears in both neighboring chunks, improving retrieval recall.
+Frames whose timestamp falls in the 10s overlap zone (e.g. t=0:35 for chunks A: 0:00–0:45
+and B: 0:35–1:20) are included in both neighboring chunks. This is intentional — it mirrors
+how transcript segments in the overlap appear in both chunks and ensures evidence at a chunk
+boundary is retrievable from either side.
 
 **Git checkpoint:** `feat: frame caption pipeline (Phase 4)`
 
-**Paper reminder — `sections/pipeline.tex` (frame captions):** Add the Frame Caption subsection: 1 frame every 30s via ffmpeg, Qwen2-VL-7B-Instruct in bfloat16 on A100, Approach A (captions appended to chunk text). Justify: Qwen2-VL reads slide text and equations; Approach A keeps both collections under the same embedding model as prescribed.
+**Paper reminder — `sections/pipeline.tex` (frame captions):** Add the Frame Caption subsection: 1 frame every 15s via ffmpeg, all-in-window assignment (~3 captions/45s chunk), Qwen2-VL-7B-Instruct in bfloat16 on A100, Approach A (captions appended to chunk text). Justify: 15s + all-in-window captures slide transitions missed by 30s nearest-midpoint; Qwen2-VL reads slide text and equations; Approach A keeps both collections under the same embedding model.
 
 ---
 
@@ -453,7 +462,7 @@ Every parameter choice (window size, overlap, k values, embedding model, frame i
 | Citation format | `[video_id @ mm:ss to mm:ss]` | Prescribed; YouTube deep-linkable |
 | Generator output | Structured JSON | More reliable than regex-parsing `[1]` bracket citations |
 | Span aggregation | Union of cited chunk spans | Standard for multi-chunk answers |
-| Frame interval | 30s | Balances coverage (~2 frames/min) vs. storage |
+| Frame interval | 15s | All-in-window assignment gives ~3 captions/chunk; 30s nearest-midpoint missed slide transitions |
 | Benchmark license | CC BY-NC-SA 4.0 | Required by ShareAlike clause from MIT/Stanford source material |
 
 ---

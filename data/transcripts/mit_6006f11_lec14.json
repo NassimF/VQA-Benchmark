@@ -1,0 +1,4596 @@
+{
+  "video_id": "mit_6006f11_lec14",
+  "source": "youtube_auto_captions",
+  "segments": [
+    {
+      "start": 1.91,
+      "end": 4.63,
+      "text": "the following content is provided under"
+    },
+    {
+      "start": 4.63,
+      "end": 6.749,
+      "text": "a Creative Commons license your support"
+    },
+    {
+      "start": 6.749,
+      "end": 8.709,
+      "text": "will help MIT open courseware continue"
+    },
+    {
+      "start": 8.709,
+      "end": 11.87,
+      "text": "to offer highquality educational"
+    },
+    {
+      "start": 11.87,
+      "end": 13.829,
+      "text": "resources for free to make a donation or"
+    },
+    {
+      "start": 13.829,
+      "end": 23.83,
+      "text": "view additional materials from hundreds"
+    },
+    {
+      "start": 23.83,
+      "end": 27.79,
+      "text": "ocw.mit.edu all right let's get"
+    },
+    {
+      "start": 27.79,
+      "end": 29.429,
+      "text": "started we return today to Graph Search"
+    },
+    {
+      "start": 29.429,
+      "end": 30.749,
+      "text": "last time we saw Brett first search"
+    },
+    {
+      "start": 30.749,
+      "end": 32.95,
+      "text": "today we're going to do depth first"
+    },
+    {
+      "start": 32.95,
+      "end": 34.59,
+      "text": "search it's a simple algorithm but you"
+    },
+    {
+      "start": 34.59,
+      "end": 36.63,
+      "text": "can do lots of cool things with it and"
+    },
+    {
+      "start": 36.63,
+      "end": 38.43,
+      "text": "that's what I'll spend most of today on"
+    },
+    {
+      "start": 38.43,
+      "end": 40.47,
+      "text": "in particular telling whether your graph"
+    },
+    {
+      "start": 40.47,
+      "end": 41.709,
+      "text": "has a cycle and something called"
+    },
+    {
+      "start": 41.709,
+      "end": 45.35,
+      "text": "topological"
+    },
+    {
+      "start": 45.35,
+      "end": 47.79,
+      "text": "sort as usual basically in all graph"
+    },
+    {
+      "start": 47.79,
+      "end": 49.389,
+      "text": "algorithms in this class the input the"
+    },
+    {
+      "start": 49.389,
+      "end": 51.75,
+      "text": "way the graph is specified is as an"
+    },
+    {
+      "start": 51.75,
+      "end": 54.15,
+      "text": "adjacency list or I guess adjacency"
+    },
+    {
+      "start": 54.15,
+      "end": 56.549,
+      "text": "lists plural you have a bunch of lists"
+    },
+    {
+      "start": 56.549,
+      "end": 58.63,
+      "text": "each one says for each vertex what are"
+    },
+    {
+      "start": 58.63,
+      "end": 60.549,
+      "text": "the vertices I'm connected to what are"
+    },
+    {
+      "start": 60.549,
+      "end": 64.67,
+      "text": "the vertices I can get to in One Step"
+    },
+    {
+      "start": 64.67,
+      "end": 66.51,
+      "text": "viaa an edge so that's our input and our"
+    },
+    {
+      "start": 66.51,
+      "end": 69.469,
+      "text": "goal in general with Graph Search is to"
+    },
+    {
+      "start": 69.469,
+      "end": 70.67,
+      "text": "explore the graph uh in particular the"
+    },
+    {
+      "start": 70.67,
+      "end": 73.31,
+      "text": "kind of exploration we're going to be"
+    },
+    {
+      "start": 73.31,
+      "end": 76.31,
+      "text": "doing today is to visit all the vertices"
+    },
+    {
+      "start": 76.31,
+      "end": 78.55,
+      "text": "in some order and visit each vertex only"
+    },
+    {
+      "start": 78.55,
+      "end": 80.069,
+      "text": "once so the way we did breath first"
+    },
+    {
+      "start": 80.069,
+      "end": 82.789,
+      "text": "search breath first search was really"
+    },
+    {
+      "start": 82.789,
+      "end": 84.39,
+      "text": "good it explored things layer by layer"
+    },
+    {
+      "start": 84.39,
+      "end": 86.51,
+      "text": "and that was nice because it gave us"
+    },
+    {
+      "start": 86.51,
+      "end": 89.149,
+      "text": "shortest paths it gave us the fastest"
+    },
+    {
+      "start": 89.149,
+      "end": 92.069,
+      "text": "way to get to everywhere but from a"
+    },
+    {
+      "start": 92.069,
+      "end": 94.50999999999999,
+      "text": "particular source vertex s but if you"
+    },
+    {
+      "start": 94.50999999999999,
+      "end": 96.27000000000001,
+      "text": "can't get from s to your vertex then the"
+    },
+    {
+      "start": 96.27000000000001,
+      "end": 98.59,
+      "text": "shortest the shortest way to get there"
+    },
+    {
+      "start": 98.59,
+      "end": 100.91,
+      "text": "is infinity there's no there's no way to"
+    },
+    {
+      "start": 100.91,
+      "end": 103.67,
+      "text": "get there and BFS is good for detecting"
+    },
+    {
+      "start": 103.67,
+      "end": 105.38900000000001,
+      "text": "that it can tell you which vertices have"
+    },
+    {
+      "start": 105.38900000000001,
+      "end": 109.749,
+      "text": "are unreachable from"
+    },
+    {
+      "start": 109.749,
+      "end": 111.83,
+      "text": "s DFS can do that as well but uh it's"
+    },
+    {
+      "start": 111.83,
+      "end": 113.99000000000001,
+      "text": "often used to explore the whole graph"
+    },
+    {
+      "start": 113.99000000000001,
+      "end": 115.149,
+      "text": "not just the part reachable from s and"
+    },
+    {
+      "start": 115.149,
+      "end": 117.429,
+      "text": "so we're going to see how to do that"
+    },
+    {
+      "start": 117.429,
+      "end": 119.91,
+      "text": "today this trick could be used for BFS"
+    },
+    {
+      "start": 119.91,
+      "end": 127.469,
+      "text": "or for DFS we're going to do it here for"
+    },
+    {
+      "start": 127.469,
+      "end": 143.11,
+      "text": "say"
+    },
+    {
+      "start": 143.11,
+      "end": 145.50900000000001,
+      "text": "DFS so depth first search is kind of"
+    },
+    {
+      "start": 145.50900000000001,
+      "end": 148.50900000000001,
+      "text": "like how you solve a maze like uh the"
+    },
+    {
+      "start": 148.50900000000001,
+      "end": 150.47,
+      "text": "other weekend I was at Big corn maze in"
+    },
+    {
+      "start": 150.47,
+      "end": 153.99,
+      "text": "uh central Massachusetts"
+    },
+    {
+      "start": 153.99,
+      "end": 155.35,
+      "text": "and uh it's easy to get lost in there uh"
+    },
+    {
+      "start": 155.35,
+      "end": 157.43,
+      "text": "in particular because I didn't bring any"
+    },
+    {
+      "start": 157.43,
+      "end": 159.55,
+      "text": "breadcrumbs the proper way to solve a"
+    },
+    {
+      "start": 159.55,
+      "end": 161.63,
+      "text": "maze if you're in there and all you can"
+    },
+    {
+      "start": 161.63,
+      "end": 163.79,
+      "text": "do is see which way to go next and then"
+    },
+    {
+      "start": 163.79,
+      "end": 164.949,
+      "text": "walk a little bit to the next Junction"
+    },
+    {
+      "start": 164.949,
+      "end": 166.99,
+      "text": "and then you have to keep making"
+    },
+    {
+      "start": 166.99,
+      "end": 169.949,
+      "text": "decisions unless you have a really good"
+    },
+    {
+      "start": 169.949,
+      "end": 173.35,
+      "text": "memory which I do not uh teaching staff"
+    },
+    {
+      "start": 173.35,
+      "end": 175.67000000000002,
+      "text": "can attest to that um then an easy way"
+    },
+    {
+      "start": 175.67000000000002,
+      "end": 177.71,
+      "text": "to do is to leave breadcrumbs behind say"
+    },
+    {
+      "start": 177.71,
+      "end": 180.869,
+      "text": "this is the last way I went from this"
+    },
+    {
+      "start": 180.869,
+      "end": 182.509,
+      "text": "node so I when I reach reach a dead end"
+    },
+    {
+      "start": 182.509,
+      "end": 184.07,
+      "text": "I have to turn around and backtrack I"
+    },
+    {
+      "start": 184.07,
+      "end": 185.63,
+      "text": "reach a breadcrumb that says oh last"
+    },
+    {
+      "start": 185.63,
+      "end": 188.03,
+      "text": "time you went this way next time you"
+    },
+    {
+      "start": 188.03,
+      "end": 190.19,
+      "text": "should go this way and in particular to"
+    },
+    {
+      "start": 190.19,
+      "end": 192.19,
+      "text": "keep track at each node which of the"
+    },
+    {
+      "start": 192.19,
+      "end": 193.869,
+      "text": "edges have I visited which ones are"
+    },
+    {
+      "start": 193.869,
+      "end": 196.91,
+      "text": "still left to"
+    },
+    {
+      "start": 196.91,
+      "end": 212.03,
+      "text": "visit and this could be done very easily"
+    },
+    {
+      "start": 212.03,
+      "end": 214.07,
+      "text": "so a high level description is we're"
+    },
+    {
+      "start": 214.07,
+      "end": 218.11,
+      "text": "going to just"
+    },
+    {
+      "start": 218.11,
+      "end": 220.869,
+      "text": "recursively explore the graph"
+    },
+    {
+      "start": 220.869,
+      "end": 236.75,
+      "text": "backtracking as necessary kind of like"
+    },
+    {
+      "start": 236.75,
+      "end": 239.789,
+      "text": "yeah in fact when I"
+    },
+    {
+      "start": 239.789,
+      "end": 240.99,
+      "text": "was seven years old one of the first"
+    },
+    {
+      "start": 240.99,
+      "end": 242.47,
+      "text": "computer programs I wrote was for"
+    },
+    {
+      "start": 242.47,
+      "end": 245.35,
+      "text": "solving a maze I didn't know it was de"
+    },
+    {
+      "start": 245.35,
+      "end": 252.11,
+      "text": "for search at the time but now I"
+    },
+    {
+      "start": 252.11,
+      "end": 254.429,
+      "text": "better it so much harder doing"
+    },
+    {
+      "start": 254.429,
+      "end": 257.83,
+      "text": "algorithms when I didn't know what they"
+    },
+    {
+      "start": 257.83,
+      "end": 260.39,
+      "text": "were anyway"
+    },
+    {
+      "start": 260.39,
+      "end": 263.51,
+      "text": "um I'm GNA write some code for depth for"
+    },
+    {
+      "start": 263.51,
+      "end": 266.03,
+      "text": "search it is super simple"
+    },
+    {
+      "start": 266.03,
+      "end": 306.71,
+      "text": "code probably the simp the simplest"
+    },
+    {
+      "start": 306.71,
+      "end": 309.79,
+      "text": "that's it I'm going to write a little"
+    },
+    {
+      "start": 309.79,
+      "end": 312.11,
+      "text": "bit of code after this but uh this is"
+    },
+    {
+      "start": 312.11,
+      "end": 314.189,
+      "text": "basic depth for search this will visit"
+    },
+    {
+      "start": 314.189,
+      "end": 317.909,
+      "text": "all the vertices reachable from a given"
+    },
+    {
+      "start": 317.909,
+      "end": 320.67,
+      "text": "Source vertex s so we're given the"
+    },
+    {
+      "start": 320.67,
+      "end": 322.909,
+      "text": "adjacency list I don't know why I put V"
+    },
+    {
+      "start": 322.909,
+      "end": 326.189,
+      "text": "here you could erase it it's not"
+    },
+    {
+      "start": 326.189,
+      "end": 327.67,
+      "text": "necessary uh and all we do is we have"
+    },
+    {
+      "start": 327.67,
+      "end": 330.27,
+      "text": "our vertex"
+    },
+    {
+      "start": 330.27,
+      "end": 333.189,
+      "text": "V sorry we have our vertex"
+    },
+    {
+      "start": 333.189,
+      "end": 334.87,
+      "text": "s we look at all of the outgoing edges"
+    },
+    {
+      "start": 334.87,
+      "end": 338.469,
+      "text": "from"
+    },
+    {
+      "start": 338.469,
+      "end": 342.30899999999997,
+      "text": "s for each one call it"
+    },
+    {
+      "start": 342.30899999999997,
+      "end": 345.909,
+      "text": "V we uh check have I visited this vertex"
+    },
+    {
+      "start": 345.909,
+      "end": 348.029,
+      "text": "already so the one careful place where"
+    },
+    {
+      "start": 348.029,
+      "end": 358.15,
+      "text": "we need to be careful is to not repeat"
+    },
+    {
+      "start": 358.15,
+      "end": 360.39,
+      "text": "well so uh the way we're going to do"
+    },
+    {
+      "start": 360.39,
+      "end": 362.99,
+      "text": "that is by setting the parent of a node"
+    },
+    {
+      "start": 362.99,
+      "end": 364.749,
+      "text": "we'll see what that actually means later"
+    },
+    {
+      "start": 364.749,
+      "end": 366.749,
+      "text": "uh but for now it's just are you in the"
+    },
+    {
+      "start": 366.749,
+      "end": 369.469,
+      "text": "parent structure or not this is"
+    },
+    {
+      "start": 369.469,
+      "end": 372.189,
+      "text": "initially uh we've seen s so we give it"
+    },
+    {
+      "start": 372.189,
+      "end": 375.87,
+      "text": "a parent of nothing but it exists in"
+    },
+    {
+      "start": 375.87,
+      "end": 377.27,
+      "text": "this dictionary uh if it's if the vertex"
+    },
+    {
+      "start": 377.27,
+      "end": 379.43,
+      "text": "V that we're looking at is not in our"
+    },
+    {
+      "start": 379.43,
+      "end": 382.39,
+      "text": "dictionary we haven't seen it yet uh we"
+    },
+    {
+      "start": 382.39,
+      "end": 385.07,
+      "text": "mark it as seen by setting its parent to"
+    },
+    {
+      "start": 385.07,
+      "end": 389.23,
+      "text": "S and then we recursively visit it"
+    },
+    {
+      "start": 389.23,
+      "end": 391.189,
+      "text": "that's it super simple just recurse the"
+    },
+    {
+      "start": 391.189,
+      "end": 392.99,
+      "text": "sort of the magical part is the"
+    },
+    {
+      "start": 392.99,
+      "end": 396.39,
+      "text": "preventing yourself from"
+    },
+    {
+      "start": 396.39,
+      "end": 397.87,
+      "text": "repeating as you explore the graph uh if"
+    },
+    {
+      "start": 397.87,
+      "end": 400.029,
+      "text": "you reach something you've already seen"
+    },
+    {
+      "start": 400.029,
+      "end": 404.11,
+      "text": "before you just skip it again so you"
+    },
+    {
+      "start": 404.11,
+      "end": 406.71,
+      "text": "only re visit every vertex once at most"
+    },
+    {
+      "start": 406.71,
+      "end": 408.30899999999997,
+      "text": "once this will not visit the entire"
+    },
+    {
+      "start": 408.30899999999997,
+      "end": 409.71,
+      "text": "graph it'll only visit the vertices"
+    },
+    {
+      "start": 409.71,
+      "end": 412.27,
+      "text": "reachable from"
+    },
+    {
+      "start": 412.27,
+      "end": 415.029,
+      "text": "s the next part of the code I'd like to"
+    },
+    {
+      "start": 415.029,
+      "end": 417.15,
+      "text": "give you is uh for visiting all the"
+    },
+    {
+      "start": 417.15,
+      "end": 418.869,
+      "text": "vertices and in the textbook this is"
+    },
+    {
+      "start": 418.869,
+      "end": 420.79,
+      "text": "called DFS whereas this is just called"
+    },
+    {
+      "start": 420.79,
+      "end": 424.95,
+      "text": "DFS visit it that's sort of the"
+    },
+    {
+      "start": 424.95,
+      "end": 427.23,
+      "text": "recursive part and this is sort of a top"
+    },
+    {
+      "start": 427.23,
+      "end": 429.309,
+      "text": "level"
+    },
+    {
+      "start": 429.309,
+      "end": 441.07,
+      "text": "algorithm here we are going to use the"
+    },
+    {
+      "start": 441.07,
+      "end": 470.07,
+      "text": "B and here we're just going to iterate"
+    },
+    {
+      "start": 470.07,
+      "end": 472.30899999999997,
+      "text": "so it looks almost the same uh but what"
+    },
+    {
+      "start": 472.30899999999997,
+      "end": 474.51,
+      "text": "we're iterating over is different here"
+    },
+    {
+      "start": 474.51,
+      "end": 476.909,
+      "text": "we're iterating over the outgoing edges"
+    },
+    {
+      "start": 476.909,
+      "end": 480.23,
+      "text": "from s here we're iterating over the"
+    },
+    {
+      "start": 480.23,
+      "end": 482.07,
+      "text": "choices of s"
+    },
+    {
+      "start": 482.07,
+      "end": 485.189,
+      "text": "and"
+    },
+    {
+      "start": 485.189,
+      "end": 486.79,
+      "text": "uh so the idea here is we don't really"
+    },
+    {
+      "start": 486.79,
+      "end": 488.39,
+      "text": "know where to start our search if it's a"
+    },
+    {
+      "start": 488.39,
+      "end": 489.71,
+      "text": "disconnected graph or not a strongly"
+    },
+    {
+      "start": 489.71,
+      "end": 491.309,
+      "text": "connected graph we might have to start"
+    },
+    {
+      "start": 491.309,
+      "end": 494.35,
+      "text": "our search multiple"
+    },
+    {
+      "start": 494.35,
+      "end": 496.589,
+      "text": "times this DFS algorithm is finding all"
+    },
+    {
+      "start": 496.589,
+      "end": 499.629,
+      "text": "the possible places you might start the"
+    },
+    {
+      "start": 499.629,
+      "end": 501.51,
+      "text": "search and trying them all so it's like"
+    },
+    {
+      "start": 501.51,
+      "end": 502.749,
+      "text": "okay let's try the first vertex if that"
+    },
+    {
+      "start": 502.749,
+      "end": 506.27,
+      "text": "hasn't been visited which initially"
+    },
+    {
+      "start": 506.27,
+      "end": 508.909,
+      "text": "nothing's been visited then uh visit it"
+    },
+    {
+      "start": 508.909,
+      "end": 510.55,
+      "text": "recursively everything reachable from s"
+    },
+    {
+      "start": 510.55,
+      "end": 511.869,
+      "text": "then you go on to the second vertex now"
+    },
+    {
+      "start": 511.869,
+      "end": 513.5889999999999,
+      "text": "you may have already visited it then you"
+    },
+    {
+      "start": 513.5889999999999,
+      "end": 515.67,
+      "text": "skip it third vertex maybe you visited"
+    },
+    {
+      "start": 515.67,
+      "end": 517.19,
+      "text": "it already third ver fourth vertex keep"
+    },
+    {
+      "start": 517.19,
+      "end": 519.19,
+      "text": "going till you find some vertex you"
+    },
+    {
+      "start": 519.19,
+      "end": 520.949,
+      "text": "haven't visited at all and then you"
+    },
+    {
+      "start": 520.949,
+      "end": 521.909,
+      "text": "recursively visit everything reachable"
+    },
+    {
+      "start": 521.909,
+      "end": 524.35,
+      "text": "from"
+    },
+    {
+      "start": 524.35,
+      "end": 527.79,
+      "text": "it okay and you"
+    },
+    {
+      "start": 527.79,
+      "end": 529.59,
+      "text": "repeat this will find all the different"
+    },
+    {
+      "start": 529.59,
+      "end": 531.79,
+      "text": "clusters all the different strongly"
+    },
+    {
+      "start": 531.79,
+      "end": 533.11,
+      "text": "connected components of your graph most"
+    },
+    {
+      "start": 533.11,
+      "end": 535.03,
+      "text": "of the work is being done by this"
+    },
+    {
+      "start": 535.03,
+      "end": 536.67,
+      "text": "recursion but then there's this top"
+    },
+    {
+      "start": 536.67,
+      "end": 537.99,
+      "text": "level just to make sure that all the"
+    },
+    {
+      "start": 537.99,
+      "end": 541.15,
+      "text": "vertices get"
+    },
+    {
+      "start": 541.15,
+      "end": 543.55,
+      "text": "visited let's do a little"
+    },
+    {
+      "start": 543.55,
+      "end": 547.389,
+      "text": "example so this is super clear and then"
+    },
+    {
+      "start": 547.389,
+      "end": 548.43,
+      "text": "it will also let me uh do something"
+    },
+    {
+      "start": 548.43,
+      "end": 550.35,
+      "text": "called Edge"
+    },
+    {
+      "start": 550.35,
+      "end": 553.87,
+      "text": "classification once we"
+    },
+    {
+      "start": 553.87,
+      "end": 555.99,
+      "text": "see every Edge in the graph gets visited"
+    },
+    {
+      "start": 555.99,
+      "end": 558.069,
+      "text": "by DFS in one way or another and it's"
+    },
+    {
+      "start": 558.069,
+      "end": 560.11,
+      "text": "really helpful to think about the"
+    },
+    {
+      "start": 560.11,
+      "end": 562.829,
+      "text": "different ways they can be"
+    },
+    {
+      "start": 562.829,
+      "end": 565.03,
+      "text": "visited"
+    },
+    {
+      "start": 565.03,
+      "end": 568.389,
+      "text": "so here's a"
+    },
+    {
+      "start": 568.389,
+      "end": 589.11,
+      "text": "graph I think it's similar to one from"
+    },
+    {
+      "start": 589.11,
+      "end": 591.43,
+      "text": "good it's not strongly connected I don't"
+    },
+    {
+      "start": 591.43,
+      "end": 592.829,
+      "text": "think no you can't get from these"
+    },
+    {
+      "start": 592.829,
+      "end": 595.509,
+      "text": "vertices to"
+    },
+    {
+      "start": 595.509,
+      "end": 600.069,
+      "text": "C you can get from C to everywhere it"
+    },
+    {
+      "start": 600.069,
+      "end": 602.31,
+      "text": "looks like but not strongly connected"
+    },
+    {
+      "start": 602.31,
+      "end": 603.99,
+      "text": "and we're going to run DFS and I think"
+    },
+    {
+      "start": 603.99,
+      "end": 606.55,
+      "text": "basically an alphabetical"
+    },
+    {
+      "start": 606.55,
+      "end": 608.19,
+      "text": "order uh is how we're imagining these"
+    },
+    {
+      "start": 608.19,
+      "end": 610.35,
+      "text": "vertices have to be ordered somehow we"
+    },
+    {
+      "start": 610.35,
+      "end": 613.11,
+      "text": "don't really care how but for sake of"
+    },
+    {
+      "start": 613.11,
+      "end": 615.91,
+      "text": "example I care uh so we're going to"
+    },
+    {
+      "start": 615.91,
+      "end": 617.269,
+      "text": "start with a that's our F the first"
+    },
+    {
+      "start": 617.269,
+      "end": 619.03,
+      "text": "vertex in here we're going to"
+    },
+    {
+      "start": 619.03,
+      "end": 622.63,
+      "text": "recursively visit everything reachable"
+    },
+    {
+      "start": 622.63,
+      "end": 627.15,
+      "text": "from a so we enter here with s equals a"
+    },
+    {
+      "start": 627.15,
+      "end": 631.67,
+      "text": "so I'll mark this uh S1 to be the first"
+    },
+    {
+      "start": 631.67,
+      "end": 635.35,
+      "text": "value of s at at this"
+    },
+    {
+      "start": 635.35,
+      "end": 638.31,
+      "text": "level uh so we consider I got to check"
+    },
+    {
+      "start": 638.31,
+      "end": 639.829,
+      "text": "the order here first Edge we look at"
+    },
+    {
+      "start": 639.829,
+      "end": 645.15,
+      "text": "there's two outgoing edges let's say we"
+    },
+    {
+      "start": 645.15,
+      "end": 648.31,
+      "text": "first"
+    },
+    {
+      "start": 648.31,
+      "end": 650.71,
+      "text": "uh we look at B B has not been visited"
+    },
+    {
+      "start": 650.71,
+      "end": 652.75,
+      "text": "yet has no parent pointer so this one"
+    },
+    {
+      "start": 652.75,
+      "end": 654.99,
+      "text": "has a parent pointer of"
+    },
+    {
+      "start": 654.99,
+      "end": 659.75,
+      "text": "null uh B we're going to give a parent"
+    },
+    {
+      "start": 659.75,
+      "end": 661.949,
+      "text": "pointer of a that's here then we"
+    },
+    {
+      "start": 661.949,
+      "end": 663.43,
+      "text": "recursively visit everything from B so"
+    },
+    {
+      "start": 663.43,
+      "end": 666.11,
+      "text": "we look at all the outgoing edges from B"
+    },
+    {
+      "start": 666.11,
+      "end": 670.67,
+      "text": "there's only one so we visit this"
+    },
+    {
+      "start": 670.67,
+      "end": 672.79,
+      "text": "Edge great uh from B to e e has not been"
+    },
+    {
+      "start": 672.79,
+      "end": 676.949,
+      "text": "visited so we set its parent pointer to"
+    },
+    {
+      "start": 676.949,
+      "end": 680.19,
+      "text": "B uh and now we recursively visit e e"
+    },
+    {
+      "start": 680.19,
+      "end": 687.91,
+      "text": "has only one outgoing Edge so we look at"
+    },
+    {
+      "start": 687.91,
+      "end": 689.79,
+      "text": "d uh D has not been visited so we set"
+    },
+    {
+      "start": 689.79,
+      "end": 691.509,
+      "text": "parent pointer to E and we look at all"
+    },
+    {
+      "start": 691.509,
+      "end": 694.03,
+      "text": "the outgoing edges from d d has one"
+    },
+    {
+      "start": 694.03,
+      "end": 696.91,
+      "text": "outgoing Edge which is to b b has"
+    },
+    {
+      "start": 696.91,
+      "end": 700.67,
+      "text": "already been visited so we ski that one"
+    },
+    {
+      "start": 700.67,
+      "end": 703.55,
+      "text": "nothing to do that's the the else case"
+    },
+    {
+      "start": 703.55,
+      "end": 705.75,
+      "text": "of this if we do nothing in the else"
+    },
+    {
+      "start": 705.75,
+      "end": 708.43,
+      "text": "case we just go to the next Edge but"
+    },
+    {
+      "start": 708.43,
+      "end": 711.15,
+      "text": "there's no next Edge for D so we're done"
+    },
+    {
+      "start": 711.15,
+      "end": 713.67,
+      "text": "so this algorithm returns to the next"
+    },
+    {
+      "start": 713.67,
+      "end": 715.55,
+      "text": "level up next level up was e we were"
+    },
+    {
+      "start": 715.55,
+      "end": 717.59,
+      "text": "itating over the outgoing edges from e"
+    },
+    {
+      "start": 717.59,
+      "end": 719.79,
+      "text": "but there was only one so we're done so"
+    },
+    {
+      "start": 719.79,
+      "end": 722.59,
+      "text": "e finishes"
+    },
+    {
+      "start": 722.59,
+      "end": 725.389,
+      "text": "then we go back we backtrack to"
+    },
+    {
+      "start": 725.389,
+      "end": 727.47,
+      "text": "B uh which is always going back along"
+    },
+    {
+      "start": 727.47,
+      "end": 729.79,
+      "text": "the parent pointer but it's also just in"
+    },
+    {
+      "start": 729.79,
+      "end": 732.15,
+      "text": "the recursion we know where to go back"
+    },
+    {
+      "start": 732.15,
+      "end": 734.43,
+      "text": "to we were going over the outgoing edges"
+    },
+    {
+      "start": 734.43,
+      "end": 737.269,
+      "text": "from B there was only one we're"
+    },
+    {
+      "start": 737.269,
+      "end": 738.79,
+      "text": "done uh so we go back to a we only"
+    },
+    {
+      "start": 738.79,
+      "end": 740.15,
+      "text": "looked at one outgoing Edge from a"
+    },
+    {
+      "start": 740.15,
+      "end": 740.949,
+      "text": "there's another outgoing Edge which is"
+    },
+    {
+      "start": 740.949,
+      "end": 744.03,
+      "text": "this"
+    },
+    {
+      "start": 744.03,
+      "end": 746.15,
+      "text": "one uh but we've already visited D so we"
+    },
+    {
+      "start": 746.15,
+      "end": 747.59,
+      "text": "skip over that one too so we're done"
+    },
+    {
+      "start": 747.59,
+      "end": 750.75,
+      "text": "recursively visiting everything"
+    },
+    {
+      "start": 750.75,
+      "end": 753.069,
+      "text": "reachable from a"
+    },
+    {
+      "start": 753.069,
+      "end": 757.189,
+      "text": "uh now we go back to this Loop the outer"
+    },
+    {
+      "start": 757.189,
+      "end": 758.87,
+      "text": "loop so we did a next we look at B I say"
+    },
+    {
+      "start": 758.87,
+      "end": 761.31,
+      "text": "oh B's been visited we don't need to do"
+    },
+    {
+      "start": 761.31,
+      "end": 763.91,
+      "text": "anything from there then we go to C C"
+    },
+    {
+      "start": 763.91,
+      "end": 766.75,
+      "text": "hasn't been visited so we're going to"
+    },
+    {
+      "start": 766.75,
+      "end": 770.99,
+      "text": "loop from C and so this is our second"
+    },
+    {
+      "start": 770.99,
+      "end": 772.35,
+      "text": "choice of s in this recursion or in this"
+    },
+    {
+      "start": 772.35,
+      "end": 774.35,
+      "text": "Outer"
+    },
+    {
+      "start": 774.35,
+      "end": 777.15,
+      "text": "Loop and so we look at the outgoing"
+    },
+    {
+      "start": 777.15,
+      "end": 779.99,
+      "text": "edges from uh from S2 let me match the"
+    },
+    {
+      "start": 779.99,
+      "end": 785.43,
+      "text": "order and the notes uh let's say first"
+    },
+    {
+      "start": 785.43,
+      "end": 788.389,
+      "text": "f f has not been visited so we set its"
+    },
+    {
+      "start": 788.389,
+      "end": 790.189,
+      "text": "parent pointer to C uh then we look at"
+    },
+    {
+      "start": 790.189,
+      "end": 794.069,
+      "text": "all the outgoing edges from F there's"
+    },
+    {
+      "start": 794.069,
+      "end": 797.71,
+      "text": "one outgoing Edge from f it goes to F uh"
+    },
+    {
+      "start": 797.71,
+      "end": 800.389,
+      "text": "I guess I shouldn't really bold this"
+    },
+    {
+      "start": 800.389,
+      "end": 802.47,
+      "text": "sorry I'll say what the Bold edges mean"
+    },
+    {
+      "start": 802.47,
+      "end": 805.389,
+      "text": "in a"
+    },
+    {
+      "start": 805.389,
+      "end": 808.47,
+      "text": "moment this is just a regular Edge we"
+    },
+    {
+      "start": 808.47,
+      "end": 809.829,
+      "text": "follow the Edge from F to F we see oh F"
+    },
+    {
+      "start": 809.829,
+      "end": 811.71,
+      "text": "has already been VIs visit it it already"
+    },
+    {
+      "start": 811.71,
+      "end": 814.189,
+      "text": "has a parent pointer so there's no point"
+    },
+    {
+      "start": 814.189,
+      "end": 815.629,
+      "text": "going down there we're done with f"
+    },
+    {
+      "start": 815.629,
+      "end": 817.509,
+      "text": "that's the only outgoing Edge we go back"
+    },
+    {
+      "start": 817.509,
+      "end": 819.069,
+      "text": "to see there's one other outgoing Edge"
+    },
+    {
+      "start": 819.069,
+      "end": 822.03,
+      "text": "but it leads to a Vertex we've already"
+    },
+    {
+      "start": 822.03,
+      "end": 824.79,
+      "text": "visited namely e and so we're done with"
+    },
+    {
+      "start": 824.79,
+      "end": 826.43,
+      "text": "visiting everything reachable from C we"
+    },
+    {
+      "start": 826.43,
+      "end": 827.75,
+      "text": "didn't visit everything reachable from C"
+    },
+    {
+      "start": 827.75,
+      "end": 830.47,
+      "text": "because some of it was already visited"
+    },
+    {
+      "start": 830.47,
+      "end": 832.35,
+      "text": "from a and we go back to the outer loop"
+    },
+    {
+      "start": 832.35,
+      "end": 833.949,
+      "text": "say okay what about D D's been visited"
+    },
+    {
+      "start": 833.949,
+      "end": 835.99,
+      "text": "what about e e's been visited what about"
+    },
+    {
+      "start": 835.99,
+      "end": 839.99,
+      "text": "F F's been visited so we're visiting"
+    },
+    {
+      "start": 839.99,
+      "end": 841.749,
+      "text": "these vertices again but only be twice"
+    },
+    {
+      "start": 841.749,
+      "end": 844.269,
+      "text": "in"
+    },
+    {
+      "start": 844.269,
+      "end": 846.389,
+      "text": "total uh and in the end we visit all the"
+    },
+    {
+      "start": 846.389,
+      "end": 868.71,
+      "text": "vertices and in a certain sense all the"
+    },
+    {
+      "start": 868.71,
+      "end": 887.629,
+      "text": "time what do you think the running time"
+    },
+    {
+      "start": 887.629,
+      "end": 892.43,
+      "text": "up upper bound sure"
+    },
+    {
+      "start": 892.43,
+      "end": 895.629,
+      "text": "v v is a little bit"
+    },
+    {
+      "start": 895.629,
+      "end": 896.99,
+      "text": "optimistic yeah plus e good"
+    },
+    {
+      "start": 896.99,
+      "end": 899.389,
+      "text": "collaborative"
+    },
+    {
+      "start": 899.389,
+      "end": 901.629,
+      "text": "effort it's linear time just just like"
+    },
+    {
+      "start": 901.629,
+      "end": 904.11,
+      "text": "the fs this is what we call linear"
+    },
+    {
+      "start": 904.11,
+      "end": 907.55,
+      "text": "time"
+    },
+    {
+      "start": 907.55,
+      "end": 909.59,
+      "text": "because this is the size of the input V"
+    },
+    {
+      "start": 909.59,
+      "end": 912.389,
+      "text": "it's it's Theta V plus e for the whole"
+    },
+    {
+      "start": 912.389,
+      "end": 914.79,
+      "text": "thing um the size of the input was V"
+    },
+    {
+      "start": 914.79,
+      "end": 917.87,
+      "text": "plus e we needed V slots in an array"
+    },
+    {
+      "start": 917.87,
+      "end": 920.71,
+      "text": "plus we needed e items in these link"
+    },
+    {
+      "start": 920.71,
+      "end": 922.87,
+      "text": "lists one for each Edge we have to"
+    },
+    {
+      "start": 922.87,
+      "end": 926.35,
+      "text": "Traverse that whole structure the reason"
+    },
+    {
+      "start": 926.35,
+      "end": 927.71,
+      "text": "it's order V plus e is well first as"
+    },
+    {
+      "start": 927.71,
+      "end": 933.389,
+      "text": "you're saying you're visiting every"
+    },
+    {
+      "start": 933.389,
+      "end": 945.309,
+      "text": "vertex once in this outer Loop so"
+    },
+    {
+      "start": 945.309,
+      "end": 949.35,
+      "text": "recursion uh and DFS"
+    },
+    {
+      "start": 949.35,
+      "end": 951.11,
+      "text": "alone so that's order V then we do we"
+    },
+    {
+      "start": 951.11,
+      "end": 954.189,
+      "text": "have to worry about this recursion but"
+    },
+    {
+      "start": 954.189,
+      "end": 957.15,
+      "text": "we know that whenever we call DFS visit"
+    },
+    {
+      "start": 957.15,
+      "end": 959.71,
+      "text": "on on a Vertex that it did not have a"
+    },
+    {
+      "start": 959.71,
+      "end": 961.749,
+      "text": "parent before right right before we"
+    },
+    {
+      "start": 961.749,
+      "end": 964.03,
+      "text": "called DFS visit we said it's parent for"
+    },
+    {
+      "start": 964.03,
+      "end": 966.35,
+      "text": "the first time right before we called"
+    },
+    {
+      "start": 966.35,
+      "end": 968.99,
+      "text": "DFS visit on V here we said it's parent"
+    },
+    {
+      "start": 968.99,
+      "end": 973.829,
+      "text": "for the first time because it wasn't set"
+    },
+    {
+      "start": 973.829,
+      "end": 977.71,
+      "text": "before so uh DFS"
+    },
+    {
+      "start": 977.71,
+      "end": 987.269,
+      "text": "visit I'm going to just write of V"
+    },
+    {
+      "start": 987.269,
+      "end": 989.91,
+      "text": "here it's"
+    },
+    {
+      "start": 989.91,
+      "end": 997.269,
+      "text": "called Uh one"
+    },
+    {
+      "start": 997.269,
+      "end": 999.23,
+      "text": "V okay but it does not take constant"
+    },
+    {
+      "start": 999.23,
+      "end": 1002.99,
+      "text": "time this takes constant time per vertex"
+    },
+    {
+      "start": 1002.99,
+      "end": 1004.269,
+      "text": "plus a recursive call this thing uh this"
+    },
+    {
+      "start": 1004.269,
+      "end": 1006.15,
+      "text": "takes constant time but there's a for"
+    },
+    {
+      "start": 1006.15,
+      "end": 1007.949,
+      "text": "Loop here we have to pay for however"
+    },
+    {
+      "start": 1007.949,
+      "end": 1011.79,
+      "text": "many outgoing edges there are from V"
+    },
+    {
+      "start": 1011.79,
+      "end": 1013.87,
+      "text": "that's the part you're missing um"
+    },
+    {
+      "start": 1013.87,
+      "end": 1016.59,
+      "text": "so and we"
+    },
+    {
+      "start": 1016.59,
+      "end": 1019.389,
+      "text": "pay length of"
+    },
+    {
+      "start": 1019.389,
+      "end": 1022.309,
+      "text": "adjacency V For That"
+    },
+    {
+      "start": 1022.309,
+      "end": 1026.35,
+      "text": "vertex so the total in addition to this"
+    },
+    {
+      "start": 1026.35,
+      "end": 1030.11,
+      "text": "V is going to be uh order sum overall"
+    },
+    {
+      "start": 1030.11,
+      "end": 1039.99,
+      "text": "vertices V in capital V of length of the"
+    },
+    {
+      "start": 1039.99,
+      "end": 1043.35,
+      "text": "is"
+    },
+    {
+      "start": 1043.35,
+      "end": 1046.669,
+      "text": "e this is the handshaking Lemma from"
+    },
+    {
+      "start": 1046.669,
+      "end": 1049.43,
+      "text": "last time it's twice e for undirected"
+    },
+    {
+      "start": 1049.43,
+      "end": 1050.95,
+      "text": "graphs it's e for directed graphs"
+    },
+    {
+      "start": 1050.95,
+      "end": 1052.99,
+      "text": "I've drawn directed graphs here it's a"
+    },
+    {
+      "start": 1052.99,
+      "end": 1055.31,
+      "text": "little more"
+    },
+    {
+      "start": 1055.31,
+      "end": 1058.47,
+      "text": "interesting okay so it's linear time"
+    },
+    {
+      "start": 1058.47,
+      "end": 1061.669,
+      "text": "just like BFS so you could say who cares"
+    },
+    {
+      "start": 1061.669,
+      "end": 1063.63,
+      "text": "uh but DFS offers a lot of different"
+    },
+    {
+      "start": 1063.63,
+      "end": 1066.15,
+      "text": "properties than BFS they each have their"
+    },
+    {
+      "start": 1066.15,
+      "end": 1067.39,
+      "text": "Niche BFS is great for shortest paths"
+    },
+    {
+      "start": 1067.39,
+      "end": 1070.47,
+      "text": "you want to know the fastest way to"
+    },
+    {
+      "start": 1070.47,
+      "end": 1072.029,
+      "text": "solve the rubrics cube BFS will find it"
+    },
+    {
+      "start": 1072.029,
+      "end": 1074.19,
+      "text": "you want to find the fastest way to"
+    },
+    {
+      "start": 1074.19,
+      "end": 1076.59,
+      "text": "solve the rubrics cube DFS will not find"
+    },
+    {
+      "start": 1076.59,
+      "end": 1079.029,
+      "text": "it it's not following shortest paths"
+    },
+    {
+      "start": 1079.029,
+      "end": 1080.549,
+      "text": "here like going from a to d we used a"
+    },
+    {
+      "start": 1080.549,
+      "end": 1082.669,
+      "text": "path of length three that's the Bold"
+    },
+    {
+      "start": 1082.669,
+      "end": 1085.31,
+      "text": "edges we could have gone directly from a"
+    },
+    {
+      "start": 1085.31,
+      "end": 1088.23,
+      "text": "to d so it's a different kind of search"
+    },
+    {
+      "start": 1088.23,
+      "end": 1090.63,
+      "text": "sort of the inverse but it's extremely"
+    },
+    {
+      "start": 1090.63,
+      "end": 1092.11,
+      "text": "useful um in particular in the way that"
+    },
+    {
+      "start": 1092.11,
+      "end": 1110.11,
+      "text": "it classifies"
+    },
+    {
+      "start": 1110.11,
+      "end": 1111.909,
+      "text": "classification you can check every Edge"
+    },
+    {
+      "start": 1111.909,
+      "end": 1114.19,
+      "text": "in this graph gets visited in a directed"
+    },
+    {
+      "start": 1114.19,
+      "end": 1116.11,
+      "text": "graph every Edge gets visited once in an"
+    },
+    {
+      "start": 1116.11,
+      "end": 1118.35,
+      "text": "undirected graph every Edge gets visited"
+    },
+    {
+      "start": 1118.35,
+      "end": 1121.99,
+      "text": "twice once from each"
+    },
+    {
+      "start": 1121.99,
+      "end": 1123.51,
+      "text": "side um and when you visit that edge"
+    },
+    {
+      "start": 1123.51,
+      "end": 1126.39,
+      "text": "there's sort of different categories of"
+    },
+    {
+      "start": 1126.39,
+      "end": 1129.31,
+      "text": "what could happen to it uh maybe the"
+    },
+    {
+      "start": 1129.31,
+      "end": 1152.19,
+      "text": "edge led to something unvisited then you"
+    },
+    {
+      "start": 1152.19,
+      "end": 1154.75,
+      "text": "and that's what the parent pointers are"
+    },
+    {
+      "start": 1154.75,
+      "end": 1158.59,
+      "text": "specifying and all the Bold edges here"
+    },
+    {
+      "start": 1158.59,
+      "end": 1169.83,
+      "text": "are called tree edges this is when we uh"
+    },
+    {
+      "start": 1169.83,
+      "end": 1171.19,
+      "text": "vertex uh via that edge"
+    },
+    {
+      "start": 1171.19,
+      "end": 1173.51,
+      "text": "okay so we look at the other side of the"
+    },
+    {
+      "start": 1173.51,
+      "end": 1175.51,
+      "text": "edge we discover a new vertex those we"
+    },
+    {
+      "start": 1175.51,
+      "end": 1178.63,
+      "text": "call tree edges it turns out they form a"
+    },
+    {
+      "start": 1178.63,
+      "end": 1181.149,
+      "text": "tree a directed tree that's a Lama you"
+    },
+    {
+      "start": 1181.149,
+      "end": 1183.47,
+      "text": "can prove you can see it here we just"
+    },
+    {
+      "start": 1183.47,
+      "end": 1187.19,
+      "text": "have a path actually a forest would be"
+    },
+    {
+      "start": 1187.19,
+      "end": 1190.51,
+      "text": "more accurate we have a path a b e d and"
+    },
+    {
+      "start": 1190.51,
+      "end": 1192.19,
+      "text": "we have an edge CF but in general it's a"
+    },
+    {
+      "start": 1192.19,
+      "end": 1194.87,
+      "text": "it's a forest so for example if there"
+    },
+    {
+      "start": 1194.87,
+      "end": 1197.19,
+      "text": "was another thing coming from E here let"
+    },
+    {
+      "start": 1197.19,
+      "end": 1198.789,
+      "text": "modify my graph uh we would at some"
+    },
+    {
+      "start": 1198.789,
+      "end": 1200.51,
+      "text": "point visit that edge and say oh here's"
+    },
+    {
+      "start": 1200.51,
+      "end": 1202.99,
+      "text": "new way to go and now that bold"
+    },
+    {
+      "start": 1202.99,
+      "end": 1205.789,
+      "text": "structure forms an actual"
+    },
+    {
+      "start": 1205.789,
+      "end": 1207.669,
+      "text": "tree so these we call tree edges you can"
+    },
+    {
+      "start": 1207.669,
+      "end": 1211.19,
+      "text": "call them Forest edges if you feel like"
+    },
+    {
+      "start": 1211.19,
+      "end": 1214.549,
+      "text": "it um there are other edges in there the"
+    },
+    {
+      "start": 1214.549,
+      "end": 1217.19,
+      "text": "non-bold edges and the textbook"
+    },
+    {
+      "start": 1217.19,
+      "end": 1246.549,
+      "text": "distinguishes three types three types"
+    },
+    {
+      "start": 1246.549,
+      "end": 1249.47,
+      "text": "edges some of these are more useful to"
+    },
+    {
+      "start": 1249.47,
+      "end": 1254.11,
+      "text": "distinguish than others but doesn't hurt"
+    },
+    {
+      "start": 1254.11,
+      "end": 1257.51,
+      "text": "to have them all so uh for example this"
+    },
+    {
+      "start": 1257.51,
+      "end": 1259.63,
+      "text": "Edge I'm going to call a forward Edge"
+    },
+    {
+      "start": 1259.63,
+      "end": 1262.35,
+      "text": "just write f that's"
+    },
+    {
+      "start": 1262.35,
+      "end": 1265.549,
+      "text": "unambiguous uh because it goes in some"
+    },
+    {
+      "start": 1265.549,
+      "end": 1268.63,
+      "text": "sense forward along the tree it goes"
+    },
+    {
+      "start": 1268.63,
+      "end": 1271.63,
+      "text": "from the root of this tree to a"
+    },
+    {
+      "start": 1271.63,
+      "end": 1274.669,
+      "text": "descendant there is a a path in the tree"
+    },
+    {
+      "start": 1274.669,
+      "end": 1277.87,
+      "text": "from a to d so we call it a forward Edge"
+    },
+    {
+      "start": 1277.87,
+      "end": 1279.63,
+      "text": "by contrast this Edge I'm going to call"
+    },
+    {
+      "start": 1279.63,
+      "end": 1284.029,
+      "text": "a backward"
+    },
+    {
+      "start": 1284.029,
+      "end": 1286.269,
+      "text": "Edge uh because it goes from a node in"
+    },
+    {
+      "start": 1286.269,
+      "end": 1288.75,
+      "text": "the tree to an ancestor in the tree if"
+    },
+    {
+      "start": 1288.75,
+      "end": 1290.149,
+      "text": "you think of parents I can go from D to"
+    },
+    {
+      "start": 1290.149,
+      "end": 1292.83,
+      "text": "parent to its parent and that's where"
+    },
+    {
+      "start": 1292.83,
+      "end": 1295.51,
+      "text": "the edge goes so that's a backward Edge"
+    },
+    {
+      "start": 1295.51,
+      "end": 1298.43,
+      "text": "double check I got these not reversed y"
+    },
+    {
+      "start": 1298.43,
+      "end": 1299.669,
+      "text": "That's Right forward Edge uh because I"
+    },
+    {
+      "start": 1299.669,
+      "end": 1301.07,
+      "text": "could go from D to its parent to its"
+    },
+    {
+      "start": 1301.07,
+      "end": 1302.95,
+      "text": "parent to its parent The Edge went the"
+    },
+    {
+      "start": 1302.95,
+      "end": 1306.31,
+      "text": "other way that's a forward"
+    },
+    {
+      "start": 1306.31,
+      "end": 1315.23,
+      "text": "Edge okay so uh forward Edge goes from a"
+    },
+    {
+      "start": 1315.23,
+      "end": 1329.31,
+      "text": "tree backward Edge goes from a node to"
+    },
+    {
+      "start": 1329.31,
+      "end": 1330.71,
+      "text": "forest and then all the other edges are"
+    },
+    {
+      "start": 1330.71,
+      "end": 1336.07,
+      "text": "cross"
+    },
+    {
+      "start": 1336.07,
+      "end": 1338.51,
+      "text": "edges uh so I guess here this is a cross"
+    },
+    {
+      "start": 1338.51,
+      "end": 1341.31,
+      "text": "Edge it goes in this case it goes from"
+    },
+    {
+      "start": 1341.31,
+      "end": 1344.549,
+      "text": "One Tree to another doesn't have to go"
+    },
+    {
+      "start": 1344.549,
+      "end": 1348.59,
+      "text": "between different trees for"
+    },
+    {
+      "start": 1348.59,
+      "end": 1351.549,
+      "text": "example let's say I'm visiting D and I I"
+    },
+    {
+      "start": 1351.549,
+      "end": 1355.47,
+      "text": "go back to E I visit G uh there could be"
+    },
+    {
+      "start": 1355.47,
+      "end": 1356.75,
+      "text": "this Edge if this Edge existed it would"
+    },
+    {
+      "start": 1356.75,
+      "end": 1360.39,
+      "text": "be a cross"
+    },
+    {
+      "start": 1360.39,
+      "end": 1362.149,
+      "text": "Edge because G and D are not ancestor"
+    },
+    {
+      "start": 1362.149,
+      "end": 1365.269,
+      "text": "related neither one is an ancestor of"
+    },
+    {
+      "start": 1365.269,
+      "end": 1367.51,
+      "text": "the other they are siblings"
+    },
+    {
+      "start": 1367.51,
+      "end": 1369.75,
+      "text": "actually okay so there's in general"
+    },
+    {
+      "start": 1369.75,
+      "end": 1371.669,
+      "text": "there's going to be some sube over here"
+    },
+    {
+      "start": 1371.669,
+      "end": 1374.75,
+      "text": "some sub tree over here and this is a"
+    },
+    {
+      "start": 1374.75,
+      "end": 1385.23,
+      "text": "cross Edge between two different sub"
+    },
+    {
+      "start": 1385.23,
+      "end": 1388.549,
+      "text": "to uh sort"
+    },
+    {
+      "start": 1388.549,
+      "end": 1403.59,
+      "text": "of non ancestor related I think it's the"
+    },
+    {
+      "start": 1403.59,
+      "end": 1405.35,
+      "text": "nodes"
+    },
+    {
+      "start": 1405.35,
+      "end": 1408.909,
+      "text": "okay"
+    },
+    {
+      "start": 1408.909,
+      "end": 1409.95,
+      "text": "um a little puzzle for you well okay I"
+    },
+    {
+      "start": 1409.95,
+      "end": 1411.87,
+      "text": "guess first question is how do you"
+    },
+    {
+      "start": 1411.87,
+      "end": 1414.71,
+      "text": "compute this structure how do you"
+    },
+    {
+      "start": 1414.71,
+      "end": 1416.07,
+      "text": "compute which edges are which um this is"
+    },
+    {
+      "start": 1416.07,
+      "end": 1417.83,
+      "text": "not hard although I haven't written it"
+    },
+    {
+      "start": 1417.83,
+      "end": 1422.59,
+      "text": "in the code here you can check the"
+    },
+    {
+      "start": 1422.59,
+      "end": 1424.59,
+      "text": "textbook for one way to do it uh the"
+    },
+    {
+      "start": 1424.59,
+      "end": 1428.669,
+      "text": "parent structure tells you which edges"
+    },
+    {
+      "start": 1428.669,
+      "end": 1431.149,
+      "text": "are tree edges so that part we have done"
+    },
+    {
+      "start": 1431.149,
+      "end": 1433.149,
+      "text": "every every parent pointer corresponds"
+    },
+    {
+      "start": 1433.149,
+      "end": 1434.59,
+      "text": "to the reverse of a tree Edge so you at"
+    },
+    {
+      "start": 1434.59,
+      "end": 1436.07,
+      "text": "the same time you could Mark that edge a"
+    },
+    {
+      "start": 1436.07,
+      "end": 1437.75,
+      "text": "tree Edge and You' know which edges are"
+    },
+    {
+      "start": 1437.75,
+      "end": 1439.95,
+      "text": "tree edges and which edges are non- tree"
+    },
+    {
+      "start": 1439.95,
+      "end": 1441.51,
+      "text": "edges if you want to know which are"
+    },
+    {
+      "start": 1441.51,
+      "end": 1445.11,
+      "text": "forward which are backward which are"
+    },
+    {
+      "start": 1445.11,
+      "end": 1448.07,
+      "text": "cross edges the key thing you need to"
+    },
+    {
+      "start": 1448.07,
+      "end": 1452.51,
+      "text": "know is"
+    },
+    {
+      "start": 1452.51,
+      "end": 1456.19,
+      "text": "uh well in particular for backward"
+    },
+    {
+      "start": 1456.19,
+      "end": 1458.83,
+      "text": "edges one way to compute them is to Mark"
+    },
+    {
+      "start": 1458.83,
+      "end": 1461.669,
+      "text": "which nodes you are currently"
+    },
+    {
+      "start": 1461.669,
+      "end": 1466.029,
+      "text": "exploring so when we do a DFS visit on a"
+    },
+    {
+      "start": 1466.029,
+      "end": 1469.83,
+      "text": "node we could say at the beginning here"
+    },
+    {
+      "start": 1469.83,
+      "end": 1472.11,
+      "text": "basically we're starting to visit s so"
+    },
+    {
+      "start": 1472.11,
+      "end": 1479.669,
+      "text": "say start S and then at the end of this"
+    },
+    {
+      "start": 1479.669,
+      "end": 1482.35,
+      "text": "s and you could Mark that in the S"
+    },
+    {
+      "start": 1482.35,
+      "end": 1485.23,
+      "text": "structure you could say s do in process"
+    },
+    {
+      "start": 1485.23,
+      "end": 1487.35,
+      "text": "is true up here s do inprocess equals"
+    },
+    {
+      "start": 1487.35,
+      "end": 1489.83,
+      "text": "false down here keep track of which"
+    },
+    {
+      "start": 1489.83,
+      "end": 1492.549,
+      "text": "nodes are currently in the recursion"
+    },
+    {
+      "start": 1492.549,
+      "end": 1495.549,
+      "text": "stack just by marking them and unmarking"
+    },
+    {
+      "start": 1495.549,
+      "end": 1497.549,
+      "text": "them at the beginning and the end then"
+    },
+    {
+      "start": 1497.549,
+      "end": 1500.35,
+      "text": "we'll know if we follow an edge and it's"
+    },
+    {
+      "start": 1500.35,
+      "end": 1504.99,
+      "text": "an edge to somebody who's already in the"
+    },
+    {
+      "start": 1504.99,
+      "end": 1506.549,
+      "text": "stack then uh it's a backward Edge"
+    },
+    {
+      "start": 1506.549,
+      "end": 1509.63,
+      "text": "because that's everyone in the stack is"
+    },
+    {
+      "start": 1509.63,
+      "end": 1513.549,
+      "text": "an ancestor from our current"
+    },
+    {
+      "start": 1513.549,
+      "end": 1522.23,
+      "text": "node detecting forward"
+    },
+    {
+      "start": 1522.23,
+      "end": 1524.63,
+      "text": "trickier forward edges versus cross"
+    },
+    {
+      "start": 1524.63,
+      "end": 1528.99,
+      "text": "edges any suggestions on an easy way to"
+    },
+    {
+      "start": 1528.99,
+      "end": 1530.71,
+      "text": "that I don't think think I know an easy"
+    },
+    {
+      "start": 1530.71,
+      "end": 1534.389,
+      "text": "way to do"
+    },
+    {
+      "start": 1534.389,
+      "end": 1536.51,
+      "text": "that can be done uh the way the textbook"
+    },
+    {
+      "start": 1536.51,
+      "end": 1539.11,
+      "text": "does it is a little bit more"
+    },
+    {
+      "start": 1539.11,
+      "end": 1542.35,
+      "text": "sophisticated in that when they start"
+    },
+    {
+      "start": 1542.35,
+      "end": 1546.549,
+      "text": "start visiting a Vertex they record the"
+    },
+    {
+      "start": 1546.549,
+      "end": 1547.83,
+      "text": "time that it got visited what's time uh"
+    },
+    {
+      "start": 1547.83,
+      "end": 1550.51,
+      "text": "you could think of it as the clock on"
+    },
+    {
+      "start": 1550.51,
+      "end": 1551.909,
+      "text": "your computer uh another way to do it is"
+    },
+    {
+      "start": 1551.909,
+      "end": 1555.19,
+      "text": "every time you do a step in this"
+    },
+    {
+      "start": 1555.19,
+      "end": 1557.11,
+      "text": "algorithm you increment a counter so"
+    },
+    {
+      "start": 1557.11,
+      "end": 1559.149,
+      "text": "every time anything happens you"
+    },
+    {
+      "start": 1559.149,
+      "end": 1560.95,
+      "text": "increment a counter and then you store"
+    },
+    {
+      "start": 1560.95,
+      "end": 1562.87,
+      "text": "the value of that counter here for s"
+    },
+    {
+      "start": 1562.87,
+      "end": 1566.029,
+      "text": "that would be the start time for S you"
+    },
+    {
+      "start": 1566.029,
+      "end": 1568.07,
+      "text": "store the finish time for S down here"
+    },
+    {
+      "start": 1568.07,
+      "end": 1570.149,
+      "text": "and then this gives you this tells you"
+    },
+    {
+      "start": 1570.149,
+      "end": 1571.789,
+      "text": "when a node was visited and you can use"
+    },
+    {
+      "start": 1571.789,
+      "end": 1573.83,
+      "text": "that to compute when an edge is a"
+    },
+    {
+      "start": 1573.83,
+      "end": 1576.269,
+      "text": "forward Edge when and otherwise it's a"
+    },
+    {
+      "start": 1576.269,
+      "end": 1578.63,
+      "text": "cross Edge it's not terribly exciting"
+    },
+    {
+      "start": 1578.63,
+      "end": 1579.87,
+      "text": "though so I'm not going to detail that"
+    },
+    {
+      "start": 1579.87,
+      "end": 1582.63,
+      "text": "you can look at the"
+    },
+    {
+      "start": 1582.63,
+      "end": 1586.19,
+      "text": "textbook if you're interested but here's"
+    },
+    {
+      "start": 1586.19,
+      "end": 1589.11,
+      "text": "a fun puzzle uh in an undirected"
+    },
+    {
+      "start": 1589.11,
+      "end": 1591.789,
+      "text": "graph which of these"
+    },
+    {
+      "start": 1591.789,
+      "end": 1593.99,
+      "text": "edges can"
+    },
+    {
+      "start": 1593.99,
+      "end": 1597.71,
+      "text": "exist we can have a"
+    },
+    {
+      "start": 1597.71,
+      "end": 1599.95,
+      "text": "vote do some U mathematic de Democratic"
+    },
+    {
+      "start": 1599.95,
+      "end": 1603.269,
+      "text": "mathematics how many people think tree"
+    },
+    {
+      "start": 1603.269,
+      "end": 1607.11,
+      "text": "edges exist in undirected"
+    },
+    {
+      "start": 1607.11,
+      "end": 1609.31,
+      "text": "graphs a few okay s does that's a good"
+    },
+    {
+      "start": 1609.31,
+      "end": 1615.59,
+      "text": "sign how many people think forward edges"
+    },
+    {
+      "start": 1615.59,
+      "end": 1617.549,
+      "text": "graph couple how many people think"
+    },
+    {
+      "start": 1617.549,
+      "end": 1619.47,
+      "text": "backward edges exist in an undirected"
+    },
+    {
+      "start": 1619.47,
+      "end": 1621.83,
+      "text": "graph"
+    },
+    {
+      "start": 1621.83,
+      "end": 1625.11,
+      "text": "couple how many people think cross edges"
+    },
+    {
+      "start": 1625.11,
+      "end": 1628.19,
+      "text": "exist in an undirected graph more people"
+    },
+    {
+      "start": 1628.19,
+      "end": 1629.83,
+      "text": "okay I think voting worked they're all"
+    },
+    {
+      "start": 1629.83,
+      "end": 1633.029,
+      "text": "exist no that's not"
+    },
+    {
+      "start": 1633.029,
+      "end": 1634.51,
+      "text": "true this one can exist and this one can"
+    },
+    {
+      "start": 1634.51,
+      "end": 1637.029,
+      "text": "exist I actually wrote the wrong ones in"
+    },
+    {
+      "start": 1637.029,
+      "end": 1639.75,
+      "text": "my notes so it's good to trick you no"
+    },
+    {
+      "start": 1639.75,
+      "end": 1642.389,
+      "text": "it's I made a mistake it's very easy to"
+    },
+    {
+      "start": 1642.389,
+      "end": 1644.909,
+      "text": "get these mixed up and uh you can think"
+    },
+    {
+      "start": 1644.909,
+      "end": 1652.51,
+      "text": "about why this is true maybe I'll draw"
+    },
+    {
+      "start": 1652.51,
+      "end": 1655.47,
+      "text": "this is something uh you remember"
+    },
+    {
+      "start": 1655.47,
+      "end": 1657.23,
+      "text": "the well yeah there was the BFS diagram"
+    },
+    {
+      "start": 1657.23,
+      "end": 1660.07,
+      "text": "I talked a little bit about this last"
+    },
+    {
+      "start": 1660.07,
+      "end": 1661.669,
+      "text": "class uh tree edges better exist those"
+    },
+    {
+      "start": 1661.669,
+      "end": 1663.549,
+      "text": "are the things you use to visit New"
+    },
+    {
+      "start": 1663.549,
+      "end": 1666.509,
+      "text": "vertices so that always happens"
+    },
+    {
+      "start": 1666.509,
+      "end": 1668.509,
+      "text": "undirected or otherwise forward edges"
+    },
+    {
+      "start": 1668.509,
+      "end": 1671.669,
+      "text": "though forward Edge would be okay I"
+    },
+    {
+      "start": 1671.669,
+      "end": 1677.75,
+      "text": "visited this then I visited this those"
+    },
+    {
+      "start": 1677.75,
+      "end": 1679.269,
+      "text": "edges then I backtrack and I follow an"
+    },
+    {
+      "start": 1679.269,
+      "end": 1681.669,
+      "text": "edge like this this would be a forward"
+    },
+    {
+      "start": 1681.669,
+      "end": 1685.99,
+      "text": "Edge and in a directed graph that can"
+    },
+    {
+      "start": 1685.99,
+      "end": 1693.509,
+      "text": "happen uh in an undirected"
+    },
+    {
+      "start": 1693.509,
+      "end": 1697.149,
+      "text": "happen right oh no it can't it can't"
+    },
+    {
+      "start": 1697.149,
+      "end": 1699.07,
+      "text": "okay so confusing undirected graph if"
+    },
+    {
+      "start": 1699.07,
+      "end": 1702.549,
+      "text": "you look like this you start let's say"
+    },
+    {
+      "start": 1702.549,
+      "end": 1705.11,
+      "text": "this is s you start here and suppose we"
+    },
+    {
+      "start": 1705.11,
+      "end": 1707.389,
+      "text": "follow this Edge we get to here then we"
+    },
+    {
+      "start": 1709.95,
+      "end": 1712.389,
+      "text": "will follow this Edge in the other"
+    },
+    {
+      "start": 1712.389,
+      "end": 1715.43,
+      "text": "direction be and that's guaranteed to"
+    },
+    {
+      "start": 1715.43,
+      "end": 1716.909,
+      "text": "finish before we get back to S so if"
+    },
+    {
+      "start": 1716.909,
+      "end": 1718.47,
+      "text": "this was in order to be a forward Edge"
+    },
+    {
+      "start": 1718.47,
+      "end": 1721.83,
+      "text": "this one has to be visited after this"
+    },
+    {
+      "start": 1721.83,
+      "end": 1723.63,
+      "text": "one from s but in this scenario if you"
+    },
+    {
+      "start": 1723.63,
+      "end": 1725.07,
+      "text": "follow this one first you'll eventually"
+    },
+    {
+      "start": 1725.07,
+      "end": 1726.87,
+      "text": "get to this vertex and then you will"
+    },
+    {
+      "start": 1726.87,
+      "end": 1728.789,
+      "text": "come back and then that will be"
+    },
+    {
+      "start": 1728.789,
+      "end": 1730.63,
+      "text": "classified as a backward Edge in an"
+    },
+    {
+      "start": 1730.63,
+      "end": 1743.35,
+      "text": "undirected graph so you can never have"
+    },
+    {
+      "start": 1743.35,
+      "end": 1746.07,
+      "text": "H but I have a backward edge here that"
+    },
+    {
+      "start": 1746.07,
+      "end": 1748.87,
+      "text": "would suggest I can have backward edges"
+    },
+    {
+      "start": 1748.87,
+      "end": 1752.95,
+      "text": "here and no cross edges well democracy"
+    },
+    {
+      "start": 1752.95,
+      "end": 1756.43,
+      "text": "did not work I was swayed by the popular"
+    },
+    {
+      "start": 1756.43,
+      "end": 1758.549,
+      "text": "vote uh so I claim apparently cross"
+    },
+    {
+      "start": 1758.549,
+      "end": 1761.35,
+      "text": "edges do not exist let's try to draw"
+    },
+    {
+      "start": 1761.35,
+      "end": 1764.909,
+      "text": "this so cross"
+    },
+    {
+      "start": 1764.909,
+      "end": 1768.549,
+      "text": "Edge typical scenario would be you go"
+    },
+    {
+      "start": 1768.549,
+      "end": 1771.63,
+      "text": "here uh you follow this Edge uh you come"
+    },
+    {
+      "start": 1771.63,
+      "end": 1773.07,
+      "text": "you backtrack you follow another Edge"
+    },
+    {
+      "start": 1773.07,
+      "end": 1774.87,
+      "text": "and then you discover there was an edge"
+    },
+    {
+      "start": 1774.87,
+      "end": 1776.99,
+      "text": "back to some other subtree that you've"
+    },
+    {
+      "start": 1776.99,
+      "end": 1779.59,
+      "text": "already visited that can happen in an"
+    },
+    {
+      "start": 1779.59,
+      "end": 1780.87,
+      "text": "undirected graph the same reason if I"
+    },
+    {
+      "start": 1780.87,
+      "end": 1783.83,
+      "text": "follow this one"
+    },
+    {
+      "start": 1783.83,
+      "end": 1786.71,
+      "text": "first and this Edge exists undirected"
+    },
+    {
+      "start": 1786.71,
+      "end": 1789.549,
+      "text": "then I will go down that way so it will"
+    },
+    {
+      "start": 1789.549,
+      "end": 1795.669,
+      "text": "be actually a tree Edge not a cross"
+    },
+    {
+      "start": 1795.669,
+      "end": 1797.789,
+      "text": "Edge okay that means my notes were"
+    },
+    {
+      "start": 1797.789,
+      "end": 1799.19,
+      "text": "correct no surprise because they were"
+    },
+    {
+      "start": 1799.19,
+      "end": 1802.789,
+      "text": "cop from the"
+    },
+    {
+      "start": 1802.789,
+      "end": 1811.95,
+      "text": "textbook all right un uncorrect my"
+    },
+    {
+      "start": 1811.95,
+      "end": 1814.87,
+      "text": "good so"
+    },
+    {
+      "start": 1814.87,
+      "end": 1816.87,
+      "text": "what uh why do I care about these Edge"
+    },
+    {
+      "start": 1816.87,
+      "end": 1818.95,
+      "text": "classifications I claim they're super"
+    },
+    {
+      "start": 1818.95,
+      "end": 1822.59,
+      "text": "handy for two"
+    },
+    {
+      "start": 1822.59,
+      "end": 1824.87,
+      "text": "problems cycle detection and which is"
+    },
+    {
+      "start": 1824.87,
+      "end": 1827.549,
+      "text": "pretty intuitive problem does My Graph"
+    },
+    {
+      "start": 1827.549,
+      "end": 1829.389,
+      "text": "have any Cycles in the directed case"
+    },
+    {
+      "start": 1829.389,
+      "end": 1830.509,
+      "text": "this is pretty particular particularly"
+    },
+    {
+      "start": 1830.509,
+      "end": 1833.47,
+      "text": "interesting I want to know does the"
+    },
+    {
+      "start": 1833.47,
+      "end": 1835.31,
+      "text": "graph has any directed cycles and"
+    },
+    {
+      "start": 1835.31,
+      "end": 1844.11,
+      "text": "another problem called topological sort"
+    },
+    {
+      "start": 1844.11,
+      "end": 1847.71,
+      "text": "to so let's start with cycle"
+    },
+    {
+      "start": 1847.71,
+      "end": 1856.11,
+      "text": "detection this is actually a warmup for"
+    },
+    {
+      "start": 1856.11,
+      "end": 1858.549,
+      "text": "sort so does my graph have any Cycles"
+    },
+    {
+      "start": 1858.549,
+      "end": 1861.789,
+      "text": "G has a"
+    },
+    {
+      "start": 1861.789,
+      "end": 1871.75,
+      "text": "cycle I claim this happens if and only"
+    },
+    {
+      "start": 1871.75,
+      "end": 1879.35,
+      "text": "Edge or let's say a depth for search of"
+    },
+    {
+      "start": 1879.35,
+      "end": 1881.23,
+      "text": "Edge so it doesn't matter where I start"
+    },
+    {
+      "start": 1881.23,
+      "end": 1883.43,
+      "text": "from or you know how this algorithm I"
+    },
+    {
+      "start": 1883.43,
+      "end": 1884.95,
+      "text": "run this top level DFS algorithm explore"
+    },
+    {
+      "start": 1884.95,
+      "end": 1887.029,
+      "text": "the whole graph because I want to know"
+    },
+    {
+      "start": 1887.029,
+      "end": 1888.789,
+      "text": "in the whole graph is there a cycle I"
+    },
+    {
+      "start": 1888.789,
+      "end": 1890.43,
+      "text": "claim if there's a back Edge then"
+    },
+    {
+      "start": 1890.43,
+      "end": 1891.95,
+      "text": "there's a"
+    },
+    {
+      "start": 1891.95,
+      "end": 1895.789,
+      "text": "cycle"
+    },
+    {
+      "start": 1895.789,
+      "end": 1897.029,
+      "text": "cool so it all comes down to back edges"
+    },
+    {
+      "start": 1897.029,
+      "end": 1898.87,
+      "text": "this will work for both directed and"
+    },
+    {
+      "start": 1898.87,
+      "end": 1901.19,
+      "text": "undirected graphs detecting Cycles is"
+    },
+    {
+      "start": 1901.19,
+      "end": 1903.31,
+      "text": "pretty easy in undirected graphs it's a"
+    },
+    {
+      "start": 1903.31,
+      "end": 1905.629,
+      "text": "little more subtle with directed graphs"
+    },
+    {
+      "start": 1905.629,
+      "end": 1908.47,
+      "text": "because you have to worry about the edge"
+    },
+    {
+      "start": 1908.47,
+      "end": 1912.11,
+      "text": "directions so let's prove"
+    },
+    {
+      "start": 1912.11,
+      "end": 1914.35,
+      "text": "this we haven't done the serious proof"
+    },
+    {
+      "start": 1914.35,
+      "end": 1917.11,
+      "text": "in a while so this is still a pretty"
+    },
+    {
+      "start": 1917.11,
+      "end": 1919.23,
+      "text": "easy one but let's think about it what"
+    },
+    {
+      "start": 1919.23,
+      "end": 1921.629,
+      "text": "do you think is the EAS direction to"
+    },
+    {
+      "start": 1921.629,
+      "end": 1924.269,
+      "text": "prove here left or"
+    },
+    {
+      "start": 1924.269,
+      "end": 1926.75,
+      "text": "right more democracy how many people"
+    },
+    {
+      "start": 1926.75,
+      "end": 1929.149,
+      "text": "think left is"
+    },
+    {
+      "start": 1929.149,
+      "end": 1932.909,
+      "text": "easy couple how many people think right"
+    },
+    {
+      "start": 1932.909,
+      "end": 1935.83,
+      "text": "is easy a whole bunch more I disagree"
+    },
+    {
+      "start": 1935.83,
+      "end": 1938.909,
+      "text": "with you I mean guess depends what you"
+    },
+    {
+      "start": 1938.909,
+      "end": 1942.669,
+      "text": "consider easy um let me show you how"
+    },
+    {
+      "start": 1942.669,
+      "end": 1945.669,
+      "text": "easy left is okay left is I have a back"
+    },
+    {
+      "start": 1945.669,
+      "end": 1948.19,
+      "text": "Edge I want to claim there's a cycle"
+    },
+    {
+      "start": 1948.19,
+      "end": 1950.389,
+      "text": "what does a back Edge look like well"
+    },
+    {
+      "start": 1950.389,
+      "end": 1954.35,
+      "text": "it's an"
+    },
+    {
+      "start": 1954.35,
+      "end": 1955.87,
+      "text": "edge to an ancestor in the tree if this"
+    },
+    {
+      "start": 1955.87,
+      "end": 1959.549,
+      "text": "node is a descendant of this node or"
+    },
+    {
+      "start": 1959.549,
+      "end": 1961.59,
+      "text": "this node is an ancestor of this node um"
+    },
+    {
+      "start": 1961.59,
+      "end": 1964.509,
+      "text": "that's saying that there are tree"
+    },
+    {
+      "start": 1964.509,
+      "end": 1972.47,
+      "text": "edges there's a path a tree path that"
+    },
+    {
+      "start": 1972.47,
+      "end": 1976.83,
+      "text": "other okay so this is a these are tree"
+    },
+    {
+      "start": 1976.83,
+      "end": 1984.95,
+      "text": "edges because this is supposed to be an"
+    },
+    {
+      "start": 1984.95,
+      "end": 1987.789,
+      "text": "descendant and this is that's the"
+    },
+    {
+      "start": 1987.789,
+      "end": 1990.43,
+      "text": "definition of a back"
+    },
+    {
+      "start": 1990.43,
+      "end": 1994.669,
+      "text": "Edge okay do you see a"
+    },
+    {
+      "start": 1994.669,
+      "end": 1998.23,
+      "text": "cycle I see a cycle this is a"
+    },
+    {
+      "start": 1998.23,
+      "end": 2001.95,
+      "text": "cycle directed cycle so if there's a"
+    },
+    {
+      "start": 2001.95,
+      "end": 2003.269,
+      "text": "back Edge by definition it makes a cycle"
+    },
+    {
+      "start": 2003.269,
+      "end": 2005.11,
+      "text": "now it's harder to say you know if I"
+    },
+    {
+      "start": 2005.11,
+      "end": 2008.19,
+      "text": "have 10 back edges how many cycles are"
+    },
+    {
+      "start": 2008.19,
+      "end": 2009.629,
+      "text": "there could be many but if there's a"
+    },
+    {
+      "start": 2009.629,
+      "end": 2015.31,
+      "text": "back Edge there's definitely at least"
+    },
+    {
+      "start": 2015.31,
+      "end": 2017.509,
+      "text": "cycle the other direction is also not"
+    },
+    {
+      "start": 2017.509,
+      "end": 2020.389,
+      "text": "too hard but I would hesitate to call it"
+    },
+    {
+      "start": 2020.389,
+      "end": 2021.629,
+      "text": "easy any suggestions if I know there is"
+    },
+    {
+      "start": 2021.629,
+      "end": 2023.909,
+      "text": "a"
+    },
+    {
+      "start": 2023.909,
+      "end": 2025.789,
+      "text": "cycle how do I prove that there's a back"
+    },
+    {
+      "start": 2025.789,
+      "end": 2028.789,
+      "text": "Edge"
+    },
+    {
+      "start": 2028.789,
+      "end": 2057.47,
+      "text": "somewhere think about that let me draw a"
+    },
+    {
+      "start": 2057.47,
+      "end": 2058.869,
+      "text": "cycle where do you think which of these"
+    },
+    {
+      "start": 2058.869,
+      "end": 2062.23,
+      "text": "edges do you think is going to be a back"
+    },
+    {
+      "start": 2062.23,
+      "end": 2064.23,
+      "text": "Edge let's hope it's one of these"
+    },
+    {
+      "start": 2064.23,
+      "end": 2068.829,
+      "text": "edges"
+    },
+    {
+      "start": 2068.829,
+      "end": 2071.43,
+      "text": "sorry VK to V Zer that's a good idea"
+    },
+    {
+      "start": 2071.43,
+      "end": 2073.55,
+      "text": "maybe this is a back Edge uh of course"
+    },
+    {
+      "start": 2073.55,
+      "end": 2077.069,
+      "text": "this is symmetric why why that"
+    },
+    {
+      "start": 2077.069,
+      "end": 2078.79,
+      "text": "edge I labeled it in a suggested way but"
+    },
+    {
+      "start": 2078.79,
+      "end": 2081.069,
+      "text": "I need to say something before I know"
+    },
+    {
+      "start": 2081.069,
+      "end": 2084.669,
+      "text": "actually which Edge is going to be the"
+    },
+    {
+      "start": 2084.669,
+      "end": 2088.349,
+      "text": "back Edge yeah have to say started start"
+    },
+    {
+      "start": 2088.349,
+      "end": 2089.869,
+      "text": "at v0 if I started a search at v0 that"
+    },
+    {
+      "start": 2089.869,
+      "end": 2092.19,
+      "text": "looks good because the search is kind of"
+    },
+    {
+      "start": 2092.19,
+      "end": 2093.909,
+      "text": "going to go in this direction VK will"
+    },
+    {
+      "start": 2093.909,
+      "end": 2095.629,
+      "text": "maybe be the last thing to be visited"
+    },
+    {
+      "start": 2095.629,
+      "end": 2097.71,
+      "text": "that's not actually true could be"
+    },
+    {
+      "start": 2097.71,
+      "end": 2100.67,
+      "text": "there's an edge directly from v0 to VK"
+    },
+    {
+      "start": 2100.67,
+      "end": 2102.349,
+      "text": "but intuitively VK will be kind of later"
+    },
+    {
+      "start": 2102.349,
+      "end": 2104.15,
+      "text": "and then when this Edge gets visited"
+    },
+    {
+      "start": 2104.15,
+      "end": 2107.19,
+      "text": "this will be an ancestor it'll be a back"
+    },
+    {
+      "start": 2107.19,
+      "end": 2109.23,
+      "text": "Edge okay of course this we may not"
+    },
+    {
+      "start": 2109.23,
+      "end": 2111.79,
+      "text": "start a search"
+    },
+    {
+      "start": 2111.79,
+      "end": 2114.95,
+      "text": "here so calling it the start of the"
+    },
+    {
+      "start": 2114.95,
+      "end": 2117.79,
+      "text": "search is not quite right a little"
+    },
+    {
+      "start": 2117.79,
+      "end": 2121.03,
+      "text": "different"
+    },
+    {
+      "start": 2121.03,
+      "end": 2123.47,
+      "text": "yeah first vertex that gets hit good so"
+    },
+    {
+      "start": 2123.47,
+      "end": 2126.23,
+      "text": "let's I'm going to start the numbering B"
+    },
+    {
+      "start": 2126.23,
+      "end": 2128.55,
+      "text": "0 so"
+    },
+    {
+      "start": 2128.55,
+      "end": 2150.23,
+      "text": "assume b0"
+    },
+    {
+      "start": 2150.23,
+      "end": 2152.069,
+      "text": "search together you want some pillows if"
+    },
+    {
+      "start": 2152.069,
+      "end": 2154.87,
+      "text": "You' like"
+    },
+    {
+      "start": 2154.87,
+      "end": 2158.51,
+      "text": "them uh especially convenient that"
+    },
+    {
+      "start": 2158.51,
+      "end": 2160.47,
+      "text": "they're in front um so right if it's not"
+    },
+    {
+      "start": 2160.47,
+      "end": 2162.19,
+      "text": "v0 say V3 was the first one visited"
+    },
+    {
+      "start": 2162.19,
+      "end": 2166.75,
+      "text": "we'll just change the labeling so that's"
+    },
+    {
+      "start": 2166.75,
+      "end": 2168.63,
+      "text": "v0 that's V1 that's V and so on um so"
+    },
+    {
+      "start": 2168.63,
+      "end": 2170.99,
+      "text": "set this labeling so the V 0 is the"
+    },
+    {
+      "start": 2170.99,
+      "end": 2174.79,
+      "text": "first one first vertex that gets"
+    },
+    {
+      "start": 2174.79,
+      "end": 2179.19,
+      "text": "visited okay then I"
+    },
+    {
+      "start": 2179.19,
+      "end": 2189.829,
+      "text": "claim that let me just write the claim"
+    },
+    {
+      "start": 2189.829,
+      "end": 2211.91,
+      "text": "Edge as we say is back Edge yeah I would"
+    },
+    {
+      "start": 2211.91,
+      "end": 2216.069,
+      "text": "careful we have to somehow exploit the"
+    },
+    {
+      "start": 2216.069,
+      "end": 2219.71,
+      "text": "depth first nature of DFS fact it goes"
+    },
+    {
+      "start": 2219.71,
+      "end": 2221.75,
+      "text": "deep it goes as deep as it can before"
+    },
+    {
+      "start": 2221.75,
+      "end": 2223.95,
+      "text": "backtracking if you think about it we're"
+    },
+    {
+      "start": 2223.95,
+      "end": 2226.15,
+      "text": "starting at this point we are starting a"
+    },
+    {
+      "start": 2226.15,
+      "end": 2229.03,
+      "text": "search relative to the cycle no one has"
+    },
+    {
+      "start": 2229.03,
+      "end": 2231.91,
+      "text": "been visited except v0 just got visited"
+    },
+    {
+      "start": 2231.91,
+      "end": 2233.51,
+      "text": "has a parent pointer off somewhere"
+    },
+    {
+      "start": 2233.51,
+      "end": 2237.47,
+      "text": "else"
+    },
+    {
+      "start": 2237.47,
+      "end": 2239.349,
+      "text": "okay uh what do we do next well we visit"
+    },
+    {
+      "start": 2239.349,
+      "end": 2241.109,
+      "text": "all the outgoing edges from v0 there"
+    },
+    {
+      "start": 2241.109,
+      "end": 2243.349,
+      "text": "might be many of them could be an edge"
+    },
+    {
+      "start": 2243.349,
+      "end": 2245.79,
+      "text": "from v0 to V1 could be an edge from v0"
+    },
+    {
+      "start": 2245.79,
+      "end": 2248.309,
+      "text": "to V3 could be an edge from v0 to"
+    },
+    {
+      "start": 2248.309,
+      "end": 2249.79,
+      "text": "something else"
+    },
+    {
+      "start": 2249.79,
+      "end": 2250.87,
+      "text": "uh we don't know which one's going to"
+    },
+    {
+      "start": 2250.87,
+      "end": 2254.63,
+      "text": "happen"
+    },
+    {
+      "start": 2254.63,
+      "end": 2258.63,
+      "text": "first but the one thing I could"
+    },
+    {
+      "start": 2258.63,
+      "end": 2262.069,
+      "text": "claim is that uh"
+    },
+    {
+      "start": 2262.069,
+      "end": 2263.79,
+      "text": "V1 will be"
+    },
+    {
+      "start": 2263.79,
+      "end": 2273.43,
+      "text": "visited"
+    },
+    {
+      "start": 2273.43,
+      "end": 2274.589,
+      "text": "v0 okay from v0 we might go somewhere"
+    },
+    {
+      "start": 2274.589,
+      "end": 2276.19,
+      "text": "else we might go somewhere else that"
+    },
+    {
+      "start": 2276.19,
+      "end": 2278.43,
+      "text": "might eventually lead to V1 by some"
+    },
+    {
+      "start": 2278.43,
+      "end": 2280.39,
+      "text": "other route but in particular we look at"
+    },
+    {
+      "start": 2280.39,
+      "end": 2283.15,
+      "text": "that edge from v0 to"
+    },
+    {
+      "start": 2283.15,
+      "end": 2284.829,
+      "text": "V1 and so at some point during we're"
+    },
+    {
+      "start": 2284.829,
+      "end": 2287.67,
+      "text": "searching we're visiting all the things"
+    },
+    {
+      "start": 2287.67,
+      "end": 2291.15,
+      "text": "reachable from v0 that includes"
+    },
+    {
+      "start": 2291.15,
+      "end": 2292.309,
+      "text": "V1 and that will happen we will touch V1"
+    },
+    {
+      "start": 2292.309,
+      "end": 2295.27,
+      "text": "for the first time because it hasn't"
+    },
+    {
+      "start": 2295.27,
+      "end": 2297.349,
+      "text": "been touched yet we will visit it before"
+    },
+    {
+      "start": 2297.349,
+      "end": 2300.91,
+      "text": "we finish visiting"
+    },
+    {
+      "start": 2300.91,
+      "end": 2303.43,
+      "text": "v0 same goes actually for all the vi"
+    },
+    {
+      "start": 2303.43,
+      "end": 2305.95,
+      "text": "because they're all reachable from V 0"
+    },
+    {
+      "start": 2305.95,
+      "end": 2309.79,
+      "text": "you can prove this by induction you have"
+    },
+    {
+      "start": 2309.79,
+      "end": 2311.75,
+      "text": "to visit V1 before finish visiting v0 uh"
+    },
+    {
+      "start": 2311.75,
+      "end": 2313.349,
+      "text": "you'll have to visit V2 before you"
+    },
+    {
+      "start": 2313.349,
+      "end": 2315.91,
+      "text": "finish visiting V1 although you might"
+    },
+    {
+      "start": 2315.91,
+      "end": 2317.87,
+      "text": "actually visit V2 before V1 you"
+    },
+    {
+      "start": 2317.87,
+      "end": 2323.27,
+      "text": "definitely finish you'll finish V2"
+    },
+    {
+      "start": 2323.27,
+      "end": 2326.51,
+      "text": "before you finish V1 and so on uh so"
+    },
+    {
+      "start": 2326.51,
+      "end": 2328.67,
+      "text": "VI will be visited before you finish VI"
+    },
+    {
+      "start": 2328.67,
+      "end": 2331.589,
+      "text": "minus one but in particular what we care"
+    },
+    {
+      "start": 2331.589,
+      "end": 2334.03,
+      "text": "about is that VK is"
+    },
+    {
+      "start": 2334.03,
+      "end": 2343.71,
+      "text": "visited"
+    },
+    {
+      "start": 2343.71,
+      "end": 2346.63,
+      "text": "v0 and it will be entirely visited we"
+    },
+    {
+      "start": 2346.63,
+      "end": 2349.309,
+      "text": "will finish visiting VK before we finish"
+    },
+    {
+      "start": 2349.309,
+      "end": 2353.03,
+      "text": "visiting v0 we will start VK after we"
+    },
+    {
+      "start": 2353.03,
+      "end": 2355.51,
+      "text": "start v0 because v0 is first so the"
+    },
+    {
+      "start": 2355.51,
+      "end": 2359.91,
+      "text": "order is going to look like start"
+    },
+    {
+      "start": 2359.91,
+      "end": 2367.91,
+      "text": "v0 at some point we will start"
+    },
+    {
+      "start": 2367.91,
+      "end": 2369.309,
+      "text": "VK then we'll finish v0"
+    },
+    {
+      "start": 2369.309,
+      "end": 2372.069,
+      "text": "this is something that textbook likes to"
+    },
+    {
+      "start": 2372.069,
+      "end": 2374.109,
+      "text": "call uh and I like to call balance"
+    },
+    {
+      "start": 2374.109,
+      "end": 2378.99,
+      "text": "parentheses you can think of it as we"
+    },
+    {
+      "start": 2378.99,
+      "end": 2382.829,
+      "text": "start V Zer uh then we start VK then we"
+    },
+    {
+      "start": 2382.829,
+      "end": 2385.55,
+      "text": "finish VK then we finish v0 and these"
+    },
+    {
+      "start": 2385.55,
+      "end": 2387.99,
+      "text": "match up and they're"
+    },
+    {
+      "start": 2387.99,
+      "end": 2389.51,
+      "text": "balanced it will dep for search always"
+    },
+    {
+      "start": 2389.51,
+      "end": 2391.79,
+      "text": "looks like that because once you start a"
+    },
+    {
+      "start": 2391.79,
+      "end": 2394.309,
+      "text": "Vertex you keep chugging till you"
+    },
+    {
+      "start": 2394.309,
+      "end": 2396.55,
+      "text": "visited all the things reachable from it"
+    },
+    {
+      "start": 2396.55,
+      "end": 2397.95,
+      "text": "then you finish it you won't finish v0"
+    },
+    {
+      "start": 2397.95,
+      "end": 2399.069,
+      "text": "before you finish VK because it's part"
+    },
+    {
+      "start": 2399.069,
+      "end": 2401.15,
+      "text": "of the"
+    },
+    {
+      "start": 2401.15,
+      "end": 2403.79,
+      "text": "recursion you can't return at a higher"
+    },
+    {
+      "start": 2403.79,
+      "end": 2405.91,
+      "text": "level before you return at the lower"
+    },
+    {
+      "start": 2405.91,
+      "end": 2407.309,
+      "text": "levels okay so what we've just argued"
+    },
+    {
+      "start": 2407.309,
+      "end": 2410.15,
+      "text": "that the order is like this because v0"
+    },
+    {
+      "start": 2410.15,
+      "end": 2411.95,
+      "text": "was first so V K starts after V 0 and"
+    },
+    {
+      "start": 2411.95,
+      "end": 2414.19,
+      "text": "also we're going to finish VK before we"
+    },
+    {
+      "start": 2414.19,
+      "end": 2416.03,
+      "text": "finish v0 because it's reachable and"
+    },
+    {
+      "start": 2416.03,
+      "end": 2424.79,
+      "text": "hasn't been visited"
+    },
+    {
+      "start": 2424.79,
+      "end": 2427.87,
+      "text": "consider uh"
+    },
+    {
+      "start": 2427.87,
+      "end": 2431.589,
+      "text": "VK v0"
+    },
+    {
+      "start": 2431.589,
+      "end": 2437.79,
+      "text": "when we consider that edge it will be a"
+    },
+    {
+      "start": 2437.79,
+      "end": 2440.47,
+      "text": "Edge why because v0 is currently on the"
+    },
+    {
+      "start": 2440.47,
+      "end": 2442.829,
+      "text": "recursion stack and so you will have"
+    },
+    {
+      "start": 2442.829,
+      "end": 2444.069,
+      "text": "marked v0 is currently in process so"
+    },
+    {
+      "start": 2444.069,
+      "end": 2446.589,
+      "text": "when you look at that edge you see it's"
+    },
+    {
+      "start": 2446.589,
+      "end": 2454.309,
+      "text": "a back Edge it's an edge to your"
+    },
+    {
+      "start": 2454.309,
+      "end": 2457.79,
+      "text": "proof any questions about"
+    },
+    {
+      "start": 2457.79,
+      "end": 2459.91,
+      "text": "that it's pretty easy Once you set up"
+    },
+    {
+      "start": 2459.91,
+      "end": 2461.71,
+      "text": "uh starting point which is look at the"
+    },
+    {
+      "start": 2461.71,
+      "end": 2462.91,
+      "text": "first time you visit the cycle then just"
+    },
+    {
+      "start": 2462.91,
+      "end": 2465.15,
+      "text": "think about how you walk around the"
+    },
+    {
+      "start": 2465.15,
+      "end": 2466.99,
+      "text": "cycle there lots of ways you might walk"
+    },
+    {
+      "start": 2466.99,
+      "end": 2468.75,
+      "text": "around the cycle but it's guaranteed"
+    },
+    {
+      "start": 2468.75,
+      "end": 2470.23,
+      "text": "you'll visit VK at some point then"
+    },
+    {
+      "start": 2470.23,
+      "end": 2473.03,
+      "text": "you'll look at the edge v0 is still in"
+    },
+    {
+      "start": 2473.03,
+      "end": 2474.79,
+      "text": "the stack so it's a back Edge and so"
+    },
+    {
+      "start": 2474.79,
+      "end": 2476.349,
+      "text": "this proves that having a cycle is"
+    },
+    {
+      "start": 2476.349,
+      "end": 2478.069,
+      "text": "equivalent to having a back Edge this"
+    },
+    {
+      "start": 2478.069,
+      "end": 2481.03,
+      "text": "gives you an easy linear time algorithm"
+    },
+    {
+      "start": 2481.03,
+      "end": 2482.55,
+      "text": "to tell does My Graph have a cycle and"
+    },
+    {
+      "start": 2482.55,
+      "end": 2484.349,
+      "text": "if it does it's actually easy to find"
+    },
+    {
+      "start": 2484.349,
+      "end": 2486.63,
+      "text": "one because we find a back Edge just"
+    },
+    {
+      "start": 2486.63,
+      "end": 2491.27,
+      "text": "follow the tree edges and you get your"
+    },
+    {
+      "start": 2491.27,
+      "end": 2493.55,
+      "text": "so if someone gives you a graph and say"
+    },
+    {
+      "start": 2493.55,
+      "end": 2495.589,
+      "text": "hey I think this is a cyclic you can"
+    },
+    {
+      "start": 2495.589,
+      "end": 2498.309,
+      "text": "very quickly say nope it's not here's a"
+    },
+    {
+      "start": 2498.309,
+      "end": 2519.069,
+      "text": "cycle or say yeah I agree no back edges"
+    },
+    {
+      "start": 2519.069,
+      "end": 2522.309,
+      "text": "one application two is topological sort"
+    },
+    {
+      "start": 2522.309,
+      "end": 2529.51,
+      "text": "which we're going to think about in the"
+    },
+    {
+      "start": 2529.51,
+      "end": 2532.79,
+      "text": "scheduling so job scheduling we are"
+    },
+    {
+      "start": 2532.79,
+      "end": 2558.109,
+      "text": "given a"
+    },
+    {
+      "start": 2558.109,
+      "end": 2573.99,
+      "text": "that all edges"
+    },
+    {
+      "start": 2573.99,
+      "end": 2613.39,
+      "text": "order okay directed ay graph is called a"
+    },
+    {
+      "start": 2613.39,
+      "end": 2614.71,
+      "text": "okay I've drawn I've drawn the graph so"
+    },
+    {
+      "start": 2614.71,
+      "end": 2617.19,
+      "text": "all the edges go left to right so you"
+    },
+    {
+      "start": 2617.19,
+      "end": 2619.069,
+      "text": "can see that there's no Cycles here but"
+    },
+    {
+      "start": 2619.069,
+      "end": 2620.03,
+      "text": "in general you'd run DFS and you detect"
+    },
+    {
+      "start": 2620.03,
+      "end": 2622.47,
+      "text": "there's no"
+    },
+    {
+      "start": 2622.47,
+      "end": 2624.67,
+      "text": "cycles and now imagine these vertices"
+    },
+    {
+      "start": 2624.67,
+      "end": 2627.43,
+      "text": "represent things you need to"
+    },
+    {
+      "start": 2627.43,
+      "end": 2629.589,
+      "text": "do uh the textbook has a funny example"
+    },
+    {
+      "start": 2629.589,
+      "end": 2631.19,
+      "text": "where you're getting dressed so you have"
+    },
+    {
+      "start": 2631.19,
+      "end": 2633.109,
+      "text": "these constraints to say well I've got"
+    },
+    {
+      "start": 2633.109,
+      "end": 2635.069,
+      "text": "to put my socks on before I put my shoes"
+    },
+    {
+      "start": 2635.069,
+      "end": 2636.67,
+      "text": "on and then I've got to put my underwear"
+    },
+    {
+      "start": 2636.67,
+      "end": 2639.99,
+      "text": "on before I put my pants on all these"
+    },
+    {
+      "start": 2639.99,
+      "end": 2641.549,
+      "text": "kinds of things things uh you encode"
+    },
+    {
+      "start": 2641.549,
+      "end": 2643.03,
+      "text": "that as a direct today cyc graph you"
+    },
+    {
+      "start": 2643.03,
+      "end": 2644.349,
+      "text": "hope there's no Cycles because then you"
+    },
+    {
+      "start": 2644.349,
+      "end": 2646.549,
+      "text": "can't get"
+    },
+    {
+      "start": 2646.549,
+      "end": 2648.19,
+      "text": "dressed and there's some things like"
+    },
+    {
+      "start": 2648.19,
+      "end": 2649.589,
+      "text": "well I could put my glasses on whenever"
+    },
+    {
+      "start": 2649.589,
+      "end": 2650.99,
+      "text": "although actually I should put my"
+    },
+    {
+      "start": 2650.99,
+      "end": 2653.349,
+      "text": "glasses on before I do anything else"
+    },
+    {
+      "start": 2653.349,
+      "end": 2655.109,
+      "text": "otherwise there's problems um I don't"
+    },
+    {
+      "start": 2655.109,
+      "end": 2656.99,
+      "text": "know you put your watch on at any time"
+    },
+    {
+      "start": 2656.99,
+      "end": 2659.589,
+      "text": "unless you need to know what time it is"
+    },
+    {
+      "start": 2659.589,
+      "end": 2661.589,
+      "text": "so there's some some disconnected Parts"
+    },
+    {
+      "start": 2661.589,
+      "end": 2663.589,
+      "text": "whatever there's some unrelated things"
+    },
+    {
+      "start": 2663.589,
+      "end": 2666.71,
+      "text": "like I don't care the order between my"
+    },
+    {
+      "start": 2666.71,
+      "end": 2669.03,
+      "text": "shirt and my pants or whatever um some"
+    },
+    {
+      "start": 2669.03,
+      "end": 2670.75,
+      "text": "things are un constrained what you'd"
+    },
+    {
+      "start": 2670.75,
+      "end": 2672.79,
+      "text": "like to do is choose an actual order to"
+    },
+    {
+      "start": 2672.79,
+      "end": 2674.309,
+      "text": "do things you say you're a sequential"
+    },
+    {
+      "start": 2674.309,
+      "end": 2677.069,
+      "text": "being you can only do one thing at a"
+    },
+    {
+      "start": 2677.069,
+      "end": 2679.309,
+      "text": "time so I want to compute a total order"
+    },
+    {
+      "start": 2679.309,
+      "end": 2680.829,
+      "text": "first I'll do G then I'll do a then I'll"
+    },
+    {
+      "start": 2680.829,
+      "end": 2683.71,
+      "text": "then I can do H because I've done both"
+    },
+    {
+      "start": 2683.71,
+      "end": 2685.51,
+      "text": "of the the predecessors then I can't do"
+    },
+    {
+      "start": 2685.51,
+      "end": 2688.99,
+      "text": "B because I haven't done D so maybe I'll"
+    },
+    {
+      "start": 2688.99,
+      "end": 2691.79,
+      "text": "do D first and then B then e then C then"
+    },
+    {
+      "start": 2691.79,
+      "end": 2693.95,
+      "text": "F then I that would be a valid order"
+    },
+    {
+      "start": 2693.95,
+      "end": 2695.95,
+      "text": "because all edges point from an earlier"
+    },
+    {
+      "start": 2695.95,
+      "end": 2698.309,
+      "text": "number to a later number so that's the"
+    },
+    {
+      "start": 2698.309,
+      "end": 2700.47,
+      "text": "goal and this is these are real job"
+    },
+    {
+      "start": 2700.47,
+      "end": 2703.549,
+      "text": "scheduling problems that come up you'll"
+    },
+    {
+      "start": 2703.549,
+      "end": 2706.109,
+      "text": "see more applications in your problem"
+    },
+    {
+      "start": 2706.109,
+      "end": 2708.349,
+      "text": "Set uh how do we do"
+    },
+    {
+      "start": 2708.349,
+      "end": 2709.95,
+      "text": "this well at this point we have two"
+    },
+    {
+      "start": 2709.95,
+      "end": 2715.03,
+      "text": "algorithms and I pretty much revealed it"
+    },
+    {
+      "start": 2715.03,
+      "end": 2721.829,
+      "text": "is DFS DFS will do this topological sort"
+    },
+    {
+      "start": 2721.829,
+      "end": 2723.79,
+      "text": "called topological sort because you're"
+    },
+    {
+      "start": 2723.79,
+      "end": 2726.43,
+      "text": "given a graph which you can think of as"
+    },
+    {
+      "start": 2726.43,
+      "end": 2728.069,
+      "text": "a topology you want to sort it in a"
+    },
+    {
+      "start": 2728.069,
+      "end": 2730.19,
+      "text": "certain sense not like sorting numbers"
+    },
+    {
+      "start": 2730.19,
+      "end": 2732.75,
+      "text": "it's sorting vertices in a graph so"
+    },
+    {
+      "start": 2732.75,
+      "end": 2737.91,
+      "text": "hence topological sort that's the name"
+    },
+    {
+      "start": 2737.91,
+      "end": 2744.87,
+      "text": "of the algorithm and it's run run"
+    },
+    {
+      "start": 2744.87,
+      "end": 2754.349,
+      "text": "output the"
+    },
+    {
+      "start": 2754.349,
+      "end": 2756.51,
+      "text": "times of"
+    },
+    {
+      "start": 2756.51,
+      "end": 2757.87,
+      "text": "vertices so this is another application"
+    },
+    {
+      "start": 2757.87,
+      "end": 2760.63,
+      "text": "where you really want to visit all the"
+    },
+    {
+      "start": 2760.63,
+      "end": 2764.19,
+      "text": "vertices in the graph so we use both we"
+    },
+    {
+      "start": 2764.19,
+      "end": 2766.51,
+      "text": "use this top level DFS so everybody gets"
+    },
+    {
+      "start": 2766.51,
+      "end": 2769.67,
+      "text": "visited and there are these finishing"
+    },
+    {
+      "start": 2769.67,
+      "end": 2772.47,
+      "text": "times so every time I finish a Vertex I"
+    },
+    {
+      "start": 2772.47,
+      "end": 2773.829,
+      "text": "could add it to a list say okay that one"
+    },
+    {
+      "start": 2773.829,
+      "end": 2775.79,
+      "text": "was finished next then this one's"
+    },
+    {
+      "start": 2775.79,
+      "end": 2779.069,
+      "text": "finished then this one's finished I take"
+    },
+    {
+      "start": 2779.069,
+      "end": 2780.39,
+      "text": "that order and I reverse it that will be"
+    },
+    {
+      "start": 2780.39,
+      "end": 2797.309,
+      "text": "a topological"
+    },
+    {
+      "start": 2797.309,
+      "end": 2800.589,
+      "text": "we've actually done pretty much the hard"
+    },
+    {
+      "start": 2800.589,
+      "end": 2804.43,
+      "text": "work which is to say we're assuming our"
+    },
+    {
+      "start": 2804.43,
+      "end": 2806.43,
+      "text": "graph has no Cycles so that tells us uh"
+    },
+    {
+      "start": 2806.43,
+      "end": 2808.43,
+      "text": "by this cycle detection that there are"
+    },
+    {
+      "start": 2808.43,
+      "end": 2811.349,
+      "text": "no back edges back edges are kind of the"
+    },
+    {
+      "start": 2811.349,
+      "end": 2813.63,
+      "text": "annoying part now they don't exist here"
+    },
+    {
+      "start": 2813.63,
+      "end": 2817.069,
+      "text": "so all the edges are tree edges forward"
+    },
+    {
+      "start": 2817.069,
+      "end": 2828.51,
+      "text": "edges and cross edges"
+    },
+    {
+      "start": 2828.51,
+      "end": 2831.51,
+      "text": "theorem so we want to prove that all the"
+    },
+    {
+      "start": 2831.51,
+      "end": 2837.95,
+      "text": "edges point from an earlier number to a"
+    },
+    {
+      "start": 2837.95,
+      "end": 2841.39,
+      "text": "number so what that means is for an edge"
+    },
+    {
+      "start": 2841.39,
+      "end": 2854.309,
+      "text": "UV we want to show that V finishes"
+    },
+    {
+      "start": 2854.309,
+      "end": 2857.43,
+      "text": "that's the reverse because what we're"
+    },
+    {
+      "start": 2857.43,
+      "end": 2860.71,
+      "text": "taking is the reverse of the finishing"
+    },
+    {
+      "start": 2860.71,
+      "end": 2862.87,
+      "text": "order okay so Edge UV want to make sure"
+    },
+    {
+      "start": 2862.87,
+      "end": 2865.109,
+      "text": "V finishes first so that U will be"
+    },
+    {
+      "start": 2865.109,
+      "end": 2872.47,
+      "text": "ordered"
+    },
+    {
+      "start": 2872.47,
+      "end": 2878.309,
+      "text": "cases case"
+    },
+    {
+      "start": 2878.309,
+      "end": 2887.99,
+      "text": "one is that you starts before V"
+    },
+    {
+      "start": 2887.99,
+      "end": 2895.349,
+      "text": "U at some point they start because we"
+    },
+    {
+      "start": 2895.349,
+      "end": 2898.27,
+      "text": "graph this top level top Loop guarantees"
+    },
+    {
+      "start": 2898.27,
+      "end": 2900.349,
+      "text": "that so consider what order we visit"
+    },
+    {
+      "start": 2900.349,
+      "end": 2902.39,
+      "text": "them first at the"
+    },
+    {
+      "start": 2902.39,
+      "end": 2905.79,
+      "text": "beginning and then we'll think about how"
+    },
+    {
+      "start": 2905.79,
+      "end": 2907.309,
+      "text": "they finish well uh this case is kind of"
+    },
+    {
+      "start": 2907.309,
+      "end": 2911.349,
+      "text": "something we've seen before"
+    },
+    {
+      "start": 2911.349,
+      "end": 2914.87,
+      "text": "we visit you we have not yet visited V"
+    },
+    {
+      "start": 2914.87,
+      "end": 2917.43,
+      "text": "but V is reachable from you so maybe via"
+    },
+    {
+      "start": 2917.43,
+      "end": 2919.79,
+      "text": "this Edge or maybe via some other path"
+    },
+    {
+      "start": 2919.79,
+      "end": 2922.829,
+      "text": "we'll eventually visit V in the"
+    },
+    {
+      "start": 2922.829,
+      "end": 2932.069,
+      "text": "recursion for you so before you finishes"
+    },
+    {
+      "start": 2932.069,
+      "end": 2937.349,
+      "text": "V visit V before you"
+    },
+    {
+      "start": 2937.349,
+      "end": 2939.95,
+      "text": "finishes that sentence is just like this"
+    },
+    {
+      "start": 2939.95,
+      "end": 2941.589,
+      "text": "sentence so same kind of argument I"
+    },
+    {
+      "start": 2941.589,
+      "end": 2943.349,
+      "text": "won't go into detail because we already"
+    },
+    {
+      "start": 2943.349,
+      "end": 2946.27,
+      "text": "did that several"
+    },
+    {
+      "start": 2946.27,
+      "end": 2948.87,
+      "text": "times so that means we'll visit V we"
+    },
+    {
+      "start": 2948.87,
+      "end": 2950.71,
+      "text": "will completely visit V we will finish V"
+    },
+    {
+      "start": 2950.71,
+      "end": 2953.39,
+      "text": "before we finish U and that's what we"
+    },
+    {
+      "start": 2953.39,
+      "end": 2956.39,
+      "text": "wanted to prove so in that that case is"
+    },
+    {
+      "start": 2956.39,
+      "end": 2957.71,
+      "text": "good the other case is that V starts"
+    },
+    {
+      "start": 2957.71,
+      "end": 2960.91,
+      "text": "before"
+    },
+    {
+      "start": 2960.91,
+      "end": 2963.71,
+      "text": "U here you might get slightly"
+    },
+    {
+      "start": 2963.71,
+      "end": 2967.67,
+      "text": "worried so we have an edge UV still same"
+    },
+    {
+      "start": 2967.67,
+      "end": 2968.87,
+      "text": "direction but now we start at V you has"
+    },
+    {
+      "start": 2968.87,
+      "end": 2973.75,
+      "text": "not yet been"
+    },
+    {
+      "start": 2973.75,
+      "end": 2976.51,
+      "text": "visited well now we worry that there's"
+    },
+    {
+      "start": 2976.51,
+      "end": 2977.91,
+      "text": "uh that we visit you if we visit you"
+    },
+    {
+      "start": 2977.91,
+      "end": 2979.43,
+      "text": "we're going to finish you before we"
+    },
+    {
+      "start": 2979.43,
+      "end": 2985.43,
+      "text": "finish V but we want it to be the other"
+    },
+    {
+      "start": 2985.43,
+      "end": 2987.27,
+      "text": "happen because there's a back Edge"
+    },
+    {
+      "start": 2987.27,
+      "end": 2990.15,
+      "text": "somewhere here in particular the graph"
+    },
+    {
+      "start": 2990.15,
+      "end": 2991.829,
+      "text": "would have to be cyclic this is a cycle"
+    },
+    {
+      "start": 2991.829,
+      "end": 2993.63,
+      "text": "so this can't"
+    },
+    {
+      "start": 2993.63,
+      "end": 3006.349,
+      "text": "happen"
+    },
+    {
+      "start": 3006.349,
+      "end": 3008.15,
+      "text": "all so V will still finish first because"
+    },
+    {
+      "start": 3008.15,
+      "end": 3008.91,
+      "text": "we don't even touch you because there's"
+    },
+    {
+      "start": 3008.91,
+      "end": 3011.87,
+      "text": "no"
+    },
+    {
+      "start": 3011.87,
+      "end": 3015.39,
+      "text": "Cycles so that's actually the proof the"
+    },
+    {
+      "start": 3015.39,
+      "end": 3018.23,
+      "text": "topological sort gives you a valid job"
+    },
+    {
+      "start": 3018.23,
+      "end": 3020.99,
+      "text": "schedule and it's kind of there there"
+    },
+    {
+      "start": 3020.99,
+      "end": 3023.03,
+      "text": "are even more things you can do with DFS"
+    },
+    {
+      "start": 3023.03,
+      "end": 3025.23,
+      "text": "uh we'll see some in recitation there's"
+    },
+    {
+      "start": 3025.23,
+      "end": 3027.43,
+      "text": "more in the textbook but simple"
+    },
+    {
+      "start": 3027.43,
+      "end": 3030.43,
+      "text": "algorithm could do a lot of nifty things"
+    }
+  ]
+}

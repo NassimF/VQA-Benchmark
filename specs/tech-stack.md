@@ -89,7 +89,7 @@ These values are set by the assignment and must not be changed without explicit 
 | Vector DB | ChromaDB | Assignment spec |
 | Hit rate k values | 1, 3, 5 | Assignment spec |
 | IoU thresholds | 0.3, 0.5 | Assignment spec |
-| Frame interval | 30 seconds | Design choice — balances coverage vs. storage |
+| Frame interval | 15 seconds | Changed from 30s: 3 frames/chunk covers slide transitions and whiteboard build-up; all-in-window assignment replaces nearest-midpoint |
 | Frame captioner max tokens | 128 | Design choice — sufficient for slide descriptions |
 
 ---

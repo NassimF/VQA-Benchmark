@@ -1,0 +1,1451 @@
+[
+  {
+    "chunk_id": "nyu_dl_week13_chunk_000",
+    "video_id": "nyu_dl_week13",
+    "start_time": 0.0,
+    "end_time": 45.0,
+    "text": "so welcome everyone and to this lecture on graph conventional networks um okay so this is the outline of the lecture so first i will go quickly um on the traditional coordinates the architecture and then i will introduce graphs and i will also remind definitions of convolutions to extend it to two graphs then i will represent two classes of graph coordinates the first one is what i call a spectral graph of let's and the second one is the spatial graph problems and we'll talk a little bit about the benchmarking graph neural networks"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_001",
+    "video_id": "nyu_dl_week13",
+    "start_time": 35.0,
+    "end_time": 80.0,
+    "text": "graph of let's and the second one is the spatial graph problems and we'll talk a little bit about the benchmarking graph neural networks okay so let's start with the traditional covenant so we all know coordinates are a breakthrough in computer vision so when uh for the imagenet competition you know for the image classification task um when combinate was used uh they decreased by almost a factor two the error of classification it was in 2012 and it was basically the end of uh and crafting features and we shift the paradigm to and crafting learning systems"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_002",
+    "video_id": "nyu_dl_week13",
+    "start_time": 70.0,
+    "end_time": 115.0,
+    "text": "of classification it was in 2012 and it was basically the end of uh and crafting features and we shift the paradigm to and crafting learning systems and now for this very specific task we all know that we we go to superhuman performance coordinates are also a breakthrough in speech and natural language processing so a facebook when you want to translate you are also using coordinates so contents are powerful architectures to actually solve high dimensional learning problems so we all know about the curse of dimensionality so if you have an image let's say 1 000 by 1 000 pixels so it's you have 1 million variables an image can be seen"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_003",
+    "video_id": "nyu_dl_week13",
+    "start_time": 105.0,
+    "end_time": 150.0,
+    "text": "the curse of dimensionality so if you have an image let's say 1 000 by 1 000 pixels so it's you have 1 million variables an image can be seen as a point in a space of one million dimensions and for each dimension if you sample by using um by using 10 samples then you have a 10 to the power 1 million possible images so these spaces are really huge and of course this is the question how do you find the needle of information in this big haystack so covenants are really powerful to extract basically this this information of the best possible representation of your of your image data to uh to solve problems"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_004",
+    "video_id": "nyu_dl_week13",
+    "start_time": 140.0,
+    "end_time": 185.0,
+    "text": "basically this this information of the best possible representation of your of your image data to uh to solve problems of course we don't know yet everything yeah we don't know yet everything about convnets so it's a kind of a miracle how and how powerful how good they are and it's also quite exciting because this opened many research areas to understand better and to develop new architectures okay so when you use convnets you are doing an assumption and the main assumption that you are using is that your data so images videos speech is compositional it means that it is form of patterns"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_005",
+    "video_id": "nyu_dl_week13",
+    "start_time": 175.0,
+    "end_time": 220.0,
+    "text": "doing an assumption and the main assumption that you are using is that your data so images videos speech is compositional it means that it is form of patterns that are local so you know this is the contribution of urban envision so if you are at this layer for this neuron this neuron is going to be connected to a few neurons in the previous layer and not all neurons okay so this is the local reception field um assumption then you have also the property of stationary stationarity so basically you have some patterns um that are similar and that are shared across your image domain okay so like the yellow uh the yellow patches and the blue patches so they are they are all"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_006",
+    "video_id": "nyu_dl_week13",
+    "start_time": 210.0,
+    "end_time": 255.0,
+    "text": "um that are similar and that are shared across your image domain okay so like the yellow uh the yellow patches and the blue patches so they are they are all similar to each other the last property is the article so you make the assumption that your data is hierarchical in the sense that your low level features are going to be combined together to form a medium level features and then this medium feature are going to be again combined to each other to form higher and higher abstract features so um so any convent work the same way so the first part of the architecture is to extract these conventional features and then the"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_007",
+    "video_id": "nyu_dl_week13",
+    "start_time": 245.0,
+    "end_time": 290.0,
+    "text": "abstract features so um so any convent work the same way so the first part of the architecture is to extract these conventional features and then the second part will be to solve your specific task you know like classification recommendation and so on and this is what we call you know end-to-end systems and the first part is to learn the features the second part okay okay let's see more precisely what is the data domain so if you have images volumes or videos basically so for example you can see this image and if you zoom in this image what you have is a 2d grid okay you have"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_008",
+    "video_id": "nyu_dl_week13",
+    "start_time": 280.0,
+    "end_time": 325.0,
+    "text": "so if you have images volumes or videos basically so for example you can see this image and if you zoom in this image what you have is a 2d grid okay you have a 2d grid this is the structure of of the domain of this image and on the top of the of this grid you have some features so for example in the case of a color image you will have three features which are red green and blue okay now if i'm looking at um natural language processing so like sentences you will have a sequence of words and basically you can see that you know as a 1d grid and on the top of this grid for each node of the grid you will have a word"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_009",
+    "video_id": "nyu_dl_week13",
+    "start_time": 315.0,
+    "end_time": 360.0,
+    "text": "you will have a sequence of words and basically you can see that you know as a 1d grid and on the top of this grid for each node of the grid you will have a word okay so a word can be represented by just an integer for example the same also for speech so what you see here is um the variation of the air pressure and it's the same you know it's like you have the support is a one degree and each for each node of the grid you will have the the air pressure value okay which is which is a real number so uh i think it's clear we all we all use all the time grids and grits as you know as very strong regular special structure and for this for this"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_010",
+    "video_id": "nyu_dl_week13",
+    "start_time": 350.0,
+    "end_time": 395.0,
+    "text": "so uh i think it's clear we all we all use all the time grids and grits as you know as very strong regular special structure and for this for this um for this structure this is good because we mathematically we can define the confident operations like convolution and pulling and also in practice it's very fast to do it so everything everything is good now let's look at you know new new data so for example social networks okay so you want you want to do your task for example would be to do advertisement or to also make recommendation so for a social network i'm going to it's going to be clear but i'm going to show you that if you take two notes so for example"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_011",
+    "video_id": "nyu_dl_week13",
+    "start_time": 385.0,
+    "end_time": 430.0,
+    "text": "or to also make recommendation so for a social network i'm going to it's going to be clear but i'm going to show you that if you take two notes so for example you know you have this user let's say this user i and user j and all the others you see that this is not a grid okay so the connection the pairwise connection between all users they do not form a grid they have a very special pattern of connections and this is basically a graph okay so uh how do you define your graph you're gonna see the connection between users so if i user i user j are friends you're gonna have you know connection and then for this you are going to use what we call an adjacency matrix"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_012",
+    "video_id": "nyu_dl_week13",
+    "start_time": 420.0,
+    "end_time": 465.0,
+    "text": "if i user i user j are friends you're gonna have you know connection and then for this you are going to use what we call an adjacency matrix which is just going to record all the connection or non-connection um between notes in your in your social networks okay and on the top of your network uh for each user you will have features so for example you have you know messages you have images you have videos so they form you know some feature in a in in neuroscience in brain analysis for example we are really interesting to understand uh you know the fundamental relationship between structure and function of the"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_013",
+    "video_id": "nyu_dl_week13",
+    "start_time": 455.0,
+    "end_time": 500.0,
+    "text": "in in neuroscience in brain analysis for example we are really interesting to understand uh you know the fundamental relationship between structure and function of the brain so they are really um connected to each other and it's very fundamental to understand that we also want for example to predict uh neurodegenerative disease different stages of this disease so that this is very important um for this we need to understand the brain and the brain if you look at the brain the brain is uh composed of what we call region of interest okay and this region of interest if you take one region of interest this region is not connected to all other regions in the brain actually they are only connected to a few other regions so it's it's and again you can see nothing to do with the grid"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_014",
+    "video_id": "nyu_dl_week13",
+    "start_time": 490.0,
+    "end_time": 535.0,
+    "text": "one region of interest this region is not connected to all other regions in the brain actually they are only connected to a few other regions so it's it's and again you can see nothing to do with the grid okay so this special connection uh between different region of the brains they can be measured by the structural mri signal and then you also have an adjacency matrix between region i and region j and and here you have a strength of connection which depends how many connections how many fibers do you have to connect region iron region j okay and then on the top of this graph so if you look at the region i then you will have activations you know functional activation which is basically a time"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_015",
+    "video_id": "nyu_dl_week13",
+    "start_time": 525.0,
+    "end_time": 570.0,
+    "text": "okay and then on the top of this graph so if you look at the region i then you will have activations you know functional activation which is basically a time series that you can see here and also we can record this activation of the brain with a okay the last example i want to show you is in quantum chemistry so for example the task would be to design new molecules for drugs and materials so so you see again the connection between atoms has nothing to do with the grid okay it really depends um how you're going to connect your atoms and then you will have you know molecules so uh so the connection between atoms"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_016",
+    "video_id": "nyu_dl_week13",
+    "start_time": 560.0,
+    "end_time": 605.0,
+    "text": "okay it really depends um how you're going to connect your atoms and then you will have you know molecules so uh so the connection between atoms they are called bond um and you have you know different kind of bonds they can be a single bond double bond aromatic bond and you have and you have also different features like energy and many other features that you can use from from chemistry um for for the node of the graph so they are atoms and again you you you may have different features like the type of atom if it is you know hydrogen if it is hazard all this all these types you have also the 3d coordinates you have the charge and so on you may have multiple features"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_017",
+    "video_id": "nyu_dl_week13",
+    "start_time": 595.0,
+    "end_time": 640.0,
+    "text": "if it is you know hydrogen if it is hazard all this all these types you have also the 3d coordinates you have the charge and so on you may have multiple features okay so um and it's not uh the list actually goes on to give you example of graph graph domains so you also have you know computer graphics with 3d meshes you also want maybe to analyze transportation network and the density of of cars or maybe i don't know trains you have also you know gene regulatory network you have knowledge graphs um world relationships you know users products where you want"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_018",
+    "video_id": "nyu_dl_week13",
+    "start_time": 630.0,
+    "end_time": 675.0,
+    "text": "trains you have also you know gene regulatory network you have knowledge graphs um world relationships you know users products where you want to do recommendations you have also seen understanding you want to give more common sense to your computer vision machine so you want to understand the relationship between between your objects you also have you know for example if you want to detect high energy physics particles so you have characters and the captures are not you know structure as a regular grid so for all this you see that there is a denominator uh which is basically you can represent all these um problems as graphs"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_019",
+    "video_id": "nyu_dl_week13",
+    "start_time": 665.0,
+    "end_time": 710.0,
+    "text": "uh which is basically you can represent all these um problems as graphs okay and and here is the command setting i would say the mathematical command setting for all these uh problems um so the graphs uh let's let's call it uh g okay they are defined by three entities so the first entity is going to be the set of vertices so usually you are going to index the set of vertices from one to n n is is the number of nodes in your in your graph okay so for example this will be the index one two three and so on then you will have"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_020",
+    "video_id": "nyu_dl_week13",
+    "start_time": 700.0,
+    "end_time": 745.0,
+    "text": "n is is the number of nodes in your in your graph okay so for example this will be the index one two three and so on then you will have you know the set of edges basically they are the connections between um between the notes and finally you will have the adjacency matrix a which will give you the strength of the connection of your of your edge okay um okay then you have graph features so for example for each node not i or not j you will have some um some node features so it's basically a vector of dimensionality dv okay the same also it's possible that you can"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_021",
+    "video_id": "nyu_dl_week13",
+    "start_time": 735.0,
+    "end_time": 780.0,
+    "text": "some um some node features so it's basically a vector of dimensionality dv okay the same also it's possible that you can you can get h features and it's going to be a vector of dimensionality d e so for example for molecules the node feature maybe you know the atom type and the edge feature may be the bond type to give you an example and finally you can have also some graph feature okay for all for the whole graph you can have some feature so again it's um it's a vector of dimensionality dj and and in the case of of uh of chemistry that that that may be the molecule energy"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_022",
+    "video_id": "nyu_dl_week13",
+    "start_time": 770.0,
+    "end_time": 815.0,
+    "text": "it's um it's a vector of dimensionality dj and and in the case of of uh of chemistry that that that may be the molecule energy okay so this is um i would say the general definition of graphs okay so now what i'm going to do is that i'm going to talk about convolution and the question how do we extend okay so first let me remind you um the classical way to use convolutional layer uh for grids when we use confinets for computer vision so let's say um i have this image"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_023",
+    "video_id": "nyu_dl_week13",
+    "start_time": 805.0,
+    "end_time": 850.0,
+    "text": "confinets for computer vision so let's say um i have this image and or maybe this is some uh you know hidden uh feature at layer l okay and i'm going to do the convolution with uh some pattern or kernel um that of course i will learn by back propagation and then i will get some activation okay so this is the the features at the next layer so to give you maybe some dimensionality so for example n1 and 2 is going to be the number of pixels in the x and y direction and d is the dimensionality of uh of each pixel so if this is a color image the dimensionality is going to be"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_024",
+    "video_id": "nyu_dl_week13",
+    "start_time": 840.0,
+    "end_time": 885.0,
+    "text": "the number of pixels in the x and y direction and d is the dimensionality of uh of each pixel so if this is a color image the dimensionality is going to be three for the three colors and if this is like intermediate uh hidden feature maybe you have 100 you know dimensions for the kernel usually you take small kernels because you want to know the local reception field so that might be you know three by three pixels kernel or five by one five by five and of course you have d because you need to uh to respect the dimensionality of your input okay so maybe for this one so you see that uh so you are going to convert this image with"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_025",
+    "video_id": "nyu_dl_week13",
+    "start_time": 875.0,
+    "end_time": 920.0,
+    "text": "okay so maybe for this one so you see that uh so you are going to convert this image with this feature which is oriented in this direction so you will basically identify uh you know lines in in in this direction of the image so that was just an example and we use padding right right now right so we have the same dimensionality of the uh yes yes absolutely against padding so you basically you don't reduce the size of your image right yeah okay so so how do we mathematically define convolution so the first definition is to do is to see"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_026",
+    "video_id": "nyu_dl_week13",
+    "start_time": 910.0,
+    "end_time": 955.0,
+    "text": "right yeah okay so so how do we mathematically define convolution so the first definition is to do is to see convolution as a template matching okay so so template matching so here is the definition the mathematical definition of a convolution so what you're going to do is that you are going to take your template you are going to take your image and then you are going to sum over um the index in the whole image domain omega okay of wj and this is going to be a product between vector w j and vector h i minus g"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_027",
+    "video_id": "nyu_dl_week13",
+    "start_time": 945.0,
+    "end_time": 990.0,
+    "text": "image domain omega okay of wj and this is going to be a product between vector w j and vector h i minus g okay so this is the pure definition of convolution and what we do usually in a in computer vision is that we don't take minus we take plus okay and we call that because because when when we do that we have the definition of correlation and this is this is you know because it's more uh like it's it's exactly like template matching okay so it doesn't change anything if you if you do i minus j or i plus j in the learning sense because the only thing that you do is that you flip up and down and left and right your uh your your your kernel and when you learn you it doesn't change anything basically"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_028",
+    "video_id": "nyu_dl_week13",
+    "start_time": 980.0,
+    "end_time": 1025.0,
+    "text": "only thing that you do is that you flip up and down and left and right your uh your your your kernel and when you learn you it doesn't change anything basically okay but this is the definition of correlation so it's it's really a template matching and then i'm going to take for the notation i j okay so basically and yeah and something very important that you have here is that you when when we do um convolutional layers we are using kernel with compact support you know like a 3x3 it's very small support when we do that we don't do the sum over the whole domain the image domain we just do the sum over the neighborhood of the node i okay and this is very important it's very important because suddenly"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_029",
+    "video_id": "nyu_dl_week13",
+    "start_time": 1015.0,
+    "end_time": 1060.0,
+    "text": "image domain we just do the sum over the neighborhood of the node i okay and this is very important it's very important because suddenly the sum is not over the whole pixel it's just you know um in the neighborhood and then the complexity of doing convolution is actually um to the order of the number of nodes so the number of pixels in your in your image so so the the complete is quite easy to to compute so what you're going to do is that you're going to take your uh your pattern you're going to slice your pattern so it's going to be n slicing because n number of locations and then you're gonna do you know a scalar product of three by three elements and and you're gonna do you know um"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_030",
+    "video_id": "nyu_dl_week13",
+    "start_time": 1050.0,
+    "end_time": 1095.0,
+    "text": "slicing because n number of locations and then you're gonna do you know a scalar product of three by three elements and and you're gonna do you know um um the vector a product of vectors of dimensionality so you see the complexity of doing this operation is just n times three times three times d so the completed is n and and again everything can be done in parallel if you have a gpu the computation that you are doing in this in this location is independent to the competition that you're doing in this location so everything is is linear complexity okay so doing that uh okay so so at the end of the day if you want to do convolution with template matching you're just going to compute this"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_031",
+    "video_id": "nyu_dl_week13",
+    "start_time": 1085.0,
+    "end_time": 1130.0,
+    "text": "okay so doing that uh okay so so at the end of the day if you want to do convolution with template matching you're just going to compute this um scalar products between your template and between uh your your image um i would say your image patch okay um okay so something that is very important to see in the case of the graph being grid so this is for standard convolution in computer vision if you look at if you are looking at you know your template which is here okay so you see that i'm going to give some node ordering j1 g2 j3 and so on to g9"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_032",
+    "video_id": "nyu_dl_week13",
+    "start_time": 1120.0,
+    "end_time": 1165.0,
+    "text": "know your template which is here okay so you see that i'm going to give some node ordering j1 g2 j3 and so on to g9 and this node ordering is actually very important okay because for for all time i mean it's not i mean this this notes so for example the node g3 will always be positioned at the same location so it's always going to be at the top right corner of the pattern okay so that's that's very important why it's very important so let me go to the next slide so why it's very important is so when i will do the convolution so the pattern matching again i will take my my pattern and i will slice the pattern"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_033",
+    "video_id": "nyu_dl_week13",
+    "start_time": 1155.0,
+    "end_time": 1200.0,
+    "text": "next slide so why it's very important is so when i will do the convolution so the pattern matching again i will take my my pattern and i will slice the pattern over my image domain okay so that would be maybe here and i put it here and and also this is position i position i prime that i put here so when i'm going to do the template matching between the kernel and the image what i will do is that for this index so the index g3 it will always match you know the information in the image at this index here okay so this is very important so you when you have a grid the node ordering the node positioning"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_034",
+    "video_id": "nyu_dl_week13",
+    "start_time": 1190.0,
+    "end_time": 1235.0,
+    "text": "in the image at this index here okay so this is very important so you when you have a grid the node ordering the node positioning is always the same whatever the position in your image so when you do the template matching between index g3 and this index here in the image you always compare the same information you always compare the feature uh at the top right corner uh of your pattern and the type of corner of the image patch okay so this um this uh you see this matching scores they are for the same information okay so that's very important now let's okay so the question is can we extend"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_035",
+    "video_id": "nyu_dl_week13",
+    "start_time": 1225.0,
+    "end_time": 1270.0,
+    "text": "okay so that's very important now let's okay so the question is can we extend this definition of template matching for graphs and there are two main issues so the first issue is basically on a graph you don't have any uh ordering of your notes okay so on the graph you you have no given position uh for your notes so let's say for example i have this uh graph template okay so there are like four notes with this connection and i have this uh vertex here the thing is for this vertex"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_036",
+    "video_id": "nyu_dl_week13",
+    "start_time": 1260.0,
+    "end_time": 1305.0,
+    "text": "okay so there are like four notes with this connection and i have this uh vertex here the thing is for this vertex i know nothing about the position the only thing that i know is the index okay so maybe this is the index number three for this one and then when i when if i want to use the template machine definition what i'm going to do is that i need to match you know this uh index with other index uh in the graph domain so this is my graph and let's say this is for the node i and they are the neighbors of the node i so for this neighbor this is the index the same index j3 but here i mean how can i match you know this information with this information when"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_037",
+    "video_id": "nyu_dl_week13",
+    "start_time": 1295.0,
+    "end_time": 1340.0,
+    "text": "for this neighbor this is the index the same index j3 but here i mean how can i match you know this information with this information when i do not know if they match to it they mature to each other because on the graph you don't have any ordering of your notes you don't know if it's not it's for the top right corner of any information you don't know that so on the graph you have no notion of where is the up where is the down where is the right where is the left okay so when you do this matching between uh this feature vector and this picture vector actually this matching usually generally has no meaning okay you you you don't know what you compare to"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_038",
+    "video_id": "nyu_dl_week13",
+    "start_time": 1330.0,
+    "end_time": 1375.0,
+    "text": "uh this feature vector and this picture vector actually this matching usually generally has no meaning okay you you you don't know what you compare to each other okay and again the index is completely arbitrary okay so you can have the value 3 here but it can be here the value number 2 or value number 12. you you don't have this is this is not you know any good information so basically because you don't have any ordering of your notes on graphs you cannot choose the definition of template matching you cannot use that directly so we need okay the second issue with template matching for graphs"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_039",
+    "video_id": "nyu_dl_week13",
+    "start_time": 1365.0,
+    "end_time": 1410.0,
+    "text": "okay the second issue with template matching for graphs is what happens if um the number of nodes in your template does not match the number of nodes you know uh in your in your graph so for example here i have four nodes here i have four nodes fine maybe i can find a way to compare the two in the two sets of of nodes but here i have uh i have seven nodes so how i'm going to compare seven nodes to four nodes okay so the third mathematical definition was to use template matching"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_040",
+    "video_id": "nyu_dl_week13",
+    "start_time": 1400.0,
+    "end_time": 1445.0,
+    "text": "okay so the third mathematical definition was to use template matching to define convolution now the second definition is to use the convolution the convolution theorem so the convolution theorem from um from fourier is basically the fourier transform of the convolution of two functions is the pointwise product of the fourier transform this is what you see here okay so the fourier transform of the convolution of a function w and function h is the fourier transform of f and point twice multiplication the fourier transform of h then if you do the inverse for your transform you go back to your to your convolution so nice"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_041",
+    "video_id": "nyu_dl_week13",
+    "start_time": 1435.0,
+    "end_time": 1480.0,
+    "text": "and point twice multiplication the fourier transform of h then if you do the inverse for your transform you go back to your to your convolution so nice okay we have a very um nice formula to do the convolution of w and h and but the thing is in the general case doing the fourier transform is n square complexity we come back to that however if you if your domain uh like uh like the image grid has some very particular structure then you can reduce the complexity to n log n uh by using you know uh fast fourier transform okay so the question is can we extend this definition of uh of convolution theorem to graphs"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_042",
+    "video_id": "nyu_dl_week13",
+    "start_time": 1470.0,
+    "end_time": 1515.0,
+    "text": "uh fast fourier transform okay so the question is can we extend this definition of uh of convolution theorem to graphs so the question is how do we redefine a fourier transform for four graphs okay and and the thing is how to make it fast okay so remember that in the case of uh of template matching uh we have linear complexity so how do we have a fast spectral convolution in linear time for compact kernels so that's that's the two open question okay so basically we are going to use these two definitions of convolution to uh design two classes of graph neural network so the this will be the template machine will"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_043",
+    "video_id": "nyu_dl_week13",
+    "start_time": 1505.0,
+    "end_time": 1550.0,
+    "text": "of convolution to uh design two classes of graph neural network so the this will be the template machine will be for the spatial graph cornets and the conversion rotary i'm going to use that for the spectral graph net and this is the next the next part that i'm going to talk okay so let's talk about so i there is a book that i like very much uh which is the book of uh fan chung which is a spectrograph theory so there is everything in nice like"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_044",
+    "video_id": "nyu_dl_week13",
+    "start_time": 1540.0,
+    "end_time": 1585.0,
+    "text": "so i there is a book that i like very much uh which is the book of uh fan chung which is a spectrograph theory so there is everything in nice like harmonic analysis graphery combinatorial problems and optimization so i really recommend you know people to read the books they want to know more and a lot more about about these these questions so how do we perform spectral convolution so we are going to use four steps so the first step will be to do would be to define graph application second step will be to define fourier functions then we will do fourier transform and eventually convolution theorem okay so the what is the graph location so the"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_045",
+    "video_id": "nyu_dl_week13",
+    "start_time": 1575.0,
+    "end_time": 1620.0,
+    "text": "we will do fourier transform and eventually convolution theorem okay so the what is the graph location so the graph calculation this is the core operator in spectral graph theory okay so remember how we define a graph we have a set of vertices a set of edges and then we have the adjacency matrix so if the graph has n vertices the adjacency matrix is a n by n matrix so we are going simply to define the laplacian which is also going to be an n by n matrix to be the identity minus the adjacency matrix and we are going to normalize"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_046",
+    "video_id": "nyu_dl_week13",
+    "start_time": 1610.0,
+    "end_time": 1655.0,
+    "text": "the identity minus the adjacency matrix and we are going to normalize the adjacency matrix by using the degree of each node so d is basically a diagonal matrix and the diagonal each element of the diagonal is basically the degree of the node okay so we are doing and this is called the normalized location okay so this is i would say this is by default the definition of uh laplacian that we use for for graphs so we can interpret uh this uh this operator so the laplacian is this combination so the a was that matrix with basically all zeros and the one was representing the"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_047",
+    "video_id": "nyu_dl_week13",
+    "start_time": 1645.0,
+    "end_time": 1690.0,
+    "text": "operator so the laplacian is this combination so the a was that matrix with basically all zeros and the one was representing the connection between edges right um yes so uh for facebook for example i would say that this is exactly the definition so if not a user i is a friend with a user j then you will have adjacency matrix value will be i j equal to one and if two users are not friends then you will get the value zero but sometimes you have a real value for a for example for the for the brain connectivity graph the value of aij is the degree of"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_048",
+    "video_id": "nyu_dl_week13",
+    "start_time": 1680.0,
+    "end_time": 1725.0,
+    "text": "sometimes you have a real value for a for example for the for the brain connectivity graph the value of aij is the degree of connection between the two regions so basically what we say the number of fibers that connect region i and region j so that can be binary that can be also a continuous value and also this is symmetric if it's non oriented graph otherwise yes so yeah for usually it is symmetric uh and you want you want the symmetry for for mathematical reasons um but you may have some not so here this is the normalized elevation but if you have the random walk laplacian then this is non-symmetric okay so it's um it's it's different"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_049",
+    "video_id": "nyu_dl_week13",
+    "start_time": 1715.0,
+    "end_time": 1760.0,
+    "text": "um but you may have some not so here this is the normalized elevation but if you have the random walk laplacian then this is non-symmetric okay so it's um it's it's different definition of the application so in the case of laplacian it's very interesting so in the continuous setting you have only one definition for the application this is called the laplace beltrami operator in the discrete setting you have multiple definitions you can do your own definition of the application depending on on the assumptions that that you are going to use i understand thank you okay so we can interpret the application so the application is nothing else than a measure of smoothness of a function on a on a graph so this is nothing else then you you see you see so i'm doing the elaboration that i reply to a function"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_050",
+    "video_id": "nyu_dl_week13",
+    "start_time": 1750.0,
+    "end_time": 1795.0,
+    "text": "nothing else than a measure of smoothness of a function on a on a graph so this is nothing else then you you see you see so i'm doing the elaboration that i reply to a function h okay on the graph and i'm looking at what happened at the vertex i and if i expand this definition i will have the value of h i minus the mean value of the neighborhood okay so basically if your signal is smooth you know if it doesn't vary much then this difference will be very small but if your signal you know there is a lot it oscillates a lot then the difference will be very high so the laplacian is nothing else and a measure of smoothness of function"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_051",
+    "video_id": "nyu_dl_week13",
+    "start_time": 1785.0,
+    "end_time": 1830.0,
+    "text": "a lot then the difference will be very high so the laplacian is nothing else and a measure of smoothness of function okay all right so now let's define fourier functions so let's let's take the laplacian matrix and let's do a little bit of linear algebra let's do eigen decomposition of the graph operation so when you do eigen decomposition you will have the you will you are going to factorize your laplacian matrix into three matrices so you have a phi transpose lambda and five so this matrix five of the size n by n actually"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_052",
+    "video_id": "nyu_dl_week13",
+    "start_time": 1820.0,
+    "end_time": 1865.0,
+    "text": "into three matrices so you have a phi transpose lambda and five so this matrix five of the size n by n actually uh have the what are the laplacian eigenvectors okay for each column and the laplacian eigenvectors they are called the fourier functions okay the famous fourier functions and of course this is an orthonormal basis um so when you do the the product between two bases you will get one if they are the same and then you get zero if they are orthogonal if they are different this is also an invertible matrix this guy so this matrix this is the"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_053",
+    "video_id": "nyu_dl_week13",
+    "start_time": 1855.0,
+    "end_time": 1900.0,
+    "text": "if they are different this is also an invertible matrix this guy so this matrix this is the diagonal matrix of the laplacian eigenvalues so lambda 1 to number n and and we know that for the normalized application that these values are bonded between zero and between two so this is the maximum value that you can get this guy the laplacian eigenvalues they are known as the spectrum of the graph okay so if you take a graph here you have 27 nodes if i compute the laplacian eigenvalues and if i put them i have a signature of the graph which is called the spectrum of the graph okay that which would be different for each each graph"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_054",
+    "video_id": "nyu_dl_week13",
+    "start_time": 1890.0,
+    "end_time": 1935.0,
+    "text": "nodes if i compute the laplacian eigenvalues and if i put them i have a signature of the graph which is called the spectrum of the graph okay that which would be different for each each graph okay and here you have okay this is what i say so this is doing um again decomposition so if you take your laplacian matrix and you apply to a vector phi of k then you will get the eigenvalue lambda k times the same vector phi of k okay so this is the definition of the um eigen decomposition okay so you see that fourier functions they are nothing else than"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_055",
+    "video_id": "nyu_dl_week13",
+    "start_time": 1925.0,
+    "end_time": 1970.0,
+    "text": "eigen decomposition okay so you see that fourier functions they are nothing else than okay let me illustrate uh these uh fourier functions so we actually we already know uh for your functions uh if you if you take the greater for example you take here a one degree and you compute the fourier functions so you so you will get a phi zero okay then you will get phi one which is this one which is smooth phi two which is less a little less mousse and phi 3 and so on and so on so this is well known this is the cosine function and the semi-zoids and we use that you"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_056",
+    "video_id": "nyu_dl_week13",
+    "start_time": 1960.0,
+    "end_time": 2005.0,
+    "text": "two which is less a little less mousse and phi 3 and so on and so on so this is well known this is the cosine function and the semi-zoids and we use that you know for for image compression so if we take an image and we project the image on the fourier functions then the image is going to be the the transformation is going to be sparse so you only keep you know the highest coefficient and you can do compression so this is something that we've used for a very long time for for graph for the graph domain this is this is quite interesting so you see that this is a graph and i'm computing here the the first uh four uh you know fourier function of the graphs so you see for phi one uh you still have oscillations you know between positive and negative"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_057",
+    "video_id": "nyu_dl_week13",
+    "start_time": 1995.0,
+    "end_time": 2040.0,
+    "text": "the first uh four uh you know fourier function of the graphs so you see for phi one uh you still have oscillations you know between positive and negative value the same with positive and negative value and and here as well um what is interesting is that this oscillation uh depends on the topology of the graph okay so so it's related to the to the geometry of the graph like communities like hubs and so on and we know that uh so for example if you want to capture k communities on graph uh a very good algorithm is to apply k-means on the first key fourier functions if you do that you have something that we call spectrograph theory"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_058",
+    "video_id": "nyu_dl_week13",
+    "start_time": 2030.0,
+    "end_time": 2075.0,
+    "text": "uh a very good algorithm is to apply k-means on the first key fourier functions if you do that you have something that we call spectrograph theory and it's it's a it's a huge literature uh and and if you want to know more about this there is this very nice tutorial by van looks pro about about spectrograph clustering and using all these notions of fourier okay okay now let me introduce you a fourier transform okay so for this i'm going to do the fourier series for your series if is nothing else then you take a function h defined on your graph and then you are going to decompose this function using the fourier function"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_059",
+    "video_id": "nyu_dl_week13",
+    "start_time": 2065.0,
+    "end_time": 2110.0,
+    "text": "do the fourier series for your series if is nothing else then you take a function h defined on your graph and then you are going to decompose this function using the fourier function okay so i take my function h i project my function h on each fourier function phi of k and i will get you know this coefficient of this fourier series it's going to be a scalar multiply by my function phi of k okay of the time and n by one of the size and n by one okay so and doing that you know just projecting my function on the fourier functions give me the fourier transform okay so the fourier transform is is just you know the coefficient of the fourier series nothing else"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_060",
+    "video_id": "nyu_dl_week13",
+    "start_time": 2100.0,
+    "end_time": 2145.0,
+    "text": "just projecting my function on the fourier functions give me the fourier transform okay so the fourier transform is is just you know the coefficient of the fourier series nothing else okay then h you know is basically a linear combination of the fourier transform times the the fourier functions okay i can rewrite everything in matrix vector representation and these guys so doing the um phi times the the fourier transform this is actually the inverse for your transform okay so let me summarize this if i do if i project h on the fourier functions i will have the fourier transform okay so i'm taking"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_061",
+    "video_id": "nyu_dl_week13",
+    "start_time": 2135.0,
+    "end_time": 2180.0,
+    "text": "okay so let me summarize this if i do if i project h on the fourier functions i will have the fourier transform okay so i'm taking the matrix of the fourier functions and multiply by h so this is n by n by n this is n by one so this is n by one okay uh and now if i do inverse fourier transform of the fourier transform okay so i would have phi of um fourier transform of h and this guy is here okay so i just put phi transpose h and we know that um the the basis is orthonormal so this guy is actually identity function that am sorry identity matrix okay so"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_062",
+    "video_id": "nyu_dl_week13",
+    "start_time": 2170.0,
+    "end_time": 2215.0,
+    "text": "and we know that um the the basis is orthonormal so this guy is actually identity function that am sorry identity matrix okay so this is energy matrix so i come back to h so so the inverse for your transform is is of of the fourier transform is h obviously okay so one thing that you can observe is that the fourier transform and the inverse fourier transform can be done in one line of code okay you just take your vector h you multiply by this matrix and that's it and the same also to do the inverse for your transform you take your your signal and you multiply by this matrix so it's basically just linear operations"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_063",
+    "video_id": "nyu_dl_week13",
+    "start_time": 2205.0,
+    "end_time": 2250.0,
+    "text": "and the same also to do the inverse for your transform you take your your signal and you multiply by this matrix so it's basically just linear operations uh just multiplying a matrix by a vector and this is how you do fourier transforming inversely transform on okay now let's let's do the convolution theorem so again the convolution theorem the fourier transform the fourier transform of your um the free transform of the convolution is is going to be the pointwise product of the fourier transform of each signal okay so let's say i have um w convolution h uh so i'm going first to do the fourier transform of w"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_064",
+    "video_id": "nyu_dl_week13",
+    "start_time": 2240.0,
+    "end_time": 2285.0,
+    "text": "of the fourier transform of each signal okay so let's say i have um w convolution h uh so i'm going first to do the fourier transform of w then this is going to be a vector of the size n by one then i'm going to multiply point twice by another vector which is the fourier transform of h okay so how do we get the free transform just by doing phi transpose w and phi transpose h and then i'm going to do the inverse fourier transform to come to go back to the spatial domain so i just multiplied by the matrix five okay and by n so this is what i write here okay i have phi i have um w hat which is a fourier transform and i have this this i'm going to change it i'm going to"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_065",
+    "video_id": "nyu_dl_week13",
+    "start_time": 2275.0,
+    "end_time": 2320.0,
+    "text": "okay and by n so this is what i write here okay i have phi i have um w hat which is a fourier transform and i have this this i'm going to change it i'm going to change it to this line what is this line um shouldn't there be a phi transpose sorry shouldn't there be a 5's transpose before w hat no the inverse fourier transform is fine okay so you do phi and you multiply by the fourier transform which is a phi transpose w which i call hat w so i'm going i'm going to use that a lot uh i will come back to this and then here you have the fourier transform of h which is just phi transpose h which is here"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_066",
+    "video_id": "nyu_dl_week13",
+    "start_time": 2310.0,
+    "end_time": 2355.0,
+    "text": "so i'm going i'm going to use that a lot uh i will come back to this and then here you have the fourier transform of h which is just phi transpose h which is here okay so this guy um okay this guy is actually what we call the spectral function okay the spectral filter so this guy is a vector of n by one okay and i'm writing i'm writing here uh this vector here so you see this is a vector of uh n elements and this is actually the spectral function which is um evaluated at the at the uh at the eigenvalue lambda 1 which is here so this is this point here then you have a w uh hat"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_067",
+    "video_id": "nyu_dl_week13",
+    "start_time": 2345.0,
+    "end_time": 2390.0,
+    "text": "at the at the uh at the eigenvalue lambda 1 which is here so this is this point here then you have a w uh hat number two which is this this value here and so on and so on okay and then i'm going to rewrite this you know i'm going to put this uh in a diagonal okay so i will do diagonal of this vector so this will create a matrix of the size n by n okay and i'm putting this guy back here so i'm going to change the the point twice multiplication of this vector n by one and this vector by one by the matrix vector multiplication and it's going to be the same right this is a diagonal matrix which contains this guy"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_068",
+    "video_id": "nyu_dl_week13",
+    "start_time": 2380.0,
+    "end_time": 2425.0,
+    "text": "by one by the matrix vector multiplication and it's going to be the same right this is a diagonal matrix which contains this guy multiply multiply by this by this vector so this it's exactly the same these two lines but what i want to do that because i want to get rid of the parenthesis okay so i don't have the parenthesis anymore and i have just you know matrix matrix multiplication okay so this is this is what i get um then i'm going to do something is that we know that when you apply a function on the eigenvalues okay if you have some orthogonal basis then you can put it inside you can put it inside and this is what i do here i put phi and phi transpose inside and this guy is precisely the definition"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_069",
+    "video_id": "nyu_dl_week13",
+    "start_time": 2415.0,
+    "end_time": 2460.0,
+    "text": "orthogonal basis then you can put it inside you can put it inside and this is what i do here i put phi and phi transpose inside and this guy is precisely the definition of the application okay the operation uh when i do the again the composition is phi launder file transpose okay um then so what i have is basically the spectral function that i applied to the application uh operator and this is n by n uh matrix and applied to the vector n by one so at the end i would get an n by one vector okay so you see that if you want to do so it's important now so if you want to do"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_070",
+    "video_id": "nyu_dl_week13",
+    "start_time": 2450.0,
+    "end_time": 2495.0,
+    "text": "and applied to the vector n by one so at the end i would get an n by one vector okay so you see that if you want to do so it's important now so if you want to do a convolution of two functions on graph w and h what you're going to do is that you're going to take the spectral function of w you will apply it to the uh to the laplacian and then you multiply by h okay this is the definition of uh of spectral convolution okay and and the thing is this is very expensive uh in practice to do it why it is expensive it's because the matrix phi is a full matrix okay it contains uh"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_071",
+    "video_id": "nyu_dl_week13",
+    "start_time": 2485.0,
+    "end_time": 2530.0,
+    "text": "do it why it is expensive it's because the matrix phi is a full matrix okay it contains uh the n uh the n um fourier functions and they are not zero okay so it's a dense matrix and you are going to pay the price of n square and you don't have any fft because the thing you don't have any fft for uh for general graph okay so this is a this is this is a lot and why it is a lot because n remember and this is the number of nodes in your domain so if you have um if you have a big graph for example if you have uh the web the web has you know billions of nodes n is equal to the billions so you need to do b and square which is going to be a huge computation to do so"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_072",
+    "video_id": "nyu_dl_week13",
+    "start_time": 2520.0,
+    "end_time": 2565.0,
+    "text": "uh the web the web has you know billions of nodes n is equal to the billions so you need to do b and square which is going to be a huge computation to do so can i summarize so h is going to be a function defined over every vertex in your graph right uh and w instead is going to be like a kernel as well or is he but w is going to be a function like this so w is a spectral function w hat is the spectral function so you are working in the frequency space in the frequency space you are working with this what this is this is a spectral function so for example if you if you know image processing a"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_073",
+    "video_id": "nyu_dl_week13",
+    "start_time": 2555.0,
+    "end_time": 2600.0,
+    "text": "in the frequency space in the frequency space you are working with this what this is this is a spectral function so for example if you if you know image processing a little bit so for example if you want to do image denoising if you want to do image denoising what you what you know is that you know that the noise is usually in the high frequency part of your image of your signal so what you can do is that you can design a spectral filter which is going to be zero for the high frequency and you are going to preserve you know the low frequency to preserve your your geometry so this is just you know doing filtering of the frequencies you know contain in your signal okay okay but the wd without the hat would be still a small guy right would"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_074",
+    "video_id": "nyu_dl_week13",
+    "start_time": 2590.0,
+    "end_time": 2635.0,
+    "text": "know doing filtering of the frequencies you know contain in your signal okay okay but the wd without the hat would be still a small guy right would be a small uh filter exactly so w without hat is the special filter yeah the small one right which is exactly so exactly so if you have the grid w will be you know a three by three uh a three by three you know the patch for example now i see okay okay okay thanks yeah sure um so in the context of graph uh so it's it's a small property um to know is that you don't have any shifting values um so if you have a grid and if you are"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_075",
+    "video_id": "nyu_dl_week13",
+    "start_time": 2625.0,
+    "end_time": 2670.0,
+    "text": "in the context of graph uh so it's it's a small property um to know is that you don't have any shifting values um so if you have a grid and if you are using the convolutional um theorem uh to to move around you know your function for example the function is aggression here on the grid you are not going to change the shape of your function but on a graph because you have you know uh irregular structure if you move around your gaussian then you will have different shapes okay so this is something that that you lose when you go to graphs but in practice actually it has absolutely no effect so it's not really important it's just a mathematical property that you lose when you go to graphs"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_076",
+    "video_id": "nyu_dl_week13",
+    "start_time": 2660.0,
+    "end_time": 2705.0,
+    "text": "to graphs but in practice actually it has absolutely no effect so it's not really important it's just a mathematical property that you lose when you go to graphs okay there is another question there is another question i got here so can you ask can you remind us what is actually the overall goal here what is the goal of defining these convolutions or the spectral correspondence over these graphs i think uh maybe it's not yeah if we can remind everyone it's going to be yeah so so what i'm trying the the goal of the lecture is to define a convolutional graph convolutional nets okay so i need to redefine a convolution in the case of graphs and there are two ways to define convolutions"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_077",
+    "video_id": "nyu_dl_week13",
+    "start_time": 2695.0,
+    "end_time": 2740.0,
+    "text": "graph convolutional nets okay so i need to redefine a convolution in the case of graphs and there are two ways to define convolutions uh you can do convolution with template matching or you can do convolution with a graph spectral theory so what i'm doing here um i'm i'm redefining convolution in the case of spectral theory and then i'm going to use this definition of convolution to define graph convolutional nets so my goal is just to define convolution in the case of graphs so i can i can i can design a graph"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_078",
+    "video_id": "nyu_dl_week13",
+    "start_time": 2730.0,
+    "end_time": 2775.0,
+    "text": "so i can i can i can design a graph okay so let's go to um now okay so now the first part was okay i defined a spectral convolution now i'm going to use okay okay so the first model what i call vanilla spectral gcn was introduced actually by januka and his collaborators so john brenner zahamba and archer slam in 2014 i think it was for the first uh iqr conference um and what they did they did you know the the simple uh idea"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_079",
+    "video_id": "nyu_dl_week13",
+    "start_time": 2765.0,
+    "end_time": 2810.0,
+    "text": "archer slam in 2014 i think it was for the first uh iqr conference um and what they did they did you know the the simple uh idea to do okay let's let's let's uh you know define a graph uh spectral convolutional layer so we know what is you know a standard convolutional layer so you you this is the activation at the next layer a plus one this is your non-linear activation so this is for example um and then i'm going to do the spatial filter so the template wl convolution by hm okay so this is in the special domain uh the graph domain and then i'm going to do that and remember that what i just defined so doing this convolution in the"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_080",
+    "video_id": "nyu_dl_week13",
+    "start_time": 2800.0,
+    "end_time": 2845.0,
+    "text": "so this is in the special domain uh the graph domain and then i'm going to do that and remember that what i just defined so doing this convolution in the spectral domain it's just doing that okay so this is the spectral filter apply to the application and then you multiply by hl okay so this guy is is a i can decompose this guy i will get the fourier matrix times the spectral function that i apply to the eigenvalues uh phi transpose hm okay and and and this is my uh this is my spectral filter okay so i do not work directly here okay i work directly here"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_081",
+    "video_id": "nyu_dl_week13",
+    "start_time": 2835.0,
+    "end_time": 2880.0,
+    "text": "okay and and and this is my uh this is my spectral filter okay so i do not work directly here okay i work directly here and and here the thing that i'm going to learn i'm going to actually to learn this function w hat number one so i'm going to learn um the spectral filter and i'm going to learn it by back propagation okay so i don't need to um you know handcraft the the the spectral filter i don't need to do that this will be learned by by propagation so that was really a great idea to do it and this was the first spectral technique but but it has some limitations so the first limitation is that you don't have any guarantee of special localization of filters"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_082",
+    "video_id": "nyu_dl_week13",
+    "start_time": 2870.0,
+    "end_time": 2915.0,
+    "text": "a great idea to do it and this was the first spectral technique but but it has some limitations so the first limitation is that you don't have any guarantee of special localization of filters uh so remember that uh what we want we want to have the local reception field because it's it's a very good property to be able to extract uh you know multi-scale um multiscale feature which is scale patterns from from your signal so you don't have you don't have this guarantee the second thing is that how many parameters do you need to learn so you need to learn n parameters okay you need to learn this w hat number one to do when you have number n so it's n parameters so if again if the graph is is large"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_083",
+    "video_id": "nyu_dl_week13",
+    "start_time": 2905.0,
+    "end_time": 2950.0,
+    "text": "okay you need to learn this w hat number one to do when you have number n so it's n parameters so if again if the graph is is large like uh like like the the web you know or facebook then this is gonna be billions uh of parameters to learn and this is for each layer so it's gonna be really huge and again the learning complexity is going to be n square because your phi is a dense matrix so so we need to improve this okay so so uh so jan and his collaborator so they improve the improved true properties so the first property was okay how do we get localized"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_084",
+    "video_id": "nyu_dl_week13",
+    "start_time": 2940.0,
+    "end_time": 2985.0,
+    "text": "the improved true properties so the first property was okay how do we get localized spatial filters okay so for this what what they propose is to um okay to get um localized special filter so you want something which is localized uh what you need to do is to uh compute smooth spectral filters something very smooth like this okay so why do you why do you want smooth spectral filter it's because if you are smooth in the frequency space then you are going to be localized in the space domain okay so this is in physics you know the eisenberg's entity principle and you can see that you know with the"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_085",
+    "video_id": "nyu_dl_week13",
+    "start_time": 2975.0,
+    "end_time": 3020.0,
+    "text": "frequency space then you are going to be localized in the space domain okay so this is in physics you know the eisenberg's entity principle and you can see that you know with the personal identity if let's let's say that k is equal to one if k is equal to one you have the first derivative of uh of the spectral function so if you want this to be small okay so you're going to have a smooth function and for k equal to one you see here is this is going to be the variance of your spatial filter so if this is small if the variance is small it means that you're gonna have a small you're going to have a special filter with a small compact support okay so if you are smooth"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_086",
+    "video_id": "nyu_dl_week13",
+    "start_time": 3010.0,
+    "end_time": 3055.0,
+    "text": "you're gonna have a small you're going to have a special filter with a small compact support okay so if you are smooth in the frequency space you're going to be localized in the spatial space okay so you need smoothness how do you get smoothness for spectral feature so you can also think about the uh the transform of the delta of the dirac right so we if we have a delta in the iraq in the in the time domain then in the frequency we're going to have basically a flat a completely flat transform right so there's another maybe a way to see uh if someone doesn't quite know the parseval identity yeah exactly right um and so so how do you get a smooth spectral filter"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_087",
+    "video_id": "nyu_dl_week13",
+    "start_time": 3045.0,
+    "end_time": 3090.0,
+    "text": "quite know the parseval identity yeah exactly right um and so so how do you get a smooth spectral filter so the idea is okay we can simply decompose you know the spectral filter to be a linear combination of smooth kernels okay so the smooth kernel was chosen to be splines because splines are nice they are you know with compact support and they are smooth and basically the idea is okay now let's learn a vector of k coefficient uh and this is the case muscular node okay and you learn this coefficient by by propagation but suddenly you know everything is nice because you have locality localization in space"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_088",
+    "video_id": "nyu_dl_week13",
+    "start_time": 3080.0,
+    "end_time": 3125.0,
+    "text": "the case muscular node okay and you learn this coefficient by by propagation but suddenly you know everything is nice because you have locality localization in space and the number of parameters that you're going to learn is going to be key parameters so here for example let's say it's nine okay remember that before uh in the case of um of convolution so you have a three by three which is which is nine parameters so that can be the same you can have nine parameters to learn you're gonna you're gonna learn a combination of nine spline functions and and that's it so you have a constant number of parameters to learn earlier so this is nice but we still have you know the the phi matrix so we the learning"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_089",
+    "video_id": "nyu_dl_week13",
+    "start_time": 3115.0,
+    "end_time": 3160.0,
+    "text": "number of parameters to learn earlier so this is nice but we still have you know the the phi matrix so we the learning complexity okay so so the question is um how do we learn in linear time okay so how do we learn uh with respect to the to the graph size n so the problem of the quadratic complexity comes from directly from the use of the laplacian again vectors okay so you see that uh the thing that is that is annoying uh in this spectral convolution is not this diagonal matrix"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_090",
+    "video_id": "nyu_dl_week13",
+    "start_time": 3150.0,
+    "end_time": 3195.0,
+    "text": "laplacian again vectors okay so you see that uh the thing that is that is annoying uh in this spectral convolution is not this diagonal matrix it's not this vector it's this guy okay this is this is the phi matrix because it's a full matrix right it's a dense matrix and and then and then it's n square number of elements so this is the price that we need to pay so we know that if we want to avoid the quadratic complexity we need to avoid the eigen decomposition okay um and and okay so we can avoid organic position but simply directly learn function of the application okay so this is what what we proposed in 2007"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_091",
+    "video_id": "nyu_dl_week13",
+    "start_time": 3185.0,
+    "end_time": 3230.0,
+    "text": "organic position but simply directly learn function of the application okay so this is what what we proposed in 2007 2016. so the spectral function is just going to be you know a monomial function of the application that's it so we just have a sum of some parameters that we learned by by propagation w k and laplacian to the power of k okay so so when we do that uh first there is something uh which is which is good is that uh we're gonna have filters that are exactly localized in a k-hop support okay so if we have the application to the power k"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_092",
+    "video_id": "nyu_dl_week13",
+    "start_time": 3220.0,
+    "end_time": 3265.0,
+    "text": "uh we're gonna have filters that are exactly localized in a k-hop support okay so if we have the application to the power k the spectral um i mean the spatial filters will be exactly localized in the support of k-hop so what is the what is the one hope neighbor neighborhood so let's say for example you have this graph and here i'm going to put a heat source so the value is going to be 1 at this node and 0 for all other nodes if i apply the application to this heat source then the signal the support of the signal is going to be increased by one hop so every uh basically every node that can be reached by one jump okay that you do that"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_093",
+    "video_id": "nyu_dl_week13",
+    "start_time": 3255.0,
+    "end_time": 3300.0,
+    "text": "increased by one hop so every uh basically every node that can be reached by one jump okay that you do that and and if you do two jumps from this you will you will reach the the second hop uh neighborhood which is your range uh the orange nodes here okay so if you apply the application uh two times this is gonna be the support okay if you apply the application k times then you will have the support of k-hops so you you exactly uh control the the size of your spatial filters the second point let me show you that you get uh"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_094",
+    "video_id": "nyu_dl_week13",
+    "start_time": 3290.0,
+    "end_time": 3335.0,
+    "text": "the second point let me show you that you get uh learning complexity okay so so again you have your convolution wh you have your spectral convolution definition i'm using here as a spectral convolution um monomials of the of the application and then i'm going to replace this guy so the laplacian power of k times the vector h by the vector x k okay and x k is actually given by your recursive equation okay so recursive is always good right so it's given by this recursive equation which is"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_095",
+    "video_id": "nyu_dl_week13",
+    "start_time": 3325.0,
+    "end_time": 3370.0,
+    "text": "k okay and x k is actually given by your recursive equation okay so recursive is always good right so it's given by this recursive equation which is the application times the vector xk minus one and the x k equal to zero is simply the original uh function h okay so so when i do that you see that this sequence x of k is generated by multiplying a matrix so the operation and the vector x k minus 1. so the complexity of doing that is the number of edges okay and you do it that you know k times so number of edges times k and the thing is uh for real graph"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_096",
+    "video_id": "nyu_dl_week13",
+    "start_time": 3360.0,
+    "end_time": 3405.0,
+    "text": "okay and you do it that you know k times so number of edges times k and the thing is uh for real graph real world graphs um basically they are all sparse okay because sparsity is structure so remember for example for um for for the web the web has a billions of of web pages but for each webpage it is in average connected to 50 other webpage so comparing 50 to 1 billion is nothing so usually and the same also for the brain the brain it's very highly sparse the same also for uh transport networks so everything every natural graph is usually sparse because sparsity is structure"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_097",
+    "video_id": "nyu_dl_week13",
+    "start_time": 3395.0,
+    "end_time": 3440.0,
+    "text": "the same also for uh transport networks so everything every natural graph is usually sparse because sparsity is structure okay so so the number of edges is you know some value times n so at the end of the day uh you have linear complexity uh because for for sparse real world graphs okay um okay so and you see here is that i'm using the laplacian and i never do any eigen decomposition of the elaboration okay um and there is so there is a bit of um of confusion that sometimes i see is that so i call this spectral uh you know gcn but this is this might be misguided"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_098",
+    "video_id": "nyu_dl_week13",
+    "start_time": 3430.0,
+    "end_time": 3475.0,
+    "text": "um of confusion that sometimes i see is that so i call this spectral uh you know gcn but this is this might be misguided because i don't do any spectral uh operations like you know i don't use any either again the composition with the application we i don't have any eigenvectors again values so so at the end of the day even if i use you know the spectral theory to define this gcn um at the end of the day the computation are all done in the special domain using the operation okay i don't use any i don't choose the spectral domain for the computation i use i do everything in the special domain so even we call that spectral gcn"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_099",
+    "video_id": "nyu_dl_week13",
+    "start_time": 3465.0,
+    "end_time": 3510.0,
+    "text": "spectral domain for the computation i use i do everything in the special domain so even we call that spectral gcn we don't choose you know in practice and the spectral uh decomposition so just just one one one command okay and the last like the last comment i want to do is that so graph conditional layers again this is just linear operations so you just multiply a vector a matrix by a vector so you're just doing in operation so this is gpu friendly the issue um is that here you are doing sparse linear algebra and the existing gpu are not optimized for that so this is i think one of the limitations today for graph neural networks we need to have specialized"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_100",
+    "video_id": "nyu_dl_week13",
+    "start_time": 3500.0,
+    "end_time": 3545.0,
+    "text": "sparse linear algebra and the existing gpu are not optimized for that so this is i think one of the limitations today for graph neural networks we need to have specialized eyewear for graph neural networks we need to have hardware that adapt uh to the to the sparsity uh of of these operations and we don't have this today so uh if we want this to to to get far very far with graphene network we need to have this this uh this specialized hardware what about tpus do you know whether tpus can handle that's the same that's the same they are optimized for uh full uh you know linear operations like full matrices uh they're specialized for that but if you if you want to do sparse linear algebra you need specialized hardware to do that"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_101",
+    "video_id": "nyu_dl_week13",
+    "start_time": 3535.0,
+    "end_time": 3580.0,
+    "text": "operations like full matrices uh they're specialized for that but if you if you want to do sparse linear algebra you need specialized hardware to do that gotcha okay so how do we implement um how do we implement this and so for example we have a signal we have a function defined on the on the graph so n is the number of vertices of your graph and d is the dimensionality uh of uh of the feature right so for each node you have a feature a vector of d dimension okay so how we do that so we have x k and what we do is that we are just going to uh do a"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_102",
+    "video_id": "nyu_dl_week13",
+    "start_time": 3570.0,
+    "end_time": 3615.0,
+    "text": "you have a feature a vector of d dimension okay so how we do that so we have x k and what we do is that we are just going to uh do a shape stuff to do just linear operations so x k are going to be arranged in a matrix you know um x bar which is of the size of k times nd okay so we just reshape you know this xk to be 1 times nd and and we have k times nd and then we multiply this by the vector that we will learn by back propagation which is of the size k by one okay we do that the operation will give you one times nd you reshape and you get n times d so this is how how i implement it you"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_103",
+    "video_id": "nyu_dl_week13",
+    "start_time": 3605.0,
+    "end_time": 3650.0,
+    "text": "propagation which is of the size k by one okay we do that the operation will give you one times nd you reshape and you get n times d so this is how how i implement it you know with pi torch or tensorflow that would be the same and this is how you do this spectral convolution so again the properties is that filters are exactly localized you have a constant number of parameters to learn so this is a key you know this is this is this k a parameters that you need to learn by back propagation you have a learning complexity a linear learning complexity but the thing uh which uh which is not good is that um here i'm using monomial um basis okay so i'm using uh laplacian to the"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_104",
+    "video_id": "nyu_dl_week13",
+    "start_time": 3640.0,
+    "end_time": 3685.0,
+    "text": "learning complexity but the thing uh which uh which is not good is that um here i'm using monomial um basis okay so i'm using uh laplacian to the power zero laplacian to the power one power two power three and so on okay this is what i use here and the thing is monomial bases are unstable for uh for for optimization because this basis you know is not too orthogonal so if you change one coefficient then you are going to change the approximation of your function so you need orthogonality if you want to learn with stability okay so then you can use your favorite you know orthonormal"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_105",
+    "video_id": "nyu_dl_week13",
+    "start_time": 3675.0,
+    "end_time": 3720.0,
+    "text": "if you want to learn with stability okay so then you can use your favorite you know orthonormal basis but your favorite orthonormal basis must have a recursive equation okay so this is the only thing that that that you that you need you need your autonomous basis to to have a relationship equation because this is the key to have the linear complexity so we use a chebychev polynomials so this is uh something very well known in signal processing um so we are going to approximate you know the spectral convolution uh with the cheby uh jb chef chebyshev function the chef functions apply to h again can be represented by"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_106",
+    "video_id": "nyu_dl_week13",
+    "start_time": 3710.0,
+    "end_time": 3755.0,
+    "text": "uh with the cheby uh jb chef chebyshev function the chef functions apply to h again can be represented by xk and xk is given by this recursive equation okay so it's a little more complex than before but in practice this is just doing again multiplication of uh your elaboration times the vec one vector okay at the end of the day the the complexity is still linear you don't change anything um and this time you have stability during your during the learning process okay so what we did we did the sanity check with mnist um so and you see that so this is the number"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_107",
+    "video_id": "nyu_dl_week13",
+    "start_time": 3745.0,
+    "end_time": 3790.0,
+    "text": "okay so what we did we did the sanity check with mnist um so and you see that so this is the number of vertices so so for mnist the the graph is the standard grid okay we use the k-nearest neighbor grid to do that and you see that um you have linear complexity okay this is the number of vertices and and and you have this number of of uh you have the linear complexity so this is good for the accuracy you get to see 99 percent of accuracy compared to the standard n5 okay so chad net uh social is basically combat for arbitrary graph and we have the same linear learning complexity of course um the"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_108",
+    "video_id": "nyu_dl_week13",
+    "start_time": 3780.0,
+    "end_time": 3825.0,
+    "text": "okay so chad net uh social is basically combat for arbitrary graph and we have the same linear learning complexity of course um the complexity constant is much larger than than the standard uh than the standard net so it's something like 20 or 30. so it's much much smaller to learn on this but you get you know covenant for any arbitrary graph so that's that's uh that's what you mean another limitation is um it's an isotropic model so so let me talk a little bit about i uh isotropy versus anisotropy so if you look at you know the standard complex then you are going to produce anisotropic filters like this one okay so you see that this filter is an isotropic"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_109",
+    "video_id": "nyu_dl_week13",
+    "start_time": 3815.0,
+    "end_time": 3860.0,
+    "text": "uh isotropy versus anisotropy so if you look at you know the standard complex then you are going to produce anisotropic filters like this one okay so you see that this filter is an isotropic it goes in this direction okay and we can get anisotropic filters with standard coordinates because we are using a grid and on a grid we have you know a directional we have directions we know where is the up where is down where is left where is right right remember that we know the ordering of uh of the nodes on on the grid we know that but this is different for graphs we don't have any notion of direction we we don't know where is the where is up where is down where is left or is right"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_110",
+    "video_id": "nyu_dl_week13",
+    "start_time": 3850.0,
+    "end_time": 3895.0,
+    "text": "on on the grid we know that but this is different for graphs we don't have any notion of direction we we don't know where is the where is up where is down where is left or is right so the thing the only thing that we can do at this point is that we can only compute isotropic filters isotropic filters means that the value of the filter will be the same you know for in in all directions uh for for for four cycles okay for for cycles of the same radius okay so this is uh this is what we can get we can only get isotropic filters when we use a chip net because we have no notion of direction on arbitrary graphs and i will come back to that i will come"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_111",
+    "video_id": "nyu_dl_week13",
+    "start_time": 3885.0,
+    "end_time": 3930.0,
+    "text": "isotropic filters when we use a chip net because we have no notion of direction on arbitrary graphs and i will come back to that i will come back to the isotropy versus anisotropy okay so what we what we did also is to uh very quickly i don't i don't have the time now oh wow the time is uh so i need to speed up a little bit so we did we did expand also this um spectral convolution from one graph to multiple graphs so you can do that you know it's like extending from 1d signal processing to 2d image processing so extension is mathematically straightforward to do and we did that you know for for"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_112",
+    "video_id": "nyu_dl_week13",
+    "start_time": 3920.0,
+    "end_time": 3965.0,
+    "text": "extending from 1d signal processing to 2d image processing so extension is mathematically straightforward to do and we did that you know for for example for recommender systems because we have users of movies and users of graphs so with that we also as i said before is that you can use your favorite uh you know orthogonal uh polynomial basis uh so we use uh kylie nets because uh chebychev are unstable to localize frequency bands of interest which are basically the graph communities we use that something a more powerful you know more powerful spectral functions okay which is kind of neat okay so now"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_113",
+    "video_id": "nyu_dl_week13",
+    "start_time": 3955.0,
+    "end_time": 4000.0,
+    "text": "we use that something a more powerful you know more powerful spectral functions okay which is kind of neat okay so now let me go to the to the to this class of uh graph continents that i call special graphs and then for this class i'm going back to the template matching uh you know definition of convolution so how we do clamping matching for graphs so remember that um the main issue um the main issue when you want to do template matching for graph is that you you don't have any node ordering or positioning for your template okay uh we don't have any positioning so basically with the only thing that we have we have the"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_114",
+    "video_id": "nyu_dl_week13",
+    "start_time": 3990.0,
+    "end_time": 4035.0,
+    "text": "positioning for your template okay uh we don't have any positioning so basically with the only thing that we have we have the the index of the notes and that's it but the index is not enough to match you know information between between nodes um so how can we design template matching to be invariant to node reparametrization okay so you have a graph this index of the node is maybe let's say six but it's completely arbitrary i can have an index with the number 122 for example so i want to be able to do template matching independently of the index of this node okay so how i do that so"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_115",
+    "video_id": "nyu_dl_week13",
+    "start_time": 4025.0,
+    "end_time": 4070.0,
+    "text": "122 for example so i want to be able to do template matching independently of the index of this node okay so how i do that so the simplest thing you can do is actually to have only one uh you know template vector to do the matching this is so you don't have you know w j1 wg2 wj3 you don't have this you just have one vector w and you are doing the matching of this vector with all other you know feature on your on your graph okay this is the simplest template feature matching you can do which is environment by node reparameterization"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_116",
+    "video_id": "nyu_dl_week13",
+    "start_time": 4060.0,
+    "end_time": 4105.0,
+    "text": "on your on your graph okay this is the simplest template feature matching you can do which is environment by node reparameterization and actually this property is going to be used for most graph neural networks today okay so here is the mathematical definition um so i'm just going to do the the product between uh the template vector w at layer l so this is the d by one and and i have the vector at node j which is also the dimensionality d by one okay i will get to scalar so here this is only for one feature of course you will have to get more features so instead of having a vector d by one you're going to use a matrix"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_117",
+    "video_id": "nyu_dl_week13",
+    "start_time": 4095.0,
+    "end_time": 4140.0,
+    "text": "one okay i will get to scalar so here this is only for one feature of course you will have to get more features so instead of having a vector d by one you're going to use a matrix d by d so this way you can get you know d features for each node i okay and then i so this is the the representation at a node i i can put everything in vector representation okay this is my um this is my activation at layer a plus one it is defined on on the graph of m vertices and it has d dimensions okay and and this can be rewritten as uh the adjacency matrix a so this is n by n matrix this is my activation at the layer"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_118",
+    "video_id": "nyu_dl_week13",
+    "start_time": 4130.0,
+    "end_time": 4175.0,
+    "text": "okay and and this can be rewritten as uh the adjacency matrix a so this is n by n matrix this is my activation at the layer l so this is the n by d uh you know matrix and this is the the template that i'm going to learn by back propagation of the size d by d okay so you do you do this product you okay so based on this template matching of graph now i'm going to define uh two classes of uh spatial gcn which are the isotropy gcn and the anisotropy gcn so let's start"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_119",
+    "video_id": "nyu_dl_week13",
+    "start_time": 4165.0,
+    "end_time": 4210.0,
+    "text": "uh two classes of uh spatial gcn which are the isotropy gcn and the anisotropy gcn so let's start with the isotropic gcn so this is act actually as a as quite some history okay so uh the simplest formulation of special gcn was introduced by uh scarcely and his co-author so he was in 2009 before the deep learning revolution and then more recently by uh thomas keith maxwelling um and also saiyan suk bata and archer slam and rob fergus in 2016. so this is actually um this graph neural networks of what they call the vennina"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_120",
+    "video_id": "nyu_dl_week13",
+    "start_time": 4200.0,
+    "end_time": 4245.0,
+    "text": "and archer slam and rob fergus in 2016. so this is actually um this graph neural networks of what they call the vennina graph combination nets okay this is exactly the same definition that i have before just here i put you know the gb matrix in such a way that i have the mean value okay i just do the mean value over the neighborhood okay but this is exactly the the equation that i used before okay um and you see that so this equation is um it can handle uh absence of no ordering so this is completely invariant to another or parametrization so again if this index is maybe six and i change to be 122 is not going to change"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_121",
+    "video_id": "nyu_dl_week13",
+    "start_time": 4235.0,
+    "end_time": 4280.0,
+    "text": "completely invariant to another or parametrization so again if this index is maybe six and i change to be 122 is not going to change anything in the computation of the of h at the next layer it's not going to change anything you can also deal with a neighborhood of different sizes okay you don't care if you have a neighborhood of four nodes or neighborhood of 10 nodes it's not going to change or one or not it's going to change anything you have the local reception field by design with graph neural network you just need to look at the neighbors and and that's it so it's given to you you have weight sharing okay you have weight sharing it means that for for all features you are going to use the same w whatever the position on the graph"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_122",
+    "video_id": "nyu_dl_week13",
+    "start_time": 4270.0,
+    "end_time": 4315.0,
+    "text": "you have weight sharing okay you have weight sharing it means that for for all features you are going to use the same w whatever the position on the graph okay so this is a convolution property um this formulation is also independent of the graph size because all operations are done locally okay you just use you know local information for the next from the next layer so you can have a graph of 10 knots or you can have a graph a graph of 10 billion nodes it doesn't care so you can do also everything in parallel and but this is limited to isotropic capability so the w is the same for all neighbors so it's again it's an isotropic model it's going to give the same value for all neighbors okay but at the end of the day"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_123",
+    "video_id": "nyu_dl_week13",
+    "start_time": 4305.0,
+    "end_time": 4350.0,
+    "text": "capability so the w is the same for all neighbors so it's again it's an isotropic model it's going to give the same value for all neighbors okay but at the end of the day this model can be represented by this figure so um this uh so the activation at the next layer is basically a function of the activation at the current layer at uh index at at the node i and the neighborhood of the node i okay and the only thing that we're going to do basically uh is to change the function the instantiation of of the function and then you will get all family of graph neural network by just you know deciding a different function here but"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_124",
+    "video_id": "nyu_dl_week13",
+    "start_time": 4340.0,
+    "end_time": 4385.0,
+    "text": "instantiation of of the function and then you will get all family of graph neural network by just you know deciding a different function here but everything is based on this equation so again you have your your your core node and then you have your neighborhood to decide what will be okay so i'm running out of time so i'm not going to take too much time on this but what you can show is that this previous vernier gcn i just showed you is actually a simplification of chebnet so if you truncate the expansion of chain by using the first two chef function that at the end you end up"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_125",
+    "video_id": "nyu_dl_week13",
+    "start_time": 4375.0,
+    "end_time": 4420.0,
+    "text": "simplification of chebnet so if you truncate the expansion of chain by using the first two chef function that at the end you end up with the same equation so so this is this is the relationship uh okay so one interesting uh gcn is graph sage that was introduced by william in turn lee and yuri leskovek so let's say for let's let's go back to the vanilla gcn so and let's suppose that the adjacency matrix has a value one for for for the edges okay so i have this equation so the thing is for this equation i'm going to treat you know the central vertex i"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_126",
+    "video_id": "nyu_dl_week13",
+    "start_time": 4410.0,
+    "end_time": 4455.0,
+    "text": "okay so i have this equation so the thing is for this equation i'm going to treat you know the central vertex i and the neighborhood with the same template weight okay but i can differentiate that you know i can have a template for the central node w1 and i can have a template for the one hope neighborhood okay by doing that you improve already a lot you know your the performance of your official graph neural networks so you go from here to here so you have again um some templates for the central node and the template for for the neighborhood okay but this is still an isotropic uh isotopic gcn okay because you are"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_127",
+    "video_id": "nyu_dl_week13",
+    "start_time": 4445.0,
+    "end_time": 4490.0,
+    "text": "um some templates for the central node and the template for for the neighborhood okay but this is still an isotropic uh isotopic gcn okay because you are treating all the neighbors with the same weight uh here this is the mean but you can change you can take the sum you can also take the max you can take also something more elaborated like lstm okay now more recently people um try to improve the uh the theoretical understanding of uh of gcn so there was um the graph isomorphous i i think isomorphism in 2018 so the idea is can we design an architecture that can differentiate"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_128",
+    "video_id": "nyu_dl_week13",
+    "start_time": 4480.0,
+    "end_time": 4525.0,
+    "text": "in 2018 so the idea is can we design an architecture that can differentiate graphs that are not isomorphic so you know isomorphic is basically a measure of equivalence between between graphs so these two graphs are isomorphic to each other and of course you want to treat them the same way but if you are not isomorphic you want especially to treat them in a different way okay so so there was um a graph neural network uh based on this one on this on this definition but this is still an isotropic gcn okay so so now i'm going to talk about anisotropic gcn so again"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_129",
+    "video_id": "nyu_dl_week13",
+    "start_time": 4515.0,
+    "end_time": 4560.0,
+    "text": "definition but this is still an isotropic gcn okay so so now i'm going to talk about anisotropic gcn so again um again so i go back to what i said before is that standard cornet can produce uh isotropic filters because there is a notion of directions on grids okay so you have this um isotropic filter in this direction uh gcn like a chemnet kylie net veneer gcn graph sage and gene they compute isotropic filters so you have this kind of filters that you learn during the process but they are they are isotropic but we know that isotropy is very powerful right so um how do we get back anesthotropine graphene our networks"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_130",
+    "video_id": "nyu_dl_week13",
+    "start_time": 4550.0,
+    "end_time": 4595.0,
+    "text": "process but they are they are isotropic but we know that isotropy is very powerful right so um how do we get back anesthotropine graphene our networks so you can you can get an isotropic naturally for example if you have edge features um for like if you're taking chemistry molecules you know that the bond features can be different they can be you know single double aromatic bonds so naturally you would get an isotropic you know gcm and again if we want to design um a mechanism for isotropy we want this mechanism to be independent with respect to the node parametrization so to do that we can use for example h degrees and so that was proposed by monet edge gate"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_131",
+    "video_id": "nyu_dl_week13",
+    "start_time": 4585.0,
+    "end_time": 4630.0,
+    "text": "want this mechanism to be independent with respect to the node parametrization so to do that we can use for example h degrees and so that was proposed by monet edge gate that we propose um in getty gcn or attention mechanism uh in get and the idea is what what i put here as an illustration okay so um here you're going to treat your neighbors in the same way okay so with the same template but you want you want to treat your neighbors in a different way right if this is j1 you want a different weight than if it was for j2 what do you want that is for example if you want to analyze graphs you know that you have communities of people um which are different for example i don't know if it is politics you have"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_132",
+    "video_id": "nyu_dl_week13",
+    "start_time": 4620.0,
+    "end_time": 4665.0,
+    "text": "you want to analyze graphs you know that you have communities of people um which are different for example i don't know if it is politics you have republicans and democrats so you don't want to know to have the the same analysis for for the same group of people so you want anisotropy for graph that okay so the first model uh who deal with endoscopy was monette so he was introduced by federico monty michael bronstein and their co-author and the idea was to do was to use gmm so gaussian mixture model and to learn the parameters of the gaussian mixture so here they have k washington model and they learn the parameters by using the degree of uh of the graph"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_133",
+    "video_id": "nyu_dl_week13",
+    "start_time": 4655.0,
+    "end_time": 4700.0,
+    "text": "gaussian mixture so here they have k washington model and they learn the parameters by using the degree of uh of the graph um then there is also gat so uh it was developed by peter velikovic and uh joshua banjo and their co-author was basically to use the attention mechanism developed by jimmy badeno yeshua banjo to introduce anisotropy in the neighborhood allegation function okay and so this is this is what you see here so you have um you're going to concatenate so it's a multi-head um wiki and architecture and here you have uh this weight which are basically the soft max um on the neighborhood okay you do the soft max on the neighborhood so"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_134",
+    "video_id": "nyu_dl_week13",
+    "start_time": 4690.0,
+    "end_time": 4735.0,
+    "text": "um wiki and architecture and here you have uh this weight which are basically the soft max um on the neighborhood okay you do the soft max on the neighborhood so some info some um some notes will be more important than the others you know by given by soft softmax what we use um with um thomas laurent um and me in 2017 we we use a simple uh age uh getting mechanism which is which is which is you know what a sort of soft attention process compared to the sparse attention mechanism of your show avenger and and here what we did also we use edge feature explicitly and this actually recently we discovered that this is very important for edge prediction task if you have explicit"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_135",
+    "video_id": "nyu_dl_week13",
+    "start_time": 4725.0,
+    "end_time": 4770.0,
+    "text": "mechanism of your show avenger and and here what we did also we use edge feature explicitly and this actually recently we discovered that this is very important for edge prediction task if you have explicit explanation task this is important to keep it okay so so this is the model that we used uh okay um then okay so if i take transformer and if i if i write down the equation of the graph version of transformer this is that i would get okay so you recognize here the value here you have the query here you have the key and here you have the softmax but the softmax is done in the neighborhood in one hot neighborhood okay that would be this and here i'm going to make um"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_136",
+    "video_id": "nyu_dl_week13",
+    "start_time": 4760.0,
+    "end_time": 4805.0,
+    "text": "the key and here you have the softmax but the softmax is done in the neighborhood in one hot neighborhood okay that would be this and here i'm going to make um um a connection with a transformer of uh vesmani and and their and his collaborators so what is a transformer so a standard transformer is actually a special case of uh graph conventional nets when the graph is fully connected okay so this is a fully connected graph so you take any node i and this node is going to be connected to all other nodes in your graph and included itself okay so if you look at this equation the equation i just wrote before"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_137",
+    "video_id": "nyu_dl_week13",
+    "start_time": 4795.0,
+    "end_time": 4840.0,
+    "text": "to all other nodes in your graph and included itself okay so if you look at this equation the equation i just wrote before you know if the the neighborhood uh is this time not the one hop neighborhood but the whole graph then you will get you know uh the standard equation that if if you do nlp and and transformer you will recognize directly okay we saw this last week so just exactly so that's that's a nice connect and that's a transition so so you see you have the concatenation so this is multi-head you have the softmax the query the key and the value and then you have the weight uh for the meeting head so and the only thing that i do here mathematically just having the neighborhood"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_138",
+    "video_id": "nyu_dl_week13",
+    "start_time": 4830.0,
+    "end_time": 4875.0,
+    "text": "the query the key and the value and then you have the weight uh for the meeting head so and the only thing that i do here mathematically just having the neighborhood uh that that use you know all connection and when i do that so there is the question so what does it mean to do you know graph convolutional nets for fully connected graphs and i think in this case it becomes less useful to talk about graphs because when you when you have each data connected to all other data then you don't have any more you know specific graph structure because the graph which is what is really interesting is graph is the sparsity structure right like the brain connectivity like uh you know the social networks what is interesting is not everything to be connected to each other"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_139",
+    "video_id": "nyu_dl_week13",
+    "start_time": 4865.0,
+    "end_time": 4910.0,
+    "text": "sparsity structure right like the brain connectivity like uh you know the social networks what is interesting is not everything to be connected to each other it's only to have a sparse connection between between between the nodes so i think in this case it would be better to talk about sets than to talk about graphs and and we know that we know that transformers are set neural networks so so in some sense instead of you know looking at you know a fully connected graph with with uh with feature the thing that we should look at is more a set of features and transformers are really good you know to process uh sets of uh of of feature vectors um okay so so there is a lab um"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_140",
+    "video_id": "nyu_dl_week13",
+    "start_time": 4900.0,
+    "end_time": 4945.0,
+    "text": "of uh of of feature vectors um okay so so there is a lab um that i i uh i put here so um the lab is based on um so this is the gate gcn so the model i'm i i propose and this is with ggl so this is the deep graph library so it was developed by nyu shanghai by professor zanzen and uh and and here this is the link to the lab so if you click on this link you will go directly to the lab uh and this is this using google google collab so you will just need a you know a gmail account to access to this and you will be able to run it on on the google cloud and what i put here i put really you know"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_141",
+    "video_id": "nyu_dl_week13",
+    "start_time": 4935.0,
+    "end_time": 4980.0,
+    "text": "need a you know a gmail account to access to this and you will be able to run it on on the google cloud and what i put here i put really you know the the only the the most interesting uh functions that you need to develop uh a gcm so uh so so maybe tomorrow uh yeah tomorrow tomorrow we're gonna be going over everything okay perfect okay okay so and and here uh i again you know i put some comments on the code yeah and also yeah also understand dgl uh how how dga works so probably you do that tomorrow yes yes nice okay so let me now i'm going to the answer let me talk a little bit about um benchmarking graph neural networks so recently we"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_142",
+    "video_id": "nyu_dl_week13",
+    "start_time": 4970.0,
+    "end_time": 5015.0,
+    "text": "nice okay so let me now i'm going to the answer let me talk a little bit about um benchmarking graph neural networks so recently we um we have this paper of benchmarking networks so why we did this matchmark because if you look at you know most published um gcn papers um most of the work actually use small data set like a quora rtu data set and only one task the classification and when i you know when i started doing some experiment on that i just realized that if you use gcn or if you don't use an egcn you will get statistically the same performance because the standard deviation is very high for the small data sets so so the thing is um we"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_143",
+    "video_id": "nyu_dl_week13",
+    "start_time": 5005.0,
+    "end_time": 5050.0,
+    "text": "egcn you will get statistically the same performance because the standard deviation is very high for the small data sets so so the thing is um we we cannot identify you know good uh gcm uh we need we need we need something else and also recently so there has been you know a new theoretical development for for gcm and the question is you know how good they are in practice it's important to to have some good mathematical justification but you know we need to be able to prove that this is something that is useful and and i think also benchmark i think very essential to make progress uh in many fields um like you know of course deep learning with imagenet"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_144",
+    "video_id": "nyu_dl_week13",
+    "start_time": 5040.0,
+    "end_time": 5085.0,
+    "text": "and and i think also benchmark i think very essential to make progress uh in many fields um like you know of course deep learning with imagenet by faith lee um but the thing is what i upsell is actually the people are quite really time to give credit to benchmarks um anyway so we introduced this open benchmark infrastructure so it's it's on github and it's based on pi torch and dgl and we introduced you know six new medium scale data sets for the four fundamental graph problems like you know graph classification graph regression not classification and edge classification which i think if you cover these four fundamental problems you you already know quite a lot about the performance of your of your gcn can you spend a few words more about"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_145",
+    "video_id": "nyu_dl_week13",
+    "start_time": 5075.0,
+    "end_time": 5120.0,
+    "text": "edge classification which i think if you cover these four fundamental problems you you already know quite a lot about the performance of your of your gcn can you spend a few words more about these four fundamental graph problems i think we haven't mentioned them so far i think yeah um exactly but but well so what i mentioned is basically the first part of any you know convolutional nets is how do you extract a powerful feature the rest is quite easy no if you want to do uh regression you just use an mlp if you want to do classification you should use mlp with cross entropy and the thing i think is is i mean i can take more time to do that but what i present is i think is more uh you know uh is more interesting than doing just"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_146",
+    "video_id": "nyu_dl_week13",
+    "start_time": 5110.0,
+    "end_time": 5155.0,
+    "text": "and the thing i think is is i mean i can take more time to do that but what i present is i think is more uh you know uh is more interesting than doing just these these guys but would you give me another hour we could do that i was making the point that i i think i understand now how we can build a basically a representation of a graph but then so you would have like this uh basically uh feature per node but then how would you go from this feature per node to the final task so maybe we can mention this such that we can give someone sure so so what you do basically um so for example if uh so you have feature exactly so you extract convolutional features per node and and then suddenly if you want to do for example graph classification so what you will do you will do some"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_147",
+    "video_id": "nyu_dl_week13",
+    "start_time": 5145.0,
+    "end_time": 5190.0,
+    "text": "so for example if uh so you have feature exactly so you extract convolutional features per node and and then suddenly if you want to do for example graph classification so what you will do you will do some kind of aggregation you know function on this feature node so for example the most common one is to do the average so you do the average of all feature nodes and then on the top of that you use an mlp and then you will do classification uh of of your graph and this would be for always the same kind of structure of the graph or you have different structures like different numbers of nodes so is it like would you use if you use the mean it's completely independent of the number of nodes right right right the same so if you do the sum if you do the max so you have many operators which are"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_148",
+    "video_id": "nyu_dl_week13",
+    "start_time": 5180.0,
+    "end_time": 5225.0,
+    "text": "would you use if you use the mean it's completely independent of the number of nodes right right right the same so if you do the sum if you do the max so you have many operators which are independent of the number of nodes [Music] and yeah so so we have this and um and this medium says uh this medium size are actually enough you know statistically separate the performance of graph neural networks so we make easy you know for new users to add a new new graph graph models and also new data sets and this is this is the link to the to the repo so let me now explain the graph neural network pipeline so a standard graph neural network"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_149",
+    "video_id": "nyu_dl_week13",
+    "start_time": 5215.0,
+    "end_time": 5260.0,
+    "text": "and this is this is the link to the to the repo so let me now explain the graph neural network pipeline so a standard graph neural network pipeline is composed of three layers so the first layer is going to be an input layer and it's going to make an embedding of the input node and edge features then you will have a series of kraftner network layers and finally you have a task layer so there will be a prediction layer for graph node and edge task let me now describe in details you know so for the input layer um so again we will have you know the input node and edge features so this comes"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_150",
+    "video_id": "nyu_dl_week13",
+    "start_time": 5250.0,
+    "end_time": 5295.0,
+    "text": "so for the input layer um so again we will have you know the input node and edge features so this comes from the application that can be you know a node feature for example for um you know for recommend for recommender system for products so it will give you you know some feature of your product so what you will do is that you will take this um this raw feature and you will make you know an embedding a linear medium and you will get a vector of d dimensions we can do the same if we have some edge feature we can do an embedding of the input edge feature and we'll get a vector of the dimension so basically the output of the embedding layer will be um for h it's going to be a matrix"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_151",
+    "video_id": "nyu_dl_week13",
+    "start_time": 5285.0,
+    "end_time": 5330.0,
+    "text": "edge feature and we'll get a vector of the dimension so basically the output of the embedding layer will be um for h it's going to be a matrix of endnotes and d dimensions for the features for the edge is going to be a matrix of e the number of edges times the the number of features and we will give you know this output of the embedding layer it's going to be the input of the graph neural network layers then what we will do is that we will"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_152",
+    "video_id": "nyu_dl_week13",
+    "start_time": 5320.0,
+    "end_time": 5365.0,
+    "text": "the input of the graph neural network layers then what we will do is that we will apply our favorite graph normal layer a number of l times okay so we have um the the node and the edge representation at layer l it will go through uh the gnn layer and it will give you node representation of h and e at the next layer and we will do that you know l number of times this will give us you know uh the output of the graph network layers and again it's going to be a matrix of endnotes and d dimensions for the nodes and for the edges is going"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_153",
+    "video_id": "nyu_dl_week13",
+    "start_time": 5355.0,
+    "end_time": 5400.0,
+    "text": "uh the output of the graph network layers and again it's going to be a matrix of endnotes and d dimensions for the nodes and for the edges is going to be a matrix of e which is the number of edges times the dimensionality okay so this is the output of our graph and all network layers and then finally for the last layer so this is you know task based uh layer so if we if we are doing some prediction at the graph levels what happened is that we are going to take you know the the output of the kraftner network layers and we're going to make a mean with respect to all nodes of the graph okay so this will give us a"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_154",
+    "video_id": "nyu_dl_week13",
+    "start_time": 5390.0,
+    "end_time": 5435.0,
+    "text": "the the output of the kraftner network layers and we're going to make a mean with respect to all nodes of the graph okay so this will give us a representation of the graph of the dimension then we will give that through to an mlp multi-layer perceptron and it will give us you know a score which can be a scatter if we are doing some graph degradation like you know chemical property estimation or it can be a classification if we are trying to classify you know molecules to we can also have you know a nod level prediction so what we will do is that we will take"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_155",
+    "video_id": "nyu_dl_week13",
+    "start_time": 5425.0,
+    "end_time": 5470.0,
+    "text": "we can also have you know a nod level prediction so what we will do is that we will take the node representation at the output of the graph neural network and we will give that to an mlp and we will get a score for the node i which can be a scalar for regression or can be a k dimensional vector for classification we can also do you know edge level prediction so we have a link between node i and node j uh it's going to be concatenation of the you know the graph neural network uh representation for node i and not j we give that to an mlp and again we'll have a score for the link"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_156",
+    "video_id": "nyu_dl_week13",
+    "start_time": 5460.0,
+    "end_time": 5505.0,
+    "text": "uh it's going to be concatenation of the you know the graph neural network uh representation for node i and not j we give that to an mlp and again we'll have a score for the link between node i and j and it can be regression or classification okay so quickly because i'm running out of time so the task you have the graph classification task the graph regression path sorry so this is for molecules so here we want to predict you know the molecular solubility and here you have the table so this is like you know agnostic gcn so we don't use any graph structure the lower the better and and here this is isotropic gcn and this is anisotropic gcn so usually you will see"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_157",
+    "video_id": "nyu_dl_week13",
+    "start_time": 5495.0,
+    "end_time": 5540.0,
+    "text": "structure the lower the better and and here this is isotropic gcn and this is anisotropic gcn so usually you will see that for most experiments um anisotropic gcn do better job than than isotropic gcn because you use some of course on directional property so this is for graph regression this is for graph classification so you have super nodes of um of images and you want to classify the the image to belong to one of the classes uh you also have h classification so this is here the combinatorial optimization problem of"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_158",
+    "video_id": "nyu_dl_week13",
+    "start_time": 5530.0,
+    "end_time": 5575.0,
+    "text": "the classes uh you also have h classification so this is here the combinatorial optimization problem of tsp so the traveling salesman problem so you have a graph and then you want to know if this edge belongs to the solution so if it belongs to a solution this is the class one and if it doesn't belong this is class zero and we see that here you need explicit edge feature so you see that the only model that does a good job compared to the naive stick is is by using explicit um edge feature okay so here i'm using i'm using this combinatorial example to make a workshop announcement so this is also what we organizing next year with jan"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_159",
+    "video_id": "nyu_dl_week13",
+    "start_time": 5565.0,
+    "end_time": 5610.0,
+    "text": "edge feature okay so here i'm using i'm using this combinatorial example to make a workshop announcement so this is also what we organizing next year with jan organizing a workshop on combining deep learning and combinatory optimization which i think is very interesting directional research okay conclusion um so we generalize the covenant to data on graphs for this we we needed to redesign a convolution opera operator on graphs so we do that for template matching which lead to the class of special gcn we also did that with a spectral convolution which leads to the class"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_160",
+    "video_id": "nyu_dl_week13",
+    "start_time": 5600.0,
+    "end_time": 5645.0,
+    "text": "template matching which lead to the class of special gcn we also did that with a spectral convolution which leads to the class of spectral convolution per spectral gcm we have linear complexity from real-world graphs we have gpu implementation but yet it's not optimized for the gpu that we we have today we have universal learning capacity so this is uh the recent theoretical works and we can do that for multiple graphs and also for graphs that that that can change you know dynamically application so i'm happy that now that i don't need to justify anymore the why we are doing graph conventional nets to to anybody so it's it's getting more and more application"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_161",
+    "video_id": "nyu_dl_week13",
+    "start_time": 5635.0,
+    "end_time": 5680.0,
+    "text": "dynamically application so i'm happy that now that i don't need to justify anymore the why we are doing graph conventional nets to to anybody so it's it's getting more and more application uh we see that at the nice uh at the last um actually this week um iclear uh conference so um the the the keyword that gets you know the most uh improvement was graph neural networks and and you can have you know you have now you know a workshop and tutorials on graphical networks at many of the top uh deep learning and ai conferences and this is um the first probably tutorials on graph deep learning that we we organized at norips in 2017 and cdpr"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_162",
+    "video_id": "nyu_dl_week13",
+    "start_time": 5670.0,
+    "end_time": 5715.0,
+    "text": "conferences and this is um the first probably tutorials on graph deep learning that we we organized at norips in 2017 and cdpr and also if you want some materials to uh to look more so we have this ipam workshop um organized in 2018 and also a follow-up in 2019 and for this we have the video talks so if you want to know more about this uh so yeah thank michael writer so you saw banjo michael bronstein felicia monty chattana joshi uh g willie yo leo thomas lawrence archer slam only michael duffy are playing"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_163",
+    "video_id": "nyu_dl_week13",
+    "start_time": 5705.0,
+    "end_time": 5750.0,
+    "text": "uh g willie yo leo thomas lawrence archer slam only michael duffy are playing thank you it was really impressive and i think everyone here was stunned by your the quality of the slides and your explanations we really really enjoyed like i'm getting so many private messages here i'm it's like like everyone's pretty very excited um i i have actually a few questions if you have some time left yes um we haven't talked about generative models um do you have any any words about like how we can for example generate i don't know like new proteins for"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_164",
+    "video_id": "nyu_dl_week13",
+    "start_time": 5740.0,
+    "end_time": 5785.0,
+    "text": "we haven't talked about generative models um do you have any any words about like how we can for example generate i don't know like new proteins for uh i don't know uh figuring out whether we can find a cure for this kovid right now just you know actually like how do you say current question for the current world yeah absolutely so so yeah the community is also working on the graph generative models so you have two directions the first direction you can do it in a recursive way so um what you're going to do is that you are create you know your molecule atom after atom okay so you create you you start with an atom then you have a candidate for the next atom and also the next bound between the"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_165",
+    "video_id": "nyu_dl_week13",
+    "start_time": 5775.0,
+    "end_time": 5820.0,
+    "text": "are create you know your molecule atom after atom okay so you create you you start with an atom then you have a candidate for the next atom and also the next bound between the two atoms and you can do that you know it's a kind of lstm style and the second direction is to do it you know in uh in one shot so you need um a network that can that can predict uh what is the length or the size of your uh of your molecule and then uh and then what are the connection so you have this two direction you can do it in a recursive way or you can do it in one shot so they are they are different um so the community is more interesting in the recursive way today um"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_166",
+    "video_id": "nyu_dl_week13",
+    "start_time": 5810.0,
+    "end_time": 5855.0,
+    "text": "have this two direction you can do it in a recursive way or you can do it in one shot so they are they are different um so the community is more interesting in the recursive way today um and i i have a paper on the one shot and basically they are they are performing the same i mean it's uh i don't i don't see any any difference but you can do it yeah so the only thing is how do you treat yeah how the question is your molecule can have different uh size uh and this is the key um this is the key uh [Music] i would say the challenge here so how do you deal with different sizes which is very interesting related to the chemistry of that is that so graph what"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_167",
+    "video_id": "nyu_dl_week13",
+    "start_time": 5845.0,
+    "end_time": 5890.0,
+    "text": "i would say the challenge here so how do you deal with different sizes which is very interesting related to the chemistry of that is that so graph what i want to make is that graph neural network in some sense are too much flexible okay so um what you need so when you go from from the standard of net um so this this as you know the grid is very structured okay so you can get a lot of information for the structure of the grid but you don't have this in graph again you lose you know um the node ordering and everything so we need to find a way to you know to have more and more structure inside the graph neural networks one way to do that is uh the architecture so the architecture for"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_168",
+    "video_id": "nyu_dl_week13",
+    "start_time": 5880.0,
+    "end_time": 5925.0,
+    "text": "everything so we need to find a way to you know to have more and more structure inside the graph neural networks one way to do that is uh the architecture so the architecture for example you would like to combine uh for example if you do uh chemistry you would like to combine schroedinger equation you know like hamilton energy so people are doing that yes to constrain better you know your graph neural network so again graphene network are in some sense um you know too much flexible you need to find a way to to add more um universal you know constraints yeah actually about the universal constraints i got here a question uh what do you mean by universal learning capacity yeah so this is the recent works on rafale network so people are trained to"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_169",
+    "video_id": "nyu_dl_week13",
+    "start_time": 5915.0,
+    "end_time": 5960.0,
+    "text": "constraints i got here a question uh what do you mean by universal learning capacity yeah so this is the recent works on rafale network so people are trained to um in some sense you're trying to classify your neural networks right there are many publication neural networks so how do you classify them so you need to find mathematical properties like you know isotropic properties anisotropic properties and more recently there are you know theoretical work on you know isomorphism and you know um exposibility of craft neural network depending on some class of of theoretical graphs graphs are you know starting by earlier like two 200 years ago so we know a lot about graphs and we want to classify graphs according"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_170",
+    "video_id": "nyu_dl_week13",
+    "start_time": 5950.0,
+    "end_time": 5995.0,
+    "text": "of of theoretical graphs graphs are you know starting by earlier like two 200 years ago so we know a lot about graphs and we want to classify graphs according to some mathematical property so this is what i was i was trying to mention that um uh you can you can design graph neural networks for some special mathematical properties let's see thank you um guys feel free to ask questions you can also write to me if you're too shy i mean i'm not shy i can just read uh i have a question and thank you so much for this great lecture uh and you mentioned that you created like a benchmark data set uh type of like uh so people can benchmark their different graph neural networks"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_171",
+    "video_id": "nyu_dl_week13",
+    "start_time": 5985.0,
+    "end_time": 6030.0,
+    "text": "you mentioned that you created like a benchmark data set uh type of like uh so people can benchmark their different graph neural networks um but i i feel like a lot of those networks also learn some like representation in the graph and a lot of downstream tasks could be like an unsupervised setting where i think in the benchmarking data sets you're all just using accuracy uh more or less so it's like you have labels ground truth labels so it's more in the supervised setting so do you have any thoughts on how we could benchmark like the graph network's performance in an unsupervised setting or i don't know like some semi-supervised setting um or like by measuring their"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_172",
+    "video_id": "nyu_dl_week13",
+    "start_time": 6020.0,
+    "end_time": 6065.0,
+    "text": "benchmark like the graph network's performance in an unsupervised setting or i don't know like some semi-supervised setting um or like by measuring their performance in some common downstream tasks or application uh i would like to hear your thoughts on that thank you so i think this is one of the most favorite uh topics of jan yeah that's right uh yeah as you can tell i brainwashed the students in the class really well yes yes so that's why i'm asking no of course i mean um of course one important question um is um you you want to to learn efficiently"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_173",
+    "video_id": "nyu_dl_week13",
+    "start_time": 6055.0,
+    "end_time": 6100.0,
+    "text": "no of course i mean um of course one important question um is um you you want to to learn efficiently right you don't want to have too much labels to be able to to predict well so so self-supervised learning um um is is one way to do that right you want to um and you can do that also with graph right you can you can hide some part of the information of your graph and then you can predict this hidden information to get you know a presentation so um i guess now it's hard for me to follow uh the recent all the recent gcn work but i guess if you google it there will probably be already one or two papers on this on this idea"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_174",
+    "video_id": "nyu_dl_week13",
+    "start_time": 6090.0,
+    "end_time": 6135.0,
+    "text": "so um i guess now it's hard for me to follow uh the recent all the recent gcn work but i guess if you google it there will probably be already one or two papers on this on this idea i mean there is nothing special with gcn so you can apply the same ideas like self-supervised learning to gcn so we don't we don't put that in the in the benchmark yet it's a good idea so that's something maybe we we could do so actually arguably uh all of self-supervised learning actually exploits some sort of graph structure right so when you do self-supervised running in text for example you take you know you take a sequence of words and you learn uh you know to predict uh"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_175",
+    "video_id": "nyu_dl_week13",
+    "start_time": 6125.0,
+    "end_time": 6170.0,
+    "text": "right so when you do self-supervised running in text for example you take you know you take a sequence of words and you learn uh you know to predict uh a word in the middle of missing words whatever they are uh there is a graph structure and that graph structure is uh how many times a word appears uh you know some distance away from another word so make um you know imagine you have all the words and then you uh you say you know within this context you know make a graph between words so this would be a very simplified version of it but make a graph that indicates uh how many times this word appears at distance three from that uh from that other word right then you have another graph for distance one and another one for distance two etc"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_176",
+    "video_id": "nyu_dl_week13",
+    "start_time": 6160.0,
+    "end_time": 6205.0,
+    "text": "uh how many times this word appears at distance three from that uh from that other word right then you have another graph for distance one and another one for distance two etc right so that constitutes a graph and it's a graph that sort of indicates you know in white context two words seven simultaneously appear um you can think of uh uh you know a text as you know basically a linear graph and you know the the neighbors that you take uh in a you know when you train a transformer basically you know sticking a neighborhood in this graph right so um when you do metric learning uh the type of stuff that is trying talked about uh you know using contrastive training where you have two samples that you know are similar and two samples you know are dissimilar this basically is a graph it's a"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_177",
+    "video_id": "nyu_dl_week13",
+    "start_time": 6195.0,
+    "end_time": 6240.0,
+    "text": "uh the type of stuff that is trying talked about uh you know using contrastive training where you have two samples that you know are similar and two samples you know are dissimilar this basically is a graph it's a similarity graph that you're using you're saying you're telling the system here are two samples that are linked uh because i know they are similar and here are two samples that i know are not linked because i know they're dissimilar and i'm trying to find a graph embedding essentially you can think of those neural nets are learning a graph embedding for nodes so that uh nodes that are linked in the graph have similar vectors and nodes that are not are dissimilar vectors so there is a very very strong connection between self-supervised running and uh uh you know kind of the graph"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_178",
+    "video_id": "nyu_dl_week13",
+    "start_time": 6230.0,
+    "end_time": 6275.0,
+    "text": "vectors so there is a very very strong connection between self-supervised running and uh uh you know kind of the graph view of uh of a training set i don't think it's been exploited or kind of realized yet by a lot of people so there might be really interesting stuff to do there i don't know what you think about this have you but yeah exactly this is completely related to the you know on the on the graph you don't have any uh non-positioning and what you are saying and is exactly that so how do we get you know positioning between notes that are relevant to your particular application and and and you want to do it in a self-supervised way because because then you will learn you know all possible you know configurations and you don't need to"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_179",
+    "video_id": "nyu_dl_week13",
+    "start_time": 6265.0,
+    "end_time": 6310.0,
+    "text": "and and and you want to do it in a self-supervised way because because then you will learn you know all possible you know configurations and you don't need to to have labels to do that so yeah this is the point see you will get if you if you know how to compare you know um notes so basically how do you extract positional encoding then you you will do a great job you know that's that's that's that's one of the most important uh question in graph neural networks and also for for nlp and many other applications great thank you a question just arrived here uh so could you possibly highlight the most important parts of graph with attention i think we maybe have gone a little fast there and someone got a little bit lost"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_180",
+    "video_id": "nyu_dl_week13",
+    "start_time": 6300.0,
+    "end_time": 6345.0,
+    "text": "uh so could you possibly highlight the most important parts of graph with attention i think we maybe have gone a little fast there and someone got a little bit lost yeah so uh graph attention network so the first technique was developed by joshua banjo peter will actually wix and uh so it's probably you know the first work you you you would like to see um but you can also do like uh you can take you know the transformer the standard transformer and then you can make it you know a graph version it's it's quite straightforward to do it just by multiplying the just by multiplying with the urgency agency matrix right yeah exactly so you can already do it you know with spy touch transformer so there is a mask exactly with a minus infinity yeah"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_181",
+    "video_id": "nyu_dl_week13",
+    "start_time": 6335.0,
+    "end_time": 6380.0,
+    "text": "multiplying with the urgency agency matrix right yeah exactly so you can already do it you know with spy touch transformer so there is a mask exactly with a minus infinity yeah exactly so if you put minus infinite with soft max you will get zero exactly so i think i'm gonna show these tomorrow so they are yeah exactly so you can already do graph you know transformer very easily with with spy touch but the thing is it's it's going to be a full matrix yeah so so it's going to take you it's going to it's going to use a lot of your gm memory because there are many values that you don't need so if you if you want to to scale to larger graphs then you need something that exploits the sparsity like dgn or python geometric for example yeah so last week we coded by"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_182",
+    "video_id": "nyu_dl_week13",
+    "start_time": 6370.0,
+    "end_time": 6415.0,
+    "text": "larger graphs then you need something that exploits the sparsity like dgn or python geometric for example yeah so last week we coded by by from scratch so we we actually see all the operations inside and then maybe we can just add one additional matrix there just to make like this masked part such that we can retrieve the graph convolutional net from the code that we already have written so that would be i think a connection for tomorrow and hold on there are more questions coming is there any application where using chebnet might be better than spatial gcn i would say they are part of the you"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_183",
+    "video_id": "nyu_dl_week13",
+    "start_time": 6405.0,
+    "end_time": 6450.0,
+    "text": "might be better than spatial gcn i would say they are part of the you know isotropic um this is the class i uh yeah this is what i call you know isotropic uh gcns so um uh for me i mean of course it will depend on your data and you will depend on your task you know if you have some tasks where your data is uh you know isotropic this kind of information then chemnet will do a very good job uh for sure now if you have information where the topic is important for example for social networks you don't want you know to treat people the same way the same you don't want to treat the neighbors the same way then is not going to do a"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_184",
+    "video_id": "nyu_dl_week13",
+    "start_time": 6440.0,
+    "end_time": 6485.0,
+    "text": "where the topic is important for example for social networks you don't want you know to treat people the same way the same you don't want to treat the neighbors the same way then is not going to do a good job so it really depends on on your task where isotropy is is very important if isotropic is very important then you should use net because chemnet you know is using um all bit of information about your graph in an isotopic way and if you are using you know gcn the veneer gcn you are just using you know the first two terms of approximation of gemini yes it is there we can learn the edges right we can learn the representation for the edges such that they discriminate between neighbors right no no no this is um no this is that this one is isotropic oh okay okay isotropic what i mean by"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_185",
+    "video_id": "nyu_dl_week13",
+    "start_time": 6475.0,
+    "end_time": 6520.0,
+    "text": "right we can learn the representation for the edges such that they discriminate between neighbors right no no no this is um no this is that this one is isotropic oh okay okay isotropic what i mean by isotropic is that if um if you have a pure isotropic you know uh graph problems then you should use a chemical otherwise but otherwise yeah it's better to use enzotropic more questions guys i'm really um hey i have a question thanks for the talk uh i was wondering a lot of these methods require a existing adjacency matrix and for uh some problems for example like you don't you know that there is a graph structure but you don't know the underlying connections"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_186",
+    "video_id": "nyu_dl_week13",
+    "start_time": 6510.0,
+    "end_time": 6555.0,
+    "text": "a existing adjacency matrix and for uh some problems for example like you don't you know that there is a graph structure but you don't know the underlying connections do you know of any work that addresses this problem yeah absolutely so um so far most works uh focus on having already you know the graph structure and and and of course uh you like sometimes sometimes you just have data like for example you know you just have a set of uh set of features and and you want to learn you know some graph structure it's very hard very very hard so um there are some works you know doing that so they are trying to learn some some graph structure at the same time they're"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_187",
+    "video_id": "nyu_dl_week13",
+    "start_time": 6545.0,
+    "end_time": 6590.0,
+    "text": "it's very hard very very hard so um there are some works you know doing that so they are trying to learn some some graph structure at the same time they're trying to learn you know another presentation uh so that's that's promising that that's that's interesting and this is also somewhat that i'm trying to do now but i can tell you it's very hard to do and especially because um if you if you if you let you know the adjacency matrix to be a variable then you are n square okay you have n square unknown parameters to learn so um so it's uh it's not easy um but yeah this is a so i would say that these techniques um there are many natural"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_188",
+    "video_id": "nyu_dl_week13",
+    "start_time": 6580.0,
+    "end_time": 6625.0,
+    "text": "it's uh it's not easy um but yeah this is a so i would say that these techniques um there are many natural that are coming with graphs okay you don't need to build any graphs and this is already giving you you know a lot of of good tools now if you can give me maybe what you have in mind what kind of application you have in mind what you want to use you know when you want to learn graphs uh at the same time maybe we can talk about it so i can tell you xavier of course zimming uh you know will will correct me but zooming is actually uh working on uh predicting uh protein function predict uh you know protein function prediction basically and and so the underlying graph would be the for example a contact map or the the"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_189",
+    "video_id": "nyu_dl_week13",
+    "start_time": 6615.0,
+    "end_time": 6660.0,
+    "text": "predicting uh protein function predict uh you know protein function prediction basically and and so the underlying graph would be the for example a contact map or the the kind of proximity graph of different sites on a protein and you don't have that i mean in most cases you don't that's that's kind of one of the things you you have to predict so you could view this as some sort of related you know graph variable let's see maybe you had some other idea in mind yeah i i think actually so the more specific problem is that uh some of these graphs you know the edges and you uh you know some of the edges but you don't know the other ones for example in protein function prediction you can imagine like two proteins that have um similar functions as having an"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_190",
+    "video_id": "nyu_dl_week13",
+    "start_time": 6650.0,
+    "end_time": 6695.0,
+    "text": "and you uh you know some of the edges but you don't know the other ones for example in protein function prediction you can imagine like two proteins that have um similar functions as having an edge between them um but they might not have the same function so you don't know sort of the edge weights and you kind of have like a human labels that are inaccurate so uh you know that they're connected in some way but you don't know the edge weights and you know that there are other proteins that should be connected but you don't have labels for so i guess this is more of a graph completion problem yeah and but and this one is easy this one if you have it's like the semi you know the semi graph clustering problem so if you already have some label just a few labels and you have some"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_191",
+    "video_id": "nyu_dl_week13",
+    "start_time": 6685.0,
+    "end_time": 6730.0,
+    "text": "and this one is easy this one if you have it's like the semi you know the semi graph clustering problem so if you already have some label just a few labels and you have some structure around this that's something you can you can live with uh if you are absolutely no structure on the edge and then you need to learn the graph that is very hard i see okay thank you hey i have a question about uh uh splits of the data when you're actually training a graph neural network um because it's uh like can you talk about some of the things that you would want to consider when actually splitting the data into say training and validation um like you might want to have uh"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_192",
+    "video_id": "nyu_dl_week13",
+    "start_time": 6720.0,
+    "end_time": 6765.0,
+    "text": "things that you would want to consider when actually splitting the data into say training and validation um like you might want to have uh all of the nodes in the training data for it to actually be exposed to everything that's um in in the in in the graph data um and you might have a case where different types of edges are imbalanced in the data set um can you talk about when that would be important what are some of the considerations in splitting the data training sorry i'm not sure i understand the question so you are talking about uh unbalanced training sets uh yes and also like so if you have like a huge relational uh data set right um"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_193",
+    "video_id": "nyu_dl_week13",
+    "start_time": 6755.0,
+    "end_time": 6800.0,
+    "text": "unbalanced training sets uh yes and also like so if you have like a huge relational uh data set right um you can talk about some of the considerations for uh for splitting the data when you're trying to train a graph network so for a condition on the data sets um so you may have you know millions of small graphs and it is fine i mean because this graph neural network they're independent of the size of your graph so uh so this is this is not issue to learn some good graphene representation there is no issue with that now if you have unbalanced data set um i don't know um so that's maybe you can"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_194",
+    "video_id": "nyu_dl_week13",
+    "start_time": 6790.0,
+    "end_time": 6835.0,
+    "text": "good graphene representation there is no issue with that now if you have unbalanced data set um i don't know um so that's maybe you can maybe apply some standard techniques to uh to do that so uh you can also you know for cross entropy for example you can you can weight your cross-entropy depending on the size of each class so that may be something you can do yeah but i never you know thought too much about this okay thank you any more questions i'm still getting things written here but i have a question actually uh first of all thanks a lot for the lecture at this"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_195",
+    "video_id": "nyu_dl_week13",
+    "start_time": 6825.0,
+    "end_time": 6870.0,
+    "text": "i have a question actually uh first of all thanks a lot for the lecture at this time especially for you so how do you deal with cases where the nodes do not have the same dimension like if i want to run a small simple vanilla graph convolutional network but my nodes are something like even for facebook uh people and then pages and i want different dimensions so how do you think about graph like very a very simple graph neural network in that uh nothing it has nothing to do with graph neural networks if you have different dimensions for your vector so probably you need to to to put everything on the same dimension and then you need to use some"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_196",
+    "video_id": "nyu_dl_week13",
+    "start_time": 6860.0,
+    "end_time": 6905.0,
+    "text": "uh nothing it has nothing to do with graph neural networks if you have different dimensions for your vector so probably you need to to to put everything on the same dimension and then you need to use some indicator function like one when you have the information and then when you don't have any information and this will be used during the computation of the loss and then when you back propagate you if you if you don't have any feature information you will not use it but i i don't think he has anything to hold on you're writing i'm reading so"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_197",
+    "video_id": "nyu_dl_week13",
+    "start_time": 6895.0,
+    "end_time": 6940.0,
+    "text": "hold on you're writing i'm reading so so maybe i don't understand the question but i will read it out loud anyway uh is there any gcn which can work on multiple urgency matrices together for example a bidirectional graph i don't know what this mean so if the question is about hyper graph so you know you may have more than one age uh connecting your nodes yes there are some work about this it's an extension to natural"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_198",
+    "video_id": "nyu_dl_week13",
+    "start_time": 6930.0,
+    "end_time": 6975.0,
+    "text": "so if the question is about hyper graph so you know you may have more than one age uh connecting your nodes yes there are some work about this it's an extension to natural extension mathematically so you can yeah you can do that there is a there is no limitation to go to hyper graph it's fine and there are now some data sets for this for this task so if there is a an application so students would be interesting to do yeah it's there is already data set and papers okay uh another question would be does it make sense to have notes that are features of a person and do graph classification or have notes as person and do"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_199",
+    "video_id": "nyu_dl_week13",
+    "start_time": 6965.0,
+    "end_time": 7010.0,
+    "text": "question would be does it make sense to have notes that are features of a person and do graph classification or have notes as person and do i don't know i don't know um so often you know people ask me the question can i do a graph given this data so it's really task dependent i think it's ready you know when when it's going to be useful or not when you get you know some good relationships um because what is the graph you know it's just a collection of pairwise you know uh or pairwise connections so that's it so the question is when when it is relevant to solve your task sometimes it is relevant sometimes it's not"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_200",
+    "video_id": "nyu_dl_week13",
+    "start_time": 7000.0,
+    "end_time": 7045.0,
+    "text": "you know uh or pairwise connections so that's it so the question is when when it is relevant to solve your task sometimes it is relevant sometimes it's not so it really depends on the on the yeah it's obvious but it really depends on the data and and the task you want to solve so yeah yeah the i think we run out of questions unless there are more coming my way uh no it's it starts getting bright outside there exactly exactly it was notice here the sun is rising uh that's nice okay i think that was it uh thank you so so much it"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_201",
+    "video_id": "nyu_dl_week13",
+    "start_time": 7035.0,
+    "end_time": 7080.0,
+    "text": "exactly exactly it was notice here the sun is rising uh that's nice okay i think that was it uh thank you so so much it was like i mean really those were so pretty uh these slides were so pretty i i i had to learn so much from the way it teach this world um yeah thank you again uh for waking up so early i mean i think this is a fascinating topic you know as you know i've been uh involved in this at the beginning and uh i think it opens a completely new door to applications of machine learning and neural nets you know it's a new world it's completely different world um i know your phd advisor had been working on you know"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_202",
+    "video_id": "nyu_dl_week13",
+    "start_time": 7070.0,
+    "end_time": 7115.0,
+    "text": "to applications of machine learning and neural nets you know it's a new world it's completely different world um i know your phd advisor had been working on you know graph signal processing for a long time so this was kind of a natural transition for for him and for you i guess but um uh i you know i i think we haven't seen the the end of this we'll we'll uh we're going to be surprised by what's going to come out of this i mean there's really already sort of fascinating work in that area in high energy physics in computational chemistry in uh you know social uh network uh applications and uh you you kind of cited all the big names in the you know if you are interested in this topic if you're listening to this"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_203",
+    "video_id": "nyu_dl_week13",
+    "start_time": 7105.0,
+    "end_time": 7150.0,
+    "text": "network uh applications and uh you you kind of cited all the big names in the you know if you are interested in this topic if you're listening to this yuri leskovitch is is one of the big names you know in addition to xavier obviously but um and uh jean broner whom you know because he's a professor here and he talks about it in in this in this course uh mikhail bronstein uh is also a big contributor he's made some really interesting uh uh contributions to the to the topic also on sort of different methods than the one uh that you talked about today uh on like you know uh like you know using graph neural nets for like 3d meshes and uh for computer graphics and things like that so um i agree i think"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_204",
+    "video_id": "nyu_dl_week13",
+    "start_time": 7140.0,
+    "end_time": 7185.0,
+    "text": "uh like you know using graph neural nets for like 3d meshes and uh for computer graphics and things like that so um i agree i think i think this is also a field you know where there is a back and forth between you know mathematics and also applications so if you look at for example this protein stuff it's very very hard but at the same times we can learn a lot you know from the mathematical side we can we can and it's very exciting right because you want both if you want to be able to make a scientific discovery you need to be you know um uh driven by some real world very hard problem and then at the same time you have these new tools you know coming up with a"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_205",
+    "video_id": "nyu_dl_week13",
+    "start_time": 7175.0,
+    "end_time": 7220.0,
+    "text": "you know um uh driven by some real world very hard problem and then at the same time you have these new tools you know coming up with a graphic neural networks and and it's a way also for us to better understand you know why neural networks work so well and and this is you know a direction where it looks like you know each day they are like a new problem in this in this direction so the pie is big and for everyone for for the young students to come and to uh to enjoy you know this this area great well thank you again and uh enjoy your day yeah thanks again thank you so much guys"
+  },
+  {
+    "chunk_id": "nyu_dl_week13_chunk_206",
+    "video_id": "nyu_dl_week13",
+    "start_time": 7210.0,
+    "end_time": 7255.0,
+    "text": "great well thank you again and uh enjoy your day yeah thanks again thank you so much guys all right bye-bye bye-bye guys see you"
+  }
+]

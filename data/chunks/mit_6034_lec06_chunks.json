@@ -1,0 +1,583 @@
+[
+  {
+    "chunk_id": "mit_6034_lec06_chunk_000",
+    "video_id": "mit_6034_lec06",
+    "start_time": 0.0,
+    "end_time": 45.0,
+    "text": "It was about 1963 when a noted philosopher here at MIT named Hubert when wrote a paper about 1963 in which he um alleged had a subject uh had a had a had a had a heading titled Of course, he was uh subsequently invited over to the artificial intelligence laboratory to play the"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_001",
+    "video_id": "mit_6034_lec06",
+    "start_time": 35.0,
+    "end_time": 80.0,
+    "text": "Of course, he was uh subsequently invited over to the artificial intelligence laboratory to play the machine, and of course, he lost. Seymour Papert wrote a rebuttal to Dreyfus's famous paper and which had a subject heading \"Dreyfus But in a strange sense, Dreyfus might have been right and would have been right if he were to have said \"Computers can't play chess the way In any case, uh roundabout 1968, a chess master"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_002",
+    "video_id": "mit_6034_lec06",
+    "start_time": 70.0,
+    "end_time": 115.0,
+    "text": "In any case, uh roundabout 1968, a chess master noted founder of artificial intelligence John McCarthy that no computer would beat the world champion within 10 years. And 5 years later, McCarthy gave up because it had already become clear that no computer would um win in a way that McCarthy wanted it to win. That is to say, by playing chess the way humans play chess. But then, 20 years after that, in 1997 Deep Blue beat the world champion"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_003",
+    "video_id": "mit_6034_lec06",
+    "start_time": 105.0,
+    "end_time": 150.0,
+    "text": "But then, 20 years after that, in 1997 Deep Blue beat the world champion But we're going to talk about games today because um there are elements of gameplay that do model some of the things that go on in our head. And if they don't model things that go on in our head, they do model some kind of intelligence. And if we're to have a general understanding of what intelligence is all about, we have to understand that kind of intelligence, too. So, we'll start off by talking about various ways that we might design a computer program to play a game like chess. And we'll conclude by talking a little bit about what uh Deep Blue adds to the"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_004",
+    "video_id": "mit_6034_lec06",
+    "start_time": 140.0,
+    "end_time": 185.0,
+    "text": "computer program to play a game like chess. And we'll conclude by talking a little bit about what uh Deep Blue adds to the adds to the mix other than tremendous speed. So, that's our agenda. By the end of the um hour, you'll understand and be able to write your own Deep Blue if you feel like it. First, we want to talk about how it might be possible for a computer to play chess. Um let's talk about several approaches that might be possible. Approach number one is that the machine might make a description of the board, same way a human would. Talk about pawn structure, king safety, whether it's a good time to castle, that"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_005",
+    "video_id": "mit_6034_lec06",
+    "start_time": 175.0,
+    "end_time": 220.0,
+    "text": "board, same way a human would. Talk about pawn structure, king safety, whether it's a good time to castle, that And all that would get mixed up and finally result in some kind of move. So, if this is the uh game board the move, the next thing to do would be determined by some process like that. And the trouble is no one knows how to do it. And so, in that sense, Dreyfus is right. None of the game-playing programs today know how incorporate any of that kind of"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_006",
+    "video_id": "mit_6034_lec06",
+    "start_time": 210.0,
+    "end_time": 255.0,
+    "text": "And the trouble is no one knows how to do it. And so, in that sense, Dreyfus is right. None of the game-playing programs today know how incorporate any of that kind of stuff. So, since nobody knows how to do it knows how to do that, we can't talk about it. So, we can talk about other ways though that we might try. For How would that work? That would work this way. You you you look at the board represented by this node here and you say, \"Well, if the if it's possible to move the queen pawn forward by one, then do that.\""
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_007",
+    "video_id": "mit_6034_lec06",
+    "start_time": 245.0,
+    "end_time": 290.0,
+    "text": "and you say, \"Well, if the if it's possible to move the queen pawn forward by one, then do that.\" So, it doesn't do any evaluation of the board. It doesn't try anything. It just says, \"Let me look at the board and select a move on that basis.\" So, that would be uh a way of approaching game situation like this. Here's the situation. Here are the possible moves, and one is selected on the basis of an if-then rule And nobody can make a very strong chess player that works like that. Curiously enough, someone has made a pretty good checkers-playing program that that works like that."
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_008",
+    "video_id": "mit_6034_lec06",
+    "start_time": 280.0,
+    "end_time": 325.0,
+    "text": "And nobody can make a very strong chess player that works like that. Curiously enough, someone has made a pretty good checkers-playing program that that works like that. Checks to see what moves are available on the board ranks them picks the highest one that's available. But in general, that's not a very good approach. It's not very powerful. You couldn't make a Well, when I say couldn't, means I can't think of any way that you could make a So, a third way to do this is to uh look"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_009",
+    "video_id": "mit_6034_lec06",
+    "start_time": 315.0,
+    "end_time": 360.0,
+    "text": "And what that means is you look ahead like so. You you see all the possible consequences of moves and you say \"Which of these So, you So, that would be a approach that comes in here like so and says \"Which one of those three situations is best?\" And to do that, we have to find have to have some way of evaluating uh the situation, deciding which of Now, I want to do a little brief aside cuz I want to talk about the mechanisms that are popularly used to do that kind of evaluation."
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_010",
+    "video_id": "mit_6034_lec06",
+    "start_time": 350.0,
+    "end_time": 395.0,
+    "text": "Now, I want to do a little brief aside cuz I want to talk about the mechanisms that are popularly used to do that kind of evaluation. In the end, there are lots of features of the chess board. Let's call them F1 And we might form some function of those features. And that overall is called the static value. So, it's static because you're not exploring any consequences of what might happen. You're just looking at the board as it is, checking the king safety checking the pawn structure. Each of those produces a number feeds into this function, out comes a value and that is a value of the board seen"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_011",
+    "video_id": "mit_6034_lec06",
+    "start_time": 385.0,
+    "end_time": 430.0,
+    "text": "checking the pawn structure. Each of those produces a number feeds into this function, out comes a value and that is a value of the board seen from your perspective. Now, normally this function G is reduced to a linear polynomial. So, in the end, the most popular kind of way of forming a static value is to take F1 multiplied times some constant C1 add C2"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_012",
+    "video_id": "mit_6034_lec06",
+    "start_time": 420.0,
+    "end_time": 465.0,
+    "text": "So, we could use that function to produce numbers from each of these things and then pick the highest number, and that would be a way of playing the game. Actually, a scoring polynomial is a little bit more than we need because all we really need is a method that looks at those three boards and says, \"I like this one best.\" It doesn't have to rank them. It doesn't have to give the numbers. All it has to do is say which one it likes best. So, one way of doing that is to use a"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_013",
+    "video_id": "mit_6034_lec06",
+    "start_time": 455.0,
+    "end_time": 500.0,
+    "text": "those three boards and says, \"I like this one best.\" It doesn't have to rank them. It doesn't have to give the numbers. All it has to do is say which one it likes best. So, one way of doing that is to use a linear scoring polynomial, but it's not the only way of doing that. So, that's uh number two and number Well, if we reflect back on some of the searches we talked about what's the base case against which everything else is compared? What's the way of doing search that doesn't require any intelligence, just brute force? We could use the British Museum algorithm and simply evaluate the entire tree of possibilities. I move, you move,"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_014",
+    "video_id": "mit_6034_lec06",
+    "start_time": 490.0,
+    "end_time": 535.0,
+    "text": "brute force? We could use the British Museum algorithm and simply evaluate the entire tree of possibilities. I move, you move, Maybe 100 50 moves. You would do 50 things, I do 50 things. So, before we can decide if that's a good idea or not uh we probably ought to um So, consider this"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_015",
+    "video_id": "mit_6034_lec06",
+    "start_time": 525.0,
+    "end_time": 570.0,
+    "text": "So, consider this tree of moves. There'll be some number of choices considered at each level and there'll be some number of levels. So, the standard language for this is to And in this particular case, B is equal"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_016",
+    "video_id": "mit_6034_lec06",
+    "start_time": 560.0,
+    "end_time": 605.0,
+    "text": "And in this particular case, B is equal of the tree, and in this case, D is two. So, now that produces a a certain number How many of the How many of those are Well, that's pretty simple computation, right? It's just B to the D. Right, Christopher? B to the D? B to the D at this level, you have one. B to the D at this level, you have B."
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_017",
+    "video_id": "mit_6034_lec06",
+    "start_time": 595.0,
+    "end_time": 640.0,
+    "text": "Right, Christopher? B to the D? B to the D at this level, you have one. B to the D at this level, you have B. B at B to the D at this level, you have B squared. So, B to the D in this particular case So, now we can use this vocabulary that we've developed to talk about whether it's reasonable to just do the British Museum algorithm be done with it. Well, let's see. It's about It's It's pretty It's pretty deep down there. If we think about chess and we think about a standard game which"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_018",
+    "video_id": "mit_6034_lec06",
+    "start_time": 630.0,
+    "end_time": 675.0,
+    "text": "Well, let's see. It's about It's It's pretty It's pretty deep down there. If we think about chess and we think about a standard game which each person does 50 things that gives a D of about 100. And if you think about the branching factor in chess, it's generally presumed to be depending on the stage of the game and so on and so forth. It varies, but it might average around 14 or 15. If it were just 10, that would be 10 to the 100th, right? But it's a little more than that because the branching factor is more than 10. So, in the end, it looks like according to Claude Shannon there are about 10 to 100 to the 120th leaf nodes down"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_019",
+    "video_id": "mit_6034_lec06",
+    "start_time": 665.0,
+    "end_time": 710.0,
+    "text": "So, in the end, it looks like according to Claude Shannon there are about 10 to 100 to the 120th leaf nodes down there. And if you're going to do the a British Museum treatment of this tree, you'd have to do 10 to the 120th static Down there at the bottom. If you're going to see which one of the moves is best at the top. So, is that a reasonable number? You know, it it didn't used to seem it didn't used to seem practicable. It used to seem impossible. But now we've got cloud computing everything and maybe we could actually do that. Right? What do you think, Manasseh?"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_020",
+    "video_id": "mit_6034_lec06",
+    "start_time": 700.0,
+    "end_time": 745.0,
+    "text": "It used to seem impossible. But now we've got cloud computing everything and maybe we could actually do that. Right? What do you think, Manasseh? Can you do that? Get enough computers going in the cloud? You're not You're not sure? Should we work it out? Let's work it out. I'll need I need some help. Especially from So, we'll start with how many atoms are Volunteers? 10 to the No, no, no. 10 to the 38th has been offered. That's way too way too low. Last time I looked, it was about 10 to"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_021",
+    "video_id": "mit_6034_lec06",
+    "start_time": 735.0,
+    "end_time": 780.0,
+    "text": "10 to the No, no, no. 10 to the 38th has been offered. That's way too way too low. Last time I looked, it was about 10 to the 80th Uh next thing I'd like to know is how many seconds are there in a year? It's a good number to have in your, you know, memorized. And that number is approximately uh pi Okay? So, how many nanoseconds in a second?"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_022",
+    "video_id": "mit_6034_lec06",
+    "start_time": 770.0,
+    "end_time": 815.0,
+    "text": "Okay? So, how many nanoseconds in a second? Uh and at last, how many years are there Uh she offers something on the order of 10 billion. Okay. Maybe 14 billion. We'll say 10 billion to make our calculation simple. So, if we add all that up"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_023",
+    "video_id": "mit_6034_lec06",
+    "start_time": 805.0,
+    "end_time": 850.0,
+    "text": "billion to make our calculation simple. So, if we add all that up 80 90 plus 16, that's year uh nanoseconds in the history of the universe multiplied times the number of atoms in the universe. So, if all of the atoms in the universe were doing static evaluations at nanosecond speeds since the beginning of the Big Bang we'd still be 14 orders of magnitude So, it'd be pretty good cloud. We'd have to"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_024",
+    "video_id": "mit_6034_lec06",
+    "start_time": 840.0,
+    "end_time": 885.0,
+    "text": "since the beginning of the Big Bang we'd still be 14 orders of magnitude So, it'd be pretty good cloud. We'd have to So, the British Museum algorithm is not No good. So, what we're going to have to do is we're going to have to put some things together and hope for the best."
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_025",
+    "video_id": "mit_6034_lec06",
+    "start_time": 875.0,
+    "end_time": 920.0,
+    "text": "No good. So, what we're going to have to do is we're going to have to put some things together and hope for the best. So, the fifth way is the way we're actually going to do it. And what we're going to do is we're going to Not just one level, but as far as So, uh we consider not only the situation that we've developed it here, but we'll try to push that out as far as we can and look at these look at the static values of the of of"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_026",
+    "video_id": "mit_6034_lec06",
+    "start_time": 910.0,
+    "end_time": 955.0,
+    "text": "not only the situation that we've developed it here, but we'll try to push that out as far as we can and look at these look at the static values of the of of the leaf nodes down here and somehow use that as a way of playing the game. So, that is number five. And number four is going all the way down there. And this in the end is all that we can do. This idea is um most notably by Claude Shannon and also by Alan Turing who I found out from a friend of mine uh spent a lot of lunchtime conversations they spent a lot of"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_027",
+    "video_id": "mit_6034_lec06",
+    "start_time": 945.0,
+    "end_time": 990.0,
+    "text": "most notably by Claude Shannon and also by Alan Turing who I found out from a friend of mine uh spent a lot of lunchtime conversations they spent a lot of lunchtime conversations talking with each other about how a computer might play chess in against the future when they work would be computers. So, Donald Michie and Alan Turing also invented this over lunch while they were taking uh some time off from breaking the from cracking the German codes. Well, what is the method? I I want to illustrate the method with the simplest possible tree. So, we're going to have a branching factor of two, not 14, and we're going to have depth of two, not something highly"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_028",
+    "video_id": "mit_6034_lec06",
+    "start_time": 980.0,
+    "end_time": 1025.0,
+    "text": "the simplest possible tree. So, we're going to have a branching factor of two, not 14, and we're going to have depth of two, not something highly highly serious. So, here's the game tree. And there are going to be some numbers And these are going to be the value of the board from the perspective of the player at the top. And let us say that the player at the top would like to drive the play as much as possible toward the big numbers. So, we're going to call that player the He would like to get over here to the eight because that's the biggest number. There's another player, his opponent,"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_029",
+    "video_id": "mit_6034_lec06",
+    "start_time": 1015.0,
+    "end_time": 1060.0,
+    "text": "He would like to get over here to the eight because that's the biggest number. There's another player, his opponent, which we'll call the minimizing player. And he's hoping that the number that the play will go down to the board situation that is small as possible because his view is the opposite of the maximizing player. All right? Hence the name minimax. But how does it work? Do you Do you Do you see which way the play is going to go? How would you decide which way the play is going to go? Well, it's not obvious at a glance. Do you see which way it's going to go? It's not obvious at a glance. But if we do more than a glance, if we look at the situation from the"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_030",
+    "video_id": "mit_6034_lec06",
+    "start_time": 1050.0,
+    "end_time": 1095.0,
+    "text": "Well, it's not obvious at a glance. Do you see which way it's going to go? It's not obvious at a glance. But if we do more than a glance, if we look at the situation from the perspective of the minimizing player here at the middle level, it's pretty clear that if the minimizing player finds himself in that situation he's going to choose to go that way. And so, the value of this situation from the perspective of the minimizing player is two. He'd never go over there to the seven. Similarly, if the minimizing player is over here with a choice between going toward a one or toward an eight, he'll obviously go toward a one."
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_031",
+    "video_id": "mit_6034_lec06",
+    "start_time": 1085.0,
+    "end_time": 1130.0,
+    "text": "Similarly, if the minimizing player is over here with a choice between going toward a one or toward an eight, he'll obviously go toward a one. And so, the value of that board situation from the perspective of the minimizing player is one. So, now we've taken the scores down here at the bottom of the tree and we back them up one level. And you see how we we can just keep doing this? Now, the maximizing player can see that if he goes to the left he gets a score of two. If he goes to the right, he only gets a score of one. So, he's going to go to the left. And so, overall then, the maximizing player is going to have a two as the perceived value of that situation"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_032",
+    "video_id": "mit_6034_lec06",
+    "start_time": 1120.0,
+    "end_time": 1165.0,
+    "text": "And so, overall then, the maximizing player is going to have a two as the perceived value of that situation there at the top. So, that's the minimax algorithm. It's very simple. You go down to the bottom of the tree. You compute static values. You back them up level by level. And then you decide where to go. And in this particular situation the maximizer goes to the left and the minimizer goes to the left, too. So, the play ends up here. Far short of the eight that the maximizer wanted and less than the one that the minimizer wanted. But this is an adversarial game. You're competing with each other. So, you don't expect to get what you want."
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_033",
+    "video_id": "mit_6034_lec06",
+    "start_time": 1155.0,
+    "end_time": 1200.0,
+    "text": "the one that the minimizer wanted. But this is an adversarial game. You're competing with each other. So, you don't expect to get what you want. So, maybe we see if we can make that There's a game tree. Do you see how it Let's uh Let's see if the system can figure it out. So, there it goes crawling its way through the tree. This is a branching factor of two, just like our sample, but now four levels. You can see that it's got quite a lot of work to do. It's uh two to the two to the what? Two to the fourth, that's"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_034",
+    "video_id": "mit_6034_lec06",
+    "start_time": 1190.0,
+    "end_time": 1235.0,
+    "text": "like our sample, but now four levels. You can see that it's got quite a lot of work to do. It's uh two to the two to the what? Two to the fourth, that's 1 2 3 4 two to the fourth 16 static evaluations to do. So, it found the answer, but it's a lot of work. We could get a new tree That goes down that way. Get a new tree. Those are just random numbers, so each time it's going to find a different path through the tree according to the numbers that it's generated. Now, 16 isn't bad, but if you get down there around uh 10 levels deep and your"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_035",
+    "video_id": "mit_6034_lec06",
+    "start_time": 1225.0,
+    "end_time": 1270.0,
+    "text": "time it's going to find a different path through the tree according to the numbers that it's generated. Now, 16 isn't bad, but if you get down there around uh 10 levels deep and your branching factor is 14, well, we know those numbers get pretty awful, pretty bad because the number of static evaluations do down there at the bottom goes as B to the D. That's exponential. And time has shown that if you get down about seven or eight levels, you're a jerk. And if you get down about 15 or 16 levels, you beat the world champion. So, you'd like to get as far down in the tree as possible because when you get as far down to the into the tree as possible, what happens is that these crude measures of board quality begin to clarify."
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_036",
+    "video_id": "mit_6034_lec06",
+    "start_time": 1260.0,
+    "end_time": 1305.0,
+    "text": "tree as possible because when you get as far down to the into the tree as possible, what happens is that these crude measures of board quality begin to clarify. And in fact, when you get far enough, the only thing that really counts is piece count. One of those features. So, if you get far enough piece count, a few other things will give you a pretty good idea of what to But getting far enough can be a problem. So, we want to do everything we can to get as far as possible. We want to pull out every trick we can find to get as far as possible. Now, you remember when we talked about branch and bound we knew that there were some things we could do that would cut off whole portions of the search tree. And so, what I would like to do is find"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_037",
+    "video_id": "mit_6034_lec06",
+    "start_time": 1295.0,
+    "end_time": 1340.0,
+    "text": "Now, you remember when we talked about branch and bound we knew that there were some things we could do that would cut off whole portions of the search tree. And so, what I would like to do is find something analogous to this world of games that will cut off whole portions of the search tree, so we don't have to look at those static So, what I want to do is I want to come back and redo this thing. But this time I'm going to compute the static values one at a time. And just as before, I'm going to assume that the top player wants to go toward the maximum values and the next player wants to go toward the minimum values, but none of the static values have been computed yet. So, I better start computing them. That's the first one I find, two."
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_038",
+    "video_id": "mit_6034_lec06",
+    "start_time": 1330.0,
+    "end_time": 1375.0,
+    "text": "wants to go toward the minimum values, but none of the static values have been computed yet. So, I better start computing them. That's the first one I find, two. Now, as soon as I see that two, as soon as the minimizer sees that two, the minimizer knows that the value of this node can't be any greater than two cuz it'll always choose to go down this way if this branch produces a bigger number. So, we can say that the minimizer is assured already that the score there will be less than two, equal to or less than two. So, now we go over and compute the next number. There's a seven. Now, he knows it's exactly equal to cuz he'll never go down toward the seven. As soon as the minimizer says equal to two, the maximizer says, \"Okay,"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_039",
+    "video_id": "mit_6034_lec06",
+    "start_time": 1365.0,
+    "end_time": 1410.0,
+    "text": "Now, he knows it's exactly equal to cuz he'll never go down toward the seven. As soon as the minimizer says equal to two, the maximizer says, \"Okay, All right? One. Minimizer says equal to or less than one. Now, what? The maximizer knows if he goes down here, he can't do better than one. And he already knows if he goes over here he can get a two. So, it's as if this branch doesn't even exist. Cuz this"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_040",
+    "video_id": "mit_6034_lec06",
+    "start_time": 1400.0,
+    "end_time": 1445.0,
+    "text": "here he can get a two. So, it's as if this branch doesn't even exist. Cuz this the maximizer would never choose to go down there. And so, you have to see that cuz this is the important essence of the notion of alpha beta of the alpha beta algorithm which is a layering on top of minimax that cuts off large sections of the search tree. So, one more time. We've developed the situation, so we know that the maximizer gets a two going down to the left and he sees that if he goes down to the right he can't do better than one. So, he says to himself it's as if that branch doesn't exist"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_041",
+    "video_id": "mit_6034_lec06",
+    "start_time": 1435.0,
+    "end_time": 1480.0,
+    "text": "and he sees that if he goes down to the right he can't do better than one. So, he says to himself it's as if that branch doesn't exist and the overall score is two. And it doesn't matter what that static value is. It can be eight as it was. It can be plus a thousand. It doesn't matter. It can be minus a thousand. Or it could be plus infinity. Or minus infinity. It doesn't matter because the maximizer So, that's the alpha beta algorithm. Can you guess why it's called the alpha beta algorithm? Well, because in the algorithm there are So, it's important to understand alpha"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_042",
+    "video_id": "mit_6034_lec06",
+    "start_time": 1470.0,
+    "end_time": 1515.0,
+    "text": "Can you guess why it's called the alpha beta algorithm? Well, because in the algorithm there are So, it's important to understand alpha beta is not an alternative to minimax. It's minimax with a flourish. It's something layered on top. Like we layered things on top of branch and bound to make it more efficient. We layer stuff on top of minimax to make it more efficient. And you say to me, \"Well, that's pretty easy example and it is. So, let's try a This just to see if I could do it without screwing up. All right? I The reason I do it I The reason I do"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_043",
+    "video_id": "mit_6034_lec06",
+    "start_time": 1505.0,
+    "end_time": 1550.0,
+    "text": "This just to see if I could do it without screwing up. All right? I The reason I do it I The reason I do one this complex is not just to show how tough I am in front of a large audience, but rather there are certain points of interest that only occur in a tree of depth four or greater. That's the reason for this example. But work with me and let's see if we can get our work our way through it. What I'm going to do is I'll um I'll circle the static the numbers that we actually have to compute. So, we actually have to compute eight. And as soon as we do that, the minimizer knows that that node is going to have a score of equal to or less than eight without looking at anything else."
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_044",
+    "video_id": "mit_6034_lec06",
+    "start_time": 1540.0,
+    "end_time": 1585.0,
+    "text": "And as soon as we do that, the minimizer knows that that node is going to have a score of equal to or less than eight without looking at anything else. So, that's equal to seven cuz the minimizer will clearly go to the right. As soon as that is determined, then the maximizer knows that the score here is equal to or greater than eight. Now, we evaluate the three. The minimizer knows equal to or less Oh, sorry. Okay. Now, what happens? Well, let's see. The maximizer gets a seven going that way. He can't do better than three going that way. So, we got another one of these cutoff situations."
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_045",
+    "video_id": "mit_6034_lec06",
+    "start_time": 1575.0,
+    "end_time": 1620.0,
+    "text": "Okay. Now, what happens? Well, let's see. The maximizer gets a seven going that way. He can't do better than three going that way. So, we got another one of these cutoff situations. It's as if this branch doesn't even exist. So, this static evaluation need not be made. And now we know that that's not not not merely equal to or greater than seven, but exactly equal to seven and we can push that number back up. So, that becomes equal to or less than seven. Okay, you with me so far? Let's get over on the other side of the tree as quickly as possible. So, there's a nine, equal to or less than nine. Eight. Equal to eight. Push the eight up."
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_046",
+    "video_id": "mit_6034_lec06",
+    "start_time": 1610.0,
+    "end_time": 1655.0,
+    "text": "So, there's a nine, equal to or less than nine. Eight. Equal to eight. Push the eight up. Equal to or greater than The minimizer can go down this way and get a seven, will certainly never go that way where the maximizer can get an eight. So, once again, we've got a cutoff. And it's as if this branch didn't exist. And that means that these static evaluations don't have to be made. But there's a little There's one more thing to note here, and that is that not only do we not have to make these static evaluations down here, but we don't even have to generate these"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_047",
+    "video_id": "mit_6034_lec06",
+    "start_time": 1645.0,
+    "end_time": 1690.0,
+    "text": "But there's a little There's one more thing to note here, and that is that not only do we not have to make these static evaluations down here, but we don't even have to generate these moves. So, we save two ways, both on static evaluation and on move generation. So, this this is a real winner, this alpha beta thing, because it saves an Well, we're on the way now. The maximizer up here is guaranteed equal to or greater than seven. Has anybody found the winning move yet? Is it to the left? I don't know. We better keep going because So, let's see. There's a one. We've calculated that. The minimizer can be guaranteed equal to or less than one at"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_048",
+    "video_id": "mit_6034_lec06",
+    "start_time": 1680.0,
+    "end_time": 1725.0,
+    "text": "So, let's see. There's a one. We've calculated that. The minimizer can be guaranteed equal to or less than one at And I'll think about that for a while. At the top the maximizer knows he can go left and get a seven. The minimizer, if the play ever gets here can ensure that he's going to drive the situation to a board number that's one. So, the question is would the maximizer ever permit that to happen? And the answer is surely not. So, over here in the development of this side of the tree, we're always com-"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_049",
+    "video_id": "mit_6034_lec06",
+    "start_time": 1715.0,
+    "end_time": 1760.0,
+    "text": "ever permit that to happen? And the answer is surely not. So, over here in the development of this side of the tree, we're always com- comparing numbers at adjacent levels in the tree. But here's a situation where we're comparing numbers that are separated from each other in the tree, and we still concluded that no further examination of this node makes any sense at all. And that means that this whole branch here might as well not exist. And we won't have to compute that static value. All right? So, it looks I mean, you you you have this stare of disbelief,"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_050",
+    "video_id": "mit_6034_lec06",
+    "start_time": 1750.0,
+    "end_time": 1795.0,
+    "text": "might as well not exist. And we won't have to compute that static value. All right? So, it looks I mean, you you you have this stare of disbelief, which is perfectly normal. I have to reconvince myself every time that this actually works. But when you think your way through it, it is clear that these computations that I've X'd out don't have to be made. So, let's carry on and see if we can complete this, equal to or less than eight. Equal to eight. Equal to eight because the other branch doesn't even exist. Equal to or less than eight. And we compare these two numbers do we keep going? Yes, we keep going cuz maybe the maximizer can go to the right and"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_051",
+    "video_id": "mit_6034_lec06",
+    "start_time": 1785.0,
+    "end_time": 1830.0,
+    "text": "than eight. And we compare these two numbers do we keep going? Yes, we keep going cuz maybe the maximizer can go to the right and actually hit that eight. So we have to go over here and keep working away. There's a nine equal to or less than nine. Another nine equal to nine. Push that number up equal to or greater than Let's see minimizer gets an eight going this way. Maximizer is ensured of getting a nine going that way. So once again we've got a cut off situation. It's as if this doesn't exist. Those static evaluations are not made. This move generation is not made and computation is saved."
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_052",
+    "video_id": "mit_6034_lec06",
+    "start_time": 1820.0,
+    "end_time": 1865.0,
+    "text": "doesn't exist. Those static evaluations are not made. This move generation is not made and computation is saved. All right. So let's see if we can do better on this very example by using this alpha beta idea. I'll slow it down a little bit. We'll change the search type to minimax with alpha beta. We see two numbers on each of those nodes now. Guess what they're called? We already know, right? They're alpha and beta. So what's going to happen as the algorithm proceeds through the tree is that those numbers are going to to shrink wrap themselves around the situation."
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_053",
+    "video_id": "mit_6034_lec06",
+    "start_time": 1855.0,
+    "end_time": 1900.0,
+    "text": "that those numbers are going to to shrink wrap themselves around the situation. So two static evaluations were not made. Yet two is still again two different ones not made. Let's see if what happens when we use the classroom example the one I did up there. Let's make sure they didn't screw it up."
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_054",
+    "video_id": "mit_6034_lec06",
+    "start_time": 1890.0,
+    "end_time": 1935.0,
+    "text": "there. Let's make sure they didn't screw it up. Few. Same answer. So you probably didn't realize it at the start. Who could? But in fact the play goes down that way over this way down that way and ultimately to the eight which is not the biggest number and it's not the smallest number. It's the compromise number that's arrived at in virtue of the fact that this is an adversarial situation. So you say to me how much how much energy how much work do you actually save by doing this?"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_055",
+    "video_id": "mit_6034_lec06",
+    "start_time": 1925.0,
+    "end_time": 1970.0,
+    "text": "adversarial situation. So you say to me how much how much energy how much work do you actually save by doing this? It is the case that in the optimal situation if everything is ordered right. If God has come down and arranged your tree in just the right way, then the approximate amount of work you need to do the approximate number of static evaluations performed is approximately equal to two"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_056",
+    "video_id": "mit_6034_lec06",
+    "start_time": 1960.0,
+    "end_time": 2005.0,
+    "text": "tree in just the right way, then the approximate amount of work you need to do the approximate number of static evaluations performed is approximately equal to two times B to the D over two. We don't care about this two. We care a whole lot about that two. So that's the amount of work that's done. It's B to the D over two instead of B to the D. What's that mean? Suppose that without this idea I can go down seven levels. How far can I go down with this idea? 14 levels. So it's the difference between a jerk and a world champion. So that however is only in the optimal"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_057",
+    "video_id": "mit_6034_lec06",
+    "start_time": 1995.0,
+    "end_time": 2040.0,
+    "text": "How far can I go down with this idea? 14 levels. So it's the difference between a jerk and a world champion. So that however is only in the optimal case when God has arranged things just right. But in practical situations practical game situations it appears to be the case experimentally that the actual number is close to this approximation for optimal arrangements. So you would never not want to use alpha beta. Saves an amazing amount of time. You can look at it another way. Suppose you suppose you go down to the same number of levels. Well, quite a bit. The square root this month, right?"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_058",
+    "video_id": "mit_6034_lec06",
+    "start_time": 2030.0,
+    "end_time": 2075.0,
+    "text": "same number of levels. Well, quite a bit. The square root this month, right? It's another way of looking at how it So we could go home at this point except for one problem and that is that we pretended that the branching factor is always the same. But in fact the branching factor will vary with the the game state and it will vary with the game. So you can calculate how much computing you can do in two minutes or how much however much time you have for an average move and then you can say how how deep can I go and you won't know for sure because it"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_059",
+    "video_id": "mit_6034_lec06",
+    "start_time": 2065.0,
+    "end_time": 2110.0,
+    "text": "however much time you have for an average move and then you can say how how deep can I go and you won't know for sure because it depends on the game. So in the early days of game playing programs the game playing program left a lot of computation on the table because it would make a a decision in three seconds and it might have made a much different move if it used all the computation it had available. Alternatively it might be grinding away and after two minutes was consumed it had no move and just did something random. So that's not that's not very good. But that's what early game playing programs did because no one knew how"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_060",
+    "video_id": "mit_6034_lec06",
+    "start_time": 2100.0,
+    "end_time": 2145.0,
+    "text": "just did something random. So that's not that's not very good. But that's what early game playing programs did because no one knew how So let's have a look at the situation here and say well, here's a game tree. It's a binary game tree. That's level zero. That's level one. This is level D minus one and this is level D. So down here you have situation looks like this and I've left all the game tree out in between. So how many leaf nodes are there down here? B to the D, right? Oh, I'm going to forget about alpha beta for a moment."
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_061",
+    "video_id": "mit_6034_lec06",
+    "start_time": 2135.0,
+    "end_time": 2180.0,
+    "text": "I've left all the game tree out in between. So how many leaf nodes are there down here? B to the D, right? Oh, I'm going to forget about alpha beta for a moment. As as as we did when we looked at some of those optimal searches we're going to add these things one one at a time. So forget about alpha beta. Assume we're just doing straight minimax. In that case we would have to calculate all these static values down here at the bottom and there are B to the D of those. How many are there at this next level up? Well, that must be B to the D minus one. How many fewer nodes are there at the second to the last the penultimate level relative to the final level?"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_062",
+    "video_id": "mit_6034_lec06",
+    "start_time": 2170.0,
+    "end_time": 2215.0,
+    "text": "to the D minus one. How many fewer nodes are there at the second to the last the penultimate level relative to the final level? Well, one over B, right? So if I'm concerned about not getting all the way through these calculations at the D level I can give myself an insurance policy by calculating out what the answer would be if I only went down to the D minus D minus oneth level. All right. See how you get that insurance policy? It only cost me let's say the branching factor is 10. How much is that insurance policy cost me? 10% of my computation because I can do this calculation and have a move in hand"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_063",
+    "video_id": "mit_6034_lec06",
+    "start_time": 2205.0,
+    "end_time": 2250.0,
+    "text": "factor is 10. How much is that insurance policy cost me? 10% of my computation because I can do this calculation and have a move in hand here at the at level D minus one for only 1/10 of of the computation is required to figure out what I would do if I go all the way down to the Dth level. Okay? Is that clear? So this idea is extremely important in its general form but we haven't quite got there yet because what if the branching factor turns out to be really big and we can't get through this level either? What should we do to make sure that we"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_064",
+    "video_id": "mit_6034_lec06",
+    "start_time": 2240.0,
+    "end_time": 2285.0,
+    "text": "through this level either? What should we do to make sure that we Right. We can do it at the B minus two level. So that would be up here and at that level the amount of computation would be B to So now it's we've added 10% plus 10% of that. And our knee jerk is beginning to beginning to form, right? What are we going to do in the end to make sure that no matter what we've got a move? We're going to What's that Christopher? Start from the very first level. Start"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_065",
+    "video_id": "mit_6034_lec06",
+    "start_time": 2275.0,
+    "end_time": 2320.0,
+    "text": "to form, right? What are we going to do in the end to make sure that no matter what we've got a move? We're going to What's that Christopher? Start from the very first level. Start from the very first level and give ourselves an insurance policy for every level we try to calculate. But that might be real costly. So we better figure out if this is going to be too big of an expense to bear. So let's see if we do what Christopher suggests, then the amount of computation we need in our insurance policy is going to be equal to one. We're going to do it up here at this level too even though we don't need it. Just make everything work out easy. One plus B. That's getting our insurance policy down here at this first level."
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_066",
+    "video_id": "mit_6034_lec06",
+    "start_time": 2310.0,
+    "end_time": 2355.0,
+    "text": "this level too even though we don't need it. Just make everything work out easy. One plus B. That's getting our insurance policy down here at this first level. And we're going to add B squared all the way down to B to the D minus one. So that's how much we're going to expend getting an insurance policy at every How much is the sum of that? High school algebra, right? Let's let's just do it for fun. Oh, unfortunate choice of variable names. BS is equal to Well, we're going to multiply all those"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_067",
+    "video_id": "mit_6034_lec06",
+    "start_time": 2345.0,
+    "end_time": 2390.0,
+    "text": "unfortunate choice of variable names. BS is equal to Well, we're going to multiply all those Okay? Now we'll subtract the first one from Which tells us that the amount of calculation needed for our insurance policy is equal to B to the D minus one over B"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_068",
+    "video_id": "mit_6034_lec06",
+    "start_time": 2380.0,
+    "end_time": 2425.0,
+    "text": "over B We can do a little algebra on that and say that B to the D is a huge number, so that - 1 doesn't count. And B is probably 10 to 15, so B - 1 is essentially equal to B. So that's approximately equal to So with a with an approximation factored in, the amount it takes us to amount of computation needed to do an insurance policy at every level is not much different from the amount of computation needed to get an insurance policy at just one level, the the penultimate one."
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_069",
+    "video_id": "mit_6034_lec06",
+    "start_time": 2415.0,
+    "end_time": 2460.0,
+    "text": "in, the amount it takes us to amount of computation needed to do an insurance policy at every level is not much different from the amount of computation needed to get an insurance policy at just one level, the the penultimate one. So this idea is called progressive And now we can visit our goal star list goal star ideal list and see how these things match up with that. First of all, the the dead horse principle comes up to the fore when we talk about alpha-beta because we know with alpha-beta that we can get rid of a whole lot of the tree and not do static evaluation, not even do move generation."
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_070",
+    "video_id": "mit_6034_lec06",
+    "start_time": 2450.0,
+    "end_time": 2495.0,
+    "text": "principle comes up to the fore when we talk about alpha-beta because we know with alpha-beta that we can get rid of a whole lot of the tree and not do static evaluation, not even do move generation. That's the dead horse we don't want to beat. There's no point in doing that calculation cuz it can't figure into the answer. development of the progressive deepening idea I like to think of it as in terms of the martial arts principle we're using the enemy's characteristics against them. Because of this exponential blow up, we have exactly the right characteristics to have a move available at every level as an insurance policy against not being through the next level. And finally, this whole idea of progressive deepening can be viewed as a prime example of what"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_071",
+    "video_id": "mit_6034_lec06",
+    "start_time": 2485.0,
+    "end_time": 2530.0,
+    "text": "at every level as an insurance policy against not being through the next level. And finally, this whole idea of progressive deepening can be viewed as a prime example of what we like to call anytime algorithms that always have an answer ready to go as soon as an answer is demanded. So as soon as that clock runs out at 2 minutes, some answer is available. It'll be the best one that the system can compute in the time available given the characteristics of the game tree as it's developed so far. So there are other kinds of anytime algorithms. This is an example of one. So that's how all game playing programs work. Minimax plus alpha-beta plus progressive deepening. Christopher is alpha-beta a alternative to minimax? No."
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_072",
+    "video_id": "mit_6034_lec06",
+    "start_time": 2520.0,
+    "end_time": 2565.0,
+    "text": "all game playing programs work. Minimax plus alpha-beta plus progressive deepening. Christopher is alpha-beta a alternative to minimax? No. No, it's not. It's something you layer on top of minimax. Does alpha-beta give you a different answer No. No, it doesn't. Let's hear see everybody shake their head one way or the other. It does not give you an answer different from minimax. That's right. It gives you exactly the same answer, not a different answer. It's a speed up. It's not an approximation. It's a speed up. It cuts off lots of the tree. Dead horse principle at work, okay? You got a question, Christopher? Yeah, um along the lines of the progressively"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_073",
+    "video_id": "mit_6034_lec06",
+    "start_time": 2555.0,
+    "end_time": 2600.0,
+    "text": "up. It cuts off lots of the tree. Dead horse principle at work, okay? You got a question, Christopher? Yeah, um along the lines of the progressively computing the best result, is it possible to almost keep a temporary value for the values computed on each node of the tree and then keep and then an instant value Oh, an excellent suggestion. In fact, Christopher has just I think, if I can jump ahead a couple steps, I think Christopher has reinvented a very important idea. Progressive deepening not only ensures that you get a better answer, progressive deepening not only ensures you have an answer at any time, it actually improves the performance of alpha-beta when you layer alpha-beta on"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_074",
+    "video_id": "mit_6034_lec06",
+    "start_time": 2590.0,
+    "end_time": 2635.0,
+    "text": "answer, progressive deepening not only ensures you have an answer at any time, it actually improves the performance of alpha-beta when you layer alpha-beta on top of it. Because these values that are calculated at intermediate parts of the tree are used to reorder the nodes under the tree so as to give you maximum alpha-beta cutoff. I think that's what you said, Christopher. But if it isn't, we'll talk about your idea after class. Sure. So this is what every game playing program does. So what how is Deep Deep Blue different? So Deep Blue as of 1997"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_075",
+    "video_id": "mit_6034_lec06",
+    "start_time": 2625.0,
+    "end_time": 2670.0,
+    "text": "So Deep Blue as of 1997 did about 200 million static evaluations per second. And it went down using alpha-beta, went down about 14, 15, 16 levels. plus alpha-beta"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_076",
+    "video_id": "mit_6034_lec06",
+    "start_time": 2660.0,
+    "end_time": 2705.0,
+    "text": "plus alpha-beta plus"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_077",
+    "video_id": "mit_6034_lec06",
+    "start_time": 2695.0,
+    "end_time": 2740.0,
+    "text": "uneven tree development. So far we've pretended the tree always goes out in an even way to a fixed level. But there's no particular reason why that has to be so. Some some situation down at the bottom of the tree may be particularly dynamic. In the very next move you might be able to capture the opponent's queen. So in circumstances like that you want to blow out a little extra search. So eventually you get to the idea that there's no particular reason to have the search go down to a fixed level, but instead you can develop the tree in"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_078",
+    "video_id": "mit_6034_lec06",
+    "start_time": 2730.0,
+    "end_time": 2775.0,
+    "text": "So eventually you get to the idea that there's no particular reason to have the search go down to a fixed level, but instead you can develop the tree in a way that gives you the most confidence that your backed up numbers are correct. And so that's the most important of the extra flourishes added by Deep Blue when it beat Kasparov in 1997. And now we can uh come back and say, \"Well, you understand Deep Blue, but is this a model of anything that goes on in our own heads?\" Is this a model of any kind of human intelligence or is it a different kind of intelligence? And the answer is mixed, right? Because we are often in situations where we're playing a game. We're competing with another manufacturer. We have to think what the"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_079",
+    "video_id": "mit_6034_lec06",
+    "start_time": 2765.0,
+    "end_time": 2810.0,
+    "text": "kind of intelligence? And the answer is mixed, right? Because we are often in situations where we're playing a game. We're competing with another manufacturer. We have to think what the other manufacturer will do in response to what we do and On the other hand, uh is going down 14 levels what human chess players do when they win the world championship? Mm, doesn't seem even to them like that's even a remote possibility. Uh they have to do something different because they don't have that kind of computational horsepower. This is doing computation in the same way that a bulldozer processes gravel. It's substituting raw power for"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_080",
+    "video_id": "mit_6034_lec06",
+    "start_time": 2800.0,
+    "end_time": 2845.0,
+    "text": "computational horsepower. This is doing computation in the same way that a bulldozer processes gravel. It's substituting raw power for sophistication. So when a human chess master plays the game, they have a great deal of chess knowledge in their head and they recognize patterns. There are famous experiments, by the way, that demonstrate this in the following way. Show a chessboard to a chess master and ask them to memorize it. They're very good at that as long as it's a legitimate chessboard. If the pieces are placed random randomly, they're no good at it at all. So it's very clear that they've developed a repertoire of chess knowledge that makes it possible for"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_081",
+    "video_id": "mit_6034_lec06",
+    "start_time": 2835.0,
+    "end_time": 2880.0,
+    "text": "pieces are placed random randomly, they're no good at it at all. So it's very clear that they've developed a repertoire of chess knowledge that makes it possible for them to recognize situations and play the game much more like number one up there. So Deep Blue is manifesting some kind of intelligence, but it's not our intelligence. It's bulldozer intelligence. So it's important to understand that kind of intelligence, too, but it's not necessarily the same kind of intelligence that we have in our own So that concludes what we're going to do today, and as you know, on Wednesday we have a celebration of learning, uh which is familiar to you if you take and therefore I will see you on"
+  },
+  {
+    "chunk_id": "mit_6034_lec06_chunk_082",
+    "video_id": "mit_6034_lec06",
+    "start_time": 2870.0,
+    "end_time": 2915.0,
+    "text": "have a celebration of learning, uh which is familiar to you if you take and therefore I will see you on Wednesday."
+  }
+]

@@ -1,0 +1,912 @@
+[
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_000",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 0.0,
+    "end_time": 45.0,
+    "text": "This presentation is delivered by the Stanford Center for Professional So welcome back and um what I want to do today is continue our discussion on support vector machines. In particular, I want to talk about the optimal margin classifier. Um then we'll take a brief digression to talk about primal and dual optimization problems and in particular what's called the KKT conditions. um and then we'll derive the duo to the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_001",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 35.0,
+    "end_time": 80.0,
+    "text": "digression to talk about primal and dual optimization problems and in particular what's called the KKT conditions. um and then we'll derive the duo to the optimization problem that I had posed earlier and that will lead us into a discussion of kernels which which I won't really which we just get to say a couple of words about but but which I'll do properly only in the next lecture um and as part of today's lecture I'll spend some time talking about optimization problems um and you know in the little time I have today I won't really be able to do this topic justice I won't talk about convex optimizations and do that topic justice. And so at this week's discussion section um the TAs will um have more time we'll teach a"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_002",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 70.0,
+    "end_time": 115.0,
+    "text": "I won't talk about convex optimizations and do that topic justice. And so at this week's discussion section um the TAs will um have more time we'll teach a discussion section focused on convex optimization. Okay. So it's a very beautiful and useful theory. Um so you want to learn more about that listen to section just to recap what we did in the previous lecture. Um right as we were beginning our development of support vector machines I said that um our hypothesis will represented as h subscript wb as g of wrpose x + b"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_003",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 105.0,
+    "end_time": 150.0,
+    "text": "said that um our hypothesis will represented as h subscript wb as g of wrpose x + b um + one or minus one depending on whether z is is greater than equal to zero and I said that in our development of support vector machines we'll use we'll change the convention of letting y be plus one minus one denote the cross labels time right we also talked about the functional margin which was this thing"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_004",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 140.0,
+    "end_time": 185.0,
+    "text": "time right we also talked about the functional margin which was this thing Right? And so we had the intuition that um if the functional margin is a large positive number, then that means that we're classifying you know training example correctly and very confidently. Right? So if yi is + one, we would like wrpose x i plus b to be very large and if x i if excuse me if y i is minus one, then we'd like wrpose x i plus b to be a large negative number. So we sort of like function margins be large. Um we also said functional margin has a"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_005",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 175.0,
+    "end_time": 220.0,
+    "text": "if x i if excuse me if y i is minus one, then we'd like wrpose x i plus b to be a large negative number. So we sort of like function margins be large. Um we also said functional margin has a strange property that you can increase functional margin just by say taking your parameters w and b and multiplying them by two. Um and then we also defined the geometric Okay, which is essentially the functional margin um divided by the norm"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_006",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 210.0,
+    "end_time": 255.0,
+    "text": "Okay, which is essentially the functional margin um divided by the norm of W. And so the geometric margin had the um interpretation as being you know you have a few training examples. The geometric margin of the example is sort of has the interpretation as a distance between a training example and a hyper plane and uh it'll actually be a sign distance. So that this distance will be positive if you're classifying the example correctly and if you're mclassifying example this distance so the the minus of the distance between the point between training example and your separating hyper plane where the separating hyper"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_007",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 245.0,
+    "end_time": 290.0,
+    "text": "distance so the the minus of the distance between the point between training example and your separating hyper plane where the separating hyper plane is defined by the equation you wrpose x + b equals zero right um defined you know these things as as the the functional margin and geometric margins with respect to trading set I defined as the worst case or the minimum functional geometric um in our development of the optim of"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_008",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 280.0,
+    "end_time": 325.0,
+    "text": "functional geometric um in our development of the optim of the optimal margin classifier our learning algorithm would choose parameters W and B so it's the maximize the geometric margin. So our goal is to find a separating hyper plane that separates the positive and negative examples with as large a distance as possible between the hyper plane and the positive and negative examples. Um and if you go to choose you know parameters W and B to maximize this to point out one property of the geometric margin is that um you can actually scale W and B arbitrarily. Right? Okay. So if you look at this definition for the geometric"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_009",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 315.0,
+    "end_time": 360.0,
+    "text": "one property of the geometric margin is that um you can actually scale W and B arbitrarily. Right? Okay. So if you look at this definition for the geometric margin um I can choose to multiply my parameters W and B by two or by 10 or by any other constant and it doesn't change my geometric margin right and one way of interpreting that is um you look at this separating hyper plane you look at this line you know separating my positive and negative train examples if I scale W and B um that doesn't change the position of this plane right because the equation wx plus = 0 is the same as equation 2 wrpose x + 2 v = 0. So it gives the same straight"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_010",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 350.0,
+    "end_time": 395.0,
+    "text": "this plane right because the equation wx plus = 0 is the same as equation 2 wrpose x + 2 v = 0. So it gives the same straight line and what that means is that I can actually choose whatever scaling um for w and b is convenient for me. And in particular, we'll use this in a minute. Um I can impose a constraint like that the norm of w must be equal to one because um this means that you can find a solution to w and b and then by rescaling the parameters you can easily meet this condition just rescale w to norm one. And so I can add a condition like this and and essentially not change the problem. Um or I can add other conditions. So I can actually add a condition that um excuse me the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_011",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 385.0,
+    "end_time": 430.0,
+    "text": "like this and and essentially not change the problem. Um or I can add other conditions. So I can actually add a condition that um excuse me the absolute value of w1 is equal to one. I can add only one of these conditions right not both of them. We're going to add a condition that the absolute value of the first component of w must be equal to one. And again you know you can find the obser solution and just rescale w and b to meet this condition. Um and I can add other more esoteric conditions like that, right? Because again this is a condition that you can solve for the optimal margin and then just by scaling you know W up and down you can you can ensure you meet this condition as well. Okay so again I can only choose one of"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_012",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 420.0,
+    "end_time": 465.0,
+    "text": "optimal margin and then just by scaling you know W up and down you can you can ensure you meet this condition as well. Okay so again I can only choose one of these conditions right not all of them. Um and so our ability to choose any scaling condition on W that's convenient to us will will be useful again in a second. All right. So let's go ahead and write down an optimization problem. Um and again my goal is to choose parameters W and B so as to maximize the geometric margin. Um here's my first attempt at writing down an optimization problem. I actually wrote this one down um right at the end of the previous lecture. Going"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_013",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 455.0,
+    "end_time": 500.0,
+    "text": "margin. Um here's my first attempt at writing down an optimization problem. I actually wrote this one down um right at the end of the previous lecture. Going to solve for parameters gamma, w and b that that holds you know for examples let's say I choose to add this normalization condition. Okay. Um so the norm condition that w the norm of w is equal to one um this makes the geometric and the functional margin the same and so I'm saying I want to find a value I"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_014",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 490.0,
+    "end_time": 535.0,
+    "text": "equal to one um this makes the geometric and the functional margin the same and so I'm saying I want to find a value I want to find a value for gamma that's as big as possible so that all of my training examples have functional margin greater than or equal to gamma and um with the con with a constraint that normal w= 1 functional margin and geometric margin are the same. Right? So this is saying you find a value for gamma so that all the values all the all the geometric margins are greater than equal to gamma. Okay. Um so if you solve this optimization problem then you know you you have derived the um optimal margin"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_015",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 525.0,
+    "end_time": 570.0,
+    "text": "Okay. Um so if you solve this optimization problem then you know you you have derived the um optimal margin classifier. Um but this is not a very nice optimization problem right because this is a nasty non-convex constraint. in particular is asking that you solve for parameters W that um lie on you lie on the surface of a unit sphere li has normal ones that lies on a unit circle a unit sphere right um and so if we can come up with a convex optimization problem then we'd be guaranteed that algorithms like gra desends or other local search algorithms would not have local optima it turns out this is an example of a non-convex constraint so"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_016",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 560.0,
+    "end_time": 605.0,
+    "text": "problem then we'd be guaranteed that algorithms like gra desends or other local search algorithms would not have local optima it turns out this is an example of a non-convex constraint so this is a nsy constraint um that that I would like to get rid So let us change the optimization me pose a slightly different optimization problem. Let me maximize the functional margin divided by the norm of W subject"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_017",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 595.0,
+    "end_time": 640.0,
+    "text": "optimization problem. Let me maximize the functional margin divided by the norm of W subject i. Okay. So in other words I want to find a number gamma hat so that every one of my training examples has um functional margin greater than gamma hat. And my optimization objective is I want to maximize gamma hat divided by the norm of w. Okay. So I want to maximize the functional margin divided by the norm of w. And you know we saw we saw previously right the function margin divided by the norm of w is just a"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_018",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 630.0,
+    "end_time": 675.0,
+    "text": "maximize the functional margin divided by the norm of w. And you know we saw we saw previously right the function margin divided by the norm of w is just a geometric margin. So this is a different way of posing the same optimization problem. So I'm seeing some slightly confused looks. Are there questions Is it cool the second statement that has to be greater than the functional margin? Why are you dividing it by why you should have it the geometric margin? Why do you is there some trick there that's not? Oh, wait. Say that again. So the second statement we're saying and the functional margin dividing by the norm of W. Oh, I see. Yes. Is that important? Um let's see. So this is the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_019",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 665.0,
+    "end_time": 710.0,
+    "text": "the second statement we're saying and the functional margin dividing by the norm of W. Oh, I see. Yes. Is that important? Um let's see. So this is the functional margin, right? This is not the geometric margin. Yeah. So um oh I I want to I I want to um divide by the norm of w my optimization objective. I'm just wondering how come you're not dividing also in the second state than the functional model. Why are you dividing there by by the normal w? Let's see um not sure I get the question. Let me try to explain this again. So here here's my goal. My I want I want an optimization. So let's see the parameters of this optimization problem were gamma hat w and b right. you know I'm going to have like a convex"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_020",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 700.0,
+    "end_time": 745.0,
+    "text": "here's my goal. My I want I want an optimization. So let's see the parameters of this optimization problem were gamma hat w and b right. you know I'm going to have like a convex optimization software solve this problem for some set of parameters gamma hat w and b and I'm imposing the constraint that um whatever values it comes out with you know y i * wrpose x i plus b must be greater than equal to gamma hat and so this means that um the functional margin of every example had better be greater than equal to gamma hat okay so this is a constraint that the functional margin is greater than gamma hat but what I care about is not really maximizing the functional margin. What I really care about, in other words, in my optimization objective is maximizing gamma hat divided by the norm of W,"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_021",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 735.0,
+    "end_time": 780.0,
+    "text": "what I care about is not really maximizing the functional margin. What I really care about, in other words, in my optimization objective is maximizing gamma hat divided by the norm of W, which is the geometric margin. Okay, so in other words, my my my optimization problem is I want to maximize the function margin divided by the norm of W. Um, you know, subject to that every example must have, you know, functional margin at least G have. Does that make When when you say that you maximize gamma or gamma hat with respect um to gamma w and respect to gamma hat and b does mean that these things gamma and"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_022",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 770.0,
+    "end_time": 815.0,
+    "text": "gamma or gamma hat with respect um to gamma w and respect to gamma hat and b does mean that these things gamma and gamma hats are no longer function um yeah right okay so this is the right so it turns out um so this is how I write down an optim this is how I write down an optimization problem in order to solve for the geometric margin. Um what is it? So it turns out that um the question was is is gamma hat a function of w and b and it turns out that um in my previous mathematical definition it was but the way I'm going to pose this as a as an optimization problem is I'm going to ask a convex optimization solver say let's have software let's say I have you know"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_023",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 805.0,
+    "end_time": 850.0,
+    "text": "definition it was but the way I'm going to pose this as a as an optimization problem is I'm going to ask a convex optimization solver say let's have software let's say I have you know software um uh for solving convex optimization problems right then I'm going to pretend that these are independent variables and ask my convex optimization software to find me values for gamma VNB to make this value as pos as big as possible and subject to this constraint and it'll turn out that um when it does that it will choose well it'll obviously choose gamma to be as big as possible right because because the optimization objective is this you're trying to maximize gamma hat so for a fixed value of W and B my software would choose to make gamma hat as big as possible well but how big can it make"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_024",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 840.0,
+    "end_time": 885.0,
+    "text": "the optimization objective is this you're trying to maximize gamma hat so for a fixed value of W and B my software would choose to make gamma hat as big as possible well but how big can it make gamma hat is is limited by these constraints right it says that every training example must have functional margin you know greater than equal to gamma hat. And so my the the the biggest you can make gamma hat will be the value of the smallest functional margin. And so when you solve this optimization problem the value of gamma hat you get out will be indeed um you know the minimum of the functional margins over your training set. Okay. So Justin, yeah, I was just wondering I I guess I'm a little confused because it's like, okay, you have like two clouds of data and and you"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_025",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 875.0,
+    "end_time": 920.0,
+    "text": "functional margins over your training set. Okay. So Justin, yeah, I was just wondering I I guess I'm a little confused because it's like, okay, you have like two clouds of data and and you could say, okay, please draw me a line such that, you know, you maximize the the distance between the the smallest distance from between that line and one of the, you know, data points. Um, and it seems like that's kind of what we're doing, but there's it seems like this is this is this is more complicated than that. Um, and I guess I'm wondering what is the difference. I see. So I mean this is um the question is of right two clouds of data trying find sering hyper plane um uh and this seems more complicated than trying to find the line surface of class data. So so I'm just repeating questions in case since I'm not sure how well the audio captures it. Um so the answer is um does this"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_026",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 910.0,
+    "end_time": 955.0,
+    "text": "complicated than trying to find the line surface of class data. So so I'm just repeating questions in case since I'm not sure how well the audio captures it. Um so the answer is um does this actually exactly that problem? This is exactly the problem of you know given two clouds of data positive and negative examples. This is exactly the formalization of the problem where our goal is to find a line that separates the two the positive and negative examples maximizing the worst case distance between any point and and this line. Okay. So why do we care about the worst case distance? Let me yeah for now why do we care about the worst case distance? Right. For now, um let's just let's just say let's just care about the worst case distance for now. We'll come back and we'll fix that later. Well,"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_027",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 945.0,
+    "end_time": 990.0,
+    "text": "worst case distance? Let me yeah for now why do we care about the worst case distance? Right. For now, um let's just let's just say let's just care about the worst case distance for now. We'll come back and we'll fix that later. Well, that's a caring about the worst case distance is just um is a nice way to formulate this optimization problem. I'll come back and actually change that later. Can you raise your hand if this makes sense? If this if this formulation makes sense. Yeah. Okay, cool. Great. So, um let's see. So this is a different way of posing the same optimization problem and on the one hand I've gotten rid of this nasty non-convex constraint. Um but on the other hand I've now you know added a nasty non-convex objective and because this is not a convex function in"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_028",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 980.0,
+    "end_time": 1025.0,
+    "text": "this nasty non-convex constraint. Um but on the other hand I've now you know added a nasty non-convex objective and because this is not a convex function in parameters w and so you can't you don't have the usual guarantees like if you apply gender this will converge to global minimum. Okay, at least that that that that um does not follow immediately from this because this is non-convex. so what I'm going to do is um earlier I said that I can impose any of you know a number of even fairly bizarre scaling constraints on W, right? So I can choose any scaling constraint"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_029",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 1015.0,
+    "end_time": 1060.0,
+    "text": "um earlier I said that I can impose any of you know a number of even fairly bizarre scaling constraints on W, right? So I can choose any scaling constraint like this and things are still fine. And so here's the scaling I'm going to Um again I'm going to assume again for the purpose of today's lecture I'm going to assume that the examples are linearly separable that you can actually separate the positive negative classes and and we'll we'll come back and fix this later as well. Um but here's the scaling constraint I want to impose on W. I want that the functional margin is equal to one. Okay. Um and another way of writing"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_030",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 1050.0,
+    "end_time": 1095.0,
+    "text": "that the functional margin is equal to one. Okay. Um and another way of writing that is that I want to impose a constraint that min over yi that you know okay that the worst case function margin is equal one and clearly this is a scaling constraint right because if if you solve for w and b um you know and you find that your your worst case function margin is actually 10 whatever Then by dividing through WV and B by a factor of 10, I can get my functional margin to be equal to one. Okay. So this"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_031",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 1085.0,
+    "end_time": 1130.0,
+    "text": "actually 10 whatever Then by dividing through WV and B by a factor of 10, I can get my functional margin to be equal to one. Okay. So this is the scaling constraint I'm going to imply and and and this this more compactly written as follows. This is imposing a constraint that the functional margin be equal to one. Um and so if we just take you know what I wrote down as number two our previous optimization problem and add the scaling constraint we then get the following optimization"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_032",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 1120.0,
+    "end_time": 1165.0,
+    "text": "Yeah. Okay. Um I guess previously we had a maximization over you know gamma hat divided by the norm of w. So let's maximize one over the norm of w. But so that's the same thing as minimizing the norm of w ^2 right max one over norm of w is the same as min w normal w ^2 and then these are our constraints since I've added the constraint to the function margin 01 okay and this is actually um and this"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_033",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 1155.0,
+    "end_time": 1200.0,
+    "text": "then these are our constraints since I've added the constraint to the function margin 01 okay and this is actually um and this is actually you know my final well final formulation of the optimal margin classifier problem at least for now. Okay. Um so the picture to uh keep in mind for this I guess is that um you know our optimization objective is want to minimize the norm of w and so our optimization objective is just a big quadratic function right and there's b somewhere in this picture we can't draw it so you parameters w1 and w2 and you want to"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_034",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 1190.0,
+    "end_time": 1235.0,
+    "text": "our optimization objective is just a big quadratic function right and there's b somewhere in this picture we can't draw it so you parameters w1 and w2 and you want to minimize a quadratic function like this so quadratic function just has contours that look like this Um and moreover you have a number of linear constraints in your parameters. So you may have a linear constraint that eliminates that half space. A linear constraint eliminates that half space eliminates that half space and so on. And so the picture is you have a quadratic function and you're ruling out various you know half spaces um with each of these linear constraints. And I hope if you can picture this in 3D, I"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_035",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 1225.0,
+    "end_time": 1270.0,
+    "text": "quadratic function and you're ruling out various you know half spaces um with each of these linear constraints. And I hope if you can picture this in 3D, I guess you can't control it in 3D. Um hope you can convince yourself that this is a convex problem that has no local optima, right? Um that if you run your gradient descent within this set of points that that hasn't been ruled out, then you converge to the global optimum. Um and so that's a convex optimization problem that that sort of nice and yeah relatively easy to solve."
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_036",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 1260.0,
+    "end_time": 1305.0,
+    "text": "nice and yeah relatively easy to solve. [Applause] this. Okay, actually just raise your hand if this makes Um so this gives you the optimal margin classifier algorithm. Um it turns out that you know this is a convex optimization problem. So you can actually take this formulation of the problem and throw it at um off-the-shelf software what's called a QP or quadratic program solver. This sort of optimization problem is called a"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_037",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 1295.0,
+    "end_time": 1340.0,
+    "text": "actually take this formulation of the problem and throw it at um off-the-shelf software what's called a QP or quadratic program solver. This sort of optimization problem is called a quadratic program with a quadratic convex objective function and set of linear constraints. So you can actually download software to solve these optimization problems for you. Um, usually I I actually wouldn't use the use gray descent because because you have constraints like these. Although you could actually modify gradient descent to work for this too. Um, so we could just declare success and say that we're done with this formulation of the problem. But what I'm going to do now is take a digression to talk about primal and dual optimization problems. And in particular, I'm going to later I'm going to come back and"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_038",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 1330.0,
+    "end_time": 1375.0,
+    "text": "going to do now is take a digression to talk about primal and dual optimization problems. And in particular, I'm going to later I'm going to come back and derive yet another very different form of this optimization problem. Um, and the reason we'll do that is because it turns out this optimization problem has certain properties that make it amendable to very efficient algorithms. Um and moreover I'll be deriving what's called the dual formulation of this that allows us to um apply the auto margin classifier even in sort of very high dimensional feature spaces even in sometimes infinite even in sometimes infinite dimensional feature spaces. So we'll come back to that later but um let"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_039",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 1365.0,
+    "end_time": 1410.0,
+    "text": "sometimes infinite even in sometimes infinite dimensional feature spaces. So we'll come back to that later but um let me now spend some time talking about um So I'm actually curious how how many of you you know from like I don't know calculus uh remember the method of lrange multipliers for solving an optimization problem like minimum or minimization or maximization problem subject to some constraint. How many of you remember like the method of lrange multipliers for that? Oh okay cool some of you. Yeah. So if you don't remember don't worry I I'll I'll describe that briefly here as well. But what I'm"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_040",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 1400.0,
+    "end_time": 1445.0,
+    "text": "you remember like the method of lrange multipliers for that? Oh okay cool some of you. Yeah. So if you don't remember don't worry I I'll I'll describe that briefly here as well. But what I'm really going to do is uh talk about a generalization of this method of lrange multipliers that you may or may not have seen in in like you know some calculus classes. Um but if you haven't seen it don't worry about it. Um so you know the method of the granch multipliers was um well suppose of some function you want to minimize or minimize f of w um but subject to some set of constraints that h i of w must be equal to zero from i = 1 through l okay and um given this"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_041",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 1435.0,
+    "end_time": 1480.0,
+    "text": "but subject to some set of constraints that h i of w must be equal to zero from i = 1 through l okay and um given this constraint I'll actually usually write it in a vetorial form in which I'll write h of w function say that is equal to zero okay where zero with the arrow on top I use that to denote the vector of all zeros um so you want to solve this optimization problem right um some of you have seen method range multipliers where you"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_042",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 1470.0,
+    "end_time": 1515.0,
+    "text": "you have seen method range multipliers where you Right? Which is your original optimization objective plus sum of our lrange multipliers times constraints. And these parameters beta I call the multipliers. And so um the way you actually solve your optimization problem is you take the partial derivative of this with respect to your original parameters and set that to zero. Take the partial derivative"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_043",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 1505.0,
+    "end_time": 1550.0,
+    "text": "actually solve your optimization problem is you take the partial derivative of this with respect to your original parameters and set that to zero. Take the partial derivative respect to your lrange multiplies beta and set that to zero. Um and then you know this famous theorem proved by I guess Joseph Louise Lrange was that um for W for some value W star"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_044",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 1540.0,
+    "end_time": 1585.0,
+    "text": "um There exists beta star right at the backwards e there exist. So there exists me. Okay. such that those partial derivatives um are equal to zero. Right?"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_045",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 1575.0,
+    "end_time": 1620.0,
+    "text": "me. Okay. such that those partial derivatives um are equal to zero. Right? So, so the the the um the method of the grand multipliers is to solve this problem. Um you construct the lrangeian take the derivatives respect to the original parameters b the original parameters w and with respect to lrange multipliers beta set the partial derivatives equal to zero and solve you know for all solutions and then you check each of the solutions to see if it so right so what I'm going to do is"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_046",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 1610.0,
+    "end_time": 1655.0,
+    "text": "so right so what I'm going to do is actually um write down a generalization of this. Okay and again if you haven't seen that before don't worry about it. This is fine. Right. So what I'm going to do is actually write down a generalization of this to solve a slightly more difficult type of constraint optimization problem. um which is suppose you want to minimize f of w subject to the constraint that gi of"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_047",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 1645.0,
+    "end_time": 1690.0,
+    "text": "zero okay and again using my vector notation I'll write this as g of w is equal to zero and h of w is equal to zero. So unlike the previous case, we now have inequality constraints as well Um I then have a lrangen or is actually some sometimes call this a generalized"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_048",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 1680.0,
+    "end_time": 1725.0,
+    "text": "Um I then have a lrangen or is actually some sometimes call this a generalized lrangen which is now a function of my original optimization parameters w as well as two sets of lrange multipliers alpha and Okay, now here's a cool part. Um I'm going to define theta subscript"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_049",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 1715.0,
+    "end_time": 1760.0,
+    "text": "Okay, now here's a cool part. Um I'm going to define theta subscript p of w to be equal to max over alpha beta subject to the constraints that the alphas are greater so I want I want you to"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_050",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 1750.0,
+    "end_time": 1795.0,
+    "text": "so I want I want you to consider you know the optimization problem min over w of max over alpha beta such that the alphas are greater um and that's just equal to min over w theta p of um W. Okay. Um and just to give this a name, the the uh the locate the subscript P here stands a primal problem. Um and that refers to you know"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_051",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 1785.0,
+    "end_time": 1830.0,
+    "text": "name, the the uh the locate the subscript P here stands a primal problem. Um and that refers to you know thing. Um this optimization problem that I've written down is is called the primal problem. This means this is the original optimization problem we're interested in solving and later on I'll derive derive another version of this but that's what p sense was and this is a primal problem. Um now I want you to look at consider theta of peak and and and in particular I want to consider the problem of what happens if you minimize w uh minimize as a function of w this quantity theta of p"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_052",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 1820.0,
+    "end_time": 1865.0,
+    "text": "happens if you minimize w uh minimize as a function of w this quantity theta of p so so let's look at what theta p of w is right um notice that if gi of w is greater than zero. So, so let's pick some value of W and let's ask what is state of P of W. Okay. So, if W violates one of your then say the P of W will be infinity,"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_053",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 1855.0,
+    "end_time": 1900.0,
+    "text": "then say the P of W will be infinity, right? Um why is that? Coming back to this previous board for a second. Um suppose I pick a value of W that violates one of these constraints. So gi of w is is positive. Um then well theta p right is is maximized as function of alpha and beta the lrangian. So if one of these gi of w's is positive then by setting you know the corresponding alpha i to plus infinity I can make this arbitrarily large. And so if w violates one of my primal problems constraints one of the gis then max over alpha of the lrangeen"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_054",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 1890.0,
+    "end_time": 1935.0,
+    "text": "infinity I can make this arbitrarily large. And so if w violates one of my primal problems constraints one of the gis then max over alpha of the lrangeen will be plus infinity. Okay. Um and similarly and well and and in the same way because in a similar way if hi of w is not equal to zero then theta p of w will also be infinity for for very similar reason because um if h of w is not zero for some value of i then in my ludran I had a beta i times hi term right and so by setting you know beta i to be plus infinity or minus infinity"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_055",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 1925.0,
+    "end_time": 1970.0,
+    "text": "is not zero for some value of i then in my ludran I had a beta i times hi term right and so by setting you know beta i to be plus infinity or minus infinity depending on the sign of hi. I can make this plus infinity as um theta p theta p of w is just equal to f of w, right? Um, turns out if I have a value of W that satisfies all of the GI and the HI constraints, then when you maximize in terms of alpha and beta, you"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_056",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 1960.0,
+    "end_time": 2005.0,
+    "text": "f of w, right? Um, turns out if I have a value of W that satisfies all of the GI and the HI constraints, then when you maximize in terms of alpha and beta, you know, all of the lrange multiplier terms will actually be the maximum will actually be obtained by setting all the lrange multiply terms to be zero. And so theta p just left with f of thus theta p of w is equal satisfied this if the gi and hi"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_057",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 1995.0,
+    "end_time": 2040.0,
+    "text": "satisfied this if the gi and hi constraints and is equal to plus So the problem I wrote down with minimizes a function of w theta p of w. problem, right? That's just exactly the same problem as my original primal problem because if you choose a value of w that validates the constraints, you get your infinity. And if you satisfy the constraints, you get f of w. So this"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_058",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 2030.0,
+    "end_time": 2075.0,
+    "text": "problem because if you choose a value of w that validates the constraints, you get your infinity. And if you satisfy the constraints, you get f of w. So this is really just the same as well saying satisfy the constraints and minimize f of w right that's that's really what minimizing theta p of w is okay um raise your hand if this makes so all right I hope no one's getting mad at me for like doing so much work than we come back to exactly the same thing we started with. Um, so here's the cool part."
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_059",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 2065.0,
+    "end_time": 2110.0,
+    "text": "so all right I hope no one's getting mad at me for like doing so much work than we come back to exactly the same thing we started with. Um, so here's the cool part. problem. Um, define theta D and D stands for duo and um, this is now a function of alpha and beta. It's not a function of the lrange multiplier. It's not of W. defined this to be minimized over W of my generalized"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_060",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 2100.0,
+    "end_time": 2145.0,
+    "text": "um is this. In other words, this that. Okay. And so um so this is my dual optimization problem to maximize over alpha and beta theta d of alpha and beta. Right? So this this this this optimization problem I guess is my dual problem. Um I want you to compare this to our previous primal optimization"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_061",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 2135.0,
+    "end_time": 2180.0,
+    "text": "beta. Right? So this this this this optimization problem I guess is my dual problem. Um I want you to compare this to our previous primal optimization problem. Right? The only difference is that um you know I took the max and min and I switched the order around of the max and min that that's that's the difference in the prime and the dual that is a is sort of a is a fact is you know true generally that um b star is less than p star in other words I think I defined p star previously p star was the value of the prime optimization problem um and and in other words that um it's just you know generally true"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_062",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 2170.0,
+    "end_time": 2215.0,
+    "text": "I defined p star previously p star was the value of the prime optimization problem um and and in other words that um it's just you know generally true that the max of the min of something is less than equal to the min of the max of something. This is a general fact. Um, and just as a concrete example, the max of y in the set 01 times excuse me of the min of the set in"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_063",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 2205.0,
+    "end_time": 2250.0,
+    "text": "min. Okay. Um so this this this equality this inequality actually holds true for any function you might plug in here. And this is one specific example where the min of XY excuse me min of X of indicate X equals Y this is always equal to zero right because whatever Y is you know I can choose X to be something different"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_064",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 2240.0,
+    "end_time": 2285.0,
+    "text": "XY excuse me min of X of indicate X equals Y this is always equal to zero right because whatever Y is you know I can choose X to be something different so this is this is always zero whereas um if I exchange the order of the min and max then this thing here is always equal to one so zero is leal one um and more generally this min max that's going to excuse me this max min le b le b le b le b le b le b le b le b le b le blessing with the min max holds true for any function you might put in there. Um but it turns out that um these two optimization problems have"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_065",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 2275.0,
+    "end_time": 2320.0,
+    "text": "um these two optimization problems have the same value. Sometimes under certain conditions the primal and the dual problems um have the same value and so um you might be able to solve the dual problem rather than the primal problem. Okay. And the reason to do that is that sometimes which we'll see in the optimal margin classifier problem support vector machine problem the dual problem turns out to be much easier to solve and has it has many many useful properties that will make use of um uh compared to the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_066",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 2310.0,
+    "end_time": 2355.0,
+    "text": "easier to solve and has it has many many useful properties that will make use of um uh compared to the um So um what I'm going to do now is write down formally the set of conditions under which that's true where the prime and the dual problems are equivalent. Um and so our strategy for working out for deriving support vector machine"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_067",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 2345.0,
+    "end_time": 2390.0,
+    "text": "under which that's true where the prime and the dual problems are equivalent. Um and so our strategy for working out for deriving support vector machine algorithm will be that we'll write down the primal optimization problem which we did previously in the mass margin classifier and then we'll derive um the dual optimization problem for that and then we'll solve the dual problem and by modifying that a little bit that's how we'll derive a support vector machine right but let me actually for now let me just first for the sake of completeness I'll just write down the conditions under which the primal and the do optimization problems give you the same solution. Um so let f be convex. Um uh if you're not sure what convex means for the purposes of this"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_068",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 2380.0,
+    "end_time": 2425.0,
+    "text": "solution. Um so let f be convex. Um uh if you're not sure what convex means for the purposes of this class, you can take it to mean that the hessen h is positive semidefinite right. So it just means it's a you know bow-shaped function like that right and uh want to learn more about convex optimization um again please come to you know this week's discussion section suppose hi the hi constraints are aphine and what that means is that um hi of w equals alpha i transpose w + bi okay um"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_069",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 2415.0,
+    "end_time": 2460.0,
+    "text": "suppose hi the hi constraints are aphine and what that means is that um hi of w equals alpha i transpose w + bi okay um this essentially means the same thing as linear without without the term B here we say hi is linear when we have a constant intercept term as well this is technically called aphine rather than feasible and Um what that means is that there exists"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_070",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 2450.0,
+    "end_time": 2495.0,
+    "text": "feasible and Um what that means is that there exists a value of the W such that um from I GI of W is less than zero. Okay, don't worry too much about I'm I'm writing these things now for for for the sake of completeness but don't worry too much about the technical details but strictly feasible just means that there's a value of w such that all of these constraints are satisfied with strict inequality rather than with less than equal to um under these conditions there will exist war star alpha star beta star such that war star solves the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_071",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 2485.0,
+    "end_time": 2530.0,
+    "text": "conditions there will exist war star alpha star beta star such that war star solves the problem and alpha star and beta star the problem. Um [Music] and the value of the primal problem will be equal to the value of the dual problem will be equal to the value of your lrange multiplier excuse me will be equal to the value of the generalized lrangeent evaluated at w star alpha star beta"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_072",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 2520.0,
+    "end_time": 2565.0,
+    "text": "your lrange multiplier excuse me will be equal to the value of the generalized lrangeent evaluated at w star alpha star beta star. In other words um you can solve either the primal or the dual problem you get get the same solution. Um further you satisfy these conditions. Um partial derivative with respect to parameters would be zero. Um and actually if you keep this equation in mind we'll actually use this in a second when we take the lranjen and we of our support vector machine problem and take a derivative with respect to w to solve to"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_073",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 2555.0,
+    "end_time": 2600.0,
+    "text": "actually use this in a second when we take the lranjen and we of our support vector machine problem and take a derivative with respect to w to solve to solve our to derive our dual problem. We actually perform this step ourselves in a second. Um partial return with respect Um turns out this will hold it true too."
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_074",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 2590.0,
+    "end_time": 2635.0,
+    "text": "Um turns out this will hold it true too. uh this is called the KKT complimentarity condition. Um, KKT stands for Kush Kucker which were the authors of this theorem. Um well and by tradition usually list five KQT conditions but the are okay just just that the alpha is a greater zero which we had previously and"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_075",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 2625.0,
+    "end_time": 2670.0,
+    "text": "are okay just just that the alpha is a greater zero which we had previously and that your uh constraints are actually hour. All right."
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_076",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 2660.0,
+    "end_time": 2705.0,
+    "text": "hour. All right. So let's take this and apply this to our um auto margin um optimization problem that we had previously. Um I just want to say one word about this um which is oh I want to say one word about this KKT uh complimentarity condition that condition that you at your solution you must have that alpha* i * gi of w is equal to zero um so let's"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_077",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 2695.0,
+    "end_time": 2740.0,
+    "text": "condition that you at your solution you must have that alpha* i * gi of w is equal to zero um so let's see so if a product of two numbers is equal to zero that means that um at least one of these things must be equal to zero, right? For for a product of two things to be equal to zero. Well, that just the saying either alpha i or gi is equal to del is equal to zero, right? So what that implies is that the the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_078",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 2730.0,
+    "end_time": 2775.0,
+    "text": "See I most people just say KKT but I'm going to show you the right spelling of of um of of of the names. Um so KKT complimentarity condition implies that if alpha is non um gi of war star um is equal to zero right"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_079",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 2765.0,
+    "end_time": 2810.0,
+    "text": "right um it turns out so all the K condition guarantees is that um you know at least one of them is zero. Um it may actually be the case that both alpha and GI are both equal to zero. But in practice when you when you solve this optimization problem you find that you know to a large part alpha I star is not equal to zero if and only if gi of w star is equal to zero. This is not strictly true. Um because it's possible that both"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_080",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 2800.0,
+    "end_time": 2845.0,
+    "text": "large part alpha I star is not equal to zero if and only if gi of w star is equal to zero. This is not strictly true. Um because it's possible that both of these may be zero. Um but in practice when when just when you solve problems like these you for the most part usually exactly one of these things will be non zero. Um and also when this holds true when GI of W star is equal to zero we say that um GI you know GI of W I guess active constraint um because you recall our con our constraint was that GI of W must be less than equal to zero and so"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_081",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 2835.0,
+    "end_time": 2880.0,
+    "text": "active constraint um because you recall our con our constraint was that GI of W must be less than equal to zero and so if it's equal to zero then then we say that that's a constraint that that this is an active constraint. All right. Um once we talk about SVMs, I actually come back and say a couple and just extend this idea a little bit more. board. I might return to this board in a second."
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_082",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 2870.0,
+    "end_time": 2915.0,
+    "text": "board. I might return to this board in a second. Um so let's go back and work out what are the primal and the dual optimization problems for our optimal margin classifier for the optimization problem that we worked out just now. um as a point of notation in what I've been writing down so far in deriving the KT conditions um my lrange multipliers were um alpha i and beta i. It turns out when"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_083",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 2905.0,
+    "end_time": 2950.0,
+    "text": "my lrange multipliers were um alpha i and beta i. It turns out when I apply this you to work out the svm um turns out I only have one set of lrange multipliers alpha i. And also as I was working out the KT conditions, you know, I used W to denote the parameters of my um primal optimization problem, right? I want to minimize f of W. In my very first optimization problem, you had an optimization problem. It's parameters W. Um in my SVM problem, I'm actually going to two sets of parameters W and B. Okay, so this is just a keep that sort of slight notation"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_084",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 2940.0,
+    "end_time": 2985.0,
+    "text": "Um in my SVM problem, I'm actually going to two sets of parameters W and B. Okay, so this is just a keep that sort of slight notation So problem we worked out previously was we want to minimize the norm of w ^2 and just add a half there by convention because it makes another work math work out nicer and subject to the constraint that yi * wrpose xi plus b must be really greater than Um and so um let me just take this constraint and I'll rewrite it as a"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_085",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 2975.0,
+    "end_time": 3020.0,
+    "text": "Um and so um let me just take this constraint and I'll rewrite it as a constraint GI of W comma B again right previously I had GI of W but now I have parameters W and B so I have GI of W comma as this um let's look at the implications of this in terms of the uh KKT dual"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_086",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 3010.0,
+    "end_time": 3055.0,
+    "text": "um let's look at the implications of this in terms of the uh KKT dual Um so we have that alpha i is greater than equal to zero right that necessarily implies gi of w comma v you know is is equal to zero. In other words that this constraint right. Um and what does this mean? It means that it actually turns out GI of"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_087",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 3045.0,
+    "end_time": 3090.0,
+    "text": "constraint right. Um and what does this mean? It means that it actually turns out GI of WB equals Z that um is that means exactly that the training example XI margin equals to one. Right? is remember this this this constraint uh this constraint was that um you know the function margin of every example has to be greater than equal to one right and so if this is an active constraint if this inequality hose of equality that means that my training example I must have functional margin equal to exactly"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_088",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 3080.0,
+    "end_time": 3125.0,
+    "text": "so if this is an active constraint if this inequality hose of equality that means that my training example I must have functional margin equal to exactly one right and so um actually yeah right now I'll do this So in pictures um what that means is"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_089",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 3115.0,
+    "end_time": 3160.0,
+    "text": "So in pictures um what that means is that right there some separating hyper plane. Um and so the examples with functional margin equal to one will be exactly those which are sort of closest to my separating hyper plane. So that's my that's my equation of Wrpose V= 0. And so in this in in this in this you know cartoon example that I've drawn it"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_090",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 3150.0,
+    "end_time": 3195.0,
+    "text": "my that's my equation of Wrpose V= 0. And so in this in in this in this you know cartoon example that I've drawn it examples that have functional margin equal to one and all of the other examples being you know further away than these three um will have functional margin that are strictly greater than Okay. Um and the examples with functional margin equal to one will"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_091",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 3185.0,
+    "end_time": 3230.0,
+    "text": "Okay. Um and the examples with functional margin equal to one will um the ones where the corresponding lrange multiplier is also not equal to zero. And again this may not hold true. It may be the case that GI and alpha I equal to zero. But usually when GI is not is is is zero, alpha I will be non zero. Um and so the examples of function margin equal one will be the ones where alpha is not equal to Um, one useful property of this is that"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_092",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 3220.0,
+    "end_time": 3265.0,
+    "text": "alpha is not equal to Um, one useful property of this is that as suggested by this picture and and sort of true in general as well, it turns out that when you find a solution to this to the SVM optimization problem, you find that relatively few training examples have functional margin equal to one. Um, in this picture I've drawn, you know, there are three examples with functional margin equal to one. There there are just three examples with this minimum possible distance to your separating hyper plane. Um and these are the three these examples of functional margin equal to one. Um they are what we're going to"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_093",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 3255.0,
+    "end_time": 3300.0,
+    "text": "examples of functional margin equal to one. Um they are what we're going to call the support vectors. Okay. Um and this leads to the name support vector machine. There will be these three points with functional margin one that And um the fact that they're relatively few support vectors also means that usually most of the alpha eyes are equal to zero. Right? So this alpha i is equal"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_094",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 3290.0,
+    "end_time": 3335.0,
+    "text": "vectors. Okay. Let's go ahead and work out the Um, so we had a massive margin optimization problem. Um so let me go"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_095",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 3325.0,
+    "end_time": 3370.0,
+    "text": "Um, so we had a massive margin optimization problem. Um so let me go and write down the lranjen and um because we only have inequality constraints right we only have so gi sty constraints no h i style constraints we only have inequality constraints no no equality constraints um I I'll only have near lrange multipliers of type alpha no betas in my um but my lranjen will"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_096",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 3360.0,
+    "end_time": 3405.0,
+    "text": "um but my lranjen will Um, and so let's work out what the duo problem is, right? And to do that I need to figure out what theta d of alpha again there no betas here. So what theta d of alpha is min with respect to w and b"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_097",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 3395.0,
+    "end_time": 3440.0,
+    "text": "d of alpha is min with respect to w and b of l b alpha. Okay. So the dual problem is to maximize theta d as a function of alpha. So let's work out what theta d is and then and then that'll give us our dual problem. Um so to work out what this is well what do we need to do right? We need to take lrangen and minimize it as a function of w and b. So I mean what is this to how do you minimize lranges? So so in order to minimize lrangen as a function of w and b you know we do the usual thing right we take the derivatives of of lrangen with respect to w and b and we set that to zero. That's how we minimize"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_098",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 3430.0,
+    "end_time": 3475.0,
+    "text": "and b you know we do the usual thing right we take the derivatives of of lrangen with respect to w and b and we set that to zero. That's how we minimize the lranjen with respect to w and b. So take the derivative with respect to w of the lr engine and um I won't I'll just write down the this right so I want to minimize this as function of w so I take the derivative and set to zero and I get"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_099",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 3465.0,
+    "end_time": 3510.0,
+    "text": "must be that. Okay. Um and so W therefore is actually a linear combination of your input feature vectors XI. Right? This is a sum of you know various weights given by the alpha then times XI which are your examples in your training set. Um and this will be useful later. yeah partial derivative of electron with respect to b is equal to minus sum of i"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_100",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 3500.0,
+    "end_time": 3545.0,
+    "text": "yeah partial derivative of electron with respect to b is equal to minus sum of i m i and so also set that to equal to zero. Okay. And so these are my two constraints. Um, and so, um, oh, next board. So, what I'm going to do is I'm actually going to, you know, take these two constraints and, um, well, I'm going to take what I've worked out to be the value for W and, um, I'll draw over this. I'm going to take what I've worked out to be the value for"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_101",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 3535.0,
+    "end_time": 3580.0,
+    "text": "going to take what I've worked out to be the value for W and, um, I'll draw over this. I'm going to take what I've worked out to be the value for W and, um, I'll plug it back in there, right? to figure out what the lrange what the lrange really is when I minimize this with respect to w. Um um let's see so my langen is"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_102",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 3570.0,
+    "end_time": 3615.0,
+    "text": "um let's see so my langen is minus right. w you know this becomes sum from i = 1"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_103",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 3605.0,
+    "end_time": 3650.0,
+    "text": "w you know this becomes sum from i = 1 transpose right this is just plugging in the value for w that I worked out previously. um since this is wrppose w and so when I expand out this quadratic function and when I plug in w over there as well I find that"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_104",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 3640.0,
+    "end_time": 3685.0,
+    "text": "that um oh where I'm using these angle"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_105",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 3675.0,
+    "end_time": 3720.0,
+    "text": "that um oh where I'm using these angle brackets to denote inner product. So um you know this thing here it just means the inner product you know x i transpose xj right um and the first and second terms are actually the same except for the minus"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_106",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 3710.0,
+    "end_time": 3755.0,
+    "text": "so let me go ahead"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_107",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 3745.0,
+    "end_time": 3790.0,
+    "text": "Um my dual problem is therefore the following. I want to maximize w of alpha which is that you know big expression I wrote out. Oh and um uh the the the I realized notation is somewhat unfortunate. I'm using capital W of alpha to denote that formula I wrote down earlier and then we also had"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_108",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 3780.0,
+    "end_time": 3825.0,
+    "text": "um uh the the the I realized notation is somewhat unfortunate. I'm using capital W of alpha to denote that formula I wrote down earlier and then we also had you know a lowerase W the the the original parameters the primal problem right lowerase W transpose XI so uppercase and lowerase W are totally different things unfortunately the notation is standard as well as far as I know so um so our dual problem is that subject to the alpha must zero um we also have that um sum i y i alpha i is equal to zero okay um that last"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_109",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 3815.0,
+    "end_time": 3860.0,
+    "text": "um we also have that um sum i y i alpha i is equal to zero okay um that last constraint was um was a constraint I got from from this okay that sum of i uh right sum of i y i alpha i was equal to zero that's where that final constraint came from okay um Yeah, let me just I I think in previous years that I taught this this where does this constraint comes from is is is slightly confusing. So let me let me just take two minutes to say what the real interpretation of that is and if you don't understand it is not a big deal I guess. Um so in when"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_110",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 3850.0,
+    "end_time": 3895.0,
+    "text": "me just take two minutes to say what the real interpretation of that is and if you don't understand it is not a big deal I guess. Um so in when when we took the partial derivative of the lronium with respect to B we ended up with this constraint that some y alpha must be equal to zero. Um the interpretation of that it turns out is that um if some I um theta d of wb is is"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_111",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 3885.0,
+    "end_time": 3930.0,
+    "text": "um theta d of wb is is um actually excuse Okay. Then theta d of alpha is equal to um minus infinity. We're minimizing right. Yeah. Right. Okay. So in other words um it it turns out my lrangeum is actually a linear function of my parameters b. And so the the interpretation of that constraint that worked out previously was that if sum y i alpha i is not equal to zero then theta d of alpha is equal to minus"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_112",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 3920.0,
+    "end_time": 3965.0,
+    "text": "interpretation of that constraint that worked out previously was that if sum y i alpha i is not equal to zero then theta d of alpha is equal to minus infinity. Um and so if your goal is to maximize as a function of alpha theta d of alpha then you better choose values of alpha for which sum of y alpha i is equal to zero. Okay. And zero then alpha is equal to w of alpha. Okay. And"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_113",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 3955.0,
+    "end_time": 4000.0,
+    "text": "zero then alpha is equal to w of alpha. Okay. And so that's why we end up deciding to maximize w of alpha subject to that some y alpha is equal to zero. Right. Um yeah the the unfortunately the the fact we had to deal with B sort of adds just a little bit of extra notation in our derivation of the duo. by the way and and and so you know right all all the action in the optimization problem is is with W because B is just one parameter right so um okay let's check other questions"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_114",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 3990.0,
+    "end_time": 4035.0,
+    "text": "parameter right so um okay let's check other questions this okay cool so um we've derived a dual optimization problem and And really don't worry about this if you're not quite sure where this was. Just think of this as we worked out that this constraint we worked out when we took the partial derivative with respect to B that this constraint has a hose and so I just copy that over here. Okay. Um but so we've now worked out the dual of the optimization problem. So our approach to finding to deriving you an optimal margin"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_115",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 4025.0,
+    "end_time": 4070.0,
+    "text": "Okay. Um but so we've now worked out the dual of the optimization problem. So our approach to finding to deriving you an optimal margin classifier or support vector machine will be that we'll solve um this dual optimization problem for star and then um if you want you can then you know this is the equation that we worked out on on the previous one right we said that w this is alpha w do that. And so um once you solve for"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_116",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 4060.0,
+    "end_time": 4105.0,
+    "text": "do that. And so um once you solve for alpha, you can then go back and quickly derive um you know w the parameters your primal problem. We worked this out earlier, right? Um and moreover um once you solve alpha and w you can then you know plug this back into your once you solve alpha and w is really easy to solve for b. um sort of B just as interpretation of you have a training set right you found the direction for W so you know where separating hyper plane's direction is you know it's got to be you know one of these"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_117",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 4095.0,
+    "end_time": 4140.0,
+    "text": "of you have a training set right you found the direction for W so you know where separating hyper plane's direction is you know it's got to be you know one of these planes right you you know you know the orientation of separating hyper plane you just have to decide where to place this hyper plane and that's what solving B is so once you solve alpha and w it's really easy to solve B um you can plug alpha and W back into the primal primal"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_118",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 4130.0,
+    "end_time": 4175.0,
+    "text": "B and um I'll just write it Um, okay. And the intuition behind this"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_119",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 4165.0,
+    "end_time": 4210.0,
+    "text": "Um, okay. And the intuition behind this the find the um find the worst positive example and the worst negative example like let's say you know this one and this one say and then you split the difference between them and that tells you where you should set the threshold for for where to place the sering hyper plane. Um and then that's the this is the optimal margin classifier or this is also called the support vector machine if you do not use one more idea which is called kernels and I'll say a few words about that. Um but I hope the process is clear right so it's a dual problem we're going to solve the dual problem for the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_120",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 4200.0,
+    "end_time": 4245.0,
+    "text": "if you do not use one more idea which is called kernels and I'll say a few words about that. Um but I hope the process is clear right so it's a dual problem we're going to solve the dual problem for the alpha eyes that gives us w and that gives us b. So there's just one more thing I want to point out as a leadin to um the next lecture which is that well I just write guess which is that it turns out um we can take the entire algorithm and we can express the entire algorithm in terms of inner products and here here's what I mean by that um so I said that the parameters W is a sum of your input the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_121",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 4235.0,
+    "end_time": 4280.0,
+    "text": "express the entire algorithm in terms of inner products and here here's what I mean by that um so I said that the parameters W is a sum of your input the examples. And so when you need to make a prediction, right, you know, someone gives you a new value of x, you want to evaluate the hypothesis on the value of x that's given by g of wrpose x + b, right? Where g was this, you know, threshold function that outputs minus1 or plus one, right? And so you need to compute wrpose x plus b. And that is"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_122",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 4270.0,
+    "end_time": 4315.0,
+    "text": "i. Okay. And that can be expressed as a sum of these inner products between your training examples and this new value of x you're trying to value the algorithm on right. Um and this will lead into our next kernels and it turns out that in the source of feature spaces were used to support vector machines. It turns out that sometimes the training examples may"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_123",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 4305.0,
+    "end_time": 4350.0,
+    "text": "support vector machines. It turns out that sometimes the training examples may dimensional. Um it may even be the case that the features you want to use are vectors. But despite this it'll turn out that there'll be an implicit representation um that you can use that will allow you to compute inner products like these And this holds true only for certain feature spaces. It doesn't hold true for"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_124",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 4340.0,
+    "end_time": 4385.0,
+    "text": "And this holds true only for certain feature spaces. It doesn't hold true for arbitrary sets of features. But when we talk about the idea of kernels um in in the next lecture, we'll see examples where even though you have extremely high dimensional feature vectors, you can compute um you you may never want to represent Xi explicitly, right? If XI is infinite dimensional feature vector, you can't even store it in computer memory. But you will nonetheless be able to compute inner products between different input feature vectors very efficiently. And so you can for example you can make predictions by making use of these inner products. Right? I this is just x i you know transpose right. Um you compute"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_125",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 4375.0,
+    "end_time": 4420.0,
+    "text": "And so you can for example you can make predictions by making use of these inner products. Right? I this is just x i you know transpose right. Um you compute these inner products very efficiently and therefore make predictions. And let's point out also the other reason we derived the duo was because um on this board right when we worked out what w of alpha is w of alpha actually the same property that w of alpha is again written in terms of these inner products right and so if you if you actually you know look at the dual optimization problem and step for all the steps of the algorithm you find that you can actually do everything you want learn the parameters alpha Suppose you do optimization problem, learn the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_126",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 4410.0,
+    "end_time": 4455.0,
+    "text": "actually you know look at the dual optimization problem and step for all the steps of the algorithm you find that you can actually do everything you want learn the parameters alpha Suppose you do optimization problem, learn the parameters alpha, you can do everything you want without ever needing to represent x i directly and and all you need to do is represent is compute inner products between feature vectors like these. Okay. Um well, one last property of this algorithm that that that's kind of nice is that um I said previously that um the alpha are zero only for the are non zero only for the support vectors, right? only for the vectors that have functional margin one. And in practice, there'll be usually fairly few of them."
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_127",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 4445.0,
+    "end_time": 4490.0,
+    "text": "alpha are zero only for the are non zero only for the support vectors, right? only for the vectors that have functional margin one. And in practice, there'll be usually fairly few of them. And so what this means is that if you're representing W this way, then um you know W will be represented as a fairly small fraction of your training examples because most of the alpha rise will be zero. And so when you're summing up the sum, you need to compute in the products only of the support vectors, which is usually a reasonably small fraction of your training set. So that's another nice property because most the alpha eyes were zero. Okay. Um and well much of this will make much more sense when we talk about kernels. Um this quick questions before I close. Yeah. I mean it seems that for anything"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_128",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 4480.0,
+    "end_time": 4525.0,
+    "text": "eyes were zero. Okay. Um and well much of this will make much more sense when we talk about kernels. Um this quick questions before I close. Yeah. I mean it seems that for anything we've done to work the point cloud has to be really well behaved in that uh if any of the points are on the kind of wrong side. Yeah. No. Oh yeah. You're right. For again for today's lecture I assume that the data is linearly separable that that you can actually get perfect training error. I'll fix this I'll fix this in the next lecture as So here we assume that you have two points. Okay. So if you have multiple Oh yeah. So let's I it turns out there are ways to generalize this multiple classes but I probably won't but yeah that's"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec07_chunk_129",
+    "video_id": "stanford_cs229_lec07",
+    "start_time": 4515.0,
+    "end_time": 4560.0,
+    "text": "Okay. So if you have multiple Oh yeah. So let's I it turns out there are ways to generalize this multiple classes but I probably won't but yeah that's generalization leaf for later. Okay, let's close the day. Then let's hope for"
+  }
+]

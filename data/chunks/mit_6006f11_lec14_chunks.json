@@ -1,0 +1,611 @@
+[
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_000",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 0.0,
+    "end_time": 45.0,
+    "text": "the following content is provided under a Creative Commons license your support will help MIT open courseware continue to offer highquality educational resources for free to make a donation or view additional materials from hundreds ocw.mit.edu all right let's get started we return today to Graph Search last time we saw Brett first search today we're going to do depth first search it's a simple algorithm but you can do lots of cool things with it and that's what I'll spend most of today on in particular telling whether your graph has a cycle and something called topological"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_001",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 35.0,
+    "end_time": 80.0,
+    "text": "that's what I'll spend most of today on in particular telling whether your graph has a cycle and something called topological sort as usual basically in all graph algorithms in this class the input the way the graph is specified is as an adjacency list or I guess adjacency lists plural you have a bunch of lists each one says for each vertex what are the vertices I'm connected to what are the vertices I can get to in One Step viaa an edge so that's our input and our goal in general with Graph Search is to explore the graph uh in particular the kind of exploration we're going to be doing today is to visit all the vertices in some order and visit each vertex only once so the way we did breath first"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_002",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 70.0,
+    "end_time": 115.0,
+    "text": "kind of exploration we're going to be doing today is to visit all the vertices in some order and visit each vertex only once so the way we did breath first search breath first search was really good it explored things layer by layer and that was nice because it gave us shortest paths it gave us the fastest way to get to everywhere but from a particular source vertex s but if you can't get from s to your vertex then the shortest the shortest way to get there is infinity there's no there's no way to get there and BFS is good for detecting that it can tell you which vertices have are unreachable from s DFS can do that as well but uh it's often used to explore the whole graph not just the part reachable from s and"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_003",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 105.0,
+    "end_time": 150.0,
+    "text": "are unreachable from s DFS can do that as well but uh it's often used to explore the whole graph not just the part reachable from s and so we're going to see how to do that today this trick could be used for BFS or for DFS we're going to do it here for say DFS so depth first search is kind of like how you solve a maze like uh the other weekend I was at Big corn maze in"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_004",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 140.0,
+    "end_time": 185.0,
+    "text": "DFS so depth first search is kind of like how you solve a maze like uh the other weekend I was at Big corn maze in uh central Massachusetts and uh it's easy to get lost in there uh in particular because I didn't bring any breadcrumbs the proper way to solve a maze if you're in there and all you can do is see which way to go next and then walk a little bit to the next Junction and then you have to keep making decisions unless you have a really good memory which I do not uh teaching staff can attest to that um then an easy way to do is to leave breadcrumbs behind say this is the last way I went from this node so I when I reach reach a dead end I have to turn around and backtrack I reach a breadcrumb that says oh last"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_005",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 175.0,
+    "end_time": 220.0,
+    "text": "to do is to leave breadcrumbs behind say this is the last way I went from this node so I when I reach reach a dead end I have to turn around and backtrack I reach a breadcrumb that says oh last time you went this way next time you should go this way and in particular to keep track at each node which of the edges have I visited which ones are still left to visit and this could be done very easily so a high level description is we're going to just recursively explore the graph"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_006",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 210.0,
+    "end_time": 255.0,
+    "text": "so a high level description is we're going to just recursively explore the graph backtracking as necessary kind of like yeah in fact when I was seven years old one of the first computer programs I wrote was for solving a maze I didn't know it was de for search at the time but now I better it so much harder doing algorithms when I didn't know what they"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_007",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 245.0,
+    "end_time": 290.0,
+    "text": "for search at the time but now I better it so much harder doing algorithms when I didn't know what they were anyway um I'm GNA write some code for depth for search it is super simple code probably the simp the simplest"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_008",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 280.0,
+    "end_time": 325.0,
+    "text": "that's it I'm going to write a little bit of code after this but uh this is basic depth for search this will visit all the vertices reachable from a given Source vertex s so we're given the adjacency list I don't know why I put V here you could erase it it's not"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_009",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 315.0,
+    "end_time": 360.0,
+    "text": "Source vertex s so we're given the adjacency list I don't know why I put V here you could erase it it's not necessary uh and all we do is we have our vertex V sorry we have our vertex s we look at all of the outgoing edges from s for each one call it V we uh check have I visited this vertex already so the one careful place where we need to be careful is to not repeat well so uh the way we're going to do"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_010",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 350.0,
+    "end_time": 395.0,
+    "text": "well so uh the way we're going to do that is by setting the parent of a node we'll see what that actually means later uh but for now it's just are you in the parent structure or not this is initially uh we've seen s so we give it a parent of nothing but it exists in this dictionary uh if it's if the vertex V that we're looking at is not in our dictionary we haven't seen it yet uh we mark it as seen by setting its parent to S and then we recursively visit it that's it super simple just recurse the sort of the magical part is the preventing yourself from"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_011",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 385.0,
+    "end_time": 430.0,
+    "text": "S and then we recursively visit it that's it super simple just recurse the sort of the magical part is the preventing yourself from repeating as you explore the graph uh if you reach something you've already seen before you just skip it again so you only re visit every vertex once at most once this will not visit the entire graph it'll only visit the vertices reachable from s the next part of the code I'd like to give you is uh for visiting all the vertices and in the textbook this is called DFS whereas this is just called DFS visit it that's sort of the recursive part and this is sort of a top level algorithm here we are going to use the"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_012",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 420.0,
+    "end_time": 465.0,
+    "text": "DFS visit it that's sort of the recursive part and this is sort of a top level algorithm here we are going to use the B and here we're just going to iterate"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_013",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 455.0,
+    "end_time": 500.0,
+    "text": "so it looks almost the same uh but what we're iterating over is different here we're iterating over the outgoing edges from s here we're iterating over the choices of s and uh so the idea here is we don't really know where to start our search if it's a disconnected graph or not a strongly connected graph we might have to start our search multiple times this DFS algorithm is finding all the possible places you might start the search and trying them all so it's like"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_014",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 490.0,
+    "end_time": 535.0,
+    "text": "our search multiple times this DFS algorithm is finding all the possible places you might start the search and trying them all so it's like okay let's try the first vertex if that hasn't been visited which initially nothing's been visited then uh visit it recursively everything reachable from s then you go on to the second vertex now you may have already visited it then you skip it third vertex maybe you visited it already third ver fourth vertex keep going till you find some vertex you haven't visited at all and then you recursively visit everything reachable from it okay and you repeat this will find all the different clusters all the different strongly connected components of your graph most of the work is being done by this"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_015",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 525.0,
+    "end_time": 570.0,
+    "text": "repeat this will find all the different clusters all the different strongly connected components of your graph most of the work is being done by this recursion but then there's this top level just to make sure that all the vertices get visited let's do a little example so this is super clear and then it will also let me uh do something called Edge classification once we see every Edge in the graph gets visited by DFS in one way or another and it's really helpful to think about the different ways they can be visited so here's a graph I think it's similar to one from"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_016",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 560.0,
+    "end_time": 605.0,
+    "text": "different ways they can be visited so here's a graph I think it's similar to one from good it's not strongly connected I don't think no you can't get from these vertices to C you can get from C to everywhere it looks like but not strongly connected and we're going to run DFS and I think basically an alphabetical"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_017",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 595.0,
+    "end_time": 640.0,
+    "text": "C you can get from C to everywhere it looks like but not strongly connected and we're going to run DFS and I think basically an alphabetical order uh is how we're imagining these vertices have to be ordered somehow we don't really care how but for sake of example I care uh so we're going to start with a that's our F the first vertex in here we're going to recursively visit everything reachable from a so we enter here with s equals a so I'll mark this uh S1 to be the first value of s at at this level uh so we consider I got to check the order here first Edge we look at there's two outgoing edges let's say we"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_018",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 630.0,
+    "end_time": 675.0,
+    "text": "value of s at at this level uh so we consider I got to check the order here first Edge we look at there's two outgoing edges let's say we first uh we look at B B has not been visited yet has no parent pointer so this one has a parent pointer of null uh B we're going to give a parent pointer of a that's here then we recursively visit everything from B so we look at all the outgoing edges from B there's only one so we visit this Edge great uh from B to e e has not been visited so we set its parent pointer to"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_019",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 665.0,
+    "end_time": 710.0,
+    "text": "there's only one so we visit this Edge great uh from B to e e has not been visited so we set its parent pointer to B uh and now we recursively visit e e has only one outgoing Edge so we look at d uh D has not been visited so we set parent pointer to E and we look at all the outgoing edges from d d has one outgoing Edge which is to b b has already been visited so we ski that one nothing to do that's the the else case of this if we do nothing in the else case we just go to the next Edge but there's no next Edge for D so we're done"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_020",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 700.0,
+    "end_time": 745.0,
+    "text": "nothing to do that's the the else case of this if we do nothing in the else case we just go to the next Edge but there's no next Edge for D so we're done so this algorithm returns to the next level up next level up was e we were itating over the outgoing edges from e but there was only one so we're done so e finishes then we go back we backtrack to B uh which is always going back along the parent pointer but it's also just in the recursion we know where to go back to we were going over the outgoing edges from B there was only one we're done uh so we go back to a we only looked at one outgoing Edge from a there's another outgoing Edge which is this one uh but we've already visited D so we"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_021",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 735.0,
+    "end_time": 780.0,
+    "text": "done uh so we go back to a we only looked at one outgoing Edge from a there's another outgoing Edge which is this one uh but we've already visited D so we skip over that one too so we're done recursively visiting everything reachable from a uh now we go back to this Loop the outer loop so we did a next we look at B I say oh B's been visited we don't need to do anything from there then we go to C C hasn't been visited so we're going to loop from C and so this is our second choice of s in this recursion or in this Outer Loop and so we look at the outgoing edges from uh from S2 let me match the order and the notes uh let's say first"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_022",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 770.0,
+    "end_time": 815.0,
+    "text": "choice of s in this recursion or in this Outer Loop and so we look at the outgoing edges from uh from S2 let me match the order and the notes uh let's say first f f has not been visited so we set its parent pointer to C uh then we look at all the outgoing edges from F there's one outgoing Edge from f it goes to F uh I guess I shouldn't really bold this sorry I'll say what the Bold edges mean in a moment this is just a regular Edge we follow the Edge from F to F we see oh F has already been VIs visit it it already has a parent pointer so there's no point going down there we're done with f"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_023",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 805.0,
+    "end_time": 850.0,
+    "text": "moment this is just a regular Edge we follow the Edge from F to F we see oh F has already been VIs visit it it already has a parent pointer so there's no point going down there we're done with f that's the only outgoing Edge we go back to see there's one other outgoing Edge but it leads to a Vertex we've already visited namely e and so we're done with visiting everything reachable from C we didn't visit everything reachable from C because some of it was already visited from a and we go back to the outer loop say okay what about D D's been visited what about e e's been visited what about F F's been visited so we're visiting these vertices again but only be twice in total uh and in the end we visit all the vertices and in a certain sense all the"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_024",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 840.0,
+    "end_time": 885.0,
+    "text": "in total uh and in the end we visit all the vertices and in a certain sense all the time what do you think the running time"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_025",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 875.0,
+    "end_time": 920.0,
+    "text": "up upper bound sure v v is a little bit optimistic yeah plus e good collaborative effort it's linear time just just like the fs this is what we call linear time because this is the size of the input V it's it's Theta V plus e for the whole thing um the size of the input was V plus e we needed V slots in an array plus we needed e items in these link"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_026",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 910.0,
+    "end_time": 955.0,
+    "text": "thing um the size of the input was V plus e we needed V slots in an array plus we needed e items in these link lists one for each Edge we have to Traverse that whole structure the reason it's order V plus e is well first as you're saying you're visiting every vertex once in this outer Loop so recursion uh and DFS alone so that's order V then we do we have to worry about this recursion but we know that whenever we call DFS visit"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_027",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 945.0,
+    "end_time": 990.0,
+    "text": "recursion uh and DFS alone so that's order V then we do we have to worry about this recursion but we know that whenever we call DFS visit on on a Vertex that it did not have a parent before right right before we called DFS visit we said it's parent for the first time right before we called DFS visit on V here we said it's parent for the first time because it wasn't set before so uh DFS visit I'm going to just write of V here it's called Uh one"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_028",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 980.0,
+    "end_time": 1025.0,
+    "text": "here it's called Uh one V okay but it does not take constant time this takes constant time per vertex plus a recursive call this thing uh this takes constant time but there's a for Loop here we have to pay for however many outgoing edges there are from V that's the part you're missing um so and we pay length of adjacency V For That vertex so the total in addition to this"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_029",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 1015.0,
+    "end_time": 1060.0,
+    "text": "pay length of adjacency V For That vertex so the total in addition to this V is going to be uh order sum overall vertices V in capital V of length of the is e this is the handshaking Lemma from last time it's twice e for undirected graphs it's e for directed graphs I've drawn directed graphs here it's a little more interesting okay so it's linear time just like BFS so you could say who cares"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_030",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 1050.0,
+    "end_time": 1095.0,
+    "text": "I've drawn directed graphs here it's a little more interesting okay so it's linear time just like BFS so you could say who cares uh but DFS offers a lot of different properties than BFS they each have their Niche BFS is great for shortest paths you want to know the fastest way to solve the rubrics cube BFS will find it you want to find the fastest way to solve the rubrics cube DFS will not find it it's not following shortest paths here like going from a to d we used a path of length three that's the Bold edges we could have gone directly from a to d so it's a different kind of search sort of the inverse but it's extremely useful um in particular in the way that it classifies"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_031",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 1085.0,
+    "end_time": 1130.0,
+    "text": "to d so it's a different kind of search sort of the inverse but it's extremely useful um in particular in the way that it classifies classification you can check every Edge in this graph gets visited in a directed graph every Edge gets visited once in an undirected graph every Edge gets visited twice once from each side um and when you visit that edge there's sort of different categories of what could happen to it uh maybe the edge led to something unvisited then you"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_032",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 1120.0,
+    "end_time": 1165.0,
+    "text": "side um and when you visit that edge there's sort of different categories of what could happen to it uh maybe the edge led to something unvisited then you and that's what the parent pointers are specifying and all the Bold edges here are called tree edges this is when we uh"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_033",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 1155.0,
+    "end_time": 1200.0,
+    "text": "are called tree edges this is when we uh vertex uh via that edge okay so we look at the other side of the edge we discover a new vertex those we call tree edges it turns out they form a tree a directed tree that's a Lama you can prove you can see it here we just have a path actually a forest would be more accurate we have a path a b e d and we have an edge CF but in general it's a it's a forest so for example if there was another thing coming from E here let modify my graph uh we would at some point visit that edge and say oh here's"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_034",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 1190.0,
+    "end_time": 1235.0,
+    "text": "we have an edge CF but in general it's a it's a forest so for example if there was another thing coming from E here let modify my graph uh we would at some point visit that edge and say oh here's new way to go and now that bold structure forms an actual tree so these we call tree edges you can call them Forest edges if you feel like it um there are other edges in there the non-bold edges and the textbook distinguishes three types three types"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_035",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 1225.0,
+    "end_time": 1270.0,
+    "text": "edges some of these are more useful to distinguish than others but doesn't hurt to have them all so uh for example this Edge I'm going to call a forward Edge just write f that's unambiguous uh because it goes in some sense forward along the tree it goes from the root of this tree to a"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_036",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 1260.0,
+    "end_time": 1305.0,
+    "text": "unambiguous uh because it goes in some sense forward along the tree it goes from the root of this tree to a descendant there is a a path in the tree from a to d so we call it a forward Edge by contrast this Edge I'm going to call a backward Edge uh because it goes from a node in the tree to an ancestor in the tree if you think of parents I can go from D to parent to its parent and that's where the edge goes so that's a backward Edge double check I got these not reversed y That's Right forward Edge uh because I could go from D to its parent to its parent to its parent The Edge went the other way that's a forward"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_037",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 1295.0,
+    "end_time": 1340.0,
+    "text": "double check I got these not reversed y That's Right forward Edge uh because I could go from D to its parent to its parent to its parent The Edge went the other way that's a forward Edge okay so uh forward Edge goes from a tree backward Edge goes from a node to forest and then all the other edges are cross edges uh so I guess here this is a cross Edge it goes in this case it goes from"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_038",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 1330.0,
+    "end_time": 1375.0,
+    "text": "cross edges uh so I guess here this is a cross Edge it goes in this case it goes from One Tree to another doesn't have to go between different trees for example let's say I'm visiting D and I I go back to E I visit G uh there could be this Edge if this Edge existed it would be a cross Edge because G and D are not ancestor related neither one is an ancestor of the other they are siblings actually okay so there's in general there's going to be some sube over here some sub tree over here and this is a cross Edge between two different sub"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_039",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 1365.0,
+    "end_time": 1410.0,
+    "text": "the other they are siblings actually okay so there's in general there's going to be some sube over here some sub tree over here and this is a cross Edge between two different sub to uh sort of non ancestor related I think it's the nodes okay um a little puzzle for you well okay I guess first question is how do you"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_040",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 1400.0,
+    "end_time": 1445.0,
+    "text": "nodes okay um a little puzzle for you well okay I guess first question is how do you compute this structure how do you compute which edges are which um this is not hard although I haven't written it in the code here you can check the textbook for one way to do it uh the parent structure tells you which edges are tree edges so that part we have done every every parent pointer corresponds to the reverse of a tree Edge so you at the same time you could Mark that edge a tree Edge and You' know which edges are tree edges and which edges are non- tree edges if you want to know which are forward which are backward which are"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_041",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 1435.0,
+    "end_time": 1480.0,
+    "text": "tree Edge and You' know which edges are tree edges and which edges are non- tree edges if you want to know which are forward which are backward which are cross edges the key thing you need to know is uh well in particular for backward edges one way to compute them is to Mark which nodes you are currently exploring so when we do a DFS visit on a node we could say at the beginning here basically we're starting to visit s so say start S and then at the end of this s and you could Mark that in the S"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_042",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 1470.0,
+    "end_time": 1515.0,
+    "text": "say start S and then at the end of this s and you could Mark that in the S structure you could say s do in process is true up here s do inprocess equals false down here keep track of which nodes are currently in the recursion stack just by marking them and unmarking them at the beginning and the end then we'll know if we follow an edge and it's an edge to somebody who's already in the stack then uh it's a backward Edge because that's everyone in the stack is an ancestor from our current node detecting forward"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_043",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 1505.0,
+    "end_time": 1550.0,
+    "text": "because that's everyone in the stack is an ancestor from our current node detecting forward trickier forward edges versus cross edges any suggestions on an easy way to that I don't think think I know an easy way to do that can be done uh the way the textbook does it is a little bit more sophisticated in that when they start start visiting a Vertex they record the time that it got visited what's time uh you could think of it as the clock on"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_044",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 1540.0,
+    "end_time": 1585.0,
+    "text": "start visiting a Vertex they record the time that it got visited what's time uh you could think of it as the clock on your computer uh another way to do it is every time you do a step in this algorithm you increment a counter so every time anything happens you increment a counter and then you store the value of that counter here for s that would be the start time for S you store the finish time for S down here and then this gives you this tells you when a node was visited and you can use that to compute when an edge is a forward Edge when and otherwise it's a cross Edge it's not terribly exciting though so I'm not going to detail that you can look at the textbook if you're interested but here's"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_045",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 1575.0,
+    "end_time": 1620.0,
+    "text": "cross Edge it's not terribly exciting though so I'm not going to detail that you can look at the textbook if you're interested but here's a fun puzzle uh in an undirected graph which of these edges can exist we can have a vote do some U mathematic de Democratic mathematics how many people think tree edges exist in undirected graphs a few okay s does that's a good sign how many people think forward edges graph couple how many people think backward edges exist in an undirected graph"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_046",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 1610.0,
+    "end_time": 1655.0,
+    "text": "graph couple how many people think backward edges exist in an undirected graph couple how many people think cross edges exist in an undirected graph more people okay I think voting worked they're all exist no that's not true this one can exist and this one can exist I actually wrote the wrong ones in my notes so it's good to trick you no it's I made a mistake it's very easy to get these mixed up and uh you can think about why this is true maybe I'll draw this is something uh you remember"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_047",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 1645.0,
+    "end_time": 1690.0,
+    "text": "this is something uh you remember the well yeah there was the BFS diagram I talked a little bit about this last class uh tree edges better exist those are the things you use to visit New vertices so that always happens undirected or otherwise forward edges though forward Edge would be okay I visited this then I visited this those edges then I backtrack and I follow an edge like this this would be a forward Edge and in a directed graph that can happen uh in an undirected"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_048",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 1680.0,
+    "end_time": 1725.0,
+    "text": "Edge and in a directed graph that can happen uh in an undirected happen right oh no it can't it can't okay so confusing undirected graph if you look like this you start let's say this is s you start here and suppose we follow this Edge we get to here then we will follow this Edge in the other direction be and that's guaranteed to finish before we get back to S so if this was in order to be a forward Edge this one has to be visited after this one from s but in this scenario if you follow this one first you'll eventually"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_049",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 1715.0,
+    "end_time": 1760.0,
+    "text": "finish before we get back to S so if this was in order to be a forward Edge this one has to be visited after this one from s but in this scenario if you follow this one first you'll eventually get to this vertex and then you will come back and then that will be classified as a backward Edge in an undirected graph so you can never have H but I have a backward edge here that would suggest I can have backward edges here and no cross edges well democracy did not work I was swayed by the popular vote uh so I claim apparently cross edges do not exist let's try to draw"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_050",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 1750.0,
+    "end_time": 1795.0,
+    "text": "did not work I was swayed by the popular vote uh so I claim apparently cross edges do not exist let's try to draw this so cross Edge typical scenario would be you go here uh you follow this Edge uh you come you backtrack you follow another Edge and then you discover there was an edge back to some other subtree that you've already visited that can happen in an undirected graph the same reason if I follow this one first and this Edge exists undirected then I will go down that way so it will be actually a tree Edge not a cross"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_051",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 1785.0,
+    "end_time": 1830.0,
+    "text": "then I will go down that way so it will be actually a tree Edge not a cross Edge okay that means my notes were correct no surprise because they were cop from the textbook all right un uncorrect my good so what uh why do I care about these Edge classifications I claim they're super handy for two problems cycle detection and which is pretty intuitive problem does My Graph have any Cycles in the directed case this is pretty particular particularly"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_052",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 1820.0,
+    "end_time": 1865.0,
+    "text": "problems cycle detection and which is pretty intuitive problem does My Graph have any Cycles in the directed case this is pretty particular particularly interesting I want to know does the graph has any directed cycles and another problem called topological sort to so let's start with cycle detection this is actually a warmup for sort so does my graph have any Cycles G has a cycle I claim this happens if and only"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_053",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 1855.0,
+    "end_time": 1900.0,
+    "text": "sort so does my graph have any Cycles G has a cycle I claim this happens if and only Edge or let's say a depth for search of Edge so it doesn't matter where I start from or you know how this algorithm I run this top level DFS algorithm explore the whole graph because I want to know in the whole graph is there a cycle I claim if there's a back Edge then there's a cycle cool so it all comes down to back edges this will work for both directed and undirected graphs detecting Cycles is"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_054",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 1890.0,
+    "end_time": 1935.0,
+    "text": "there's a cycle cool so it all comes down to back edges this will work for both directed and undirected graphs detecting Cycles is pretty easy in undirected graphs it's a little more subtle with directed graphs because you have to worry about the edge directions so let's prove this we haven't done the serious proof in a while so this is still a pretty easy one but let's think about it what do you think is the EAS direction to prove here left or right more democracy how many people think left is easy couple how many people think right is easy a whole bunch more I disagree"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_055",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 1925.0,
+    "end_time": 1970.0,
+    "text": "think left is easy couple how many people think right is easy a whole bunch more I disagree with you I mean guess depends what you consider easy um let me show you how easy left is okay left is I have a back Edge I want to claim there's a cycle what does a back Edge look like well it's an edge to an ancestor in the tree if this node is a descendant of this node or this node is an ancestor of this node um that's saying that there are tree edges there's a path a tree path that"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_056",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 1960.0,
+    "end_time": 2005.0,
+    "text": "that's saying that there are tree edges there's a path a tree path that other okay so this is a these are tree edges because this is supposed to be an descendant and this is that's the definition of a back Edge okay do you see a cycle I see a cycle this is a cycle directed cycle so if there's a back Edge by definition it makes a cycle now it's harder to say you know if I"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_057",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 1995.0,
+    "end_time": 2040.0,
+    "text": "cycle directed cycle so if there's a back Edge by definition it makes a cycle now it's harder to say you know if I have 10 back edges how many cycles are there could be many but if there's a back Edge there's definitely at least cycle the other direction is also not too hard but I would hesitate to call it easy any suggestions if I know there is a cycle how do I prove that there's a back Edge somewhere think about that let me draw a"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_058",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 2030.0,
+    "end_time": 2075.0,
+    "text": "cycle where do you think which of these edges do you think is going to be a back Edge let's hope it's one of these edges sorry VK to V Zer that's a good idea maybe this is a back Edge uh of course this is symmetric why why that"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_059",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 2065.0,
+    "end_time": 2110.0,
+    "text": "sorry VK to V Zer that's a good idea maybe this is a back Edge uh of course this is symmetric why why that edge I labeled it in a suggested way but I need to say something before I know actually which Edge is going to be the back Edge yeah have to say started start at v0 if I started a search at v0 that looks good because the search is kind of going to go in this direction VK will maybe be the last thing to be visited that's not actually true could be there's an edge directly from v0 to VK but intuitively VK will be kind of later and then when this Edge gets visited this will be an ancestor it'll be a back Edge okay of course this we may not start a search"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_060",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 2100.0,
+    "end_time": 2145.0,
+    "text": "but intuitively VK will be kind of later and then when this Edge gets visited this will be an ancestor it'll be a back Edge okay of course this we may not start a search here so calling it the start of the search is not quite right a little different yeah first vertex that gets hit good so let's I'm going to start the numbering B 0 so assume b0"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_061",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 2135.0,
+    "end_time": 2180.0,
+    "text": "search together you want some pillows if You' like them uh especially convenient that they're in front um so right if it's not v0 say V3 was the first one visited we'll just change the labeling so that's v0 that's V1 that's V and so on um so set this labeling so the V 0 is the first one first vertex that gets visited okay then I claim that let me just write the claim"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_062",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 2170.0,
+    "end_time": 2215.0,
+    "text": "first one first vertex that gets visited okay then I claim that let me just write the claim Edge as we say is back Edge yeah I would careful we have to somehow exploit the"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_063",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 2205.0,
+    "end_time": 2250.0,
+    "text": "careful we have to somehow exploit the depth first nature of DFS fact it goes deep it goes as deep as it can before backtracking if you think about it we're starting at this point we are starting a search relative to the cycle no one has been visited except v0 just got visited has a parent pointer off somewhere else okay uh what do we do next well we visit all the outgoing edges from v0 there might be many of them could be an edge from v0 to V1 could be an edge from v0 to V3 could be an edge from v0 to something else uh we don't know which one's going to"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_064",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 2240.0,
+    "end_time": 2285.0,
+    "text": "might be many of them could be an edge from v0 to V1 could be an edge from v0 to V3 could be an edge from v0 to something else uh we don't know which one's going to happen first but the one thing I could claim is that uh V1 will be visited v0 okay from v0 we might go somewhere else we might go somewhere else that might eventually lead to V1 by some other route but in particular we look at that edge from v0 to V1 and so at some point during we're searching we're visiting all the things"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_065",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 2275.0,
+    "end_time": 2320.0,
+    "text": "might eventually lead to V1 by some other route but in particular we look at that edge from v0 to V1 and so at some point during we're searching we're visiting all the things reachable from v0 that includes V1 and that will happen we will touch V1 for the first time because it hasn't been touched yet we will visit it before we finish visiting v0 same goes actually for all the vi because they're all reachable from V 0 you can prove this by induction you have to visit V1 before finish visiting v0 uh you'll have to visit V2 before you finish visiting V1 although you might actually visit V2 before V1 you definitely finish you'll finish V2"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_066",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 2310.0,
+    "end_time": 2355.0,
+    "text": "you'll have to visit V2 before you finish visiting V1 although you might actually visit V2 before V1 you definitely finish you'll finish V2 before you finish V1 and so on uh so VI will be visited before you finish VI minus one but in particular what we care about is that VK is visited v0 and it will be entirely visited we will finish visiting VK before we finish visiting v0 we will start VK after we start v0 because v0 is first so the"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_067",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 2345.0,
+    "end_time": 2390.0,
+    "text": "will finish visiting VK before we finish visiting v0 we will start VK after we start v0 because v0 is first so the order is going to look like start v0 at some point we will start VK then we'll finish v0 this is something that textbook likes to call uh and I like to call balance parentheses you can think of it as we start V Zer uh then we start VK then we finish VK then we finish v0 and these match up and they're balanced it will dep for search always looks like that because once you start a"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_068",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 2380.0,
+    "end_time": 2425.0,
+    "text": "finish VK then we finish v0 and these match up and they're balanced it will dep for search always looks like that because once you start a Vertex you keep chugging till you visited all the things reachable from it then you finish it you won't finish v0 before you finish VK because it's part of the recursion you can't return at a higher level before you return at the lower levels okay so what we've just argued that the order is like this because v0 was first so V K starts after V 0 and also we're going to finish VK before we finish v0 because it's reachable and hasn't been visited consider uh"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_069",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 2415.0,
+    "end_time": 2460.0,
+    "text": "hasn't been visited consider uh VK v0 when we consider that edge it will be a Edge why because v0 is currently on the recursion stack and so you will have marked v0 is currently in process so when you look at that edge you see it's a back Edge it's an edge to your proof any questions about that it's pretty easy Once you set up uh starting point which is look at the"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_070",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 2450.0,
+    "end_time": 2495.0,
+    "text": "proof any questions about that it's pretty easy Once you set up uh starting point which is look at the first time you visit the cycle then just think about how you walk around the cycle there lots of ways you might walk around the cycle but it's guaranteed you'll visit VK at some point then you'll look at the edge v0 is still in the stack so it's a back Edge and so this proves that having a cycle is equivalent to having a back Edge this gives you an easy linear time algorithm to tell does My Graph have a cycle and if it does it's actually easy to find one because we find a back Edge just follow the tree edges and you get your so if someone gives you a graph and say hey I think this is a cyclic you can"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_071",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 2485.0,
+    "end_time": 2530.0,
+    "text": "follow the tree edges and you get your so if someone gives you a graph and say hey I think this is a cyclic you can very quickly say nope it's not here's a cycle or say yeah I agree no back edges one application two is topological sort which we're going to think about in the scheduling so job scheduling we are"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_072",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 2520.0,
+    "end_time": 2565.0,
+    "text": "which we're going to think about in the scheduling so job scheduling we are given a that all edges"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_073",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 2555.0,
+    "end_time": 2600.0,
+    "text": "that all edges order okay directed ay graph is called a"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_074",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 2590.0,
+    "end_time": 2635.0,
+    "text": "okay I've drawn I've drawn the graph so all the edges go left to right so you can see that there's no Cycles here but in general you'd run DFS and you detect there's no cycles and now imagine these vertices represent things you need to do uh the textbook has a funny example where you're getting dressed so you have these constraints to say well I've got to put my socks on before I put my shoes"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_075",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 2625.0,
+    "end_time": 2670.0,
+    "text": "do uh the textbook has a funny example where you're getting dressed so you have these constraints to say well I've got to put my socks on before I put my shoes on and then I've got to put my underwear on before I put my pants on all these kinds of things things uh you encode that as a direct today cyc graph you hope there's no Cycles because then you can't get dressed and there's some things like well I could put my glasses on whenever although actually I should put my glasses on before I do anything else otherwise there's problems um I don't know you put your watch on at any time unless you need to know what time it is so there's some some disconnected Parts whatever there's some unrelated things like I don't care the order between my shirt and my pants or whatever um some things are un constrained what you'd"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_076",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 2660.0,
+    "end_time": 2705.0,
+    "text": "whatever there's some unrelated things like I don't care the order between my shirt and my pants or whatever um some things are un constrained what you'd like to do is choose an actual order to do things you say you're a sequential being you can only do one thing at a time so I want to compute a total order first I'll do G then I'll do a then I'll then I can do H because I've done both of the the predecessors then I can't do B because I haven't done D so maybe I'll do D first and then B then e then C then F then I that would be a valid order because all edges point from an earlier number to a later number so that's the goal and this is these are real job scheduling problems that come up you'll see more applications in your problem"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_077",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 2695.0,
+    "end_time": 2740.0,
+    "text": "number to a later number so that's the goal and this is these are real job scheduling problems that come up you'll see more applications in your problem Set uh how do we do this well at this point we have two algorithms and I pretty much revealed it is DFS DFS will do this topological sort called topological sort because you're given a graph which you can think of as a topology you want to sort it in a certain sense not like sorting numbers it's sorting vertices in a graph so hence topological sort that's the name of the algorithm and it's run run"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_078",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 2730.0,
+    "end_time": 2775.0,
+    "text": "it's sorting vertices in a graph so hence topological sort that's the name of the algorithm and it's run run output the times of vertices so this is another application where you really want to visit all the vertices in the graph so we use both we use this top level DFS so everybody gets visited and there are these finishing times so every time I finish a Vertex I could add it to a list say okay that one was finished next then this one's"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_079",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 2765.0,
+    "end_time": 2810.0,
+    "text": "visited and there are these finishing times so every time I finish a Vertex I could add it to a list say okay that one was finished next then this one's finished then this one's finished I take that order and I reverse it that will be a topological we've actually done pretty much the hard work which is to say we're assuming our graph has no Cycles so that tells us uh by this cycle detection that there are no back edges back edges are kind of the"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_080",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 2800.0,
+    "end_time": 2845.0,
+    "text": "work which is to say we're assuming our graph has no Cycles so that tells us uh by this cycle detection that there are no back edges back edges are kind of the annoying part now they don't exist here so all the edges are tree edges forward edges and cross edges theorem so we want to prove that all the edges point from an earlier number to a number so what that means is for an edge UV we want to show that V finishes"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_081",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 2835.0,
+    "end_time": 2880.0,
+    "text": "number so what that means is for an edge UV we want to show that V finishes that's the reverse because what we're taking is the reverse of the finishing order okay so Edge UV want to make sure V finishes first so that U will be ordered cases case one is that you starts before V"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_082",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 2870.0,
+    "end_time": 2915.0,
+    "text": "cases case one is that you starts before V U at some point they start because we graph this top level top Loop guarantees that so consider what order we visit them first at the beginning and then we'll think about how they finish well uh this case is kind of something we've seen before we visit you we have not yet visited V but V is reachable from you so maybe via"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_083",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 2905.0,
+    "end_time": 2950.0,
+    "text": "they finish well uh this case is kind of something we've seen before we visit you we have not yet visited V but V is reachable from you so maybe via this Edge or maybe via some other path we'll eventually visit V in the recursion for you so before you finishes V visit V before you finishes that sentence is just like this sentence so same kind of argument I won't go into detail because we already did that several times so that means we'll visit V we will completely visit V we will finish V"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_084",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 2940.0,
+    "end_time": 2985.0,
+    "text": "won't go into detail because we already did that several times so that means we'll visit V we will completely visit V we will finish V before we finish U and that's what we wanted to prove so in that that case is good the other case is that V starts before U here you might get slightly worried so we have an edge UV still same direction but now we start at V you has not yet been visited well now we worry that there's uh that we visit you if we visit you we're going to finish you before we finish V but we want it to be the other"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_085",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 2975.0,
+    "end_time": 3020.0,
+    "text": "uh that we visit you if we visit you we're going to finish you before we finish V but we want it to be the other happen because there's a back Edge somewhere here in particular the graph would have to be cyclic this is a cycle so this can't happen all so V will still finish first because we don't even touch you because there's no Cycles so that's actually the proof the topological sort gives you a valid job schedule and it's kind of there there"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec14_chunk_086",
+    "video_id": "mit_6006f11_lec14",
+    "start_time": 3010.0,
+    "end_time": 3055.0,
+    "text": "Cycles so that's actually the proof the topological sort gives you a valid job schedule and it's kind of there there are even more things you can do with DFS uh we'll see some in recitation there's more in the textbook but simple algorithm could do a lot of nifty things"
+  }
+]

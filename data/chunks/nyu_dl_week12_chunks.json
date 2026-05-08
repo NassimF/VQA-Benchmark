@@ -1,0 +1,1213 @@
+[
+  {
+    "chunk_id": "nyu_dl_week12_chunk_000",
+    "video_id": "nyu_dl_week12",
+    "start_time": 0.0,
+    "end_time": 45.0,
+    "text": "we have today mike lewis he's a research scientist at facebook ai research working on natural language processing so previously he was a postdoc at the university of washington and working with luke zettelmoyer and on the search based structure prediction he completed his phd at the university of edinburgh and based on combining distributional and logical approaches to semantics he has a mastery degree from the university of oxford and won the best paper award on eml em nlp in 2016. so uh without further ado let's get started with today's presentation okay well thank you very much for the introduction of radio and replacing me to turk um so yeah this lecture just wants to"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_001",
+    "video_id": "nyu_dl_week12",
+    "start_time": 35.0,
+    "end_time": 80.0,
+    "text": "so uh without further ado let's get started with today's presentation okay well thank you very much for the introduction of radio and replacing me to turk um so yeah this lecture just wants to try and give a high level overview of how deep learning is used for natural languages processing these days so i think it's per se it's been really dramatic progress in nlp in the last few years with the playing deep learning um so these days i mean you can get machine translation systems which will produce translations which blind human narrators prefer the ones produced by professional translators um you can make some question answering systems that you ask them a question give me wikipedia and they'll give you answers that are races more accurate than the ones that"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_002",
+    "video_id": "nyu_dl_week12",
+    "start_time": 70.0,
+    "end_time": 115.0,
+    "text": "produced by professional translators um you can make some question answering systems that you ask them a question give me wikipedia and they'll give you answers that are races more accurate than the ones that people will give you i could like have language models that can like generate uh several paragraphs of fluent text and for all of these things if you'd asked me like maybe five years ago i'd have told you there's absolutely no way any of this is possible in 2020 but um there seems to be a few techniques that have been introduced that have really made dramatic differences and one really nice properties actually you can achieve all of these things with fairly generic models so all the models for all these tasks actually look very similar uh there's just a few high-level"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_003",
+    "video_id": "nyu_dl_week12",
+    "start_time": 105.0,
+    "end_time": 150.0,
+    "text": "you can achieve all of these things with fairly generic models so all the models for all these tasks actually look very similar uh there's just a few high-level principles which are really useful um so i'm gonna be covering quite a lot ground on this quite quickly so please interrupt me often with questions yeah um also one thing i should say is that with all the progress we've been seeing in nlp uh probably a lot of stuff i'm going to tell you right now is going to be out to date in a year or two i mean i hope we continue to make progress and stuff continues to be out today so as well as like explaining some of the models we're using i want to try and sort of give you"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_004",
+    "video_id": "nyu_dl_week12",
+    "start_time": 140.0,
+    "end_time": 185.0,
+    "text": "be out to date in a year or two i mean i hope we continue to make progress and stuff continues to be out today so as well as like explaining some of the models we're using i want to try and sort of give you some intuitions about what kinds of principles are working out well which will hopefully have a bit more of okay so um the first topic i want to cover this lecture is language modeling language modeling isn't necessarily a useful task in itself but it seems to be a really good building block for introducing all the um so uh i don't know any of you seen this before this is an example"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_005",
+    "video_id": "nyu_dl_week12",
+    "start_time": 175.0,
+    "end_time": 220.0,
+    "text": "um so uh i don't know any of you seen this before this is an example from a language model called gpt2 which came out in 2019. um so what's going on here is that we've got some humans played some uh introduction here about um scientists finally heard of unicorns of the andes that apparently speak english and then given that text they've asked this language model to write some more texts and stats of that and the text we get here is actually quite impressive like everyone was really shocked that language roles could work this well"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_006",
+    "video_id": "nyu_dl_week12",
+    "start_time": 210.0,
+    "end_time": 255.0,
+    "text": "impressive like everyone was really shocked that language roles could work this well uh last year so you can see um the convenient text seems actually quite plausible for a news article about this it's um talk to me talk about unicorns um the text is very fluent grammatical it's not really any flaws there and it seems to like invent quite a lot of details like the name of the scientists um obviously all this is complete nonsense nothing here is true but um also none of this will look like anything the model was ever trained on like i'm pretty sure this paragraph over his unicorn has like no"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_007",
+    "video_id": "nyu_dl_week12",
+    "start_time": 245.0,
+    "end_time": 290.0,
+    "text": "but um also none of this will look like anything the model was ever trained on like i'm pretty sure this paragraph over his unicorn has like no neighbors anywhere on the internet this is all completely new language but it's all actually quite high quality text um i'm not going to read all this out but like if you read the rest of the article that wrote then um there are some flaws but they're quite hard to spot and generally uh this seems to be quite a good language model so i'm gonna try and show you like the kind of techniques you need to actually build the lines model that works as well all right so um [Music] very briefly what is language model so lines model is just a basically density estimation for text"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_008",
+    "video_id": "nyu_dl_week12",
+    "start_time": 280.0,
+    "end_time": 325.0,
+    "text": "all right so um [Music] very briefly what is language model so lines model is just a basically density estimation for text so we're going to assign a probability to uh every possible string and hopefully when well puts more probability on like strings which are fluent english than other strings um so how do we model this density well um obviously there are quite a lot of possible sentences exponentially many so we can't just predict classified suits directly um there are different techniques you can do for this but the one i'm going to talk about is the one that's most popularly used which is basically to factorize this distribution"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_009",
+    "video_id": "nyu_dl_week12",
+    "start_time": 315.0,
+    "end_time": 360.0,
+    "text": "um there are different techniques you can do for this but the one i'm going to talk about is the one that's most popularly used which is basically to factorize this distribution using the chain rule um so here all we're going to do is um just fractionation to say it's going to predict the first word then click second word given the first then um this is an exact characterization it doesn't cost us anything to do like this um so really what we turned is the density estimation problem into a series of classification problems these classification problems are the form given a bunch of texts predict the next word"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_010",
+    "video_id": "nyu_dl_week12",
+    "start_time": 350.0,
+    "end_time": 395.0,
+    "text": "like this um so really what we turned is the density estimation problem into a series of classification problems these classification problems are the form given a bunch of texts predict the next word and that's going to be a theme through a so more concretely we have this uh from this example i showed you before we got this um string the model output so like the scientists name the population after the distinct detail on orbits and you've got to predict the next word and uh the correct word in this case is okay so um at high level all these language models look something like this basically we input this text into a neural network somehow"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_011",
+    "video_id": "nyu_dl_week12",
+    "start_time": 385.0,
+    "end_time": 430.0,
+    "text": "okay so um at high level all these language models look something like this basically we input this text into a neural network somehow the neural network will map all this context onto a vector this vector represents the next word and then we're going to have some big word about matrix so our um word evading matrix will basically contain a vector for every possible word model knows how to output and then all we need to do is compute the similarity by just doing a dot product between the context vector and each of these word vectors and uh we'll get a likelihood of predicting the next word then we'll just train this model by"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_012",
+    "video_id": "nyu_dl_week12",
+    "start_time": 420.0,
+    "end_time": 465.0,
+    "text": "the context vector and each of these word vectors and uh we'll get a likelihood of predicting the next word then we'll just train this model by okay so um i mean the detail here is often we don't deal with words directly we deal with things called sub words or even characters but um all all right so um how all the skill here is in this context encoder how do we build this um so kind of the first approach people took for this is um basically convolutional models"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_013",
+    "video_id": "nyu_dl_week12",
+    "start_time": 455.0,
+    "end_time": 500.0,
+    "text": "how do we build this um so kind of the first approach people took for this is um basically convolutional models so these convolution worlds kind of encode this uh inductive bias that language kind of has this translation of variance property we should interpret a phrase the same way no matter what position it occurs in um so a typical model might look this way basically first of all for every word we'll just map it to some vector um which is just a lookup table into an embedding matrix so the word will get the same vector no matter what context it appears in and then we'll apply a bunch of layers"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_014",
+    "video_id": "nyu_dl_week12",
+    "start_time": 490.0,
+    "end_time": 535.0,
+    "text": "which is just a lookup table into an embedding matrix so the word will get the same vector no matter what context it appears in and then we'll apply a bunch of layers of the 1d convolutions followed by non-linearities until eventually we end up with some kind of vector representing that context which really really hit the vector means what should um and these models were first i think this is actually maybe the first language model from bengio in 2003 both best neural language model um and uh these kind of convolutional approaches were actually shared if to work quite well by younger phone in 2016 if you reply kind of modern deep learning"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_015",
+    "video_id": "nyu_dl_week12",
+    "start_time": 525.0,
+    "end_time": 570.0,
+    "text": "um and uh these kind of convolutional approaches were actually shared if to work quite well by younger phone in 2016 if you reply kind of modern deep learning techniques um kind of the these models very fast which is great um actually speed is very impossible language modeling because typically we use huge amounts of training data um there's one come downside which is that they're only able to really condition on the certain reception field um so in this kind of toy example uh this word unicorn could only condition uh the previous uh five words uh because of the sort of kernel width the number of layers we're using here"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_016",
+    "video_id": "nyu_dl_week12",
+    "start_time": 560.0,
+    "end_time": 605.0,
+    "text": "this word unicorn could only condition uh the previous uh five words uh because of the sort of kernel width the number of layers we're using here um obviously like realistic convolutional worlds i have a much bigger receptor field like this but um natural language tends to have uh for an extreme example you can imagine if you're like trying to build a line total of a complete book it might actually help you to be able to condition on the title of the book at all time steps and obviously the title will be hundreds of thousands of words previously and it's quite hard to kind of build this into build a convolutional except to feel"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_017",
+    "video_id": "nyu_dl_week12",
+    "start_time": 595.0,
+    "end_time": 640.0,
+    "text": "previously and it's quite hard to kind of build this into build a convolutional except to feel okay so how do we condition our model context i guess um the most popular approach until a couple years ago was uh what's called the current neural networks um this is kind of a conceptually quite straightforward idea that basically at every time set we're going to maintain some state so have some state coming in from the previous time step which represents what we've read so far we'll combine the state with uh the current word we've read and we'll use that to update our states and then we'll just iterate this for as"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_018",
+    "video_id": "nyu_dl_week12",
+    "start_time": 630.0,
+    "end_time": 675.0,
+    "text": "what we've read so far we'll combine the state with uh the current word we've read and we'll use that to update our states and then we'll just iterate this for as many time steps as we need um so i think this seems like quite a natural model of reading i mean i think for the most part people kind of read left or right and maintain some kind of states as they go at least in principle as well you can model unbounded contexts like this so um at least in principle like the say the title of a book would affect the hidden states um in practice so there are some fairly"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_019",
+    "video_id": "nyu_dl_week12",
+    "start_time": 665.0,
+    "end_time": 710.0,
+    "text": "say the title of a book would affect the hidden states um in practice so there are some fairly no free lunch here so by the time the effect of trying to maintain mistakes is we're going to compress the whole history of the document reading into a single vector at each time step and then you can't once you've read a word you can never look at it again you have to memorize that and that means you have to actually have to cram a huge amount of information into a single vector and this is firstly it's a kind of a"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_020",
+    "video_id": "nyu_dl_week12",
+    "start_time": 700.0,
+    "end_time": 745.0,
+    "text": "memorize that and that means you have to actually have to cram a huge amount of information into a single vector and this is firstly it's a kind of a bottleneck involved also i mean there's a question about how much information you can really store in one vector but also um it's kind of a practical learning problem to you that's the the um you get an issue called the vanishing gradient problem it means that you know every time you go through one of these steps then your you'll have some kind of non-linearity which will mean that the effective words in the past will kind of get exponentially smaller each time step"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_021",
+    "video_id": "nyu_dl_week12",
+    "start_time": 735.0,
+    "end_time": 780.0,
+    "text": "your you'll have some kind of non-linearity which will mean that the effective words in the past will kind of get exponentially smaller each time step that means that once you have uh no gradient for a particular word in the past it's very hard to actually suddenly learn later on um one final issue i want to mention with iron ends is they're actually quite slow um the reason for this is particularly um so the reason is that in order to like um build your state for a particular work you actually have to build your state for every previous word"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_022",
+    "video_id": "nyu_dl_week12",
+    "start_time": 770.0,
+    "end_time": 815.0,
+    "text": "um so the reason is that in order to like um build your state for a particular work you actually have to build your state for every previous word first let me essentially have a big for loop that's going over your entire document and the longer your document is the bigger the full loop is and it means you most of these operations you can't actually confuse in parallel you actually have to do it sequentially and one gpu hardware is really based around being able to do operations in parallel so the convolutional network didn't have this problem it's everything's in parallel but on the other hand you get a boundary receptor field"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_023",
+    "video_id": "nyu_dl_week12",
+    "start_time": 805.0,
+    "end_time": 850.0,
+    "text": "so the convolutional network didn't have this problem it's everything's in parallel but on the other hand you get a boundary receptor field and the recurrent models you have in principle an infinite amount of receptor field so the solution to this is now what's called the transformer um which is the model that's used in old state nlp systems these days um so i'm going to go through transformer in quite a lot more detail when i did the rnns or cnns um transformers were introduced in 2017 by issues of swearing and famous paper called attention is all"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_024",
+    "video_id": "nyu_dl_week12",
+    "start_time": 840.0,
+    "end_time": 885.0,
+    "text": "the rnns or cnns um transformers were introduced in 2017 by issues of swearing and famous paper called attention is all you need and they really revolutionize lots of energy so i included a figure here from the i know i'm confusing this to you certainly when i first saw this figure in 2017 it took me quite a while to get my head around it and there's quite a lot of details going on in these boxes so i'm going to basically you see we have this input"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_025",
+    "video_id": "nyu_dl_week12",
+    "start_time": 875.0,
+    "end_time": 920.0,
+    "text": "basically you see we have this input state this um n times this transformer block and then um an output phase so this end times block thing just means uh the same block with different parameters a certain number of times there so the example has uh six layers which i think had the original transform paper which seems quite cute these days um these days people are training models with billions of parameters and all right so i'm just going to drill"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_026",
+    "video_id": "nyu_dl_week12",
+    "start_time": 910.0,
+    "end_time": 955.0,
+    "text": "um these days people are training models with billions of parameters and all right so i'm just going to drill into this box more detail so this can be the core of the transformer the transformer block you see it's actually incorporated two different sub layers [Music] um which are both very important um sub layer 2 is maybe the more obvious one this is just a big feedforward network um it could be any mlp but it's important it's actually quite"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_027",
+    "video_id": "nyu_dl_week12",
+    "start_time": 945.0,
+    "end_time": 990.0,
+    "text": "um it could be any mlp but it's important it's actually quite and beneath we have this multi-headed attention module the multi-head attention is kind of the key building block behind transformers and why they work um so this subway is also connected by these um boxes labeled adam norm so the add purchase means this is a residual connection um which helps stopping the gradients foundation large models uh the norm here means uh lay normalization i'm not going to let it know in detail here but it's actually very important to make these models work and there's actually"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_028",
+    "video_id": "nyu_dl_week12",
+    "start_time": 980.0,
+    "end_time": 1025.0,
+    "text": "uh the norm here means uh lay normalization i'm not going to let it know in detail here but it's actually very important to make these models work and there's actually some specialties about how exactly you delay normalization that makes a big difference in practice uh hey excuse me i have a question sure uh so this isn't immediately clear but could you talk a little bit more about just the intuition behind using multi-headed attention as opposed to a single head i mean presumably each head learns something different and attends over its input differently but what's what was sort of the intuition behind that um i'll ask that question a bit i'm going to go through uh exactly what military detention is a bit first and then i'll try and get some"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_029",
+    "video_id": "nyu_dl_week12",
+    "start_time": 1015.0,
+    "end_time": 1060.0,
+    "text": "what's what was sort of the intuition behind that um i'll ask that question a bit i'm going to go through uh exactly what military detention is a bit first and then i'll try and get some iterations as to why this is a good thing to do uh if we don't answer your question then please follow me up in a few slides time thank any other questions at this stage by the uh i have a question uh used that the the transformer module uses layer normalization uh why can you provide some intuition into why that works better than"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_030",
+    "video_id": "nyu_dl_week12",
+    "start_time": 1050.0,
+    "end_time": 1095.0,
+    "text": "normalization uh why can you provide some intuition into why that works better than i don't think i can actually give a very satisfying technical answer to this and i think a lot of this is quite empirical as to why in nlp we learn on works great and computer vision bachelor works great um a nice prosperous land on is that it doesn't depend on the batch dimension uh which uh in practice that's quite a big advantage because it's quite hard to train with large"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_031",
+    "video_id": "nyu_dl_week12",
+    "start_time": 1085.0,
+    "end_time": 1130.0,
+    "text": "uh in practice that's quite a big advantage because it's quite hard to train with large yeah you can see people written lots of papers and actually why things like that at least less how i read it's there's still some debate as to actually what it's doing um maybe the intuition is the original paperwork even batch normal works are not great um so personally i would say this is one of the slightly unsatisfying things in deep learning where it works but it's a little bit unclear okay thank you yeah maybe i was waiting"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_032",
+    "video_id": "nyu_dl_week12",
+    "start_time": 1120.0,
+    "end_time": 1165.0,
+    "text": "this is one of the slightly unsatisfying things in deep learning where it works but it's a little bit unclear okay thank you yeah maybe i was waiting [Music] another question is coming here is do transformers share weights across time steps like rnn lstms uh yeah great question i should have made that clear um yeah so all these ways can be shared across timestamps um so it's kind of convolutional in that sense um so you have one block and you'll play it every time step uh you can actually also apply them use the same weights and every layer and that works quite well too"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_033",
+    "video_id": "nyu_dl_week12",
+    "start_time": 1155.0,
+    "end_time": 1200.0,
+    "text": "so it's kind of convolutional in that sense um so you have one block and you'll play it every time step uh you can actually also apply them use the same weights and every layer and that works quite well too i think those were the questions i read so far on the chat okay so uh what is this mysterious multi-headed attention thing um so here's another figure i don't know uh so basically you can"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_034",
+    "video_id": "nyu_dl_week12",
+    "start_time": 1190.0,
+    "end_time": 1235.0,
+    "text": "um so here's another figure i don't know uh so basically you can compute these three quantities called um b k and q here they stand for a query key in value respectively um do the scale dot product detention operation and then concatenate the outputs all right so drilling into this scale dot product tension um eventually we will run our boxes to expand so we're going to do compute this query and key do a dot products and stuff max and use"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_035",
+    "video_id": "nyu_dl_week12",
+    "start_time": 1225.0,
+    "end_time": 1270.0,
+    "text": "so we're going to do compute this query and key do a dot products and stuff max and use this as a way to some of the values i don't worry that it makes sense i will do more detail so let's look at this example um where the context here is let's say these horns silver whites and we're trying to create the next word which in the example before was uh unicorn for the word we're trying to predict we're going to like compute this value called the query and for all the previous words we're going to compute the quantity called the key and"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_036",
+    "video_id": "nyu_dl_week12",
+    "start_time": 1260.0,
+    "end_time": 1305.0,
+    "text": "we're going to like compute this value called the query and for all the previous words we're going to compute the quantity called the key and these are linear layers based on the um tomorrow we're going to be coding this in in practice so we're going to be seeing this in like only the small details in the in okay so um you can think of this query as the model asking a question over here it's context so far but it's going to help so the query could be something like um tell me what previous adjective is or tell"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_037",
+    "video_id": "nyu_dl_week12",
+    "start_time": 1295.0,
+    "end_time": 1340.0,
+    "text": "context so far but it's going to help so the query could be something like um tell me what previous adjective is or tell me what the uh previous determiner is um and and then for the keys they're going to be things that sort of label the current word with telling you some information about it so they could be saying this word is an adjective this word is a determiner this word is a verb something like that or can be something more complex like it could be like a any true relation like co-reference or"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_038",
+    "video_id": "nyu_dl_week12",
+    "start_time": 1330.0,
+    "end_time": 1375.0,
+    "text": "or can be something more complex like it could be like a any true relation like co-reference or so well completely as a questions query and then it's going to compute just do a dot product with all of the keys and use this to compute and then you do softmax as well and this is going to induce a distribution over all the so here you can imagine a query something like telling me what previous adjective is and the attention will produce this kind of distribution over these three previous words it's going to put most probability mass on either horn or silver white"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_039",
+    "video_id": "nyu_dl_week12",
+    "start_time": 1365.0,
+    "end_time": 1410.0,
+    "text": "distribution over these three previous words it's going to put most probability mass on either horn or silver white we're also going to compute this other value this is the quantity called the value and we'll do that for all the previous words as well and maybe the value will tell you something slightly more about what the and then i'm going to compute this hidden state by basically marginalizing out the attention distribution so here this hidden state is going to be a wasted sum of the values of all the previous words that's going"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_040",
+    "video_id": "nyu_dl_week12",
+    "start_time": 1400.0,
+    "end_time": 1445.0,
+    "text": "attention distribution so here this hidden state is going to be a wasted sum of the values of all the previous words that's going that's basically what's going on the left side of this figure here i left out this detail about the scaling escape that's just a hack to make the gradients more stable okay um but there's another detail here which is that uh that's kind of single-headed attention i've described so far but we're actually gonna do this thing called multi-headed intention and that basically just means we're gonna"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_041",
+    "video_id": "nyu_dl_week12",
+    "start_time": 1435.0,
+    "end_time": 1480.0,
+    "text": "uh that's kind of single-headed attention i've described so far but we're actually gonna do this thing called multi-headed intention and that basically just means we're gonna compute the same thing with different queries keys and values so this question before about like what the intuition behind that is um and really it's like you actually want let's create the next word you need to know a lot of different things so just this example before uh let's see so let's say the next word here should be unicorns plural um today it should be unicorns i mean you probably want to know both that it's horned and silver white because"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_042",
+    "video_id": "nyu_dl_week12",
+    "start_time": 1470.0,
+    "end_time": 1515.0,
+    "text": "here should be unicorns plural um today it should be unicorns i mean you probably want to know both that it's horned and silver white because uh the conjunction of those makes it more likely to be unicorn but you also want to know that the uh the determinant here was these not a if it was like a horn syllable white it'd be unicorn singular the fact is these means it should be unicorn plural so you can plural agreements so you actually need to like look at all these three words at once to have a good idea what the next word should be a multi-intention is a way of like letting each word look at multiple previous a question here is why are we actually"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_043",
+    "video_id": "nyu_dl_week12",
+    "start_time": 1505.0,
+    "end_time": 1550.0,
+    "text": "multi-intention is a way of like letting each word look at multiple previous a question here is why are we actually uh in need of using the softmax i think firstly i mean housing on normalization effect is probably good i mean otherwise when you go to longer sequences this uh summation would get kind of bigger and bigger the further you went through so having a normalization is probably good the normalization also kind of lets the model um discard information to you so it can say"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_044",
+    "video_id": "nyu_dl_week12",
+    "start_time": 1540.0,
+    "end_time": 1585.0,
+    "text": "summation would get kind of bigger and bigger the further you went through so having a normalization is probably good the normalization also kind of lets the model um discard information to you so it can say this word just isn't relevant um which is good i think i have seen people experiment with using things like really use instead so which kind of different different way of discarding information but i think the evidence is soft matches uh another question sorry i may have missed this um the mask there in pink don't know what that is briefly right mask is actually"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_045",
+    "video_id": "nyu_dl_week12",
+    "start_time": 1575.0,
+    "end_time": 1620.0,
+    "text": "uh another question sorry i may have missed this um the mask there in pink don't know what that is briefly right mask is actually important um i'm going to say make a point first um so one of the really big wins about this whole session of multi-headed attention is that it's extremely paralyzable um so now this computation of queries keys and values a given time step depends on what you're doing at any of the other time steps so unlike your current network you can actually compute all of these um which plays very well with um the kind of hardware we have these days"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_046",
+    "video_id": "nyu_dl_week12",
+    "start_time": 1610.0,
+    "end_time": 1655.0,
+    "text": "unlike your current network you can actually compute all of these um which plays very well with um the kind of hardware we have these days so not only are we going to put all the different heads at once we're going to compute all the time steps at once in a single forward pass um so that's great except that if you're competing all the time steps at once there's nothing to actually stop you um words looking at the future since like ultra regressive factorization we're dealing with here then we only want words conditioned on previous words um but as i've spread them all so far"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_047",
+    "video_id": "nyu_dl_week12",
+    "start_time": 1645.0,
+    "end_time": 1690.0,
+    "text": "with here then we only want words conditioned on previous words um but as i've spread them all so far the words could look at future words too which is the problem because then they can cheat and use themselves on future context to predict themselves so the solutions that here is um uh so it's what we call cell potential masking so a mask is just a upper triangular matrix that sort of uh has zeros and lower triangle and like negative infinity in the upper triangle and we're going to just add this to the attention scores and the effect of that is going to be that um every word to the left has a much higher potential score than everywhere to the right so the model"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_048",
+    "video_id": "nyu_dl_week12",
+    "start_time": 1680.0,
+    "end_time": 1725.0,
+    "text": "and we're going to just add this to the attention scores and the effect of that is going to be that um every word to the left has a much higher potential score than everywhere to the right so the model will only end up practicing using words to the left but this is deterministic mask without trainable weights um just values either zero or negative infinity uh so you'd only mask in case of an application specific training task correct if you had to just build representations for example you wouldn't need to ask because it wouldn't matter uh yeah that's a great question and so we'll go to more general representation learning later so uh most where you just want a text encoder you don't need to mask them bidirectional context is absolutely"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_049",
+    "video_id": "nyu_dl_week12",
+    "start_time": 1715.0,
+    "end_time": 1760.0,
+    "text": "we'll go to more general representation learning later so uh most where you just want a text encoder you don't need to mask them bidirectional context is absolutely helpful um in this case language modeling which we're working through so far then the mask is sort of crucial to make them all mathematically correct and compute the correct factorization but yeah great okay so uh one other detail we need to do to make all this work is add something should be input over positional writing"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_050",
+    "video_id": "nyu_dl_week12",
+    "start_time": 1750.0,
+    "end_time": 1795.0,
+    "text": "okay so uh one other detail we need to do to make all this work is add something should be input over positional writing um it's doing a low bias model it knows very little about language the inputs could be anything and in particular it's like i mean you can model a set or a graph or anything like this i mean in language there are some properties which are useful like for example um there's an ordering to words which is really important to how you interpret"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_051",
+    "video_id": "nyu_dl_week12",
+    "start_time": 1785.0,
+    "end_time": 1830.0,
+    "text": "i mean in language there are some properties which are useful like for example um there's an ordering to words which is really important to how you interpret and this one doesn't actually know anything about that and that's in contrast to the convolutional worlds and the parameters i showed you earlier which both have different ways of encoding the order of text um so one of the techniques that was introduced in this paper was called positional writing um the different ways you can do this they describe something in the paper which is slightly weird actually i'm not going to describe learn separate embedding for every time"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_052",
+    "video_id": "nyu_dl_week12",
+    "start_time": 1820.0,
+    "end_time": 1865.0,
+    "text": "going to describe learn separate embedding for every time step so for every positioning document zero one two three four five you just learn separate embedding and then you add this to your input so your input now is a summation of the word vector and some kind of positional and it's very simple but it gives the world kind of the order information it needs and it works great okay so why are these models so good why i think the really powerful thing about the model is that it kind of gives you direct connections"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_053",
+    "video_id": "nyu_dl_week12",
+    "start_time": 1855.0,
+    "end_time": 1900.0,
+    "text": "i think the really powerful thing about the model is that it kind of gives you direct connections between every pair of words so each word can can directly access the hidden state of every previous word that's a contrast convolutional model could maybe against the state of all the words in this receptor field but nothing further back in time than that and our current model um the state had to go through his bottleneck of each time at each time step so um you can actually directly access the previous words beyond the like literally one previous word anything further than the past"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_054",
+    "video_id": "nyu_dl_week12",
+    "start_time": 1890.0,
+    "end_time": 1935.0,
+    "text": "step so um you can actually directly access the previous words beyond the like literally one previous word anything further than the past matter had to get somehow compressed and you have lost information about this for self attention you can in principle put 100 attention on any word in the distant past and see exactly what was there and this just makes it a really powerful model it like avoids things like uh issues like vanishing gradients um and music can just learn very the other great thing about this is how paralyzable it is i mean so the one hand this model's doing quite"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_055",
+    "video_id": "nyu_dl_week12",
+    "start_time": 1925.0,
+    "end_time": 1970.0,
+    "text": "um and music can just learn very the other great thing about this is how paralyzable it is i mean so the one hand this model's doing quite a lot of computation in that it's doing uh this um so the self-tension operation is quadratic basically because every word can look at every other word and that sounds quite slow but the really nice thing is you can do it in parallel so because all these operations are independent to each other you just do it as one big matrix multiplication so even though sometimes you probably do kind of more add multiply operations and you would do with the equivalent rnn you can do all these operations um much faster because you do them all at once rather sequentially"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_056",
+    "video_id": "nyu_dl_week12",
+    "start_time": 1960.0,
+    "end_time": 2005.0,
+    "text": "kind of more add multiply operations and you would do with the equivalent rnn you can do all these operations um much faster because you do them all at once rather sequentially um i also want to quickly talk about some other things that's great the stuff like um multi-headed attention and additional embeddings and stuff so i've got all the attention when transformers were first released but transformers also came along with a whole bag of other tricks as well and these tricks were all actually really important to make this stuff work um and sometimes this paper really kind of modernized and healthy i think um so for example i've mentioned about"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_057",
+    "video_id": "nyu_dl_week12",
+    "start_time": 1995.0,
+    "end_time": 2040.0,
+    "text": "actually really important to make this stuff work um and sometimes this paper really kind of modernized and healthy i think um so for example i've mentioned about this useful layer normalization before the light on it's really helpful um they also have doing these things like um these learning rate schedules so uh for whatever reason to make transformers work well uh you have to sort of linearly warm up your learning rate from some from zero to your goal learning rate over several thousand steps um and people do do warm learning rates warm-up learning rates in other settings but transformers really really need this"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_058",
+    "video_id": "nyu_dl_week12",
+    "start_time": 2030.0,
+    "end_time": 2075.0,
+    "text": "several thousand steps um and people do do warm learning rates warm-up learning rates in other settings but transformers really really need this to work um also the things that the initialization actually really do matter with these and some initializations don't work um and they're throwing these other tricks like a label smoothing at the uh again wasn't invented in this paper but it turns out quite helpful for the cast like machine all right um so to give you some idea how well these things are working these models described so far um"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_059",
+    "video_id": "nyu_dl_week12",
+    "start_time": 2065.0,
+    "end_time": 2110.0,
+    "text": "all right um so to give you some idea how well these things are working these models described so far um are some results on a lime dwelling deck benchmark um so the number on the right is what's measure of the likelihood of held out data and here lower is better um so let's see you see that an lcm for 2016 gets complexity of you see that yandere fans convolutional models uh from 2016 uh doing quite a bit better at about 20 about 37. uh also people played around with a"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_060",
+    "video_id": "nyu_dl_week12",
+    "start_time": 2100.0,
+    "end_time": 2145.0,
+    "text": "you see that yandere fans convolutional models uh from 2016 uh doing quite a bit better at about 20 about 37. uh also people played around with a whole bunch of r m runes like you speak dozens of papers on how you make variations in lstms and some of these getting low 30s as well but then when you introduce transformers you get a really big jump down to go to 18 and 20. and in terms of language modeling that's um i should say these games we saw were particularly large on uh kind of long context language modelling so blinds modeling"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_061",
+    "video_id": "nyu_dl_week12",
+    "start_time": 2135.0,
+    "end_time": 2180.0,
+    "text": "um i should say these games we saw were particularly large on uh kind of long context language modelling so blinds modeling where so there's some benchmarks where you just get a single sentence to predict uh on this task you actually get a whole wikipedia article so uh potentially thousands of words and the transformers really shine on this what you've got thousands of words context model and you need to uh yeah serious quick comparison just to visualize how transformers and lstms"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_062",
+    "video_id": "nyu_dl_week12",
+    "start_time": 2170.0,
+    "end_time": 2215.0,
+    "text": "uh yeah serious quick comparison just to visualize how transformers and lstms look which it's going to indicate some points of shame before so in the lstm you have a lot fewer connections between the words like everything's kind of very sequential left to right and transform but you don't have any of this um so every word is directly connected to every other word um i guess you should say as well in some senses maybe slightly unnatural well for reading so it kind of suggests that however as well as reading text and every time it reads a word it goes and really reads every other word very quickly"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_063",
+    "video_id": "nyu_dl_week12",
+    "start_time": 2205.0,
+    "end_time": 2250.0,
+    "text": "that however as well as reading text and every time it reads a word it goes and really reads every other word very quickly okay one other good thing about transformers is they do scale up extremely well so um with tasks like language modelling you get essentially infinite amounts of data because it's just hundreds of billions of words out there it's far more than you'd ever need uh that means to actually fit this kind of distribution you need very big models and you just keep on adding transform parameters transformers they keep on just working better and better uh the examples i showed you forward from this gpt2 model with two billion"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_064",
+    "video_id": "nyu_dl_week12",
+    "start_time": 2240.0,
+    "end_time": 2285.0,
+    "text": "very big models and you just keep on adding transform parameters transformers they keep on just working better and better uh the examples i showed you forward from this gpt2 model with two billion parameters which was uh quite big for 2019 but apparently 2020 or up to 17 billion and there are rumors 100 billion parameter models will be coming along soon uh excuse me i have a question uh you said transform is a really good for scaling up i was just wondering in a language modeling task if we have like say a ten thousand twenty thousand word document in an insert a word step by step and we wouldn't need uh a lot of memory per se like"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_065",
+    "video_id": "nyu_dl_week12",
+    "start_time": 2275.0,
+    "end_time": 2320.0,
+    "text": "insert a word step by step and we wouldn't need uh a lot of memory per se like for for a transformer we need to have a bath size of 10 000 wouldn't we like uh like the the length of the sequence but if we have a really long sequence can we model these long term yeah that's a really great question um i actually meant to mention this point so um two things they want to say so firstly you're absolutely right the self tension is because of quadratic"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_066",
+    "video_id": "nyu_dl_week12",
+    "start_time": 2310.0,
+    "end_time": 2355.0,
+    "text": "so um two things they want to say so firstly you're absolutely right the self tension is because of quadratic the expense obviously grows super linearly and that is a problem in practice it means um so mostly transformers do 512 token contacts windows which is fairly affordable for i love these language models to do more than that let me bottle a few thousand tokens um which is kind of limits what we can do um but it's definitely the case that a vanilla transformer can't model say a 50 000 word book at all"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_067",
+    "video_id": "nyu_dl_week12",
+    "start_time": 2345.0,
+    "end_time": 2390.0,
+    "text": "do um but it's definitely the case that a vanilla transformer can't model say a 50 000 word book at all um there it's like this whole cartridge industry recently building various transformers which can do long sequences um it's very hot topic right now um there's most things you can do but one kind of thing you do is like if you replace self tension with something like nearest neighbor search uh you can do the self attention uh subway driving time and that makes it faster there are also versions that try to do"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_068",
+    "video_id": "nyu_dl_week12",
+    "start_time": 2380.0,
+    "end_time": 2425.0,
+    "text": "uh subway driving time and that makes it faster there are also versions that try to do kind of sparse attention where like you can't attend to every previous word directly but you kind of have some dilated uh set of previous words you can look at and you don't get quite a direct connection to every word but you can sort of guarantee that you have short paths across every word um there are also things like compressed transformers we try to um multiple night and total and to sort of uh compress the pre little distant past into okay so you brought up the question of"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_069",
+    "video_id": "nyu_dl_week12",
+    "start_time": 2415.0,
+    "end_time": 2460.0,
+    "text": "uh compress the pre little distant past into okay so you brought up the question of rnn so at impress time absolutely in our nanky model infinite context where there absolutely no additional cost which is great i mean they can't put like a million words and output really first just fine um well the question is actually isn't that's probably it's not so at training time um you can't do this the training time you actually have to back propagate through what's what's called back relations through time where the lcm would"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_070",
+    "video_id": "nyu_dl_week12",
+    "start_time": 2450.0,
+    "end_time": 2495.0,
+    "text": "um you can't do this the training time you actually have to back propagate through what's what's called back relations through time where the lcm would have to give modern line contacts like grading will have to propagate all the way back through the sort of all the recurrent steps to make uh in practice firstly the grading will vanish like well before you hit a thousand steps and also this is very expensive so this is a training time system for free and this back propagation operation will get more and more expensive the longer sequences you're modeling so that means you can't actually really learn to"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_071",
+    "video_id": "nyu_dl_week12",
+    "start_time": 2485.0,
+    "end_time": 2530.0,
+    "text": "and this back propagation operation will get more and more expensive the longer sequences you're modeling so that means you can't actually really learn to uh well this is the past even interesting it's not expensive you just wouldn't know what to do with this any practices you probably just forget it anyway because the uh you can't remember that much data once um all right one more quick point in that um this is interesting uh i guess one case where they'll where the rnas do have an advantage is on certain algorithmic tests um so if you aren't linked language let's say you're i'm doing something like edition or trying to like model a parody"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_072",
+    "video_id": "nyu_dl_week12",
+    "start_time": 2520.0,
+    "end_time": 2565.0,
+    "text": "on certain algorithmic tests um so if you aren't linked language let's say you're i'm doing something like edition or trying to like model a parody of a string um [Music] so if you use string of like zeros and ones and ask you either an even number of ones or not um in those cases um you basically do actually want to apply literally the same operation every time step and you can you don't actually have to have much memory because i mean your state really just needs to be a zero or one in this case the uh the rnas actually do work very well because you can train them on short sequences and then they'll shoot like great generalizations or long sequences all these kinds of toy problems"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_073",
+    "video_id": "nyu_dl_week12",
+    "start_time": 2555.0,
+    "end_time": 2600.0,
+    "text": "in this case the uh the rnas actually do work very well because you can train them on short sequences and then they'll shoot like great generalizations or long sequences all these kinds of toy problems and actually on tray but i imagine the transformer would actually find it much harder to get that kind of generalization uh that only really applies to these kind of algorithmic problems in terms of modeling natural language then uh yeah it seems like various transformers are going to be much more effective than um any other questions i've been addressing the questions i could uh via text so i think it's we are all good right now"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_074",
+    "video_id": "nyu_dl_week12",
+    "start_time": 2590.0,
+    "end_time": 2635.0,
+    "text": "um any other questions i've been addressing the questions i could uh via text so i think it's we are all good right now okay all right so um next time we want to cover is uh what's called decoding or interference flying to models so uh between this line as well the slightest model puts a hopefully probability maths on things which good english and uh their probability on grammatical and nonsensical things um but if you want to like create these samples like i showed you before and how do we actually um so often we think about for inference"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_075",
+    "video_id": "nyu_dl_week12",
+    "start_time": 2625.0,
+    "end_time": 2670.0,
+    "text": "samples like i showed you before and how do we actually um so often we think about for inference with the graphical model what we care what we'd like to do is find the max server by creating sensors which maximizes large world's probability um unfortunately there's um as i mentioned before there's quite a lot of english sentences that are possible and we can't just like score them all to kind of max uh there's not much to do with dynamic programming here so sometimes you can't find the max of overexponential structures when you have a model that factorizes somewhere"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_076",
+    "video_id": "nyu_dl_week12",
+    "start_time": 2660.0,
+    "end_time": 2705.0,
+    "text": "programming here so sometimes you can't find the max of overexponential structures when you have a model that factorizes somewhere that lets you build a dynamic program which lets you kind of share state across different hypotheses um but these molds don't be composed in a kind of whatever choice make the first word could affect all the other all right so must given that uh one thing to do is do greedy decoding um this is where we're just gonna take the most likely the first word and then given that word pretty much like second word"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_077",
+    "video_id": "nyu_dl_week12",
+    "start_time": 2695.0,
+    "end_time": 2740.0,
+    "text": "gonna take the most likely the first word and then given that word pretty much like second word uh guess was like a third word um that's okay but it's um there's no guarantee that's actually gonna be the most likely sequence you want to output because if you have to make a bad step at some point then you've got no way of backtracking your search to undo any previous decisions um this ledger says that exhaustive search is impossible um and kind of hits middle ground of what's called beam search um so being searched is a way of trying"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_078",
+    "video_id": "nyu_dl_week12",
+    "start_time": 2730.0,
+    "end_time": 2775.0,
+    "text": "search is impossible um and kind of hits middle ground of what's called beam search um so being searched is a way of trying to keep track of and then we're going to uh just every time step try and keep track update this list with uh you as we've added uh this may be easy to show you an example um this slides from abigail c at stanford um uh we start we output let's say we have the size of two well i'll put"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_079",
+    "video_id": "nyu_dl_week12",
+    "start_time": 2765.0,
+    "end_time": 2810.0,
+    "text": "uh we start we output let's say we have the size of two well i'll put these two possible words these are these are two most likely words now for each of these words we're going to generate um work out what our tumors like the next so obviously with io that does affect what the next word should be and we'll come with different hypotheses for each of these and then every time we're going to kind of compress these down to a list of uh two that we're going to continue pressing so we're looking for the lowest total"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_080",
+    "video_id": "nyu_dl_week12",
+    "start_time": 2800.0,
+    "end_time": 2845.0,
+    "text": "and then every time we're going to kind of compress these down to a list of uh two that we're going to continue pressing so we're looking for the lowest total sum is it correct um we actually want the highest sum if that makes sense which should be so every score is going to be less than zero but we're going to find the secrets with the whether some of the scores is"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_081",
+    "video_id": "nyu_dl_week12",
+    "start_time": 2835.0,
+    "end_time": 2880.0,
+    "text": "so every score is going to be less than zero but we're going to find the secrets with the whether some of the scores is does that make sense it is so sorry yeah i got the the sign flipped i was many like in magnitude we tried to get the smallest number in magnitude uh as well as the magnitude yeah sure sorry sorry maybe this is not the most best way to do this okay how d does the um does this like tree go into the beam search when do you stop looking for um like candidate sequences i guess"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_082",
+    "video_id": "nyu_dl_week12",
+    "start_time": 2870.0,
+    "end_time": 2915.0,
+    "text": "go into the beam search when do you stop looking for um like candidate sequences i guess um all right so we basically will detail our hepatologists we have this like end of sentence token and in the sense token means once you once you output that then you this hypothesis is finished um and the aim is to find complete hypotheses so from from a start to the end token that have the highest possible score um we'll just keep on generating you hypotheses"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_083",
+    "video_id": "nyu_dl_week12",
+    "start_time": 2905.0,
+    "end_time": 2950.0,
+    "text": "um we'll just keep on generating you hypotheses uh there's no possible new words for that that would be the k complete hypothesis we have still okay cool there's another question here why do you think in nmt very very large beam size will most often result in empty translations ooh uh great question um i have opinions on this"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_084",
+    "video_id": "nyu_dl_week12",
+    "start_time": 2940.0,
+    "end_time": 2985.0,
+    "text": "ooh uh great question um i have opinions on this the research is good and since it's guaranteed to give you a higher scoring hypothesis than the uh greedy search i mentioned in the but it's kind of a catch here which is that we're not actually um at training time we're typically not um at training time we normally just use kind of the ultra regressive"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_085",
+    "video_id": "nyu_dl_week12",
+    "start_time": 2975.0,
+    "end_time": 3020.0,
+    "text": "um at training time we normally just use kind of the ultra regressive factorization i showed you before where like given the sort of n previous correct outputs predict the n plus first word um what we're not doing is exposing the model to its own mistakes in it so when you do beam search um you can get all kinds of nonsense showing up in your beam for whatever reason because if you have a very big beam then probably some of it will be garbage and in these garbage states the model has no idea what to do because there's never"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_086",
+    "video_id": "nyu_dl_week12",
+    "start_time": 3010.0,
+    "end_time": 3055.0,
+    "text": "because if you have a very big beam then probably some of it will be garbage and in these garbage states the model has no idea what to do because there's never training the situation um so it's kind of reasonable to expect your model to generalize wealth like making great predictions for some completely nonsensical series of words which is like a very perfect training distribution and in this case the model can do all kinds of weird and uncerebral things like maybe they put a very high probability on something else very kind of a classic example this i don't know if he's i don't have one here but you may have seen his lines walls get stuck in these feedback loops where they end up just like repeating the same"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_087",
+    "video_id": "nyu_dl_week12",
+    "start_time": 3045.0,
+    "end_time": 3090.0,
+    "text": "very kind of a classic example this i don't know if he's i don't have one here but you may have seen his lines walls get stuck in these feedback loops where they end up just like repeating the same word or phrase infinitely many times i think it's kind of example this where once the mods like start going into this kind of loop then it doesn't really know what to do and the easiest thing for it to carry on doing is just keep on looping um so yeah i think at least you mentioned being searched is one of uh not exposing the model to its own mistakes at training time so it just it put actually puts a bunch of probability amounts and all kinds of things it shouldn't do um kind of the obvious solution to that"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_088",
+    "video_id": "nyu_dl_week12",
+    "start_time": 3080.0,
+    "end_time": 3125.0,
+    "text": "not exposing the model to its own mistakes at training time so it just it put actually puts a bunch of probability amounts and all kinds of things it shouldn't do um kind of the obvious solution to that is like why don't you have a beam at training time um [Music] there's uh and the short answer that is because it's expensive uh if you guys go around this whole inference procedure a training time that firstly gets rid of all the nice parallelism but we have the transformer and introduces all the search and also gives you many more things to"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_089",
+    "video_id": "nyu_dl_week12",
+    "start_time": 3115.0,
+    "end_time": 3160.0,
+    "text": "so in practice people tend to just create a big model for as long as they can like exposing like nice fast autoregressive version and then a test site people will often choose the size of their beam to get the best performance so uh i think that translation like increasing the beam normally helps up to a point then makes basically worse again we started covering uh these weird degenerate degenerate outputs"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_090",
+    "video_id": "nyu_dl_week12",
+    "start_time": 3150.0,
+    "end_time": 3195.0,
+    "text": "normally helps up to a point then makes basically worse again we started covering uh these weird degenerate degenerate outputs um but yeah that's just the unsatisfying thing people have to do sorry that's quite a long answer that answer your question i think uh i think this student i will see now what the student says like uh that was a question from a and there is another question a small one on this current slide um i could admit i don't know"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_091",
+    "video_id": "nyu_dl_week12",
+    "start_time": 3185.0,
+    "end_time": 3230.0,
+    "text": "um i could admit i don't know i stole this size from abby um i'm not quite sure what point she was trying to make there okay oh okay the point actually someone answer because they are interchangeable regardless of the the the the one you pick you get like either or you go for either you go for a or one both of them will tell you pie tart or pie dart"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_092",
+    "video_id": "nyu_dl_week12",
+    "start_time": 3220.0,
+    "end_time": 3265.0,
+    "text": "like either or you go for either you go for a or one both of them will tell you pie tart or pie dart uh i'm not sure um i mean even if you were to do that then you you can't compress these it's not that you could get a dynamic program where you can sort of collapse these hypotheses because the hidden states both these those two hypotheses would still be different um depending on which path you took together uh so i don't know but hopefully this illustrates might be in search okay any more questions on this um"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_093",
+    "video_id": "nyu_dl_week12",
+    "start_time": 3255.0,
+    "end_time": 3300.0,
+    "text": "okay any more questions on this um okay this is a bit more description of basically all you do is every time step you generate a distribution of next words three hypotheses you have and then you take the top k hypothesis next words across all your hypotheses and pull these before you go to the next um all right so being said sometimes the right thing to do"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_094",
+    "video_id": "nyu_dl_week12",
+    "start_time": 3290.0,
+    "end_time": 3335.0,
+    "text": "um all right so being said sometimes the right thing to do but um often it actually isn't uh so this is the result of flying beam search to the example i showed you before so this example from gpd2 about like scientists finding unicorns in the andes um you can see here that the bottles actually it starts out putting some good stuff and gets stuck in this weird feedback loop so i think yes we're just gonna repeat the same phrase over and over and over again i'll probably just keep on repeating this phrase"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_095",
+    "video_id": "nyu_dl_week12",
+    "start_time": 3325.0,
+    "end_time": 3370.0,
+    "text": "so i think yes we're just gonna repeat the same phrase over and over and over again i'll probably just keep on repeating this phrase forever i mean i guess kind of what's going on here like once you said this phrase twice maybe it's just saying the third time is actually the most likely thing to do and then all these other hypotheses get very high prob transitions get right have probability but there's also kind of a slightly in some cases we don't actually want the most likely sequence after all um maybe what we want is something you see this problem also a lot in like"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_096",
+    "video_id": "nyu_dl_week12",
+    "start_time": 3360.0,
+    "end_time": 3405.0,
+    "text": "most likely sequence after all um maybe what we want is something you see this problem also a lot in like things like dialogue response generation so you're trying to build a world hold conversation with someone and if you do this kind of beam search often what you'll get is it will just give you the most generic response to anything you say so whatever you say it'll be like oh that's interesting thanks and maybe that actually genuinely is the most likely thing to do because these responses are good most situations um however that's not actually a very good experience or a very good"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_097",
+    "video_id": "nyu_dl_week12",
+    "start_time": 3395.0,
+    "end_time": 3440.0,
+    "text": "most situations um however that's not actually a very good experience or a very good so how about if instead of taking the um max we're going to sample from the model um so this is a conceptually kind of appealing but it doesn't actually give you very good output so uh this is again the result sampling on that same input i mean so this is kind of good but then it goes kind of uh it gets more weird and degenerate as it goes on"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_098",
+    "video_id": "nyu_dl_week12",
+    "start_time": 3430.0,
+    "end_time": 3475.0,
+    "text": "i mean so this is kind of good but then it goes kind of uh it gets more weird and degenerate as it goes on and again you get to now problem where like once you sample the bad choice then the moles in state was never in training um and then once it's not stages in during training it's more likely to give you support bad output and you'll get stuck in these all right so here's something that actually does work because it was used to get you those uh beautiful outputs we had before um unfortunately it's not very satisfying technique but"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_099",
+    "video_id": "nyu_dl_week12",
+    "start_time": 3465.0,
+    "end_time": 3510.0,
+    "text": "actually does work because it was used to get you those uh beautiful outputs we had before um unfortunately it's not very satisfying technique but it's a disclosure um so it's called top pay sampling it's used introduced by uh angela fan a couple years ago um basically top case sampling what we're going to do is truncate our distribution to just taking the k best um so this advantage of giving us kind of diversity like choosing randomly amongst like good options but tries to stop us kind of uh falling off this kind of manifold and actually good language but"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_100",
+    "video_id": "nyu_dl_week12",
+    "start_time": 3500.0,
+    "end_time": 3545.0,
+    "text": "amongst like good options but tries to stop us kind of uh falling off this kind of manifold and actually good language but when we sample something bad um so the only basis just chop off the long tail and just sample from the head of the distribution and this is the sampling for the beam search is it uh sorry this is the beam switch this is just um generation so we're gonna um there's not gonna be beam here this could be one hypothesis i guess you could it creates beam search too but uh this is actually pure sampling so i can generate a word in this method"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_101",
+    "video_id": "nyu_dl_week12",
+    "start_time": 3535.0,
+    "end_time": 3580.0,
+    "text": "uh this is actually pure sampling so i can generate a word in this method then use that to generate the next word uh do all that then this is finally the technique that was used during this nice sample obviously this top case i'm playing it's a bit of a hack it's not very satisfying um i was um an author on my paper so i can mean about the method but um it does seem to work quite well um i guess one thing to be aware of like when you see these great samples and things like this which"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_102",
+    "video_id": "nyu_dl_week12",
+    "start_time": 3570.0,
+    "end_time": 3615.0,
+    "text": "but um it does seem to work quite well um i guess one thing to be aware of like when you see these great samples and things like this which like openly i am very happy to put in their publicity uh it's kind of useful to know how it's actually made and this is like this is not like a real sample from all distribution the model is like not putting uh and it must use probability mass on this this is generated by uh doing this slightly weird inference um i just want to quickly cover like all right so give us some text like this how do we know if it's any good or not like how do you evaluate this"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_103",
+    "video_id": "nyu_dl_week12",
+    "start_time": 3605.0,
+    "end_time": 3650.0,
+    "text": "um i just want to quickly cover like all right so give us some text like this how do we know if it's any good or not like how do you evaluate this um so like it's not like evaluating launch model it's quite easy i mean it's language modelling it's task density estimation so you just look at the look like here hold that um if you want to do instead like uh take some text to marvel and say if uh this is not real and uh it's kind of people tend to use like these automated metrics like blue and rouge which measure like and grammar overlap with the reference but"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_104",
+    "video_id": "nyu_dl_week12",
+    "start_time": 3640.0,
+    "end_time": 3685.0,
+    "text": "uh it's kind of people tend to use like these automated metrics like blue and rouge which measure like and grammar overlap with the reference but um they're not very satisfying and this is recent research and trying okay i should place me down for this um all right so this is um that's unconditional language models um so they're generating samples of text uh this actually isn't a very useful thing to do what's much more useful is uh conditional language models so models which will give us a text given some input generate use some output so for example you can think about things like um"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_105",
+    "video_id": "nyu_dl_week12",
+    "start_time": 3675.0,
+    "end_time": 3720.0,
+    "text": "which will give us a text given some input generate use some output so for example you can think about things like um given a french sentence like translate it into english i've given a document generate a summary given a dialogue generate the next response or you can give it a question i'll put the answer so this is called sequence sequence models um because you get given some input sequence and then you have to generate some output sequence um because the first models these are introduced by elias giver um look kind of like this with recurrent neural networks where basically you'd have some encoded network which"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_106",
+    "video_id": "nyu_dl_week12",
+    "start_time": 3710.0,
+    "end_time": 3755.0,
+    "text": "um because the first models these are introduced by elias giver um look kind of like this with recurrent neural networks where basically you'd have some encoded network which would read your inputs produce some vector which you marvelously called a thought vector and then you'd use this to initialize your decoder which would generate tokens by word again hopefully you get your theme here like carrying these kind of bottlenecks and recurrence is not a good thing to do uh you want to have expresso models which you might see everything uh so there's a variation transformer for sequence sequence models um here we're going to have a two stacks an encoder stack and decode stack uh basically the encoded stack is the"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_107",
+    "video_id": "nyu_dl_week12",
+    "start_time": 3745.0,
+    "end_time": 3790.0,
+    "text": "for sequence sequence models um here we're going to have a two stacks an encoder stack and decode stack uh basically the encoded stack is the same as what i showed you before apart from the self tension isn't masked so every token the input can look at the decode stack will be similar except that as well as doing the self tension over itself it's also going to do attention over complete inputs so this means that every token output has direct connection to every previous token in the output"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_108",
+    "video_id": "nyu_dl_week12",
+    "start_time": 3780.0,
+    "end_time": 3825.0,
+    "text": "complete inputs so this means that every token output has direct connection to every previous token in the output which makes these models very expressive translation scores over the previous recurrent convolutional models so what we're trying these models typically what we do is we rely on label text so we uh it's a string translation system for example you try and get lots of manually translated text it turns out one of the best ways"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_109",
+    "video_id": "nyu_dl_week12",
+    "start_time": 3815.0,
+    "end_time": 3860.0,
+    "text": "text so we uh it's a string translation system for example you try and get lots of manually translated text it turns out one of the best ways to get this is things like parliament proceedings because they always translate the european parliament or write proceedings lots of different languages um and then you just use those as inputs and now however like not all languages are represented in the european parliament um so and these transformers are very data hungry and like more texts can throw at them the best they will do um so this question like how we use monolingual text to improve these so"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_110",
+    "video_id": "nyu_dl_week12",
+    "start_time": 3850.0,
+    "end_time": 3895.0,
+    "text": "them the best they will do um so this question like how we use monolingual text to improve these so this is actually saying it can we learn without just having input output pairs uh the way we could do this is a technique called back translation which is quite simple conceptually that's our goal is to train a translation system that um first of all we're going to actually do the opposite we're going to train a reverse translation model which will"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_111",
+    "video_id": "nyu_dl_week12",
+    "start_time": 3885.0,
+    "end_time": 3930.0,
+    "text": "do the opposite we're going to train a reverse translation model which will then we can then run this model over all the english texts we can find and we can uh find a lot of english text on the german um and that gives us like lots more pairs of english and german text and then we're going to train a forward model or try and translate this german into english um the next thing to see here is that it doesn't actually matter how good the initial model is right it doesn't matter"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_112",
+    "video_id": "nyu_dl_week12",
+    "start_time": 3920.0,
+    "end_time": 3965.0,
+    "text": "um the next thing to see here is that it doesn't actually matter how good the initial model is right it doesn't matter if the your reverse model is making mistakes um so if your reverse model makes mistakes then your final train data will contain kind of noisy german translates to clean english um which might even help regularize your model but probably shouldn't pass its performance when you show it a clean german data what's a byte text oh i'm sorry um a bitex just means a parallel text so the same sentences in two different languages okay"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_113",
+    "video_id": "nyu_dl_week12",
+    "start_time": 3955.0,
+    "end_time": 4000.0,
+    "text": "oh i'm sorry um a bitex just means a parallel text so the same sentences in two different languages okay okay um and the nice thing about translation is that the outputs you get are actually always uh you know high quality because these are the outputs of the system uh sentences you found in the wild on the internet you're just going to create some noisy inputs that you can use for these um could you go back a slide"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_114",
+    "video_id": "nyu_dl_week12",
+    "start_time": 3990.0,
+    "end_time": 4035.0,
+    "text": "inputs that you can use for these um could you go back a slide the third point translate billions of words of english to german is that through the reverse translation model exactly yeah okay cool uh and you're saying back translation helps uh generate higher quality translations uh because of regularization is that it ah it's not just recognization it also the really useful thing is it gives you lots of clean output data so let's say you ought to be a good german between the translation model you kind of need both to understand german we'll also be able to write lots of"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_115",
+    "video_id": "nyu_dl_week12",
+    "start_time": 4025.0,
+    "end_time": 4070.0,
+    "text": "so let's say you ought to be a good german between the translation model you kind of need both to understand german we'll also be able to write lots of fluent english as well and then the english grammar team and the back translation gives you a way of additional language data beyond what you have translations for um okay so kind of combines translation volatile language um iterate this procedure too so you can uh use it use that whole sense of describe before to train a better model"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_116",
+    "video_id": "nyu_dl_week12",
+    "start_time": 4060.0,
+    "end_time": 4105.0,
+    "text": "um iterate this procedure too so you can uh use it use that whole sense of describe before to train a better model and then do this to help you generate better translate better back translations which you can use to train again and this can be really helpful i mean it helps even in english german but it's particularly helpful in cases where you don't have much data so this is on a bernie's to english translation where there isn't a lot of parallel data but you can uh get really large improvements by just iterating back translation uh this was recent work from fair which i"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_117",
+    "video_id": "nyu_dl_week12",
+    "start_time": 4095.0,
+    "end_time": 4140.0,
+    "text": "uh get really large improvements by just iterating back translation uh this was recent work from fair which i uh i think this is english german showing some good improvements uh one of the direction um in machine translation people are exploring now is a massively multilingual mt so people are trying to not just translate between two languages but trying to take dozens of 100 languages and try and train a single neural network that could translate between all of these"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_118",
+    "video_id": "nyu_dl_week12",
+    "start_time": 4130.0,
+    "end_time": 4175.0,
+    "text": "take dozens of 100 languages and try and train a single neural network that could translate between all of these a big improvement particularly in languages where you don't have much tags presumably the model's learning some kind of more general language independent okay so the last topic i want to cover in this is a really important one which is that self-supervised learning um all right so um young is just seeing this cake now but i think it's actually a good image for this so the idea is [Music] um really that to"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_119",
+    "video_id": "nyu_dl_week12",
+    "start_time": 4165.0,
+    "end_time": 4210.0,
+    "text": "this cake now but i think it's actually a good image for this so the idea is [Music] um really that to learn stuff like most of the information we need is going to be most learning we do has to be unsupervised so we have huge amounts of text without any labels on it and we just have a little bit of um sort of super frustrating data that's represented by the cake here being the unsupervised learning and the supervised learning just being a little bit of icing on top of the cake i think actually um the recent person's self-supervised learning from nlp has really proved this metaphor to work"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_120",
+    "video_id": "nyu_dl_week12",
+    "start_time": 4200.0,
+    "end_time": 4245.0,
+    "text": "self-supervised learning from nlp has really proved this metaphor to work um i'm going to describe quite a few methods for how you do self-supervised learning for nlp um just so you can try and get some ideas as to what's actually working uh so uh the first one to describe is word to so the area of words back was trying to i think it's really the first paper that showed uh got people excited about sales surprise landing in lp uh vern have his previous work from uh culver and western which had"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_121",
+    "video_id": "nyu_dl_week12",
+    "start_time": 4235.0,
+    "end_time": 4280.0,
+    "text": "uh got people excited about sales surprise landing in lp uh vern have his previous work from uh culver and western which had also shown some good gains um so the goal here is going to be trying to learn what's called word embedding so brexit space recitations for words and the hope is by that by looking at unlabeled english text we can learn something about what these words mean that's what the intuition behind all this is that if two words are ok close together in the text then they're likely to have some kind of relationship between each other um so the pre-training task we're going to do is going to be a filling in the blanks task"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_122",
+    "video_id": "nyu_dl_week12",
+    "start_time": 4270.0,
+    "end_time": 4315.0,
+    "text": "relationship between each other um so the pre-training task we're going to do is going to be a filling in the blanks task so um in this sentence i'm going to mask out this word in the middle which is unicorns and try and predict what this word should be based on the surrounding context and hope would be that words like unknown silver hair and hand will somehow are more likely to occur in the context of a unicorn than they are um so basically this is gonna be a very simple model where basically we're gonna take all these context words we're gonna apply some linear projection to these and"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_123",
+    "video_id": "nyu_dl_week12",
+    "start_time": 4305.0,
+    "end_time": 4350.0,
+    "text": "um so basically this is gonna be a very simple model where basically we're gonna take all these context words we're gonna apply some linear projection to these and map the allowance of fixed size context and then just do a softmax over our vocabulary uh so it looks a little bit like a convolutional language model the only difference is we're predicting the word riddle not the word of the end um any practice this model was um just a shallow linear projection and didn't okay um so one of the things we find interesting about this was these um wordy weddings to show some kind of surprising stretches to them uh"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_124",
+    "video_id": "nyu_dl_week12",
+    "start_time": 4340.0,
+    "end_time": 4385.0,
+    "text": "okay um so one of the things we find interesting about this was these um wordy weddings to show some kind of surprising stretches to them uh i'll show you how it was fun this is like people debated about how meaningful is this um but basically the claim was that if you took you're invading the word king which you train like this and you subtract you're ready for word man then you add the embedding of the word woman you'll get something that's fairly close to the embedding for the word queen it's just this kind of unsupervised fill in the blanks learning task isn't using this kind of linear structure with kind of meaningful"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_125",
+    "video_id": "nyu_dl_week12",
+    "start_time": 4375.0,
+    "end_time": 4420.0,
+    "text": "in the blanks learning task isn't using this kind of linear structure with kind of meaningful okay so i mean this was great and the really good thing about this was that it's a really really fast thing to do so you could train this on billions of words texts you back in 2013. um but there's a big limitation which is these word writings are independent of the context so um you get like one vector per word in your vocabulary um but it doesn't know anything about how that word relational works and we know that to in language like"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_126",
+    "video_id": "nyu_dl_week12",
+    "start_time": 4410.0,
+    "end_time": 4455.0,
+    "text": "your vocabulary um but it doesn't know anything about how that word relational works and we know that to in language like um a sentence is involved in just by words it depends each word interacts with other words somehow and these interactions are in some way it's a really powerful thing so in one example obvious example is like ambiguous words so lots of words can have many different meanings and these word vectors won't capture that or the best let's be superstition of all so how do we add context to these well um"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_127",
+    "video_id": "nyu_dl_week12",
+    "start_time": 4445.0,
+    "end_time": 4490.0,
+    "text": "so how do we add context to these well um see the most obvious way is to do a line as well i think i'm missing a what we do is train a conditional language model sorry an unconditional language model this is going to be exactly the kind of model i described earlier in the talk and then um given this language model blindfold will be outputting hidden states every time step predicting the next word and instead when we want to sell supervised learning what we're going to do is replace these outputs with um"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_128",
+    "video_id": "nyu_dl_week12",
+    "start_time": 4480.0,
+    "end_time": 4525.0,
+    "text": "time step predicting the next word and instead when we want to sell supervised learning what we're going to do is replace these outputs with um some other output that depends on our task so the pre-training phase is just going to be predict the next word but then kind of the icing on the cake or supervised learning will be the predicts some other property so i'll show you an example here for a task called speech tagging which is trying to say put some labels in every word here so turn light label scientists and noun and distinctive as an adjective um but you can actually fit all kinds of tasks into this kind of framework um so for example maybe you can fit"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_129",
+    "video_id": "nyu_dl_week12",
+    "start_time": 4515.0,
+    "end_time": 4560.0,
+    "text": "scientists and noun and distinctive as an adjective um but you can actually fit all kinds of tasks into this kind of framework um so for example maybe you can fit something like this is a sentiment analysis task where you're given some text to predict like from an amazon review and predict the um this is a review that says what can i say about its banana slicer that hasn't already been said about the real penicillin or the iphone and this review so here was you're going to predict one output from this language model which is going to be the uh a token at the end which you can some kind of test specific"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_130",
+    "video_id": "nyu_dl_week12",
+    "start_time": 4550.0,
+    "end_time": 4595.0,
+    "text": "so here was you're going to predict one output from this language model which is going to be the uh a token at the end which you can some kind of test specific so one of the really nice things about this approach called gpt was that it kind of eliminated tasks specific modeling so now suddenly we one model which you can pre-train and we can that fine tune as well to do basically any task we want to do little classification um so before this um there's actually a few years when people were building all these crazy"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_131",
+    "video_id": "nyu_dl_week12",
+    "start_time": 4585.0,
+    "end_time": 4630.0,
+    "text": "any task we want to do little classification um so before this um there's actually a few years when people were building all these crazy architectures that you build different architectures to do build a quest answering model let's do a sentiment analysis pro model or something um now you train creating one big model and then it's really easy to find units do whatever you like so that was a really big step forward um unfortunate model has kind of the obvious limitation i said the important thing to do was kind of contextualize words so like let words know build word recitations depend on the context but if you appreciate this language model"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_132",
+    "video_id": "nyu_dl_week12",
+    "start_time": 4620.0,
+    "end_time": 4665.0,
+    "text": "thing to do was kind of contextualize words so like let words know build word recitations depend on the context but if you appreciate this language model you can only really condition on your left with context so your expectations for each word necessarily can't depend on the representation for and that kind of limits what the model can do quite a lot um there's one kind of obvious fix to that which is um the approach taken by elmo um so elmo run the training one left to right language model um also train the second language model which operates"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_133",
+    "video_id": "nyu_dl_week12",
+    "start_time": 4655.0,
+    "end_time": 4700.0,
+    "text": "um so elmo run the training one left to right language model um also train the second language model which operates in the reverse direction so this is like um so it's the last word in document and it keeps trying to create the previous ones and then you get word recitation by concatenating the output layers of your left right model and your right left uh so this model is in some ways better in that like now your word representations can't condition on local context and are right with context and that's really helpful for lots of but it's still kind of limited and that you don't really much like interactions"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_134",
+    "video_id": "nyu_dl_week12",
+    "start_time": 4690.0,
+    "end_time": 4735.0,
+    "text": "right with context and that's really helpful for lots of but it's still kind of limited and that you don't really much like interactions in these contexts so these um you get this shallow kind of concatenation of left representation the right representation and what you really do is having like rich interactions between the left right um and all this brings me to birth which is uh maybe you've heard of which has made bit actually looks quite a lot like word effect is basically a fillable blanks"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_135",
+    "video_id": "nyu_dl_week12",
+    "start_time": 4725.0,
+    "end_time": 4770.0,
+    "text": "bit actually looks quite a lot like word effect is basically a fillable blanks task so you take some text you hide some tokens by masking them out and then you just try and fill it in the mask so here's text like something is a golden something muppets the thing i want you to notice is firstly it actually looks quite a lot like word to back um wordsworth was also given some text fill in the blanks"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_136",
+    "video_id": "nyu_dl_week12",
+    "start_time": 4760.0,
+    "end_time": 4805.0,
+    "text": "the thing i want you to notice is firstly it actually looks quite a lot like word to back um wordsworth was also given some text fill in the blanks um the reasons works much better is that in words event you would just had this linear projection like including the context words whereas you have them a very large transformer uh which look in much more context and well much lower interactions in that context so there is a question here how are contextual representations maintained when fine-tuning for a specific task"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_137",
+    "video_id": "nyu_dl_week12",
+    "start_time": 4795.0,
+    "end_time": 4840.0,
+    "text": "when fine-tuning for a specific task i guess um it's not clear they are maintained um you kind of hook them all to learn enough general stuff that language the pre-trained task and then doing the fine tuning probably i guess it's forgetting a lot of stuff but it doesn't need to solve this particular task so if you're fighting a sentiment analysis or something it could probably probably kind of lose a lot of this"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_138",
+    "video_id": "nyu_dl_week12",
+    "start_time": 4830.0,
+    "end_time": 4875.0,
+    "text": "particular task so if you're fighting a sentiment analysis or something it could probably probably kind of lose a lot of this information during fine tuning that seems fine thanks so but it worked very well um they gave like quite large improvements on a bunch of tasks um it was actually achieving the performance of humans or at least humans approximated by amazon mechanical tech on a bunch of important uh questionnaire benchmarks but um burt was definitely not the end of the story here um"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_139",
+    "video_id": "nyu_dl_week12",
+    "start_time": 4865.0,
+    "end_time": 4910.0,
+    "text": "tech on a bunch of important uh questionnaire benchmarks but um burt was definitely not the end of the story here um but i've lots of people very excited about self supervised training um so just to quickly summarize details it's very simple model is just going to mask out 15 of the tokens um to build on that um doesn't work at facebook uh yeah by led by year hanlon"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_140",
+    "video_id": "nyu_dl_week12",
+    "start_time": 4900.0,
+    "end_time": 4945.0,
+    "text": "facebook uh yeah by led by year hanlon so can you tell the combination actually actually has second pre-training objective which we showed didn't actually help so can i read can i ask a question for the slide so there there were three bars i think i missed one point the the dark blue what is the dark blue so we have amazon twerk there thank you sorry i said that um dark blue hair is previously that so okay which was um these models were probably elmo which is oh yeah okay so previously i was definitely using cell surprise training"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_141",
+    "video_id": "nyu_dl_week12",
+    "start_time": 4935.0,
+    "end_time": 4980.0,
+    "text": "okay which was um these models were probably elmo which is oh yeah okay so previously i was definitely using cell surprise training but uh but improved relevant by having this kind of like i see and grew actually it's a benchmark that we've been uh creating here at nyu exactly some students were involved yeah so yeah glue is a big benchmark it's very important okay um so to beat but it turned out all you had to do was firstly simplify training objective then just scale it up so scaling up here means bigger batch sizes"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_142",
+    "video_id": "nyu_dl_week12",
+    "start_time": 4970.0,
+    "end_time": 5015.0,
+    "text": "scale it up so scaling up here means bigger batch sizes more free training text and then um you get very large gains on top work so yellow here is then this new and uh actually roberta the question answering is like superhuman by quite a few points and also on this blue benchmark from nyu is also uh and this isn't really about doing anything smart it's just"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_143",
+    "video_id": "nyu_dl_week12",
+    "start_time": 5005.0,
+    "end_time": 5050.0,
+    "text": "superhuman by quite a few points and also on this blue benchmark from nyu is also uh and this isn't really about doing anything smart it's just taking self supervised training and doing it more alright um how why why do you say like if you go on this slide here so there is a very large improvement between uh bert and then roberta in the gloom but not such a huge uh change maybe in the squad or is it just a zooming factor i'm like um maybe it's just a zooming factor right those bars on the left are taller maybe maybe the scales distorting i think the"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_144",
+    "video_id": "nyu_dl_week12",
+    "start_time": 5040.0,
+    "end_time": 5085.0,
+    "text": "those bars on the left are taller maybe maybe the scales distorting i think the point is i know um but what 0.6 points best of the people whereas roberta is uh three and a half points better so by that metric is actually quite a okay uh so let's quickly discuss a few of the other things people have been doing still surprise training and"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_145",
+    "video_id": "nyu_dl_week12",
+    "start_time": 5075.0,
+    "end_time": 5120.0,
+    "text": "let's quickly discuss a few of the other things people have been doing still surprise training and so there's one called excel now um basically so input when you predict all the mass tokens you predict all the masks conditionally independently um excel net has a trick lets you contact these mass tokens auto regressively but in random order and they claim some improvements from doing that it's also uh spam dirt which uh rather than masking out words you're gonna mask out a sequence of consecutive words um there is electron which um rather than masking words we're going to substitute words with"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_146",
+    "video_id": "nyu_dl_week12",
+    "start_time": 5110.0,
+    "end_time": 5155.0,
+    "text": "a sequence of consecutive words um there is electron which um rather than masking words we're going to substitute words with sort of similar ones and then have a binary classification problem to tell you which word's changed or not uh it's albert which is um burt but you title the weights across layers um also um xlr and xlr which looking to do this multilingually it turns out basically you run the pre-training objective but rather's feeding in english text you feed in text in every language you can find it does a great job"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_147",
+    "video_id": "nyu_dl_week12",
+    "start_time": 5145.0,
+    "end_time": 5190.0,
+    "text": "feed in text in every language you can find it does a great job um the key point what you take from this is really like these are all kind of variation um there's but in the end like lots of different things work and the important thing is you have big models you have bi-directional interactions between the words and you uh if anything the scale you do this um so"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_148",
+    "video_id": "nyu_dl_week12",
+    "start_time": 5180.0,
+    "end_time": 5225.0,
+    "text": "um so one limitation these models i described is they're only doing kind of text classification problems problems where the output isn't the classification problem is actually output some more text uh pre-training for sequence sequence modeling uh two papers came out about the same time for this one which i was involved in um so these models basically are going to pre-train sequence sequence models by denoising text"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_149",
+    "video_id": "nyu_dl_week12",
+    "start_time": 5215.0,
+    "end_time": 5260.0,
+    "text": "so these models basically are going to pre-train sequence sequence models by denoising text um the tree training objective looks kind of like that basically all you're going to do is take some text corrupt it somehow by applying some kind of masking scheme and then rather than predict fill in the blanks you're going to feed the corrupted text into a cc model and try and predict and um and this is kind of nice because then you can actually go beyond just masking text you can apply like any"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_150",
+    "video_id": "nyu_dl_week12",
+    "start_time": 5250.0,
+    "end_time": 5295.0,
+    "text": "and um and this is kind of nice because then you can actually go beyond just masking text you can apply like any random uh corruption thing that you want so for example you can shuffle sentences or delete whole phrases or it's a new phrases and the cc framework is very flexible um but it turns out just doing simple masking actually um and then if you do this and as well as like it doing well things benchmarks like squad and blue which classification benchmarks you can also get stage api results on um tasks like summarization so um"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_151",
+    "video_id": "nyu_dl_week12",
+    "start_time": 5285.0,
+    "end_time": 5330.0,
+    "text": "and blue which classification benchmarks you can also get stage api results on um tasks like summarization so um on the left here we've got some length of document we fight in we ask them all to produce some kind of summary of this and uh it is a great job like actually uses context from across the whole document and solves things like co-reference and generally as far as you can tell seems um okay we're running out of time um so briefly um i don't think it's the end story like"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_152",
+    "video_id": "nyu_dl_week12",
+    "start_time": 5320.0,
+    "end_time": 5365.0,
+    "text": "um okay we're running out of time um so briefly um i don't think it's the end story like the nlp is now solved um a few open questions which i think are interesting including how do we integrate like background knowledge into this do we just want these models to try and memorize the whole internet or should we uh as someone brought up earlier how do we model long documents we're typically doing 512 tokens here how can we do say a whole book at once um one unsatisfying thing about this is like we have like the same model architecture can solve all kinds of problems but it tends to not be able to"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_153",
+    "video_id": "nyu_dl_week12",
+    "start_time": 5355.0,
+    "end_time": 5400.0,
+    "text": "do say a whole book at once um one unsatisfying thing about this is like we have like the same model architecture can solve all kinds of problems but it tends to not be able to solve all these problems at once and typically you fine-tune a separate model for each task it would be great if you actually have um and um it's kind of related to that like we basically get human level phones the main task where you have say a hundred thousand uh labeled examples you're learning from but can we build miles will do well with like 1000 or 10 or 1 and finally that people bring these questions that's where these models are"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_154",
+    "video_id": "nyu_dl_week12",
+    "start_time": 5390.0,
+    "end_time": 5435.0,
+    "text": "but can we build miles will do well with like 1000 or 10 or 1 and finally that people bring these questions that's where these models are just actually understanding language i was really good at breaking benchmarks okay so to wrap up this uh lecture um i think the main takeaways from this uh um [Music] these kind of low bias models like transformers work great we shouldn't try to explicitly model linguistic direction we should have very express models and show them lots of text and let them learn whatever structure they need um"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_155",
+    "video_id": "nyu_dl_week12",
+    "start_time": 5425.0,
+    "end_time": 5470.0,
+    "text": "should have very express models and show them lots of text and let them learn whatever structure they need um predicting words and texts is a great uh unsupervised learning objective um but if you want to understand what's crucial to like incorporate words in context in particular bi-directional context okay so that's all i have to thank you let's see if we have some questions now i think there will be yeah there's a whole bunch of discussions while we while you're talking okay links to various papers and explanations of various concepts in"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_156",
+    "video_id": "nyu_dl_week12",
+    "start_time": 5460.0,
+    "end_time": 5505.0,
+    "text": "yeah there's a whole bunch of discussions while we while you're talking okay links to various papers and explanations of various concepts in the background okay um any more questions uh yeah i had one um on one of the open questions it's like understanding whether or not these models are actually uh understanding the language what are some ways that exist right now to quantify and measure that um and how like how what typically happens is someone says i"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_157",
+    "video_id": "nyu_dl_week12",
+    "start_time": 5495.0,
+    "end_time": 5540.0,
+    "text": "what typically happens is someone says i these models aren't signing language if they could they'd be able to solve this new task that they're introducing then they introduce some new tasks which they can't do and then say bert isn't doing it then next week someone trains a bigger model and then actually gets human performance on this task what's happening is like some people this kind of these neural networks can't be understanding language and they must just be gaming data sets somehow"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_158",
+    "video_id": "nyu_dl_week12",
+    "start_time": 5530.0,
+    "end_time": 5575.0,
+    "text": "this kind of these neural networks can't be understanding language and they must just be gaming data sets somehow and the extent that these models do well there must be kind of weird biases in our data sets and make the moles can exploit without really understanding anything um and it's definitely true that like a lot of my data sets kind of hard to make ones that don't do it thanks a lot skill but on the other hand it's like people are failing to produce good cancer examples so what these models can't do like basically sorry it's a good example in recent"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_159",
+    "video_id": "nyu_dl_week12",
+    "start_time": 5565.0,
+    "end_time": 5610.0,
+    "text": "failing to produce good cancer examples so what these models can't do like basically sorry it's a good example in recent times was the winner glad schema results where you know winograd schemas are those sentences that are ambiguous and there is a reference there is a pronoun that refers to one of the words and you can tell which word the pronoun refers to unless you know something about how the word works right so the standard example is uh the trophy doesn't fit in the suitcase because it's too large or the trophy doesn't fit in the suitcase because it's too small and you know in in one case the the trophy refers to the the the pronoun refers to the trophy in the other case it refers to the"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_160",
+    "video_id": "nyu_dl_week12",
+    "start_time": 5600.0,
+    "end_time": 5645.0,
+    "text": "suitcase because it's too small and you know in in one case the the trophy refers to the the the pronoun refers to the trophy in the other case it refers to the the suitcase and there was a list of those and people created a data set of those things and until about two years ago the best results were around 60 for computers humans do 95 or something but um the best uh uh the best you know artificial systems were getting about 60 and now i think it's about 90 percent yeah right yeah something like that right you don't even get any training dates for these this is just a purely unsupervised problem right and so so the question is you know it's clear"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_161",
+    "video_id": "nyu_dl_week12",
+    "start_time": 5635.0,
+    "end_time": 5680.0,
+    "text": "don't even get any training dates for these this is just a purely unsupervised problem right and so so the question is you know it's clear that those systems have learned something about uh the role of objects and you know a little bit about how the world works by just observing statistics about text but it's relatively superficial it's not um i mean you know as it's pretty obvious when you look at text that's generated uh you know we're talking about unicorn and then the first sentence is uh unicorns has four horns right which of course doesn't make sense because unicorns have only one that's kind of the point of being a unicorn so um so the whole idea of i mean the whole con problem of learning common sense"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_162",
+    "video_id": "nyu_dl_week12",
+    "start_time": 5670.0,
+    "end_time": 5715.0,
+    "text": "course doesn't make sense because unicorns have only one that's kind of the point of being a unicorn so um so the whole idea of i mean the whole con problem of learning common sense uh has not been solved very far from it but those systems but they work surprisingly well i mean it's surprisingly it's surprising how far you can go with just you know looking at text [Music] yeah i mean learning common sounds super hard because in some sense the things you want to learn are things that aren't written down like no one ever writes down common sense knowledge yeah probably no one ever writes down like a unicorn has exactly one-on-one and not for i mean it's just because everyone knows that um so probably there are limitations to what you can learn from just looking at text but can you can you tell"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_163",
+    "video_id": "nyu_dl_week12",
+    "start_time": 5705.0,
+    "end_time": 5750.0,
+    "text": "it's just because everyone knows that um so probably there are limitations to what you can learn from just looking at text but can you can you tell us something about the the word i mean about some of the work you're doing on sort of grounded language uh sure yeah so i mean um i put nothing back grounding in this um but there's a whole interesting topic and so i think it's really interesting trying no no i'm just like producing texts they create people don't use text because it's like it's a recitation of the world um so one type of guy's really interested in like trying to like kind of ground dialogue usage and goals so um"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_164",
+    "video_id": "nyu_dl_week12",
+    "start_time": 5740.0,
+    "end_time": 5785.0,
+    "text": "it's a recitation of the world um so one type of guy's really interested in like trying to like kind of ground dialogue usage and goals so um run some people like chit chat systems that talk to each other or talk to people to have a conversation like can you build systems where you try to achieve some goal um we had some work a couple years ago and doing a this in the context of negotiations so trying to um there's two of you which are trying to have a conversation just kind of crank on some agreement with each other um and the only way you can come to agreement is by having a dialogue in natural language and there's like some outcomes which are good for use and what's good for them you have to find some compromise"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_165",
+    "video_id": "nyu_dl_week12",
+    "start_time": 5775.0,
+    "end_time": 5820.0,
+    "text": "um and the only way you can come to agreement is by having a dialogue in natural language and there's like some outcomes which are good for use and what's good for them you have to find some compromise um and then yeah i'm kind of interested in the setting um yeah it seems like you actually using length for a purpose is gonna be really crucial to a really understanding things like i think that's going to get hints like there's limits to what we'll learn from just like purely observational use language and so just purely seeing text out there in the world that other people wrote like really to understand things you want to be agents which are using language to try and choose some goal and interact with people and seeing what works and"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_166",
+    "video_id": "nyu_dl_week12",
+    "start_time": 5810.0,
+    "end_time": 5855.0,
+    "text": "other people wrote like really to understand things you want to be agents which are using language to try and choose some goal and interact with people and seeing what works and learning from that kind of signal as well um maybe that's it's just the cherry on the icing on the cake or whatever but i think that's more questions from the audience come on guys don't be too shy uh i have a question uh the first point on the open questions how should we integrate world knowledge so uh the way i i was thinking about is that"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_167",
+    "video_id": "nyu_dl_week12",
+    "start_time": 5845.0,
+    "end_time": 5890.0,
+    "text": "uh i have a question uh the first point on the open questions how should we integrate world knowledge so uh the way i i was thinking about is that these billion parameter transformers have so much information about the world in them and then if we try to fine-tune or train this model on some new data could we like forget some of the earlier concepts that uh this model had learnt and how would we like quantify what concepts like has the model forgotten apart from the validation set does that make sense um yeah so probably you will forget i mean probably if you fine-tune this model to do something that doesn't need well"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_168",
+    "video_id": "nyu_dl_week12",
+    "start_time": 5880.0,
+    "end_time": 5925.0,
+    "text": "validation set does that make sense um yeah so probably you will forget i mean probably if you fine-tune this model to do something that doesn't need well knowledgeable happily forget all the knowledge you told it um i mean there's some evidence these moles are like memorizing quite a lot of facts so there's a remarkable uh result recently from this paper this google system called t5 which i think is 12 billion parameters and it's just trained in a self-supervised way and if you have people and then you um just fine tune to answer questions which good questions about anything but you don't show it any you don't show up wikipedia or something to let you know you just like see what's memorized and you can test how much knowledge is in"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_169",
+    "video_id": "nyu_dl_week12",
+    "start_time": 5915.0,
+    "end_time": 5960.0,
+    "text": "which good questions about anything but you don't show it any you don't show up wikipedia or something to let you know you just like see what's memorized and you can test how much knowledge is in the model from that and um it's not safety after that but it like it's kind of scarily good it's like it turns out if you have 12 billion parameters you train for a long time you can't just fit huge numbers of facts into these levels i'm not sure it's like the most desirable way necessarily to memorize knowledge but um seems okay that was it thank you everyone for attending"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_170",
+    "video_id": "nyu_dl_week12",
+    "start_time": 5950.0,
+    "end_time": 5995.0,
+    "text": "okay that was it thank you everyone for attending thank you so much mike for uh for giving a guest lecture um it's good to hear that stuff from the horse's mouth and we'll see see everyone again next uh next week we're gonna we'll actually tomorrow right tomorrow we're gonna be implementing everything from scratch don't forget so tomorrow you get the gory details from the code side of all of this and then uh monday you'll hear from you'll hear about graph neural nets from the vibration actually about graph neural net and graph knowledge is that is graph knowledge used for language as"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_171",
+    "video_id": "nyu_dl_week12",
+    "start_time": 5985.0,
+    "end_time": 6030.0,
+    "text": "you'll hear about graph neural nets from the vibration actually about graph neural net and graph knowledge is that is graph knowledge used for language as well somehow because right i i don't know i have not really uh knowledgeable about this part of the field well so you can view to some extent you can view all the those supervised training in text uh like what to vac uh bert et cetera they use a graph and the graph is how uh you know how often two words appear next to each other or some distance away from each other in the text that's you know the graph of similarity between words basically is determined by how far you know how often they're they appear nearby yeah that's that's when you decide to put them in the input of a neural net"
+  },
+  {
+    "chunk_id": "nyu_dl_week12_chunk_172",
+    "video_id": "nyu_dl_week12",
+    "start_time": 6020.0,
+    "end_time": 6065.0,
+    "text": "that's you know the graph of similarity between words basically is determined by how far you know how often they're they appear nearby yeah that's that's when you decide to put them in the input of a neural net because they appear you know within the sequence so you can think of those those those are supervised learning systems as basically a very simple form of graph neural net well the graph always has the same structure it's always linear but and it always uh indicates your your neighbors in a all right thank you so much everyone have a good evening"
+  }
+]

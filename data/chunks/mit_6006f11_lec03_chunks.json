@@ -1,0 +1,618 @@
+[
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_000",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 0.0,
+    "end_time": 45.0,
+    "text": "the following content is provided under a Creative Commons license your support will help MIT open courseware continue to offer highquality educational resources for free to make a donation or view additional materials from hundreds of MIT courses visit MIT opencourseware ocw.mit.edu so today's lecture is on sorting we'll be talking about specific sorting algorithms today I want to start by motivating why we're interested in sorting which should be fairly easy and then I want to discuss a particular sorting algorithm that's"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_001",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 35.0,
+    "end_time": 80.0,
+    "text": "interested in sorting which should be fairly easy and then I want to discuss a particular sorting algorithm that's called insertion sort that's probably the simplest sorting algorithm you can write it's uh five lines of code um it's not the best sorting algorithm that's out there and so we'll try and improve it and we'll also talk about merge sort which is a divide and conquer Al algorithm and that's going to motivate the last thing that I want to spend time on which is recurrences and how you solve recurrences and typically the recurrences that we'll be looking at in6 are going to come from divide and"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_002",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 70.0,
+    "end_time": 115.0,
+    "text": "spend time on which is recurrences and how you solve recurrences and typically the recurrences that we'll be looking at in6 are going to come from divide and conquer problems like merge sort but you'll see this over and over so let's talk about why we're applications like if you want to maintain a phone book you got a bunch of names and numbers corresponding to a telephone directory and you want to keep them in sorted order so it's easy to search mp3 organizers spreadsheets Etc so there's lots of obvious"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_003",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 105.0,
+    "end_time": 150.0,
+    "text": "directory and you want to keep them in sorted order so it's easy to search mp3 organizers spreadsheets Etc so there's lots of obvious applications there's also some interesting problems that sorted and one example of example so let's say that you have a"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_004",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 140.0,
+    "end_time": 185.0,
+    "text": "example so let's say that you have a a0 through n and a0 through n contains n numbers sorted when you sort you turn this into B 0 through n where if it's just numbers then you may sort them in increasing order or decreasing order let's just call it increasing order for now or if they record and they're not numbers then you have to provide a comparison function to"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_005",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 175.0,
+    "end_time": 220.0,
+    "text": "decreasing order let's just call it increasing order for now or if they record and they're not numbers then you have to provide a comparison function to determine which record is smaller than another record and that's another input that you have to have in order to do the Sorting so it doesn't really matter what the items are as long as you have the comparison function think of it as less than or equal to and if you have that and it's a straightforward you obviously to check that three is less than four Etc but it may be a little more complicated uh for for more sophisticated sorting applications but the bottom line is that if you have your algorithm that takes a comparison function as an input you're going to be"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_006",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 210.0,
+    "end_time": 255.0,
+    "text": "complicated uh for for more sophisticated sorting applications but the bottom line is that if you have your algorithm that takes a comparison function as an input you're going to be able to go after a certain amount of time get b0n now if you want to Def the median of the set of numbers that were originally in the array a uh what would you do once yep oh absolutely but um there's u i I'm you know this is sort of a side effect of having a sorted list I'm I'm you know if you happen to have a sorted list there's many ways that U you could um uh imagine you know"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_007",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 245.0,
+    "end_time": 290.0,
+    "text": "of having a sorted list I'm I'm you know if you happen to have a sorted list there's many ways that U you could um uh imagine you know building up a sorted list one way is you have something that's completely unsorted and you run insertion sort or merge sort um another way would be to maintain a sorted list as you're getting items put into the list okay so if you happen to have a sorted list and you need to have the sorted list for some reason the point I'm making here is that finding the median is easy okay and it's easy because all you have to do is to go look at depending on whether n is odd or even and look at B of n /2 right that that would give you the median because"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_008",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 280.0,
+    "end_time": 325.0,
+    "text": "easy because all you have to do is to go look at depending on whether n is odd or even and look at B of n /2 right that that would give you the median because you'd have a bunch of numbers uh that are less than that and and the equal set of numbers that are greater than that which is the definition of median all right so this is not necessarily the best way as you pointed out of finding the median but um it's constant time if you have a sorted list all right that's the point I wanted to make um there are other things that you could do and this came up in Eric's lecture which is the notion of binary"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_009",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 315.0,
+    "end_time": 360.0,
+    "text": "to make um there are other things that you could do and this came up in Eric's lecture which is the notion of binary search finding an element in an array a specific element you have an A list of uh items again a 0 through n and you're looking item you could obviously scan the array and that would take you linear time to find this item if the array happened to be sorted then you can find this in logarithmic"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_010",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 350.0,
+    "end_time": 395.0,
+    "text": "item if the array happened to be sorted then you can find this in logarithmic time using what's called B binary search okay and binary search let's say you're looking for a specific item let's call it K binary search roughly speaking would work like you go compare K to again B of n / 2 and decide given that b is sorted you you get to look at one half of the array uh if B of n /2 is not exactly k then I uh well if it's exactly K you're done"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_011",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 385.0,
+    "end_time": 430.0,
+    "text": "you get to look at one half of the array uh if B of n /2 is not exactly k then I uh well if it's exactly K you're done otherwise you look at the left half you do your divide and conquer Paradigm and you can do this in logarithmic time all right so keep this in mind because uh bind research is going to come up in today's lecture and and again in other lectures it's really a a great Paradigm of divide and conquer probably the simplest and it essentially takes something that's linear uh a linear search and turns it into logarithmic search so those are a couple of uh problems that become easy if you"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_012",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 420.0,
+    "end_time": 465.0,
+    "text": "uh a linear search and turns it into logarithmic search so those are a couple of uh problems that become easy if you have a sorted list and there's some you obvious applications of sorting for example data compression if you wanted to compress a file one of the things that you could do is to and it's just a it's a set of items you could uh uh you could sort the items and that automatically finds duplicates and you could say um if I have 100 items that are all identical"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_013",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 455.0,
+    "end_time": 500.0,
+    "text": "items and that automatically finds duplicates and you could say um if I have 100 items that are all identical I'm going to compress the file by representing the item once and then having a number associated with the frequency of that item s similar to what document distance does document distance is can be viewed as a way of compressing your initial input obviously you lose the you know the works of Shakespeare or whatever it was and and it becomes a bunch of words and frequencies but it is something that uh that uh compresses the input um and gives you a different representation and so people use sorting"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_014",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 490.0,
+    "end_time": 535.0,
+    "text": "something that uh that uh compresses the input um and gives you a different representation and so people use sorting in as a sub routine in data compression computer Graphics uses sorting most of the time when you render scenes in computer Graphics you have many layers corresponding to the scenes it turns out that I that in computer Graphics most of the time you're actually rendering front to back because uh when you have a big opaque object in front uh you want to render that first uh so you don't have to worry about everything that's uded by this big Opa"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_015",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 525.0,
+    "end_time": 570.0,
+    "text": "uh when you have a big opaque object in front uh you want to render that first uh so you don't have to worry about everything that's uded by this big Opa object and that makes things more efficient and so you keep things sorted front to back most of the time in computer Graphics rendering but some of the time if you're worried about transparency you have to render things back to front so typically you have sorted lists corresponding to the different objects in both orders both increasing order and decreasing order and you're maintaining that so sorting is a a real important sub routine in pretty much any sophisticated application you look at so it's worthwhile to look at the variety of sorting algorithms that are out there and we're going to do some simple ones"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_016",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 560.0,
+    "end_time": 605.0,
+    "text": "is a a real important sub routine in pretty much any sophisticated application you look at so it's worthwhile to look at the variety of sorting algorithms that are out there and we're going to do some simple ones today but if you go look at Wikipedia and and do a Google search there's you know all sorts of sorts like cocktail sort and bonic sort and and what have you and there's reasons why each of these sorting algorithms exist because in specific cases they end up you know winning on on types of inputs or types of problems all right so let's take a look at our first sorting algorithm I'm not going to write code but it will be in the notes and it"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_017",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 595.0,
+    "end_time": 640.0,
+    "text": "right so let's take a look at our first sorting algorithm I'm not going to write code but it will be in the notes and it is in your document distance python files but I'll just give you pseudo code here and walk through what insertion sort looks like because the purpose of really describing this algorithm to you is to analyze its complexity we need to do some counting here with respect to this algorithm to figure out how fast it's going to run in and what the worst case complexity is so what is insertion sort for I = 1 2 through n given a sorted excuse me given"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_018",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 630.0,
+    "end_time": 675.0,
+    "text": "complexity is so what is insertion sort for I = 1 2 through n given a sorted excuse me given an input to be sorted what we're going to do is we're going to insert a ofi in the right position and we can assume that we are sort of Midway through the Sorting process where we have sorted a0 through i-1 and we're going to expand this to this array to have I +1 elements and a ofi is going to get inserted into the the correct position and we're going to do this by"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_019",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 665.0,
+    "end_time": 710.0,
+    "text": "this array to have I +1 elements and a ofi is going to get inserted into the the correct position and we're going to do this by swaps down to the correct position for the number that is initially in a through an example of this we're going to sort in increasing order just have"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_020",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 700.0,
+    "end_time": 745.0,
+    "text": "through an example of this we're going to sort in increasing order just have numbers and initially we have 5 2 4 613 and we're going to take a look at this and you start with the index one or the second element because the very first element it's a single element and it's already sorted by definition but you you start from here and this is what we call our key um and that's essentially a a pointer to where we're at right now and the key keeps moving to the right as we go through the different steps of the algorithm um and so what you do is you look at this and you have um this is a"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_021",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 735.0,
+    "end_time": 780.0,
+    "text": "pointer to where we're at right now and the key keeps moving to the right as we go through the different steps of the algorithm um and so what you do is you look at this and you have um this is a of I that's your key and uh you have a of 0 to Z which is and uh this since we want to sort in increasing order uh this is not sorted and so we do a swap so what this would do in the in in this step is to do a swap and we would go obtain uh 2 5 4 61 3 so all that's happened here in this step in the very first step where the key is in the second position is what one swap swap happened"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_022",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 770.0,
+    "end_time": 815.0,
+    "text": "obtain uh 2 5 4 61 3 so all that's happened here in this step in the very first step where the key is in the second position is what one swap swap happened um now your key is here at item four again you need to put four into the right spot and so you do pair wise swaps and in this case you have to do one Swap and you get 2 four five and you're done with this this here is you have two 4 five 613 and now the key is over here at six now at"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_023",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 805.0,
+    "end_time": 850.0,
+    "text": "five 613 and now the key is over here at six now at this point things um are kind of easy in the sense that you look at it and you say well six is I know that this part is already sorted um six is greater than five so you have to do nothing so there's there's nothing there's no swaps that happen in this step um so all that happens here is you're going to move the key to one step to the right so you have 2 4 five 6 1 3 and your key is now at"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_024",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 840.0,
+    "end_time": 885.0,
+    "text": "to move the key to one step to the right so you have 2 4 five 6 1 3 and your key is now at one uh here you have to do more work now you see one aspect of the complexity of this algorithm given that you're doing pair wise swaps uh the way this algorithm was defined in pseudo code out there was I'm going to use pairwise swaps to find the correct position so what you're going to do is you're going to have to swap first one and six and then you'll swap one is over here so you'll you'll swap um this position and that position and then"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_025",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 875.0,
+    "end_time": 920.0,
+    "text": "one and six and then you'll swap one is over here so you'll you'll swap um this position and that position and then swap essentially do four swaps uh to get to the point where um you have 1 2 4 5 6 3 so this is the result 1 2 4 five 6 three and the important thing to understand here is that you've done four swaps to get one to the correct position now you can imagine a different data structure where you move this over there and you shift them all to the right but in fact that shifting"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_026",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 910.0,
+    "end_time": 955.0,
+    "text": "correct position now you can imagine a different data structure where you move this over there and you shift them all to the right but in fact that shifting of these four elements is going to be computed in our model as four operations or four steps anyway so there's no getting away from the fact that you have to do four things here uh and the way insertion sort the code that we have for insertion sort does this is by using pairwise swaps so we're almost done now we have the key at um three and now three needs to get put into the correct position and so you got"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_027",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 945.0,
+    "end_time": 990.0,
+    "text": "key at um three and now three needs to get put into the correct position and so you got to do a few swaps this is the last step and what happens here here is three is going to get swapped with six uh and then three needs to get swapped with five and then three needs to get swapped with four and then since three is greater than two uh you're done so you have 1 2 3 4 five six and that's it so"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_028",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 980.0,
+    "end_time": 1025.0,
+    "text": "six and that's it so yep no and how many steps do I have um I guess that was a that wasn't a good question if I think of a step as being a movement of the key how many steps do I have I have uh Theta n steps uh and uh in this case you can think of it as uh as n minus one steps since you started"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_029",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 1015.0,
+    "end_time": 1060.0,
+    "text": "in this case you can think of it as uh as n minus one steps since you started positions and you're right it is uh n Square because at any given step it's quite possible that I have to do theta n work and one example is this one right here where I had to do four swaps and in general you can construct a scenario where um at towards the end of the algorithm you you'd have to do theta n work but if you had a list that was reverse sorted you would essentially"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_030",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 1050.0,
+    "end_time": 1095.0,
+    "text": "where um at towards the end of the algorithm you you'd have to do theta n work but if you had a list that was reverse sorted you would essentially have to do on an average n by two swaps as you go through each of the steps and that's Theta n so each step is Theta swaps okay and when I say swaps I could Compares and swaps all right and this is going to be important because I'm going to ask you an interesting question in a minute but let me summarize um what I have here is a Theta"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_031",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 1085.0,
+    "end_time": 1130.0,
+    "text": "Compares and swaps all right and this is going to be important because I'm going to ask you an interesting question in a minute but let me summarize um what I have here is a Theta n Square algorithm the reason this is a Theta n Square algorithm is because I have Theta n steps and each step is Theta n when I'm counting what do I what am I counting in terms of operations the Assumption here unspoken assumption is being that an operation is a compare and a swap and they're essentially equal in cost okay and in most computers that's true you have a single instruction and say the x86 of the myips architecture that can do a compare and the same thing"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_032",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 1120.0,
+    "end_time": 1165.0,
+    "text": "cost okay and in most computers that's true you have a single instruction and say the x86 of the myips architecture that can do a compare and the same thing for swapping registers so perfectly reasonable assumption that comparison swaps for numbers are have exactly the same cost but if you had a record and you are comparing records and the comparison function that you use for the records was in itself a a method call or a sub routine it's quite possible that all you're doing is is swapping pointers or references to do the swap but the comparison could be substantially more expensive okay um for the most of the"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_033",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 1155.0,
+    "end_time": 1200.0,
+    "text": "or references to do the swap but the comparison could be substantially more expensive okay um for the most of the time and we'll differentiate if it becomes necessary we're going to be counting comparisons in the sorting algorithms that we'll be putting out and we'll be assuming that uh either you know comparison swaps are are roughly the same or that compares are and we'll say which one of course all that compares are substantially more expensive than than swaps okay so if you had either of those cases for insertion sort you have a Theta n Square algorithm all right you have Theta n Square Compares and Theta n Square swaps now here's the"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_034",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 1190.0,
+    "end_time": 1235.0,
+    "text": "swaps okay so if you had either of those cases for insertion sort you have a Theta n Square algorithm all right you have Theta n Square Compares and Theta n Square swaps now here's the question let's say that expensive than swaps and so I'm concerned about the Theta n s comparison cost I'm not as concerned because of the constant factors involved with the Theta n Square swap cost all right what's a simple this is a cushion question okay this um what's a what's a simple fix change to this algorithm that would give"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_035",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 1225.0,
+    "end_time": 1270.0,
+    "text": "simple this is a cushion question okay this um what's a what's a simple fix change to this algorithm that would give me a better complexity in the case where Compares are more expensive or I'm only looking at the complexity of Compares so the Theta whatever of Compares right there you could compare with the middle what did I call call it what what what is I I I called it something what you just said I called it something yeah I saw you first binary search that's right"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_036",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 1260.0,
+    "end_time": 1305.0,
+    "text": "what did I call call it what what what is I I I called it something what you just said I called it something yeah I saw you first binary search that's right two questions for this one all right so you pick pick them up after after lecture so you're exactly right you got it right I called it binary search uh up here okay um and so if if you you can take insertion sord and you can sort of trivially turn it into a Theta n log n algorithm if you're talking about n being the the number of pairs okay and all you have to do to do that is to say you know what I'm going to replace this with binary search and you can do that um and that was the key observation that because a of0 through"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_037",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 1295.0,
+    "end_time": 1340.0,
+    "text": "you know what I'm going to replace this with binary search and you can do that um and that was the key observation that because a of0 through IUS one is already sorted right and so you can do binary search on that part of down do a binary search on a of 0 through sorted and essentially you can think of it as Theta log I time and for each of those steps and so"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_038",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 1330.0,
+    "end_time": 1375.0,
+    "text": "sorted and essentially you can think of it as Theta log I time and for each of those steps and so but okay now why can't I Thea log n in terms of Compares does this help the swaps for an array data structure no because binary search will require insertion into a of 0 through IUS one right so here's the problem why why don't we have a full-fledged Theta n log n algorithm regardless of the cost of Compares or swaps we don't quite have"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_039",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 1365.0,
+    "end_time": 1410.0,
+    "text": "IUS one right so here's the problem why why don't we have a full-fledged Theta n log n algorithm regardless of the cost of Compares or swaps we don't quite have that right we don't quite have that because um we need to insert our a of I into the right position into a of uh Z through IUS one when you do that if you have an array structure it might get into the middle and you have to shift things over to the to the right and when you shift things over to the right in the worst case you may be shifting a lot of things over to the right and that gives back to worst case complexity of of theta n okay so so a binary search in insertion sort gives you Theta n log n for Compares but it's"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_040",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 1400.0,
+    "end_time": 1445.0,
+    "text": "case complexity of of theta n okay so so a binary search in insertion sort gives you Theta n log n for Compares but it's still Theta and square for swaps all right okay good so as you can see there's many varieties of sorting algorithms we just looked at a couple of them and and they were both um insertion sort the second one that I just put up is uh I guess technically called binary insertion sort uh because it does binary search and the vanilla insertion sort is the one that you have the code for in the doc dis program or at least one of the doc dis files so let's move on and uh talk about uh a"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_041",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 1435.0,
+    "end_time": 1480.0,
+    "text": "the doc dis program or at least one of the doc dis files so let's move on and uh talk about uh a different algorithm so what we'd like to do now this is about this class is about constant Improvement right you we're never happy uh we always want to do a little bit better right and eventually once we run out of room from an asmic standpoint you take these other classes where you try and improve constant factors and get 10% and 5% and 1% and so on and so forth but we'll stick to uh improving uh asmic complexity and we're not quite happy with uh binary insertion sort because in the case of numbers our binary insertion sort has Theta n Square"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_042",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 1470.0,
+    "end_time": 1515.0,
+    "text": "uh asmic complexity and we're not quite happy with uh binary insertion sort because in the case of numbers our binary insertion sort has Theta n Square complexity if you look at swaps right so we'd like to go find an algorithm that is Theta n log n and and then I guess eventually we'll have to stop but you know Eric will take care of that um there's a reason to stop it's it's when you can prove that you can't do any better right and so we'll get to that eventually so merge sort is also something that You' probably seen but there' probably be a couple of subtleties that come out as I describ this algorithm that hopefully will be"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_043",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 1505.0,
+    "end_time": 1550.0,
+    "text": "something that You' probably seen but there' probably be a couple of subtleties that come out as I describ this algorithm that hopefully will be interesting to those of you who already know mer sort and those of you who don't it's a very pretty algorithm um it's a standard recursion algorithm recursive algorithm so similar to a bind research uh what we do here is we have an array a we split it into two parts L and R and essentially we kind of do no work really uh in in terms of the L and R in"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_044",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 1540.0,
+    "end_time": 1585.0,
+    "text": "R and essentially we kind of do no work really uh in in terms of the L and R in the sense that we just call we keep splitting splitting splitting and all the work is done down at the bottom in this routine called merge where we are merging a pair of elements at the leaves and then we merge two pairs and get four elements and then we merge two four tles of elements Etc and go all the way up so while I'm saying L turns into L Prime out here there's no real explicit code that you can see that turns L into L prime it"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_045",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 1575.0,
+    "end_time": 1620.0,
+    "text": "turns into L Prime out here there's no real explicit code that you can see that turns L into L prime it happens really later there's no real sorting code here it happens in the merge routine and you'll see that quite clearly when example so you have L and R turn into L Prime and L uh L Prime and R Prime and what we end up getting is uh a array a and we have a what's called a merge"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_046",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 1610.0,
+    "end_time": 1655.0,
+    "text": "array a and we have a what's called a merge that takes L Prime and RP Prime and merges them into the sorted array so at the top level what you see is split into two and do a merge and get to the SED array the input is of size n you have two arrays of size n / of size n /2 and then finally you have a"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_047",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 1645.0,
+    "end_time": 1690.0,
+    "text": "of size n /2 and then finally you have a n so if you want to follow the recursive example then you'll be able to see how this works and we'll do a fairly straightforward example with eight elements so at the top level before we get there merge is going to assume that you have two sorted"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_048",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 1680.0,
+    "end_time": 1725.0,
+    "text": "elements so at the top level before we get there merge is going to assume that you have two sorted arrays and merge them together that's the invariant in merge sort or for the merge routine it assumes the inputs are sorted L and R actually I should say l Prime and R Prime so let's say you have 20 13 7 and 2 you have 12 11 9 and 1 and this could be L Prime and this could be R Prime um what you have is what we call a two finger algorithm and so you got two fingers and each of them point to"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_049",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 1715.0,
+    "end_time": 1760.0,
+    "text": "this could be R Prime um what you have is what we call a two finger algorithm and so you got two fingers and each of them point to something and in this case one of them is pointing to L my left finger is pointing to L prime or some element in L Prime my right finger is pointing to some element in R Prime and I'm going to compare the two elements that my fingers are pointing to and I'm going to uh choose in this case the smaller of those elements and I'm going to put them into this the sorted array okay so start out here uh I look at that and that and I compared two and one and which is smaller one is smaller so I'm going to write one down so this"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_050",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 1750.0,
+    "end_time": 1795.0,
+    "text": "array okay so start out here uh I look at that and that and I compared two and one and which is smaller one is smaller so I'm going to write one down so this is a two finger algo for merge and I put one down when I put one down I have to cross out one so effectively what happens is let me just circle that instead of Crossing it out and my finger moves up to to nine okay so now I'm pointing at two and nine and I repeat this step right so now in this case two is smaller so I'm going to go ahead and write two down and I can cross out two and move my finger up to to seven all right and so that's it um I won't bore you with the the rest of the steps it's"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_051",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 1785.0,
+    "end_time": 1830.0,
+    "text": "write two down and I can cross out two and move my finger up to to seven all right and so that's it um I won't bore you with the the rest of the steps it's essentially walking up you have a couple of pointers and you're walking up these two arrays and you're writing down 1 2 7 9 11 12 13 20 okay and that's your merge routine and all of the work really is done in the merge routine because other other than that the body is simply a recursive call I mean you have to obviously split the array but that's fairly straightforward if you have an array you know a zero through n then depending on whether n"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_052",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 1820.0,
+    "end_time": 1865.0,
+    "text": "fairly straightforward if you have an array you know a zero through n then depending on whether n is odd or even you can imagine that you set um L you know to be uh a 0 n by 2 - one and R similarly and so you just split it halfway in the middle and I'll talk about that a little bit more there's a subtlety associated with that that we'll get to uh in in in in a few minutes but to finish up in terms of the computation of merge sort this is it the merge routine is doing most if not all of the work and this two-finger algorithm is going to be able"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_053",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 1855.0,
+    "end_time": 1900.0,
+    "text": "of merge sort this is it the merge routine is doing most if not all of the work and this two-finger algorithm is going to be able to take two sorted arrays and put them into a single SED array by interspersing or interleaving these elements and what's the complexity of merge if um I have you know two arrays of size n / two here what do I have yeah n all right uh we'll give you complexity so so far so good um it's a"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_054",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 1890.0,
+    "end_time": 1935.0,
+    "text": "complexity so so far so good um it's a little I know I know you know the answer as to what the complexity of merge s is but I'm guessing that most of you won't be able to prove it to me because I'm kind of a hard guy to prove something to you anyway uh but and I could always say no I don't I don't I don't believe you what I don't understand right so uh so it's it's the complexity and and you've said this before in class and I think Eric's mentioned it the overall complexity of this algorithm is Theta n log n okay and where does that come from how do you prove that and so what we'll do now is"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_055",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 1925.0,
+    "end_time": 1970.0,
+    "text": "this algorithm is Theta n log n okay and where does that come from how do you prove that and so what we'll do now is take a look at merge sord and we'll look at a recursion tree and we'll try and there many ways of proving that merge sort is Theta and log n uh the way we're going to do this is uh what's called you know proof by picture um and it's not established proof technique uh but it's something that uh uh is very helpful to get an intuition behind behind the proof and why the result is true right so and you can always take that and you can formalize it and make this U make this something that uh everyone"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_056",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 1960.0,
+    "end_time": 2005.0,
+    "text": "and why the result is true right so and you can always take that and you can formalize it and make this U make this something that uh everyone believes and you can we'll also look at uh substitution possibly in section tomorrow for recurrent solving so where we at right now is that we have a divid and concer algorithm that has a merge step that is Theta n and so if I just look at this structure that I have here I can write a recurrence for merge short that looks complexity I can say t of n which is the"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_057",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 1995.0,
+    "end_time": 2040.0,
+    "text": "recurrence for merge short that looks complexity I can say t of n which is the work done for n items is going to be some constant time in order to divide the array so this could be the part corresponding to dividing the array and there's going to be two problems of size n /2 and so I have 2 T part and I'm going to have C * n which is the merg part okay and that's some constant times n which is um what uh we have here with respect to the"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_058",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 2030.0,
+    "end_time": 2075.0,
+    "text": "part and I'm going to have C * n which is the merg part okay and that's some constant times n which is um what uh we have here with respect to the Theta n complexity so you have a recurrence like this and and I know you've some of you have seen recurrences in 6042 and you know how to solve this what I like to do is show you this recursion tree expansion that not only tells you how to solve this recurrence but also gives you a a means of solving recurrences where instead of having C of n you have something else out here you have F ofn which is a different function from the linear function and this recursion tree"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_059",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 2065.0,
+    "end_time": 2110.0,
+    "text": "something else out here you have F ofn which is a different function from the linear function and this recursion tree is in my mind the the simplest way of arguing the Theta n log n complexity of merge sord right so what I want to do is expand this recurrence out and let's do so I have C of n on"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_060",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 2100.0,
+    "end_time": 2145.0,
+    "text": "so I have C of n on top um I'm going to ignore uh this constant Factor because C ofn dominates so I just start with c ofn i I want to break things up as I do the recursion so when I go C of n at the top level that's the work I have to do at the merg at the top level and then when I go down to two smaller problems each of them is size n /2 so I do CF C * n excuse me divided by two work so this is just a constant c um it just represents I don't want to write"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_061",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 2135.0,
+    "end_time": 2180.0,
+    "text": "do CF C * n excuse me divided by two work so this is just a constant c um it just represents I don't want to write thetas up here you could um and I'll say a little bit more about that later but but think of this CN as representing the Theta n complexity and C is this constant so C of C * n here C * n /2 here and then when I keep going I have C of C * n over 4 C * n over 4 Etc and so on and so forth and when I come down all the way here n is eventually going to become one or essentially a constant and I'm"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_062",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 2170.0,
+    "end_time": 2215.0,
+    "text": "come down all the way here n is eventually going to become one or essentially a constant and I'm going to have a bunch of C's here all right so here's another question that I'd like you to answer someone tell me what the number of levels in this tree are precisely and the number of leaves in this tree are precisely yeah log n+ 1 log to the base 2 + 1 yeah leaves yeah you want you raise your hand back there first number of leaves think"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_063",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 2205.0,
+    "end_time": 2250.0,
+    "text": "leaves yeah you want you raise your hand back there first number of leaves think yeah you're right you think right okay so 1 + log n and n leaves all right then n n becomes one you know how many of them do you have you're down to a a single element which is uh by definition sorted and uh you have end leaves right so now let's add up the work right so this is I really like this uh picture because it's just so in intuitive in terms of getting us the result that we're looking for right so you add up the work in each of the each of of the levels of this tree all"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_064",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 2240.0,
+    "end_time": 2285.0,
+    "text": "like this uh picture because it's just so in intuitive in terms of getting us the result that we're looking for right so you add up the work in each of the each of of the levels of this tree all right so the top level is CN the second level is CN because I added half and half CN CN wow what symmetry okay so you're doing the same amount of work modu of you know the constant factors here with uh with what's going on with the C1 which we've ignored but roughly the same amount of work in each of the levels right and now you know how many levels there are it's uh 1+ log n"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_065",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 2275.0,
+    "end_time": 2320.0,
+    "text": "on with the C1 which we've ignored but roughly the same amount of work in each of the levels right and now you know how many levels there are it's uh 1+ log n so if you want to write an equation for T of n it's you know 1 + log n times C of n which is Theta of n log n all right so I've fxed in constant C and thetas they're for the purposes of this description they're interchangeable you will see recurrences that look like"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_066",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 2310.0,
+    "end_time": 2355.0,
+    "text": "and thetas they're for the purposes of this description they're interchangeable you will see recurrences that look like class and things like that um don't get confused um it's just a constant multiplicative factor in front of the function that you have and it's just a little easier I think to write down these constant factors factors and realize that the amount of work done is the same in each of the leaves and once you know the dimensions of this tree in terms of levels and in terms of the number of leaves you get your you get your result all"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_067",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 2345.0,
+    "end_time": 2390.0,
+    "text": "you know the dimensions of this tree in terms of levels and in terms of the number of leaves you get your you get your result all right so we've looked at two algorithms far and insertion sort if you talk about numbers is Theta n Square for swaps merge sort is Theta n log n um here's another interesting question what is one"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_068",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 2380.0,
+    "end_time": 2425.0,
+    "text": "another interesting question what is one mean that's exactly right that's exactly right um so the the two guys who answered the questions before with the levels and you come out come to me after class uh so that's a great answer uh it's in place sorting is something that has to do with auxiliary space and so what you see here and it was a bit bit hidden here but the fact of the matter"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_069",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 2415.0,
+    "end_time": 2460.0,
+    "text": "has to do with auxiliary space and so what you see here and it was a bit bit hidden here but the fact of the matter is that uh you had LP Prime and R Prime and L Prime and RP Prime are different from L and R which were the initial halves of the inputs to the Sorting algorithm right and what I said here is we're going to dump this into a that's what this picture shows this says sorted array a and so you had to make a copy of the array in the two halves L and R in order to do the recursion and then to take the results and put them into the sorted array a so you need needed in merge sort"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_070",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 2450.0,
+    "end_time": 2495.0,
+    "text": "array in the two halves L and R in order to do the recursion and then to take the results and put them into the sorted array a so you need needed in merge sort you needed Theta n auxiliary space so merge sort you need Theta n extra space and the definition of in sorting implies that you have Theta one constant auxilary space okay the auxiliary space for insertion sord is simply that you know temporary variable uh that you need when you swap two elements right so when you want to"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_071",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 2485.0,
+    "end_time": 2530.0,
+    "text": "okay the auxiliary space for insertion sord is simply that you know temporary variable uh that you need when you swap two elements right so when you want to swap a couple of resistors you got to store one of the values in a temporary location override the other Etc and that's the Theta 1 auxiliary space for insertion sort so there is an advantage of the version of insertion sort we've talked about today over merge sort and if you have a billion elements you know that's potentially something you don't want to store in memory if you want to do something really fast and store do everything everything in in cash or main memory and you want to sort billions or maybe even trillions of items this becomes an an important consideration um I will say that um you"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_072",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 2520.0,
+    "end_time": 2565.0,
+    "text": "memory and you want to sort billions or maybe even trillions of items this becomes an an important consideration um I will say that um you can uh reduce the constant factor of the Theta n so in the vanilla scheme you could imagine that you have to have a copy of the array so if you had n elements you essentially have n extra uh items of storage you can make that n / two with a simple coding trick by keeping 1 half of a uh the you can sort of throw away one of the L's or one of the RS and you can get it down to n/2 and that turns out it's a reasonable thing to do if you have a billion elements and you want to reduce your"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_073",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 2555.0,
+    "end_time": 2600.0,
+    "text": "the RS and you can get it down to n/2 and that turns out it's a reasonable thing to do if you have a billion elements and you want to reduce your your storage by a constant Factor so that's one coding trick now it turns out that you can actually go further and there's a fairly sophisticated algorithm that sort of beyond the scope of 66 and this in place merge sort is kind of Impractical uh in the sense that um it doesn't do very well in terms of the constant Factor so while it's in place and it's still Theta n log n uh the problem is that the uh that the running"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_074",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 2590.0,
+    "end_time": 2635.0,
+    "text": "constant Factor so while it's in place and it's still Theta n log n uh the problem is that the uh that the running time of an inplace merge sord is much worse than the regular merge sort that uses Theta n auxiliary space so people don't really use in place mer it's a great paper it's it's it's a great thing to read um it's a analysis uh uh is is a bit sophisticated or for6 so we won't we won't go there but it does exist so you can take merge sword and I just want to let you know that you can do things in place um in terms of numbers some experiments uh we ran uh a few years ago so these may not be"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_075",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 2625.0,
+    "end_time": 2670.0,
+    "text": "place um in terms of numbers some experiments uh we ran uh a few years ago so these may not be completely valid because I'm going to actually give you numbers but merge s in Python if you if you write um a little curvefit program to do this is 2.2 n log n micros seconds okay for a given n right so this is the merge start routine uh let me and if you look at a insertion sort"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_076",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 2660.0,
+    "end_time": 2705.0,
+    "text": "routine uh let me and if you look at a insertion sort that's something like 0 2 N sare microc okay so you see the the constant factors here if you do insertion sord in C which is a compiled language then I it's it's much faster it's about um 20 times faster it's 01 n² microsc okay so a little bit of practice on the side we do ask you to write code and this is important the reason we're interested in"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_077",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 2695.0,
+    "end_time": 2740.0,
+    "text": "faster it's 01 n² microsc okay so a little bit of practice on the side we do ask you to write code and this is important the reason we're interested in algorithms is because people want to run them and what you can see um is that you can actually um find an N so regardless of whether your python or C this sort of tells you that asmic complexity is is pretty important because once n gets Beyond about uh 4,000 uh you're going to see that mer merge s in Python you know beats insertion sort in C right so so the constant factors get uh subsumed Beyond certain values of n so that's why asmic complexity is is"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_078",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 2730.0,
+    "end_time": 2775.0,
+    "text": "beats insertion sort in C right so so the constant factors get uh subsumed Beyond certain values of n so that's why asmic complexity is is important and you do have a factor of 20 here but that doesn't really help you in terms of keeping an nsquare algorithm competitive it stays competitive for a little bit longer but then falls behind all right okay so that's what I wanted to cover for sorting so hopefully you have a sense of what happens with these two sorting algorithms we'll look at a very different sorting algorithm next time using heaps which is a different data structure um the last thing I want to do in the couple of minutes I have left is give you a little more intuition as to"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_079",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 2765.0,
+    "end_time": 2810.0,
+    "text": "different sorting algorithm next time using heaps which is a different data structure um the last thing I want to do in the couple of minutes I have left is give you a little more intuition as to recurrence solving based on this diagram that I wrote up there and so we're going to use exactly this structure and we're going to look at a couple of different recurrences that I won't really motivate in terms of having a specific algorithm but um I'll just write out the recurrence and um we'll look at the we'll look at the recursion tree for that and I'll I'll try and tease out of you the complexity associated with these recurrences or the"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_080",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 2800.0,
+    "end_time": 2845.0,
+    "text": "and tease out of you the complexity associated with these recurrences or the complexity so let's take a look at T of n equals 2 T of n / 2 2 plus C n² Okay C * n let me just call that CN no need for the brackets so constant C * n s so if you had a crummy merge routine and it was taking n square and you coded it up wrong you know that would be uh it's not a great motivation for this recurrence but it's it is way this recurrence could"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_081",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 2835.0,
+    "end_time": 2880.0,
+    "text": "taking n square and you coded it up wrong you know that would be uh it's not a great motivation for this recurrence but it's it is way this recurrence could have come up all right so what does this uh this recursive tree look like well it looks kind of the same obviously you have CN squ you have CN Square ID 4 CN Square divid 4 CN squ ID 16 four times looking a little bit different from the other one um the levels and the leaves are exactly the same eventually n is going to go down to one so you will see C all the way here and you're going"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_082",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 2870.0,
+    "end_time": 2915.0,
+    "text": "is going to go down to one so you will see C all the way here and you're going and you will have you know as before 1 plus log n levels everything is the same right and this is why I like this recursive tree formulation so much because now all I have to do is add up the work associated with each of the levels to get the solution to the recurrence right now take a look at what happens here CN s CN s divid by 2 CN 2 / 4 and this is n * C"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_083",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 2905.0,
+    "end_time": 2950.0,
+    "text": "4 and this is n * C right so what does that add up to yeah yeah exactly exactly right so if dominates all of the other things are actually less than that okay and you said bounded by 2 CN Square because this part is bounded by CN s and you already have CN square up at the top right so this particular algor that corresponds to this crummy merge sort or wherever this recurrence came from is a Theta n Square algorithm and in"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_084",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 2940.0,
+    "end_time": 2985.0,
+    "text": "this recurrence came from is a Theta n Square algorithm and in this case all of the work done is at the root at the top level of the recursion okay here there was roughly equal amount of work done in each of the different levels all right here all of the work was done at the root okay and so to close up shop here let me just give you real quick a recurrence where all of the work is done at the leaves just for closure so if I had magically a a merge"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_085",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 2975.0,
+    "end_time": 3020.0,
+    "text": "recurrence where all of the work is done at the leaves just for closure so if I had magically a a merge routine that actually happened in constant time either through you know buggy analysis or because it was buggy uh then what does the tree look like for that and I can think of this as being you know Theta 1 or I can think of this as being just a constant C I'll stick with that so I have c and well I tried to move that up that before and so if I look at what I have"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_086",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 3010.0,
+    "end_time": 3055.0,
+    "text": "c and well I tried to move that up that before and so if I look at what I have here I have C at the top level I have 2 c um and so on and so forth 4 C and then I I go all the way down to NC all right and so what happens here is this recurrence the whole thing runs in Theta n so what the solution to that is Theta n and what you have here is all of the work being done at the leaves all right um we're not going to"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec03_chunk_087",
+    "video_id": "mit_6006f11_lec03",
+    "start_time": 3045.0,
+    "end_time": 3090.0,
+    "text": "n so what the solution to that is Theta n and what you have here is all of the work being done at the leaves all right um we're not going to really cover this this theorem that that gives you a mechanical way of figuring this out because we think the recursive tree is the is a better way of looking at it but you can see that depending on what that function is in terms of the work being done in the merge routine you'd have different versions of recurrences all right I'll stick around and people who answered questions please pick up your cushions"
+  }
+]

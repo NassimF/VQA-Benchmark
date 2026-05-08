@@ -1,0 +1,6926 @@
+{
+  "video_id": "stanford_cs229_lec14",
+  "source": "youtube_auto_captions",
+  "segments": [
+    {
+      "start": 13.23,
+      "end": 24.63,
+      "text": "this presentation is delivered by the"
+    },
+    {
+      "start": 24.63,
+      "end": 28.39,
+      "text": "development"
+    },
+    {
+      "start": 28.39,
+      "end": 31.39,
+      "text": "okay so welcome back and um what I want"
+    },
+    {
+      "start": 31.39,
+      "end": 33.99,
+      "text": "to do today is talk about um is wrap up"
+    },
+    {
+      "start": 33.99,
+      "end": 37.03,
+      "text": "our discussion on factor analysis and in"
+    },
+    {
+      "start": 37.03,
+      "end": 39.75,
+      "text": "particular what I want to do is Step"
+    },
+    {
+      "start": 39.75,
+      "end": 42.35,
+      "text": "through um parts of the derivation for"
+    },
+    {
+      "start": 42.35,
+      "end": 43.63,
+      "text": "em for factor analysis because again"
+    },
+    {
+      "start": 43.63,
+      "end": 45.15,
+      "text": "there there there are few steps in the"
+    },
+    {
+      "start": 45.15,
+      "end": 48.029,
+      "text": "EM derivation they are particularly"
+    },
+    {
+      "start": 48.029,
+      "end": 49.95,
+      "text": "tricky and um that there are specific"
+    },
+    {
+      "start": 49.95,
+      "end": 52.27,
+      "text": "mistakes that people often make on"
+    },
+    {
+      "start": 52.27,
+      "end": 54.709,
+      "text": "deriving em algs algs like factor"
+    },
+    {
+      "start": 54.709,
+      "end": 56.11,
+      "text": "analysis so I want to show you how to do"
+    },
+    {
+      "start": 56.11,
+      "end": 58.83,
+      "text": "those steps right so you can apply the"
+    },
+    {
+      "start": 58.83,
+      "end": 61.028999999999996,
+      "text": "same ideas to other problems as well um"
+    },
+    {
+      "start": 61.028999999999996,
+      "end": 62.509,
+      "text": "and then in the second half or so of"
+    },
+    {
+      "start": 62.509,
+      "end": 65.429,
+      "text": "this lecture I'll talk about principal"
+    },
+    {
+      "start": 65.429,
+      "end": 68.67,
+      "text": "component analysis which is um a very"
+    },
+    {
+      "start": 68.67,
+      "end": 70.51,
+      "text": "powerful algorithm for um dimensionality"
+    },
+    {
+      "start": 70.51,
+      "end": 76.149,
+      "text": "reduction you'll see later what that"
+    },
+    {
+      "start": 76.149,
+      "end": 78.95,
+      "text": "means so just a recap um in the previous"
+    },
+    {
+      "start": 78.95,
+      "end": 83.31,
+      "text": "lecture I described a few properties of"
+    },
+    {
+      "start": 83.31,
+      "end": 86.31,
+      "text": "Gan distributions one was that um if you"
+    },
+    {
+      "start": 86.31,
+      "end": 88.469,
+      "text": "have a random variable a random value"
+    },
+    {
+      "start": 88.469,
+      "end": 90.99,
+      "text": "Vector X that can be partitioned into"
+    },
+    {
+      "start": 90.99,
+      "end": 94.59,
+      "text": "two portions X1 and X2"
+    },
+    {
+      "start": 94.59,
+      "end": 100.63,
+      "text": "um and if x is you know Gan with mean mu"
+    },
+    {
+      "start": 100.63,
+      "end": 102.789,
+      "text": "and covariant sigma where mu is um"
+    },
+    {
+      "start": 102.789,
+      "end": 105.789,
+      "text": "itself a partition"
+    },
+    {
+      "start": 105.789,
+      "end": 113.99000000000001,
+      "text": "vector and"
+    },
+    {
+      "start": 113.99000000000001,
+      "end": 115.59,
+      "text": "um so of a partition Matrix that can be"
+    },
+    {
+      "start": 115.59,
+      "end": 118.22999999999999,
+      "text": "written like that so I'm just writing"
+    },
+    {
+      "start": 118.22999999999999,
+      "end": 120.429,
+      "text": "Sigma in terms of you know the four"
+    },
+    {
+      "start": 120.429,
+      "end": 123.029,
+      "text": "subblocks"
+    },
+    {
+      "start": 123.029,
+      "end": 125.55,
+      "text": "um then you can look at the distribution"
+    },
+    {
+      "start": 125.55,
+      "end": 128.949,
+      "text": "of X and ask what is the marginal"
+    },
+    {
+      "start": 128.949,
+      "end": 131.19,
+      "text": "distribution right of say"
+    },
+    {
+      "start": 131.19,
+      "end": 134.71,
+      "text": "X1 um"
+    },
+    {
+      "start": 134.71,
+      "end": 136.82999999999998,
+      "text": "and the answer excuse me we said last"
+    },
+    {
+      "start": 136.82999999999998,
+      "end": 139.39,
+      "text": "time was that X1 the marginal"
+    },
+    {
+      "start": 139.39,
+      "end": 142.50900000000001,
+      "text": "distribution of X1 is"
+    },
+    {
+      "start": 142.50900000000001,
+      "end": 145.15,
+      "text": "Gan with mean mu and covariant sigma 1"
+    },
+    {
+      "start": 145.15,
+      "end": 147.35,
+      "text": "one where Sigma 1 one is the upper left"
+    },
+    {
+      "start": 147.35,
+      "end": 149.99,
+      "text": "block of that cience Matrix Sigma right"
+    },
+    {
+      "start": 149.99,
+      "end": 151.22899999999998,
+      "text": "so this this one is no surprise and I"
+    },
+    {
+      "start": 151.22899999999998,
+      "end": 154.15,
+      "text": "also wrote down the formula for"
+    },
+    {
+      "start": 154.15,
+      "end": 158.03,
+      "text": "computing conditional"
+    },
+    {
+      "start": 158.03,
+      "end": 159.869,
+      "text": "distributions um such as what is p of"
+    },
+    {
+      "start": 159.869,
+      "end": 162.82999999999998,
+      "text": "X1 given"
+    },
+    {
+      "start": 162.82999999999998,
+      "end": 165.71,
+      "text": "X2 and last time I wrote down that you"
+    },
+    {
+      "start": 165.71,
+      "end": 167.47,
+      "text": "know the distribution of X1 given X2"
+    },
+    {
+      "start": 167.47,
+      "end": 170.869,
+      "text": "would also be"
+    },
+    {
+      "start": 170.869,
+      "end": 173.47,
+      "text": "Gan um with"
+    },
+    {
+      "start": 173.47,
+      "end": 178.75,
+      "text": "parameters that I wrote as Mu of 1 given"
+    },
+    {
+      "start": 178.75,
+      "end": 205.43,
+      "text": "two and sigma of 1 given 2 where um mu"
+    },
+    {
+      "start": 205.43,
+      "end": 209.19,
+      "text": "time okay so with these formulas we'll"
+    },
+    {
+      "start": 209.19,
+      "end": 211.71,
+      "text": "be able to look at um a pair of joint"
+    },
+    {
+      "start": 211.71,
+      "end": 214.22899999999998,
+      "text": "gan random variables X1 and X2 here are"
+    },
+    {
+      "start": 214.22899999999998,
+      "end": 216.589,
+      "text": "both vectors and compute the marginal"
+    },
+    {
+      "start": 216.589,
+      "end": 220.27,
+      "text": "and conditional distributions of the P"
+    },
+    {
+      "start": 220.27,
+      "end": 224.22899999999998,
+      "text": "of X1 or P of X1 given X to um so when I"
+    },
+    {
+      "start": 224.22899999999998,
+      "end": 226.47,
+      "text": "come back and derive the Eep actually"
+    },
+    {
+      "start": 226.47,
+      "end": 228.63,
+      "text": "well I'll come back and use the marginal"
+    },
+    {
+      "start": 228.63,
+      "end": 232.03,
+      "text": "formula in a second and then when I come"
+    },
+    {
+      "start": 232.03,
+      "end": 233.47,
+      "text": "back and derive the Eep in the EM Alm"
+    },
+    {
+      "start": 233.47,
+      "end": 235.50900000000001,
+      "text": "for factor"
+    },
+    {
+      "start": 235.50900000000001,
+      "end": 240.03,
+      "text": "analysis I'll actually be using these"
+    },
+    {
+      "start": 240.03,
+      "end": 240.949,
+      "text": "two formulas again okay um and the again"
+    },
+    {
+      "start": 240.949,
+      "end": 243.55,
+      "text": "just to"
+    },
+    {
+      "start": 243.55,
+      "end": 247.069,
+      "text": "continue um summarizing what we did last"
+    },
+    {
+      "start": 247.069,
+      "end": 249.27,
+      "text": "time we said that you know in factor"
+    },
+    {
+      "start": 249.27,
+      "end": 251.71,
+      "text": "analysis"
+    },
+    {
+      "start": 251.71,
+      "end": 254.309,
+      "text": "um our"
+    },
+    {
+      "start": 254.309,
+      "end": 256.909,
+      "text": "model let's see this is an unsupervised"
+    },
+    {
+      "start": 256.909,
+      "end": 259.59,
+      "text": "learning problem and so we're"
+    },
+    {
+      "start": 259.59,
+      "end": 262.35,
+      "text": "given an unlabeled training"
+    },
+    {
+      "start": 262.35,
+      "end": 268.23,
+      "text": "set right where each"
+    },
+    {
+      "start": 268.23,
+      "end": 272.79,
+      "text": "XI is a vector in RN as usual and"
+    },
+    {
+      "start": 272.79,
+      "end": 276.469,
+      "text": "um we want to to model the density of X"
+    },
+    {
+      "start": 276.469,
+      "end": 278.83,
+      "text": "and um our model for X would be that we"
+    },
+    {
+      "start": 278.83,
+      "end": 281.07,
+      "text": "imagine there a latent random variable Z"
+    },
+    {
+      "start": 281.07,
+      "end": 287.43,
+      "text": "that's generating well this that's just"
+    },
+    {
+      "start": 287.43,
+      "end": 300.31,
+      "text": "variance and Z will be some low"
+    },
+    {
+      "start": 300.31,
+      "end": 303.27,
+      "text": "where and uh we imagine the x is"
+    },
+    {
+      "start": 303.27,
+      "end": 305.55,
+      "text": "generated as Mu plus Lambda Z Plus"
+    },
+    {
+      "start": 305.55,
+      "end": 309.11,
+      "text": "Epsilon where Epsilon is a g random"
+    },
+    {
+      "start": 309.11,
+      "end": 310.67,
+      "text": "variable with mean zero and the coari"
+    },
+    {
+      "start": 310.67,
+      "end": 313.87,
+      "text": "Matrix"
+    },
+    {
+      "start": 313.87,
+      "end": 316.11,
+      "text": "S and so the parameters of this"
+    },
+    {
+      "start": 316.11,
+      "end": 320.11,
+      "text": "model are"
+    },
+    {
+      "start": 320.11,
+      "end": 322.59,
+      "text": "um mu which is an N dimensional"
+    },
+    {
+      "start": 322.59,
+      "end": 326.189,
+      "text": "Vector Lambda which is an N by D"
+    },
+    {
+      "start": 326.189,
+      "end": 327.51,
+      "text": "dimensional Vector Matrix and S which is"
+    },
+    {
+      "start": 327.51,
+      "end": 336.07,
+      "text": "N"
+    },
+    {
+      "start": 336.07,
+      "end": 337.07,
+      "text": "it's a diagonal and it's a diagonal um"
+    },
+    {
+      "start": 337.07,
+      "end": 341.23,
+      "text": "uh"
+    },
+    {
+      "start": 341.23,
+      "end": 343.749,
+      "text": "Matrix so I guess the cartoon I drew"
+    },
+    {
+      "start": 343.749,
+      "end": 349.749,
+      "text": "last time for factor analysis was you"
+    },
+    {
+      "start": 349.749,
+      "end": 353.11,
+      "text": "that maybe that's a typical example of"
+    },
+    {
+      "start": 353.11,
+      "end": 358.15,
+      "text": "data point Z if um and in this example I"
+    },
+    {
+      "start": 358.15,
+      "end": 359.95,
+      "text": "had D equals 1 uh Nal 2 right so so Z in"
+    },
+    {
+      "start": 359.95,
+      "end": 363.95,
+      "text": "this example is onedimensional"
+    },
+    {
+      "start": 363.95,
+      "end": 368.27,
+      "text": "equals 1 and so"
+    },
+    {
+      "start": 368.27,
+      "end": 371.029,
+      "text": "um you take this data map it to say some"
+    },
+    {
+      "start": 371.029,
+      "end": 378.35,
+      "text": "mu plus Lambda Z and that"
+    },
+    {
+      "start": 378.35,
+      "end": 381.189,
+      "text": "some set of points there and lastly this"
+    },
+    {
+      "start": 381.189,
+      "end": 383.07,
+      "text": "model was envisioning that you know you"
+    },
+    {
+      "start": 383.07,
+      "end": 384.27,
+      "text": "place a little gussan bump around each"
+    },
+    {
+      "start": 384.27,
+      "end": 386.79,
+      "text": "of these"
+    },
+    {
+      "start": 386.79,
+      "end": 390.189,
+      "text": "say and"
+    },
+    {
+      "start": 390.189,
+      "end": 397.83,
+      "text": "Sample let's change short colors"
+    },
+    {
+      "start": 397.83,
+      "end": 399.189,
+      "text": "uh the X's are then maybe that's that"
+    },
+    {
+      "start": 399.189,
+      "end": 403.55,
+      "text": "that that would be a typical sample of"
+    },
+    {
+      "start": 403.55,
+      "end": 406.469,
+      "text": "the ex's under this model"
+    },
+    {
+      "start": 406.469,
+      "end": 416.07,
+      "text": "okay"
+    },
+    {
+      "start": 416.07,
+      "end": 416.749,
+      "text": "right so how do we fit the parameters of"
+    },
+    {
+      "start": 416.749,
+      "end": 428.55,
+      "text": "this"
+    },
+    {
+      "start": 428.55,
+      "end": 432.43,
+      "text": "well the joint distribution of um"
+    },
+    {
+      "start": 432.43,
+      "end": 435.23,
+      "text": "znx you know is actually"
+    },
+    {
+      "start": 435.23,
+      "end": 438.189,
+      "text": "Galan with parameters given by some"
+    },
+    {
+      "start": 438.189,
+      "end": 439.35,
+      "text": "Vector I wrote as mux Z and some cience"
+    },
+    {
+      "start": 439.35,
+      "end": 442.629,
+      "text": "Matrix"
+    },
+    {
+      "start": 442.629,
+      "end": 445.469,
+      "text": "Sigma um and if you write out what those"
+    },
+    {
+      "start": 445.469,
+      "end": 449.99,
+      "text": "two things are this Vector mux Z is a"
+    },
+    {
+      "start": 449.99,
+      "end": 452.43,
+      "text": "vector of Zer dependent to the vector mu"
+    },
+    {
+      "start": 452.43,
+      "end": 460.749,
+      "text": "and the Matrix"
+    },
+    {
+      "start": 460.749,
+      "end": 466.629,
+      "text": "Matrix okay we also worked this out last"
+    },
+    {
+      "start": 466.629,
+      "end": 469.909,
+      "text": "um so you can ask what's the"
+    },
+    {
+      "start": 469.909,
+      "end": 474.23,
+      "text": "distribution of X under this model and"
+    },
+    {
+      "start": 474.23,
+      "end": 480.909,
+      "text": "the answer is well under this model X is"
+    },
+    {
+      "start": 480.909,
+      "end": 483.309,
+      "text": "mu and covariance Lambda Lambda"
+    },
+    {
+      "start": 483.309,
+      "end": 486.39,
+      "text": "transvers plus s right so it's just you"
+    },
+    {
+      "start": 486.39,
+      "end": 489.07,
+      "text": "know take the second block of the mean"
+    },
+    {
+      "start": 489.07,
+      "end": 491.99,
+      "text": "vector and take that"
+    },
+    {
+      "start": 491.99,
+      "end": 494.71,
+      "text": "lower um lower right hand corner block"
+    },
+    {
+      "start": 494.71,
+      "end": 497.27,
+      "text": "of the cience Matrix and so this is this"
+    },
+    {
+      "start": 497.27,
+      "end": 499.589,
+      "text": "is really my formula for computing the"
+    },
+    {
+      "start": 499.589,
+      "end": 501.23,
+      "text": "marginal distribution of a gan except"
+    },
+    {
+      "start": 501.23,
+      "end": 502.869,
+      "text": "that I'm Computing the marginal"
+    },
+    {
+      "start": 502.869,
+      "end": 504.43,
+      "text": "distribution of you know the the the"
+    },
+    {
+      "start": 504.43,
+      "end": 506.67,
+      "text": "second half of the vector rather than"
+    },
+    {
+      "start": 506.67,
+      "end": 508.51,
+      "text": "the first half right so this is the"
+    },
+    {
+      "start": 508.51,
+      "end": 511.31,
+      "text": "marginal distribution of X under my"
+    },
+    {
+      "start": 511.31,
+      "end": 515.469,
+      "text": "model"
+    },
+    {
+      "start": 515.469,
+      "end": 517.949,
+      "text": "um and so if you want to learn yeah so"
+    },
+    {
+      "start": 517.949,
+      "end": 523.149,
+      "text": "the initial distribution you had that's"
+    },
+    {
+      "start": 523.149,
+      "end": 525.71,
+      "text": "the uh yeah let's see oh yes you're um"
+    },
+    {
+      "start": 525.71,
+      "end": 527.47,
+      "text": "yes so in this Bo I'm writing down the"
+    },
+    {
+      "start": 527.47,
+      "end": 529.43,
+      "text": "right this this is really um specifying"
+    },
+    {
+      "start": 529.43,
+      "end": 532.07,
+      "text": "the conditional distribution of x given"
+    },
+    {
+      "start": 532.07,
+      "end": 534.15,
+      "text": "Z right so um the conditional"
+    },
+    {
+      "start": 534.15,
+      "end": 538.43,
+      "text": "distribution of x given"
+    },
+    {
+      "start": 538.43,
+      "end": 541.509,
+      "text": "Z this is gussian would mean"
+    },
+    {
+      "start": 541.509,
+      "end": 544.43,
+      "text": "um mu plus Lambda"
+    },
+    {
+      "start": 544.43,
+      "end": 550.91,
+      "text": "Z and covariant S so this is what that"
+    },
+    {
+      "start": 550.91,
+      "end": 557.509,
+      "text": "specifying right um yeah"
+    },
+    {
+      "start": 557.509,
+      "end": 559.47,
+      "text": "so"
+    },
+    {
+      "start": 559.47,
+      "end": 562.31,
+      "text": "um since this is the marginal"
+    },
+    {
+      "start": 562.31,
+      "end": 565.47,
+      "text": "distribution of x given my training set"
+    },
+    {
+      "start": 565.47,
+      "end": 567.31,
+      "text": "of M unlabeled examples I can actually"
+    },
+    {
+      "start": 567.31,
+      "end": 569.43,
+      "text": "write down the log likelihood of my"
+    },
+    {
+      "start": 569.43,
+      "end": 571.99,
+      "text": "training set right so you know the log"
+    },
+    {
+      "start": 571.99,
+      "end": 573.03,
+      "text": "likelihood of my training set um"
+    },
+    {
+      "start": 573.03,
+      "end": 575.59,
+      "text": "actually let me just write down the"
+    },
+    {
+      "start": 575.59,
+      "end": 577.11,
+      "text": "likelihood right so the likelihood of my"
+    },
+    {
+      "start": 577.11,
+      "end": 579.47,
+      "text": "excuse me the likelihood of my"
+    },
+    {
+      "start": 579.47,
+      "end": 582.67,
+      "text": "parameters given my training set is the"
+    },
+    {
+      "start": 582.67,
+      "end": 594.389,
+      "text": "product from IAL 1 to M of P of x i you"
+    },
+    {
+      "start": 594.389,
+      "end": 597.509,
+      "text": "um I can actually write down what that"
+    },
+    {
+      "start": 597.509,
+      "end": 599.949,
+      "text": "is because XI is Gan with parameter mu"
+    },
+    {
+      "start": 599.949,
+      "end": 602.11,
+      "text": "and variance LDA LDA transpose"
+    },
+    {
+      "start": 602.11,
+      "end": 604.11,
+      "text": "Time s so you can just write this down"
+    },
+    {
+      "start": 604.11,
+      "end": 613.03,
+      "text": "as you know 1"
+    },
+    {
+      "start": 613.03,
+      "end": 636.31,
+      "text": "of right and then"
+    },
+    {
+      "start": 636.31,
+      "end": 639.069,
+      "text": "right so that's my"
+    },
+    {
+      "start": 639.069,
+      "end": 643.35,
+      "text": "formula for the density of a gan that"
+    },
+    {
+      "start": 643.35,
+      "end": 645.75,
+      "text": "has mean mu and Co Varian Lambda Lambda"
+    },
+    {
+      "start": 645.75,
+      "end": 648.629,
+      "text": "transpose plus I"
+    },
+    {
+      "start": 648.629,
+      "end": 651.47,
+      "text": "okay so this is my likelihood of the"
+    },
+    {
+      "start": 651.47,
+      "end": 653.269,
+      "text": "parameters given a training set and one"
+    },
+    {
+      "start": 653.269,
+      "end": 655.59,
+      "text": "thing you could do is actually take this"
+    },
+    {
+      "start": 655.59,
+      "end": 657.59,
+      "text": "likelihood and try to maximize it in"
+    },
+    {
+      "start": 657.59,
+      "end": 660.11,
+      "text": "terms of the parameters try to find the"
+    },
+    {
+      "start": 660.11,
+      "end": 662.87,
+      "text": "maximum likelihood estim of parameters"
+    },
+    {
+      "start": 662.87,
+      "end": 665.43,
+      "text": "um but if you do that you find that if"
+    },
+    {
+      "start": 665.43,
+      "end": 668.19,
+      "text": "you try you know take log to get the log"
+    },
+    {
+      "start": 668.19,
+      "end": 670.629,
+      "text": "like here take der set D equal to zero"
+    },
+    {
+      "start": 670.629,
+      "end": 673.269,
+      "text": "you find that you'll be unable to solve"
+    },
+    {
+      "start": 673.269,
+      "end": 676.03,
+      "text": "for the maximum of this um"
+    },
+    {
+      "start": 676.03,
+      "end": 677.31,
+      "text": "analytically right and so so if you you"
+    },
+    {
+      "start": 677.31,
+      "end": 679.43,
+      "text": "won't be able to solve this maximum"
+    },
+    {
+      "start": 679.43,
+      "end": 681.67,
+      "text": "likely estimation problem if you take"
+    },
+    {
+      "start": 681.67,
+      "end": 683.99,
+      "text": "the derivative of this respect to the"
+    },
+    {
+      "start": 683.99,
+      "end": 686.43,
+      "text": "parameters set the derivators equals to"
+    },
+    {
+      "start": 686.43,
+      "end": 688.629,
+      "text": "zero and try to solve for the value of"
+    },
+    {
+      "start": 688.629,
+      "end": 690.31,
+      "text": "the parameters Lambda mu and S that"
+    },
+    {
+      "start": 690.31,
+      "end": 692.069,
+      "text": "maximizes you so if you won't be able to"
+    },
+    {
+      "start": 692.069,
+      "end": 694.87,
+      "text": "do that go and try to"
+    },
+    {
+      "start": 694.87,
+      "end": 697.71,
+      "text": "join so what we'll do what what we'll"
+    },
+    {
+      "start": 697.71,
+      "end": 699.59,
+      "text": "use instead um to estimate the"
+    },
+    {
+      "start": 699.59,
+      "end": 710.47,
+      "text": "parameters in our factor analysis model"
+    },
+    {
+      "start": 710.47,
+      "end": 720.03,
+      "text": "Al yeah why is the log"
+    },
+    {
+      "start": 720.03,
+      "end": 721.829,
+      "text": "not oh right okay so question is why why"
+    },
+    {
+      "start": 721.829,
+      "end": 725.949,
+      "text": "why is the likelihood p ofx and not P"
+    },
+    {
+      "start": 725.949,
+      "end": 730.35,
+      "text": "ofx given Z or p ofx and Z so the answer"
+    },
+    {
+      "start": 730.35,
+      "end": 732.31,
+      "text": "is let's see we're in an um so by"
+    },
+    {
+      "start": 732.31,
+      "end": 735.71,
+      "text": "analogy to the mixture of Gan"
+    },
+    {
+      "start": 735.71,
+      "end": 739.03,
+      "text": "distributions models um you know we're"
+    },
+    {
+      "start": 739.03,
+      "end": 740.55,
+      "text": "given a training set that just"
+    },
+    {
+      "start": 740.55,
+      "end": 743.949,
+      "text": "comprises"
+    },
+    {
+      "start": 743.949,
+      "end": 745.069,
+      "text": "um an unlabeled training a set of unlb"
+    },
+    {
+      "start": 745.069,
+      "end": 747.31,
+      "text": "training"
+    },
+    {
+      "start": 747.31,
+      "end": 750.31,
+      "text": "examples but you know for convenience"
+    },
+    {
+      "start": 750.31,
+      "end": 752.99,
+      "text": "for whatever reason um"
+    },
+    {
+      "start": 752.99,
+      "end": 754.949,
+      "text": "it's easier for me to write down a model"
+    },
+    {
+      "start": 754.949,
+      "end": 759.15,
+      "text": "that defines the joint Distribution on P"
+    },
+    {
+      "start": 759.15,
+      "end": 763.11,
+      "text": "of X comma Z but um what I would like to"
+    },
+    {
+      "start": 763.11,
+      "end": 764.75,
+      "text": "do is really maximize you know as a"
+    },
+    {
+      "start": 764.75,
+      "end": 766.31,
+      "text": "function of my parameters I'm using"
+    },
+    {
+      "start": 766.31,
+      "end": 768.15,
+      "text": "Theta as a Shand to do all the"
+    },
+    {
+      "start": 768.15,
+      "end": 771.269,
+      "text": "parameters of the model I want to"
+    },
+    {
+      "start": 771.269,
+      "end": 774.15,
+      "text": "maximize the"
+    },
+    {
+      "start": 774.15,
+      "end": 776.629,
+      "text": "probability of the data I actually"
+    },
+    {
+      "start": 776.629,
+      "end": 780.11,
+      "text": "observed and this would"
+    },
+    {
+      "start": 780.11,
+      "end": 782.87,
+      "text": "be actually Max over Theta"
+    },
+    {
+      "start": 782.87,
+      "end": 796.069,
+      "text": "product from I = 1 to M and this is"
+    },
+    {
+      "start": 796.069,
+      "end": 798.47,
+      "text": "Z okay so I only ever get to observe x's"
+    },
+    {
+      "start": 798.47,
+      "end": 802.629,
+      "text": "and the z's are latent random variables"
+    },
+    {
+      "start": 802.629,
+      "end": 804.99,
+      "text": "or hidden random variables and so"
+    },
+    {
+      "start": 804.99,
+      "end": 807.389,
+      "text": "um what I like to do is do this"
+    },
+    {
+      "start": 807.389,
+      "end": 810.79,
+      "text": "maximization in which I've implicitly"
+    },
+    {
+      "start": 810.79,
+      "end": 812.35,
+      "text": "integrated out Z does that make sense"
+    },
+    {
+      "start": 812.35,
+      "end": 815.31,
+      "text": "okay"
+    },
+    {
+      "start": 815.31,
+      "end": 829.829,
+      "text": "cool um are there other questions about"
+    },
+    {
+      "start": 829.829,
+      "end": 857.11,
+      "text": "so okay"
+    },
+    {
+      "start": 857.11,
+      "end": 859.269,
+      "text": "um right in the East step we compute the"
+    },
+    {
+      "start": 859.269,
+      "end": 861.829,
+      "text": "um you know conditional distribution of"
+    },
+    {
+      "start": 861.829,
+      "end": 862.71,
+      "text": "Z given XI and our current setting of"
+    },
+    {
+      "start": 862.71,
+      "end": 866.23,
+      "text": "The"
+    },
+    {
+      "start": 866.23,
+      "end": 903.35,
+      "text": "parameters and then the M"
+    },
+    {
+      "start": 903.35,
+      "end": 905.509,
+      "text": "and in the mend step we perform this"
+    },
+    {
+      "start": 905.509,
+      "end": 907.35,
+      "text": "maximization um and if this looks a"
+    },
+    {
+      "start": 907.35,
+      "end": 909.79,
+      "text": "little bit different from the previous"
+    },
+    {
+      "start": 909.79,
+      "end": 911.629,
+      "text": "versions of em that you've seen the only"
+    },
+    {
+      "start": 911.629,
+      "end": 915.59,
+      "text": "difference is that now I'm integrating"
+    },
+    {
+      "start": 915.59,
+      "end": 917.03,
+      "text": "over z uh because Z is is now is is now"
+    },
+    {
+      "start": 917.03,
+      "end": 918.71,
+      "text": "gy random variable it's now this"
+    },
+    {
+      "start": 918.71,
+      "end": 921.79,
+      "text": "continuous value thing so rather than"
+    },
+    {
+      "start": 921.79,
+      "end": 923.67,
+      "text": "summing over zi Now integrate over zi um"
+    },
+    {
+      "start": 923.67,
+      "end": 925.949,
+      "text": "and if you replace this integr over sum"
+    },
+    {
+      "start": 925.949,
+      "end": 928.15,
+      "text": "you give a dzi then this is exactly the"
+    },
+    {
+      "start": 928.15,
+      "end": 930.11,
+      "text": "M step you saw when we worked it out for"
+    },
+    {
+      "start": 930.11,
+      "end": 932.99,
+      "text": "the mixture of gum small than the other"
+    },
+    {
+      "start": 932.99,
+      "end": 935.59,
+      "text": "models so it turns out that"
+    },
+    {
+      "start": 935.59,
+      "end": 937.11,
+      "text": "um in order to implement the E step and"
+    },
+    {
+      "start": 937.11,
+      "end": 938.99,
+      "text": "the M step there are just two little"
+    },
+    {
+      "start": 938.99,
+      "end": 940.15,
+      "text": "things actually there actually three key"
+    },
+    {
+      "start": 940.15,
+      "end": 941.99,
+      "text": "things that are different from the"
+    },
+    {
+      "start": 941.99,
+      "end": 945.629,
+      "text": "models that you saw previously want to"
+    },
+    {
+      "start": 945.629,
+      "end": 947.189,
+      "text": "talk about them um the first one is that"
+    },
+    {
+      "start": 947.189,
+      "end": 950.91,
+      "text": "uh the first of the three is maybe the"
+    },
+    {
+      "start": 950.91,
+      "end": 952.55,
+      "text": "simplest which is that in the Eep um Z"
+    },
+    {
+      "start": 952.55,
+      "end": 956.11,
+      "text": "is now a continuous value random"
+    },
+    {
+      "start": 956.11,
+      "end": 957.949,
+      "text": "variable and so um you know to you now"
+    },
+    {
+      "start": 957.949,
+      "end": 959.79,
+      "text": "need a way to represent these continuous"
+    },
+    {
+      "start": 959.79,
+      "end": 964.38,
+      "text": "value densities probabbly density"
+    },
+    {
+      "start": 964.38,
+      "end": 968.55,
+      "text": "functions to represent Qi of z um"
+    },
+    {
+      "start": 968.55,
+      "end": 974.03,
+      "text": "[Applause]"
+    },
+    {
+      "start": 974.03,
+      "end": 975.59,
+      "text": "so fortunately um in this problem is not"
+    },
+    {
+      "start": 975.59,
+      "end": 982.79,
+      "text": "difficult to"
+    },
+    {
+      "start": 982.79,
+      "end": 985.949,
+      "text": "particular right um the conditional"
+    },
+    {
+      "start": 985.949,
+      "end": 988.069,
+      "text": "distribution of Z given XI and and our"
+    },
+    {
+      "start": 988.069,
+      "end": 989.949,
+      "text": "parameters which I'm going to open it"
+    },
+    {
+      "start": 989.949,
+      "end": 997.67,
+      "text": "from this equation"
+    },
+    {
+      "start": 997.67,
+      "end": 999.87,
+      "text": "be um Galan with mean and Co variance"
+    },
+    {
+      "start": 999.87,
+      "end": 1001.389,
+      "text": "given by you know these two things I"
+    },
+    {
+      "start": 1001.389,
+      "end": 1009.35,
+      "text": "write like"
+    },
+    {
+      "start": 1009.35,
+      "end": 1023.03,
+      "text": "where this is going to be equal to the"
+    },
+    {
+      "start": 1023.03,
+      "end": 1027.27,
+      "text": "okay and um the way I got this formula"
+    },
+    {
+      "start": 1027.27,
+      "end": 1029.309,
+      "text": "was um if you if you match this to the"
+    },
+    {
+      "start": 1029.309,
+      "end": 1031.189,
+      "text": "formula I had previously for computing"
+    },
+    {
+      "start": 1031.189,
+      "end": 1032.949,
+      "text": "conditional distributions of gaussians"
+    },
+    {
+      "start": 1032.949,
+      "end": 1037.87,
+      "text": "you know this corresponded to the terms"
+    },
+    {
+      "start": 1037.87,
+      "end": 1039.59,
+      "text": "mu1 minus Sigma 1 2 Sigma 22 inverse *"
+    },
+    {
+      "start": 1039.59,
+      "end": 1041.63,
+      "text": "X2 -"
+    },
+    {
+      "start": 1041.63,
+      "end": 1043.27,
+      "text": "mu okay so those are the terms"
+    },
+    {
+      "start": 1043.27,
+      "end": 1045.51,
+      "text": "corresponding to the formula I had"
+    },
+    {
+      "start": 1045.51,
+      "end": 1047.59,
+      "text": "previously for computing the marginal"
+    },
+    {
+      "start": 1047.59,
+      "end": 1070.63,
+      "text": "distributions of a"
+    },
+    {
+      "start": 1070.63,
+      "end": 1074.19,
+      "text": "again those are the terms corresponding"
+    },
+    {
+      "start": 1074.19,
+      "end": 1075.75,
+      "text": "to the formulas I had for the um uh the"
+    },
+    {
+      "start": 1075.75,
+      "end": 1077.35,
+      "text": "the the very first thing I did the the"
+    },
+    {
+      "start": 1077.35,
+      "end": 1081.27,
+      "text": "the formulas for computing conditional"
+    },
+    {
+      "start": 1081.27,
+      "end": 1084.31,
+      "text": "distributions of gines okay um and so"
+    },
+    {
+      "start": 1084.31,
+      "end": 1087.149,
+      "text": "this is Eep you need to compute the Q"
+    },
+    {
+      "start": 1087.149,
+      "end": 1091.669,
+      "text": "distribution you need to compute excuse"
+    },
+    {
+      "start": 1091.669,
+      "end": 1093.43,
+      "text": "me Qi of Z and to do that what you"
+    },
+    {
+      "start": 1093.43,
+      "end": 1096.11,
+      "text": "actually do is you compute this Vector"
+    },
+    {
+      "start": 1096.11,
+      "end": 1099.19,
+      "text": "mu of zi given XI and sigma of Z given x"
+    },
+    {
+      "start": 1099.19,
+      "end": 1101.75,
+      "text": "i um and together these represent the"
+    },
+    {
+      "start": 1101.75,
+      "end": 1104.39,
+      "text": "mean and Co variance of the distribution"
+    },
+    {
+      "start": 1104.39,
+      "end": 1106.43,
+      "text": "Q where Q is going to be gum so that's"
+    },
+    {
+      "start": 1106.43,
+      "end": 1109.42,
+      "text": "the"
+    },
+    {
+      "start": 1109.42,
+      "end": 1117.59,
+      "text": "Eep um"
+    },
+    {
+      "start": 1117.59,
+      "end": 1121.95,
+      "text": "now here's the M step"
+    },
+    {
+      "start": 1121.95,
+      "end": 1123.99,
+      "text": "then and um just mention the the there"
+    },
+    {
+      "start": 1123.99,
+      "end": 1125.75,
+      "text": "are so of two ways to do to derive M"
+    },
+    {
+      "start": 1125.75,
+      "end": 1127.71,
+      "text": "steps for for for especially Galaxy"
+    },
+    {
+      "start": 1127.71,
+      "end": 1130.83,
+      "text": "models like these"
+    },
+    {
+      "start": 1130.83,
+      "end": 1134.19,
+      "text": "um and here's the key trick I guess"
+    },
+    {
+      "start": 1134.19,
+      "end": 1136.31,
+      "text": "which is that when you compute the mstep"
+    },
+    {
+      "start": 1136.31,
+      "end": 1139.19,
+      "text": "you often need to compute integrals that"
+    },
+    {
+      "start": 1139.19,
+      "end": 1140.31,
+      "text": "look like these"
+    },
+    {
+      "start": 1140.31,
+      "end": 1143.07,
+      "text": "right and then there'll be some function"
+    },
+    {
+      "start": 1143.07,
+      "end": 1146.75,
+      "text": "of Z let me just write z there for"
+    },
+    {
+      "start": 1146.75,
+      "end": 1148.87,
+      "text": "instance right so there are two ways to"
+    },
+    {
+      "start": 1148.87,
+      "end": 1151.11,
+      "text": "compute integrals like these one is if"
+    },
+    {
+      "start": 1151.11,
+      "end": 1153.99,
+      "text": "you write out this is a common made"
+    },
+    {
+      "start": 1153.99,
+      "end": 1157.19,
+      "text": "mistake in in well not mistake common"
+    },
+    {
+      "start": 1157.19,
+      "end": 1159.35,
+      "text": "made un necessary complication I guess"
+    },
+    {
+      "start": 1159.35,
+      "end": 1161.47,
+      "text": "um one way to try to compute this"
+    },
+    {
+      "start": 1161.47,
+      "end": 1164.23,
+      "text": "integral is you can write this out as"
+    },
+    {
+      "start": 1164.23,
+      "end": 1169.149,
+      "text": "integral of a z and well we know what Qi"
+    },
+    {
+      "start": 1169.149,
+      "end": 1170.35,
+      "text": "is Right Qi is a gan so you know 2 pi so"
+    },
+    {
+      "start": 1170.35,
+      "end": 1174.669,
+      "text": "d/"
+    },
+    {
+      "start": 1174.669,
+      "end": 1177.87,
+      "text": "2 um the co Varian of Qi is this Sigma"
+    },
+    {
+      "start": 1177.87,
+      "end": 1183.149,
+      "text": "given x i right which you've computed in"
+    },
+    {
+      "start": 1183.149,
+      "end": 1189.43,
+      "text": "the Eep and then times e to the minus 12"
+    },
+    {
+      "start": 1189.43,
+      "end": 1205.23,
+      "text": "Z minus uh mu of Z given x i you"
+    },
+    {
+      "start": 1205.23,
+      "end": 1208.149,
+      "text": "so that's my Gan density and then"
+    },
+    {
+      "start": 1208.149,
+      "end": 1214.43,
+      "text": "times"
+    },
+    {
+      "start": 1214.43,
+      "end": 1216.549,
+      "text": "Z dzii okay and so writing the zel is"
+    },
+    {
+      "start": 1216.549,
+      "end": 1217.95,
+      "text": "the unnecessarily complicated way to do"
+    },
+    {
+      "start": 1217.95,
+      "end": 1219.83,
+      "text": "it because once you've written out this"
+    },
+    {
+      "start": 1219.83,
+      "end": 1221.51,
+      "text": "integral if you want to you know"
+    },
+    {
+      "start": 1221.51,
+      "end": 1223.669,
+      "text": "actually integrate that's the times"
+    },
+    {
+      "start": 1223.669,
+      "end": 1224.95,
+      "text": "right it's multiplication you want to if"
+    },
+    {
+      "start": 1224.95,
+      "end": 1226.43,
+      "text": "you actually want to evaluate this"
+    },
+    {
+      "start": 1226.43,
+      "end": 1227.789,
+      "text": "integral it just looks horribly"
+    },
+    {
+      "start": 1227.789,
+      "end": 1229.149,
+      "text": "complicated I'm not quite sure how to"
+    },
+    {
+      "start": 1229.149,
+      "end": 1231.87,
+      "text": "evaluate this"
+    },
+    {
+      "start": 1231.87,
+      "end": 1232.95,
+      "text": "um by far the simpler way to evaluate"
+    },
+    {
+      "start": 1232.95,
+      "end": 1235.71,
+      "text": "this"
+    },
+    {
+      "start": 1235.71,
+      "end": 1239.43,
+      "text": "integral is to recognize that this is"
+    },
+    {
+      "start": 1239.43,
+      "end": 1247.63,
+      "text": "just the expectation with respect to Z"
+    },
+    {
+      "start": 1247.63,
+      "end": 1250.83,
+      "text": "Qi of the random variable"
+    },
+    {
+      "start": 1250.83,
+      "end": 1252.31,
+      "text": "Z and once you write it out this way you"
+    },
+    {
+      "start": 1252.31,
+      "end": 1254.029,
+      "text": "notice that well this is just the"
+    },
+    {
+      "start": 1254.029,
+      "end": 1255.789,
+      "text": "expected value of Z under the"
+    },
+    {
+      "start": 1255.789,
+      "end": 1259.23,
+      "text": "distribution"
+    },
+    {
+      "start": 1259.23,
+      "end": 1261.99,
+      "text": "Qi but Qi is a gan distri distribution"
+    },
+    {
+      "start": 1261.99,
+      "end": 1263.75,
+      "text": "you know with mean given by that mu"
+    },
+    {
+      "start": 1263.75,
+      "end": 1266.23,
+      "text": "vector and coari given by that Sigma"
+    },
+    {
+      "start": 1266.23,
+      "end": 1270.47,
+      "text": "vector and so the expected value of Z"
+    },
+    {
+      "start": 1270.47,
+      "end": 1276.71,
+      "text": "under this distribution is just mu of"
+    },
+    {
+      "start": 1276.71,
+      "end": 1279.31,
+      "text": "Z given XI okay does make sense"
+    },
+    {
+      "start": 1279.31,
+      "end": 1281.669,
+      "text": "so by making this observation that this"
+    },
+    {
+      "start": 1281.669,
+      "end": 1283.63,
+      "text": "is just an expected value this is a much"
+    },
+    {
+      "start": 1283.63,
+      "end": 1286.83,
+      "text": "easier way to compute that"
+    },
+    {
+      "start": 1286.83,
+      "end": 1299.39,
+      "text": "integral um"
+    },
+    {
+      "start": 1299.39,
+      "end": 1301.99,
+      "text": "um"
+    },
+    {
+      "start": 1301.99,
+      "end": 1325.669,
+      "text": "yeah so we'll apply the same idea to the"
+    },
+    {
+      "start": 1325.669,
+      "end": 1328.11,
+      "text": "right there there's also sum over I"
+    },
+    {
+      "start": 1328.11,
+      "end": 1330.43,
+      "text": "there's Al summation over I outside but"
+    },
+    {
+      "start": 1330.43,
+      "end": 1333.47,
+      "text": "this is essentially the term inside the"
+    },
+    {
+      "start": 1333.47,
+      "end": 1336.11,
+      "text": "agmax of the mstep where you know taking"
+    },
+    {
+      "start": 1336.11,
+      "end": 1338.149,
+      "text": "the integral of a z and and just observe"
+    },
+    {
+      "start": 1338.149,
+      "end": 1339.63,
+      "text": "that that's actually that just"
+    },
+    {
+      "start": 1339.63,
+      "end": 1341.35,
+      "text": "corresponds to an"
+    },
+    {
+      "start": 1341.35,
+      "end": 1344.63,
+      "text": "expectation respect to the random"
+    },
+    {
+      "start": 1344.63,
+      "end": 1383.83,
+      "text": "variable Z of the thing"
+    },
+    {
+      "start": 1383.83,
+      "end": 1387.63,
+      "text": "okay"
+    },
+    {
+      "start": 1387.63,
+      "end": 1389.71,
+      "text": "um and it turns out actually all all I"
+    },
+    {
+      "start": 1389.71,
+      "end": 1394.99,
+      "text": "did here was use the fact that you know"
+    },
+    {
+      "start": 1394.99,
+      "end": 1396.909,
+      "text": "P of x given Z * P of Z equals P of X"
+    },
+    {
+      "start": 1396.909,
+      "end": 1399.11,
+      "text": "comma Z right that's just combining this"
+    },
+    {
+      "start": 1399.11,
+      "end": 1401.789,
+      "text": "term and that term gives you the"
+    },
+    {
+      "start": 1401.789,
+      "end": 1404.59,
+      "text": "numerator in the original"
+    },
+    {
+      "start": 1404.59,
+      "end": 1408.07,
+      "text": "um and so it turns out that for factor"
+    },
+    {
+      "start": 1408.07,
+      "end": 1417.269,
+      "text": "analysis um in in in these two terms"
+    },
+    {
+      "start": 1417.269,
+      "end": 1419.39,
+      "text": "parameters um the distribution P of Z"
+    },
+    {
+      "start": 1419.39,
+      "end": 1422.029,
+      "text": "has no parameters because Z was just"
+    },
+    {
+      "start": 1422.029,
+      "end": 1424.99,
+      "text": "drawn from a gan with zero mean and"
+    },
+    {
+      "start": 1424.99,
+      "end": 1426.789,
+      "text": "identity Co variance you know Qi of Z is"
+    },
+    {
+      "start": 1426.789,
+      "end": 1430.43,
+      "text": "this fixed Galan it doesn't depend on a"
+    },
+    {
+      "start": 1430.43,
+      "end": 1432.269,
+      "text": "parameters theeta um and so in the mstep"
+    },
+    {
+      "start": 1432.269,
+      "end": 1435.149,
+      "text": "we really just need to maximize this one"
+    },
+    {
+      "start": 1435.149,
+      "end": 1439.95,
+      "text": "term with respect to our parameters um"
+    },
+    {
+      "start": 1439.95,
+      "end": 1442.669,
+      "text": "mu Lambda and S okay"
+    },
+    {
+      "start": 1442.669,
+      "end": 1450.549,
+      "text": "so"
+    },
+    {
+      "start": 1450.549,
+      "end": 1453.23,
+      "text": "see"
+    },
+    {
+      "start": 1453.23,
+      "end": 1455.95,
+      "text": "yeah there's sort of one more key step I"
+    },
+    {
+      "start": 1455.95,
+      "end": 1458.63,
+      "text": "want to show but to get there I have to"
+    },
+    {
+      "start": 1458.63,
+      "end": 1460.51,
+      "text": "write down sort of an unfortunately"
+    },
+    {
+      "start": 1460.51,
+      "end": 1488.63,
+      "text": "large amount of math but let's let's"
+    },
+    {
+      "start": 1488.63,
+      "end": 1490.43,
+      "text": "maximize um and our our expectations"
+    },
+    {
+      "start": 1490.43,
+      "end": 1492.669,
+      "text": "with with respect to Z drawn from the"
+    },
+    {
+      "start": 1492.669,
+      "end": 1507.789,
+      "text": "distributions Qi and sometimes I'll be"
+    },
+    {
+      "start": 1507.789,
+      "end": 1512.029,
+      "text": "okay and now"
+    },
+    {
+      "start": 1512.029,
+      "end": 1516.19,
+      "text": "um this distribution right P of z p of x"
+    },
+    {
+      "start": 1516.19,
+      "end": 1518.47,
+      "text": "i given Z that is a gan density because"
+    },
+    {
+      "start": 1518.47,
+      "end": 1524.789,
+      "text": "um you know x"
+    },
+    {
+      "start": 1524.789,
+      "end": 1528.549,
+      "text": "i given z um this is Gan with mean given"
+    },
+    {
+      "start": 1528.549,
+      "end": 1531.95,
+      "text": "by right mu plus LDA Z"
+    },
+    {
+      "start": 1531.95,
+      "end": 1533.87,
+      "text": "and covariant S and so um in this step"
+    },
+    {
+      "start": 1533.87,
+      "end": 1536.43,
+      "text": "of the derivation I will actually go"
+    },
+    {
+      "start": 1536.43,
+      "end": 1538.59,
+      "text": "ahead and substitute in the formula for"
+    },
+    {
+      "start": 1538.59,
+      "end": 1540.99,
+      "text": "the gum density so I will go ahead and"
+    },
+    {
+      "start": 1540.99,
+      "end": 1546.71,
+      "text": "take this and you know plug into here 1"
+    },
+    {
+      "start": 1546.71,
+      "end": 1548.95,
+      "text": "over 2 pi to the N / 2 um s inverse e to"
+    },
+    {
+      "start": 1548.95,
+      "end": 1551.83,
+      "text": "the dot dot dot okay so we'll go ahead"
+    },
+    {
+      "start": 1551.83,
+      "end": 1566.99,
+      "text": "and plug the Gin density and when you do"
+    },
+    {
+      "start": 1566.99,
+      "end": 1570.19,
+      "text": "oh excuse me right I forgot to say um to"
+    },
+    {
+      "start": 1570.19,
+      "end": 1572.35,
+      "text": "maintain sort of I don't know to to to"
+    },
+    {
+      "start": 1572.35,
+      "end": 1573.99,
+      "text": "not make the derivation too complicated"
+    },
+    {
+      "start": 1573.99,
+      "end": 1576.029,
+      "text": "I'm actually just going to maximize this"
+    },
+    {
+      "start": 1576.029,
+      "end": 1577.71,
+      "text": "with respect to the parameters Lambda"
+    },
+    {
+      "start": 1577.71,
+      "end": 1579.149,
+      "text": "okay so let me just show how to so you"
+    },
+    {
+      "start": 1579.149,
+      "end": 1581.51,
+      "text": "want to maximize this with respect to"
+    },
+    {
+      "start": 1581.51,
+      "end": 1582.789,
+      "text": "Lambda s and mu but just to keep the"
+    },
+    {
+      "start": 1582.789,
+      "end": 1584.59,
+      "text": "amount of math I'm going to do it in"
+    },
+    {
+      "start": 1584.59,
+      "end": 1586.71,
+      "text": "class s I'm just going to show how to"
+    },
+    {
+      "start": 1586.71,
+      "end": 1589.07,
+      "text": "maximize this with respect to the Matrix"
+    },
+    {
+      "start": 1589.07,
+      "end": 1591.549,
+      "text": "Lambda and I'll pretend that s are fixed"
+    },
+    {
+      "start": 1591.549,
+      "end": 1593.11,
+      "text": "okay and so um if you subtitute in the"
+    },
+    {
+      "start": 1593.11,
+      "end": 1595.11,
+      "text": "Galax density you get some expect"
+    },
+    {
+      "start": 1595.11,
+      "end": 1598.11,
+      "text": "expected value of a constant um the"
+    },
+    {
+      "start": 1598.11,
+      "end": 1621.149,
+      "text": "constant may depend on S but not on"
+    },
+    {
+      "start": 1621.149,
+      "end": 1623.51,
+      "text": "thing okay um and this quadratic term"
+    },
+    {
+      "start": 1623.51,
+      "end": 1626.19,
+      "text": "essentially came from you know the"
+    },
+    {
+      "start": 1626.19,
+      "end": 1627.43,
+      "text": "exponent in your Gan density when I take"
+    },
+    {
+      "start": 1627.43,
+      "end": 1629.269,
+      "text": "log of"
+    },
+    {
+      "start": 1629.269,
+      "end": 1631.549,
+      "text": "exponent then you end up with this"
+    },
+    {
+      "start": 1631.549,
+      "end": 1634.47,
+      "text": "quadratic"
+    },
+    {
+      "start": 1634.47,
+      "end": 1637.51,
+      "text": "term"
+    },
+    {
+      "start": 1637.51,
+      "end": 1663.19,
+      "text": "um and"
+    },
+    {
+      "start": 1663.19,
+      "end": 1665.23,
+      "text": "lomda and you set that to zero right so"
+    },
+    {
+      "start": 1665.23,
+      "end": 1667.23,
+      "text": "um we want to maximize this expression"
+    },
+    {
+      "start": 1667.23,
+      "end": 1668.59,
+      "text": "with respect to the paramet Lambda so"
+    },
+    {
+      "start": 1668.59,
+      "end": 1671.269,
+      "text": "you take the derivative of this with"
+    },
+    {
+      "start": 1671.269,
+      "end": 1673.47,
+      "text": "respect to Lambda oh excuse"
+    },
+    {
+      "start": 1673.47,
+      "end": 1675.71,
+      "text": "me minus"
+    },
+    {
+      "start": 1675.71,
+      "end": 1678.31,
+      "text": "sign in set the derivative of this"
+    },
+    {
+      "start": 1678.31,
+      "end": 1680.63,
+      "text": "expression"
+    },
+    {
+      "start": 1680.63,
+      "end": 1684.43,
+      "text": "um to zero set der is equal to zero to"
+    },
+    {
+      "start": 1684.43,
+      "end": 1687.11,
+      "text": "maximize things right um when you do"
+    },
+    {
+      "start": 1687.11,
+      "end": 1736.47,
+      "text": "that and simplify you end up with the"
+    },
+    {
+      "start": 1736.47,
+      "end": 1738.909,
+      "text": "um okay and so that's the um in the M"
+    },
+    {
+      "start": 1738.909,
+      "end": 1741.07,
+      "text": "step this is the value you get this is a"
+    },
+    {
+      "start": 1741.07,
+      "end": 1743.95,
+      "text": "value you should get"
+    },
+    {
+      "start": 1743.95,
+      "end": 1753.47,
+      "text": "um yeah that that should use update your"
+    },
+    {
+      "start": 1753.47,
+      "end": 1759.59,
+      "text": "expectations um are with respect"
+    },
+    {
+      "start": 1759.59,
+      "end": 1762.95,
+      "text": "to Z drawn from the distributions Qi"
+    },
+    {
+      "start": 1762.95,
+      "end": 1766.19,
+      "text": "right so the very long step of this"
+    },
+    {
+      "start": 1766.19,
+      "end": 1770.31,
+      "text": "derivation is um we need to work"
+    },
+    {
+      "start": 1770.31,
+      "end": 1774.99,
+      "text": "out what these two expect ations are and"
+    },
+    {
+      "start": 1774.99,
+      "end": 1784.43,
+      "text": "so the very first term you know e"
+    },
+    {
+      "start": 1784.43,
+      "end": 1786.509,
+      "text": "Z given XI transpose because because the"
+    },
+    {
+      "start": 1786.509,
+      "end": 1788.029,
+      "text": "QI distribution is has mean given by"
+    },
+    {
+      "start": 1788.029,
+      "end": 1790.75,
+      "text": "this in"
+    },
+    {
+      "start": 1790.75,
+      "end": 1794.509,
+      "text": "right"
+    },
+    {
+      "start": 1794.509,
+      "end": 1797.509,
+      "text": "um to work out the other term"
+    },
+    {
+      "start": 1797.509,
+      "end": 1798.95,
+      "text": "um let me just remind you I guess that"
+    },
+    {
+      "start": 1798.95,
+      "end": 1801.71,
+      "text": "if"
+    },
+    {
+      "start": 1801.71,
+      "end": 1806.31,
+      "text": "um if you have a random variable"
+    },
+    {
+      "start": 1806.31,
+      "end": 1809.83,
+      "text": "Z this Gan with mean mu and coari sigma"
+    },
+    {
+      "start": 1809.83,
+      "end": 1811.71,
+      "text": "then the cience Matrix Sigma is ezz"
+    },
+    {
+      "start": 1811.71,
+      "end": 1821.029,
+      "text": "transpose"
+    },
+    {
+      "start": 1821.029,
+      "end": 1823.509,
+      "text": "transpose that's you know one of the"
+    },
+    {
+      "start": 1823.509,
+      "end": 1826.59,
+      "text": "definitions of the covariance and so"
+    },
+    {
+      "start": 1826.59,
+      "end": 1836.269,
+      "text": "this implies that ezz transpose"
+    },
+    {
+      "start": 1836.269,
+      "end": 1843.59,
+      "text": "e easy"
+    },
+    {
+      "start": 1843.59,
+      "end": 1846.789,
+      "text": "here um"
+    },
+    {
+      "start": 1846.789,
+      "end": 1848.909,
+      "text": "becomes Sigma Z given"
+    },
+    {
+      "start": 1848.909,
+      "end": 1864.389,
+      "text": "mu"
+    },
+    {
+      "start": 1864.389,
+      "end": 1866.149,
+      "text": "[Music]"
+    },
+    {
+      "start": 1866.149,
+      "end": 1869.59,
+      "text": "okay"
+    },
+    {
+      "start": 1869.59,
+      "end": 1871.99,
+      "text": "um and so that's how you compute e of zi"
+    },
+    {
+      "start": 1871.99,
+      "end": 1874.509,
+      "text": "transpose and E of Z zi transpose and"
+    },
+    {
+      "start": 1874.509,
+      "end": 1876.59,
+      "text": "substitute them back into this formula"
+    },
+    {
+      "start": 1876.59,
+      "end": 1880.029,
+      "text": "and you would then have your mstep"
+    },
+    {
+      "start": 1880.029,
+      "end": 1882.95,
+      "text": "update to the parameter Matrix"
+    },
+    {
+      "start": 1882.95,
+      "end": 1884.99,
+      "text": "ler um and the last thing I want to"
+    },
+    {
+      "start": 1884.99,
+      "end": 1886.83,
+      "text": "point out in this derivation is that it"
+    },
+    {
+      "start": 1886.83,
+      "end": 1888.75,
+      "text": "turns out it's probably because of the"
+    },
+    {
+      "start": 1888.75,
+      "end": 1891.87,
+      "text": "name em algorithm expectation"
+    },
+    {
+      "start": 1891.87,
+      "end": 1895.669,
+      "text": "maximization um one common mistake for"
+    },
+    {
+      "start": 1895.669,
+      "end": 1897.909,
+      "text": "the EM algorithm is in the Eep um"
+    },
+    {
+      "start": 1897.909,
+      "end": 1900.75,
+      "text": "someone to take the expectation of the"
+    },
+    {
+      "start": 1900.75,
+      "end": 1902.269,
+      "text": "random variable Z and then in the M step"
+    },
+    {
+      "start": 1902.269,
+      "end": 1903.99,
+      "text": "they just plug in the expected value"
+    },
+    {
+      "start": 1903.99,
+      "end": 1905.83,
+      "text": "everywhere you see it right so in"
+    },
+    {
+      "start": 1905.83,
+      "end": 1908.35,
+      "text": "particular one common mistake in"
+    },
+    {
+      "start": 1908.35,
+      "end": 1910.389,
+      "text": "deriving em for factor analysis is to"
+    },
+    {
+      "start": 1910.389,
+      "end": 1913.029,
+      "text": "look at this and say oh look I see ZZ"
+    },
+    {
+      "start": 1913.029,
+      "end": 1915.35,
+      "text": "trans spells let's just plug in the"
+    },
+    {
+      "start": 1915.35,
+      "end": 1925.389,
+      "text": "expected value under the Q distribution"
+    },
+    {
+      "start": 1925.389,
+      "end": 1928.95,
+      "text": "that right mu of zi given XI * mu of Z"
+    },
+    {
+      "start": 1928.95,
+      "end": 1931.909,
+      "text": "given XI transpose into that expectation"
+    },
+    {
+      "start": 1931.909,
+      "end": 1932.95,
+      "text": "and this is and this is an incorrect D"
+    },
+    {
+      "start": 1932.95,
+      "end": 1935.95,
+      "text": "and that would be an incorrect"
+    },
+    {
+      "start": 1935.95,
+      "end": 1938.19,
+      "text": "derivation of em and because um it's"
+    },
+    {
+      "start": 1938.19,
+      "end": 1941.269,
+      "text": "missing this other term Sigma of Z given"
+    },
+    {
+      "start": 1941.269,
+      "end": 1943.029,
+      "text": "x i okay so so one common misconception"
+    },
+    {
+      "start": 1943.029,
+      "end": 1944.509,
+      "text": "for em is that in the E step you just"
+    },
+    {
+      "start": 1944.509,
+      "end": 1946.509,
+      "text": "compute the expected value of the Hidden"
+    },
+    {
+      "start": 1946.509,
+      "end": 1948.789,
+      "text": "random variable and the M step you plug"
+    },
+    {
+      "start": 1948.789,
+      "end": 1950.59,
+      "text": "in the expected value and it turns out"
+    },
+    {
+      "start": 1950.59,
+      "end": 1952.149,
+      "text": "in some algorithms that turns out to be"
+    },
+    {
+      "start": 1952.149,
+      "end": 1953.83,
+      "text": "the right thing to do in in the mixture"
+    },
+    {
+      "start": 1953.83,
+      "end": 1955.389,
+      "text": "of gaussians and in the mixture of naive"
+    },
+    {
+      "start": 1955.389,
+      "end": 1957.83,
+      "text": "based models that would actually give me"
+    },
+    {
+      "start": 1957.83,
+      "end": 1959.789,
+      "text": "the right answer but in general the EM"
+    },
+    {
+      "start": 1959.789,
+      "end": 1961.149,
+      "text": "Alm is more complicated than just taking"
+    },
+    {
+      "start": 1961.149,
+      "end": 1962.549,
+      "text": "the expected values of the random"
+    },
+    {
+      "start": 1962.549,
+      "end": 1964.43,
+      "text": "variables and then pretending that you"
+    },
+    {
+      "start": 1964.43,
+      "end": 1967.149,
+      "text": "know they were sort of observe that the"
+    },
+    {
+      "start": 1967.149,
+      "end": 1968.549,
+      "text": "expected values okay so I want to go"
+    },
+    {
+      "start": 1968.549,
+      "end": 1969.669,
+      "text": "through this just to illustrate that"
+    },
+    {
+      "start": 1969.669,
+      "end": 1972.99,
+      "text": "step as"
+    },
+    {
+      "start": 1972.99,
+      "end": 1975.07,
+      "text": "well um and so just to summarize the"
+    },
+    {
+      "start": 1975.07,
+      "end": 1977.029,
+      "text": "three you know the three key things to"
+    },
+    {
+      "start": 1977.029,
+      "end": 1979.95,
+      "text": "keep in that that that came up in this"
+    },
+    {
+      "start": 1979.95,
+      "end": 1981.87,
+      "text": "derivation were one for the Eep we had a"
+    },
+    {
+      "start": 1981.87,
+      "end": 1984.71,
+      "text": "continuous gine random variable and so"
+    },
+    {
+      "start": 1984.71,
+      "end": 1986.75,
+      "text": "to compute the Eep we actually compute"
+    },
+    {
+      "start": 1986.75,
+      "end": 1989.95,
+      "text": "the mean and Co variance of the G of the"
+    },
+    {
+      "start": 1989.95,
+      "end": 1993.23,
+      "text": "distribution Qi um the second thing that"
+    },
+    {
+      "start": 1993.23,
+      "end": 1995.59,
+      "text": "came up was um in the mstep when you see"
+    },
+    {
+      "start": 1995.59,
+      "end": 1997.269,
+      "text": "these integrals uh sometimes if you"
+    },
+    {
+      "start": 1997.269,
+      "end": 1998.789,
+      "text": "expect the interpret that as an"
+    },
+    {
+      "start": 1998.789,
+      "end": 2001.549,
+      "text": "expectation then the rest of the math"
+    },
+    {
+      "start": 2001.549,
+      "end": 2005.509,
+      "text": "becomes much easier and the final thing"
+    },
+    {
+      "start": 2005.509,
+      "end": 2007.43,
+      "text": "was again in the mstep um you know the"
+    },
+    {
+      "start": 2007.43,
+      "end": 2009.83,
+      "text": "EM algorith is derived by a certain"
+    },
+    {
+      "start": 2009.83,
+      "end": 2011.509,
+      "text": "maximum ation problem that we Sol is not"
+    },
+    {
+      "start": 2011.509,
+      "end": 2013.149,
+      "text": "necessarily just plugging the expected"
+    },
+    {
+      "start": 2013.149,
+      "end": 2015.269,
+      "text": "value of Z"
+    },
+    {
+      "start": 2015.269,
+      "end": 2018.95,
+      "text": "everywhere"
+    },
+    {
+      "start": 2018.95,
+      "end": 2020.47,
+      "text": "okay um let's see okay feel like you"
+    },
+    {
+      "start": 2020.47,
+      "end": 2023.31,
+      "text": "just did a ton of math and wrote down"
+    },
+    {
+      "start": 2023.31,
+      "end": 2025.07,
+      "text": "way too many equations um and and and"
+    },
+    {
+      "start": 2025.07,
+      "end": 2026.629,
+      "text": "even doing this that was skipping many"
+    },
+    {
+      "start": 2026.629,
+      "end": 2029.43,
+      "text": "steps so you can go to lecture notes to"
+    },
+    {
+      "start": 2029.43,
+      "end": 2031.149,
+      "text": "see you know the deriv all the steps all"
+    },
+    {
+      "start": 2031.149,
+      "end": 2032.59,
+      "text": "the derivations of the steps I skipped"
+    },
+    {
+      "start": 2032.59,
+      "end": 2034.71,
+      "text": "like how you actually take der with"
+    },
+    {
+      "start": 2034.71,
+      "end": 2036.389,
+      "text": "respect to the Matrix lomer um and how"
+    },
+    {
+      "start": 2036.389,
+      "end": 2038.549,
+      "text": "to compute the updates for the other"
+    },
+    {
+      "start": 2038.549,
+      "end": 2040.149,
+      "text": "parameters as well for Mu for size since"
+    },
+    {
+      "start": 2040.149,
+      "end": 2042.11,
+      "text": "this is only for"
+    },
+    {
+      "start": 2042.11,
+      "end": 2046.029,
+      "text": "Lambda"
+    },
+    {
+      "start": 2046.029,
+      "end": 2048.589,
+      "text": "um and so that's the factor analysis"
+    },
+    {
+      "start": 2048.589,
+      "end": 2052.149,
+      "text": "algorithm"
+    },
+    {
+      "start": 2052.149,
+      "end": 2054.43,
+      "text": "um just I was just wondering uh in the"
+    },
+    {
+      "start": 2054.43,
+      "end": 2056.43,
+      "text": "step in the lower right board well you"
+    },
+    {
+      "start": 2056.43,
+      "end": 2058.47,
+      "text": "said that uh I guess the second term"
+    },
+    {
+      "start": 2058.47,
+      "end": 2059.829,
+      "text": "doesn't have any parameters uh that"
+    },
+    {
+      "start": 2059.829,
+      "end": 2062.23,
+      "text": "we're interested in the first term has"
+    },
+    {
+      "start": 2062.23,
+      "end": 2065.389,
+      "text": "all the parameters so we'll just drop"
+    },
+    {
+      "start": 2065.389,
+      "end": 2068.03,
+      "text": "but uh it seems to me that Qi is uh has"
+    },
+    {
+      "start": 2068.03,
+      "end": 2071.75,
+      "text": "a lot of has a lot of parameters um"
+    },
+    {
+      "start": 2071.75,
+      "end": 2073.95,
+      "text": "let's see right um let's see so question"
+    },
+    {
+      "start": 2073.95,
+      "end": 2077.27,
+      "text": "right so you know doesn't the term Qi"
+    },
+    {
+      "start": 2077.27,
+      "end": 2083.31,
+      "text": "have parameters right so"
+    },
+    {
+      "start": 2083.31,
+      "end": 2085.27,
+      "text": "um so in the EM algorithm um Qi is um"
+    },
+    {
+      "start": 2085.27,
+      "end": 2088.389,
+      "text": "actually sends out in the EM algorithm"
+    },
+    {
+      "start": 2088.389,
+      "end": 2091.23,
+      "text": "sometimes P of z may have parameters but"
+    },
+    {
+      "start": 2091.23,
+      "end": 2093.47,
+      "text": "Qi of zi may never have any parameters"
+    },
+    {
+      "start": 2093.47,
+      "end": 2096.149,
+      "text": "um in in the specific case of factor"
+    },
+    {
+      "start": 2096.149,
+      "end": 2098.03,
+      "text": "analysis P of Z doesn't have parameters"
+    },
+    {
+      "start": 2098.03,
+      "end": 2101.19,
+      "text": "um in in in another example and make"
+    },
+    {
+      "start": 2101.19,
+      "end": 2102.99,
+      "text": "sure gan's model say Z was a multinomial"
+    },
+    {
+      "start": 2102.99,
+      "end": 2104.91,
+      "text": "random variable and so in that example"
+    },
+    {
+      "start": 2104.91,
+      "end": 2107.349,
+      "text": "Pi P of Z had some parameters but it"
+    },
+    {
+      "start": 2107.349,
+      "end": 2109.91,
+      "text": "turns out that Q of zi will never have"
+    },
+    {
+      "start": 2109.91,
+      "end": 2112.87,
+      "text": "any parameters and in"
+    },
+    {
+      "start": 2112.87,
+      "end": 2116.67,
+      "text": "particular you know Qi of zi is going to"
+    },
+    {
+      "start": 2116.67,
+      "end": 2119.63,
+      "text": "be um uh is is this Gan distribution"
+    },
+    {
+      "start": 2119.63,
+      "end": 2125.03,
+      "text": "right is you know is Gan with mean given"
+    },
+    {
+      "start": 2125.03,
+      "end": 2131.75,
+      "text": "by mu of Z given XI and coari you know"
+    },
+    {
+      "start": 2131.75,
+      "end": 2135.95,
+      "text": "and so"
+    },
+    {
+      "start": 2135.95,
+      "end": 2138.23,
+      "text": "um it's true that mu and sigma made"
+    },
+    {
+      "start": 2138.23,
+      "end": 2140.589,
+      "text": "themselves have depended on the values"
+    },
+    {
+      "start": 2140.589,
+      "end": 2143.87,
+      "text": "of the parameters I had in the previous"
+    },
+    {
+      "start": 2143.87,
+      "end": 2145.51,
+      "text": "iteration of em but um the way I think"
+    },
+    {
+      "start": 2145.51,
+      "end": 2147.43,
+      "text": "about Q is I'm going to take the"
+    },
+    {
+      "start": 2147.43,
+      "end": 2148.47,
+      "text": "parameters from the previous iteration"
+    },
+    {
+      "start": 2148.47,
+      "end": 2151.67,
+      "text": "of the"
+    },
+    {
+      "start": 2151.67,
+      "end": 2154.39,
+      "text": "algorithm and use that to compute what"
+    },
+    {
+      "start": 2154.39,
+      "end": 2156.03,
+      "text": "Qi of Z is and that's that's that's the"
+    },
+    {
+      "start": 2156.03,
+      "end": 2158.55,
+      "text": "Eep and EM"
+    },
+    {
+      "start": 2158.55,
+      "end": 2161.069,
+      "text": "algorithm and then once I computed what"
+    },
+    {
+      "start": 2161.069,
+      "end": 2163.309,
+      "text": "Qi of Z is then this is a fixed"
+    },
+    {
+      "start": 2163.309,
+      "end": 2166.43,
+      "text": "distribution and I'm going to use these"
+    },
+    {
+      "start": 2166.43,
+      "end": 2169.349,
+      "text": "fixed values for mu and sigma and just"
+    },
+    {
+      "start": 2169.349,
+      "end": 2172.47,
+      "text": "keep these two values fixed as I as I"
+    },
+    {
+      "start": 2172.47,
+      "end": 2174.19,
+      "text": "run the M step see so those okay I guess"
+    },
+    {
+      "start": 2174.19,
+      "end": 2177.349,
+      "text": "I was confused because because in the in"
+    },
+    {
+      "start": 2177.349,
+      "end": 2179.589,
+      "text": "the uh the the second board over there's"
+    },
+    {
+      "start": 2179.589,
+      "end": 2181.63,
+      "text": "a lot of it looks like there parameters"
+    },
+    {
+      "start": 2181.63,
+      "end": 2184.15,
+      "text": "but I guess they're old iterations of"
+    },
+    {
+      "start": 2184.15,
+      "end": 2186.23,
+      "text": "the yeah yes yeah yeah you're right yeah"
+    },
+    {
+      "start": 2186.23,
+      "end": 2188.51,
+      "text": "the the the when I wrote down Qi zi that"
+    },
+    {
+      "start": 2188.51,
+      "end": 2189.91,
+      "text": "was a function of so yeah the parameters"
+    },
+    {
+      "start": 2189.91,
+      "end": 2193.39,
+      "text": "from the previous generation and I want"
+    },
+    {
+      "start": 2193.39,
+      "end": 2205.51,
+      "text": "to compute the new setting of"
+    },
+    {
+      "start": 2205.51,
+      "end": 2209.47,
+      "text": "questions okay"
+    },
+    {
+      "start": 2209.47,
+      "end": 2211.55,
+      "text": "cool um boy so this is probably the most"
+    },
+    {
+      "start": 2211.55,
+      "end": 2213.349,
+      "text": "math I'll ever do in the lecture in this"
+    },
+    {
+      "start": 2213.349,
+      "end": 2219.39,
+      "text": "entire qu there"
+    },
+    {
+      "start": 2219.39,
+      "end": 2225.349,
+      "text": "let's now talk about a different"
+    },
+    {
+      "start": 2225.349,
+      "end": 2227.589,
+      "text": "um actually which board was I"
+    },
+    {
+      "start": 2227.589,
+      "end": 2261.27,
+      "text": "on"
+    },
+    {
+      "start": 2261.27,
+      "end": 2274.069,
+      "text": "so what I want to do now is talk about"
+    },
+    {
+      "start": 2274.069,
+      "end": 2276.03,
+      "text": "analysis um she soften"
+    },
+    {
+      "start": 2276.03,
+      "end": 2278.03,
+      "text": "abbreviated uh"
+    },
+    {
+      "start": 2278.03,
+      "end": 2281.27,
+      "text": "PCA and"
+    },
+    {
+      "start": 2281.27,
+      "end": 2283.55,
+      "text": "here's the idea um PCA has a very"
+    },
+    {
+      "start": 2283.55,
+      "end": 2286.47,
+      "text": "similar motivation as factor analysis"
+    },
+    {
+      "start": 2286.47,
+      "end": 2287.829,
+      "text": "but it sort of maybe gets to the problem"
+    },
+    {
+      "start": 2287.829,
+      "end": 2290.55,
+      "text": "um you know a little bit more directly"
+    },
+    {
+      "start": 2290.55,
+      "end": 2292.27,
+      "text": "than just factor analysis"
+    },
+    {
+      "start": 2292.27,
+      "end": 2295.309,
+      "text": "um"
+    },
+    {
+      "start": 2295.309,
+      "end": 2297.63,
+      "text": "so question is"
+    },
+    {
+      "start": 2297.63,
+      "end": 2301.03,
+      "text": "given right so still doing unsupervised"
+    },
+    {
+      "start": 2301.03,
+      "end": 2302.829,
+      "text": "learning so given a training set of um M"
+    },
+    {
+      "start": 2302.829,
+      "end": 2309.27,
+      "text": "examples"
+    },
+    {
+      "start": 2309.27,
+      "end": 2312.79,
+      "text": "where each XI um is an N dimensional as"
+    },
+    {
+      "start": 2312.79,
+      "end": 2320.19,
+      "text": "usual what I like to do is reduce"
+    },
+    {
+      "start": 2320.19,
+      "end": 2323.99,
+      "text": "set where K"
+    },
+    {
+      "start": 2323.99,
+      "end": 2326.349,
+      "text": "is less is um strictly less than n and"
+    },
+    {
+      "start": 2326.349,
+      "end": 2327.63,
+      "text": "often and and quite often it'll be much"
+    },
+    {
+      "start": 2327.63,
+      "end": 2331.069,
+      "text": "much smaller than"
+    },
+    {
+      "start": 2331.069,
+      "end": 2333.589,
+      "text": "n um"
+    },
+    {
+      "start": 2333.589,
+      "end": 2337.63,
+      "text": "so I'm give a couple examples of why we"
+    },
+    {
+      "start": 2337.63,
+      "end": 2339.55,
+      "text": "want to do this um imagine that you're"
+    },
+    {
+      "start": 2339.55,
+      "end": 2342.27,
+      "text": "given a data set that contains"
+    },
+    {
+      "start": 2342.27,
+      "end": 2344.309,
+      "text": "measurements and you know unknown to you"
+    },
+    {
+      "start": 2344.309,
+      "end": 2346.75,
+      "text": "I don't know measure measurements of I"
+    },
+    {
+      "start": 2346.75,
+      "end": 2349.67,
+      "text": "don't know P Pole or something um and"
+    },
+    {
+      "start": 2349.67,
+      "end": 2352.47,
+      "text": "unnown to you whoever collected this"
+    },
+    {
+      "start": 2352.47,
+      "end": 2355.109,
+      "text": "data actually included the height of the"
+    },
+    {
+      "start": 2355.109,
+      "end": 2357.71,
+      "text": "person in centimeters as well as the"
+    },
+    {
+      "start": 2357.71,
+      "end": 2359.03,
+      "text": "height of the person in inches and so"
+    },
+    {
+      "start": 2359.03,
+      "end": 2360.589,
+      "text": "because they're rounding off to the"
+    },
+    {
+      "start": 2360.589,
+      "end": 2362.75,
+      "text": "nearest centimeter or rounding off to"
+    },
+    {
+      "start": 2362.75,
+      "end": 2365.87,
+      "text": "the nearest inch the values won't"
+    },
+    {
+      "start": 2365.87,
+      "end": 2372.19,
+      "text": "exactly match up but you know along two"
+    },
+    {
+      "start": 2372.19,
+      "end": 2374.15,
+      "text": "um it'll lie extremely close to the"
+    },
+    {
+      "start": 2374.15,
+      "end": 2375.47,
+      "text": "straight line right but but it won't lie"
+    },
+    {
+      "start": 2375.47,
+      "end": 2377.309,
+      "text": "exactly on a straight line because they"
+    },
+    {
+      "start": 2377.309,
+      "end": 2380.39,
+      "text": "rounding off to the nearest centimet or"
+    },
+    {
+      "start": 2380.39,
+      "end": 2383.75,
+      "text": "inch but L very close the straight line"
+    },
+    {
+      "start": 2383.75,
+      "end": 2385.109,
+      "text": "and so um we have a data set like this"
+    },
+    {
+      "start": 2385.109,
+      "end": 2388.43,
+      "text": "it seems that you know what you really"
+    },
+    {
+      "start": 2388.43,
+      "end": 2390.51,
+      "text": "care about is is that axis right is and"
+    },
+    {
+      "start": 2390.51,
+      "end": 2396.55,
+      "text": "this is s of really this axis is really"
+    },
+    {
+      "start": 2396.55,
+      "end": 2397.95,
+      "text": "interest you know that's May the closest"
+    },
+    {
+      "start": 2397.95,
+      "end": 2402.43,
+      "text": "thing you have to the TR height of a"
+    },
+    {
+      "start": 2402.43,
+      "end": 2406.589,
+      "text": "person and um you know this other"
+    },
+    {
+      "start": 2406.589,
+      "end": 2408.87,
+      "text": "axis is just noise okay and so if you"
+    },
+    {
+      "start": 2408.87,
+      "end": 2410.47,
+      "text": "can reduce the dimension of this data"
+    },
+    {
+      "start": 2410.47,
+      "end": 2412.99,
+      "text": "from two-dimensional to onedimensional"
+    },
+    {
+      "start": 2412.99,
+      "end": 2417.91,
+      "text": "um then maybe get rid of some noise in"
+    },
+    {
+      "start": 2417.91,
+      "end": 2419.39,
+      "text": "this data um and quite often you won't"
+    },
+    {
+      "start": 2419.39,
+      "end": 2421.55,
+      "text": "know that this was CM and this was"
+    },
+    {
+      "start": 2421.55,
+      "end": 2423.67,
+      "text": "inches you may have a data set with 100"
+    },
+    {
+      "start": 2423.67,
+      "end": 2426.71,
+      "text": "attributes but you just didn't happen to"
+    },
+    {
+      "start": 2426.71,
+      "end": 2429.27,
+      "text": "notice one was CM one was inches right"
+    },
+    {
+      "start": 2429.27,
+      "end": 2431.63,
+      "text": "um"
+    },
+    {
+      "start": 2431.63,
+      "end": 2434.27,
+      "text": "another Mo and another example that I"
+    },
+    {
+      "start": 2434.27,
+      "end": 2437.03,
+      "text": "sometimes think about is you know some"
+    },
+    {
+      "start": 2437.03,
+      "end": 2438.91,
+      "text": "of you know that my students and I um uh"
+    },
+    {
+      "start": 2438.91,
+      "end": 2441.829,
+      "text": "work with autonomous helicopters a lot"
+    },
+    {
+      "start": 2441.829,
+      "end": 2443.99,
+      "text": "right and so um you imagine that you"
+    },
+    {
+      "start": 2443.99,
+      "end": 2446.15,
+      "text": "take you know surveys of quizzes or"
+    },
+    {
+      "start": 2446.15,
+      "end": 2449.51,
+      "text": "measurements of radio control helicopter"
+    },
+    {
+      "start": 2449.51,
+      "end": 2450.79,
+      "text": "Pilots um maybe one axis you have"
+    },
+    {
+      "start": 2450.79,
+      "end": 2458.349,
+      "text": "measurements"
+    },
+    {
+      "start": 2458.349,
+      "end": 2461.55,
+      "text": "skill yeah of how skillful your"
+    },
+    {
+      "start": 2461.55,
+      "end": 2465.63,
+      "text": "helicopter pilot is and"
+    },
+    {
+      "start": 2465.63,
+      "end": 2468.589,
+      "text": "um on another axis maybe you measure how"
+    },
+    {
+      "start": 2468.589,
+      "end": 2470.91,
+      "text": "much they actually enjoy flying and"
+    },
+    {
+      "start": 2470.91,
+      "end": 2473.829,
+      "text": "maybe this is really maybe this is"
+    },
+    {
+      "start": 2473.829,
+      "end": 2476.39,
+      "text": "actually roughly onedimensional data and"
+    },
+    {
+      "start": 2476.39,
+      "end": 2484.589,
+      "text": "there's some you know intrinsic variable"
+    },
+    {
+      "start": 2484.589,
+      "end": 2486.03,
+      "text": "aptitude that somehow determines the"
+    },
+    {
+      "start": 2486.03,
+      "end": 2488.23,
+      "text": "skill and how much they enjoy finding"
+    },
+    {
+      "start": 2488.23,
+      "end": 2489.91,
+      "text": "something and so again if you can reduce"
+    },
+    {
+      "start": 2489.91,
+      "end": 2492.109,
+      "text": "this data from two Dimensions to"
+    },
+    {
+      "start": 2492.109,
+      "end": 2493.95,
+      "text": "onedimensional maybe it have a slightly"
+    },
+    {
+      "start": 2493.95,
+      "end": 2495.79,
+      "text": "better measure of you know what I'm"
+    },
+    {
+      "start": 2495.79,
+      "end": 2497.309,
+      "text": "calling Loosely pilot apptitude which"
+    },
+    {
+      "start": 2497.309,
+      "end": 2500.829,
+      "text": "may be what you're really wanting to"
+    },
+    {
+      "start": 2500.829,
+      "end": 2502.91,
+      "text": "capture okay so let's talk with an Al"
+    },
+    {
+      "start": 2502.91,
+      "end": 2505.75,
+      "text": "room to do this and um I should come"
+    },
+    {
+      "start": 2505.75,
+      "end": 2536.55,
+      "text": "back and talk about more applications of"
+    },
+    {
+      "start": 2536.55,
+      "end": 2539.069,
+      "text": "um before running PCA is normally you"
+    },
+    {
+      "start": 2539.069,
+      "end": 2608.99,
+      "text": "pre-process the data as follows um I'll"
+    },
+    {
+      "start": 2608.99,
+      "end": 2612.309,
+      "text": "um okay let something I know some of you"
+    },
+    {
+      "start": 2612.309,
+      "end": 2614.069,
+      "text": "writing well okay so this is maybe just"
+    },
+    {
+      "start": 2614.069,
+      "end": 2615.589,
+      "text": "unnecessary amount of writing to say"
+    },
+    {
+      "start": 2615.589,
+      "end": 2617.43,
+      "text": "that you know compute the mean of my"
+    },
+    {
+      "start": 2617.43,
+      "end": 2619.27,
+      "text": "training set and subtract out the means"
+    },
+    {
+      "start": 2619.27,
+      "end": 2621.87,
+      "text": "so now I've zeroed out the mean of my"
+    },
+    {
+      "start": 2621.87,
+      "end": 2623.549,
+      "text": "training set and the other step is um"
+    },
+    {
+      "start": 2623.549,
+      "end": 2626.349,
+      "text": "I'll compute the variance of each of my"
+    },
+    {
+      "start": 2626.349,
+      "end": 2628.39,
+      "text": "features you after zeroing out the mean"
+    },
+    {
+      "start": 2628.39,
+      "end": 2629.95,
+      "text": "and then I'll divide by divide each"
+    },
+    {
+      "start": 2629.95,
+      "end": 2632.51,
+      "text": "feature by the standard deviation so"
+    },
+    {
+      "start": 2632.51,
+      "end": 2633.91,
+      "text": "that each of my features now has equal"
+    },
+    {
+      "start": 2633.91,
+      "end": 2635.79,
+      "text": "variance so these are so standard"
+    },
+    {
+      "start": 2635.79,
+      "end": 2639.069,
+      "text": "pre-processing that will often do for"
+    },
+    {
+      "start": 2639.069,
+      "end": 2641.549,
+      "text": "PCA um I just mentioned that sometimes"
+    },
+    {
+      "start": 2641.549,
+      "end": 2642.91,
+      "text": "um the second step is usually done only"
+    },
+    {
+      "start": 2642.91,
+      "end": 2646.309,
+      "text": "when your different features are on"
+    },
+    {
+      "start": 2646.309,
+      "end": 2647.829,
+      "text": "different scale so if um I don't know if"
+    },
+    {
+      "start": 2647.829,
+      "end": 2650.43,
+      "text": "you're taking measurements of people and"
+    },
+    {
+      "start": 2650.43,
+      "end": 2652.23,
+      "text": "so you know one one one feature may be"
+    },
+    {
+      "start": 2652.23,
+      "end": 2653.87,
+      "text": "their height then another may be their"
+    },
+    {
+      "start": 2653.87,
+      "end": 2656.349,
+      "text": "weight another maybe be the strength"
+    },
+    {
+      "start": 2656.349,
+      "end": 2658.23,
+      "text": "another maybe I don't know how the age"
+    },
+    {
+      "start": 2658.23,
+      "end": 2659.91,
+      "text": "or whatever all of these all of these"
+    },
+    {
+      "start": 2659.91,
+      "end": 2662.75,
+      "text": "quantities on very different scales and"
+    },
+    {
+      "start": 2662.75,
+      "end": 2665.43,
+      "text": "so um you normally normalize the"
+    },
+    {
+      "start": 2665.43,
+      "end": 2667.87,
+      "text": "variance sometimes if all the XIs are"
+    },
+    {
+      "start": 2667.87,
+      "end": 2670.829,
+      "text": "the qu same type of thing um so for"
+    },
+    {
+      "start": 2670.829,
+      "end": 2672.99,
+      "text": "example if um you're taking uh you're"
+    },
+    {
+      "start": 2672.99,
+      "end": 2675.51,
+      "text": "working with images and the x i JS are"
+    },
+    {
+      "start": 2675.51,
+      "end": 2677.39,
+      "text": "the pixels of different you know are on"
+    },
+    {
+      "start": 2677.39,
+      "end": 2679.79,
+      "text": "the same scale because they're all pixel"
+    },
+    {
+      "start": 2679.79,
+      "end": 2681.19,
+      "text": "intensity values ranging from 0 to 255"
+    },
+    {
+      "start": 2681.19,
+      "end": 2682.99,
+      "text": "then you may forget then you may omit"
+    },
+    {
+      "start": 2682.99,
+      "end": 2685.87,
+      "text": "this step"
+    },
+    {
+      "start": 2685.87,
+      "end": 2687.87,
+      "text": "okay um so after"
+    },
+    {
+      "start": 2687.87,
+      "end": 2692.549,
+      "text": "pre-processing let's talk about how we"
+    },
+    {
+      "start": 2692.549,
+      "end": 2695.15,
+      "text": "would find the um main axes along which"
+    },
+    {
+      "start": 2695.15,
+      "end": 2719.19,
+      "text": "the data varies or how we find the"
+    },
+    {
+      "start": 2719.19,
+      "end": 2721.03,
+      "text": "that um let me describe let me just go"
+    },
+    {
+      "start": 2721.03,
+      "end": 2722.39,
+      "text": "through one specific example and then"
+    },
+    {
+      "start": 2722.39,
+      "end": 2733.349,
+      "text": "we'll formalize the"
+    },
+    {
+      "start": 2733.349,
+      "end": 2735.549,
+      "text": "okay here's my training set comprising"
+    },
+    {
+      "start": 2735.549,
+      "end": 2736.87,
+      "text": "five examples and you it has roughly"
+    },
+    {
+      "start": 2736.87,
+      "end": 2739.91,
+      "text": "zero"
+    },
+    {
+      "start": 2739.91,
+      "end": 2743.95,
+      "text": "mean and and and the variance on the uh"
+    },
+    {
+      "start": 2743.95,
+      "end": 2746.95,
+      "text": "you know X1 and X2 axis are the same X1"
+    },
+    {
+      "start": 2746.95,
+      "end": 2748.71,
+      "text": "that's X2 axis and so you know the"
+    },
+    {
+      "start": 2748.71,
+      "end": 2750.99,
+      "text": "principal axis the variation of this"
+    },
+    {
+      "start": 2750.99,
+      "end": 2754.23,
+      "text": "data is roughly the the the the positive"
+    },
+    {
+      "start": 2754.23,
+      "end": 2757.03,
+      "text": "45° axis right so what I like to do is"
+    },
+    {
+      "start": 2757.03,
+      "end": 2758.27,
+      "text": "have my algorithm conclude that this"
+    },
+    {
+      "start": 2758.27,
+      "end": 2762.069,
+      "text": "direction that I've drawn with this"
+    },
+    {
+      "start": 2762.069,
+      "end": 2764.43,
+      "text": "Arrow U is is is the best Direction onto"
+    },
+    {
+      "start": 2764.43,
+      "end": 2768.829,
+      "text": "which to project the data so the the"
+    },
+    {
+      "start": 2768.829,
+      "end": 2770.309,
+      "text": "axis by which my data really varies um"
+    },
+    {
+      "start": 2770.309,
+      "end": 2774.109,
+      "text": "so let's think about how we formalize"
+    },
+    {
+      "start": 2774.109,
+      "end": 2776.91,
+      "text": "that right well one thing on look at is"
+    },
+    {
+      "start": 2776.91,
+      "end": 2778.43,
+      "text": "um suppose I take that axis this is"
+    },
+    {
+      "start": 2778.43,
+      "end": 2780.99,
+      "text": "really the axis onto which I want to"
+    },
+    {
+      "start": 2780.99,
+      "end": 2783.43,
+      "text": "project on that I want to capture use to"
+    },
+    {
+      "start": 2783.43,
+      "end": 2785.309,
+      "text": "capture most of the variation of my data"
+    },
+    {
+      "start": 2785.309,
+      "end": 2787.549,
+      "text": "and I take my training set and project"
+    },
+    {
+      "start": 2787.549,
+      "end": 2789.349,
+      "text": "it onto this line"
+    },
+    {
+      "start": 2789.349,
+      "end": 2792.95,
+      "text": "right did not"
+    },
+    {
+      "start": 2792.95,
+      "end": 2794.71,
+      "text": "get you know that set of"
+    },
+    {
+      "start": 2794.71,
+      "end": 2797.75,
+      "text": "points"
+    },
+    {
+      "start": 2797.75,
+      "end": 2799.63,
+      "text": "okay and so you notice that those dots"
+    },
+    {
+      "start": 2799.63,
+      "end": 2803.349,
+      "text": "the projections of my training sets onto"
+    },
+    {
+      "start": 2803.349,
+      "end": 2808.069,
+      "text": "this axis um has very large variance"
+    },
+    {
+      "start": 2808.069,
+      "end": 2811.15,
+      "text": "right in contrast if I were to choose um"
+    },
+    {
+      "start": 2811.15,
+      "end": 2813.63,
+      "text": "a different direction let's say this is"
+    },
+    {
+      "start": 2813.63,
+      "end": 2816.15,
+      "text": "really the orthogonal in the worst"
+    },
+    {
+      "start": 2816.15,
+      "end": 2829.79,
+      "text": "Direction onto which to project my data"
+    },
+    {
+      "start": 2829.79,
+      "end": 2832.91,
+      "text": "axis right then I find that the"
+    },
+    {
+      "start": 2832.91,
+      "end": 2835.069,
+      "text": "projections of my data onto the um"
+    },
+    {
+      "start": 2835.069,
+      "end": 2836.87,
+      "text": "purple line onto this other line has"
+    },
+    {
+      "start": 2836.87,
+      "end": 2839.39,
+      "text": "much smaller variance that my points are"
+    },
+    {
+      "start": 2839.39,
+      "end": 2843.27,
+      "text": "clustered together much more tightly"
+    },
+    {
+      "start": 2843.27,
+      "end": 2845.91,
+      "text": "okay so one way to formalize this notion"
+    },
+    {
+      "start": 2845.91,
+      "end": 2848.67,
+      "text": "of finding the the the the um the main"
+    },
+    {
+      "start": 2848.67,
+      "end": 2850.43,
+      "text": "axis of variation of data is I would"
+    },
+    {
+      "start": 2850.43,
+      "end": 2851.79,
+      "text": "like to find a vector U I would like to"
+    },
+    {
+      "start": 2851.79,
+      "end": 2854.79,
+      "text": "find the direction"
+    },
+    {
+      "start": 2854.79,
+      "end": 2855.63,
+      "text": "U so that when I project my data onto"
+    },
+    {
+      "start": 2855.63,
+      "end": 2858.79,
+      "text": "that"
+    },
+    {
+      "start": 2858.79,
+      "end": 2860.589,
+      "text": "direction um the projected points vary"
+    },
+    {
+      "start": 2860.589,
+      "end": 2862.19,
+      "text": "as much as possible so in other words"
+    },
+    {
+      "start": 2862.19,
+      "end": 2864.069,
+      "text": "I'm going to find find a Direction so"
+    },
+    {
+      "start": 2864.069,
+      "end": 2867.349,
+      "text": "that when I project my data onto it you"
+    },
+    {
+      "start": 2867.349,
+      "end": 2878.23,
+      "text": "know the projections are largely widely"
+    },
+    {
+      "start": 2878.23,
+      "end": 2894.27,
+      "text": "[Applause]"
+    },
+    {
+      "start": 2894.27,
+      "end": 2898.069,
+      "text": "see"
+    },
+    {
+      "start": 2898.069,
+      "end": 2900.91,
+      "text": "um so I want to find the direction U and"
+    },
+    {
+      "start": 2900.91,
+      "end": 2904.349,
+      "text": "um just a"
+    },
+    {
+      "start": 2904.349,
+      "end": 2907.95,
+      "text": "reminder if I have a vector U of Norm"
+    },
+    {
+      "start": 2907.95,
+      "end": 2910.87,
+      "text": "one then the length"
+    },
+    {
+      "start": 2910.87,
+      "end": 2912.71,
+      "text": "of um a vector x"
+    },
+    {
+      "start": 2912.71,
+      "end": 2920.95,
+      "text": "i"
+    },
+    {
+      "start": 2920.95,
+      "end": 2924.39,
+      "text": "well then the vector x i projected onto"
+    },
+    {
+      "start": 2924.39,
+      "end": 2929.91,
+      "text": "U you know has"
+    },
+    {
+      "start": 2929.91,
+      "end": 2933.549,
+      "text": "length um x i transverse U right this is"
+    },
+    {
+      "start": 2933.549,
+      "end": 2935.71,
+      "text": "the to to project a vector on to um to"
+    },
+    {
+      "start": 2935.71,
+      "end": 2938.75,
+      "text": "Project X onto unit Vector the length of"
+    },
+    {
+      "start": 2938.75,
+      "end": 2941.829,
+      "text": "the projection is just X I transpose U"
+    },
+    {
+      "start": 2941.829,
+      "end": 2943.87,
+      "text": "um and so to formalize my PCA problem"
+    },
+    {
+      "start": 2943.87,
+      "end": 2948.27,
+      "text": "I'm going to choose the vector"
+    },
+    {
+      "start": 2948.27,
+      "end": 2949.829,
+      "text": "U to maximize right so I choose use and"
+    },
+    {
+      "start": 2949.829,
+      "end": 2952.19,
+      "text": "this"
+    },
+    {
+      "start": 2952.19,
+      "end": 2955.309,
+      "text": "is subject to the constraint that the"
+    },
+    {
+      "start": 2955.309,
+      "end": 2957.39,
+      "text": "norm of U that the length of U is one um"
+    },
+    {
+      "start": 2957.39,
+      "end": 2966.71,
+      "text": "but I'm going to"
+    },
+    {
+      "start": 2966.71,
+      "end": 2968.95,
+      "text": "M um the length of the project"
+    },
+    {
+      "start": 2968.95,
+      "end": 2972.349,
+      "text": "projection of the vectors X onto"
+    },
+    {
+      "start": 2972.349,
+      "end": 2974.069,
+      "text": "U okay in particular I want the sum of"
+    },
+    {
+      "start": 2974.069,
+      "end": 2976.43,
+      "text": "square distances of the projections to"
+    },
+    {
+      "start": 2976.43,
+      "end": 2978.47,
+      "text": "be far from the origin I want the"
+    },
+    {
+      "start": 2978.47,
+      "end": 2981.349,
+      "text": "projections of X on U to have large"
+    },
+    {
+      "start": 2981.349,
+      "end": 2983.91,
+      "text": "variant and just to simplify some of the"
+    },
+    {
+      "start": 2983.91,
+      "end": 2987.109,
+      "text": "math later let me put a one over m in"
+    },
+    {
+      "start": 2987.109,
+      "end": 2993.19,
+      "text": "front um and so that quantity on the"
+    },
+    {
+      "start": 2993.19,
+      "end": 2996.789,
+      "text": "right um is equal to 1 / m"
+    },
+    {
+      "start": 2996.789,
+      "end": 3002.069,
+      "text": "c let's see"
+    },
+    {
+      "start": 3002.069,
+      "end": 3006.95,
+      "text": "U transfers XI times x I transfers"
+    },
+    {
+      "start": 3006.95,
+      "end": 3008.71,
+      "text": "U right and so um Can simplify and I get"
+    },
+    {
+      "start": 3008.71,
+      "end": 3050.99,
+      "text": "this is U"
+    },
+    {
+      "start": 3050.99,
+      "end": 3053.99,
+      "text": "um so want to maximize UT transpose time"
+    },
+    {
+      "start": 3053.99,
+      "end": 3056.63,
+      "text": "some Matrix time U subject to the"
+    },
+    {
+      "start": 3056.63,
+      "end": 3057.549,
+      "text": "constraint that the length of U must be"
+    },
+    {
+      "start": 3057.549,
+      "end": 3062.109,
+      "text": "equ Al to"
+    },
+    {
+      "start": 3062.109,
+      "end": 3064.63,
+      "text": "one um and so some of you recognize that"
+    },
+    {
+      "start": 3064.63,
+      "end": 3067.39,
+      "text": "this means U must be the Principal ARG"
+    },
+    {
+      "start": 3067.39,
+      "end": 3068.67,
+      "text": "Vector of this Matrix in the middle"
+    },
+    {
+      "start": 3068.67,
+      "end": 3070.63,
+      "text": "right so let me just write that down"
+    },
+    {
+      "start": 3070.63,
+      "end": 3083.349,
+      "text": "I'll say a few more words about it so"
+    },
+    {
+      "start": 3083.349,
+      "end": 3085.069,
+      "text": "Vector um of the Matrix and I'll just"
+    },
+    {
+      "start": 3085.069,
+      "end": 3087.789,
+      "text": "call this Matrix Sigma it actually turns"
+    },
+    {
+      "start": 3087.789,
+      "end": 3097.47,
+      "text": "out the co variance Matrix"
+    },
+    {
+      "start": 3097.47,
+      "end": 3099.15,
+      "text": "M SP okay um actually let's check how"
+    },
+    {
+      "start": 3099.15,
+      "end": 3102.23,
+      "text": "many of you are how many of you are"
+    },
+    {
+      "start": 3102.23,
+      "end": 3110.39,
+      "text": "familiar with igen vectors wow cool most"
+    },
+    {
+      "start": 3110.39,
+      "end": 3112.549,
+      "text": "um yeah well what about the save PR is"
+    },
+    {
+      "start": 3112.549,
+      "end": 3115.15,
+      "text": "is it's very extremely familiar but this"
+    },
+    {
+      "start": 3115.15,
+      "end": 3117.75,
+      "text": "it's worth it's worth saying anyway um"
+    },
+    {
+      "start": 3117.75,
+      "end": 3119.15,
+      "text": "so"
+    },
+    {
+      "start": 3119.15,
+      "end": 3121.75,
+      "text": "right so if"
+    },
+    {
+      "start": 3121.75,
+      "end": 3124.589,
+      "text": "um uh if you have a matrix a and you"
+    },
+    {
+      "start": 3124.589,
+      "end": 3126.43,
+      "text": "have a vector U and they satisfy Au U"
+    },
+    {
+      "start": 3126.43,
+      "end": 3128.069,
+      "text": "equals Lambda U then this is what it"
+    },
+    {
+      "start": 3128.069,
+      "end": 3137.43,
+      "text": "means for U to be an a vector of the"
+    },
+    {
+      "start": 3137.43,
+      "end": 3143.19,
+      "text": "um and uh the value LDA here is called"
+    },
+    {
+      "start": 3143.19,
+      "end": 3145.069,
+      "text": "value right and so the principal ion"
+    },
+    {
+      "start": 3145.069,
+      "end": 3146.67,
+      "text": "Vector is just the ion Vector that"
+    },
+    {
+      "start": 3146.67,
+      "end": 3150.309,
+      "text": "corresponds to the largest ion value"
+    },
+    {
+      "start": 3150.309,
+      "end": 3151.67,
+      "text": "value um one thing that you may that"
+    },
+    {
+      "start": 3151.67,
+      "end": 3153.549,
+      "text": "some of you may have seen but I'm not"
+    },
+    {
+      "start": 3153.549,
+      "end": 3155.109,
+      "text": "sure that you have I just just want to"
+    },
+    {
+      "start": 3155.109,
+      "end": 3158.71,
+      "text": "relate this to stuff you already know as"
+    },
+    {
+      "start": 3158.71,
+      "end": 3160.95,
+      "text": "well is that um you know optimization"
+    },
+    {
+      "start": 3160.95,
+      "end": 3164.23,
+      "text": "problem is"
+    },
+    {
+      "start": 3164.23,
+      "end": 3167.069,
+      "text": "really maximize U transpose U subject to"
+    },
+    {
+      "start": 3167.069,
+      "end": 3169.67,
+      "text": "the norm of U is equal to one right and"
+    },
+    {
+      "start": 3169.67,
+      "end": 3173.63,
+      "text": "um let me write that constraint as that"
+    },
+    {
+      "start": 3173.63,
+      "end": 3174.87,
+      "text": "U transpose U equals 1 and so con to to"
+    },
+    {
+      "start": 3174.87,
+      "end": 3177.309,
+      "text": "to solve this sort of you know"
+    },
+    {
+      "start": 3177.309,
+      "end": 3199.51,
+      "text": "constraint optimization problem"
+    },
+    {
+      "start": 3199.51,
+      "end": 3201.15,
+      "text": "multiplier right um and so because this"
+    },
+    {
+      "start": 3201.15,
+      "end": 3203.349,
+      "text": "is a constraint optimization right and"
+    },
+    {
+      "start": 3203.349,
+      "end": 3205.069,
+      "text": "so to actually solve this optimization"
+    },
+    {
+      "start": 3205.069,
+      "end": 3209.71,
+      "text": "you take the derivative of L with"
+    },
+    {
+      "start": 3209.71,
+      "end": 3212.549,
+      "text": "respect to U and that gives you um Sigma"
+    },
+    {
+      "start": 3212.549,
+      "end": 3215.23,
+      "text": "U minus Lambda"
+    },
+    {
+      "start": 3215.23,
+      "end": 3216.99,
+      "text": "U you set the derivative equals to zero"
+    },
+    {
+      "start": 3216.99,
+      "end": 3219.549,
+      "text": "and this shows that Sigma U equals"
+    },
+    {
+      "start": 3219.549,
+      "end": 3221.109,
+      "text": "Lambda U and therefore the value of U"
+    },
+    {
+      "start": 3221.109,
+      "end": 3222.589,
+      "text": "that solves this you know constraint"
+    },
+    {
+      "start": 3222.589,
+      "end": 3224.51,
+      "text": "optimization problem that we care about"
+    },
+    {
+      "start": 3224.51,
+      "end": 3225.589,
+      "text": "must be an ARG Vector of Sigma and in"
+    },
+    {
+      "start": 3225.589,
+      "end": 3228.75,
+      "text": "particular it turns out to be the"
+    },
+    {
+      "start": 3228.75,
+      "end": 3230.43,
+      "text": "Principal AR Vector"
+    },
+    {
+      "start": 3230.43,
+      "end": 3236.91,
+      "text": "okay"
+    },
+    {
+      "start": 3236.91,
+      "end": 3238.589,
+      "text": "so just to summarize"
+    },
+    {
+      "start": 3238.589,
+      "end": 3241.069,
+      "text": "um what have we done we're shown that"
+    },
+    {
+      "start": 3241.069,
+      "end": 3243.03,
+      "text": "given a training set if you want to find"
+    },
+    {
+      "start": 3243.03,
+      "end": 3245.19,
+      "text": "the principal axis of variation of data"
+    },
+    {
+      "start": 3245.19,
+      "end": 3247.51,
+      "text": "you want to find you know the 1D axis on"
+    },
+    {
+      "start": 3247.51,
+      "end": 3249.91,
+      "text": "which the data really varies the most"
+    },
+    {
+      "start": 3249.91,
+      "end": 3252.51,
+      "text": "what we do is we construct The cience"
+    },
+    {
+      "start": 3252.51,
+      "end": 3254.63,
+      "text": "Matrix Sigma the the the the Matrix"
+    },
+    {
+      "start": 3254.63,
+      "end": 3256.91,
+      "text": "Sigma that I wrote down just now and"
+    },
+    {
+      "start": 3256.91,
+      "end": 3260.109,
+      "text": "then you would find the principal ion"
+    },
+    {
+      "start": 3260.109,
+      "end": 3262.789,
+      "text": "Vector of the Matrix Sigma and um this"
+    },
+    {
+      "start": 3262.789,
+      "end": 3266.26,
+      "text": "gives you the best 1D Subspace onto"
+    },
+    {
+      "start": 3266.26,
+      "end": 3273.95,
+      "text": "which to project the data um"
+    },
+    {
+      "start": 3273.95,
+      "end": 3315.23,
+      "text": "and more"
+    },
+    {
+      "start": 3315.23,
+      "end": 3316.71,
+      "text": "um and more generally if you want a k"
+    },
+    {
+      "start": 3316.71,
+      "end": 3319.309,
+      "text": "dimensional Subspace onto which to"
+    },
+    {
+      "start": 3319.309,
+      "end": 3323.029,
+      "text": "project your data you would then choose"
+    },
+    {
+      "start": 3323.029,
+      "end": 3325.71,
+      "text": "U1 for UK to be the top K ion vectors of"
+    },
+    {
+      "start": 3325.71,
+      "end": 3327.349,
+      "text": "Sigma and by top K ion vectors I just"
+    },
+    {
+      "start": 3327.349,
+      "end": 3330.87,
+      "text": "mean the I vectors"
+    },
+    {
+      "start": 3330.87,
+      "end": 3334.39,
+      "text": "corresponding to the K highest igen"
+    },
+    {
+      "start": 3334.39,
+      "end": 3336.47,
+      "text": "values um I guess I showed this only for"
+    },
+    {
+      "start": 3336.47,
+      "end": 3337.91,
+      "text": "you know for the case of a 1D Subspace"
+    },
+    {
+      "start": 3337.91,
+      "end": 3342.789,
+      "text": "but this holds more"
+    },
+    {
+      "start": 3342.789,
+      "end": 3346.549,
+      "text": "generally um and now the ion vectors U1"
+    },
+    {
+      "start": 3346.549,
+      "end": 3350.549,
+      "text": "for UK um represent so give you a new"
+    },
+    {
+      "start": 3350.549,
+      "end": 3355.39,
+      "text": "basis with which to represent your data"
+    },
+    {
+      "start": 3355.39,
+      "end": 3356.95,
+      "text": "okay so yeah is different ax that has to"
+    },
+    {
+      "start": 3356.95,
+      "end": 3359.47,
+      "text": "Beal"
+    },
+    {
+      "start": 3359.47,
+      "end": 3363.15,
+      "text": "uh let's see so by convention in PCA we"
+    },
+    {
+      "start": 3363.15,
+      "end": 3366.15,
+      "text": "will choose the axis yeah right so"
+    },
+    {
+      "start": 3366.15,
+      "end": 3367.71,
+      "text": "um this wor I'm saying so here's here's"
+    },
+    {
+      "start": 3367.71,
+      "end": 3371.309,
+      "text": "just one more example imagine that you"
+    },
+    {
+      "start": 3371.309,
+      "end": 3373.309,
+      "text": "have a thre dimensional data set"
+    },
+    {
+      "start": 3373.309,
+      "end": 3375.91,
+      "text": "um and imagine that your three"
+    },
+    {
+      "start": 3375.91,
+      "end": 3377.589,
+      "text": "dimensional data set it's very hard to"
+    },
+    {
+      "start": 3377.589,
+      "end": 3381.15,
+      "text": "draw in 3D on the board so let me let me"
+    },
+    {
+      "start": 3381.15,
+      "end": 3383.95,
+      "text": "try this um imagine that you know my X1"
+    },
+    {
+      "start": 3383.95,
+      "end": 3386.51,
+      "text": "and X2 axes line the plane of the board"
+    },
+    {
+      "start": 3386.51,
+      "end": 3389.029,
+      "text": "and the X3 axis points directly out the"
+    },
+    {
+      "start": 3389.029,
+      "end": 3392.109,
+      "text": "board right so imagine that you have a"
+    },
+    {
+      "start": 3392.109,
+      "end": 3394.829,
+      "text": "data set where"
+    },
+    {
+      "start": 3394.829,
+      "end": 3396.309,
+      "text": "um most of the data lies on the plane of"
+    },
+    {
+      "start": 3396.309,
+      "end": 3398.19,
+      "text": "the board but there just a little bit of"
+    },
+    {
+      "start": 3398.19,
+      "end": 3400.23,
+      "text": "fuzz so imagine that you know the XV"
+    },
+    {
+      "start": 3400.23,
+      "end": 3402.589,
+      "text": "axis points orthogonally all of the"
+    },
+    {
+      "start": 3402.589,
+      "end": 3404.27,
+      "text": "board and all the data lies roughly in"
+    },
+    {
+      "start": 3404.27,
+      "end": 3406.63,
+      "text": "the plane of the board but there's just"
+    },
+    {
+      "start": 3406.63,
+      "end": 3408.27,
+      "text": "s of like a tiny little bit of fuzz that"
+    },
+    {
+      "start": 3408.27,
+      "end": 3409.63,
+      "text": "so that so that some of the data lies"
+    },
+    {
+      "start": 3409.63,
+      "end": 3412.43,
+      "text": "just a couple of millimeters off the"
+    },
+    {
+      "start": 3412.43,
+      "end": 3416.63,
+      "text": "board right so you run PC on this data"
+    },
+    {
+      "start": 3416.63,
+      "end": 3419.23,
+      "text": "you find that um U1"
+    },
+    {
+      "start": 3419.23,
+      "end": 3420.91,
+      "text": "and U2 will be some pair of bases that"
+    },
+    {
+      "start": 3420.91,
+      "end": 3423.87,
+      "text": "you know essentially lie in the plane of"
+    },
+    {
+      "start": 3423.87,
+      "end": 3426.47,
+      "text": "the board and uh"
+    },
+    {
+      "start": 3426.47,
+      "end": 3428.43,
+      "text": "u3 will be an orthogonal axis that"
+    },
+    {
+      "start": 3428.43,
+      "end": 3430.39,
+      "text": "points roughly out of the plane of the"
+    },
+    {
+      "start": 3430.39,
+      "end": 3434.19,
+      "text": "board"
+    },
+    {
+      "start": 3434.19,
+      "end": 3437.43,
+      "text": "okay so um if I reduce this data to two"
+    },
+    {
+      "start": 3437.43,
+      "end": 3439.589,
+      "text": "dimensions then the bases U1 and U2 Now"
+    },
+    {
+      "start": 3439.589,
+      "end": 3440.99,
+      "text": "give me a new basis with which to"
+    },
+    {
+      "start": 3440.99,
+      "end": 3443.309,
+      "text": "construct my lower dimensional"
+    },
+    {
+      "start": 3443.309,
+      "end": 3446.71,
+      "text": "representation of the"
+    },
+    {
+      "start": 3446.71,
+      "end": 3454.309,
+      "text": "data um just be conf about what that"
+    },
+    {
+      "start": 3454.309,
+      "end": 3456.63,
+      "text": "had"
+    },
+    {
+      "start": 3456.63,
+      "end": 3460.27,
+      "text": "right we have say fairly High"
+    },
+    {
+      "start": 3460.27,
+      "end": 3462.75,
+      "text": "dimensional uh input data x i and RN and"
+    },
+    {
+      "start": 3462.75,
+      "end": 3464.829,
+      "text": "now if I want to represent my data and"
+    },
+    {
+      "start": 3464.829,
+      "end": 3466.63,
+      "text": "this you know new basis given by U1 up"
+    },
+    {
+      "start": 3466.63,
+      "end": 3486.23,
+      "text": "to"
+    },
+    {
+      "start": 3486.23,
+      "end": 3488.91,
+      "text": "is that um I would take each of my"
+    },
+    {
+      "start": 3488.91,
+      "end": 3491.109,
+      "text": "original training examples x i and I"
+    },
+    {
+      "start": 3491.109,
+      "end": 3494.71,
+      "text": "would now represent it or replace it"
+    },
+    {
+      "start": 3494.71,
+      "end": 3496.549,
+      "text": "with a different Vector which I call Yi"
+    },
+    {
+      "start": 3496.549,
+      "end": 3497.829,
+      "text": "and that will be computed as U1"
+    },
+    {
+      "start": 3497.829,
+      "end": 3517.75,
+      "text": "transpose"
+    },
+    {
+      "start": 3517.75,
+      "end": 3520.549,
+      "text": "um the Yi are going to be K dimensional"
+    },
+    {
+      "start": 3520.549,
+      "end": 3522.789,
+      "text": "where K will be less you know your"
+    },
+    {
+      "start": 3522.789,
+      "end": 3525.349,
+      "text": "choice of K will be less than n so this"
+    },
+    {
+      "start": 3525.349,
+      "end": 3527.51,
+      "text": "represents a lower dimensional"
+    },
+    {
+      "start": 3527.51,
+      "end": 3528.91,
+      "text": "representation of your data and this"
+    },
+    {
+      "start": 3528.91,
+      "end": 3531.069,
+      "text": "represents so an approximate"
+    },
+    {
+      "start": 3531.069,
+      "end": 3532.95,
+      "text": "representation of your original data"
+    },
+    {
+      "start": 3532.95,
+      "end": 3534.789,
+      "text": "where you're using only K numbers to"
+    },
+    {
+      "start": 3534.789,
+      "end": 3545.91,
+      "text": "represent each training example rather"
+    },
+    {
+      "start": 3545.91,
+      "end": 3556.63,
+      "text": "um let's"
+    },
+    {
+      "start": 3556.63,
+      "end": 3558.23,
+      "text": "yeah have vectors have triv vectors uh"
+    },
+    {
+      "start": 3558.23,
+      "end": 3560.829,
+      "text": "is it possible to have not have igen"
+    },
+    {
+      "start": 3560.829,
+      "end": 3563.829,
+      "text": "vectors have trivial igen"
+    },
+    {
+      "start": 3563.829,
+      "end": 3566.23,
+      "text": "vectors it's only determined by your"
+    },
+    {
+      "start": 3566.23,
+      "end": 3572.349,
+      "text": "data s"
+    },
+    {
+      "start": 3572.349,
+      "end": 3585.27,
+      "text": "need let's see what do you mean by"
+    },
+    {
+      "start": 3585.27,
+      "end": 3586.87,
+      "text": "factors oh okay yes so I see yeah so see"
+    },
+    {
+      "start": 3586.87,
+      "end": 3589.15,
+      "text": "get this right so there's some there's"
+    },
+    {
+      "start": 3589.15,
+      "end": 3590.99,
+      "text": "some matrices that that that that um I"
+    },
+    {
+      "start": 3590.99,
+      "end": 3594.349,
+      "text": "think degenerate that don't have a full"
+    },
+    {
+      "start": 3594.349,
+      "end": 3595.43,
+      "text": "set of ion vectors um sorry deficient I"
+    },
+    {
+      "start": 3595.43,
+      "end": 3597.789,
+      "text": "think is what it's called is that right"
+    },
+    {
+      "start": 3597.789,
+      "end": 3599.15,
+      "text": "ziko yeah so some matrices are deficient"
+    },
+    {
+      "start": 3599.15,
+      "end": 3600.71,
+      "text": "and actually don't have a full don't"
+    },
+    {
+      "start": 3600.71,
+      "end": 3602.99,
+      "text": "don't don't have a full set of I vectors"
+    },
+    {
+      "start": 3602.99,
+      "end": 3605.43,
+      "text": "so then you like an N byn Matrix that"
+    },
+    {
+      "start": 3605.43,
+      "end": 3606.91,
+      "text": "does not have n distinct vectors but"
+    },
+    {
+      "start": 3606.91,
+      "end": 3609.349,
+      "text": "that turns out not to be possible in"
+    },
+    {
+      "start": 3609.349,
+      "end": 3612.069,
+      "text": "this case because um The ciance Matrix"
+    },
+    {
+      "start": 3612.069,
+      "end": 3614.15,
+      "text": "Sigma is symmetric and symmetric uh"
+    },
+    {
+      "start": 3614.15,
+      "end": 3615.75,
+      "text": "matrices are never deficient so the"
+    },
+    {
+      "start": 3615.75,
+      "end": 3619.349,
+      "text": "Matrix Sigma will always have a full set"
+    },
+    {
+      "start": 3619.349,
+      "end": 3623.51,
+      "text": "of ion vectors um it's possible that you"
+    },
+    {
+      "start": 3623.51,
+      "end": 3626.549,
+      "text": "know if you um uh yeah there's one issue"
+    },
+    {
+      "start": 3626.549,
+      "end": 3629.67,
+      "text": "which is repeated I values so um"
+    },
+    {
+      "start": 3629.67,
+      "end": 3632.47,
+      "text": "uh for example it turns out that um in"
+    },
+    {
+      "start": 3632.47,
+      "end": 3635.23,
+      "text": "this in this example if my covariance"
+    },
+    {
+      "start": 3635.23,
+      "end": 3638.71,
+      "text": "Matrix looks like"
+    },
+    {
+      "start": 3638.71,
+      "end": 3641.19,
+      "text": "this right yeah 0.01 I"
+    },
+    {
+      "start": 3641.19,
+      "end": 3643.109,
+      "text": "guess right it turns out that the"
+    },
+    {
+      "start": 3643.109,
+      "end": 3646.15,
+      "text": "identity of the first two ion vectors is"
+    },
+    {
+      "start": 3646.15,
+      "end": 3649.71,
+      "text": "ambiguous um and by that I mean um you"
+    },
+    {
+      "start": 3649.71,
+      "end": 3652.51,
+      "text": "can choose this to be U1 and this to be"
+    },
+    {
+      "start": 3652.51,
+      "end": 3655.47,
+      "text": "U2 or I can just as well rotate these"
+    },
+    {
+      "start": 3655.47,
+      "end": 3657.789,
+      "text": "ion vectors I can choose that to be U1"
+    },
+    {
+      "start": 3657.789,
+      "end": 3660.43,
+      "text": "and that to be U2 or even you know"
+    },
+    {
+      "start": 3660.43,
+      "end": 3664.109,
+      "text": "choose that to be U1 and choose that to"
+    },
+    {
+      "start": 3664.109,
+      "end": 3667.67,
+      "text": "be U2 and so on and so um when you apply"
+    },
+    {
+      "start": 3667.67,
+      "end": 3669.87,
+      "text": "PCA one thing to just keep in mind is um"
+    },
+    {
+      "start": 3669.87,
+      "end": 3672.39,
+      "text": "sometimes ion vectors can rotate freely"
+    },
+    {
+      "start": 3672.39,
+      "end": 3674.829,
+      "text": "within their subspaces um when you have"
+    },
+    {
+      "start": 3674.829,
+      "end": 3679.109,
+      "text": "repeat ion values or or close to repeat"
+    },
+    {
+      "start": 3679.109,
+      "end": 3680.95,
+      "text": "ion values and so um the way to think"
+    },
+    {
+      "start": 3680.95,
+      "end": 3683.309,
+      "text": "about the vectors use think of as a"
+    },
+    {
+      "start": 3683.309,
+      "end": 3685.27,
+      "text": "bases with which to represent your data"
+    },
+    {
+      "start": 3685.27,
+      "end": 3687.109,
+      "text": "but you know the bases vectors can"
+    },
+    {
+      "start": 3687.109,
+      "end": 3689.47,
+      "text": "sometimes rotate freely and so it's not"
+    },
+    {
+      "start": 3689.47,
+      "end": 3691.109,
+      "text": "always useful to look at the ion vectors"
+    },
+    {
+      "start": 3691.109,
+      "end": 3693.87,
+      "text": "one at a time and say you know this is"
+    },
+    {
+      "start": 3693.87,
+      "end": 3695.549,
+      "text": "my first ion vector and it's capturing"
+    },
+    {
+      "start": 3695.549,
+      "end": 3697.789,
+      "text": "whatever the the the height of the"
+    },
+    {
+      "start": 3697.789,
+      "end": 3699.67,
+      "text": "person a second I Vector it captures the"
+    },
+    {
+      "start": 3699.67,
+      "end": 3701.029,
+      "text": "skill at this t or whatever that's a"
+    },
+    {
+      "start": 3701.029,
+      "end": 3703.67,
+      "text": "very dangerous thing to do when you do"
+    },
+    {
+      "start": 3703.67,
+      "end": 3705.43,
+      "text": "the people when you do PCA um what's"
+    },
+    {
+      "start": 3705.43,
+      "end": 3707.47,
+      "text": "what is Meaningful is the Subspace"
+    },
+    {
+      "start": 3707.47,
+      "end": 3709.349,
+      "text": "spanned by the igen vectors but looking"
+    },
+    {
+      "start": 3709.349,
+      "end": 3712.109,
+      "text": "at the IG vectors one at a time is"
+    },
+    {
+      "start": 3712.109,
+      "end": 3713.43,
+      "text": "sometimes a dangerous thing to do okay"
+    },
+    {
+      "start": 3713.43,
+      "end": 3716.109,
+      "text": "because because it can often rotate"
+    },
+    {
+      "start": 3716.109,
+      "end": 3718.47,
+      "text": "freely or tiny numerical changes can"
+    },
+    {
+      "start": 3718.47,
+      "end": 3720.51,
+      "text": "cause I con vectors to change a lot but"
+    },
+    {
+      "start": 3720.51,
+      "end": 3729.39,
+      "text": "the Subspace Spann by the top k i con"
+    },
+    {
+      "start": 3729.39,
+      "end": 3730.72,
+      "text": "same um all"
+    },
+    {
+      "start": 3730.72,
+      "end": 3753.71,
+      "text": "right"
+    },
+    {
+      "start": 3753.71,
+      "end": 3756.67,
+      "text": "um actually turns out there are multiple"
+    },
+    {
+      "start": 3756.67,
+      "end": 3759.029,
+      "text": "possible interpretations of PCA um I'll"
+    },
+    {
+      "start": 3759.029,
+      "end": 3767.87,
+      "text": "just give one more without proof which"
+    },
+    {
+      "start": 3767.87,
+      "end": 3771.95,
+      "text": "um you know whatever given a trading set"
+    },
+    {
+      "start": 3771.95,
+      "end": 3773.39,
+      "text": "like this um another view of PCA is and"
+    },
+    {
+      "start": 3773.39,
+      "end": 3775.43,
+      "text": "let me just choose the direction this is"
+    },
+    {
+      "start": 3775.43,
+      "end": 3777.67,
+      "text": "not the principal components right um"
+    },
+    {
+      "start": 3777.67,
+      "end": 3783.109,
+      "text": "and choose some direction and project my"
+    },
+    {
+      "start": 3783.109,
+      "end": 3784.99,
+      "text": "it this is clearly not the direction PCA"
+    },
+    {
+      "start": 3784.99,
+      "end": 3787.829,
+      "text": "would choose but what you can think of"
+    },
+    {
+      "start": 3787.829,
+      "end": 3790.309,
+      "text": "PC as doing is choose a Subspace onto"
+    },
+    {
+      "start": 3790.309,
+      "end": 3792.47,
+      "text": "which to project your data so as to"
+    },
+    {
+      "start": 3792.47,
+      "end": 3794.47,
+      "text": "minimize the sum of squares uh"
+    },
+    {
+      "start": 3794.47,
+      "end": 3797.39,
+      "text": "differences between the projections and"
+    },
+    {
+      "start": 3797.39,
+      "end": 3799.87,
+      "text": "the original points so in other words um"
+    },
+    {
+      "start": 3799.87,
+      "end": 3802.15,
+      "text": "another way to think of PCA is trying to"
+    },
+    {
+      "start": 3802.15,
+      "end": 3804.789,
+      "text": "minimize the sum of"
+    },
+    {
+      "start": 3804.789,
+      "end": 3806.91,
+      "text": "squares of these of of of these"
+    },
+    {
+      "start": 3806.91,
+      "end": 3809.39,
+      "text": "distances between know the dots the the"
+    },
+    {
+      "start": 3809.39,
+      "end": 3812.349,
+      "text": "the points X and the dots onto which I'm"
+    },
+    {
+      "start": 3812.349,
+      "end": 3814.23,
+      "text": "projecting the data um and it turns out"
+    },
+    {
+      "start": 3814.23,
+      "end": 3815.75,
+      "text": "they're actually they're actually I"
+    },
+    {
+      "start": 3815.75,
+      "end": 3817.549,
+      "text": "don't remember there's like nine or 10"
+    },
+    {
+      "start": 3817.549,
+      "end": 3819.069,
+      "text": "different interpretations of PCA and"
+    },
+    {
+      "start": 3819.069,
+      "end": 3821.75,
+      "text": "this is this is another one there a"
+    },
+    {
+      "start": 3821.75,
+      "end": 3823.39,
+      "text": "bunch of uh ways to derive PCA you you"
+    },
+    {
+      "start": 3823.39,
+      "end": 3825.269,
+      "text": "and you you you get to play with some of"
+    },
+    {
+      "start": 3825.269,
+      "end": 3826.75,
+      "text": "you get to play with PCA ideas more in"
+    },
+    {
+      "start": 3826.75,
+      "end": 3828.63,
+      "text": "the next problem"
+    },
+    {
+      "start": 3828.63,
+      "end": 3833.23,
+      "text": "set"
+    },
+    {
+      "start": 3833.23,
+      "end": 3837.069,
+      "text": "um what I want to do next is um okay"
+    },
+    {
+      "start": 3837.069,
+      "end": 3840.47,
+      "text": "actually what I want to do next is um"
+    },
+    {
+      "start": 3840.47,
+      "end": 3842.71,
+      "text": "talk about a few"
+    },
+    {
+      "start": 3842.71,
+      "end": 3844.829,
+      "text": "applications of"
+    },
+    {
+      "start": 3844.829,
+      "end": 3859.19,
+      "text": "PCA"
+    },
+    {
+      "start": 3859.19,
+      "end": 3866.63,
+      "text": "so here are some ways that PCA is used"
+    },
+    {
+      "start": 3866.63,
+      "end": 3868.47,
+      "text": "visualization right um"
+    },
+    {
+      "start": 3868.47,
+      "end": 3870.39,
+      "text": "very often you have high dimensional"
+    },
+    {
+      "start": 3870.39,
+      "end": 3873.069,
+      "text": "data sets someone gives you like a 50"
+    },
+    {
+      "start": 3873.069,
+      "end": 3874.91,
+      "text": "dimensional data set and it's very hard"
+    },
+    {
+      "start": 3874.91,
+      "end": 3876.269,
+      "text": "to for you to look at the data set"
+    },
+    {
+      "start": 3876.269,
+      "end": 3877.589,
+      "text": "that's 50 dimensional and understand"
+    },
+    {
+      "start": 3877.589,
+      "end": 3881.069,
+      "text": "what's going on because you can't plot"
+    },
+    {
+      "start": 3881.069,
+      "end": 3882.589,
+      "text": "something in 50 Dimensions um so common"
+    },
+    {
+      "start": 3882.589,
+      "end": 3884.549,
+      "text": "practice if you want to visualize a very"
+    },
+    {
+      "start": 3884.549,
+      "end": 3887.19,
+      "text": "high dimensional data set is to take"
+    },
+    {
+      "start": 3887.19,
+      "end": 3889.309,
+      "text": "your data and project it into say a 2d"
+    },
+    {
+      "start": 3889.309,
+      "end": 3891.549,
+      "text": "plot or project into a 3D plot so you"
+    },
+    {
+      "start": 3891.549,
+      "end": 3893.87,
+      "text": "can you render like a 3D display on your"
+    },
+    {
+      "start": 3893.87,
+      "end": 3896.47,
+      "text": "computer um so you can better visualize"
+    },
+    {
+      "start": 3896.47,
+      "end": 3898.349,
+      "text": "the data and look for structure um one"
+    },
+    {
+      "start": 3898.349,
+      "end": 3900.349,
+      "text": "particular cool example that that I"
+    },
+    {
+      "start": 3900.349,
+      "end": 3903.109,
+      "text": "learned about of doing this recently was"
+    },
+    {
+      "start": 3903.109,
+      "end": 3907.95,
+      "text": "in Krishna shano's lab here in Stanford"
+    },
+    {
+      "start": 3907.95,
+      "end": 3910.069,
+      "text": "uh in which he um he had readings from"
+    },
+    {
+      "start": 3910.069,
+      "end": 3912.069,
+      "text": "50 different parts of a monkey brain I"
+    },
+    {
+      "start": 3912.069,
+      "end": 3914.47,
+      "text": "actually don't was the number of 50 but"
+    },
+    {
+      "start": 3914.47,
+      "end": 3916.349,
+      "text": "of tens of Parts different parts of"
+    },
+    {
+      "start": 3916.349,
+      "end": 3919.23,
+      "text": "monkey Reign and so you know youd have"
+    },
+    {
+      "start": 3919.23,
+      "end": 3921.309,
+      "text": "this 50-dimensional readings of 5050"
+    },
+    {
+      "start": 3921.309,
+      "end": 3922.51,
+      "text": "dimensional vectors correspond to"
+    },
+    {
+      "start": 3922.51,
+      "end": 3923.71,
+      "text": "different amounts of electrical"
+    },
+    {
+      "start": 3923.71,
+      "end": 3925.43,
+      "text": "activities in different parts of the"
+    },
+    {
+      "start": 3925.43,
+      "end": 3928.67,
+      "text": "monkey brain there's actually 50 neurons"
+    },
+    {
+      "start": 3928.67,
+      "end": 3930.349,
+      "text": "but you tens of neurons um but it was"
+    },
+    {
+      "start": 3930.349,
+      "end": 3932.789,
+      "text": "tens of neurons in the monkey brain and"
+    },
+    {
+      "start": 3932.789,
+      "end": 3934.75,
+      "text": "so you have a 50-dimensional Time series"
+    },
+    {
+      "start": 3934.75,
+      "end": 3937.069,
+      "text": "um and very hard to visualize this very"
+    },
+    {
+      "start": 3937.069,
+      "end": 3939.589,
+      "text": "high dimensional data but what he and"
+    },
+    {
+      "start": 3939.589,
+      "end": 3941.87,
+      "text": "the students did was use PCA to project"
+    },
+    {
+      "start": 3941.87,
+      "end": 3944.15,
+      "text": "this 50-dimensional data down to free"
+    },
+    {
+      "start": 3944.15,
+      "end": 3945.95,
+      "text": "dimensions and then you can visualize"
+    },
+    {
+      "start": 3945.95,
+      "end": 3948.029,
+      "text": "this data in three dimensions of just"
+    },
+    {
+      "start": 3948.029,
+      "end": 3949.75,
+      "text": "using a 3D plot and so you could you so"
+    },
+    {
+      "start": 3949.75,
+      "end": 3951.47,
+      "text": "of visualize what the monkey is thinking"
+    },
+    {
+      "start": 3951.47,
+      "end": 3955.75,
+      "text": "over time so that was"
+    },
+    {
+      "start": 3955.75,
+      "end": 3958.23,
+      "text": "cool um another common application of"
+    },
+    {
+      "start": 3958.23,
+      "end": 3960.63,
+      "text": "PCA is uh"
+    },
+    {
+      "start": 3960.63,
+      "end": 3962.309,
+      "text": "compression right so if you have high"
+    },
+    {
+      "start": 3962.309,
+      "end": 3965.109,
+      "text": "dimensional data and you want to store"
+    },
+    {
+      "start": 3965.109,
+      "end": 3968.19,
+      "text": "it with few real numbers clearly PC is a"
+    },
+    {
+      "start": 3968.19,
+      "end": 3971.829,
+      "text": "great way to do this um it turns out"
+    },
+    {
+      "start": 3971.829,
+      "end": 3973.63,
+      "text": "also that um sometimes in machine"
+    },
+    {
+      "start": 3973.63,
+      "end": 3976.23,
+      "text": "learning sometimes you just given"
+    },
+    {
+      "start": 3976.23,
+      "end": 3977.99,
+      "text": "extremely high-dimensional input data"
+    },
+    {
+      "start": 3977.99,
+      "end": 3979.95,
+      "text": "and for computational reasons you don't"
+    },
+    {
+      "start": 3979.95,
+      "end": 3983.029,
+      "text": "want to deal with such high dimensional"
+    },
+    {
+      "start": 3983.029,
+      "end": 3986.109,
+      "text": "computation data such hyperdimensional"
+    },
+    {
+      "start": 3986.109,
+      "end": 3989.75,
+      "text": "data right and so"
+    },
+    {
+      "start": 3989.75,
+      "end": 3991.87,
+      "text": "um fairly one one common use of PCA is"
+    },
+    {
+      "start": 3991.87,
+      "end": 3993.789,
+      "text": "takeing very high dimensional data and"
+    },
+    {
+      "start": 3993.789,
+      "end": 3995.95,
+      "text": "represent it you with a low dimensional"
+    },
+    {
+      "start": 3995.95,
+      "end": 3997.95,
+      "text": "Subspace is at Yi is the representation"
+    },
+    {
+      "start": 3997.95,
+      "end": 4000.309,
+      "text": "I wrote down just now so that you can"
+    },
+    {
+      "start": 4000.309,
+      "end": 4003.67,
+      "text": "work with much lower dimensional data"
+    },
+    {
+      "start": 4003.67,
+      "end": 4004.87,
+      "text": "and um it turns out to be just seems to"
+    },
+    {
+      "start": 4004.87,
+      "end": 4007.75,
+      "text": "like a fact of life that when you're"
+    },
+    {
+      "start": 4007.75,
+      "end": 4009.75,
+      "text": "given extremely high dimensional data um"
+    },
+    {
+      "start": 4009.75,
+      "end": 4011.67,
+      "text": "almost all the time just in practice of"
+    },
+    {
+      "start": 4011.67,
+      "end": 4013.71,
+      "text": "all the high very high dimensional DSS"
+    },
+    {
+      "start": 4013.71,
+      "end": 4016.19,
+      "text": "I've ever seen you know High very high"
+    },
+    {
+      "start": 4016.19,
+      "end": 4018.39,
+      "text": "dimensional DSS often have all their"
+    },
+    {
+      "start": 4018.39,
+      "end": 4020.63,
+      "text": "points lying on much lower dimensional"
+    },
+    {
+      "start": 4020.63,
+      "end": 4022.109,
+      "text": "subspaces so very often you can"
+    },
+    {
+      "start": 4022.109,
+      "end": 4024.75,
+      "text": "dramatically reduce the dimension of"
+    },
+    {
+      "start": 4024.75,
+      "end": 4027.51,
+      "text": "your data and really not and and really"
+    },
+    {
+      "start": 4027.51,
+      "end": 4030.789,
+      "text": "not be throwing too much uh too much of"
+    },
+    {
+      "start": 4030.789,
+      "end": 4033.829,
+      "text": "the information away um"
+    },
+    {
+      "start": 4033.829,
+      "end": 4035.43,
+      "text": "so um let's see right so if you're"
+    },
+    {
+      "start": 4035.43,
+      "end": 4037.75,
+      "text": "learning algorithm it takes a long time"
+    },
+    {
+      "start": 4037.75,
+      "end": 4039.91,
+      "text": "to run on on on very high dimensional"
+    },
+    {
+      "start": 4039.91,
+      "end": 4041.549,
+      "text": "data you can often use PCA to compress"
+    },
+    {
+      "start": 4041.549,
+      "end": 4043.91,
+      "text": "the data to lower Dimension so that your"
+    },
+    {
+      "start": 4043.91,
+      "end": 4046.23,
+      "text": "learning A runs much faster and you can"
+    },
+    {
+      "start": 4046.23,
+      "end": 4048.47,
+      "text": "often do this with your sacrificing"
+    },
+    {
+      "start": 4048.47,
+      "end": 4051.789,
+      "text": "almost no performance in your learning"
+    },
+    {
+      "start": 4051.789,
+      "end": 4055.269,
+      "text": "algorithm um there's one other use of"
+    },
+    {
+      "start": 4055.269,
+      "end": 4056.71,
+      "text": "PCA for learning uh which is um you"
+    },
+    {
+      "start": 4056.71,
+      "end": 4059.23,
+      "text": "remember when we talked about learning"
+    },
+    {
+      "start": 4059.23,
+      "end": 4061.19,
+      "text": "theory we said that the more features"
+    },
+    {
+      "start": 4061.19,
+      "end": 4062.95,
+      "text": "you have the more complex your"
+    },
+    {
+      "start": 4062.95,
+      "end": 4064.43,
+      "text": "hypothesis class if say you're doing"
+    },
+    {
+      "start": 4064.43,
+      "end": 4066.71,
+      "text": "linear classification right if you have"
+    },
+    {
+      "start": 4066.71,
+      "end": 4068.029,
+      "text": "more features you have lots of features"
+    },
+    {
+      "start": 4068.029,
+      "end": 4070.15,
+      "text": "then you may be more prone to"
+    },
+    {
+      "start": 4070.15,
+      "end": 4072.109,
+      "text": "overfitting so one other thing you could"
+    },
+    {
+      "start": 4072.109,
+      "end": 4074.589,
+      "text": "do with PCA is just use that to reduce"
+    },
+    {
+      "start": 4074.589,
+      "end": 4076.549,
+      "text": "the dimension of your data so that you"
+    },
+    {
+      "start": 4076.549,
+      "end": 4079.549,
+      "text": "know you have few feat and you're maybe"
+    },
+    {
+      "start": 4079.549,
+      "end": 4081.269,
+      "text": "slightly less prone to overfitting um"
+    },
+    {
+      "start": 4081.269,
+      "end": 4082.95,
+      "text": "this particular application of PCA to"
+    },
+    {
+      "start": 4082.95,
+      "end": 4084.51,
+      "text": "learning I should say you know it"
+    },
+    {
+      "start": 4084.51,
+      "end": 4086.029,
+      "text": "sometimes works it often works I I'll"
+    },
+    {
+      "start": 4086.029,
+      "end": 4088.029,
+      "text": "actually later show a couple of examples"
+    },
+    {
+      "start": 4088.029,
+      "end": 4089.95,
+      "text": "where you sort of do this and it works"
+    },
+    {
+      "start": 4089.95,
+      "end": 4092.99,
+      "text": "um but this particular application of"
+    },
+    {
+      "start": 4092.99,
+      "end": 4094.99,
+      "text": "PCA I find when looking in Industry it"
+    },
+    {
+      "start": 4094.99,
+      "end": 4097.63,
+      "text": "also seems to be a little bit overused"
+    },
+    {
+      "start": 4097.63,
+      "end": 4099.149,
+      "text": "um and and in particular actually let me"
+    },
+    {
+      "start": 4099.149,
+      "end": 4103.07,
+      "text": "say more about that"
+    },
+    {
+      "start": 4103.07,
+      "end": 4104.669,
+      "text": "later um I'll come back to that later um"
+    },
+    {
+      "start": 4104.669,
+      "end": 4106.87,
+      "text": "there one more one couple of other"
+    },
+    {
+      "start": 4106.87,
+      "end": 4118.749,
+      "text": "applications I talk one is um outli"
+    },
+    {
+      "start": 4118.749,
+      "end": 4120.829,
+      "text": "detection right and so um the idea is um"
+    },
+    {
+      "start": 4120.829,
+      "end": 4123.39,
+      "text": "suppose they give you a data set you may"
+    },
+    {
+      "start": 4123.39,
+      "end": 4126.63,
+      "text": "then run PCA to find you know roughly"
+    },
+    {
+      "start": 4126.63,
+      "end": 4129.309,
+      "text": "the Subspace on which your data lies and"
+    },
+    {
+      "start": 4129.309,
+      "end": 4131.309,
+      "text": "then um if you want to find anomalies in"
+    },
+    {
+      "start": 4131.309,
+      "end": 4133.149,
+      "text": "in future examples you then just look at"
+    },
+    {
+      "start": 4133.149,
+      "end": 4135.55,
+      "text": "your future examples and see if they lie"
+    },
+    {
+      "start": 4135.55,
+      "end": 4138.07,
+      "text": "very far from your Subspace so this"
+    },
+    {
+      "start": 4138.07,
+      "end": 4141.149,
+      "text": "isn't a fantastic anomaly detection"
+    },
+    {
+      "start": 4141.149,
+      "end": 4142.39,
+      "text": "ALG it's not a it's not a very good an"
+    },
+    {
+      "start": 4142.39,
+      "end": 4145.709,
+      "text": "right so the idea is if I give you a"
+    },
+    {
+      "start": 4145.709,
+      "end": 4147.59,
+      "text": "data set you may find a low dimensional"
+    },
+    {
+      "start": 4147.59,
+      "end": 4149.11,
+      "text": "Subspace on which it lies and then if"
+    },
+    {
+      "start": 4149.11,
+      "end": 4150.829,
+      "text": "you ever find a point that's far from"
+    },
+    {
+      "start": 4150.829,
+      "end": 4153.829,
+      "text": "your Subspace you can flat that as"
+    },
+    {
+      "start": 4153.829,
+      "end": 4155.59,
+      "text": "anomaly so this is not this isn't this"
+    },
+    {
+      "start": 4155.59,
+      "end": 4159.189,
+      "text": "really isn't the best anom detection Al"
+    },
+    {
+      "start": 4159.189,
+      "end": 4160.95,
+      "text": "room but but sometimes this is done um"
+    },
+    {
+      "start": 4160.95,
+      "end": 4163.39,
+      "text": "and the last application that I'm going"
+    },
+    {
+      "start": 4163.39,
+      "end": 4170.63,
+      "text": "to talk spin spin of go into a little"
+    },
+    {
+      "start": 4170.63,
+      "end": 4178.749,
+      "text": "um is U matching or to find better"
+    },
+    {
+      "start": 4178.749,
+      "end": 4180.189,
+      "text": "calculations so and let me say what what"
+    },
+    {
+      "start": 4180.189,
+      "end": 4200.59,
+      "text": "I mean by this now go into much more"
+    },
+    {
+      "start": 4200.59,
+      "end": 4204.43,
+      "text": "so here's the idea"
+    },
+    {
+      "start": 4204.43,
+      "end": 4207.03,
+      "text": "um let's say you want to do face"
+    },
+    {
+      "start": 4207.03,
+      "end": 4208.51,
+      "text": "recognition see I need to use my laptop"
+    },
+    {
+      "start": 4208.51,
+      "end": 4211.709,
+      "text": "later just make"
+    },
+    {
+      "start": 4211.709,
+      "end": 4214.189,
+      "text": "sure just W this up for okay so let's"
+    },
+    {
+      "start": 4214.189,
+      "end": 4217.87,
+      "text": "say once you do face recognition and you"
+    },
+    {
+      "start": 4217.87,
+      "end": 4222.95,
+      "text": "have um 100 by 100"
+    },
+    {
+      "start": 4222.95,
+      "end": 4225.99,
+      "text": "images right so um you know picture of a"
+    },
+    {
+      "start": 4225.99,
+      "end": 4228.63,
+      "text": "face is like whatever right some array"
+    },
+    {
+      "start": 4228.63,
+      "end": 4231.35,
+      "text": "of pixels and the pixels have different"
+    },
+    {
+      "start": 4231.35,
+      "end": 4232.87,
+      "text": "grayscale values and depending on you"
+    },
+    {
+      "start": 4232.87,
+      "end": 4234.35,
+      "text": "know the different gray scale values you"
+    },
+    {
+      "start": 4234.35,
+      "end": 4238.149,
+      "text": "get different people's of different"
+    },
+    {
+      "start": 4238.149,
+      "end": 4252.63,
+      "text": "pictures of people's faces right and so"
+    },
+    {
+      "start": 4252.63,
+      "end": 4256.79,
+      "text": "awake okay um so you have 100 by 100 uh"
+    },
+    {
+      "start": 4256.79,
+      "end": 4261.669,
+      "text": "pixel images and think of each face"
+    },
+    {
+      "start": 4261.669,
+      "end": 4263.43,
+      "text": "as a 10,000 dimensional Vector um which"
+    },
+    {
+      "start": 4263.43,
+      "end": 4271.27,
+      "text": "is very high"
+    },
+    {
+      "start": 4271.27,
+      "end": 4273.99,
+      "text": "um these two Contin to keep in mind and"
+    },
+    {
+      "start": 4273.99,
+      "end": 4275.87,
+      "text": "think of you know here's so so here's a"
+    },
+    {
+      "start": 4275.87,
+      "end": 4278.03,
+      "text": "here's my plot of my 100 dimensional"
+    },
+    {
+      "start": 4278.03,
+      "end": 4279.75,
+      "text": "space right and if you look at a lot of"
+    },
+    {
+      "start": 4279.75,
+      "end": 4282.59,
+      "text": "different pictures of"
+    },
+    {
+      "start": 4282.59,
+      "end": 4284.91,
+      "text": "faces you know each face will be along"
+    },
+    {
+      "start": 4284.91,
+      "end": 4285.87,
+      "text": "will will be some point in this 100,000"
+    },
+    {
+      "start": 4285.87,
+      "end": 4289.149,
+      "text": "dimension"
+    },
+    {
+      "start": 4289.149,
+      "end": 4292.03,
+      "text": "space and"
+    },
+    {
+      "start": 4292.03,
+      "end": 4294.709,
+      "text": "um in this cartoon I want to think of it"
+    },
+    {
+      "start": 4294.709,
+      "end": 4296.709,
+      "text": "as maybe most of this data lies on a"
+    },
+    {
+      "start": 4296.709,
+      "end": 4299.35,
+      "text": "relatively low dimensional Subspace"
+    },
+    {
+      "start": 4299.35,
+      "end": 4301.79,
+      "text": "because um in this 100,000 in this"
+    },
+    {
+      "start": 4301.79,
+      "end": 4303.79,
+      "text": "10,000 dimensional space really not all"
+    },
+    {
+      "start": 4303.79,
+      "end": 4306.629,
+      "text": "points correspond to valid images of"
+    },
+    {
+      "start": 4306.629,
+      "end": 4309.11,
+      "text": "faces right the vast majority of values"
+    },
+    {
+      "start": 4309.11,
+      "end": 4311.629,
+      "text": "the vast majority of 10,000 dimensional"
+    },
+    {
+      "start": 4311.629,
+      "end": 4312.75,
+      "text": "images just correspond to random noise"
+    },
+    {
+      "start": 4312.75,
+      "end": 4315.03,
+      "text": "light looking things and don't"
+    },
+    {
+      "start": 4315.03,
+      "end": 4318.229,
+      "text": "correspond to a valid image of a face"
+    },
+    {
+      "start": 4318.229,
+      "end": 4320.47,
+      "text": "but inste um the space of possible face"
+    },
+    {
+      "start": 4320.47,
+      "end": 4324.75,
+      "text": "images probably spans a much lower"
+    },
+    {
+      "start": 4324.75,
+      "end": 4327.31,
+      "text": "dimensional Subspace okay shoot laptop's"
+    },
+    {
+      "start": 4327.31,
+      "end": 4342.43,
+      "text": "not waking up for some reason let me"
+    },
+    {
+      "start": 4342.43,
+      "end": 4345.39,
+      "text": "works okay um and so what we'll do is"
+    },
+    {
+      "start": 4345.39,
+      "end": 4347.35,
+      "text": "we'll use PCA to find the low dimension"
+    },
+    {
+      "start": 4347.35,
+      "end": 4351.27,
+      "text": "Subspace on which the data lies and in"
+    },
+    {
+      "start": 4351.27,
+      "end": 4352.31,
+      "text": "practice um a PCA dimension of 50 would"
+    },
+    {
+      "start": 4352.31,
+      "end": 4356.39,
+      "text": "be fairly"
+    },
+    {
+      "start": 4356.39,
+      "end": 4359.39,
+      "text": "typical and um right so think of you"
+    },
+    {
+      "start": 4359.39,
+      "end": 4366.709,
+      "text": "know there's some axes that really"
+    },
+    {
+      "start": 4366.709,
+      "end": 4368.91,
+      "text": "face and there are some other"
+    },
+    {
+      "start": 4368.91,
+      "end": 4370.95,
+      "text": "axes that we're not interested in that"
+    },
+    {
+      "start": 4370.95,
+      "end": 4375.75,
+      "text": "are maybe just you know random"
+    },
+    {
+      "start": 4375.75,
+      "end": 4378.27,
+      "text": "noise so what we'll do is um"
+    },
+    {
+      "start": 4378.27,
+      "end": 4380.75,
+      "text": "for face recognition I might give you a"
+    },
+    {
+      "start": 4380.75,
+      "end": 4382.149,
+      "text": "picture of a face and ask you what face"
+    },
+    {
+      "start": 4382.149,
+      "end": 4383.55,
+      "text": "looks the most similar to this I going"
+    },
+    {
+      "start": 4383.55,
+      "end": 4385.39,
+      "text": "give you a picture of someone and ask"
+    },
+    {
+      "start": 4385.39,
+      "end": 4386.189,
+      "text": "you can you find other pictures of the"
+    },
+    {
+      "start": 4386.189,
+      "end": 4389.629,
+      "text": "same"
+    },
+    {
+      "start": 4389.629,
+      "end": 4391.51,
+      "text": "person um and so you know the key step"
+    },
+    {
+      "start": 4391.51,
+      "end": 4393.149,
+      "text": "to do that right is to look at two faces"
+    },
+    {
+      "start": 4393.149,
+      "end": 4402.11,
+      "text": "and to compare how similar these two"
+    },
+    {
+      "start": 4402.11,
+      "end": 4405.31,
+      "text": "so just okay and so here's how we use"
+    },
+    {
+      "start": 4405.31,
+      "end": 4407.11,
+      "text": "PCA um given"
+    },
+    {
+      "start": 4407.11,
+      "end": 4410.669,
+      "text": "a phas"
+    },
+    {
+      "start": 4410.669,
+      "end": 4412.669,
+      "text": "there and a different phas there the way"
+    },
+    {
+      "start": 4412.669,
+      "end": 4415.31,
+      "text": "I measure the distance between these two"
+    },
+    {
+      "start": 4415.31,
+      "end": 4417.709,
+      "text": "faces is I won't just measure the ukian"
+    },
+    {
+      "start": 4417.709,
+      "end": 4420.95,
+      "text": "distance similarity instead I'll take"
+    },
+    {
+      "start": 4420.95,
+      "end": 4423.39,
+      "text": "this face and project it onto my 50"
+    },
+    {
+      "start": 4423.39,
+      "end": 4426.189,
+      "text": "dimensional Subspace and take this"
+    },
+    {
+      "start": 4426.189,
+      "end": 4428.91,
+      "text": "project to my 50 dimensional Subspace"
+    },
+    {
+      "start": 4428.91,
+      "end": 4431.95,
+      "text": "and measure the similarity between those"
+    },
+    {
+      "start": 4431.95,
+      "end": 4434.03,
+      "text": "two points in the Subspace okay and so"
+    },
+    {
+      "start": 4434.03,
+      "end": 4435.87,
+      "text": "when I do that I end up with you know a"
+    },
+    {
+      "start": 4435.87,
+      "end": 4438.11,
+      "text": "face here and a face here that look very"
+    },
+    {
+      "start": 4438.11,
+      "end": 4440.629,
+      "text": "far upon the original space but when I"
+    },
+    {
+      "start": 4440.629,
+      "end": 4442.229,
+      "text": "project them onto the Subspace they may"
+    },
+    {
+      "start": 4442.229,
+      "end": 4444.31,
+      "text": "end up looking much more"
+    },
+    {
+      "start": 4444.31,
+      "end": 4447.59,
+      "text": "similar so what I want to show you in a"
+    },
+    {
+      "start": 4447.59,
+      "end": 4449.709,
+      "text": "second on the laptop is um let's"
+    },
+    {
+      "start": 4449.709,
+      "end": 4452.35,
+      "text": "see you know given each of these"
+    },
+    {
+      "start": 4452.35,
+      "end": 4455.91,
+      "text": "training examples"
+    },
+    {
+      "start": 4455.91,
+      "end": 4458.31,
+      "text": "right um as a 10,000 dimensional Vector"
+    },
+    {
+      "start": 4458.31,
+      "end": 4460.07,
+      "text": "I can plot that as a grayscale image and"
+    },
+    {
+      "start": 4460.07,
+      "end": 4461.149,
+      "text": "I get like a per like picture of some"
+    },
+    {
+      "start": 4461.149,
+      "end": 4463.75,
+      "text": "person's"
+    },
+    {
+      "start": 4463.75,
+      "end": 4466.669,
+      "text": "face what I'll also show you on the"
+    },
+    {
+      "start": 4466.669,
+      "end": 4469.189,
+      "text": "laptop will be plot of my I vectors and"
+    },
+    {
+      "start": 4469.189,
+      "end": 4472.07,
+      "text": "so the IG vectors also live in the"
+    },
+    {
+      "start": 4472.07,
+      "end": 4476.99,
+      "text": "10,000 dimensional Subspace and I plot"
+    },
+    {
+      "start": 4476.99,
+      "end": 4480.03,
+      "text": "that you get you know some image"
+    },
+    {
+      "start": 4480.03,
+      "end": 4481.229,
+      "text": "that's um and these images are called"
+    },
+    {
+      "start": 4481.229,
+      "end": 4483.79,
+      "text": "ion"
+    },
+    {
+      "start": 4483.79,
+      "end": 4486.39,
+      "text": "faces and what PCA is doing is"
+    },
+    {
+      "start": 4486.39,
+      "end": 4489.189,
+      "text": "essentially using linear combinations of"
+    },
+    {
+      "start": 4489.189,
+      "end": 4491.709,
+      "text": "these ion phase images to approximate"
+    },
+    {
+      "start": 4491.709,
+      "end": 4495.83,
+      "text": "these XI and there's this ion faces that"
+    },
+    {
+      "start": 4495.83,
+      "end": 4498.75,
+      "text": "span the of these bases U1 you two and"
+    },
+    {
+      "start": 4498.75,
+      "end": 4502.629,
+      "text": "so on to span hopefully the Subspace"
+    },
+    {
+      "start": 4502.629,
+      "end": 4522.99,
+      "text": "along which um my faces live okay so"
+    },
+    {
+      "start": 4522.99,
+      "end": 4625.55,
+      "text": "boy sorry about running a bit late I'm"
+    },
+    {
+      "start": 4625.55,
+      "end": 4631.59,
+      "text": "yeah no idea why it's taking so long to"
+    },
+    {
+      "start": 4631.59,
+      "end": 4635.31,
+      "text": "but"
+    },
+    {
+      "start": 4635.31,
+      "end": 4636.709,
+      "text": "there all right yeah now ta Paul spent a"
+    },
+    {
+      "start": 4636.709,
+      "end": 4638.11,
+      "text": "lot of time in the middle of the last"
+    },
+    {
+      "start": 4638.11,
+      "end": 4643.47,
+      "text": "night last night preparing some of these"
+    },
+    {
+      "start": 4643.47,
+      "end": 4646.51,
+      "text": "images so got sh them okay cool so"
+    },
+    {
+      "start": 4646.51,
+      "end": 4648.91,
+      "text": "here's a train set comprising you know"
+    },
+    {
+      "start": 4648.91,
+      "end": 4651.79,
+      "text": "aligned images like these um LGE much"
+    },
+    {
+      "start": 4651.79,
+      "end": 4654.83,
+      "text": "larger set than than than the shown here"
+    },
+    {
+      "start": 4654.83,
+      "end": 4660.55,
+      "text": "and so when you run PCA"
+    },
+    {
+      "start": 4660.55,
+      "end": 4663.55,
+      "text": "um these are um some of the plots that"
+    },
+    {
+      "start": 4663.55,
+      "end": 4666.59,
+      "text": "the UI so remember I said plot the IG"
+    },
+    {
+      "start": 4666.59,
+      "end": 4668.189,
+      "text": "vectors UI um in the same way there"
+    },
+    {
+      "start": 4668.189,
+      "end": 4670.149,
+      "text": "plotting the training examples and so"
+    },
+    {
+      "start": 4670.149,
+      "end": 4672.87,
+      "text": "you end up with the I vectors being sort"
+    },
+    {
+      "start": 4672.87,
+      "end": 4675.55,
+      "text": "of grayscale images like these and will"
+    },
+    {
+      "start": 4675.55,
+      "end": 4678.11,
+      "text": "approximate images of faces with linear"
+    },
+    {
+      "start": 4678.11,
+      "end": 4680.229,
+      "text": "combinations of these so I said it's"
+    },
+    {
+      "start": 4680.229,
+      "end": 4681.75,
+      "text": "dangerous look at individual ion vectors"
+    },
+    {
+      "start": 4681.75,
+      "end": 4682.99,
+      "text": "but um and and you really shouldn't do"
+    },
+    {
+      "start": 4682.99,
+      "end": 4684.669,
+      "text": "that but let me just do that a little"
+    },
+    {
+      "start": 4684.669,
+      "end": 4687.55,
+      "text": "bit anyway so if you look at the first"
+    },
+    {
+      "start": 4687.55,
+      "end": 4689.189,
+      "text": "icon Vector this corresponds roughly to"
+    },
+    {
+      "start": 4689.189,
+      "end": 4691.189,
+      "text": "whether the face is illuminated from the"
+    },
+    {
+      "start": 4691.189,
+      "end": 4692.95,
+      "text": "left or the right right so depending on"
+    },
+    {
+      "start": 4692.95,
+      "end": 4695.11,
+      "text": "how heavy the weight is on this image"
+    },
+    {
+      "start": 4695.11,
+      "end": 4697.83,
+      "text": "that roughly captures variation and"
+    },
+    {
+      "start": 4697.83,
+      "end": 4699.07,
+      "text": "illumination um second image just hard"
+    },
+    {
+      "start": 4699.07,
+      "end": 4700.87,
+      "text": "to tell it seems to be capturing"
+    },
+    {
+      "start": 4700.87,
+      "end": 4704.229,
+      "text": "variation and overall brightness of the"
+    },
+    {
+      "start": 4704.229,
+      "end": 4706.31,
+      "text": "face um the third ion Vector capturing"
+    },
+    {
+      "start": 4706.31,
+      "end": 4708.43,
+      "text": "roughly you know how much of a shadow or"
+    },
+    {
+      "start": 4708.43,
+      "end": 4710.31,
+      "text": "maybe a beard or something the person"
+    },
+    {
+      "start": 4710.31,
+      "end": 4712.99,
+      "text": "has and so on it's dangerous to look at"
+    },
+    {
+      "start": 4712.99,
+      "end": 4715.99,
+      "text": "individual I vectors but sort of just"
+    },
+    {
+      "start": 4715.99,
+      "end": 4718.83,
+      "text": "slightly inform of look at it um here's"
+    },
+    {
+      "start": 4718.83,
+      "end": 4722.149,
+      "text": "an example of a specific um application"
+    },
+    {
+      "start": 4722.149,
+      "end": 4725.55,
+      "text": "of igon faces so this is um from Sandy"
+    },
+    {
+      "start": 4725.55,
+      "end": 4728.59,
+      "text": "pendland Alex penland's lab in MIT um in"
+    },
+    {
+      "start": 4728.59,
+      "end": 4731.31,
+      "text": "this display this upper leftmost image"
+    },
+    {
+      "start": 4731.31,
+      "end": 4733.79,
+      "text": "is the input to the igen phases"
+    },
+    {
+      "start": 4733.79,
+      "end": 4735.59,
+      "text": "algorithm and um the algorithm is then"
+    },
+    {
+      "start": 4735.59,
+      "end": 4737.87,
+      "text": "also go for datab pH and find the most"
+    },
+    {
+      "start": 4737.87,
+      "end": 4740.229,
+      "text": "similar faces and so you know this"
+    },
+    {
+      "start": 4740.229,
+      "end": 4742.39,
+      "text": "second image here is what it thinks is"
+    },
+    {
+      "start": 4742.39,
+      "end": 4744.189,
+      "text": "the most similar face of the input um"
+    },
+    {
+      "start": 4744.189,
+      "end": 4745.83,
+      "text": "the next one over is the second most"
+    },
+    {
+      "start": 4745.83,
+      "end": 4748.79,
+      "text": "similar the next one over is the third"
+    },
+    {
+      "start": 4748.79,
+      "end": 4750.99,
+      "text": "most similar and so on and so using ion"
+    },
+    {
+      "start": 4750.99,
+      "end": 4752.629,
+      "text": "faces and using by measuring distances"
+    },
+    {
+      "start": 4752.629,
+      "end": 4754.99,
+      "text": "between faces in that low dimensional"
+    },
+    {
+      "start": 4754.99,
+      "end": 4756.669,
+      "text": "Subspace is able to do you know reasonal"
+    },
+    {
+      "start": 4756.669,
+      "end": 4759.229,
+      "text": "job identifying pictures of the same"
+    },
+    {
+      "start": 4759.229,
+      "end": 4761.59,
+      "text": "person even so with the with with faces"
+    },
+    {
+      "start": 4761.59,
+      "end": 4763.27,
+      "text": "the person removed oh and the next row"
+    },
+    {
+      "start": 4763.27,
+      "end": 4765.39,
+      "text": "shows the next most similar phase and so"
+    },
+    {
+      "start": 4765.39,
+      "end": 4768.59,
+      "text": "on so this just"
+    },
+    {
+      "start": 4768.59,
+      "end": 4770.709,
+      "text": "um uh this one is the is the fourth most"
+    },
+    {
+      "start": 4770.709,
+      "end": 4773.11,
+      "text": "similar phase and so on this one more"
+    },
+    {
+      "start": 4773.11,
+      "end": 4776.07,
+      "text": "different okay so the use application of"
+    },
+    {
+      "start": 4776.07,
+      "end": 4778.75,
+      "text": "ion faces um the last thing I want to"
+    },
+    {
+      "start": 4778.75,
+      "end": 4780.229,
+      "text": "say is just um when people talk tell me"
+    },
+    {
+      "start": 4780.229,
+      "end": 4781.87,
+      "text": "about machine learning problems I do"
+    },
+    {
+      "start": 4781.87,
+      "end": 4783.47,
+      "text": "often recommend they try PCA for"
+    },
+    {
+      "start": 4783.47,
+      "end": 4785.11,
+      "text": "different things so PCA is a useful"
+    },
+    {
+      "start": 4785.11,
+      "end": 4787.83,
+      "text": "thing to to to know to use for"
+    },
+    {
+      "start": 4787.83,
+      "end": 4789.709,
+      "text": "compression visualization so on um but"
+    },
+    {
+      "start": 4789.709,
+      "end": 4791.87,
+      "text": "in Industry I just tend to see sometimes"
+    },
+    {
+      "start": 4791.87,
+      "end": 4793.07,
+      "text": "PCA used slightly more often than there"
+    },
+    {
+      "start": 4793.07,
+      "end": 4794.91,
+      "text": "there also sometimes where you see"
+    },
+    {
+      "start": 4794.91,
+      "end": 4796.669,
+      "text": "people using PCA when they're really"
+    },
+    {
+      "start": 4796.669,
+      "end": 4799.43,
+      "text": "shouldn't so just one final piece of"
+    },
+    {
+      "start": 4799.43,
+      "end": 4801.39,
+      "text": "advice for use of PCA is um before you"
+    },
+    {
+      "start": 4801.39,
+      "end": 4802.79,
+      "text": "use it also think about whether you"
+    },
+    {
+      "start": 4802.79,
+      "end": 4805.39,
+      "text": "could just do it with the original"
+    },
+    {
+      "start": 4805.39,
+      "end": 4807.47,
+      "text": "training data XI without compressing it"
+    },
+    {
+      "start": 4807.47,
+      "end": 4808.95,
+      "text": "since I've also definitely seen people"
+    },
+    {
+      "start": 4808.95,
+      "end": 4811.149,
+      "text": "compress the data when they really did"
+    },
+    {
+      "start": 4811.149,
+      "end": 4813.03,
+      "text": "need to um but but but having said that"
+    },
+    {
+      "start": 4813.03,
+      "end": 4815.83,
+      "text": "I also often advise people to use PCA"
+    },
+    {
+      "start": 4815.83,
+      "end": 4817.95,
+      "text": "for various problems it also works um"
+    },
+    {
+      "start": 4817.95,
+      "end": 4820.95,
+      "text": "okay sorry about running late let's wrap"
+    }
+  ]
+}

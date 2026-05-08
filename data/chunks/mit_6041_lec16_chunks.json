@@ -1,0 +1,632 @@
+[
+  {
+    "chunk_id": "mit_6041_lec16_chunk_000",
+    "video_id": "mit_6041_lec16",
+    "start_time": 0.0,
+    "end_time": 45.0,
+    "text": "the following content is provided under a Creative Commons license your support will help MIT open courseware continue to offer highquality educational resources for free to make a donation or view additional materials from hundreds of MIT courses visit MIT opencourseware ocw.mit.edu so we're going to start now with a new chapter we're going to talk about Mark of processes uh the good news is that this is a subject that is a lot more intuitive and simple in many ways than uh let's say the pon processes so hopefully this will be enjoyable so Mark of processes is a general class of"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_001",
+    "video_id": "mit_6041_lec16",
+    "start_time": 35.0,
+    "end_time": 80.0,
+    "text": "more intuitive and simple in many ways than uh let's say the pon processes so hopefully this will be enjoyable so Mark of processes is a general class of random processes it's uh in some sense it's more elaborate than the berul and Pon processes because now we're going to have dependencies between different times instead of having memoryless processes so the basic idea is the following in physics for example you write down equations for how a system evolves that have the general form the new state of a system one second later is some function of the Old State so Newton equations and all that"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_002",
+    "video_id": "mit_6041_lec16",
+    "start_time": 70.0,
+    "end_time": 115.0,
+    "text": "new state of a system one second later is some function of the Old State so Newton equations and all that in physics allow you to write equations of this kind and so if you know that a particle is moving at a certain velocity and it's at some location You can predict when it's going to be a little later Mark of processes have the same flavor except that there is also some Randomness that thrown inside the equation so that's what Mark of process essentially is it's an it describes the evolution of a system or of some variables but in the presence of some noise so that the motion itself is a bit"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_003",
+    "video_id": "mit_6041_lec16",
+    "start_time": 105.0,
+    "end_time": 150.0,
+    "text": "evolution of a system or of some variables but in the presence of some noise so that the motion itself is a bit random so uh this is a pretty General framework so pretty much any useful or interesting random process that you can think about you can always describe it as a mark of process if you define properly the notion of the state so what we're going to do is we're going to introduce the class of Mark of processes by example by talking about the checkout counter in a supermarket then we're going to abstract from our example so that we get a more general definition and then we're going to do a few things such as how to predict what's going to"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_004",
+    "video_id": "mit_6041_lec16",
+    "start_time": 140.0,
+    "end_time": 185.0,
+    "text": "counter in a supermarket then we're going to abstract from our example so that we get a more general definition and then we're going to do a few things such as how to predict what's going to happen and time steps later if we start at a particular State and then talk a little bit about some structural properties of Mark of processes or Mark example you go to the checkout counter at the supermarket and you stand there and watch the customers who are who come so customers come they get in que and customers get served one at a time so the discussion is going to be in terms"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_005",
+    "video_id": "mit_6041_lec16",
+    "start_time": 175.0,
+    "end_time": 220.0,
+    "text": "so customers come they get in que and customers get served one at a time so the discussion is going to be in terms of supermarket checkout counters but the same story applies to any service system you may have a server jobs arrive to that server they get put in a queue and the server processes those jobs one at a time now to make a probabilistic model we need to make some assumption about the customer arrivals and the customer departures and we want to keep things as simple as possible to get started so let's assume that customer arrive according to a beri process with some parameter P so essentially that's the same as the assumption that the time"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_006",
+    "video_id": "mit_6041_lec16",
+    "start_time": 210.0,
+    "end_time": 255.0,
+    "text": "let's assume that customer arrive according to a beri process with some parameter P so essentially that's the same as the assumption that the time between consecutive customer arrivals is a geometric random variable with parameter P another way of thinking about the arrival process uh that's not how it happens but it's helpful mathematically is to think of someone who's flipping a coin with bias equal to p and whenever the coin lands heads then a customer arrives so it's as if there's a coin flipping done by Nature that decides the arrivals of the customers so we know that uh uh coin"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_007",
+    "video_id": "mit_6041_lec16",
+    "start_time": 245.0,
+    "end_time": 290.0,
+    "text": "lands heads then a customer arrives so it's as if there's a coin flipping done by Nature that decides the arrivals of the customers so we know that uh uh coin flipping to determine the customer arrivals is the same as having geometric inter arrival times we know that from our study of the bernouli process okay and now how about the customer service times uh we're going to assume that okay if there is no customer in Q no one being served then of course no one is going to depart from the que but if there is a customer in Q then that that customer starts being served and is going to be served for a random amount of time and we make the assumption that"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_008",
+    "video_id": "mit_6041_lec16",
+    "start_time": 280.0,
+    "end_time": 325.0,
+    "text": "there is a customer in Q then that that customer starts being served and is going to be served for a random amount of time and we make the assumption that the time it takes for the for the clerk to serve the customer has a geometric distribution with some known parameter Q so the time it takes to serve a customer is random because it's random how many items they've got in their cart and how many coupons they have to unload and so on so it's random it's uh in the real world it has some probability distribution let's not care exactly about what it would be in the real world but as a modeling approximation or just to get started let's pretend that customer service times are well"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_009",
+    "video_id": "mit_6041_lec16",
+    "start_time": 315.0,
+    "end_time": 360.0,
+    "text": "about what it would be in the real world but as a modeling approximation or just to get started let's pretend that customer service times are well described by a geometric uh distribution with a parameter Q an equivalent way of thinking about the customer services mathematically would be again in terms of coin flipping that is the clerk has a coin with a bias q and at each time slot the clerk flips the coin with probability Q service is over uh with probability one minus Q you continue the service process an assumption that we're going to make is that the coin flips that happen here to determine the arrivals they're all independent of each other"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_010",
+    "video_id": "mit_6041_lec16",
+    "start_time": 350.0,
+    "end_time": 395.0,
+    "text": "process an assumption that we're going to make is that the coin flips that happen here to determine the arrivals they're all independent of each other the coin flips that determine the Ser the end of service are also independent from each other but also the coin flips involved here are independent from the coin flips that happened there so the arrival how arrivals happen is independent with the what happens at the service process okay so suppose now you want to ask to answer a question such as the following uh the time is 700 p.m. what's the probability that a customer will be departing at this particular time well you'll say it depends if the Q"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_011",
+    "video_id": "mit_6041_lec16",
+    "start_time": 385.0,
+    "end_time": 430.0,
+    "text": "following uh the time is 700 p.m. what's the probability that a customer will be departing at this particular time well you'll say it depends if the Q is empty at that time then you're certain that you are not going to have a customer departure but if the Q is non empty then there is probability q that a departure will happen at that time so the answer to a question like this has something to do with the state of the system at that time it depends what the Q is and if I ask you uh will the Q be empty at 710 well the answer to that question depends on whether at time at 7 o'"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_012",
+    "video_id": "mit_6041_lec16",
+    "start_time": 420.0,
+    "end_time": 465.0,
+    "text": "Q is and if I ask you uh will the Q be empty at 710 well the answer to that question depends on whether at time at 7 o' whether the Q was huge or not so knowing something about the state of the Q right now is gives me relevant information about what may happen in the future so what is the state of the system therefore we brought to start using this term so the state basically corresponds to anything which we that's relevant anything that's happening right now that's kind of relevant to what may happen in the future knowing the size of the que right now is useful information"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_013",
+    "video_id": "mit_6041_lec16",
+    "start_time": 455.0,
+    "end_time": 500.0,
+    "text": "now that's kind of relevant to what may happen in the future knowing the size of the que right now is useful information for me to uh make predictions about what may happen 2 minutes later from now so in this particular example a reasonable choice for the state is to just count how many customers we have in the queue and let's let's assume that our Supermarket building is not too big so it can only hold 10 people so we're going to limit the state instead of going from zero to Infinity we're going to uh to truncate our model at 10 so we have 11 possible States corresponding to"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_014",
+    "video_id": "mit_6041_lec16",
+    "start_time": 490.0,
+    "end_time": 535.0,
+    "text": "to uh to truncate our model at 10 so we have 11 possible States corresponding to zero customers in Q One customer in Q two customers and so on all the way up to 10 so these are the different possible states of the system assuming that the store cannot handle more than 10 customers so so this is the first step to write down the set of possible states of our system then the next thing to do is to start describing the possible transitions between the states at any given time step what are the things that can happen we can have a customer arrival which moves the state"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_015",
+    "video_id": "mit_6041_lec16",
+    "start_time": 525.0,
+    "end_time": 570.0,
+    "text": "states at any given time step what are the things that can happen we can have a customer arrival which moves the state one Higher we can have a customer departure which moves the state one low lower there's the possibility that nothing happens in which case the state stays the same and there's also the possibility of having simultaneously and an arrival and a departure in which case the state again stays the same so let's write some representative probabilities uh if we have two customers the probability that during this step we go down this is the probability that we have a service completion but no customer arrival so this is the probability associated with"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_016",
+    "video_id": "mit_6041_lec16",
+    "start_time": 560.0,
+    "end_time": 605.0,
+    "text": "this step we go down this is the probability that we have a service completion but no customer arrival so this is the probability associated with this transition the other possibility is that there's a customer arrival which happens with probability p and we do not have a customer departure and so the probability of that particular transition is this number and then finally the probability that we stay in the same state this can happen in two possible ways one way is that we have an arrival and and the departure simultaneously and the other possibility"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_017",
+    "video_id": "mit_6041_lec16",
+    "start_time": 595.0,
+    "end_time": 640.0,
+    "text": "in two possible ways one way is that we have an arrival and and the departure simultaneously and the other possibility is that we have no arrival and no departure so that the state stays the same so these transition probabilities would be the same starting from any other state St state three or state 9 and so on transition probabilities become a little different at the borders at the boundaries of this diagram because if you're at state zero then you cannot have any customer departures there's no one to be served but there is a probability P that a customer arrives in which case the the number of customers in the system goes to one and probability 1 minus P that"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_018",
+    "video_id": "mit_6041_lec16",
+    "start_time": 630.0,
+    "end_time": 675.0,
+    "text": "but there is a probability P that a customer arrives in which case the the number of customers in the system goes to one and probability 1 minus P that nothing happens similarly with departures if who if the system is full there's no room for another arrival but we may have a departure that happens with probability q and nothing happens with probability 1 minus Q so this is the full transition diagram annot ated with transition probabilities and this is a complete description of a mark of of a discrete time finite State Mark of chain so this is a complete probabilistic model once you have all"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_019",
+    "video_id": "mit_6041_lec16",
+    "start_time": 665.0,
+    "end_time": 710.0,
+    "text": "is a complete description of a mark of of a discrete time finite State Mark of chain so this is a complete probabilistic model once you have all these pieces of information you can start calculating things and trying to predict what's going to happen in the future now let us abstract from this example and come up with a more general we have this concept of the state which describes the current situation in the system that we're looking at the current state is random so we're going to think of it as a random variable X subn is the"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_020",
+    "video_id": "mit_6041_lec16",
+    "start_time": 700.0,
+    "end_time": 745.0,
+    "text": "system that we're looking at the current state is random so we're going to think of it as a random variable X subn is the state and transitions after the system started operating so the system starts operating at some initial State x0 and after nend transitions it moves to State xn now we have a set of possible States state one state two state three and in general States I and state J to keep things simple we assume that the set of possible States is a finite set as you can imagine we can have systems in which the state space is going to be infinite it could be discrete or continuous but all that is"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_021",
+    "video_id": "mit_6041_lec16",
+    "start_time": 735.0,
+    "end_time": 780.0,
+    "text": "the set of possible States is a finite set as you can imagine we can have systems in which the state space is going to be infinite it could be discrete or continuous but all that is more difficult and more complicated it makes sense to start from the simplest possible setting where we just deal with the finite State space and time is discrete so we can think of the states after in the beginning after one transition two Transitions and so on so we're in discrete time and we have finitely many states so the system starts somewhere and at every time step the state is let's say here a whistle blows and the state jumps to a random next state"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_022",
+    "video_id": "mit_6041_lec16",
+    "start_time": 770.0,
+    "end_time": 815.0,
+    "text": "and at every time step the state is let's say here a whistle blows and the state jumps to a random next state so it may move here or it may move there or it may move here or it might stay in place so one possible transition is the transition where you jump and just land in the same place where you started from now to describe we want to describe the statistics of these transitions if I am at that State How likely is it that next time I'm going to find myself at that State well we describe the statist iscs of this transition by writing down a transition"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_023",
+    "video_id": "mit_6041_lec16",
+    "start_time": 805.0,
+    "end_time": 850.0,
+    "text": "time I'm going to find myself at that State well we describe the statist iscs of this transition by writing down a transition probability uh the transition probability of going from state three to State one so this transition probability is to be thought of as a conditional probability given that right now I am at State I what is the probability that next time I find myself at State J so given that right now I am at state three 31 is the probability that next time I'm going to find myself at State one uh similarly here we would have a probability P3 I which is the"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_024",
+    "video_id": "mit_6041_lec16",
+    "start_time": 840.0,
+    "end_time": 885.0,
+    "text": "three 31 is the probability that next time I'm going to find myself at State one uh similarly here we would have a probability P3 I which is the probability that given that right now I'm at state three next time I'm going to find myself at State I now one can write such conditional probabilities down in principle but we need to make so you might think of this as a definition here but we need to make one additional big assumption and this is the assumption that makes a process to be a mark of process this is the so-called Mark of property and here's what it"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_025",
+    "video_id": "mit_6041_lec16",
+    "start_time": 875.0,
+    "end_time": 920.0,
+    "text": "is the assumption that makes a process to be a mark of process this is the so-called Mark of property and here's what it says let me describe it first in words here every time that I find myself at state three the probability that next time I'm going to find myself at State one is this particular number no matter how I got there that is this transition probability is not affected by the past of the process it doesn't care about what path I used to to find myself at state three mathematically it means the following you have this transition"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_026",
+    "video_id": "mit_6041_lec16",
+    "start_time": 910.0,
+    "end_time": 955.0,
+    "text": "what path I used to to find myself at state three mathematically it means the following you have this transition probability that from I you jump to State J suppose that I gave you some additional information that I told you everything else that happened in the past of the process everything that happened how did you get to State I the Assumption we're making is that this information about the past has no bearing in making predictions about the future as long as you know where you are right now so if I tell you right now I you are at State I and by the way you got there by following a particular path"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_027",
+    "video_id": "mit_6041_lec16",
+    "start_time": 945.0,
+    "end_time": 990.0,
+    "text": "right now so if I tell you right now I you are at State I and by the way you got there by following a particular path you can ignore the extra information of the particular path that you followed you only take into account where you are right now so every time you find yourself at at that State no matter how you got there you will find yourself next time at State one with probability p31 so the past has no bearing in Into the Future as long as you know where you are sitting right now for this property to happen you need to choose your state carefully in the right way"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_028",
+    "video_id": "mit_6041_lec16",
+    "start_time": 980.0,
+    "end_time": 1025.0,
+    "text": "are sitting right now for this property to happen you need to choose your state carefully in the right way in essence the state needs to include any information that's relevant about the future of the system anything that's not in the state is not going to play a role but the state needs to have all the information that's relevant in determining what kind of transitions are going to happen next so to take an example before you go to mark of process just from the deterministic world if you have a ball that's flying out in the air and you want to make predictions about the future if I tell you that the state"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_029",
+    "video_id": "mit_6041_lec16",
+    "start_time": 1015.0,
+    "end_time": 1060.0,
+    "text": "just from the deterministic world if you have a ball that's flying out in the air and you want to make predictions about the future if I tell you that the state of the ball is the position of the ball at a particular time is that enough for you to make predictions where the ball is going to go next no you need to know both the position and the velocity if you know position and velocity you can make predictions about the future so the state of a ball that's flying is positioned together with velocity if you were to just take position that would not be enough information because if I tell you current position and then I tell you the past position you could"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_030",
+    "video_id": "mit_6041_lec16",
+    "start_time": 1050.0,
+    "end_time": 1095.0,
+    "text": "if you were to just take position that would not be enough information because if I tell you current position and then I tell you the past position you could use the information from the past position to complete the trajectory and make the prediction so information from the past is useful if you don't know the velocity but if you know both position and velocity it doesn't care you don't care how you got there or what time you started from position and velocity you can make predictions about the fut future so there is a certain art or a certain element of uh thinking a non- mechanical aspect into problems of this kind to figure out which is the right State variable when you define the state"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_031",
+    "video_id": "mit_6041_lec16",
+    "start_time": 1085.0,
+    "end_time": 1130.0,
+    "text": "mechanical aspect into problems of this kind to figure out which is the right State variable when you define the state of your system you need to Define it in such a way that it includes all information that has been accumulated that has some relevance for the Future Okay so the general process for coming up with a mark of model is to First make this big decision of what your state variable is going to be then you write down the maybe a picture of the different states then you identify the possible transitions so sometimes the diagram that you're going to have"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_032",
+    "video_id": "mit_6041_lec16",
+    "start_time": 1120.0,
+    "end_time": 1165.0,
+    "text": "you write down the maybe a picture of the different states then you identify the possible transitions so sometimes the diagram that you're going to have will not include all possible arcs you will only show those arcs that correspond to Transitions that are possible for example in the supermarket example we did not have a transition from state two to State five because that cannot happen you can only have one arrival at any time so in the diagram we only showed the possible Transitions and for each one of the possible transitions then you work with the description of the model to figure out the correct transition probabilities so you annotate"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_033",
+    "video_id": "mit_6041_lec16",
+    "start_time": 1155.0,
+    "end_time": 1200.0,
+    "text": "the model to figure out the correct transition probabilities so you annotate probabilities okay so suppose you got your Mark of model what will you do with it well what do we need models for we need models for in order to make predictions to make probabilistic predictions so for example I tell you that the process started at that State you let it run for some time where do you think it's going to be 10 time steps from now that's a question that you might want to answer since the process is random there's no way for you to tell me exactly where it's going to be but maybe you can give me"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_034",
+    "video_id": "mit_6041_lec16",
+    "start_time": 1190.0,
+    "end_time": 1235.0,
+    "text": "time steps from now that's a question that you might want to answer since the process is random there's no way for you to tell me exactly where it's going to be but maybe you can give me probabilities you can tell me with so much probability the state will be there with so much probability the state will be there and so on so our first exercise is to calculate those probabilities about what may happen to the process a number of steps in the future it's handy to have some notation in here so somebody tells us that this this process starts at a particular State I we let the process cess run for end transitions it may land it will land at"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_035",
+    "video_id": "mit_6041_lec16",
+    "start_time": 1225.0,
+    "end_time": 1270.0,
+    "text": "this process starts at a particular State I we let the process cess run for end transitions it may land it will land at some State J but that state J at which it's going to land is going to be random so we want to give probabilities tell me with what probability the state n times steps later is going to be that particular State J the Shand notation is to use this symbol here for the EP transition probabilities that you find find yourself at State J given that you started at State I so the way these two indices are ordered the way to think"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_036",
+    "video_id": "mit_6041_lec16",
+    "start_time": 1260.0,
+    "end_time": 1305.0,
+    "text": "yourself at State J given that you started at State I so the way these two indices are ordered the way to think about them is that from I you go to J so probability that from I you go to J if you have n steps ahead of in front of you some of these transition probabilities are of course easy to write for transitions you are going to be exactly where you started so this probability is going to be equal to 1 if I is equal to J and zero if I is different than J okay that's an easy one to write down if you"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_037",
+    "video_id": "mit_6041_lec16",
+    "start_time": 1295.0,
+    "end_time": 1340.0,
+    "text": "going to be equal to 1 if I is equal to J and zero if I is different than J okay that's an easy one to write down if you have only one transition what's the probability that one step later you find yourself in state J given that you started at State I what is this these are just the order AR one-step transition probabilities that were given in the description of the problem so by definition the one state transition probabilities are of this form this is these two are this equation this equality is correct just because of the way that we defined those two"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_038",
+    "video_id": "mit_6041_lec16",
+    "start_time": 1330.0,
+    "end_time": 1375.0,
+    "text": "form this is these two are this equation this equality is correct just because of the way that we defined those two quantities now we want to say something about the nstep transition probabilities when N is a larger is a bigger number number okay so here we're going to use the total probability theorem so we're going to condition into different scenarios and break up the calculation of this quantity by considering the different ways that this event can happen so what is the event of Interest the event of interest is the following at Time Zero we start"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_039",
+    "video_id": "mit_6041_lec16",
+    "start_time": 1365.0,
+    "end_time": 1410.0,
+    "text": "different ways that this event can happen so what is the event of Interest the event of interest is the following at Time Zero we start I we are interested in landing at time n at the particular State J now this event can happen in several different ways in lots of different ways but let us group them into subgroups one group or one sort of scenario is the following during the first n minus one time steps you things happen and somehow you end up at State one and then from State one at the next time step you make a transition to State J this particular"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_040",
+    "video_id": "mit_6041_lec16",
+    "start_time": 1400.0,
+    "end_time": 1445.0,
+    "text": "you end up at State one and then from State one at the next time step you make a transition to State J this particular uh Arc here actually corresponds to lots and lots of different possible scenarios or different paths or different transitions in N minus one time steps there's lots of possible ways by which you could end up at State one different paths through the state space but all of them together collectively have a probability which is the n minus one step transition probability that from one and then there's other possible"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_041",
+    "video_id": "mit_6041_lec16",
+    "start_time": 1435.0,
+    "end_time": 1480.0,
+    "text": "step transition probability that from one and then there's other possible scenarios uh perhaps in the first n minus one steps you follow the trajectory that took you at State M and then from State M you did this transition and you ended up at State J so this diagram breaks up the set of all possible trajectories from I to J into different collections where each collection uh has to do with which one happens to be the state just before the last time step Just Before Time n and we're going to condition on the states"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_042",
+    "video_id": "mit_6041_lec16",
+    "start_time": 1470.0,
+    "end_time": 1515.0,
+    "text": "collection uh has to do with which one happens to be the state just before the last time step Just Before Time n and we're going to condition on the states at time n minus one so the total probability of ending up at State J is the sum of the probabilities of the different scenario of the different ways that you can get to State J if we look at that kind of that type of scenario what's the probability of that scenario happen with probability R i1 of n minus one I find myself at State one at time n minus one this is just by the definition of these"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_043",
+    "video_id": "mit_6041_lec16",
+    "start_time": 1505.0,
+    "end_time": 1550.0,
+    "text": "probability R i1 of n minus one I find myself at State one at time n minus one this is just by the definition of these multi-step transition probabilities this is the number of transitions the probability that from State I I end up at State one and then given that I found myself at State one with probability p 1 J that's the transition probability next time I'm going to find myself at State J so the product of these two is the total probability of my getting from State I to State J through State one at the time"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_044",
+    "video_id": "mit_6041_lec16",
+    "start_time": 1540.0,
+    "end_time": 1585.0,
+    "text": "probability of my getting from State I to State J through State one at the time before now where exactly did we use the mark of assumption here no matter which particular path we used to get from I to state one the probability that next time I'm going to make this transition is that same number p1j so that number does not depend on the particular path that I followed in order to get there if we didn't have the mark of assumption we should have considered all possible individual trajectories here and then we would need to use the transition probability that corresponds to that particular"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_045",
+    "video_id": "mit_6041_lec16",
+    "start_time": 1575.0,
+    "end_time": 1620.0,
+    "text": "mark of assumption we should have considered all possible individual trajectories here and then we would need to use the transition probability that corresponds to that particular trajectory but because of the mark of assumption the only thing that matters is that right now we are at State one it does not matter how we got there so now once you consider this scenario then this scenario and that scenario and you add the probabilities of all these different scenarios you end up with this formula here which is a recursion it tells us that once you have computed the N minus one step transition probabilities then you can compute also the endep transition probabilities this is a recursion that you execute or you"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_046",
+    "video_id": "mit_6041_lec16",
+    "start_time": 1610.0,
+    "end_time": 1655.0,
+    "text": "computed the N minus one step transition probabilities then you can compute also the endep transition probabilities this is a recursion that you execute or you run for all I's and JS simultaneously that is fix and for a particular n you calculate this quantity for all possible ij's KS you have all those quantities and then you you use this equation to find those numbers again for all possible I and JS now the this is a Formula which is always true and there's a big idea behind that formula and now there's variations of this formula depending on whether you're interested in something that's slightly"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_047",
+    "video_id": "mit_6041_lec16",
+    "start_time": 1645.0,
+    "end_time": 1690.0,
+    "text": "true and there's a big idea behind that formula and now there's variations of this formula depending on whether you're interested in something that's slightly different so for example if you were to have a random initial State and you want to you somebody gives you the probability distribution of the initial state so you are told that with probability such and such you're going to start at say State one with that probability you're going to start at state two and so on and you want to find the probability that at time n you find yourself at State J well again total probability theorem you condition on the initial state with this probability you find yourself at that particular initial State and given that this is your initial State this is the"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_048",
+    "video_id": "mit_6041_lec16",
+    "start_time": 1680.0,
+    "end_time": 1725.0,
+    "text": "well again total probability theorem you condition on the initial state with this probability you find yourself at that particular initial State and given that this is your initial State this is the probability that end time steps later you find your step yourself at State J now building again on the same idea you can run recursions of this kind by conditioning at different times so you start at State I after one time step you'll find yourself at State one with probability pi i1 and you find yourself at States M with probability p i"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_049",
+    "video_id": "mit_6041_lec16",
+    "start_time": 1715.0,
+    "end_time": 1760.0,
+    "text": "you'll find yourself at State one with probability pi i1 and you find yourself at States M with probability p i m and once that happens then you're going to follow some trajectories and there is a possibility that you're going to end up at State J steps this scenario can happen in many possible ways there's lots of possible paths from State one to State J there's many paths from State M to State J what is the collective probability of all"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_050",
+    "video_id": "mit_6041_lec16",
+    "start_time": 1750.0,
+    "end_time": 1795.0,
+    "text": "many paths from State M to State J what is the collective probability of all transitions this is the event that starting from State one I end up at State J in N minus one time steps so this one has here probability R1 J of n minus one and similarly uh down here and then by using the same way of thinking as before we get a formula that r i j of n is the sum over all KS of p i k and then the r of K J and minus"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_051",
+    "video_id": "mit_6041_lec16",
+    "start_time": 1785.0,
+    "end_time": 1830.0,
+    "text": "n is the sum over all KS of p i k and then the r of K J and minus one so this formula looks almost the same as this one but it's actually different uh the indices and the way things work out are a bit different but the basic idea is the same here we use the total probability theorem by conditioning on the state just one step before the end of our time Horizon here we condition we use the total probability theorem by conditioning on the state right after the first transition so this general idea has different variations they're all valid"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_052",
+    "video_id": "mit_6041_lec16",
+    "start_time": 1820.0,
+    "end_time": 1865.0,
+    "text": "probability theorem by conditioning on the state right after the first transition so this general idea has different variations they're all valid and depending on the context that you're dealing with you might want to work with one of these or or another so let's illustrate these uh calculations in terms of an example so in this example we just have two states and somebody gives us transition probabilities to be those particular numbers let's write down the equations so the probability that starting from just do from State one I find"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_053",
+    "video_id": "mit_6041_lec16",
+    "start_time": 1855.0,
+    "end_time": 1900.0,
+    "text": "numbers let's write down the equations so the probability that starting from just do from State one I find myself at State one end time steps later this can happen in two ways at time n minus one I might find myself at state two and then from state two I make a transition back to State one which happens with probability why did I put two there anyway point point two and and another way is that from State one I go to state one in N minus one steps and then from State one I stay where I am which"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_054",
+    "video_id": "mit_6041_lec16",
+    "start_time": 1890.0,
+    "end_time": 1935.0,
+    "text": "way is that from State one I go to state one in N minus one steps and then from State one I stay where I am which five so this is a recursion for R11 of n uh now R12 of n we can write a similar recursion for this one on the other hand since these are probabilities the state at time n is going to be either State one or state two so these two numbers need to add to one so we can just write that this is 1 minus R1 one of"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_055",
+    "video_id": "mit_6041_lec16",
+    "start_time": 1925.0,
+    "end_time": 1970.0,
+    "text": "two so these two numbers need to add to one so we can just write that this is 1 minus R1 one of N and this is enough of a recursion to calculate R to propagate R11 and R12 as time goes on so the probability that I find my so after n minus one transitions either find myself at state two and then there's a point two transition that I go to one or I find myself at State one which is with that probability and from there I have probability five of staying where I am so now let's start calculating as we discussed before if I start at State one after zero"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_056",
+    "video_id": "mit_6041_lec16",
+    "start_time": 1960.0,
+    "end_time": 2005.0,
+    "text": "there I have probability five of staying where I am so now let's start calculating as we discussed before if I start at State one after zero transitions I'm certain to be at State one and I'm certain not to be at state two if I start from state two I'm certain to not be at State one at that time and I'm certain that I am right now at state two after I make one transition starting from State one there's probability Point there's probability point five that I stay at State one and there's probability point five that I move to state two if I were to start from state two the probability that I go to one in one"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_057",
+    "video_id": "mit_6041_lec16",
+    "start_time": 1995.0,
+    "end_time": 2040.0,
+    "text": "five that I move to state two if I were to start from state two the probability that I go to one in one time step is this transition that has probability point two and the other one is8 okay so the calculation now becomes more interesting if we want to calculate the next term How likely is it that at time two I one in order to be here at State one this can happen in two ways either the first transition left me there and the second transition is the"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_058",
+    "video_id": "mit_6041_lec16",
+    "start_time": 2030.0,
+    "end_time": 2075.0,
+    "text": "ways either the first transition left me there and the second transition is the same so this correspond to this 0 five that the first transition took me there and the next transition was also of the same kind that's one possibility but there's another scenario in order to be at State one at time two this can also happen this way so that's the event that after one transition I got there and the next transition happened to be this one so this corresp responds to.5 * 2 it corresponds to taking the one-step transition probability of"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_059",
+    "video_id": "mit_6041_lec16",
+    "start_time": 2065.0,
+    "end_time": 2110.0,
+    "text": "there and the next transition happened to be this one so this corresp responds to.5 * 2 it corresponds to taking the one-step transition probability of getting there times the probability that from state two I move to State one which in this case is 0.2 so basically we take this number multiplied with 0. 2 and then add those two numbers and after you add them here you get 35 and similarly here you're going to get 65 and now to continue with the recursion we keep doing the same thing we take this number times 0. five plus this number times 02 add them up you get the"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_060",
+    "video_id": "mit_6041_lec16",
+    "start_time": 2100.0,
+    "end_time": 2145.0,
+    "text": "and now to continue with the recursion we keep doing the same thing we take this number times 0. five plus this number times 02 add them up you get the next entry keep doing that keep doing that and eventually you will notice that the numbers start settling into a limiting value uh 2.7 and let's verify this if this number is 2.7 what is the next number going to be the next number is going to be uh 27ths not 2.7 it's going to be 27 that's the probability that I find"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_061",
+    "video_id": "mit_6041_lec16",
+    "start_time": 2135.0,
+    "end_time": 2180.0,
+    "text": "be uh 27ths not 2.7 it's going to be 27 that's the probability that I find myself at that State times 0.5 uh that the next transition takes me to State one plus 57s that would be the probability that I the remaining probability that I find myself at state two times 15 and so that gives me again 2 over 7 so this calculation basically illustrates that if this number has become 2.7 then the next number is also"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_062",
+    "video_id": "mit_6041_lec16",
+    "start_time": 2170.0,
+    "end_time": 2215.0,
+    "text": "15 and so that gives me again 2 over 7 so this calculation basically illustrates that if this number has become 2.7 then the next number is also going to be 2.7 and of course this number here is going to have to be 5.7 5 over s and this one will have to be again the same 5 over 7 so the probability that I find myself at State one after a long time has elapsed settles into some steady state value so that's an interesting phenomenon we just make this observation now we can also do the calculation about the probability starting from state"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_063",
+    "video_id": "mit_6041_lec16",
+    "start_time": 2205.0,
+    "end_time": 2250.0,
+    "text": "make this observation now we can also do the calculation about the probability starting from state two and here you do the calculations I'm not going to to do them but after you do them you find that this probability also settles to 2 over 7 and this one also settles to 5 over 7 what so these numbers here are the same as those numbers what's the difference between these this is the probability that I find myself at State one given that I started at one this is the probability"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_064",
+    "video_id": "mit_6041_lec16",
+    "start_time": 2240.0,
+    "end_time": 2285.0,
+    "text": "these this is the probability that I find myself at State one given that I started at one this is the probability that I find myself at State one given that I started at St at state two these probabilities are the same no matter where I started from so this numerical example sort of uh illustrates the idea that after the chain has run for a long time what the state of the chain is does not care about the initial state of the chain so whether so if you start here you know that you're are going to stay here for some time a few transitions"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_065",
+    "video_id": "mit_6041_lec16",
+    "start_time": 2275.0,
+    "end_time": 2320.0,
+    "text": "not care about the initial state of the chain so whether so if you start here you know that you're are going to stay here for some time a few transitions because this probability is kind of small so the initial state does does tell you something but in the very long run transitions of this kind are going to happen transitions of that kind are going to happen these are there's a lot of Randomness that comes in and that Randomness washes out any information that could come from the initial state of the system we describe this situation by saying that the mark of chain eventually enters a steady"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_066",
+    "video_id": "mit_6041_lec16",
+    "start_time": 2310.0,
+    "end_time": 2355.0,
+    "text": "we describe this situation by saying that the mark of chain eventually enters a steady state where steady state what does it mean does it mean that the state itself becomes steady and stops at one place no the state of the chain keeps jumping forever the state of the chain will keep making transitions will keep going back and forth between one and two so the state itself the xn does not become steady in any sense what becomes steady are the probabilities that describe xn that is after a long time elapses the probability that you find yourself at"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_067",
+    "video_id": "mit_6041_lec16",
+    "start_time": 2345.0,
+    "end_time": 2390.0,
+    "text": "steady in any sense what becomes steady are the probabilities that describe xn that is after a long time elapses the probability that you find yourself at State one becomes a constant 2 over 7 and the probability that you find yourself at state two becomes a constant so jumps will keep happening but at any given time time if you ask what's the probability that right now I am at State one the answer is going to be 2 over 7 incidentally do the numbers sort of make sense why is this number bigger than that number well this state is a little more sticky than that state once you enter"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_068",
+    "video_id": "mit_6041_lec16",
+    "start_time": 2380.0,
+    "end_time": 2425.0,
+    "text": "than that number well this state is a little more sticky than that state once you enter here it's kind of harder to get out so when you enter here you spend a lot of time here this one is easier to get out because that probability is 0. five so when you enter there you tend to get out faster so you keep moving from one to the other but you tend to spend more time on that state and this is reflected in this probability being bigger than that one so no matter where you start there's five sth probability of being here two sth probability of being there so there were some really nice things that happened in this"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_069",
+    "video_id": "mit_6041_lec16",
+    "start_time": 2415.0,
+    "end_time": 2460.0,
+    "text": "here two sth probability of being there so there were some really nice things that happened in this example uh the question is whether things are always As Nice for General Mark of change the two nice things that happened were the following as we keep doing this calculation this number settles to something the limit exists the other thing that happens is that this number is the same as that number which means that the initial state does not matter is this always the case is it always the case that as n goes to Infinity the transition probabilities converge to something"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_070",
+    "video_id": "mit_6041_lec16",
+    "start_time": 2450.0,
+    "end_time": 2495.0,
+    "text": "case is it always the case that as n goes to Infinity the transition probabilities converge to something and if they do converge to something is it the case that the limit does is not affected by the initial State I at which the chain started so mathematically speaking the question we are raising is whether r i j of n converges to something and where that something to which it converges to has only to do with J it's the probability that you find yourself at State J and that probability doesn't care about the initial state so it's the"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_071",
+    "video_id": "mit_6041_lec16",
+    "start_time": 2485.0,
+    "end_time": 2530.0,
+    "text": "to has only to do with J it's the probability that you find yourself at State J and that probability doesn't care about the initial state so it's the question of whether the initial state gets forgotten in the long run so the answer is that usually or for nice chains both of these things uh will be true you'll get a limit which does not depend on the initial state but if your chain has some somewhat uh peculiar unique structure this might not happen so let's think first about the issue of convergence here look at this ex so"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_072",
+    "video_id": "mit_6041_lec16",
+    "start_time": 2520.0,
+    "end_time": 2565.0,
+    "text": "unique structure this might not happen so let's think first about the issue of convergence here look at this ex so convergence as n goes to Infinity to a steady value really means the following if I tell you a lot of time has passed then you'll tell me okay the St the probabilities are equal to that value without having to consult your clock if you don't have convergence it means that r i j can keep going up and down without settling to something so in order for you to tell me the value of r i j you need to consult your clock to check if right now it's up or is it down so there's some kind of periodic behavior that you might get when you do not get"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_073",
+    "video_id": "mit_6041_lec16",
+    "start_time": 2555.0,
+    "end_time": 2600.0,
+    "text": "you to tell me the value of r i j you need to consult your clock to check if right now it's up or is it down so there's some kind of periodic behavior that you might get when you do not get convergence and this example here illustrates it so what's happen in this example starting from state two next time you go here or there with probability half and then next time no matter where you are you move back to state two so this chain has some Randomness but the randomness is kind of a limited type you go out you come in you go out you come in so there's a periodic pattern that gets repeated it means that if you start at state two"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_074",
+    "video_id": "mit_6041_lec16",
+    "start_time": 2590.0,
+    "end_time": 2635.0,
+    "text": "you go out you come in so there's a periodic pattern that gets repeated it means that if you start at state two after an even number of steps you are certain to be back at state two so this probability here is one on the other and if the number of transitions is odd there's no way that you can be at your initial State at if you start here at even times you will be here at odd times you will be there or there so this probability is zero as n goes to Infinity this probability the endep transition probability does not converge to anything it keeps alternating between zero and one so convergence fails this"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_075",
+    "video_id": "mit_6041_lec16",
+    "start_time": 2625.0,
+    "end_time": 2670.0,
+    "text": "Infinity this probability the endep transition probability does not converge to anything it keeps alternating between zero and one so convergence fails this is the main mechanism by which convergence can fail if your chain has a periodic structure and we're going to discuss last next time that if periodicity is absent then we don't have an issue with convergence the second question is whether if if we have convergence whether the initial State matters or not in the previous chain where you could keep going back and forth between states one and two numerically one finds that the initial state does not matter but you can think of situations where the initial state"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_076",
+    "video_id": "mit_6041_lec16",
+    "start_time": 2660.0,
+    "end_time": 2705.0,
+    "text": "forth between states one and two numerically one finds that the initial state does not matter but you can think of situations where the initial state does matter look at this chain here if you start at State one you stay at State One Forever there's no way to escape so this means that R11 of n is one for all n if you start at state three you will be moving between states three and four but there's no way to go in that direction so there's no way that you go to state to state 1 and for that reason"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_077",
+    "video_id": "mit_6041_lec16",
+    "start_time": 2695.0,
+    "end_time": 2740.0,
+    "text": "direction so there's no way that you go to state to state 1 and for that reason and so this is a case where the initial State matters R11 goes to a limit as n goes to Infinity because it's constant it's always one so the limit is one R 31 or also has a limit it's zero for all times so these are the long-term probabilities of finding yourself at State one but those long-term probabilities are affected by where you started if you"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_078",
+    "video_id": "mit_6041_lec16",
+    "start_time": 2730.0,
+    "end_time": 2775.0,
+    "text": "so these are the long-term probabilities of finding yourself at State one but those long-term probabilities are affected by where you started if you start here you're sure that in the long term you'll be here if you start here you're are sure that in the long term you will not be there so the initial state does matter here and this is a situation where certain states are not accessible from certain other states so it has something to do with the graph structure of our Mark of chain finally let's answer this question here uh at least for large ends what do you think is going to happen in the long term if you start at state"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_079",
+    "video_id": "mit_6041_lec16",
+    "start_time": 2765.0,
+    "end_time": 2810.0,
+    "text": "least for large ends what do you think is going to happen in the long term if you start at state two if you start at state two you may stay at state two for a random amount of time but eventually this transition will happen or that transition will happen because of the symmetry you're as likely to take to escape from state two in this direction or in that direction so there's probability one half that when the transition happens the transition happens in that direction n for large n you're certain that the"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_080",
+    "video_id": "mit_6041_lec16",
+    "start_time": 2800.0,
+    "end_time": 2845.0,
+    "text": "the transition happens in that direction n for large n you're certain that the transition does happen and given that the transition has happened it's equal it has probability one half that it has gone that particular way so clearly here you see that the probabilities of finding yourself in a particular state is very much affected by where you started from so what we want to do next is to abstract from these two examples and describe the general structural properties that have to do with periodicity and that have to do with what happened here with certain States not being accessible from the others we're going to leave periodicity for next time but let's talk about the"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_081",
+    "video_id": "mit_6041_lec16",
+    "start_time": 2835.0,
+    "end_time": 2880.0,
+    "text": "periodicity and that have to do with what happened here with certain States not being accessible from the others we're going to leave periodicity for next time but let's talk about the second kind of phenomenon the we have okay so here what we're going to do is to classify the states in a transition diagram into two types recurrent and transient so a state is said to be recurrent if the following is true if you start from State I you can go to some places but no matter where you go there is a way of coming back so what's an example example of a"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_082",
+    "video_id": "mit_6041_lec16",
+    "start_time": 2870.0,
+    "end_time": 2915.0,
+    "text": "matter where you go there is a way of coming back so what's an example example of a recurrent State this one there starting from here you can go elsewhere you can go to state seven you can go to state six that's all where you can go to but no matter where you go there is a path that can take you back there so no matter where you go there is a chance and there is a way of returning where you started those States we call recurrent and by this eight is recurrent all of these are recurrent so this is recurrent this is recurrent and this"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_083",
+    "video_id": "mit_6041_lec16",
+    "start_time": 2905.0,
+    "end_time": 2950.0,
+    "text": "recurrent and by this eight is recurrent all of these are recurrent so this is recurrent this is recurrent and this state five is also recurrent you cannot go anywhere from five except to five itself wherever you can go you can go back to where you started so this is recurrent if it is not recurrent we say that it is transient so what does transient mean you need to take this definition and reverse it Trent means that starting from I there is a place to which you can go and from which you cannot return if it's recurrent anywhere you go"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_084",
+    "video_id": "mit_6041_lec16",
+    "start_time": 2940.0,
+    "end_time": 2985.0,
+    "text": "there is a place to which you can go and from which you cannot return if it's recurrent anywhere you go you can always come back transient means there are places where you can go from which you cannot come back so State one is recurrent because starting from here there's a possibility that you get there and then there's no way back State four is recurrent starting from four there's somewhere you can go and sorry transient correct State four is transient starting from here there are places where you can go and from which you cannot come back and in this particular diagram all these four states are"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_085",
+    "video_id": "mit_6041_lec16",
+    "start_time": 2975.0,
+    "end_time": 3020.0,
+    "text": "which you cannot come back and in this particular diagram all these four states are transients now a state if a state is transient it means that there is a way to go somewhere where you're going to get stuck and not be able to come back as long as your state keeps circulating around here eventually one of these transitions is going to happen and once that happens then there's no way that you can come back so that state the state the transient state will be visited only a finite number of times you will not be able to return to it and in the long run you are certain that you're going to get out of the transient"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_086",
+    "video_id": "mit_6041_lec16",
+    "start_time": 3010.0,
+    "end_time": 3055.0,
+    "text": "visited only a finite number of times you will not be able to return to it and in the long run you are certain that you're going to get out of the transient States and get to a some class of recurrent States and get stuck forever so uh let's see in this diagram if I start here could I stay in this lamp of States forever where as long as I'm staying in this lamp of States I will keep visiting States one and two each time that I visit state two there's going to be a positive probability that I escape so in the long run if I were to State here I would visit if state to an infinite number of times and I would get infinite chances to escape but if you"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_087",
+    "video_id": "mit_6041_lec16",
+    "start_time": 3045.0,
+    "end_time": 3090.0,
+    "text": "I escape so in the long run if I were to State here I would visit if state to an infinite number of times and I would get infinite chances to escape but if you have infinite chances to escape once eventually you will escape so you're pre you're certain that with probability one starting from here you're going to move either to those States or to those States so starting from from transient States you only stay at the transient States for a finite for a random but finite amount of time and after that happens you end up into a to a class of recurrent States and when I say class what I mean is that in this picture I divide the recurrent States into two classes or categories what's special"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_088",
+    "video_id": "mit_6041_lec16",
+    "start_time": 3080.0,
+    "end_time": 3125.0,
+    "text": "recurrent States and when I say class what I mean is that in this picture I divide the recurrent States into two classes or categories what's special about them these states are recurrent these states are recurrent but there's no communication between the two if you start here you're stuck here if you start here you are stuck there and this is a case where the initial state does matter because if you start here you get stuck here if you start there you get stuck there so depending on the initial State that's going to affect the long-term behavior of your chain so the guess you can make at this point is that for the initial state to not matter we should not have multiple recurrent classes we should have only one but we're going to get back to this point"
+  },
+  {
+    "chunk_id": "mit_6041_lec16_chunk_089",
+    "video_id": "mit_6041_lec16",
+    "start_time": 3115.0,
+    "end_time": 3160.0,
+    "text": "for the initial state to not matter we should not have multiple recurrent classes we should have only one but we're going to get back to this point"
+  }
+]

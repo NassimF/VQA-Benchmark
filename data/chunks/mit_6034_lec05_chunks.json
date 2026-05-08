@@ -1,0 +1,583 @@
+[
+  {
+    "chunk_id": "mit_6034_lec05_chunk_000",
+    "video_id": "mit_6034_lec05",
+    "start_time": 0.0,
+    "end_time": 45.0,
+    "text": "it's written about Route 66 which was the used to be the main Highway between Chicago Illinois and Los Angeles California very famous Highway because anybody who wanted to go cross country always took Route 66 because it was the shortest way to go and the question is how do you find the shortest path not just just any old path or a good path but how do you find the very shortest path and that'll be the subject that we're going to discuss today but Route 66 uh oh I lament it's passing but it's been largely replaced by the interstate"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_001",
+    "video_id": "mit_6034_lec05",
+    "start_time": 35.0,
+    "end_time": 80.0,
+    "text": "but how do you find the very shortest path and that'll be the subject that we're going to discuss today but Route 66 uh oh I lament it's passing but it's been largely replaced by the interstate highway system that was created by why let's see uh maybe the Roy people know you know why Eisenhower created the interstate highway system well in public affairs of course there's always a distinction to be made between the explanation and the was well move nuclear weapons across the country let's put it in slightly more"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_002",
+    "video_id": "mit_6034_lec05",
+    "start_time": 70.0,
+    "end_time": 115.0,
+    "text": "was well move nuclear weapons across the country let's put it in slightly more benign terms Eisenhower had observed that the German Army was able to move its troops rapidly even though we bomb their railroads into Oblivion because of their autobond so Eisenhower conceived that if there were an invasion in the United States we too would want to be able to move our forces around on a highway system in consequence of that we have a pretty good highway system and pretty awful railroad system it's interesting I'm a beneficiary of that in funny in a funny way because I'm from"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_003",
+    "video_id": "mit_6034_lec05",
+    "start_time": 105.0,
+    "end_time": 150.0,
+    "text": "we have a pretty good highway system and pretty awful railroad system it's interesting I'm a beneficiary of that in funny in a funny way because I'm from east P Illinois and I was surrounded by the factories of Caterpillar tractor company uh which made all the tractors that built all of those roads so my high school sent spent money like water from that huge tax base of all those factories anyway today we want to find the very best path instead of uh just a good path and like uh last time we'll deal with both a both an example that we can set our program to"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_004",
+    "video_id": "mit_6034_lec05",
+    "start_time": 140.0,
+    "end_time": 185.0,
+    "text": "good path and like uh last time we'll deal with both a both an example that we can set our program to work on by the way you find the shortest path between S and G would you like to bet your life on the shortest path between S and G probably not with your eye you can find a good path but you can't find the best possible path it's probably today what we're doing is probably not modeling any obvious property of what we have inside our heads but being able to find the best path is part of the skill set that anybody who's had a course in artificial intelligence would be expected to have so we're going to look at it even though it's not like many of the things we do a model of something that's probably going"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_005",
+    "video_id": "mit_6034_lec05",
+    "start_time": 175.0,
+    "end_time": 220.0,
+    "text": "path is part of the skill set that anybody who's had a course in artificial intelligence would be expected to have so we're going to look at it even though it's not like many of the things we do a model of something that's probably going on in your head so we're going to use both this uh example from Cambridge and our Blackboard example but let's see we have to have our we have to caution ourselves right Tanya is is search about Maps no it's about what starts with a c and Ito next letter is H and it ends up being choice so so we're talking about choice not about Maps even though our examples are drawn from Maps because they're convenient they're Visual and it helps understand the concepts behind uh the"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_006",
+    "video_id": "mit_6034_lec05",
+    "start_time": 210.0,
+    "end_time": 255.0,
+    "text": "choice not about Maps even though our examples are drawn from Maps because they're convenient they're Visual and it helps understand the concepts behind uh the algorithms I'm talking about so let's start off by looking at our classroom example and I did something today that I um neglected to do last time and that's talk to you about what I meant by urtic distance it's those pink lines that I just drew on on the map we're talking about the distance as the crow would fly between two places even though there's no road that goes between those two places so in general and we discussed last time in general it's best to get yourself into a place that's close as"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_007",
+    "video_id": "mit_6034_lec05",
+    "start_time": 245.0,
+    "end_time": 290.0,
+    "text": "no road that goes between those two places so in general and we discussed last time in general it's best to get yourself into a place that's close as the crow flies to your goal and of course that's a euristic and it can get you in trouble because it it's not always true it would appear that being at node e is a good place to be because it's not very far from G but in that particular particular case designed to illustrate the point being close is actually not a good thing because it's a it's a dead end but in general it's a good thing to be close and when we talked last time about hill climbing and beam search being close was the objective of those kinds of searches and at one point"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_008",
+    "video_id": "mit_6034_lec05",
+    "start_time": 280.0,
+    "end_time": 325.0,
+    "text": "be close and when we talked last time about hill climbing and beam search being close was the objective of those kinds of searches and at one point in a beam search illustration we had C B A and D we had paths terminating in all four of those nodes as candidates for the next round search and we decided on the basis of these Airline distances to keep D and B and reject a and C because they're further away as the crow flies now I repeat this even though many of you have had this fixed already in the your tutorials because we're going to need this concept of urtic distance uh today uh and I wanted to be sure"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_009",
+    "video_id": "mit_6034_lec05",
+    "start_time": 315.0,
+    "end_time": 360.0,
+    "text": "of you have had this fixed already in the your tutorials because we're going to need this concept of urtic distance uh today uh and I wanted to be sure that that point has been clarified so now with this smaller map I imagine you can do by I a determination of what the shortest path is what is it w can you help me out with that s a s a d g and if you add up those distances the distance is 11 along that path that goes from uh s first to a and then to D and then from d to"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_010",
+    "video_id": "mit_6034_lec05",
+    "start_time": 350.0,
+    "end_time": 395.0,
+    "text": "path that goes from uh s first to a and then to D and then from d to g so want to search that that is the best path and we're going to treat Wana as an oracle because we're going to follow in our initial attempt to understand these algorithms uh a very important principle of problem solving and that is that if you want to solve a problem the easiest way is usually to ask somebody who knows the answer or Google which also probably knows the answer so we've uh in this particular case uh we believe that Wana knows the answer and she said that the shortest path is sadg and its path length is 11 but we don't trust"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_011",
+    "video_id": "mit_6034_lec05",
+    "start_time": 385.0,
+    "end_time": 430.0,
+    "text": "case uh we believe that Wana knows the answer and she said that the shortest path is sadg and its path length is 11 but we don't trust her because we're applying to the same medical school and she may be trying to screw us okay so uh we want to be very cautious about accepting uh her answer until we've checked it to make sure that she hasn't uh attempted to uh dilute us so how would we go about doing that well one way to do that is to check to be sure that all possible paths that we could develop end up being for sure longer than the one that Wana has told us about so she's told us"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_012",
+    "video_id": "mit_6034_lec05",
+    "start_time": 420.0,
+    "end_time": 465.0,
+    "text": "be sure that all possible paths that we could develop end up being for sure longer than the one that Wana has told us about so she's told us about s a d g and it has a total path length of 11 and now what I'm going to do is I'm just going to develop the rest of the of this tree like U diagram more or less in a well what I'm going to do is I'm actually not going to do it in a British museum a random way way what I'm going to do is I'm always going to look at the choice that corresponds to the shortest path that can be extended so the shortest path that can be extended is this one right here the the"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_013",
+    "video_id": "mit_6034_lec05",
+    "start_time": 455.0,
+    "end_time": 500.0,
+    "text": "choice that corresponds to the shortest path that can be extended so the shortest path that can be extended is this one right here the the the one that just has the starting node in it and I could have gone this other way to B and if I go that other way to B then the path length along that side is five and likewise I I could have gone to I mean if I look at the path that terminates in a that has that has a path length of three so now I've got two choices A and B I've got choices that extend beyond those two places so I'm always going to extend the one that has the shorter the shorter length so in this case that"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_014",
+    "video_id": "mit_6034_lec05",
+    "start_time": 490.0,
+    "end_time": 535.0,
+    "text": "B I've got choices that extend beyond those two places so I'm always going to extend the one that has the shorter the shorter length so in this case that would be the path that goes from s to a so if I go from s to a I don't have to go to D I can also go to B and if I go to B then the accumulated path length the accumulated path length is sa that's seven and notice note that we're we're we're talking now about the path length the accumulated path length that we've traveled so far last time we were talking a lot about distances to the goal euristic estimates of how far we are from the goal now we're doing"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_015",
+    "video_id": "mit_6034_lec05",
+    "start_time": 525.0,
+    "end_time": 570.0,
+    "text": "traveled so far last time we were talking a lot about distances to the goal euristic estimates of how far we are from the goal now we're doing exactly the opposite we're not considering how far we've got to go we're only thinking about how Far We've gone so far so now uh repeating uh these steps again I've got seven and five so I'll go over and consider the choices that go from through the B node when're on the path SB and that gives me SB a and SB C and what are those path lengths well let's see SBA would be nine and SBC would be nine"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_016",
+    "video_id": "mit_6034_lec05",
+    "start_time": 560.0,
+    "end_time": 605.0,
+    "text": "C and what are those path lengths well let's see SBA would be nine and SBC would be nine and now the shortest path is this one over here so I extend that and I go sa s a b only place I can go is C that adds another four so that's 11 and what do I know about that path I don't have to take that any further right because the path length path distance I've gone on that path already is equal to the path length that Wana has told me gets me to the goal so be full full hearty to carry on because presuming that these links are"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_017",
+    "video_id": "mit_6034_lec05",
+    "start_time": 595.0,
+    "end_time": 640.0,
+    "text": "is equal to the path length that Wana has told me gets me to the goal so be full full hearty to carry on because presuming that these links are all non- negative I can't get any I can't do any better and I can't even do as well unless I've got a length that has zero length so now that I have that idea I can quickly finish up by saying well let me consider these two paths SBA can only go to D and if I go to D that adds three 9 + 3 is 12 nothing else can happen there because that's 12 and I've got a path of the goal that's 11 C I can only go to E it's a dead M but I don't have to think about that because I know that the"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_018",
+    "video_id": "mit_6034_lec05",
+    "start_time": 630.0,
+    "end_time": 675.0,
+    "text": "that's 12 and I've got a path of the goal that's 11 C I can only go to E it's a dead M but I don't have to think about that because I know that the accumulated distance along this path is 6 + 9 that's 15 so all of these need not be extended any further because their length accumulated so far is equal to or less than the length of the goal so I've checked the Oracle and although we're applying the same Medical School Wana has told me the truth so now unfortunately Wana is not always around and I don't always have an oracle so I'm going to have to have I'm going to have to have some way"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_019",
+    "video_id": "mit_6034_lec05",
+    "start_time": 665.0,
+    "end_time": 710.0,
+    "text": "truth so now unfortunately Wana is not always around and I don't always have an oracle so I'm going to have to have I'm going to have to have some way of finding the shortest path without that Oracle that I can I can check against and this let's see what can I do maybe I can maybe I can do the same thing I just did always extend the shortest path so far and hope that I run into the goal some at some point and then I have to ask myself the question how much extra work did I need to do when I don't have the Oracle but let's just uh try it and see what happens I don't have that path to start with so I just have S its distance is"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_020",
+    "video_id": "mit_6034_lec05",
+    "start_time": 700.0,
+    "end_time": 745.0,
+    "text": "Oracle but let's just uh try it and see what happens I don't have that path to start with so I just have S its distance is zero I can go either to A or B if I go to a I've got a distance of three here I've got a distance of five I'll extend the path that goes sa that can either go to b or d going to b or d gives me seven that way sad D gives me six so looking across all of these and extending the shortest path so far takes me back over to s b so I extend"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_021",
+    "video_id": "mit_6034_lec05",
+    "start_time": 735.0,
+    "end_time": 780.0,
+    "text": "extending the shortest path so far takes me back over to s b so I extend those SB takes me to a or c and those in turn have total accumulated path lengths of Nine and Nine now the shortest one is sad you see the pattern now let's see I haven't found the goal yet so I can ask myself the question is any of the work that I've done so far wasted no because all of the paths that I've got so far are shorter than the path of the goal because the goal hasn't shown up"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_022",
+    "video_id": "mit_6034_lec05",
+    "start_time": 770.0,
+    "end_time": 815.0,
+    "text": "any of the work that I've done so far wasted no because all of the paths that I've got so far are shorter than the path of the goal because the goal hasn't shown up so when I do my Oracle checking after I found the goal none of that work is going to be wasted so in the end I don't actually need the Oracle I can just develop this graph by extending the shortest path so far until I hit the goal and then do a perhaps a little remaining checking to make sure that all the other paths extend with a length that's greater than the path of the goal so if those words are confusing let's carry on with the algorithm I think it'll be clear so let's see we've got the s six and two NES we going to extend the one that's"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_023",
+    "video_id": "mit_6034_lec05",
+    "start_time": 805.0,
+    "end_time": 850.0,
+    "text": "the path of the goal so if those words are confusing let's carry on with the algorithm I think it'll be clear so let's see we've got the s six and two NES we going to extend the one that's six that gets us to the goal boom we've got it and we've got a path length of 11 but note that we can't quit because we have to be sure that all other paths are longer than 11 so now we have to carry on with the same algorithm that we started with the Oracle checking algorithm and when we do that we look for the shortest path so far that has not been extended that's B Sab goes to C that's 11 so we're done"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_024",
+    "video_id": "mit_6034_lec05",
+    "start_time": 840.0,
+    "end_time": 885.0,
+    "text": "for the shortest path so far that has not been extended that's B Sab goes to C that's 11 so we're done there a goes to D that adds three that's 12 C goes to e that adds six that's 15 and sure enough we're done okay Elliot um does it know that there isn't a chance that you could have a zero dist extension from the question is does it know that there's no zero distance length that's coming up"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_025",
+    "video_id": "mit_6034_lec05",
+    "start_time": 875.0,
+    "end_time": 920.0,
+    "text": "a zero dist extension from the question is does it know that there's no zero distance length that's coming up that's an implementation detail uh this guarantees you find a path that's as short as any that you possibly find but there might be others if there are zero length lengths right as long as they're non- negative lengths we're safe we've got a shortest path so that was easy and uh now we can uh repeat the exercise with our more Cambridge first of all Let's uh do depth first just to recall what that looks like that is certainly not a short"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_026",
+    "video_id": "mit_6034_lec05",
+    "start_time": 910.0,
+    "end_time": 955.0,
+    "text": "Cambridge first of all Let's uh do depth first just to recall what that looks like that is certainly not a short path so let's try this idea which by the way Bears the label branch and bound let's try branch and bound on the on the and there it goes each of those little flickers is trying another path so you can see it's it's working its guts path it's almost there but it's it's"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_027",
+    "video_id": "mit_6034_lec05",
+    "start_time": 945.0,
+    "end_time": 990.0,
+    "text": "path it's almost there but it's it's almost a pathological case where it's almost doing British museum there it's finally found the shortest path now there's some things we can ask about that but first of all before I ask anything about it I'd like to get the uh flowchart up on the board because we're going to decorate that flowchart a little bit as we go so the first thing we do is Q then we're going to"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_028",
+    "video_id": "mit_6034_lec05",
+    "start_time": 980.0,
+    "end_time": 1025.0,
+    "text": "Q then we're going to test first que then uh we might be happy because we might be done we we might have a shortest path of the goal actually that's not quite true is it we have to be we can't really quit until that short every other path is it well now that's interesting do we do if we've taken the first if the first element on the que gets us all the way to the goal and we've sorted our Q by path length are we"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_029",
+    "video_id": "mit_6034_lec05",
+    "start_time": 1015.0,
+    "end_time": 1060.0,
+    "text": "the first if the first element on the que gets us all the way to the goal and we've sorted our Q by path length are we through as soon as that first element on the Q gets us to the goal yeah because every other path must have been sorted past you know sorted Beyond it and and therefore it can't be can't have can't offer us a shorter path of the goal so if the first path is a path of the goal we're done last it usually isn't so we'll we're going to put all those extensions"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_030",
+    "video_id": "mit_6034_lec05",
+    "start_time": 1050.0,
+    "end_time": 1095.0,
+    "text": "we're going to put all those extensions back on the que and then we're going to them so that's pretty much the same as we did last time we're always going to put the elements back on the que going to look at the first element on the que and see if it's a winner if it is where done if it's not we're going to extend it and then go back in here and again well sort of but we noted that"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_031",
+    "video_id": "mit_6034_lec05",
+    "start_time": 1085.0,
+    "end_time": 1130.0,
+    "text": "extend it and then go back in here and again well sort of but we noted that this uh did an awful lot of work because um if we look at those uh statistics up there it put 1,354 paths onto the que that's the enqing part and then it extended 835 queue now I'd like to give you an aside because it's easy to get confused about enqing and extending in all of the searches we did last time it would have been perfectly reasonable to keep a list of all of the"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_032",
+    "video_id": "mit_6034_lec05",
+    "start_time": 1120.0,
+    "end_time": 1165.0,
+    "text": "enqing and extending in all of the searches we did last time it would have been perfectly reasonable to keep a list of all of the pads that we had put onto the queue an in queing list and never put a path on the and never never add a path to our c if it terminates in a node that some other path terminates in that has already gone to the gone onto the queue what I said last time is let us keep track of the things that have been extended and not extend them again so you can either keep track of the nodes that have been extended and not extend them again or look at the nodes that have paths"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_033",
+    "video_id": "mit_6034_lec05",
+    "start_time": 1155.0,
+    "end_time": 1200.0,
+    "text": "extended and not extend them again so you can either keep track of the nodes that have been extended and not extend them again or look at the nodes that have paths with those that terminate and blah blah blah and been put on the que the in cued ones and not put things back on the Queue again and I think last time I may have put a column in there that said ined it should have been extended even though in cued worked last time only extended works this time because we want to be sure that anything we extend is a short path so the the the the incute idea doesn't work at all for these optimal paths so now I want to come back over here off the sidebar and"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_034",
+    "video_id": "mit_6034_lec05",
+    "start_time": 1190.0,
+    "end_time": 1235.0,
+    "text": "we extend is a short path so the the the the incute idea doesn't work at all for these optimal paths so now I want to come back over here off the sidebar and and say that we're keeping track of all of the nodes all of the paths that end in uh nodes unless they have already been extended beyond that particular place so we need to decorate uh our algorithm here and say um test first path uh and um extend the first path if"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_035",
+    "video_id": "mit_6034_lec05",
+    "start_time": 1225.0,
+    "end_time": 1270.0,
+    "text": "if extended because you can see that in the example I had so far we did that same silliness that we talked about last time we extended paths that went through a more than once like so would it ever make sense to extend this path no because we've already extended a path that got there with less distance would it ever make sense to extend this path n because we've already extended another path that gets to be by a shorter"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_036",
+    "video_id": "mit_6034_lec05",
+    "start_time": 1260.0,
+    "end_time": 1305.0,
+    "text": "path that got there with less distance would it ever make sense to extend this path n because we've already extended another path that gets to be by a shorter distance so if we keep an extended list we can add that to branch and bound to our advantage so let's see how the that would that that would actually work on on the classroom example and then we do Cambridge so this is Branch and bound and I do mean uh extended uh not an inq list ined list won't work here so let's see I um start off the"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_037",
+    "video_id": "mit_6034_lec05",
+    "start_time": 1295.0,
+    "end_time": 1340.0,
+    "text": "and I do mean uh extended uh not an inq list ined list won't work here so let's see I um start off the same way as I did before s goes to either A or B that's a length of three that's a length of five so I extend a that goes but B is as if it wasn't there at on B goes there and those path lengths are seven and"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_038",
+    "video_id": "mit_6034_lec05",
+    "start_time": 1330.0,
+    "end_time": 1375.0,
+    "text": "on B goes there and those path lengths are seven and six and now I look around on the board and I say what is the shortest path so far and it's B so I extend that to get to A and C with path lengths of Nine and Nine and what's the shortest one next it's D and that goes to G and the path length is 11 and what's the short shortest one uh on the board the one that has to be extended next that's this one that gets to B but I've already extended a path that gets to B so I don't actually do that extension so I've saved some"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_039",
+    "video_id": "mit_6034_lec05",
+    "start_time": 1365.0,
+    "end_time": 1410.0,
+    "text": "gets to B but I've already extended a path that gets to B so I don't actually do that extension so I've saved some work but I've got to go over here and do these two now but wait wait I've already extended B I've extended a so I don't have to do that one either the only one I have to do is the one that goes to C and that goes then to e with a path length of 15 and I'm done so if you compare this one with the previous one you can see that there might be vast areas of this tree that are pruned away and don't have to be examined at all so now just for the sake of illustrating that i' would like to keep track of just one of those statistics the uh number of extensions so for this"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_040",
+    "video_id": "mit_6034_lec05",
+    "start_time": 1400.0,
+    "end_time": 1445.0,
+    "text": "all so now just for the sake of illustrating that i' would like to keep track of just one of those statistics the uh number of extensions so for this particular example case one the number of extensions was 835 why don't you see if you can kind of guess to yourself what it would be if I use uh this concept of an extended list see I'm not going to extend anything I've already extended because it's guaranteed to have a longer path length than something that already got to that same place so it makes no sense to do it so let me change the type to a branch and bound with an an extended list I'm going to turn the speed down a little bit so we can watch it might take"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_041",
+    "video_id": "mit_6034_lec05",
+    "start_time": 1435.0,
+    "end_time": 1480.0,
+    "text": "it so let me change the type to a branch and bound with an an extended list I'm going to turn the speed down a little bit so we can watch it might take knows still doing a lot of work still paths but look at that instead of 830 5 extensions it only did 38 so that's a pretty substantial savings and you would never not want to do"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_042",
+    "video_id": "mit_6034_lec05",
+    "start_time": 1470.0,
+    "end_time": 1515.0,
+    "text": "that instead of 830 5 extensions it only did 38 so that's a pretty substantial savings and you would never not want to do that so note that that's a layering on top of branch and bound that's not a different algorithm it's a an adjustment an improvement to the algorithm that efficient so this whole thing is based then on on what I call the dead horse Principle as soon as we figure out that a path that goes to a particular place can't possibly be the winning path we get rid of it and don't bother extending it it's a dead horse principle"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_043",
+    "video_id": "mit_6034_lec05",
+    "start_time": 1505.0,
+    "end_time": 1550.0,
+    "text": "get rid of it and don't bother extending it it's a dead horse principle but if we look at this example what's the shortest possible length of a path that's already gone Tanya well first of all it can't be less than five because we've already gone that distance so when I say what's the shortest length of any path that there could possibly be that goes from s to b we know it's at least five but can we say something more about"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_044",
+    "video_id": "mit_6034_lec05",
+    "start_time": 1540.0,
+    "end_time": 1585.0,
+    "text": "shortest length of any path that there could possibly be that goes from s to b we know it's at least five but can we say something more about it uh especially when we look at these Airline distances and note that this is Airline distance is six and that's a little more than seven and that's a little more than think so it's gone from s to b and the question is what's the shortest path that could possibly be that has b 11 right because we can't have a path that's shorter than the airline"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_045",
+    "video_id": "mit_6034_lec05",
+    "start_time": 1575.0,
+    "end_time": 1620.0,
+    "text": "b 11 right because we can't have a path that's shorter than the airline distance if there were a straight line road from B to G its length would be six but there isn't so that gives us a kind of lower bound on the distance that we have along that path so we're using the accumulated distance plus the airline distance to give us a lower bound on that on the on the path that we've started that we started off on from that goes from s Tob once again let's solidify this a little bit by simulating the search"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_046",
+    "video_id": "mit_6034_lec05",
+    "start_time": 1610.0,
+    "end_time": 1655.0,
+    "text": "the path that we've started that we started off on from that goes from s Tob once again let's solidify this a little bit by simulating the search seeing what how it turns out now just as I did last time I'm going to forget that I've got an extended list so we don't I don't want to carry both those things around with me at the same time so we'll forget that we're going to have that we've got an extended list we'll bring out those all those back together the later so we're going to forget what we just did there and instead we're just going to use this concept of an airline"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_047",
+    "video_id": "mit_6034_lec05",
+    "start_time": 1645.0,
+    "end_time": 1690.0,
+    "text": "so as before we start with the starting node we have two choices as always we can go to A or B and the accumulated distance if we go to a is three and the accumulated distance if we go to B is five but now we're going to add in the airline distances so the airline distance from a"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_048",
+    "video_id": "mit_6034_lec05",
+    "start_time": 1680.0,
+    "end_time": 1725.0,
+    "text": "airline distances so the airline distance from a seven which gives us 10 plus the airline distance from B to G is exactly six so that gives us 11 and following the procedure we've all been using already so far we're going to extend the path that seems to have the shortest potential now it's the shortest potential distance from s to G so that must be this one d the accumulated distance Sab is"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_049",
+    "video_id": "mit_6034_lec05",
+    "start_time": 1715.0,
+    "end_time": 1760.0,
+    "text": "d the accumulated distance Sab is seven the airline distance is six so 11 uh by standard arithmetic 13 the the distance sad D that is seven is that oops what's the accumulated distance It's s a d is uh 3"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_050",
+    "video_id": "mit_6034_lec05",
+    "start_time": 1750.0,
+    "end_time": 1795.0,
+    "text": "seven is that oops what's the accumulated distance It's s a d is uh 3 right what would be five right so the airline distance in this casee is the same as the actual distance so the accumulated distance is six the actual distance is five so that's equal to 11 all right so now I've got two 11s on the board and simulating what we would ask you to do on a quiz we don't know which of those is going to be better they've got a tie score so what we're going to do is we're going to choose the one that's lexically least so B is comes"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_051",
+    "video_id": "mit_6034_lec05",
+    "start_time": 1785.0,
+    "end_time": 1830.0,
+    "text": "ask you to do on a quiz we don't know which of those is going to be better they've got a tie score so what we're going to do is we're going to choose the one that's lexically least so B is comes before D so we'll expand B and that can go to either a or C and we have to calculate the best possible distance that goes along those paths the accumulated distance SBA s ba is nine so that's 9 + 7+ that's 16 plus this has an accumulated distance of 9 also plus 7 plus also 16 plus"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_052",
+    "video_id": "mit_6034_lec05",
+    "start_time": 1820.0,
+    "end_time": 1865.0,
+    "text": "7+ that's 16 plus this has an accumulated distance of 9 also plus 7 plus also 16 plus oh well now let's see things are shaping up pretty well because this one has the lowest score so far we extend that to G and now the accumulated distance is 11 the airline distance is zero so that's 11 and that's smaller than everybody else so we've got it so now compare this one with our Branch inbound graph and you see once again that we've done considerably less work and that in many practical cases means"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_053",
+    "video_id": "mit_6034_lec05",
+    "start_time": 1855.0,
+    "end_time": 1900.0,
+    "text": "compare this one with our Branch inbound graph and you see once again that we've done considerably less work and that in many practical cases means that instead of taking more than the remaining lifetime of the universe to complete the calculation it can happen in a few seconds but let's see how it works on the example so I'm not going to use the extended list I'm just going to use this idea of using the a lower bound on the distance remaining the airline distance"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_054",
+    "video_id": "mit_6034_lec05",
+    "start_time": 1890.0,
+    "end_time": 1935.0,
+    "text": "70 so it didn't do quite as well as working alone as the extended list did"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_055",
+    "video_id": "mit_6034_lec05",
+    "start_time": 1925.0,
+    "end_time": 1970.0,
+    "text": "70 so it didn't do quite as well as working alone as the extended list did working alone so we immediately conclude that the extended list is more useful than using one of these lower bound tics by the way this is called an admissible urtic so if if a estimate of the remaining distance is a lower bound on the actual distance is less than the lower sorry if the if the if the euristic estimate is less guaranteed to be less than the actual distance that's called an admissible urtic admissible because you can use it for this kind of purpose so it looks like the"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_056",
+    "video_id": "mit_6034_lec05",
+    "start_time": 1960.0,
+    "end_time": 2005.0,
+    "text": "called an admissible urtic admissible because you can use it for this kind of purpose so it looks like the um extended list is a more useful idea an admissible idea right what do you think about that br am I am I am I am I hacking you am I joking you're judging prematurely why am I judging prematurely what do you think it onions and guarante well that's Brett has said something unintelligible that I can't think how to repeat what he meant to say that in these cases it almost always"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_057",
+    "video_id": "mit_6034_lec05",
+    "start_time": 1995.0,
+    "end_time": 2040.0,
+    "text": "something unintelligible that I can't think how to repeat what he meant to say that in these cases it almost always depends on the problem itself if you change the problem get a different result so why don't we change the problem and see if we get a different result so instead of starting on the extreme left let's start in the middle happens so I'll readjust my starting position to be right there oops that's adjustment and we might as well start by getting our Baseline that branch and"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_058",
+    "video_id": "mit_6034_lec05",
+    "start_time": 2030.0,
+    "end_time": 2075.0,
+    "text": "adjustment and we might as well start by getting our Baseline that branch and anything and for that bit so that gives us 57 extensions it's problem so let's try it with um the"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_059",
+    "video_id": "mit_6034_lec05",
+    "start_time": 2065.0,
+    "end_time": 2110.0,
+    "text": "extensions what do you think this number is going to be closer to six or closer to 57 better than six worse than six well let's think uh what we're going to do is we're going to just not repeat any any any movements through the same node again but it's not going to do something very important for us it's not going to keep us out of the left side right because there's it has no idea of the remaining distance but Airline distance to the goal so let's"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_060",
+    "video_id": "mit_6034_lec05",
+    "start_time": 2100.0,
+    "end_time": 2145.0,
+    "text": "us it's not going to keep us out of the left side right because there's it has no idea of the remaining distance but Airline distance to the goal so let's true well sure is look at that it is foolishly spending a lot of its time doing something we would never do namely so this time the number of extensions is 35 so in case two the admissible aristic does very much better in case one the extension thing does much better but"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_061",
+    "video_id": "mit_6034_lec05",
+    "start_time": 2135.0,
+    "end_time": 2180.0,
+    "text": "35 so in case two the admissible aristic does very much better in case one the extension thing does much better but wait a minute would we ever not want to use both at the same time no would never not we wouldn't want we wouldn't use want to use just one of these right they both seem to have the possibility of doing a lot of good so maybe if we put them in harness together we'll get something that's even better and when we do that see here the extended list is a layer on top of branch and bound the admissible urtic is another layer on top of branch and bound if we put those together we get something called a star"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_062",
+    "video_id": "mit_6034_lec05",
+    "start_time": 2170.0,
+    "end_time": 2215.0,
+    "text": "admissible urtic is another layer on top of branch and bound if we put those together we get something called a star so a star is just branch and bound plus an extended list plus an admissible urtic so let's go back to our original we're running this at a pretty slow speed because we're expecting it to be a whole lot more efficient than the original branch in Bound it sure enough it is number of extensions is 27 so look at that a lot better than either of those working independantly now we can stick the thing"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_063",
+    "video_id": "mit_6034_lec05",
+    "start_time": 2205.0,
+    "end_time": 2250.0,
+    "text": "it is number of extensions is 27 so look at that a lot better than either of those working independantly now we can stick the thing boom six so in this particular case the extended list didn't actually help us because our admissible euristic was channeling us so tightly toward the goal didn't matter so it all depends on the on the on on the nature of the space that you're trying to explore by the way uh you now have the whole works right so what you want want to do is you you want"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_064",
+    "video_id": "mit_6034_lec05",
+    "start_time": 2240.0,
+    "end_time": 2285.0,
+    "text": "you're trying to explore by the way uh you now have the whole works right so what you want want to do is you you want to extend the first path and sort but not just by accumulated distance sort uh euristic but where are the theoreticians you must be complaining sorts expensive do we need to actually do the short do we actually need to sort no we don't actually need to sort"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_065",
+    "video_id": "mit_6034_lec05",
+    "start_time": 2275.0,
+    "end_time": 2320.0,
+    "text": "you must be complaining sorts expensive do we need to actually do the short do we actually need to sort no we don't actually need to sort what do we need to do to keep track of which is the minimum we just need to keep track of which the minimum so we don't need to actually do that sort that's an un necessary computation so instead we can test not and now you have it now you have the whole of AAR and now you could go home um but I don't think you should because I'm about"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_066",
+    "video_id": "mit_6034_lec05",
+    "start_time": 2310.0,
+    "end_time": 2355.0,
+    "text": "whole of AAR and now you could go home um but I don't think you should because I'm about to show you a that this idea of admissibility actually leads to certain screw cases that we're very fond of asking you about on exams all right so it turns out that the admissible urtic in certain circumstances can get you into trouble doesn't look like it could because logically nothing I've said seems seems strange or questionable but that's because I've been working with a map and it turns out that if you work with a map then admissibility is a perfectly sound way of doing an optimal search but Travis is search just about"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_067",
+    "video_id": "mit_6034_lec05",
+    "start_time": 2345.0,
+    "end_time": 2390.0,
+    "text": "map and it turns out that if you work with a map then admissibility is a perfectly sound way of doing an optimal search but Travis is search just about Maps no no search is not just about Maps so we may have non nonukan Arrangements that will causes trouble so i' like to illustrate that with the following it's not going to be a large map or a large graph s can go up here to uh a or down here to"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_068",
+    "video_id": "mit_6034_lec05",
+    "start_time": 2380.0,
+    "end_time": 2425.0,
+    "text": "large graph s can go up here to uh a or down here to C and then they go out here to the goal G and the actual distances are 1 1 1 and 10 and over here we'll make that 100 so it's a kind of oddly constructed map uh but it's there because we need a pathological case to illustrate the idea now that's the actual distances and if we did branch and bound with an extended list everything would work just fine but we're not we're going to use an admissible urtic and we're going to say that this guy has an estimated distance"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_069",
+    "video_id": "mit_6034_lec05",
+    "start_time": 2415.0,
+    "end_time": 2460.0,
+    "text": "extended list everything would work just fine but we're not we're going to use an admissible urtic and we're going to say that this guy has an estimated distance to the goal of 100 this guy is zero and and this guy is zero now zero is always an underestimate of the actual distance to the goal right so I'm always free to use zero is that 100 okay yeah because the the actual distance is 101 so it's less than the actual distance so it's a so it's a it's okay as an admissible aristic so these numbers that I put up here are together constitute an admissible euristic set of estimates to"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_070",
+    "video_id": "mit_6034_lec05",
+    "start_time": 2450.0,
+    "end_time": 2495.0,
+    "text": "aristic so these numbers that I put up here are together constitute an admissible euristic set of estimates to AAR and see what happens so first of all we start with s and that can either go to A or B the actual distance is one uh plus the uh an estimate on the remaining distance that gives us uh 100 uh plus 100 that's equal to 100 one if we go to b instead the actual distance is one plus the aristic"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_071",
+    "video_id": "mit_6034_lec05",
+    "start_time": 2485.0,
+    "end_time": 2530.0,
+    "text": "uh plus 100 that's equal to 100 one if we go to b instead the actual distance is one plus the aristic distance is zero so that's equal to one okay good so now we know that we always extend the shortest path so far did I did I goof this or you asking question yeah it's the actual when I say actual it's the P it's the actual distance you travel but so so wait a second if I I go from s to a the actual distance I've traveled is one oh I me like does the so that so so now I'm taking the sum of the actual distance plus the estimated distance to"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_072",
+    "video_id": "mit_6034_lec05",
+    "start_time": 2520.0,
+    "end_time": 2565.0,
+    "text": "to a the actual distance I've traveled is one oh I me like does the so that so so now I'm taking the sum of the actual distance plus the estimated distance to I'm see this is this is not a map she was asking if this if the if the map has to be geometrically accurate see this could be a a a model of something that's not a map and so I'm free to put any num on those links that I want including the estimates as long as they're under estimates of the distance along the links so this tells me that uh my estimated distance here so far is is one so I'll surely go down here to"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_073",
+    "video_id": "mit_6034_lec05",
+    "start_time": 2555.0,
+    "end_time": 2600.0,
+    "text": "links so this tells me that uh my estimated distance here so far is is one so I'll surely go down here to C and if I go to C then my accumulated distance is 11 and my estimate of the remaining 11 so now I'm following my eristic again and saying what's the shortest what's the shortest path on the basis of the accumulated distance plus the estimated distance here the accumulated distance plus the estimated distance is 101 here it's only 11 so plainly I"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_074",
+    "video_id": "mit_6034_lec05",
+    "start_time": 2590.0,
+    "end_time": 2635.0,
+    "text": "the estimated distance here the accumulated distance plus the estimated distance is 101 here it's only 11 so plainly I extend this guy and that gets me to the goal and the total distance uh total accumulated distance is now 111 Plus 111 and that's not the shortest path but wait uh I I still have to do my checking right I have to extend a and when I extend a I get to B and now when I get to B that way my accumulated distance is"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_075",
+    "video_id": "mit_6034_lec05",
+    "start_time": 2625.0,
+    "end_time": 2670.0,
+    "text": "a and when I extend a I get to B and now when I get to B that way my accumulated distance is my accumulated distance is two my estimated distance is zero so that's equal to two so I'm okay because I'm still going to extend this guy right guy so I'm I'm hos I I won't find the shortest path because that I'm going to stop there and I'm going to stop there because this is an admissible eristic and that's not good enough unless it's a map it's not good enough in this particular case because this is not g"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_076",
+    "video_id": "mit_6034_lec05",
+    "start_time": 2660.0,
+    "end_time": 2705.0,
+    "text": "because this is an admissible eristic and that's not good enough unless it's a map it's not good enough in this particular case because this is not g this cannot cannot be done as a as a map on a plane so that's uh that's a situation where what I've talked to you about so far works with branch and bound works with branch and bound plus an extended list but doesn't work when we add an admissible Uris so if we're going to do this in general we need something stronger than admissibility which works only on maps and so the flourish that I'll tell you about here in the last few [Music] is to"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_077",
+    "video_id": "mit_6034_lec05",
+    "start_time": 2695.0,
+    "end_time": 2740.0,
+    "text": "[Music] is to admissibility and if we want to write this down in a kind of mathematical notation we can say that it's admissible if the estimated distance between any node X and the goal is less than or equal to the actual distance between X and the"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_078",
+    "video_id": "mit_6034_lec05",
+    "start_time": 2730.0,
+    "end_time": 2775.0,
+    "text": "goal is less than or equal to the actual distance between X and the goal that's definition of admissibility as long as the TIC does that it's admissible and a star works if it's a map but for that kind of situation where it's not a map we need a stronger consistency and what that says is that the distance between X and the goal minus the distance between some y take the absolute value of that that has to be less than or equal to the"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_079",
+    "video_id": "mit_6034_lec05",
+    "start_time": 2765.0,
+    "end_time": 2810.0,
+    "text": "y take the absolute value of that that has to be less than or equal to the Y so does this euristic satisfy the consistency condition well let's see here the guas is a is 100 here at zero so the so the absolute difference is 100 but the actual distance is only two so it satisfies admiss admissibility but it doesn't satisfy consistency and it doesn't work so you can almost be guaranteed it will give you a situation where if you use"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_080",
+    "video_id": "mit_6034_lec05",
+    "start_time": 2800.0,
+    "end_time": 2845.0,
+    "text": "doesn't work so you can almost be guaranteed it will give you a situation where if you use a am missible euristic you'll lose and and you and and and if you use a consistent tic you you'll still win okay so how could we bring this uh back into the fold well we can't use that urtic it's no good but if this two then would be okay because then it would still be it would still be admissible but it would also be consistent all right so the bottom line is that you now know something you didn't know when you started"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_081",
+    "video_id": "mit_6034_lec05",
+    "start_time": 2835.0,
+    "end_time": 2880.0,
+    "text": "admissible but it would also be consistent all right so the bottom line is that you now know something you didn't know when you started out two lectures ago you now know how um Map Quest and all of it descendence work now you can find an optimal path as well as a tically good path you see that if you don't do anything other than branch and bound it can be extremely expensive and you can even invent pathological cases where it's exponential in the distance to the to the goal so because it it can be so computationally horrible you want to use every Advantage you can which generally involves using an extended list as well as a no laptop plays in still holds no smoking no drinking and"
+  },
+  {
+    "chunk_id": "mit_6034_lec05_chunk_082",
+    "video_id": "mit_6034_lec05",
+    "start_time": 2870.0,
+    "end_time": 2915.0,
+    "text": "every Advantage you can which generally involves using an extended list as well as a no laptop plays in still holds no smoking no drinking and no laptops so you can so you can use so so so so you use all the muscles you can and those muscles include using an extended list and um and an an admissible or consistent aristic depending on the circumstances and so I think we'll conclude there since uh our time is up andell you can ask a question after class why don't you come up and ask it"
+  }
+]

@@ -1,0 +1,8176 @@
+{
+  "video_id": "mit_6006sp20_lec17",
+  "source": "youtube_auto_captions",
+  "segments": [
+    {
+      "start": 14.789,
+      "end": 17.99,
+      "text": "all right welcome back to double o six"
+    },
+    {
+      "start": 17.99,
+      "end": 19.429,
+      "text": "and our dynamic programming quadruple of"
+    },
+    {
+      "start": 19.429,
+      "end": 21.83,
+      "text": "lectures we are"
+    },
+    {
+      "start": 21.83,
+      "end": 23.029,
+      "text": "over halfway through uh into lecture"
+    },
+    {
+      "start": 23.029,
+      "end": 25.269,
+      "text": "three of four"
+    },
+    {
+      "start": 25.269,
+      "end": 26.07,
+      "text": "uh today we're going to follow up on"
+    },
+    {
+      "start": 26.07,
+      "end": 28.55,
+      "text": "this idea"
+    },
+    {
+      "start": 28.55,
+      "end": 29.349,
+      "text": "of problem constraints and expansion"
+    },
+    {
+      "start": 29.349,
+      "end": 31.269,
+      "text": "that was"
+    },
+    {
+      "start": 31.269,
+      "end": 32.549,
+      "text": "mentioned especially towards the end of"
+    },
+    {
+      "start": 32.549,
+      "end": 35.75,
+      "text": "last lecture we saw"
+    },
+    {
+      "start": 35.75,
+      "end": 36.87,
+      "text": "an example of sub-problem expansion by a"
+    },
+    {
+      "start": 36.87,
+      "end": 39.51,
+      "text": "factor of two"
+    },
+    {
+      "start": 39.51,
+      "end": 41.83,
+      "text": "in the two-player game with coins where"
+    },
+    {
+      "start": 41.83,
+      "end": 43.51,
+      "text": "we wanted to"
+    },
+    {
+      "start": 43.51,
+      "end": 45.51,
+      "text": "have two versions of the game one where"
+    },
+    {
+      "start": 45.51,
+      "end": 46.069,
+      "text": "i go first and one where you go first so"
+    },
+    {
+      "start": 46.069,
+      "end": 47.59,
+      "text": "this was"
+    },
+    {
+      "start": 47.59,
+      "end": 49.43,
+      "text": "expanding the number of sub problems by"
+    },
+    {
+      "start": 49.43,
+      "end": 51.11,
+      "text": "factor of two today we'll see a bunch"
+    },
+    {
+      "start": 51.11,
+      "end": 53.029,
+      "text": "more examples of this idea"
+    },
+    {
+      "start": 53.029,
+      "end": 54.79,
+      "text": "including in one setting we've seen"
+    },
+    {
+      "start": 54.79,
+      "end": 55.51,
+      "text": "already which is bellman ford which you"
+    },
+    {
+      "start": 55.51,
+      "end": 57.99,
+      "text": "can think of"
+    },
+    {
+      "start": 57.99,
+      "end": 59.51,
+      "text": "as a dynamic program maybe it's a good"
+    },
+    {
+      "start": 59.51,
+      "end": 62.869,
+      "text": "time to mention that bellman"
+    },
+    {
+      "start": 62.869,
+      "end": 64.789,
+      "text": "invented dynamic programming in the 50s"
+    },
+    {
+      "start": 64.789,
+      "end": 66.23,
+      "text": "same bellman in the bellman ford"
+    },
+    {
+      "start": 66.23,
+      "end": 67.67,
+      "text": "algorithm this was actually independent"
+    },
+    {
+      "start": 67.67,
+      "end": 70.87,
+      "text": "discovery by both of them"
+    },
+    {
+      "start": 70.87,
+      "end": 72.87,
+      "text": "and other people so"
+    },
+    {
+      "start": 72.87,
+      "end": 74.63,
+      "text": "he invented dynamic programming and then"
+    },
+    {
+      "start": 74.63,
+      "end": 76.31,
+      "text": "a few years later he applied it to solve"
+    },
+    {
+      "start": 76.31,
+      "end": 77.99,
+      "text": "the single source shortest paths problem"
+    },
+    {
+      "start": 77.99,
+      "end": 79.27,
+      "text": "so we saw them in the other order we saw"
+    },
+    {
+      "start": 79.27,
+      "end": 80.71000000000001,
+      "text": "single source shortest paths first"
+    },
+    {
+      "start": 80.71000000000001,
+      "end": 81.91,
+      "text": "because it's a little easier"
+    },
+    {
+      "start": 81.91,
+      "end": 84.23,
+      "text": "and now we're seeing the general"
+    },
+    {
+      "start": 84.23,
+      "end": 86.55,
+      "text": "framework that this fits into"
+    },
+    {
+      "start": 86.55,
+      "end": 88.55,
+      "text": "and so we'll see how how that works uh"
+    },
+    {
+      "start": 88.55,
+      "end": 90.149,
+      "text": "why did bellman call dynamic programming"
+    },
+    {
+      "start": 90.149,
+      "end": 91.27,
+      "text": "dynamic programming mostly because it"
+    },
+    {
+      "start": 91.27,
+      "end": 93.429,
+      "text": "sounded cool"
+    },
+    {
+      "start": 93.429,
+      "end": 95.50999999999999,
+      "text": "and he was trying to impress uh"
+    },
+    {
+      "start": 95.50999999999999,
+      "end": 96.789,
+      "text": "government agencies giving him grants"
+    },
+    {
+      "start": 96.789,
+      "end": 99.27000000000001,
+      "text": "i mean how can you argue with something"
+    },
+    {
+      "start": 99.27000000000001,
+      "end": 100.95,
+      "text": "as cool sounding as dynamic programming"
+    },
+    {
+      "start": 100.95,
+      "end": 102.87,
+      "text": "but there is some logic to it"
+    },
+    {
+      "start": 102.87,
+      "end": 104.069,
+      "text": "programming is a reference to an old"
+    },
+    {
+      "start": 104.069,
+      "end": 105.67,
+      "text": "form of this word which means"
+    },
+    {
+      "start": 105.67,
+      "end": 106.95,
+      "text": "optimization and generally we're trying"
+    },
+    {
+      "start": 106.95,
+      "end": 109.03,
+      "text": "to optimize things"
+    },
+    {
+      "start": 109.03,
+      "end": 110.87,
+      "text": "and instead of optimizing according to"
+    },
+    {
+      "start": 110.87,
+      "end": 113.35,
+      "text": "some static kind of"
+    },
+    {
+      "start": 113.35,
+      "end": 114.469,
+      "text": "approach or program we're doing it"
+    },
+    {
+      "start": 114.469,
+      "end": 116.149,
+      "text": "dynamically this is"
+    },
+    {
+      "start": 116.149,
+      "end": 118.469,
+      "text": "a reference to the local brute force"
+    },
+    {
+      "start": 118.469,
+      "end": 120.709,
+      "text": "we're doing to optimize at each stage"
+    },
+    {
+      "start": 120.709,
+      "end": 122.55,
+      "text": "so you can't tell at the top whether"
+    },
+    {
+      "start": 122.55,
+      "end": 124.389,
+      "text": "what you're going to do in the middle"
+    },
+    {
+      "start": 124.389,
+      "end": 125.59,
+      "text": "and so it's kind of each each"
+    },
+    {
+      "start": 125.59,
+      "end": 126.789,
+      "text": "sub-problem is is"
+    },
+    {
+      "start": 126.789,
+      "end": 129.109,
+      "text": "behaving differently and so in that"
+    },
+    {
+      "start": 129.109,
+      "end": 131.27,
+      "text": "sense dynamic"
+    },
+    {
+      "start": 131.27,
+      "end": 132.71,
+      "text": "it sounds cool all right then we'll go"
+    },
+    {
+      "start": 132.71,
+      "end": 134.869,
+      "text": "to all pair shortest paths we'll see a"
+    },
+    {
+      "start": 134.869,
+      "end": 137.43,
+      "text": "new algorithm for that"
+    },
+    {
+      "start": 137.43,
+      "end": 139.27,
+      "text": "that's not asymptotically any better but"
+    },
+    {
+      "start": 139.27,
+      "end": 141.11,
+      "text": "it's nice and simple and another way to"
+    },
+    {
+      "start": 141.11,
+      "end": 143.27,
+      "text": "a cool way to see uh subproblem"
+    },
+    {
+      "start": 143.27,
+      "end": 144.55,
+      "text": "expansion and then we'll look at a"
+    },
+    {
+      "start": 144.55,
+      "end": 147.27,
+      "text": "couple of sort of practical"
+    },
+    {
+      "start": 147.27,
+      "end": 148.15,
+      "text": "problems uh parenthesizing arithmetic"
+    },
+    {
+      "start": 148.15,
+      "end": 149.67000000000002,
+      "text": "expressions"
+    },
+    {
+      "start": 149.67000000000002,
+      "end": 151.50900000000001,
+      "text": "and a real world problem piano and"
+    },
+    {
+      "start": 151.50900000000001,
+      "end": 154.309,
+      "text": "guitar fingering so assigning a"
+    },
+    {
+      "start": 154.309,
+      "end": 155.67000000000002,
+      "text": "fingering to how to play a piece"
+    },
+    {
+      "start": 155.67000000000002,
+      "end": 157.50900000000001,
+      "text": "and we're going to do that with our sort"
+    },
+    {
+      "start": 157.50900000000001,
+      "end": 158.309,
+      "text": "bot framework so quick recollection of"
+    },
+    {
+      "start": 158.309,
+      "end": 160.71,
+      "text": "what that is"
+    },
+    {
+      "start": 160.71,
+      "end": 162.63,
+      "text": "we define subproblems and we saw how to"
+    },
+    {
+      "start": 162.63,
+      "end": 164.71,
+      "text": "do that for sequences we try either"
+    },
+    {
+      "start": 164.71,
+      "end": 166.71,
+      "text": "prefixes suffixes or substrings"
+    },
+    {
+      "start": 166.71,
+      "end": 168.309,
+      "text": "we prefer prefixes and suffix because"
+    },
+    {
+      "start": 168.309,
+      "end": 170.63,
+      "text": "there's fewer of them"
+    },
+    {
+      "start": 170.63,
+      "end": 172.71,
+      "text": "if there's more than one sequence we"
+    },
+    {
+      "start": 172.71,
+      "end": 174.22899999999998,
+      "text": "take the product of those spaces"
+    },
+    {
+      "start": 174.22899999999998,
+      "end": 176.39,
+      "text": "um and then the idea we're going to"
+    },
+    {
+      "start": 176.39,
+      "end": 178.22899999999998,
+      "text": "stress today is we can always add"
+    },
+    {
+      "start": 178.22899999999998,
+      "end": 179.27,
+      "text": "sub-problems to make the next step"
+    },
+    {
+      "start": 179.27,
+      "end": 180.869,
+      "text": "easier"
+    },
+    {
+      "start": 180.869,
+      "end": 182.869,
+      "text": "in particular adding constraints to"
+    },
+    {
+      "start": 182.869,
+      "end": 185.99,
+      "text": "sub-problems in some sense lets us"
+    },
+    {
+      "start": 185.99,
+      "end": 187.03,
+      "text": "remember things about the subproblem"
+    },
+    {
+      "start": 187.03,
+      "end": 189.03,
+      "text": "that's calling us"
+    },
+    {
+      "start": 189.03,
+      "end": 191.19,
+      "text": "or about the past is one way to think"
+    },
+    {
+      "start": 191.19,
+      "end": 192.79,
+      "text": "about it or in general to remember state"
+    },
+    {
+      "start": 192.79,
+      "end": 194.71,
+      "text": "just by adding more sub problems we can"
+    },
+    {
+      "start": 194.71,
+      "end": 196.71,
+      "text": "remember more stuff"
+    },
+    {
+      "start": 196.71,
+      "end": 198.869,
+      "text": "not just what things we're working on"
+    },
+    {
+      "start": 198.869,
+      "end": 199.91,
+      "text": "but some context"
+    },
+    {
+      "start": 199.91,
+      "end": 201.75,
+      "text": "and that's what we'll see lots of"
+    },
+    {
+      "start": 201.75,
+      "end": 203.67000000000002,
+      "text": "examples of today it'll hopefully make"
+    },
+    {
+      "start": 203.67000000000002,
+      "end": 205.35,
+      "text": "sense by the end of the lecture"
+    },
+    {
+      "start": 205.35,
+      "end": 207.19,
+      "text": "then we need to relate these sub"
+    },
+    {
+      "start": 207.19,
+      "end": 209.19,
+      "text": "problems with a recurrence relation"
+    },
+    {
+      "start": 209.19,
+      "end": 210.949,
+      "text": "which we usually just call a relation"
+    },
+    {
+      "start": 210.949,
+      "end": 213.35,
+      "text": "and the key idea here"
+    },
+    {
+      "start": 213.35,
+      "end": 215.91,
+      "text": "is to come up with a question that if"
+    },
+    {
+      "start": 215.91,
+      "end": 219.11,
+      "text": "you knew the answer to that question"
+    },
+    {
+      "start": 219.11,
+      "end": 221.589,
+      "text": "you could reduce"
+    },
+    {
+      "start": 221.589,
+      "end": 224.309,
+      "text": "the subproblem you're trying to solve to"
+    },
+    {
+      "start": 224.309,
+      "end": 226.949,
+      "text": "smaller sub-problem solutions"
+    },
+    {
+      "start": 226.949,
+      "end": 228.63,
+      "text": "so this question is sort of the"
+    },
+    {
+      "start": 228.63,
+      "end": 231.11,
+      "text": "fundamental"
+    },
+    {
+      "start": 231.11,
+      "end": 232.22899999999998,
+      "text": "aspect of some fundamental aspect of a"
+    },
+    {
+      "start": 232.22899999999998,
+      "end": 233.91,
+      "text": "solution typically"
+    },
+    {
+      "start": 233.91,
+      "end": 235.19,
+      "text": "when you're dealing with suffixes you"
+    },
+    {
+      "start": 235.19,
+      "end": 236.63,
+      "text": "want to ask some question about the"
+    },
+    {
+      "start": 236.63,
+      "end": 237.91,
+      "text": "first item s of i"
+    },
+    {
+      "start": 237.91,
+      "end": 240.949,
+      "text": "when you're dealing with prefixes you"
+    },
+    {
+      "start": 240.949,
+      "end": 242.07,
+      "text": "want to ask a question about some the"
+    },
+    {
+      "start": 242.07,
+      "end": 244.229,
+      "text": "near the last"
+    },
+    {
+      "start": 244.229,
+      "end": 245.75,
+      "text": "item s of i minus one and for sub"
+    },
+    {
+      "start": 245.75,
+      "end": 247.11,
+      "text": "strings who knows somewhere in the"
+    },
+    {
+      "start": 247.11,
+      "end": 250.07,
+      "text": "middle"
+    },
+    {
+      "start": 250.07,
+      "end": 250.949,
+      "text": "we'll see an example of that today once"
+    },
+    {
+      "start": 250.949,
+      "end": 253.83,
+      "text": "you have"
+    },
+    {
+      "start": 253.83,
+      "end": 254.55,
+      "text": "this is a reveal late something coming"
+    },
+    {
+      "start": 254.55,
+      "end": 256.949,
+      "text": "later"
+    },
+    {
+      "start": 256.949,
+      "end": 257.749,
+      "text": "uh once you have identified such a"
+    },
+    {
+      "start": 257.749,
+      "end": 259.909,
+      "text": "question the"
+    },
+    {
+      "start": 259.909,
+      "end": 261.59,
+      "text": "dynamic programming approach is don't be"
+    },
+    {
+      "start": 261.59,
+      "end": 263.27,
+      "text": "smart about how to answer that question"
+    },
+    {
+      "start": 263.27,
+      "end": 264.87,
+      "text": "just locally brute force try all"
+    },
+    {
+      "start": 264.87,
+      "end": 267.99,
+      "text": "possible answers to the question"
+    },
+    {
+      "start": 267.99,
+      "end": 269.67,
+      "text": "for each one recurse and"
+    },
+    {
+      "start": 269.67,
+      "end": 270.95,
+      "text": "take the best solution according to"
+    },
+    {
+      "start": 270.95,
+      "end": 273.99,
+      "text": "whatever metric you're trying to do"
+    },
+    {
+      "start": 273.99,
+      "end": 275.59000000000003,
+      "text": "typically minimization or maximization"
+    },
+    {
+      "start": 275.59000000000003,
+      "end": 277.189,
+      "text": "another way to think of this local bird"
+    },
+    {
+      "start": 277.189,
+      "end": 277.99,
+      "text": "force which i like to think in my head"
+    },
+    {
+      "start": 277.99,
+      "end": 279.83,
+      "text": "so maybe"
+    },
+    {
+      "start": 279.83,
+      "end": 281.99,
+      "text": "some people like this some people don't"
+    },
+    {
+      "start": 281.99,
+      "end": 284.23,
+      "text": "is to think about guessing the answer"
+    },
+    {
+      "start": 284.23,
+      "end": 287.11,
+      "text": "to the question and so you know maybe"
+    },
+    {
+      "start": 287.11,
+      "end": 289.67,
+      "text": "the the answer could be zero one or two"
+    },
+    {
+      "start": 289.67,
+      "end": 290.629,
+      "text": "and uh my algorithm will say guess which"
+    },
+    {
+      "start": 290.629,
+      "end": 293.27,
+      "text": "is the right answer"
+    },
+    {
+      "start": 293.27,
+      "end": 294.87,
+      "text": "and i'll assume that my algorithm"
+    },
+    {
+      "start": 294.87,
+      "end": 297.909,
+      "text": "correctly guesses the"
+    },
+    {
+      "start": 297.909,
+      "end": 299.43,
+      "text": "answer and analyze that"
+    },
+    {
+      "start": 299.43,
+      "end": 301.189,
+      "text": "so we can think of the program as going"
+    },
+    {
+      "start": 301.189,
+      "end": 303.11,
+      "text": "straight through uh you know"
+    },
+    {
+      "start": 303.11,
+      "end": 305.749,
+      "text": "guessing the answer and then recursing"
+    },
+    {
+      "start": 305.749,
+      "end": 307.27,
+      "text": "and then combining the solutions however"
+    },
+    {
+      "start": 307.27,
+      "end": 308.79,
+      "text": "but then at the end of course we can't"
+    },
+    {
+      "start": 308.79,
+      "end": 310.469,
+      "text": "assume that the guess was correct"
+    },
+    {
+      "start": 310.469,
+      "end": 313.83,
+      "text": "in fact we have to loop over all those"
+    },
+    {
+      "start": 313.83,
+      "end": 315.51,
+      "text": "guesses so it's the same thing just"
+    },
+    {
+      "start": 315.51,
+      "end": 317.189,
+      "text": "if you think of it this way there's less"
+    },
+    {
+      "start": 317.189,
+      "end": 319.029,
+      "text": "looping in your program but when you"
+    },
+    {
+      "start": 319.029,
+      "end": 320.629,
+      "text": "analyze it definitely the loop is really"
+    },
+    {
+      "start": 320.629,
+      "end": 323.029,
+      "text": "there you have to pay for all the"
+    },
+    {
+      "start": 323.029,
+      "end": 324.55,
+      "text": "possible answers"
+    },
+    {
+      "start": 324.55,
+      "end": 326.15,
+      "text": "okay uh then we need to make sure this"
+    },
+    {
+      "start": 326.15,
+      "end": 328.15,
+      "text": "relation is acyclic"
+    },
+    {
+      "start": 328.15,
+      "end": 329.99,
+      "text": "get a subproblem dag and i like to"
+    },
+    {
+      "start": 329.99,
+      "end": 330.87,
+      "text": "specify an explicit topological order to"
+    },
+    {
+      "start": 330.87,
+      "end": 332.87,
+      "text": "make that clear"
+    },
+    {
+      "start": 332.87,
+      "end": 334.23,
+      "text": "we have base cases for the relation we"
+    },
+    {
+      "start": 334.23,
+      "end": 335.59000000000003,
+      "text": "have to solve the original problem in"
+    },
+    {
+      "start": 335.59000000000003,
+      "end": 337.43,
+      "text": "terms of these sub problems and then we"
+    },
+    {
+      "start": 337.43,
+      "end": 340.15,
+      "text": "analyze the running time"
+    },
+    {
+      "start": 340.15,
+      "end": 342.469,
+      "text": "usually as the number of sub-problems"
+    },
+    {
+      "start": 342.469,
+      "end": 345.51,
+      "text": "times the non-recursive work in each"
+    },
+    {
+      "start": 345.51,
+      "end": 346.629,
+      "text": "in the relation so recursion is free"
+    },
+    {
+      "start": 346.629,
+      "end": 348.23,
+      "text": "because we're multiplying by the number"
+    },
+    {
+      "start": 348.23,
+      "end": 350.07,
+      "text": "of subproblems you can also sum over the"
+    },
+    {
+      "start": 350.07,
+      "end": 351.909,
+      "text": "sub-problems sometimes that gives you"
+    },
+    {
+      "start": 351.909,
+      "end": 353.11,
+      "text": "a tighter bound and then of course we"
+    },
+    {
+      "start": 353.11,
+      "end": 354.71,
+      "text": "also have to add on"
+    },
+    {
+      "start": 354.71,
+      "end": 356.39,
+      "text": "the running time we spend in the"
+    },
+    {
+      "start": 356.39,
+      "end": 359.35,
+      "text": "original problem"
+    },
+    {
+      "start": 359.35,
+      "end": 359.99,
+      "text": "all right so that was quick recap now"
+    },
+    {
+      "start": 359.99,
+      "end": 362.15,
+      "text": "one"
+    },
+    {
+      "start": 362.15,
+      "end": 363.83,
+      "text": "problem we saw in this framework uh two"
+    },
+    {
+      "start": 363.83,
+      "end": 367.189,
+      "text": "lectures ago the first lecture was"
+    },
+    {
+      "start": 367.189,
+      "end": 369.11,
+      "text": "single source shortest paths in a dag"
+    },
+    {
+      "start": 369.11,
+      "end": 371.11,
+      "text": "which a lot of dynamic programs actually"
+    },
+    {
+      "start": 371.11,
+      "end": 372.629,
+      "text": "can be reduced to shorter"
+    },
+    {
+      "start": 372.629,
+      "end": 374.39,
+      "text": "single short shortest paths on a dag in"
+    },
+    {
+      "start": 374.39,
+      "end": 375.83,
+      "text": "fact the reverse is true"
+    },
+    {
+      "start": 375.83,
+      "end": 377.67,
+      "text": "single source shortest paths and a dag"
+    },
+    {
+      "start": 377.67,
+      "end": 378.79,
+      "text": "can be thought of the dag relaxation"
+    },
+    {
+      "start": 378.79,
+      "end": 380.469,
+      "text": "algorithm we saw"
+    },
+    {
+      "start": 380.469,
+      "end": 382.55,
+      "text": "is essentially a dynamic program where"
+    },
+    {
+      "start": 382.55,
+      "end": 386.39,
+      "text": "the sub problems are delta of sv"
+    },
+    {
+      "start": 386.39,
+      "end": 389.43,
+      "text": "the relation is delta of sv is the min"
+    },
+    {
+      "start": 389.43,
+      "end": 393.35,
+      "text": "so what are we thinking about here"
+    },
+    {
+      "start": 393.35,
+      "end": 395.51,
+      "text": "we're guessing this is sort of a new"
+    },
+    {
+      "start": 395.51,
+      "end": 397.51,
+      "text": "uh phrase i want to add we're guessing"
+    },
+    {
+      "start": 397.51,
+      "end": 401.029,
+      "text": "uh oh actually i wrote it right here"
+    },
+    {
+      "start": 401.029,
+      "end": 401.749,
+      "text": "the last edge uv on a shortest s to v"
+    },
+    {
+      "start": 401.749,
+      "end": 403.35,
+      "text": "path"
+    },
+    {
+      "start": 403.35,
+      "end": 405.029,
+      "text": "right so delta of sv the problem we're"
+    },
+    {
+      "start": 405.029,
+      "end": 408.469,
+      "text": "trying to solve is uh"
+    },
+    {
+      "start": 408.469,
+      "end": 411.029,
+      "text": "find shortest s to v path and it's"
+    },
+    {
+      "start": 411.029,
+      "end": 411.99,
+      "text": "you know it's some path and we don't"
+    },
+    {
+      "start": 411.99,
+      "end": 414.79,
+      "text": "know what it looks like"
+    },
+    {
+      "start": 414.79,
+      "end": 416.39,
+      "text": "but uh some feature of the solution of"
+    },
+    {
+      "start": 416.39,
+      "end": 417.83,
+      "text": "this path we're trying to find is well"
+    },
+    {
+      "start": 417.83,
+      "end": 420.23,
+      "text": "what's the last edge"
+    },
+    {
+      "start": 420.23,
+      "end": 422.07,
+      "text": "it comes from some vertex u unless the"
+    },
+    {
+      "start": 422.07,
+      "end": 424.15,
+      "text": "path is of length 0"
+    },
+    {
+      "start": 424.15,
+      "end": 425.83,
+      "text": "and you know s equals v that's a special"
+    },
+    {
+      "start": 425.83,
+      "end": 428.71,
+      "text": "case dealt with in the base case"
+    },
+    {
+      "start": 428.71,
+      "end": 429.909,
+      "text": "otherwise there's some vertex u before v"
+    },
+    {
+      "start": 429.909,
+      "end": 431.27,
+      "text": "we don't know what it is so we're going"
+    },
+    {
+      "start": 431.27,
+      "end": 432.87,
+      "text": "to locally brute force"
+    },
+    {
+      "start": 432.87,
+      "end": 434.55,
+      "text": "or guess what the right answer is so"
+    },
+    {
+      "start": 434.55,
+      "end": 436.71,
+      "text": "look at all incoming edges"
+    },
+    {
+      "start": 436.71,
+      "end": 439.029,
+      "text": "from u to v and for each of them take"
+    },
+    {
+      "start": 439.029,
+      "end": 440.79,
+      "text": "the recursive shortest path from s to u"
+    },
+    {
+      "start": 440.79,
+      "end": 442.71,
+      "text": "plus the weight of the edge okay so this"
+    },
+    {
+      "start": 442.71,
+      "end": 444.23,
+      "text": "is the guessing or local brute force"
+    },
+    {
+      "start": 444.23,
+      "end": 446.15,
+      "text": "perspective"
+    },
+    {
+      "start": 446.15,
+      "end": 447.27,
+      "text": "and the reason this works is because g"
+    },
+    {
+      "start": 447.27,
+      "end": 449.749,
+      "text": "is acyclic"
+    },
+    {
+      "start": 449.749,
+      "end": 450.71,
+      "text": "and so it has a topological order"
+    },
+    {
+      "start": 450.71,
+      "end": 452.629,
+      "text": "otherwise"
+    },
+    {
+      "start": 452.629,
+      "end": 454.55,
+      "text": "if graph if the graph has a cycle and"
+    },
+    {
+      "start": 454.55,
+      "end": 457.189,
+      "text": "that's the case we want to go to next"
+    },
+    {
+      "start": 457.189,
+      "end": 459.909,
+      "text": "uh this recursive call from delta of sv"
+    },
+    {
+      "start": 459.909,
+      "end": 461.83,
+      "text": "to delta of su"
+    },
+    {
+      "start": 461.83,
+      "end": 463.27,
+      "text": "will have loops in it and so you'll"
+    },
+    {
+      "start": 463.27,
+      "end": 465.27,
+      "text": "never evaluate this recursion you'll"
+    },
+    {
+      "start": 465.27,
+      "end": 467.67,
+      "text": "never finish you'll never memoize"
+    },
+    {
+      "start": 467.67,
+      "end": 469.35,
+      "text": "you'll be sad it'll take infinite time"
+    },
+    {
+      "start": 469.35,
+      "end": 471.35,
+      "text": "alright so don't use this algorithm"
+    },
+    {
+      "start": 471.35,
+      "end": 473.27,
+      "text": "unless you have a dag for dag it's great"
+    },
+    {
+      "start": 473.27,
+      "end": 476.39,
+      "text": "it's linear time"
+    },
+    {
+      "start": 476.39,
+      "end": 478.469,
+      "text": "so that was a little review now here is"
+    },
+    {
+      "start": 478.469,
+      "end": 480.23,
+      "text": "a single source shortest paths in"
+    },
+    {
+      "start": 480.23,
+      "end": 483.35,
+      "text": "general graphs which we know as"
+    },
+    {
+      "start": 483.35,
+      "end": 484.15,
+      "text": "bellman ford but rephrased into the sort"
+    },
+    {
+      "start": 484.15,
+      "end": 488.15,
+      "text": "bot"
+    },
+    {
+      "start": 488.15,
+      "end": 490.39,
+      "text": "framework okay so uh we defined this"
+    },
+    {
+      "start": 490.39,
+      "end": 491.589,
+      "text": "problem in the bellman ford lecture"
+    },
+    {
+      "start": 491.589,
+      "end": 494.309,
+      "text": "delta sub k"
+    },
+    {
+      "start": 494.309,
+      "end": 496.39,
+      "text": "of sv remember this was the weight of"
+    },
+    {
+      "start": 496.39,
+      "end": 499.029,
+      "text": "the shortest path from s to v"
+    },
+    {
+      "start": 499.029,
+      "end": 500.869,
+      "text": "that is restricted to use at most k"
+    },
+    {
+      "start": 500.869,
+      "end": 502.79,
+      "text": "edges"
+    },
+    {
+      "start": 502.79,
+      "end": 504.79,
+      "text": "this made the problem feasible we ended"
+    },
+    {
+      "start": 504.79,
+      "end": 506.07,
+      "text": "up taking the product of the graph into"
+    },
+    {
+      "start": 506.07,
+      "end": 508.15,
+      "text": "many into"
+    },
+    {
+      "start": 508.15,
+      "end": 509.35,
+      "text": "you know all these different subproblems"
+    },
+    {
+      "start": 509.35,
+      "end": 510.869,
+      "text": "in fact"
+    },
+    {
+      "start": 510.869,
+      "end": 511.99,
+      "text": "but from the perspective of dynamic"
+    },
+    {
+      "start": 511.99,
+      "end": 513.269,
+      "text": "programming we think of this as a"
+    },
+    {
+      "start": 513.269,
+      "end": 515.43,
+      "text": "subproblem constraint"
+    },
+    {
+      "start": 515.43,
+      "end": 516.79,
+      "text": "what we really want is the shortest suv"
+    },
+    {
+      "start": 516.79,
+      "end": 517.909,
+      "text": "path but that's hard"
+    },
+    {
+      "start": 517.909,
+      "end": 520.469,
+      "text": "so we're going to break it up into"
+    },
+    {
+      "start": 520.469,
+      "end": 522.389,
+      "text": "smaller pieces for each k"
+    },
+    {
+      "start": 522.389,
+      "end": 523.67,
+      "text": "between zero and v we're going to say"
+    },
+    {
+      "start": 523.67,
+      "end": 526.07,
+      "text": "well let's think about this problem"
+    },
+    {
+      "start": 526.07,
+      "end": 527.99,
+      "text": "restricted to use at most k edges"
+    },
+    {
+      "start": 527.99,
+      "end": 529.269,
+      "text": "and we and for simple paths you know if"
+    },
+    {
+      "start": 529.269,
+      "end": 531.03,
+      "text": "there are no negative weight cycles we"
+    },
+    {
+      "start": 531.03,
+      "end": 532.829,
+      "text": "only have to go up to v minus one"
+    },
+    {
+      "start": 532.829,
+      "end": 535.75,
+      "text": "uh we prove that and we know then we're"
+    },
+    {
+      "start": 535.75,
+      "end": 538.07,
+      "text": "happy"
+    },
+    {
+      "start": 538.07,
+      "end": 539.59,
+      "text": "but that's that's sort of the last thing"
+    },
+    {
+      "start": 539.59,
+      "end": 541.509,
+      "text": "we want to solve so if we look down at"
+    },
+    {
+      "start": 541.509,
+      "end": 544.949,
+      "text": "the original problem we want"
+    },
+    {
+      "start": 544.949,
+      "end": 547.43,
+      "text": "it's delta sub v minus 1 of sv"
+    },
+    {
+      "start": 547.43,
+      "end": 549.11,
+      "text": "for all v so though if we could solve"
+    },
+    {
+      "start": 549.11,
+      "end": 549.509,
+      "text": "these sub problems as we saw with bowman"
+    },
+    {
+      "start": 549.509,
+      "end": 550.87,
+      "text": "ford"
+    },
+    {
+      "start": 550.87,
+      "end": 552.15,
+      "text": "we can solve the original problem unless"
+    },
+    {
+      "start": 552.15,
+      "end": 553.75,
+      "text": "there are negative weight cycles and we"
+    },
+    {
+      "start": 553.75,
+      "end": 556.15,
+      "text": "use delta sub v"
+    },
+    {
+      "start": 556.15,
+      "end": 557.35,
+      "text": "of sv to check whether they're negative"
+    },
+    {
+      "start": 557.35,
+      "end": 558.63,
+      "text": "weight cycles i don't want to repeat"
+    },
+    {
+      "start": 558.63,
+      "end": 560.949,
+      "text": "that but that's the"
+    },
+    {
+      "start": 560.949,
+      "end": 561.67,
+      "text": "all in the original problem and then we"
+    },
+    {
+      "start": 561.67,
+      "end": 564.87,
+      "text": "can take"
+    },
+    {
+      "start": 564.87,
+      "end": 567.59,
+      "text": "this relation that we wrote for"
+    },
+    {
+      "start": 567.59,
+      "end": 568.79,
+      "text": "dag shortest paths and just port it over"
+    },
+    {
+      "start": 568.79,
+      "end": 570.389,
+      "text": "here"
+    },
+    {
+      "start": 570.389,
+      "end": 572.63,
+      "text": "so remember this for a general graph"
+    },
+    {
+      "start": 572.63,
+      "end": 573.91,
+      "text": "this has cycles so we can't use it"
+    },
+    {
+      "start": 573.91,
+      "end": 576.55,
+      "text": "because we're just referring to"
+    },
+    {
+      "start": 576.55,
+      "end": 578.71,
+      "text": "arbitrary delta of svs"
+    },
+    {
+      "start": 578.71,
+      "end": 579.99,
+      "text": "so there's no reason to expect no cycles"
+    },
+    {
+      "start": 579.99,
+      "end": 582.15,
+      "text": "there"
+    },
+    {
+      "start": 582.15,
+      "end": 584.63,
+      "text": "in fact the call graph is exactly the"
+    },
+    {
+      "start": 584.63,
+      "end": 586.31,
+      "text": "graph g so it has a cycle if only if g"
+    },
+    {
+      "start": 586.31,
+      "end": 588.23,
+      "text": "does"
+    },
+    {
+      "start": 588.23,
+      "end": 590.87,
+      "text": "but now over here i'm writing exactly"
+    },
+    {
+      "start": 590.87,
+      "end": 594.31,
+      "text": "the same formula"
+    },
+    {
+      "start": 594.31,
+      "end": 594.949,
+      "text": "for this min but i added a sub k here"
+    },
+    {
+      "start": 594.949,
+      "end": 598.31,
+      "text": "and a sub"
+    },
+    {
+      "start": 598.31,
+      "end": 600.47,
+      "text": "k minus 1 here the observation being if"
+    },
+    {
+      "start": 600.47,
+      "end": 602.31,
+      "text": "i've already guessed what the last edge"
+    },
+    {
+      "start": 602.31,
+      "end": 604.87,
+      "text": "uv is for this path"
+    },
+    {
+      "start": 604.87,
+      "end": 605.35,
+      "text": "then if this whole thing has length at"
+    },
+    {
+      "start": 605.35,
+      "end": 608.87,
+      "text": "most"
+    },
+    {
+      "start": 608.87,
+      "end": 613.11,
+      "text": "k then this piece has length at most"
+    },
+    {
+      "start": 613.11,
+      "end": 617.35,
+      "text": "k minus 1. so i only need to"
+    },
+    {
+      "start": 617.35,
+      "end": 619.19,
+      "text": "do solve delta sub k minus 1 of sv"
+    },
+    {
+      "start": 619.19,
+      "end": 622.389,
+      "text": "here and so that's what i wrote sorry i"
+    },
+    {
+      "start": 622.389,
+      "end": 625.269,
+      "text": "have s u that's what i wrote here"
+    },
+    {
+      "start": 625.269,
+      "end": 626.87,
+      "text": "there's one other thing which is as i"
+    },
+    {
+      "start": 626.87,
+      "end": 628.71,
+      "text": "mentioned a little while ago"
+    },
+    {
+      "start": 628.71,
+      "end": 630.31,
+      "text": "it could be that we use fewer than k"
+    },
+    {
+      "start": 630.31,
+      "end": 632.31,
+      "text": "edges and so"
+    },
+    {
+      "start": 632.31,
+      "end": 633.509,
+      "text": "let's consider the case where we don't"
+    },
+    {
+      "start": 633.509,
+      "end": 636.55,
+      "text": "follow a last edge"
+    },
+    {
+      "start": 636.55,
+      "end": 638.55,
+      "text": "and we just add to this min the"
+    },
+    {
+      "start": 638.55,
+      "end": 640.47,
+      "text": "uh shortest path using at most k minus"
+    },
+    {
+      "start": 640.47,
+      "end": 642.63,
+      "text": "one edges that's one option"
+    },
+    {
+      "start": 642.63,
+      "end": 643.829,
+      "text": "for having at most k edges if we wrote"
+    },
+    {
+      "start": 643.829,
+      "end": 646.15,
+      "text": "equality here"
+    },
+    {
+      "start": 646.15,
+      "end": 648.55,
+      "text": "then we would remove that like the last"
+    },
+    {
+      "start": 648.55,
+      "end": 651.67,
+      "text": "problem session"
+    },
+    {
+      "start": 651.67,
+      "end": 654.15,
+      "text": "okay good"
+    },
+    {
+      "start": 654.15,
+      "end": 655.59,
+      "text": "so the key observation here is that this"
+    },
+    {
+      "start": 655.59,
+      "end": 658.55,
+      "text": "recurrence"
+    },
+    {
+      "start": 658.55,
+      "end": 659.509,
+      "text": "does not have cycles just by adding this"
+    },
+    {
+      "start": 659.509,
+      "end": 661.35,
+      "text": "index"
+    },
+    {
+      "start": 661.35,
+      "end": 662.79,
+      "text": "if we solve these problems in order of"
+    },
+    {
+      "start": 662.79,
+      "end": 664.71,
+      "text": "increasing k"
+    },
+    {
+      "start": 664.71,
+      "end": 666.79,
+      "text": "all of the references from delta sub k"
+    },
+    {
+      "start": 666.79,
+      "end": 668.79,
+      "text": "are in terms of delta sub k minus 1"
+    },
+    {
+      "start": 668.79,
+      "end": 671.509,
+      "text": "and so this is now magically acyclic"
+    },
+    {
+      "start": 671.509,
+      "end": 673.67,
+      "text": "this is why bellman ford worked"
+    },
+    {
+      "start": 673.67,
+      "end": 675.67,
+      "text": "this but now i think in a very pleasing"
+    },
+    {
+      "start": 675.67,
+      "end": 678.069,
+      "text": "way we're taking our graph that cyclic"
+    },
+    {
+      "start": 678.069,
+      "end": 679.99,
+      "text": "and by spreading it out over various"
+    },
+    {
+      "start": 679.99,
+      "end": 681.269,
+      "text": "copies of k and referencing always the"
+    },
+    {
+      "start": 681.269,
+      "end": 683.509,
+      "text": "smaller one"
+    },
+    {
+      "start": 683.509,
+      "end": 684.389,
+      "text": "we get an acyclic graph acyclic"
+    },
+    {
+      "start": 684.389,
+      "end": 687.19,
+      "text": "relations"
+    },
+    {
+      "start": 687.19,
+      "end": 689.03,
+      "text": "we have base cases like normal and then"
+    },
+    {
+      "start": 689.03,
+      "end": 692.949,
+      "text": "we can analyze the running time"
+    },
+    {
+      "start": 692.949,
+      "end": 695.75,
+      "text": "in the usual way which is uh summing"
+    },
+    {
+      "start": 695.75,
+      "end": 697.35,
+      "text": "so uh what is this uh how much does this"
+    },
+    {
+      "start": 697.35,
+      "end": 698.949,
+      "text": "cost we're going to take this the cost"
+    },
+    {
+      "start": 698.949,
+      "end": 701.11,
+      "text": "of computing the relation"
+    },
+    {
+      "start": 701.11,
+      "end": 702.15,
+      "text": "which is the number of incoming edges to"
+    },
+    {
+      "start": 702.15,
+      "end": 705.35,
+      "text": "v"
+    },
+    {
+      "start": 705.35,
+      "end": 707.67,
+      "text": "that's this theta and then"
+    },
+    {
+      "start": 707.67,
+      "end": 709.43,
+      "text": "some overall sub problems so sum over k"
+    },
+    {
+      "start": 709.43,
+      "end": 711.03,
+      "text": "and sum over v"
+    },
+    {
+      "start": 711.03,
+      "end": 713.67,
+      "text": "i wrote it as a sum instead of our"
+    },
+    {
+      "start": 713.67,
+      "end": 717.11,
+      "text": "product because this thing"
+    },
+    {
+      "start": 717.11,
+      "end": 719.269,
+      "text": "is theta e"
+    },
+    {
+      "start": 719.269,
+      "end": 720.47,
+      "text": "right the sum of incoming edges over all"
+    },
+    {
+      "start": 720.47,
+      "end": 723.269,
+      "text": "vertices is exactly"
+    },
+    {
+      "start": 723.269,
+      "end": 725.19,
+      "text": "the size of e and then we sum there's no"
+    },
+    {
+      "start": 725.19,
+      "end": 726.069,
+      "text": "k in this formula so we just multiply by"
+    },
+    {
+      "start": 726.069,
+      "end": 729.67,
+      "text": "v and we get v"
+    },
+    {
+      "start": 729.67,
+      "end": 732.31,
+      "text": "e so our good friend belmont ford recast"
+    },
+    {
+      "start": 732.31,
+      "end": 734.069,
+      "text": "kind of the opposite way before we were"
+    },
+    {
+      "start": 734.069,
+      "end": 735.59,
+      "text": "using relaxations now we're just writing"
+    },
+    {
+      "start": 735.59,
+      "end": 737.19,
+      "text": "them in explicitly"
+    },
+    {
+      "start": 737.19,
+      "end": 740.069,
+      "text": "but essentially the same computation"
+    },
+    {
+      "start": 740.069,
+      "end": 743.11,
+      "text": "just in a different order"
+    },
+    {
+      "start": 743.11,
+      "end": 746.629,
+      "text": "okay cool so those are reviews of"
+    },
+    {
+      "start": 746.629,
+      "end": 751.509,
+      "text": "old algorithms but in this new framework"
+    },
+    {
+      "start": 751.509,
+      "end": 755.75,
+      "text": "show how powerful it is let's look at"
+    },
+    {
+      "start": 755.75,
+      "end": 760.069,
+      "text": "another example which is our friend"
+    },
+    {
+      "start": 760.069,
+      "end": 762.87,
+      "text": "right here all pairs shortest paths"
+    },
+    {
+      "start": 762.87,
+      "end": 764.389,
+      "text": "okay a few lectures ago we saw johnson's"
+    },
+    {
+      "start": 764.389,
+      "end": 767.59,
+      "text": "algorithm which solves this"
+    },
+    {
+      "start": 767.59,
+      "end": 771.43,
+      "text": "very well so"
+    },
+    {
+      "start": 771.43,
+      "end": 773.43,
+      "text": "one option we could use is just"
+    },
+    {
+      "start": 773.43,
+      "end": 775.43,
+      "text": "this same set of sub problems but for"
+    },
+    {
+      "start": 775.43,
+      "end": 778.87,
+      "text": "all u and v"
+    },
+    {
+      "start": 778.87,
+      "end": 780.87,
+      "text": "right so for u and v and v"
+    },
+    {
+      "start": 780.87,
+      "end": 782.15,
+      "text": "that's what we really care about um and"
+    },
+    {
+      "start": 782.15,
+      "end": 785.59,
+      "text": "then we could say"
+    },
+    {
+      "start": 785.59,
+      "end": 787.91,
+      "text": "k up to v something like that"
+    },
+    {
+      "start": 787.91,
+      "end": 789.269,
+      "text": "so this would work but it would give the"
+    },
+    {
+      "start": 789.269,
+      "end": 791.59,
+      "text": "same running time as"
+    },
+    {
+      "start": 791.59,
+      "end": 792.629,
+      "text": "running bellman ford v times this is one"
+    },
+    {
+      "start": 792.629,
+      "end": 794.23,
+      "text": "solution we know"
+    },
+    {
+      "start": 794.23,
+      "end": 795.829,
+      "text": "but not the best solution we know for"
+    },
+    {
+      "start": 795.829,
+      "end": 799.75,
+      "text": "how to solve shortest paths"
+    },
+    {
+      "start": 799.75,
+      "end": 803.43,
+      "text": "so this would give v squared"
+    },
+    {
+      "start": 803.43,
+      "end": 805.75,
+      "text": "e which is at most"
+    },
+    {
+      "start": 805.75,
+      "end": 807.43,
+      "text": "v to the fourth for dense graphs it is"
+    },
+    {
+      "start": 807.43,
+      "end": 810.55,
+      "text": "theta v to the fourth"
+    },
+    {
+      "start": 810.55,
+      "end": 812.47,
+      "text": "so this is v times v times e um but"
+    },
+    {
+      "start": 812.47,
+      "end": 813.91,
+      "text": "worst case is v to the fourth"
+    },
+    {
+      "start": 813.91,
+      "end": 815.99,
+      "text": "uh what i'd like to show you now is a"
+    },
+    {
+      "start": 815.99,
+      "end": 819.03,
+      "text": "different way to solve this problem"
+    },
+    {
+      "start": 819.03,
+      "end": 820.15,
+      "text": "almost identical but gives v cubed"
+    },
+    {
+      "start": 820.15,
+      "end": 823.11,
+      "text": "running time"
+    },
+    {
+      "start": 823.11,
+      "end": 824.629,
+      "text": "which for dense graphs is really good so"
+    },
+    {
+      "start": 824.629,
+      "end": 825.67,
+      "text": "we're going to reduce this 4 down to a"
+    },
+    {
+      "start": 825.67,
+      "end": 827.269,
+      "text": "3."
+    },
+    {
+      "start": 827.269,
+      "end": 829.509,
+      "text": "this is an algorithm called floyd"
+    },
+    {
+      "start": 829.509,
+      "end": 831.11,
+      "text": "warshall"
+    },
+    {
+      "start": 831.11,
+      "end": 832.629,
+      "text": "it's definitely not an obvious algorithm"
+    },
+    {
+      "start": 832.629,
+      "end": 834.31,
+      "text": "it's a very cool idea"
+    },
+    {
+      "start": 834.31,
+      "end": 836.15,
+      "text": "and it's a nice example of a different"
+    },
+    {
+      "start": 836.15,
+      "end": 837.11,
+      "text": "way remember this is sub problem"
+    },
+    {
+      "start": 837.11,
+      "end": 838.79,
+      "text": "expansion we took"
+    },
+    {
+      "start": 838.79,
+      "end": 840.55,
+      "text": "the problems we cared about multiplied"
+    },
+    {
+      "start": 840.55,
+      "end": 841.99,
+      "text": "by this choice of k"
+    },
+    {
+      "start": 841.99,
+      "end": 844.55,
+      "text": "here we're going to do the same thing"
+    },
+    {
+      "start": 844.55,
+      "end": 845.99,
+      "text": "but define it differently"
+    },
+    {
+      "start": 845.99,
+      "end": 848.629,
+      "text": "we're going to define those sub problems"
+    },
+    {
+      "start": 848.629,
+      "end": 856.79,
+      "text": "differently so first i want to number"
+    },
+    {
+      "start": 856.79,
+      "end": 859.189,
+      "text": "starting at 1 for convenience so let's"
+    },
+    {
+      "start": 859.189,
+      "end": 860.629,
+      "text": "see why"
+    },
+    {
+      "start": 860.629,
+      "end": 870.23,
+      "text": "and then we're going to define some sub"
+    },
+    {
+      "start": 870.23,
+      "end": 874.389,
+      "text": "delta i'll call it u v comma k"
+    },
+    {
+      "start": 874.389,
+      "end": 877.91,
+      "text": "maybe to avoid conflict i will"
+    },
+    {
+      "start": 877.91,
+      "end": 880.389,
+      "text": "write a d here this is just a definition"
+    },
+    {
+      "start": 880.389,
+      "end": 884.79,
+      "text": "local to this algorithm"
+    },
+    {
+      "start": 884.79,
+      "end": 893.43,
+      "text": "so i want the weight of"
+    },
+    {
+      "start": 893.43,
+      "end": 895.03,
+      "text": "okay so far just the same as the problem"
+    },
+    {
+      "start": 895.03,
+      "end": 902.069,
+      "text": "we actually want to solve this is"
+    },
+    {
+      "start": 902.069,
+      "end": 913.11,
+      "text": "but i'm going to add a constraint which"
+    },
+    {
+      "start": 913.11,
+      "end": 916.79,
+      "text": "in uv"
+    },
+    {
+      "start": 916.79,
+      "end": 920.629,
+      "text": "and 1 2"
+    },
+    {
+      "start": 920.629,
+      "end": 922.389,
+      "text": "up to k so this is the divine"
+    },
+    {
+      "start": 922.389,
+      "end": 923.11,
+      "text": "inspiration to define sub problems this"
+    },
+    {
+      "start": 923.11,
+      "end": 925.269,
+      "text": "way"
+    },
+    {
+      "start": 925.269,
+      "end": 926.55,
+      "text": "it's a different constraint than the one"
+    },
+    {
+      "start": 926.55,
+      "end": 929.59,
+      "text": "we saw here"
+    },
+    {
+      "start": 929.59,
+      "end": 932.55,
+      "text": "which was using at most k"
+    },
+    {
+      "start": 932.55,
+      "end": 933.67,
+      "text": "edges so in some sense what's slow about"
+    },
+    {
+      "start": 933.67,
+      "end": 935.43,
+      "text": "this algorithm"
+    },
+    {
+      "start": 935.43,
+      "end": 937.67,
+      "text": "is that we have to loop over all the"
+    },
+    {
+      "start": 937.67,
+      "end": 940.15,
+      "text": "incoming vertices"
+    },
+    {
+      "start": 940.15,
+      "end": 941.91,
+      "text": "this is expensive you know costs order"
+    },
+    {
+      "start": 941.91,
+      "end": 943.189,
+      "text": "the degree which ends up with an e term"
+    },
+    {
+      "start": 943.189,
+      "end": 944.23,
+      "text": "we're going to try to convert that e"
+    },
+    {
+      "start": 944.23,
+      "end": 947.91,
+      "text": "term into a v"
+    },
+    {
+      "start": 947.91,
+      "end": 950.15,
+      "text": "term by just knowing"
+    },
+    {
+      "start": 950.15,
+      "end": 951.03,
+      "text": "which vertex to come from which sounds"
+    },
+    {
+      "start": 951.03,
+      "end": 952.47,
+      "text": "impossible"
+    },
+    {
+      "start": 952.47,
+      "end": 954.79,
+      "text": "but it turns out if you write the sub"
+    },
+    {
+      "start": 954.79,
+      "end": 958.23,
+      "text": "problems this way so"
+    },
+    {
+      "start": 958.23,
+      "end": 961.91,
+      "text": "i'm naming the vertices and say well"
+    },
+    {
+      "start": 961.91,
+      "end": 964.55,
+      "text": "let me just find a path that uses uv"
+    },
+    {
+      "start": 964.55,
+      "end": 965.91,
+      "text": "and the vertex labeled one there's only"
+    },
+    {
+      "start": 965.91,
+      "end": 966.55,
+      "text": "like two options i could go straight"
+    },
+    {
+      "start": 966.55,
+      "end": 969.03,
+      "text": "from u to v"
+    },
+    {
+      "start": 969.03,
+      "end": 970.79,
+      "text": "or i could go from u to one to v and"
+    },
+    {
+      "start": 970.79,
+      "end": 971.829,
+      "text": "then how about with one and two and one"
+    },
+    {
+      "start": 971.829,
+      "end": 974.87,
+      "text": "and two and three"
+    },
+    {
+      "start": 974.87,
+      "end": 978.15,
+      "text": "the same vertices okay by"
+    },
+    {
+      "start": 978.15,
+      "end": 982.15,
+      "text": "label instead of by counting them"
+    },
+    {
+      "start": 982.15,
+      "end": 985.11,
+      "text": "slight tweak but it turns out this uh"
+    },
+    {
+      "start": 985.11,
+      "end": 994.55,
+      "text": "speeds up the algorithm so let me first"
+    },
+    {
+      "start": 994.55,
+      "end": 997.91,
+      "text": "okay this is uh v cubed sub problems"
+    },
+    {
+      "start": 997.91,
+      "end": 1000.47,
+      "text": "two choices for u and v and i have uh"
+    },
+    {
+      "start": 1000.47,
+      "end": 1003.11,
+      "text": "v choices for sorry i have v choices for"
+    },
+    {
+      "start": 1003.11,
+      "end": 1007.509,
+      "text": "u v choices for v and v choices for k"
+    },
+    {
+      "start": 1007.509,
+      "end": 1009.749,
+      "text": "roughly v cubed of these"
+    },
+    {
+      "start": 1009.749,
+      "end": 1010.949,
+      "text": "uh but the key thing is that sounds like"
+    },
+    {
+      "start": 1010.949,
+      "end": 1014.389,
+      "text": "a lot"
+    },
+    {
+      "start": 1014.389,
+      "end": 1017.59,
+      "text": "but the relation becomes cheaper now"
+    },
+    {
+      "start": 1017.59,
+      "end": 1022.15,
+      "text": "because i can just write delta u"
+    },
+    {
+      "start": 1022.15,
+      "end": 1026.15,
+      "text": "sorry d of uvk"
+    },
+    {
+      "start": 1026.15,
+      "end": 1030.39,
+      "text": "is the min of two things"
+    },
+    {
+      "start": 1030.39,
+      "end": 1033.75,
+      "text": "d of u v k minus one"
+    },
+    {
+      "start": 1033.75,
+      "end": 1036.829,
+      "text": "and d of u"
+    },
+    {
+      "start": 1036.829,
+      "end": 1040.309,
+      "text": "k k minus one"
+    },
+    {
+      "start": 1040.309,
+      "end": 1043.829,
+      "text": "plus d of k"
+    },
+    {
+      "start": 1043.829,
+      "end": 1046.23,
+      "text": "v k minus one"
+    },
+    {
+      "start": 1046.23,
+      "end": 1047.75,
+      "text": "okay it's a strange it's a strange"
+    },
+    {
+      "start": 1047.75,
+      "end": 1051.99,
+      "text": "formula because we're using"
+    },
+    {
+      "start": 1051.99,
+      "end": 1054.31,
+      "text": "indices like k for vertices also um"
+    },
+    {
+      "start": 1054.31,
+      "end": 1055.11,
+      "text": "as well as u and v for vertices but"
+    },
+    {
+      "start": 1055.11,
+      "end": 1056.789,
+      "text": "we're also using k"
+    },
+    {
+      "start": 1056.789,
+      "end": 1058.47,
+      "text": "as a counter but we can do this because"
+    },
+    {
+      "start": 1058.47,
+      "end": 1060.31,
+      "text": "our vertices are numbered"
+    },
+    {
+      "start": 1060.31,
+      "end": 1061.99,
+      "text": "okay so the idea is the following we"
+    },
+    {
+      "start": 1061.99,
+      "end": 1064.789,
+      "text": "have vertex u"
+    },
+    {
+      "start": 1064.789,
+      "end": 1066.71,
+      "text": "we have a vertex v and we've already"
+    },
+    {
+      "start": 1066.71,
+      "end": 1070.95,
+      "text": "found the shortest path"
+    },
+    {
+      "start": 1070.95,
+      "end": 1073.75,
+      "text": "that uses vertices 1 through k minus 1"
+    },
+    {
+      "start": 1073.75,
+      "end": 1074.87,
+      "text": "that's what this quantity is so it could"
+    },
+    {
+      "start": 1074.87,
+      "end": 1076.23,
+      "text": "be"
+    },
+    {
+      "start": 1076.23,
+      "end": 1078.23,
+      "text": "and now we're thinking we're trying to"
+    },
+    {
+      "start": 1078.23,
+      "end": 1079.51,
+      "text": "add in this vertex k and think about"
+    },
+    {
+      "start": 1079.51,
+      "end": 1082.23,
+      "text": "what are all the paths that could go"
+    },
+    {
+      "start": 1082.23,
+      "end": 1083.83,
+      "text": "from u to v using one up to k"
+    },
+    {
+      "start": 1083.83,
+      "end": 1085.59,
+      "text": "well it could be the shortest path from"
+    },
+    {
+      "start": 1085.59,
+      "end": 1086.549,
+      "text": "u to v using one up to k doesn't use"
+    },
+    {
+      "start": 1086.549,
+      "end": 1088.549,
+      "text": "vertex k"
+    },
+    {
+      "start": 1088.549,
+      "end": 1090.39,
+      "text": "that's the first option just use"
+    },
+    {
+      "start": 1090.39,
+      "end": 1091.029,
+      "text": "vertices one up to k minus one maybe we"
+    },
+    {
+      "start": 1091.029,
+      "end": 1093.99,
+      "text": "don't need"
+    },
+    {
+      "start": 1093.99,
+      "end": 1095.19,
+      "text": "to use k or it could be that the path"
+    },
+    {
+      "start": 1095.19,
+      "end": 1098.31,
+      "text": "goes through k"
+    },
+    {
+      "start": 1098.31,
+      "end": 1101.11,
+      "text": "well it starts at u and it goes to k"
+    },
+    {
+      "start": 1101.11,
+      "end": 1102.07,
+      "text": "and then it goes from k to v okay all"
+    },
+    {
+      "start": 1102.07,
+      "end": 1103.59,
+      "text": "using"
+    },
+    {
+      "start": 1103.59,
+      "end": 1105.11,
+      "text": "for simple paths if we assume there are"
+    },
+    {
+      "start": 1105.11,
+      "end": 1106.95,
+      "text": "no negative weight cycles and you have"
+    },
+    {
+      "start": 1106.95,
+      "end": 1108.549,
+      "text": "to run down and forward to detect them"
+    },
+    {
+      "start": 1108.549,
+      "end": 1110.71,
+      "text": "but assuming no negative weight cycles"
+    },
+    {
+      "start": 1110.71,
+      "end": 1113.029,
+      "text": "the shortest path from u to v through k"
+    },
+    {
+      "start": 1113.029,
+      "end": 1115.27,
+      "text": "must start by using vertices less than k"
+    },
+    {
+      "start": 1115.27,
+      "end": 1116.47,
+      "text": "and then use vertices less than k again"
+    },
+    {
+      "start": 1116.47,
+      "end": 1119.19,
+      "text": "and that's what i've written here it's"
+    },
+    {
+      "start": 1119.19,
+      "end": 1122.71,
+      "text": "from u to k using k minus 1"
+    },
+    {
+      "start": 1122.71,
+      "end": 1125.27,
+      "text": "up to k minus 1 labels and from k to v"
+    },
+    {
+      "start": 1125.27,
+      "end": 1126.07,
+      "text": "using labels up to k minus one okay the"
+    },
+    {
+      "start": 1126.07,
+      "end": 1128.15,
+      "text": "cool thing here"
+    },
+    {
+      "start": 1128.15,
+      "end": 1129.669,
+      "text": "is the min only has two terms so this"
+    },
+    {
+      "start": 1129.669,
+      "end": 1133.59,
+      "text": "takes constant time"
+    },
+    {
+      "start": 1133.59,
+      "end": 1137.11,
+      "text": "non-recursive work so this is uh"
+    },
+    {
+      "start": 1137.11,
+      "end": 1146.23,
+      "text": "k is not on the shortest path and this"
+    },
+    {
+      "start": 1146.23,
+      "end": 1153.35,
+      "text": "cool so this is constant non-recursive"
+    },
+    {
+      "start": 1153.35,
+      "end": 1158.95,
+      "text": "so if we jump ahead to the running time"
+    },
+    {
+      "start": 1158.95,
+      "end": 1160.63,
+      "text": "the number of sub-problems which is v"
+    },
+    {
+      "start": 1160.63,
+      "end": 1162.15,
+      "text": "cubed times"
+    },
+    {
+      "start": 1162.15,
+      "end": 1165.909,
+      "text": "the number the amount of work per"
+    },
+    {
+      "start": 1165.909,
+      "end": 1169.19,
+      "text": "sub-problem which is constant"
+    },
+    {
+      "start": 1169.19,
+      "end": 1172.549,
+      "text": "so that's just a v cubed algorithm"
+    },
+    {
+      "start": 1172.549,
+      "end": 1175.99,
+      "text": "for dense graphs this is really good"
+    },
+    {
+      "start": 1175.99,
+      "end": 1177.909,
+      "text": "this is when e is v squared then"
+    },
+    {
+      "start": 1177.909,
+      "end": 1179.43,
+      "text": "this is the same thing as v times e so"
+    },
+    {
+      "start": 1179.43,
+      "end": 1181.35,
+      "text": "as good as bellman ford"
+    },
+    {
+      "start": 1181.35,
+      "end": 1182.71,
+      "text": "uh it's not as good as johnson for"
+    },
+    {
+      "start": 1182.71,
+      "end": 1185.669,
+      "text": "sparse graphs"
+    },
+    {
+      "start": 1185.669,
+      "end": 1186.47,
+      "text": "sparse graphs remember or in general"
+    },
+    {
+      "start": 1186.47,
+      "end": 1189.51,
+      "text": "with with"
+    },
+    {
+      "start": 1189.51,
+      "end": 1192.47,
+      "text": "johnson we got v squared log n"
+    },
+    {
+      "start": 1192.47,
+      "end": 1193.19,
+      "text": "plus v e and this is always spending v"
+    },
+    {
+      "start": 1193.19,
+      "end": 1195.27,
+      "text": "cubed"
+    },
+    {
+      "start": 1195.27,
+      "end": 1196.71,
+      "text": "but it's cool because it's a very simple"
+    },
+    {
+      "start": 1196.71,
+      "end": 1201.27,
+      "text": "algorithm let's uh"
+    },
+    {
+      "start": 1201.27,
+      "end": 1207.11,
+      "text": "quickly write the topological order"
+    },
+    {
+      "start": 1207.11,
+      "end": 1208.95,
+      "text": "all we need is to guarantee that we"
+    },
+    {
+      "start": 1208.95,
+      "end": 1211.669,
+      "text": "solve problems in increasing k"
+    },
+    {
+      "start": 1211.669,
+      "end": 1212.95,
+      "text": "order because every reference here is to"
+    },
+    {
+      "start": 1212.95,
+      "end": 1216.549,
+      "text": "a smaller k"
+    },
+    {
+      "start": 1216.549,
+      "end": 1218.23,
+      "text": "for the third argument um and so for"
+    },
+    {
+      "start": 1218.23,
+      "end": 1222.47,
+      "text": "example you can just write"
+    },
+    {
+      "start": 1222.47,
+      "end": 1226.549,
+      "text": "a tripoli nested loop k equals zero one"
+    },
+    {
+      "start": 1226.549,
+      "end": 1230.95,
+      "text": "up to v and um"
+    },
+    {
+      "start": 1230.95,
+      "end": 1232.31,
+      "text": "u and v and v and v"
+    },
+    {
+      "start": 1232.31,
+      "end": 1234.31,
+      "text": "so if you wanted to write this algorithm"
+    },
+    {
+      "start": 1234.31,
+      "end": 1234.789,
+      "text": "bottom up you just write this triple for"
+    },
+    {
+      "start": 1234.789,
+      "end": 1237.19,
+      "text": "loop"
+    },
+    {
+      "start": 1237.19,
+      "end": 1238.789,
+      "text": "and then plug in this recurrence"
+    },
+    {
+      "start": 1238.789,
+      "end": 1242.07,
+      "text": "relation here"
+    },
+    {
+      "start": 1242.07,
+      "end": 1245.19,
+      "text": "and think of d as a table as a"
+    },
+    {
+      "start": 1245.19,
+      "end": 1245.669,
+      "text": "set mapping instead of uh as a function"
+    },
+    {
+      "start": 1245.669,
+      "end": 1247.43,
+      "text": "call"
+    },
+    {
+      "start": 1247.43,
+      "end": 1249.43,
+      "text": "and boom in four lines you've got your"
+    },
+    {
+      "start": 1249.43,
+      "end": 1250.31,
+      "text": "algorithm except you also need a base"
+    },
+    {
+      "start": 1250.31,
+      "end": 1258.63,
+      "text": "case"
+    },
+    {
+      "start": 1258.63,
+      "end": 1258.95,
+      "text": "uv0 so i have to define what that means"
+    },
+    {
+      "start": 1258.95,
+      "end": 1261.59,
+      "text": "but"
+    },
+    {
+      "start": 1261.59,
+      "end": 1262.63,
+      "text": "when k equals zero the one through k set"
+    },
+    {
+      "start": 1262.63,
+      "end": 1264.63,
+      "text": "is empty"
+    },
+    {
+      "start": 1264.63,
+      "end": 1266.31,
+      "text": "so all i'm allowed to use are use my"
+    },
+    {
+      "start": 1266.31,
+      "end": 1269.029,
+      "text": "vertices u and v"
+    },
+    {
+      "start": 1269.029,
+      "end": 1271.59,
+      "text": "and so there are three cases for this 0"
+    },
+    {
+      "start": 1271.59,
+      "end": 1276.23,
+      "text": "if u equals v"
+    },
+    {
+      "start": 1276.23,
+      "end": 1286.95,
+      "text": "it's w of uv if there's an edge"
+    },
+    {
+      "start": 1286.95,
+      "end": 1288.71,
+      "text": "okay but easy base case constant time"
+    },
+    {
+      "start": 1288.71,
+      "end": 1290.149,
+      "text": "for each"
+    },
+    {
+      "start": 1290.149,
+      "end": 1297.19,
+      "text": "and then the original problems we want"
+    },
+    {
+      "start": 1297.19,
+      "end": 1298.549,
+      "text": "are delta u v sides of v"
+    },
+    {
+      "start": 1298.549,
+      "end": 1300.87,
+      "text": "because i number the vertices one"
+    },
+    {
+      "start": 1300.87,
+      "end": 1302.23,
+      "text": "through size of v and if k equals size"
+    },
+    {
+      "start": 1302.23,
+      "end": 1303.43,
+      "text": "of v that means i get to use all my"
+    },
+    {
+      "start": 1303.43,
+      "end": 1307.35,
+      "text": "vertices so that is"
+    },
+    {
+      "start": 1307.35,
+      "end": 1312.47,
+      "text": "regular shortest paths this is assuming"
+    },
+    {
+      "start": 1312.47,
+      "end": 1313.99,
+      "text": "okay we already know how to do negative"
+    },
+    {
+      "start": 1313.99,
+      "end": 1315.19,
+      "text": "weight cycle detection so i'm not going"
+    },
+    {
+      "start": 1315.19,
+      "end": 1318.31,
+      "text": "to"
+    },
+    {
+      "start": 1318.31,
+      "end": 1318.549,
+      "text": "talk about that again but then this will"
+    },
+    {
+      "start": 1318.549,
+      "end": 1322.07,
+      "text": "be"
+    },
+    {
+      "start": 1322.07,
+      "end": 1323.99,
+      "text": "my shortest pathways because uh yeah"
+    },
+    {
+      "start": 1323.99,
+      "end": 1325.99,
+      "text": "i implicitly assumed here that my path"
+    },
+    {
+      "start": 1325.99,
+      "end": 1328.789,
+      "text": "was simple because"
+    },
+    {
+      "start": 1328.789,
+      "end": 1329.669,
+      "text": "i imagine that i only use k once zero or"
+    },
+    {
+      "start": 1329.669,
+      "end": 1331.11,
+      "text": "one time"
+    },
+    {
+      "start": 1331.11,
+      "end": 1333.59,
+      "text": "and that's true if there are no negative"
+    },
+    {
+      "start": 1333.59,
+      "end": 1335.59,
+      "text": "weight cycles"
+    },
+    {
+      "start": 1335.59,
+      "end": 1336.95,
+      "text": "cool and we already did the time part of"
+    },
+    {
+      "start": 1336.95,
+      "end": 1340.789,
+      "text": "sort bot"
+    },
+    {
+      "start": 1340.789,
+      "end": 1343.99,
+      "text": "so v cubed algorithm very simple"
+    },
+    {
+      "start": 1343.99,
+      "end": 1345.51,
+      "text": "basically five lines of code and you've"
+    },
+    {
+      "start": 1345.51,
+      "end": 1346.95,
+      "text": "got all pair shortest paths"
+    },
+    {
+      "start": 1346.95,
+      "end": 1348.71,
+      "text": "and if your graph is dense this is a"
+    },
+    {
+      "start": 1348.71,
+      "end": 1350.149,
+      "text": "great running time if your grass"
+    },
+    {
+      "start": 1350.149,
+      "end": 1352.149,
+      "text": "graph is not dense you should use"
+    },
+    {
+      "start": 1352.149,
+      "end": 1353.83,
+      "text": "johnson like you will"
+    },
+    {
+      "start": 1353.83,
+      "end": 1355.59,
+      "text": "and or like you have implemented in your"
+    },
+    {
+      "start": 1355.59,
+      "end": 1357.35,
+      "text": "problem set"
+    },
+    {
+      "start": 1357.35,
+      "end": 1358.789,
+      "text": "yeah so how was this compared to just"
+    },
+    {
+      "start": 1358.789,
+      "end": 1359.27,
+      "text": "running dijkstra's outdoor a bunch of"
+    },
+    {
+      "start": 1359.27,
+      "end": 1362.39,
+      "text": "times"
+    },
+    {
+      "start": 1362.39,
+      "end": 1365.909,
+      "text": "ah what about using dijkstra so let's"
+    },
+    {
+      "start": 1365.909,
+      "end": 1366.71,
+      "text": "compute so uh running dijkstra v times"
+    },
+    {
+      "start": 1366.71,
+      "end": 1377.99,
+      "text": "is"
+    },
+    {
+      "start": 1377.99,
+      "end": 1379.75,
+      "text": "so running dijkstra a bunch of times is"
+    },
+    {
+      "start": 1379.75,
+      "end": 1381.59,
+      "text": "great if your graph has"
+    },
+    {
+      "start": 1381.59,
+      "end": 1383.35,
+      "text": "only non-negative edge weights then you"
+    },
+    {
+      "start": 1383.35,
+      "end": 1386.149,
+      "text": "should just run dijkstra"
+    },
+    {
+      "start": 1386.149,
+      "end": 1387.59,
+      "text": "you get this running time and for sparse"
+    },
+    {
+      "start": 1387.59,
+      "end": 1388.71,
+      "text": "graphs this is superior"
+    },
+    {
+      "start": 1388.71,
+      "end": 1390.39,
+      "text": "if you have negative edge weights you"
+    },
+    {
+      "start": 1390.39,
+      "end": 1391.669,
+      "text": "should run johnson which is bellman ford"
+    },
+    {
+      "start": 1391.669,
+      "end": 1396.63,
+      "text": "once and then dijkstra"
+    },
+    {
+      "start": 1396.63,
+      "end": 1400.87,
+      "text": "v times and we're comparing this to"
+    },
+    {
+      "start": 1400.87,
+      "end": 1403.11,
+      "text": "the cubed which we just got"
+    },
+    {
+      "start": 1403.11,
+      "end": 1404.31,
+      "text": "so this i mean how these compare depends"
+    },
+    {
+      "start": 1404.31,
+      "end": 1407.75,
+      "text": "on how v and e relate"
+    },
+    {
+      "start": 1407.75,
+      "end": 1410.95,
+      "text": "so on the one hand maybe uh v"
+    },
+    {
+      "start": 1410.95,
+      "end": 1414.149,
+      "text": "is theta e that's what i would call a"
+    },
+    {
+      "start": 1414.149,
+      "end": 1417.27,
+      "text": "very sparse graph it's quite common"
+    },
+    {
+      "start": 1417.27,
+      "end": 1420.789,
+      "text": "then the running time we get here"
+    },
+    {
+      "start": 1420.789,
+      "end": 1424.95,
+      "text": "is uh v squared"
+    },
+    {
+      "start": 1424.95,
+      "end": 1427.43,
+      "text": "log v okay roughly v squared"
+    },
+    {
+      "start": 1427.43,
+      "end": 1429.11,
+      "text": "on the other hand if we have a very"
+    },
+    {
+      "start": 1429.11,
+      "end": 1431.11,
+      "text": "dense graph v is theta"
+    },
+    {
+      "start": 1431.11,
+      "end": 1432.87,
+      "text": "e squared which for simple graphs the"
+    },
+    {
+      "start": 1432.87,
+      "end": 1435.909,
+      "text": "most we could hope for"
+    },
+    {
+      "start": 1435.909,
+      "end": 1439.83,
+      "text": "uh then this running time"
+    },
+    {
+      "start": 1439.83,
+      "end": 1441.99,
+      "text": "is v cubed"
+    },
+    {
+      "start": 1441.99,
+      "end": 1443.51,
+      "text": "okay so if you know the v is near e"
+    },
+    {
+      "start": 1443.51,
+      "end": 1446.31,
+      "text": "squared then this is giving you"
+    },
+    {
+      "start": 1446.31,
+      "end": 1447.35,
+      "text": "v cubed anyway from the ve term so why"
+    },
+    {
+      "start": 1447.35,
+      "end": 1448.87,
+      "text": "not just use"
+    },
+    {
+      "start": 1448.87,
+      "end": 1450.39,
+      "text": "this algorithm and often you know a"
+    },
+    {
+      "start": 1450.39,
+      "end": 1451.99,
+      "text": "priori whether your graph is very sparse"
+    },
+    {
+      "start": 1451.99,
+      "end": 1453.269,
+      "text": "or very dense or somewhere in between"
+    },
+    {
+      "start": 1453.269,
+      "end": 1455.269,
+      "text": "if it's somewhere in between you should"
+    },
+    {
+      "start": 1455.269,
+      "end": 1456.71,
+      "text": "still use johnson's algorithm because"
+    },
+    {
+      "start": 1456.71,
+      "end": 1457.43,
+      "text": "you're going to get the benefit from"
+    },
+    {
+      "start": 1457.43,
+      "end": 1459.35,
+      "text": "sparsity"
+    },
+    {
+      "start": 1459.35,
+      "end": 1460.87,
+      "text": "and only have to pay this ve instead of"
+    },
+    {
+      "start": 1460.87,
+      "end": 1462.47,
+      "text": "the v cubed"
+    },
+    {
+      "start": 1462.47,
+      "end": 1464.549,
+      "text": "but if you know ahead of time you know"
+    },
+    {
+      "start": 1464.549,
+      "end": 1467.59,
+      "text": "constant fraction of the edges are there"
+    },
+    {
+      "start": 1467.59,
+      "end": 1468.87,
+      "text": "then just use uh or you have a small"
+    },
+    {
+      "start": 1468.87,
+      "end": 1470.95,
+      "text": "enough graph that you don't care"
+    },
+    {
+      "start": 1470.95,
+      "end": 1473.269,
+      "text": "just run a floyd washall because it's"
+    },
+    {
+      "start": 1473.269,
+      "end": 1477.11,
+      "text": "simple and fast"
+    },
+    {
+      "start": 1477.11,
+      "end": 1479.19,
+      "text": "good question any other questions"
+    },
+    {
+      "start": 1479.19,
+      "end": 1481.51,
+      "text": "so this is an example of sub problem"
+    },
+    {
+      "start": 1481.51,
+      "end": 1482.149,
+      "text": "expansion a very non-intuitive one where"
+    },
+    {
+      "start": 1482.149,
+      "end": 1485.35,
+      "text": "we"
+    },
+    {
+      "start": 1485.35,
+      "end": 1486.87,
+      "text": "use some prefix of the vertices but"
+    },
+    {
+      "start": 1486.87,
+      "end": 1488.87,
+      "text": "notice it's prefixes again right i"
+    },
+    {
+      "start": 1488.87,
+      "end": 1490.789,
+      "text": "numbered the vertices from 1 up to v"
+    },
+    {
+      "start": 1490.789,
+      "end": 1493.19,
+      "text": "and i took a prefix of those vertices so"
+    },
+    {
+      "start": 1493.19,
+      "end": 1495.029,
+      "text": "i just solved the problem using prefix"
+    },
+    {
+      "start": 1495.029,
+      "end": 1497.029,
+      "text": "vertices 1 through k so it's actually a"
+    },
+    {
+      "start": 1497.029,
+      "end": 1499.11,
+      "text": "familiar idea"
+    },
+    {
+      "start": 1499.11,
+      "end": 1500.39,
+      "text": "if if all you'd seen are all our dynamic"
+    },
+    {
+      "start": 1500.39,
+      "end": 1501.35,
+      "text": "programming examples of prefixes"
+    },
+    {
+      "start": 1501.35,
+      "end": 1502.549,
+      "text": "suffixes"
+    },
+    {
+      "start": 1502.549,
+      "end": 1504.87,
+      "text": "substrings actually it's a pretty"
+    },
+    {
+      "start": 1504.87,
+      "end": 1513.59,
+      "text": "natural way to solve for his paths"
+    },
+    {
+      "start": 1513.59,
+      "end": 1516.71,
+      "text": "anyway all right enough shortest paths"
+    },
+    {
+      "start": 1516.71,
+      "end": 1518.87,
+      "text": "let's solve two more problems that are"
+    },
+    {
+      "start": 1518.87,
+      "end": 1520.63,
+      "text": "more in our standard wheelhouse they"
+    },
+    {
+      "start": 1520.63,
+      "end": 1524.149,
+      "text": "will involve sequences of inputs"
+    },
+    {
+      "start": 1524.149,
+      "end": 1526.23,
+      "text": "not graphs first one is arithmetic"
+    },
+    {
+      "start": 1526.23,
+      "end": 1552.07,
+      "text": "parenthesization"
+    },
+    {
+      "start": 1552.07,
+      "end": 1554.71,
+      "text": "okay we are given a"
+    },
+    {
+      "start": 1554.71,
+      "end": 1555.669,
+      "text": "formula with say plus and times let me"
+    },
+    {
+      "start": 1555.669,
+      "end": 1559.269,
+      "text": "give you"
+    },
+    {
+      "start": 1559.269,
+      "end": 1563.029,
+      "text": "an actual example seven"
+    },
+    {
+      "start": 1563.029,
+      "end": 1567.59,
+      "text": "plus four times three"
+    },
+    {
+      "start": 1567.59,
+      "end": 1569.75,
+      "text": "plus five okay"
+    },
+    {
+      "start": 1569.75,
+      "end": 1570.789,
+      "text": "now when you read this because you've"
+    },
+    {
+      "start": 1570.789,
+      "end": 1572.39,
+      "text": "been well trained"
+    },
+    {
+      "start": 1572.39,
+      "end": 1574.23,
+      "text": "you think okay i'm going to multiply 4"
+    },
+    {
+      "start": 1574.23,
+      "end": 1575.59,
+      "text": "and 3 first because that has a higher"
+    },
+    {
+      "start": 1575.59,
+      "end": 1577.909,
+      "text": "precedence and then i'll add"
+    },
+    {
+      "start": 1577.909,
+      "end": 1579.35,
+      "text": "the results up but uh what i'm going to"
+    },
+    {
+      "start": 1579.35,
+      "end": 1580.789,
+      "text": "let you do is parenthesize this"
+    },
+    {
+      "start": 1580.789,
+      "end": 1583.19,
+      "text": "expression however you want"
+    },
+    {
+      "start": 1583.19,
+      "end": 1584.95,
+      "text": "for example you can add parentheses here"
+    },
+    {
+      "start": 1584.95,
+      "end": 1586.39,
+      "text": "and here okay you must make a balanced"
+    },
+    {
+      "start": 1586.39,
+      "end": 1589.11,
+      "text": "parenthesis expression"
+    },
+    {
+      "start": 1589.11,
+      "end": 1591.35,
+      "text": "a valid way to to pair up or not just"
+    },
+    {
+      "start": 1591.35,
+      "end": 1593.669,
+      "text": "para but a valid way to evaluate this"
+    },
+    {
+      "start": 1593.669,
+      "end": 1596.39,
+      "text": "expression any ordering you want"
+    },
+    {
+      "start": 1596.39,
+      "end": 1598.149,
+      "text": "uh i could be inconsistent i could for"
+    },
+    {
+      "start": 1598.149,
+      "end": 1600.549,
+      "text": "example do this sum"
+    },
+    {
+      "start": 1600.549,
+      "end": 1601.909,
+      "text": "and then do this product and then do"
+    },
+    {
+      "start": 1601.909,
+      "end": 1604.95,
+      "text": "this sum"
+    },
+    {
+      "start": 1604.95,
+      "end": 1607.75,
+      "text": "okay but some kind of expression tree"
+    },
+    {
+      "start": 1607.75,
+      "end": 1608.71,
+      "text": "uh over this and each one evaluates to"
+    },
+    {
+      "start": 1608.71,
+      "end": 1612.07,
+      "text": "something so this is"
+    },
+    {
+      "start": 1612.07,
+      "end": 1616.549,
+      "text": "11 and this is eight and so this"
+    },
+    {
+      "start": 1616.549,
+      "end": 1618.789,
+      "text": "is 88 and my goal is to maximize"
+    },
+    {
+      "start": 1618.789,
+      "end": 1620.47,
+      "text": "that computation and i claim that this"
+    },
+    {
+      "start": 1620.47,
+      "end": 1621.669,
+      "text": "is the way to maximize that particular"
+    },
+    {
+      "start": 1621.669,
+      "end": 1625.99,
+      "text": "example"
+    },
+    {
+      "start": 1625.99,
+      "end": 1627.75,
+      "text": "okay so let me write it in general and"
+    },
+    {
+      "start": 1627.75,
+      "end": 1639.669,
+      "text": "get my notation to match"
+    },
+    {
+      "start": 1639.669,
+      "end": 1642.789,
+      "text": "a0 star 1"
+    },
+    {
+      "start": 1642.789,
+      "end": 1646.63,
+      "text": "a1 star 2"
+    },
+    {
+      "start": 1646.63,
+      "end": 1655.19,
+      "text": "a2 and so on up to star"
+    },
+    {
+      "start": 1655.19,
+      "end": 1657.669,
+      "text": "where each"
+    },
+    {
+      "start": 1657.669,
+      "end": 1658.63,
+      "text": "a i is an integer as we like in this"
+    },
+    {
+      "start": 1658.63,
+      "end": 1662.71,
+      "text": "class"
+    },
+    {
+      "start": 1662.71,
+      "end": 1666.71,
+      "text": "and each star i is either"
+    },
+    {
+      "start": 1666.71,
+      "end": 1668.149,
+      "text": "plus or times okay so i'm using star as"
+    },
+    {
+      "start": 1668.149,
+      "end": 1669.83,
+      "text": "a generic operator it's"
+    },
+    {
+      "start": 1669.83,
+      "end": 1671.51,
+      "text": "it has chose star because it is the"
+    },
+    {
+      "start": 1671.51,
+      "end": 1674.549,
+      "text": "superposition of star on time"
+    },
+    {
+      "start": 1674.549,
+      "end": 1677.43,
+      "text": "on top of a time symbol so it's"
+    },
+    {
+      "start": 1677.43,
+      "end": 1678.389,
+      "text": "clear so you're given some formula any"
+    },
+    {
+      "start": 1678.389,
+      "end": 1680.83,
+      "text": "mixture of plus"
+    },
+    {
+      "start": 1680.83,
+      "end": 1682.789,
+      "text": "and times that you like involving n"
+    },
+    {
+      "start": 1682.789,
+      "end": 1688.549,
+      "text": "integers"
+    },
+    {
+      "start": 1688.549,
+      "end": 1696.23,
+      "text": "and your goal is to place parentheses"
+    },
+    {
+      "start": 1696.23,
+      "end": 1697.43,
+      "text": "okay so you can try all the combinations"
+    },
+    {
+      "start": 1697.43,
+      "end": 1699.029,
+      "text": "here if i"
+    },
+    {
+      "start": 1699.029,
+      "end": 1700.71,
+      "text": "for example take the product of 4 times"
+    },
+    {
+      "start": 1700.71,
+      "end": 1703.029,
+      "text": "3 i get 12."
+    },
+    {
+      "start": 1703.029,
+      "end": 1705.59,
+      "text": "for if i do that first i get 12. then if"
+    },
+    {
+      "start": 1705.59,
+      "end": 1709.11,
+      "text": "i add 5 and 7 i get"
+    },
+    {
+      "start": 1709.11,
+      "end": 1711.43,
+      "text": "24 which is less than 88."
+    },
+    {
+      "start": 1711.43,
+      "end": 1712.31,
+      "text": "and i checked them all and this one is"
+    },
+    {
+      "start": 1712.31,
+      "end": 1715.59,
+      "text": "the maximum"
+    },
+    {
+      "start": 1715.59,
+      "end": 1719.269,
+      "text": "for that example okay so"
+    },
+    {
+      "start": 1719.269,
+      "end": 1721.19,
+      "text": "interesting problem um sort of it's a"
+    },
+    {
+      "start": 1721.19,
+      "end": 1722.71,
+      "text": "bit of a toy problem but it's motivated"
+    },
+    {
+      "start": 1722.71,
+      "end": 1726.23,
+      "text": "by lots of"
+    },
+    {
+      "start": 1726.23,
+      "end": 1728.389,
+      "text": "actual problems which i won't go into"
+    },
+    {
+      "start": 1728.389,
+      "end": 1732.789,
+      "text": "here"
+    },
+    {
+      "start": 1732.789,
+      "end": 1734.07,
+      "text": "so to apply this framework"
+    },
+    {
+      "start": 1734.07,
+      "end": 1735.83,
+      "text": "you know we need to identify some"
+    },
+    {
+      "start": 1735.83,
+      "end": 1737.59,
+      "text": "sub-problems this is a"
+    },
+    {
+      "start": 1737.59,
+      "end": 1738.95,
+      "text": "sequence problem we're given a sequence"
+    },
+    {
+      "start": 1738.95,
+      "end": 1740.389,
+      "text": "of symbols"
+    },
+    {
+      "start": 1740.389,
+      "end": 1742.789,
+      "text": "and so natural things to try our"
+    },
+    {
+      "start": 1742.789,
+      "end": 1744.149,
+      "text": "prefixes suffixes and substrings"
+    },
+    {
+      "start": 1744.149,
+      "end": 1745.909,
+      "text": "i'm going to jump ahead and think about"
+    },
+    {
+      "start": 1745.909,
+      "end": 1747.669,
+      "text": "the relation first"
+    },
+    {
+      "start": 1747.669,
+      "end": 1749.19,
+      "text": "i want to identify some question about"
+    },
+    {
+      "start": 1749.19,
+      "end": 1751.51,
+      "text": "the sub-problem"
+    },
+    {
+      "start": 1751.51,
+      "end": 1752.87,
+      "text": "or its solution that would let me reduce"
+    },
+    {
+      "start": 1752.87,
+      "end": 1754.31,
+      "text": "to smaller sub problems"
+    },
+    {
+      "start": 1754.31,
+      "end": 1756.149,
+      "text": "this is a little trickier this is very"
+    },
+    {
+      "start": 1756.149,
+      "end": 1757.99,
+      "text": "different we're not always doing"
+    },
+    {
+      "start": 1757.99,
+      "end": 1759.59,
+      "text": "something on the left or on the right"
+    },
+    {
+      "start": 1759.59,
+      "end": 1761.59,
+      "text": "or we can't assume there's something"
+    },
+    {
+      "start": 1761.59,
+      "end": 1763.669,
+      "text": "happening on the left because maybe we"
+    },
+    {
+      "start": 1763.669,
+      "end": 1765.35,
+      "text": "take a product in the middle first"
+    },
+    {
+      "start": 1765.35,
+      "end": 1767.35,
+      "text": "if i take a product in the middle first"
+    },
+    {
+      "start": 1767.35,
+      "end": 1768.87,
+      "text": "then i have some result here"
+    },
+    {
+      "start": 1768.87,
+      "end": 1770.31,
+      "text": "but i still have three things i have the"
+    },
+    {
+      "start": 1770.31,
+      "end": 1771.029,
+      "text": "thing to the left i have the thing in"
+    },
+    {
+      "start": 1771.029,
+      "end": 1772.549,
+      "text": "the middle"
+    },
+    {
+      "start": 1772.549,
+      "end": 1773.99,
+      "text": "and i have the thing on the right it"
+    },
+    {
+      "start": 1773.99,
+      "end": 1776.549,
+      "text": "turns out to be very messy to think"
+    },
+    {
+      "start": 1776.549,
+      "end": 1779.19,
+      "text": "about what the first operation is"
+    },
+    {
+      "start": 1779.19,
+      "end": 1780.87,
+      "text": "because we can think of this as a tree"
+    },
+    {
+      "start": 1780.87,
+      "end": 1783.59,
+      "text": "um"
+    },
+    {
+      "start": 1783.59,
+      "end": 1783.99,
+      "text": "where we take a product here we take a"
+    },
+    {
+      "start": 1783.99,
+      "end": 1791.51,
+      "text": "sum"
+    },
+    {
+      "start": 1791.51,
+      "end": 1793.19,
+      "text": "and 3 and 5 over here and then take the"
+    },
+    {
+      "start": 1793.19,
+      "end": 1794.63,
+      "text": "product at the root"
+    },
+    {
+      "start": 1794.63,
+      "end": 1796.149,
+      "text": "but i don't know what the tree is right"
+    },
+    {
+      "start": 1796.149,
+      "end": 1797.59,
+      "text": "i only know these numbers and these"
+    },
+    {
+      "start": 1797.59,
+      "end": 1799.669,
+      "text": "operators but i don't know how to"
+    },
+    {
+      "start": 1799.669,
+      "end": 1801.11,
+      "text": "organize this tree"
+    },
+    {
+      "start": 1801.11,
+      "end": 1803.51,
+      "text": "and so the idea is if you think of this"
+    },
+    {
+      "start": 1803.51,
+      "end": 1804.95,
+      "text": "tree what is the one thing that's the"
+    },
+    {
+      "start": 1804.95,
+      "end": 1807.669,
+      "text": "easiest to identify"
+    },
+    {
+      "start": 1807.669,
+      "end": 1807.99,
+      "text": "it's the root the root corresponds to"
+    },
+    {
+      "start": 1807.99,
+      "end": 1810.63,
+      "text": "the"
+    },
+    {
+      "start": 1810.63,
+      "end": 1812.87,
+      "text": "last operation i do in this computation"
+    },
+    {
+      "start": 1812.87,
+      "end": 1815.51,
+      "text": "the last thing i did was take a product"
+    },
+    {
+      "start": 1815.51,
+      "end": 1816.149,
+      "text": "and that's a lot easier because uh if i"
+    },
+    {
+      "start": 1816.149,
+      "end": 1817.669,
+      "text": "guess"
+    },
+    {
+      "start": 1817.669,
+      "end": 1819.83,
+      "text": "who's at the root which operator is at"
+    },
+    {
+      "start": 1819.83,
+      "end": 1820.789,
+      "text": "the root that naturally decomposes into"
+    },
+    {
+      "start": 1820.789,
+      "end": 1823.269,
+      "text": "the left subtree"
+    },
+    {
+      "start": 1823.269,
+      "end": 1824.149,
+      "text": "and the right subtree and those will"
+    },
+    {
+      "start": 1824.149,
+      "end": 1828.47,
+      "text": "always be"
+    },
+    {
+      "start": 1828.47,
+      "end": 1830.47,
+      "text": "substrings we kind of know this this"
+    },
+    {
+      "start": 1830.47,
+      "end": 1831.909,
+      "text": "node corresponds to everything left of"
+    },
+    {
+      "start": 1831.909,
+      "end": 1836.549,
+      "text": "this operator"
+    },
+    {
+      "start": 1836.549,
+      "end": 1838.31,
+      "text": "and this sub substring or this"
+    },
+    {
+      "start": 1838.31,
+      "end": 1839.83,
+      "text": "subtree corresponds to everything to the"
+    },
+    {
+      "start": 1839.83,
+      "end": 1851.59,
+      "text": "right of the operator"
+    },
+    {
+      "start": 1851.59,
+      "end": 1855.35,
+      "text": "which operation"
+    },
+    {
+      "start": 1855.35,
+      "end": 1866.23,
+      "text": "star i is evaluated"
+    },
+    {
+      "start": 1866.23,
+      "end": 1868.71,
+      "text": "so this is a question it has uh"
+    },
+    {
+      "start": 1868.71,
+      "end": 1869.269,
+      "text": "n possible answers i guess actually n"
+    },
+    {
+      "start": 1869.269,
+      "end": 1871.35,
+      "text": "minus one"
+    },
+    {
+      "start": 1871.35,
+      "end": 1872.389,
+      "text": "from operator one to operator n minus"
+    },
+    {
+      "start": 1872.389,
+      "end": 1875.669,
+      "text": "one"
+    },
+    {
+      "start": 1875.669,
+      "end": 1877.99,
+      "text": "and so uh we'll just brute force all"
+    },
+    {
+      "start": 1877.99,
+      "end": 1880.71,
+      "text": "those choices"
+    },
+    {
+      "start": 1880.71,
+      "end": 1882.23,
+      "text": "okay so i wanted to start here because"
+    },
+    {
+      "start": 1882.23,
+      "end": 1885.029,
+      "text": "uh to realize that"
+    },
+    {
+      "start": 1885.029,
+      "end": 1886.549,
+      "text": "if i choose some star i in the middle"
+    },
+    {
+      "start": 1886.549,
+      "end": 1887.509,
+      "text": "which might be the right thing like in"
+    },
+    {
+      "start": 1887.509,
+      "end": 1889.99,
+      "text": "this example"
+    },
+    {
+      "start": 1889.99,
+      "end": 1891.43,
+      "text": "star i is the the middle one middle"
+    },
+    {
+      "start": 1891.43,
+      "end": 1893.19,
+      "text": "operator"
+    },
+    {
+      "start": 1893.19,
+      "end": 1894.63,
+      "text": "i naturally decompose into everything to"
+    },
+    {
+      "start": 1894.63,
+      "end": 1896.07,
+      "text": "the left of that operator and everything"
+    },
+    {
+      "start": 1896.07,
+      "end": 1900.87,
+      "text": "to the right of that operator"
+    },
+    {
+      "start": 1900.87,
+      "end": 1902.71,
+      "text": "this is a prefix this is a suffix"
+    },
+    {
+      "start": 1902.71,
+      "end": 1904.63,
+      "text": "so you might think oh my sub problems"
+    },
+    {
+      "start": 1904.63,
+      "end": 1906.549,
+      "text": "are all prefixes and all suffixes but"
+    },
+    {
+      "start": 1906.549,
+      "end": 1909.43,
+      "text": "that would be wrong"
+    },
+    {
+      "start": 1909.43,
+      "end": 1915.669,
+      "text": "because if you have a bunch of operators"
+    },
+    {
+      "start": 1915.669,
+      "end": 1917.99,
+      "text": "so i have a prefix here and a suffix"
+    },
+    {
+      "start": 1917.99,
+      "end": 1920.789,
+      "text": "here and then there'll be some"
+    },
+    {
+      "start": 1920.789,
+      "end": 1923.19,
+      "text": "within this suffix i'll choose some"
+    },
+    {
+      "start": 1923.19,
+      "end": 1925.669,
+      "text": "operator to be the root of that one"
+    },
+    {
+      "start": 1925.669,
+      "end": 1926.87,
+      "text": "and i have a prefix and a suffix of this"
+    },
+    {
+      "start": 1926.87,
+      "end": 1928.789,
+      "text": "suffix but"
+    },
+    {
+      "start": 1928.789,
+      "end": 1930.71,
+      "text": "in particular i will have to evaluate"
+    },
+    {
+      "start": 1930.71,
+      "end": 1931.909,
+      "text": "this sub-problem which is a prefix of a"
+    },
+    {
+      "start": 1931.909,
+      "end": 1934.31,
+      "text": "suffix in other words"
+    },
+    {
+      "start": 1934.31,
+      "end": 1935.75,
+      "text": "a substring so never use a mixture of"
+    },
+    {
+      "start": 1935.75,
+      "end": 1937.509,
+      "text": "prefixes and suffixes"
+    },
+    {
+      "start": 1937.509,
+      "end": 1939.83,
+      "text": "if you need both you probably need all"
+    },
+    {
+      "start": 1939.83,
+      "end": 1947.99,
+      "text": "sub strings"
+    },
+    {
+      "start": 1947.99,
+      "end": 1958.389,
+      "text": "so our sub problems"
+    },
+    {
+      "start": 1958.389,
+      "end": 1959.75,
+      "text": "okay i'm not going to write the sub"
+    },
+    {
+      "start": 1959.75,
+      "end": 1961.029,
+      "text": "problems quite yet because there's"
+    },
+    {
+      "start": 1961.029,
+      "end": 1963.269,
+      "text": "another idea"
+    },
+    {
+      "start": 1963.269,
+      "end": 1965.35,
+      "text": "we need so what do i need to do with a"
+    },
+    {
+      "start": 1965.35,
+      "end": 1966.87,
+      "text": "substring"
+    },
+    {
+      "start": 1966.87,
+      "end": 1968.71,
+      "text": "so i'm going to guess the middle"
+    },
+    {
+      "start": 1968.71,
+      "end": 1970.87,
+      "text": "operator and then evaluate the left"
+    },
+    {
+      "start": 1970.87,
+      "end": 1971.99,
+      "text": "substring evaluate the right substring"
+    },
+    {
+      "start": 1971.99,
+      "end": 1974.23,
+      "text": "what am i trying to do with those"
+    },
+    {
+      "start": 1974.23,
+      "end": 1976.149,
+      "text": "substrings i guess i'm trying to solve"
+    },
+    {
+      "start": 1976.149,
+      "end": 1977.99,
+      "text": "this problem which is"
+    },
+    {
+      "start": 1977.99,
+      "end": 1979.43,
+      "text": "place parentheses in order to maximize"
+    },
+    {
+      "start": 1979.43,
+      "end": 1979.909,
+      "text": "the result and then return what the"
+    },
+    {
+      "start": 1979.909,
+      "end": 1982.71,
+      "text": "result"
+    },
+    {
+      "start": 1982.71,
+      "end": 1983.99,
+      "text": "is okay and i can use parent pointers to"
+    },
+    {
+      "start": 1983.99,
+      "end": 1990.87,
+      "text": "reconstruct what the"
+    },
+    {
+      "start": 1990.87,
+      "end": 1992.31,
+      "text": "so is it enough once i guess what the"
+    },
+    {
+      "start": 1992.31,
+      "end": 1994.31,
+      "text": "last operator is"
+    },
+    {
+      "start": 1994.31,
+      "end": 1996.87,
+      "text": "is it enough to maximize the part to the"
+    },
+    {
+      "start": 1996.87,
+      "end": 1999.269,
+      "text": "right and maximize the part to the left"
+    },
+    {
+      "start": 1999.269,
+      "end": 2000.789,
+      "text": "will that always maximize my sum or"
+    },
+    {
+      "start": 2000.789,
+      "end": 2002.47,
+      "text": "product according to what this operator"
+    },
+    {
+      "start": 2002.47,
+      "end": 2004.389,
+      "text": "is"
+    },
+    {
+      "start": 2004.389,
+      "end": 2006.789,
+      "text": "and you think about it for a while yeah"
+    },
+    {
+      "start": 2006.789,
+      "end": 2009.029,
+      "text": "if i want to maximize a sum"
+    },
+    {
+      "start": 2009.029,
+      "end": 2010.549,
+      "text": "i should maximize the two parts and if i"
+    },
+    {
+      "start": 2010.549,
+      "end": 2013.029,
+      "text": "want to maximize a product i should"
+    },
+    {
+      "start": 2013.029,
+      "end": 2016.47,
+      "text": "maximize the two parts that seems right"
+    },
+    {
+      "start": 2016.47,
+      "end": 2017.669,
+      "text": "except i didn't say that my integers are"
+    },
+    {
+      "start": 2017.669,
+      "end": 2019.029,
+      "text": "positive"
+    },
+    {
+      "start": 2019.029,
+      "end": 2020.789,
+      "text": "so it's true if the integers are"
+    },
+    {
+      "start": 2020.789,
+      "end": 2021.669,
+      "text": "positive but to make this problem more"
+    },
+    {
+      "start": 2021.669,
+      "end": 2023.269,
+      "text": "interesting"
+    },
+    {
+      "start": 2023.269,
+      "end": 2024.87,
+      "text": "we're going to allow the integers to be"
+    },
+    {
+      "start": 2024.87,
+      "end": 2028.789,
+      "text": "negative"
+    },
+    {
+      "start": 2028.789,
+      "end": 2032.389,
+      "text": "so for example uh 7"
+    },
+    {
+      "start": 2032.389,
+      "end": 2034.47,
+      "text": "plus minus 4 times 3"
+    },
+    {
+      "start": 2034.47,
+      "end": 2035.909,
+      "text": "plus minus 5. so i just added a couple"
+    },
+    {
+      "start": 2035.909,
+      "end": 2040.63,
+      "text": "of minuses"
+    },
+    {
+      "start": 2040.63,
+      "end": 2042.31,
+      "text": "to a couple of the numbers here"
+    },
+    {
+      "start": 2042.31,
+      "end": 2045.19,
+      "text": "then it's no longer best to pair them"
+    },
+    {
+      "start": 2045.19,
+      "end": 2047.43,
+      "text": "this way so if i pair them this way"
+    },
+    {
+      "start": 2047.43,
+      "end": 2048.95,
+      "text": "like this or if i add parentheses this"
+    },
+    {
+      "start": 2048.95,
+      "end": 2052.79,
+      "text": "way i get"
+    },
+    {
+      "start": 2052.79,
+      "end": 2056.149,
+      "text": "3 here and i get minus 2 here"
+    },
+    {
+      "start": 2056.149,
+      "end": 2057.75,
+      "text": "so i get product of that as negative 6"
+    },
+    {
+      "start": 2057.75,
+      "end": 2070.389,
+      "text": "which is probably not the maximum in"
+    },
+    {
+      "start": 2070.389,
+      "end": 2071.75,
+      "text": "so this is a i claim the best"
+    },
+    {
+      "start": 2071.75,
+      "end": 2072.389,
+      "text": "parenthesization if i remembered it"
+    },
+    {
+      "start": 2072.389,
+      "end": 2075.51,
+      "text": "correctly"
+    },
+    {
+      "start": 2075.51,
+      "end": 2083.51,
+      "text": "so this is minus two times minus four"
+    },
+    {
+      "start": 2083.51,
+      "end": 2084.71,
+      "text": "uh plus seven is fifteen"
+    },
+    {
+      "start": 2084.71,
+      "end": 2085.829,
+      "text": "okay so i got a positive number"
+    },
+    {
+      "start": 2085.829,
+      "end": 2086.629,
+      "text": "definitely better than the negative"
+    },
+    {
+      "start": 2086.629,
+      "end": 2088.79,
+      "text": "number i got"
+    },
+    {
+      "start": 2088.79,
+      "end": 2089.909,
+      "text": "and i claim this is the best and the key"
+    },
+    {
+      "start": 2089.909,
+      "end": 2091.43,
+      "text": "property here is"
+    },
+    {
+      "start": 2091.43,
+      "end": 2093.03,
+      "text": "when we take a product of two negative"
+    },
+    {
+      "start": 2093.03,
+      "end": 2093.99,
+      "text": "numbers we get a positive number so"
+    },
+    {
+      "start": 2093.99,
+      "end": 2096.23,
+      "text": "sometimes"
+    },
+    {
+      "start": 2096.23,
+      "end": 2097.03,
+      "text": "you actually want to make things small"
+    },
+    {
+      "start": 2097.03,
+      "end": 2099.349,
+      "text": "because small"
+    },
+    {
+      "start": 2099.349,
+      "end": 2100.069,
+      "text": "might mean very negative you take two"
+    },
+    {
+      "start": 2100.069,
+      "end": 2102.31,
+      "text": "very big"
+    },
+    {
+      "start": 2102.31,
+      "end": 2103.67,
+      "text": "negative numbers very small negative"
+    },
+    {
+      "start": 2103.67,
+      "end": 2104.87,
+      "text": "numbers in other words"
+    },
+    {
+      "start": 2104.87,
+      "end": 2107.27,
+      "text": "you take their product you get a very"
+    },
+    {
+      "start": 2107.27,
+      "end": 2109.91,
+      "text": "big product positively"
+    },
+    {
+      "start": 2109.91,
+      "end": 2111.03,
+      "text": "because the signs cancel okay so this"
+    },
+    {
+      "start": 2111.03,
+      "end": 2112.79,
+      "text": "seems tricky"
+    },
+    {
+      "start": 2112.79,
+      "end": 2114.39,
+      "text": "we want to work on substrings but we"
+    },
+    {
+      "start": 2114.39,
+      "end": 2116.63,
+      "text": "don't know whether we're trying to"
+    },
+    {
+      "start": 2116.63,
+      "end": 2118.069,
+      "text": "maximize or you might think well maybe"
+    },
+    {
+      "start": 2118.069,
+      "end": 2118.79,
+      "text": "i'm trying to maximize the absolute"
+    },
+    {
+      "start": 2118.79,
+      "end": 2121.51,
+      "text": "value"
+    },
+    {
+      "start": 2121.51,
+      "end": 2122.87,
+      "text": "but that's not good maybe overall on"
+    },
+    {
+      "start": 2122.87,
+      "end": 2125.19,
+      "text": "this entire expression i get"
+    },
+    {
+      "start": 2125.19,
+      "end": 2127.349,
+      "text": "negative a million and that's not what i"
+    },
+    {
+      "start": 2127.349,
+      "end": 2129.99,
+      "text": "wanted i wanted to maximize the sum"
+    },
+    {
+      "start": 2129.99,
+      "end": 2131.109,
+      "text": "so i need to i still need to solve the"
+    },
+    {
+      "start": 2131.109,
+      "end": 2133.19,
+      "text": "max"
+    },
+    {
+      "start": 2133.19,
+      "end": 2134.63,
+      "text": "uh evaluation that i can get the max"
+    },
+    {
+      "start": 2134.63,
+      "end": 2137.27,
+      "text": "parenthesization"
+    },
+    {
+      "start": 2137.27,
+      "end": 2138.47,
+      "text": "but i also need to solve the min"
+    },
+    {
+      "start": 2138.47,
+      "end": 2140.55,
+      "text": "parenthesization"
+    },
+    {
+      "start": 2140.55,
+      "end": 2143.51,
+      "text": "if i can solve max and min i'll know the"
+    },
+    {
+      "start": 2143.51,
+      "end": 2145.829,
+      "text": "entire kind of range that i could get"
+    },
+    {
+      "start": 2145.829,
+      "end": 2148.15,
+      "text": "and i really only i'll care about men"
+    },
+    {
+      "start": 2148.15,
+      "end": 2150.47,
+      "text": "especially when it lets me go negative"
+    },
+    {
+      "start": 2150.47,
+      "end": 2152.15,
+      "text": "but let's just solve it in all cases the"
+    },
+    {
+      "start": 2152.15,
+      "end": 2153.589,
+      "text": "min and the max"
+    },
+    {
+      "start": 2153.589,
+      "end": 2156.31,
+      "text": "and then just brute force the rest"
+    },
+    {
+      "start": 2156.31,
+      "end": 2159.27,
+      "text": "that's what i'm going to write down"
+    },
+    {
+      "start": 2159.27,
+      "end": 2161.91,
+      "text": "so that was some motivation on why we"
+    },
+    {
+      "start": 2161.91,
+      "end": 2164.47,
+      "text": "are going to define subproblems this way"
+    },
+    {
+      "start": 2164.47,
+      "end": 2164.95,
+      "text": "so i'm going to define x of i comma j"
+    },
+    {
+      "start": 2164.95,
+      "end": 2167.99,
+      "text": "comma"
+    },
+    {
+      "start": 2167.99,
+      "end": 2171.03,
+      "text": "opt to be"
+    },
+    {
+      "start": 2171.03,
+      "end": 2174.31,
+      "text": "so opt here is going to be either"
+    },
+    {
+      "start": 2174.31,
+      "end": 2176.79,
+      "text": "min or max and this is my"
+    },
+    {
+      "start": 2176.79,
+      "end": 2177.589,
+      "text": "sub problem expansion i really just care"
+    },
+    {
+      "start": 2177.589,
+      "end": 2179.51,
+      "text": "about max"
+    },
+    {
+      "start": 2179.51,
+      "end": 2181.27,
+      "text": "at the very end but i'm going to care"
+    },
+    {
+      "start": 2181.27,
+      "end": 2185.75,
+      "text": "about min along the way"
+    },
+    {
+      "start": 2185.75,
+      "end": 2190.63,
+      "text": "and i j is going to specify my substring"
+    },
+    {
+      "start": 2190.63,
+      "end": 2192.47,
+      "text": "so this is going to be the opt value"
+    },
+    {
+      "start": 2192.47,
+      "end": 2193.99,
+      "text": "opt stands for optimum here or"
+    },
+    {
+      "start": 2193.99,
+      "end": 2196.47,
+      "text": "optimization"
+    },
+    {
+      "start": 2196.47,
+      "end": 2197.51,
+      "text": "uh the upped value i can get for the"
+    },
+    {
+      "start": 2197.51,
+      "end": 2201.75,
+      "text": "substring"
+    },
+    {
+      "start": 2201.75,
+      "end": 2205.19,
+      "text": "a i start plus one"
+    },
+    {
+      "start": 2205.19,
+      "end": 2209.03,
+      "text": "a i plus one and so on"
+    },
+    {
+      "start": 2209.03,
+      "end": 2212.23,
+      "text": "to uh star j minus one"
+    },
+    {
+      "start": 2212.23,
+      "end": 2214.47,
+      "text": "a j minus one okay"
+    },
+    {
+      "start": 2214.47,
+      "end": 2215.67,
+      "text": "being careful to get my indices correct"
+    },
+    {
+      "start": 2215.67,
+      "end": 2221.03,
+      "text": "here and"
+    },
+    {
+      "start": 2221.03,
+      "end": 2225.03,
+      "text": "i want uh 0 less than or equal to i"
+    },
+    {
+      "start": 2225.03,
+      "end": 2228.15,
+      "text": "less than j less than or equal to n"
+    },
+    {
+      "start": 2228.15,
+      "end": 2229.589,
+      "text": "i claim and opt"
+    },
+    {
+      "start": 2229.589,
+      "end": 2231.67,
+      "text": "like this okay so i'm going to get the"
+    },
+    {
+      "start": 2231.67,
+      "end": 2233.51,
+      "text": "mean value and the max value separately"
+    },
+    {
+      "start": 2233.51,
+      "end": 2235.829,
+      "text": "those are two different sub problems"
+    },
+    {
+      "start": 2235.829,
+      "end": 2237.109,
+      "text": "it's my expansion this is the constraint"
+    },
+    {
+      "start": 2237.109,
+      "end": 2239.109,
+      "text": "i'm adding"
+    },
+    {
+      "start": 2239.109,
+      "end": 2242.79,
+      "text": "and i'm only focusing on this substring"
+    },
+    {
+      "start": 2242.79,
+      "end": 2246.63,
+      "text": "from i inclusive to j exclusive"
+    },
+    {
+      "start": 2246.63,
+      "end": 2247.51,
+      "text": "okay so i claim those are good sub"
+    },
+    {
+      "start": 2247.51,
+      "end": 2278.63,
+      "text": "problems"
+    },
+    {
+      "start": 2278.63,
+      "end": 2285.349,
+      "text": "so i want to write x of i j"
+    },
+    {
+      "start": 2285.349,
+      "end": 2286.63,
+      "text": "and i want to optimize so this will be"
+    },
+    {
+      "start": 2286.63,
+      "end": 2290.47,
+      "text": "min or max"
+    },
+    {
+      "start": 2290.47,
+      "end": 2291.99,
+      "text": "on a set of choices what is my set of"
+    },
+    {
+      "start": 2291.99,
+      "end": 2294.71,
+      "text": "choices"
+    },
+    {
+      "start": 2294.71,
+      "end": 2295.67,
+      "text": "well uh like i said i want to guess what"
+    },
+    {
+      "start": 2295.67,
+      "end": 2298.39,
+      "text": "is the last"
+    },
+    {
+      "start": 2298.39,
+      "end": 2299.109,
+      "text": "operation evaluated i wrote star i here"
+    },
+    {
+      "start": 2299.109,
+      "end": 2300.47,
+      "text": "but star i"
+    },
+    {
+      "start": 2300.47,
+      "end": 2302.79,
+      "text": "is already defined so i'm going to use"
+    },
+    {
+      "start": 2302.79,
+      "end": 2305.99,
+      "text": "star k so i'm going to"
+    },
+    {
+      "start": 2305.99,
+      "end": 2306.47,
+      "text": "guess what which of my operations"
+    },
+    {
+      "start": 2306.47,
+      "end": 2309.43,
+      "text": "between"
+    },
+    {
+      "start": 2309.43,
+      "end": 2310.95,
+      "text": "i plus 1 and j minus 1 is the last one"
+    },
+    {
+      "start": 2310.95,
+      "end": 2313.43,
+      "text": "and i evaluate"
+    },
+    {
+      "start": 2313.43,
+      "end": 2314.63,
+      "text": "and that decomposes into everything left"
+    },
+    {
+      "start": 2314.63,
+      "end": 2317.75,
+      "text": "of k"
+    },
+    {
+      "start": 2317.75,
+      "end": 2322.63,
+      "text": "so that would be x of i"
+    },
+    {
+      "start": 2322.63,
+      "end": 2326.71,
+      "text": "uh comma k comma something"
+    },
+    {
+      "start": 2326.71,
+      "end": 2330.39,
+      "text": "and then we will do operator star k"
+    },
+    {
+      "start": 2330.39,
+      "end": 2333.67,
+      "text": "on the part after k which is from k"
+    },
+    {
+      "start": 2333.67,
+      "end": 2337.67,
+      "text": "to j something"
+    },
+    {
+      "start": 2337.67,
+      "end": 2340.87,
+      "text": "okay and i'm choosing between"
+    },
+    {
+      "start": 2340.87,
+      "end": 2343.349,
+      "text": "i think it's i less than k less than j"
+    },
+    {
+      "start": 2343.349,
+      "end": 2344.79,
+      "text": "so k is some operator in between because"
+    },
+    {
+      "start": 2344.79,
+      "end": 2346.63,
+      "text": "i started i plus 1"
+    },
+    {
+      "start": 2346.63,
+      "end": 2348.069,
+      "text": "and i end at j minus 1 so those are the"
+    },
+    {
+      "start": 2348.069,
+      "end": 2351.349,
+      "text": "possible choices for"
+    },
+    {
+      "start": 2351.349,
+      "end": 2352.87,
+      "text": "k i tried them all that's my local brute"
+    },
+    {
+      "start": 2352.87,
+      "end": 2354.23,
+      "text": "force"
+    },
+    {
+      "start": 2354.23,
+      "end": 2356.15,
+      "text": "and then i take what i can get on the"
+    },
+    {
+      "start": 2356.15,
+      "end": 2358.55,
+      "text": "left what i can get on the right"
+    },
+    {
+      "start": 2358.55,
+      "end": 2359.91,
+      "text": "and multiply or add them according to"
+    },
+    {
+      "start": 2359.91,
+      "end": 2363.109,
+      "text": "whether that operator is"
+    },
+    {
+      "start": 2363.109,
+      "end": 2365.27,
+      "text": "plus or times now should i"
+    },
+    {
+      "start": 2365.27,
+      "end": 2367.43,
+      "text": "maximize or minimize this one should i"
+    },
+    {
+      "start": 2367.43,
+      "end": 2370.069,
+      "text": "maximize or minimize this one"
+    },
+    {
+      "start": 2370.069,
+      "end": 2371.67,
+      "text": "i don't know so i'm just gonna do more"
+    },
+    {
+      "start": 2371.67,
+      "end": 2374.23,
+      "text": "local brute force"
+    },
+    {
+      "start": 2374.23,
+      "end": 2374.95,
+      "text": "um i'll say well let's just say opt"
+    },
+    {
+      "start": 2374.95,
+      "end": 2378.23,
+      "text": "prime"
+    },
+    {
+      "start": 2378.23,
+      "end": 2381.91,
+      "text": "for the left or maybe i'll call it opt l"
+    },
+    {
+      "start": 2381.91,
+      "end": 2384.069,
+      "text": "for left and opt r for the right part"
+    },
+    {
+      "start": 2384.069,
+      "end": 2387.43,
+      "text": "and i'll just add this to my for loop"
+    },
+    {
+      "start": 2387.43,
+      "end": 2390.79,
+      "text": "let's just try uh opt l"
+    },
+    {
+      "start": 2390.79,
+      "end": 2396.95,
+      "text": "and opt r just take all possible choices"
+    },
+    {
+      "start": 2396.95,
+      "end": 2398.63,
+      "text": "you know you could think hard and for"
+    },
+    {
+      "start": 2398.63,
+      "end": 2400.39,
+      "text": "addition for example"
+    },
+    {
+      "start": 2400.39,
+      "end": 2402.15,
+      "text": "if you're maximizing you should really"
+    },
+    {
+      "start": 2402.15,
+      "end": 2403.43,
+      "text": "only need to maximize the two parts and"
+    },
+    {
+      "start": 2403.43,
+      "end": 2405.27,
+      "text": "if you're minimizing you"
+    },
+    {
+      "start": 2405.27,
+      "end": 2406.55,
+      "text": "you can prove you only need to minimize"
+    },
+    {
+      "start": 2406.55,
+      "end": 2409.27,
+      "text": "the two parts"
+    },
+    {
+      "start": 2409.27,
+      "end": 2410.069,
+      "text": "but let's for multiplication it's messy"
+    },
+    {
+      "start": 2410.069,
+      "end": 2412.47,
+      "text": "it could be"
+    },
+    {
+      "start": 2412.47,
+      "end": 2413.27,
+      "text": "really any of the options because"
+    },
+    {
+      "start": 2413.27,
+      "end": 2414.55,
+      "text": "sometimes"
+    },
+    {
+      "start": 2414.55,
+      "end": 2416.71,
+      "text": "when you minimize you get a negative"
+    },
+    {
+      "start": 2416.71,
+      "end": 2418.79,
+      "text": "term sometimes when you"
+    },
+    {
+      "start": 2418.79,
+      "end": 2420.87,
+      "text": "sometimes you don't and so you know it"
+    },
+    {
+      "start": 2420.87,
+      "end": 2423.27,
+      "text": "depends what you're trying to do"
+    },
+    {
+      "start": 2423.27,
+      "end": 2424.63,
+      "text": "you have to consider all the signs but"
+    },
+    {
+      "start": 2424.63,
+      "end": 2426.55,
+      "text": "we don't need to think hard"
+    },
+    {
+      "start": 2426.55,
+      "end": 2429.27,
+      "text": "we can just try all options there's only"
+    },
+    {
+      "start": 2429.27,
+      "end": 2431.03,
+      "text": "four choices for opt l and opt r among"
+    },
+    {
+      "start": 2431.03,
+      "end": 2432.87,
+      "text": "min and max you could do mid min min max"
+    },
+    {
+      "start": 2432.87,
+      "end": 2435.19,
+      "text": "max min and max max"
+    },
+    {
+      "start": 2435.19,
+      "end": 2436.87,
+      "text": "so try it's just a multiplication by"
+    },
+    {
+      "start": 2436.87,
+      "end": 2438.39,
+      "text": "four in this for loop"
+    },
+    {
+      "start": 2438.39,
+      "end": 2439.91,
+      "text": "the big cost is actually this one"
+    },
+    {
+      "start": 2439.91,
+      "end": 2443.27,
+      "text": "because there are j"
+    },
+    {
+      "start": 2443.27,
+      "end": 2444.79,
+      "text": "minus i choices for k"
+    },
+    {
+      "start": 2444.79,
+      "end": 2446.47,
+      "text": "there's a constant number of choices for"
+    },
+    {
+      "start": 2446.47,
+      "end": 2447.829,
+      "text": "opt l and opt r"
+    },
+    {
+      "start": 2447.829,
+      "end": 2450.309,
+      "text": "and you need to prove that this is"
+    },
+    {
+      "start": 2450.309,
+      "end": 2452.39,
+      "text": "correct i won't do it here"
+    },
+    {
+      "start": 2452.39,
+      "end": 2454.55,
+      "text": "but the idea is if you're trying to"
+    },
+    {
+      "start": 2454.55,
+      "end": 2458.15,
+      "text": "minimize or maximize your"
+    },
+    {
+      "start": 2458.15,
+      "end": 2460.069,
+      "text": "sum or product it's enough to know"
+    },
+    {
+      "start": 2460.069,
+      "end": 2461.67,
+      "text": "what ranges these could come in the"
+    },
+    {
+      "start": 2461.67,
+      "end": 2463.27,
+      "text": "optimal choice will always be an extreme"
+    },
+    {
+      "start": 2463.27,
+      "end": 2464.79,
+      "text": "in that range"
+    },
+    {
+      "start": 2464.79,
+      "end": 2466.39,
+      "text": "okay and that's we consider all of them"
+    },
+    {
+      "start": 2466.39,
+      "end": 2469.67,
+      "text": "here and so we get"
+    },
+    {
+      "start": 2469.67,
+      "end": 2474.47,
+      "text": "this recurrence now it needs a base case"
+    },
+    {
+      "start": 2474.47,
+      "end": 2478.63,
+      "text": "and we need to check that it's acyclic"
+    },
+    {
+      "start": 2478.63,
+      "end": 2482.55,
+      "text": "but topological order is just increasing"
+    },
+    {
+      "start": 2482.55,
+      "end": 2485.67,
+      "text": "j minus i this is the usual order for"
+    },
+    {
+      "start": 2485.67,
+      "end": 2487.51,
+      "text": "um for substring problems because this"
+    },
+    {
+      "start": 2487.51,
+      "end": 2489.589,
+      "text": "is increasing length of the substring"
+    },
+    {
+      "start": 2489.589,
+      "end": 2491.19,
+      "text": "so start with very tiny substrings here"
+    },
+    {
+      "start": 2491.19,
+      "end": 2492.79,
+      "text": "we'll start with length one substrings"
+    },
+    {
+      "start": 2492.79,
+      "end": 2494.79,
+      "text": "we just have an ai there"
+    },
+    {
+      "start": 2494.79,
+      "end": 2497.43,
+      "text": "so that's going to be our base case and"
+    },
+    {
+      "start": 2497.43,
+      "end": 2498.79,
+      "text": "you grow up to the entire string"
+    },
+    {
+      "start": 2498.79,
+      "end": 2500.309,
+      "text": "and it doesn't matter how we order"
+    },
+    {
+      "start": 2500.309,
+      "end": 2501.589,
+      "text": "relative to opt as long as we are"
+    },
+    {
+      "start": 2501.589,
+      "end": 2504.63,
+      "text": "increasing in j minus i"
+    },
+    {
+      "start": 2504.63,
+      "end": 2506.63,
+      "text": "because i decay and k to j will always"
+    },
+    {
+      "start": 2506.63,
+      "end": 2507.349,
+      "text": "be strictly smaller than i to j and so"
+    },
+    {
+      "start": 2507.349,
+      "end": 2510.47,
+      "text": "this will be"
+    },
+    {
+      "start": 2510.47,
+      "end": 2515.109,
+      "text": "acyclic the base case is"
+    },
+    {
+      "start": 2515.109,
+      "end": 2517.589,
+      "text": "x of i i plus 1 opt"
+    },
+    {
+      "start": 2517.589,
+      "end": 2518.87,
+      "text": "this is always a i doesn't matter what"
+    },
+    {
+      "start": 2518.87,
+      "end": 2519.829,
+      "text": "opt is because there's nothing there's"
+    },
+    {
+      "start": 2519.829,
+      "end": 2521.91,
+      "text": "no choice"
+    },
+    {
+      "start": 2521.91,
+      "end": 2523.43,
+      "text": "you just have a single number in that"
+    },
+    {
+      "start": 2523.43,
+      "end": 2525.829,
+      "text": "substring because we're exclusive on i"
+    },
+    {
+      "start": 2525.829,
+      "end": 2527.67,
+      "text": "plus 1."
+    },
+    {
+      "start": 2527.67,
+      "end": 2528.95,
+      "text": "okay and then the original problem we"
+    },
+    {
+      "start": 2528.95,
+      "end": 2532.39,
+      "text": "want to solve"
+    },
+    {
+      "start": 2532.39,
+      "end": 2535.51,
+      "text": "is x of 0 n"
+    },
+    {
+      "start": 2535.51,
+      "end": 2536.47,
+      "text": "max could also solve min and see how"
+    },
+    {
+      "start": 2536.47,
+      "end": 2537.75,
+      "text": "small you can get it"
+    },
+    {
+      "start": 2537.75,
+      "end": 2539.75,
+      "text": "so if you wanted to maximize the"
+    },
+    {
+      "start": 2539.75,
+      "end": 2541.349,
+      "text": "absolute value you could solve the max"
+    },
+    {
+      "start": 2541.349,
+      "end": 2542.15,
+      "text": "problem and the min problem and take the"
+    },
+    {
+      "start": 2542.15,
+      "end": 2545.75,
+      "text": "largest"
+    },
+    {
+      "start": 2545.75,
+      "end": 2547.589,
+      "text": "of those two options and how much time"
+    },
+    {
+      "start": 2547.589,
+      "end": 2549.829,
+      "text": "does this take"
+    },
+    {
+      "start": 2549.829,
+      "end": 2551.51,
+      "text": "well how many sub problems are there for"
+    },
+    {
+      "start": 2551.51,
+      "end": 2552.95,
+      "text": "substring problems we have n squared sub"
+    },
+    {
+      "start": 2552.95,
+      "end": 2554.55,
+      "text": "problems now we multiplied the number of"
+    },
+    {
+      "start": 2554.55,
+      "end": 2556.55,
+      "text": "subproblems by 2"
+    },
+    {
+      "start": 2556.55,
+      "end": 2557.589,
+      "text": "but that's still n squared okay so we"
+    },
+    {
+      "start": 2557.589,
+      "end": 2564.47,
+      "text": "have n"
+    },
+    {
+      "start": 2564.47,
+      "end": 2565.75,
+      "text": "and how much work per subproblem are we"
+    },
+    {
+      "start": 2565.75,
+      "end": 2568.309,
+      "text": "doing well"
+    },
+    {
+      "start": 2568.309,
+      "end": 2569.67,
+      "text": "uh as i mentioned we're we're doing j"
+    },
+    {
+      "start": 2569.67,
+      "end": 2571.19,
+      "text": "minus i choices for k"
+    },
+    {
+      "start": 2571.19,
+      "end": 2573.99,
+      "text": "constant number of choices for opt l and"
+    },
+    {
+      "start": 2573.99,
+      "end": 2575.75,
+      "text": "opt r so this is theta j minus i"
+    },
+    {
+      "start": 2575.75,
+      "end": 2577.99,
+      "text": "which if i'll be sloppy that's at most"
+    },
+    {
+      "start": 2577.99,
+      "end": 2579.589,
+      "text": "big o of n"
+    },
+    {
+      "start": 2579.589,
+      "end": 2581.19,
+      "text": "and it turns out to be the right answer"
+    },
+    {
+      "start": 2581.19,
+      "end": 2583.589,
+      "text": "anyway so"
+    },
+    {
+      "start": 2583.589,
+      "end": 2585.19,
+      "text": "uh there's linear amount of"
+    },
+    {
+      "start": 2585.19,
+      "end": 2586.79,
+      "text": "non-recursive work"
+    },
+    {
+      "start": 2586.79,
+      "end": 2589.51,
+      "text": "in fact it's like a triangular number"
+    },
+    {
+      "start": 2589.51,
+      "end": 2598.23,
+      "text": "but uh that's still theta"
+    },
+    {
+      "start": 2598.23,
+      "end": 2599.19,
+      "text": "okay same running time as uh v cubed we"
+    },
+    {
+      "start": 2599.19,
+      "end": 2601.51,
+      "text": "just got but"
+    },
+    {
+      "start": 2601.51,
+      "end": 2603.03,
+      "text": "polynomial time and this is pretty"
+    },
+    {
+      "start": 2603.03,
+      "end": 2605.03,
+      "text": "impressive because we're really brute"
+    },
+    {
+      "start": 2605.03,
+      "end": 2606.71,
+      "text": "forcing all possible parenthesizations"
+    },
+    {
+      "start": 2606.71,
+      "end": 2609.67,
+      "text": "they're about four to the n"
+    },
+    {
+      "start": 2609.67,
+      "end": 2610.87,
+      "text": "exponentially many uh parenthesizations"
+    },
+    {
+      "start": 2610.87,
+      "end": 2612.87,
+      "text": "of an expression"
+    },
+    {
+      "start": 2612.87,
+      "end": 2614.63,
+      "text": "but we're finding the biggest the one"
+    },
+    {
+      "start": 2614.63,
+      "end": 2615.27,
+      "text": "that evaluates to the largest value and"
+    },
+    {
+      "start": 2615.27,
+      "end": 2617.349,
+      "text": "the one that"
+    },
+    {
+      "start": 2617.349,
+      "end": 2620.55,
+      "text": "evaluates the smallest value in just n"
+    },
+    {
+      "start": 2620.55,
+      "end": 2624.069,
+      "text": "cubed time polynomial"
+    },
+    {
+      "start": 2624.069,
+      "end": 2625.91,
+      "text": "and a key here was subproblem expansion"
+    },
+    {
+      "start": 2625.91,
+      "end": 2627.27,
+      "text": "where we in addition to solving the max"
+    },
+    {
+      "start": 2627.27,
+      "end": 2630.309,
+      "text": "problem we also solved the min"
+    },
+    {
+      "start": 2630.309,
+      "end": 2630.71,
+      "text": "problem because sometimes you want to"
+    },
+    {
+      "start": 2630.71,
+      "end": 2633.589,
+      "text": "take"
+    },
+    {
+      "start": 2633.589,
+      "end": 2635.51,
+      "text": "two very small negative numbers and"
+    },
+    {
+      "start": 2635.51,
+      "end": 2642.23,
+      "text": "product them together to get a larger"
+    },
+    {
+      "start": 2642.23,
+      "end": 2644.71,
+      "text": "cool question"
+    },
+    {
+      "start": 2644.71,
+      "end": 2646.23,
+      "text": "would anything go wrong if i added minus"
+    },
+    {
+      "start": 2646.23,
+      "end": 2648.55,
+      "text": "a divide"
+    },
+    {
+      "start": 2648.55,
+      "end": 2650.069,
+      "text": "so what if i had operators minus and"
+    },
+    {
+      "start": 2650.069,
+      "end": 2652.71,
+      "text": "divide"
+    },
+    {
+      "start": 2652.71,
+      "end": 2653.349,
+      "text": "uh it's a good question i'm i'm certain"
+    },
+    {
+      "start": 2653.349,
+      "end": 2656.39,
+      "text": "that"
+    },
+    {
+      "start": 2656.39,
+      "end": 2658.95,
+      "text": "minus should work fine if we do min and"
+    },
+    {
+      "start": 2658.95,
+      "end": 2660.55,
+      "text": "max this will still evaluate the"
+    },
+    {
+      "start": 2660.55,
+      "end": 2662.79,
+      "text": "should still evaluate the largest thing"
+    },
+    {
+      "start": 2662.79,
+      "end": 2663.589,
+      "text": "for division i need to think about the"
+    },
+    {
+      "start": 2663.589,
+      "end": 2666.63,
+      "text": "cases"
+    },
+    {
+      "start": 2666.63,
+      "end": 2667.19,
+      "text": "i would guess it works but what we need"
+    },
+    {
+      "start": 2667.19,
+      "end": 2670.87,
+      "text": "to prove"
+    },
+    {
+      "start": 2670.87,
+      "end": 2674.79,
+      "text": "is that the way to maximize or minimize"
+    },
+    {
+      "start": 2674.79,
+      "end": 2676.79,
+      "text": "a division say given two numbers in the"
+    },
+    {
+      "start": 2676.79,
+      "end": 2678.63,
+      "text": "left and right uh is"
+    },
+    {
+      "start": 2678.63,
+      "end": 2680.79,
+      "text": "that it either corresponds to maximizing"
+    },
+    {
+      "start": 2680.79,
+      "end": 2682.55,
+      "text": "or minimizing the thing on the left"
+    },
+    {
+      "start": 2682.55,
+      "end": 2684.069,
+      "text": "and then maximize or minimizing the"
+    },
+    {
+      "start": 2684.069,
+      "end": 2685.03,
+      "text": "thing on the right so as long as you"
+    },
+    {
+      "start": 2685.03,
+      "end": 2686.79,
+      "text": "have this kind of"
+    },
+    {
+      "start": 2686.79,
+      "end": 2688.63,
+      "text": "it's not exactly monotonicity it's just"
+    },
+    {
+      "start": 2688.63,
+      "end": 2691.91,
+      "text": "that in order to compute max or min"
+    },
+    {
+      "start": 2691.91,
+      "end": 2694.55,
+      "text": "it suffices to know the maximum"
+    },
+    {
+      "start": 2694.55,
+      "end": 2696.47,
+      "text": "of the two parts it's like interval"
+    },
+    {
+      "start": 2696.47,
+      "end": 2698.309,
+      "text": "arithmetic you know interval arithmetic"
+    },
+    {
+      "start": 2698.309,
+      "end": 2699.589,
+      "text": "i want to know what is the what are the"
+    },
+    {
+      "start": 2699.589,
+      "end": 2701.75,
+      "text": "extremes i can get on"
+    },
+    {
+      "start": 2701.75,
+      "end": 2703.19,
+      "text": "the output of a division if i'm given"
+    },
+    {
+      "start": 2703.19,
+      "end": 2704.309,
+      "text": "that a number is in some interval here"
+    },
+    {
+      "start": 2704.309,
+      "end": 2706.39,
+      "text": "and some interval here"
+    },
+    {
+      "start": 2706.39,
+      "end": 2707.829,
+      "text": "if the answer is always use one of the"
+    },
+    {
+      "start": 2707.829,
+      "end": 2709.349,
+      "text": "extreme endpoints here and use one of"
+    },
+    {
+      "start": 2709.349,
+      "end": 2711.03,
+      "text": "the extreme endpoints here then this"
+    },
+    {
+      "start": 2711.03,
+      "end": 2714.71,
+      "text": "algorithm will work otherwise"
+    },
+    {
+      "start": 2714.71,
+      "end": 2717.19,
+      "text": "all bets are off cool"
+    },
+    {
+      "start": 2717.19,
+      "end": 2718.47,
+      "text": "so if you negate if you put a minus here"
+    },
+    {
+      "start": 2718.47,
+      "end": 2720.069,
+      "text": "that will work fine because it's just"
+    },
+    {
+      "start": 2720.069,
+      "end": 2723.19,
+      "text": "negating this range and then it's"
+    },
+    {
+      "start": 2723.19,
+      "end": 2725.51,
+      "text": "just like sum but"
+    },
+    {
+      "start": 2725.51,
+      "end": 2727.67,
+      "text": "oh divided be careful about zero yeah"
+    },
+    {
+      "start": 2727.67,
+      "end": 2729.589,
+      "text": "actually so it doesn't work because"
+    },
+    {
+      "start": 2729.589,
+      "end": 2731.67,
+      "text": "we care about how close this can get to"
+    },
+    {
+      "start": 2731.67,
+      "end": 2735.03,
+      "text": "zero for division"
+    },
+    {
+      "start": 2735.03,
+      "end": 2739.349,
+      "text": "it might be enough to to consider those"
+    },
+    {
+      "start": 2739.349,
+      "end": 2740.95,
+      "text": "it's like instead of minimizing"
+    },
+    {
+      "start": 2740.95,
+      "end": 2743.19,
+      "text": "and instead of computing this entire"
+    },
+    {
+      "start": 2743.19,
+      "end": 2746.55,
+      "text": "interval if this interval spans 0"
+    },
+    {
+      "start": 2746.55,
+      "end": 2748.309,
+      "text": "maybe i need to know if zero is here"
+    },
+    {
+      "start": 2748.309,
+      "end": 2749.91,
+      "text": "i need to know how close to zero i can"
+    },
+    {
+      "start": 2749.91,
+      "end": 2751.19,
+      "text": "get on the left side and how close to"
+    },
+    {
+      "start": 2751.19,
+      "end": 2753.27,
+      "text": "zero i can get on the right side still"
+    },
+    {
+      "start": 2753.27,
+      "end": 2754.87,
+      "text": "just four quantities i need to know"
+    },
+    {
+      "start": 2754.87,
+      "end": 2756.87,
+      "text": "i would guess for division that's enough"
+    },
+    {
+      "start": 2756.87,
+      "end": 2758.23,
+      "text": "yeah nice"
+    },
+    {
+      "start": 2758.23,
+      "end": 2759.589,
+      "text": "solid little problem so then we'd be"
+    },
+    {
+      "start": 2759.589,
+      "end": 2760.79,
+      "text": "multiplying the sub problem space"
+    },
+    {
+      "start": 2760.79,
+      "end": 2763.109,
+      "text": "instead of by two"
+    },
+    {
+      "start": 2763.109,
+      "end": 2764.95,
+      "text": "by four hey maybe we should put this on"
+    },
+    {
+      "start": 2764.95,
+      "end": 2767.19,
+      "text": "the final no"
+    },
+    {
+      "start": 2767.19,
+      "end": 2768.39,
+      "text": "now it's in lecture so we can't use it"
+    },
+    {
+      "start": 2768.39,
+      "end": 2770.63,
+      "text": "but"
+    },
+    {
+      "start": 2770.63,
+      "end": 2772.069,
+      "text": "it's a cool it's a cool set of problems"
+    },
+    {
+      "start": 2772.069,
+      "end": 2772.95,
+      "text": "right you can do a lot with dynamic"
+    },
+    {
+      "start": 2772.95,
+      "end": 2775.109,
+      "text": "programming"
+    },
+    {
+      "start": 2775.109,
+      "end": 2776.23,
+      "text": "just uh you don't need to be that clever"
+    },
+    {
+      "start": 2776.23,
+      "end": 2778.79,
+      "text": "just brute force"
+    },
+    {
+      "start": 2778.79,
+      "end": 2783.589,
+      "text": "anything that seems hard and when it"
+    },
+    {
+      "start": 2783.589,
+      "end": 2785.27,
+      "text": "all right and this class is all about"
+    },
+    {
+      "start": 2785.27,
+      "end": 2787.349,
+      "text": "understanding when it works"
+    },
+    {
+      "start": 2787.349,
+      "end": 2788.55,
+      "text": "and when it doesn't work of course we"
+    },
+    {
+      "start": 2788.55,
+      "end": 2792.63,
+      "text": "will only give you problems where it"
+    },
+    {
+      "start": 2792.63,
+      "end": 2794.309,
+      "text": "but it's important to understand when it"
+    },
+    {
+      "start": 2794.309,
+      "end": 2796.55,
+      "text": "doesn't work for example"
+    },
+    {
+      "start": 2796.55,
+      "end": 2797.67,
+      "text": "dag shortest paths that algorithm on a"
+    },
+    {
+      "start": 2797.67,
+      "end": 2801.51,
+      "text": "non-dag"
+    },
+    {
+      "start": 2801.51,
+      "end": 2817.109,
+      "text": "very bad infinite time okay"
+    },
+    {
+      "start": 2817.109,
+      "end": 2827.19,
+      "text": "so here we're given"
+    },
+    {
+      "start": 2827.19,
+      "end": 2831.19,
+      "text": "t zero t one t for note"
+    },
+    {
+      "start": 2831.19,
+      "end": 2838.47,
+      "text": "up to n t n minus one um"
+    },
+    {
+      "start": 2838.47,
+      "end": 2838.87,
+      "text": "and all the single notes all the single"
+    },
+    {
+      "start": 2838.87,
+      "end": 2842.829,
+      "text": "notes"
+    },
+    {
+      "start": 2842.829,
+      "end": 2845.27,
+      "text": "right and we have fingers on our"
+    },
+    {
+      "start": 2845.27,
+      "end": 2846.47,
+      "text": "hands this is not like two-finger"
+    },
+    {
+      "start": 2846.47,
+      "end": 2849.589,
+      "text": "algorithm this is the"
+    },
+    {
+      "start": 2849.589,
+      "end": 2851.51,
+      "text": "five-finger algorithm uh"
+    },
+    {
+      "start": 2851.51,
+      "end": 2852.79,
+      "text": "so in general i'm going to assume an"
+    },
+    {
+      "start": 2852.79,
+      "end": 2856.829,
+      "text": "arbitrary"
+    },
+    {
+      "start": 2856.829,
+      "end": 2860.23,
+      "text": "uh anthropomorphic"
+    },
+    {
+      "start": 2860.23,
+      "end": 2862.15,
+      "text": "object so this is five for humans"
+    },
+    {
+      "start": 2862.15,
+      "end": 2864.309,
+      "text": "most humans some humans i think the"
+    },
+    {
+      "start": 2864.309,
+      "end": 2866.71,
+      "text": "maximum on each hand"
+    },
+    {
+      "start": 2866.71,
+      "end": 2867.75,
+      "text": "is seven could be smaller maybe you've"
+    },
+    {
+      "start": 2867.75,
+      "end": 2871.43,
+      "text": "had an accident"
+    },
+    {
+      "start": 2871.43,
+      "end": 2873.19,
+      "text": "okay i'll solve it for arbitrary f"
+    },
+    {
+      "start": 2873.19,
+      "end": 2875.589,
+      "text": "and what we'd like to do is assign"
+    },
+    {
+      "start": 2875.589,
+      "end": 2878.95,
+      "text": "fingers to notes"
+    },
+    {
+      "start": 2878.95,
+      "end": 2879.75,
+      "text": "to tell our pianist which finger to use"
+    },
+    {
+      "start": 2879.75,
+      "end": 2881.03,
+      "text": "for each note"
+    },
+    {
+      "start": 2881.03,
+      "end": 2882.87,
+      "text": "so normally when you're given sheet"
+    },
+    {
+      "start": 2882.87,
+      "end": 2884.15,
+      "text": "music it just gives you"
+    },
+    {
+      "start": 2884.15,
+      "end": 2885.51,
+      "text": "a sequence of notes you want to play it"
+    },
+    {
+      "start": 2885.51,
+      "end": 2886.79,
+      "text": "doesn't tell you which finger you want"
+    },
+    {
+      "start": 2886.79,
+      "end": 2890.309,
+      "text": "to play it with"
+    },
+    {
+      "start": 2890.309,
+      "end": 2892.069,
+      "text": "unless you have some nice uh training"
+    },
+    {
+      "start": 2892.069,
+      "end": 2894.069,
+      "text": "booklets and they have a little number"
+    },
+    {
+      "start": 2894.069,
+      "end": 2896.47,
+      "text": "on top of each and then you number them"
+    },
+    {
+      "start": 2896.47,
+      "end": 2897.99,
+      "text": "one two three four five and"
+    },
+    {
+      "start": 2897.99,
+      "end": 2901.589,
+      "text": "symmetrically one two three four"
+    },
+    {
+      "start": 2901.589,
+      "end": 2904.95,
+      "text": "five and so here's a giant piano"
+    },
+    {
+      "start": 2904.95,
+      "end": 2906.47,
+      "text": "for my giant hands um so uh"
+    },
+    {
+      "start": 2906.47,
+      "end": 2908.47,
+      "text": "if jason were here he could sing these"
+    },
+    {
+      "start": 2908.47,
+      "end": 2910.069,
+      "text": "notes so maybe i play this"
+    },
+    {
+      "start": 2910.069,
+      "end": 2911.99,
+      "text": "with my first finger this with my second"
+    },
+    {
+      "start": 2911.99,
+      "end": 2914.15,
+      "text": "finger let's just say i'm doing a scale"
+    },
+    {
+      "start": 2914.15,
+      "end": 2915.589,
+      "text": "so i can walk and now i think typical"
+    },
+    {
+      "start": 2915.589,
+      "end": 2916.15,
+      "text": "way to do a scale is to reach over with"
+    },
+    {
+      "start": 2916.15,
+      "end": 2918.309,
+      "text": "your"
+    },
+    {
+      "start": 2918.309,
+      "end": 2919.91,
+      "text": "first finger second finger i guess and"
+    },
+    {
+      "start": 2919.91,
+      "end": 2923.51,
+      "text": "then do something like this"
+    },
+    {
+      "start": 2923.51,
+      "end": 2925.75,
+      "text": "no okay clearly i don't know scales"
+    },
+    {
+      "start": 2925.75,
+      "end": 2927.829,
+      "text": "um or how to play a piano but you know"
+    },
+    {
+      "start": 2927.829,
+      "end": 2929.51,
+      "text": "there's there's limits here i can"
+    },
+    {
+      "start": 2929.51,
+      "end": 2931.43,
+      "text": "if i'm going from this note and i want"
+    },
+    {
+      "start": 2931.43,
+      "end": 2933.829,
+      "text": "to go to another note"
+    },
+    {
+      "start": 2933.829,
+      "end": 2934.549,
+      "text": "uh over here okay maybe i have a decent"
+    },
+    {
+      "start": 2934.549,
+      "end": 2936.87,
+      "text": "span"
+    },
+    {
+      "start": 2936.87,
+      "end": 2938.39,
+      "text": "from first finger to fifth finger but my"
+    },
+    {
+      "start": 2938.39,
+      "end": 2939.19,
+      "text": "span from my first finger to my second"
+    },
+    {
+      "start": 2939.19,
+      "end": 2941.589,
+      "text": "finger is"
+    },
+    {
+      "start": 2941.589,
+      "end": 2942.71,
+      "text": "not as big i can't reach as far so if i"
+    },
+    {
+      "start": 2942.71,
+      "end": 2943.67,
+      "text": "want to play this note and then this"
+    },
+    {
+      "start": 2943.67,
+      "end": 2946.47,
+      "text": "note i'd like to"
+    },
+    {
+      "start": 2946.47,
+      "end": 2947.19,
+      "text": "start here with a very extreme finger on"
+    },
+    {
+      "start": 2947.19,
+      "end": 2948.95,
+      "text": "the left"
+    },
+    {
+      "start": 2948.95,
+      "end": 2950.549,
+      "text": "and then go to a very extreme finger on"
+    },
+    {
+      "start": 2950.549,
+      "end": 2953.03,
+      "text": "the right so"
+    },
+    {
+      "start": 2953.03,
+      "end": 2954.47,
+      "text": "i'm going to formalize this problem"
+    },
+    {
+      "start": 2954.47,
+      "end": 2955.99,
+      "text": "pretty abstractly because i don't want"
+    },
+    {
+      "start": 2955.99,
+      "end": 2959.109,
+      "text": "to get into"
+    },
+    {
+      "start": 2959.109,
+      "end": 2961.67,
+      "text": "music performance i'm going to say that"
+    },
+    {
+      "start": 2961.67,
+      "end": 2964.87,
+      "text": "there's a metric"
+    },
+    {
+      "start": 2964.87,
+      "end": 2967.67,
+      "text": "d for if i'm at note t"
+    },
+    {
+      "start": 2967.67,
+      "end": 2968.829,
+      "text": "with finger f and i want to go to note t"
+    },
+    {
+      "start": 2968.829,
+      "end": 2972.71,
+      "text": "prime with finger f"
+    },
+    {
+      "start": 2972.71,
+      "end": 2975.589,
+      "text": "prime then this function"
+    },
+    {
+      "start": 2975.589,
+      "end": 2986.549,
+      "text": "d of t f t prime f prime gives me the"
+    },
+    {
+      "start": 2986.549,
+      "end": 2990.87,
+      "text": "the difficulty of playing"
+    },
+    {
+      "start": 2990.87,
+      "end": 2998.39,
+      "text": "note t with finger f"
+    },
+    {
+      "start": 2998.39,
+      "end": 3001.91,
+      "text": "note t prime with finger f prime"
+    },
+    {
+      "start": 3001.91,
+      "end": 3003.27,
+      "text": "it's w is width uh so this is a"
+    },
+    {
+      "start": 3003.27,
+      "end": 3005.27,
+      "text": "transition difficulty"
+    },
+    {
+      "start": 3005.27,
+      "end": 3007.109,
+      "text": "i'm not going to worry about difficulty"
+    },
+    {
+      "start": 3007.109,
+      "end": 3008.47,
+      "text": "of the whole piece other than saying"
+    },
+    {
+      "start": 3008.47,
+      "end": 3009.75,
+      "text": "i've got to play this note then i've got"
+    },
+    {
+      "start": 3009.75,
+      "end": 3010.79,
+      "text": "to play this note and for now just"
+    },
+    {
+      "start": 3010.79,
+      "end": 3012.15,
+      "text": "single notes"
+    },
+    {
+      "start": 3012.15,
+      "end": 3013.75,
+      "text": "you play a single note with your right"
+    },
+    {
+      "start": 3013.75,
+      "end": 3014.87,
+      "text": "hand then you play another single note"
+    },
+    {
+      "start": 3014.87,
+      "end": 3015.91,
+      "text": "with your right hand then another single"
+    },
+    {
+      "start": 3015.91,
+      "end": 3019.589,
+      "text": "note with your right hand"
+    },
+    {
+      "start": 3019.589,
+      "end": 3022.87,
+      "text": "let's assume no pauses for now no rests"
+    },
+    {
+      "start": 3022.87,
+      "end": 3024.87,
+      "text": "and great so we uh"
+    },
+    {
+      "start": 3024.87,
+      "end": 3025.99,
+      "text": "have this difficulty from going from the"
+    },
+    {
+      "start": 3025.99,
+      "end": 3029.19,
+      "text": "ith note to the i"
+    },
+    {
+      "start": 3029.19,
+      "end": 3032.39,
+      "text": "plus first note and then our goal is to"
+    },
+    {
+      "start": 3032.39,
+      "end": 3035.589,
+      "text": "minimize the sum of difficulties"
+    },
+    {
+      "start": 3035.589,
+      "end": 3039.589,
+      "text": "minimum sum of"
+    },
+    {
+      "start": 3039.589,
+      "end": 3043.27,
+      "text": "d t i f i"
+    },
+    {
+      "start": 3043.27,
+      "end": 3046.549,
+      "text": "t i plus 1 f i plus 1."
+    },
+    {
+      "start": 3046.549,
+      "end": 3049.109,
+      "text": "and these f i's and f i plus 1"
+    },
+    {
+      "start": 3049.109,
+      "end": 3050.95,
+      "text": "is what we want to compute we don't know"
+    },
+    {
+      "start": 3050.95,
+      "end": 3053.99,
+      "text": "which fingers to use we're only given"
+    },
+    {
+      "start": 3053.99,
+      "end": 3055.109,
+      "text": "which notes to play okay so this is"
+    },
+    {
+      "start": 3055.109,
+      "end": 3056.47,
+      "text": "actually a natural problem there are"
+    },
+    {
+      "start": 3056.47,
+      "end": 3057.51,
+      "text": "lots of papers about this problem i've"
+    },
+    {
+      "start": 3057.51,
+      "end": 3058.87,
+      "text": "read a bunch of them"
+    },
+    {
+      "start": 3058.87,
+      "end": 3060.87,
+      "text": "obviously not super well about how to"
+    },
+    {
+      "start": 3060.87,
+      "end": 3063.91,
+      "text": "compute how to play scales"
+    },
+    {
+      "start": 3063.91,
+      "end": 3065.91,
+      "text": "but um there are notes like are there"
+    },
+    {
+      "start": 3065.91,
+      "end": 3067.589,
+      "text": "there are constraints in this usually"
+    },
+    {
+      "start": 3067.589,
+      "end": 3069.589,
+      "text": "people write this"
+    },
+    {
+      "start": 3069.589,
+      "end": 3070.79,
+      "text": "metric as a sum of different penalty"
+    },
+    {
+      "start": 3070.79,
+      "end": 3072.15,
+      "text": "terms"
+    },
+    {
+      "start": 3072.15,
+      "end": 3074.15,
+      "text": "if i want to minimize difficulty"
+    },
+    {
+      "start": 3074.15,
+      "end": 3077.43,
+      "text": "difficulty is high"
+    },
+    {
+      "start": 3077.43,
+      "end": 3079.99,
+      "text": "if i play a note far on the left"
+    },
+    {
+      "start": 3079.99,
+      "end": 3082.549,
+      "text": "on the left so if i go from a low note"
+    },
+    {
+      "start": 3082.549,
+      "end": 3085.19,
+      "text": "to a high note"
+    },
+    {
+      "start": 3085.19,
+      "end": 3086.47,
+      "text": "that's easier to do if i use a lower"
+    },
+    {
+      "start": 3086.47,
+      "end": 3088.549,
+      "text": "numbered finger and go to a higher"
+    },
+    {
+      "start": 3088.549,
+      "end": 3091.19,
+      "text": "numbered finger you don't want the"
+    },
+    {
+      "start": 3091.19,
+      "end": 3091.67,
+      "text": "you don't want to go like i was doing"
+    },
+    {
+      "start": 3091.67,
+      "end": 3094.63,
+      "text": "from"
+    },
+    {
+      "start": 3094.63,
+      "end": 3095.67,
+      "text": "a high numbered finger to a low numbered"
+    },
+    {
+      "start": 3095.67,
+      "end": 3097.109,
+      "text": "finger"
+    },
+    {
+      "start": 3097.109,
+      "end": 3098.87,
+      "text": "to play a note on the right that's"
+    },
+    {
+      "start": 3098.87,
+      "end": 3100.39,
+      "text": "annoying so i'd like to do an assignment"
+    },
+    {
+      "start": 3100.39,
+      "end": 3102.15,
+      "text": "if i can that avoids that so i'll just"
+    },
+    {
+      "start": 3102.15,
+      "end": 3103.829,
+      "text": "have some penalty of like 100"
+    },
+    {
+      "start": 3103.829,
+      "end": 3106.47,
+      "text": "if that happens and zero if it doesn't"
+    },
+    {
+      "start": 3106.47,
+      "end": 3108.95,
+      "text": "happen sum up a bunch of terms like that"
+    },
+    {
+      "start": 3108.95,
+      "end": 3110.63,
+      "text": "other examples are avoid the fourth and"
+    },
+    {
+      "start": 3110.63,
+      "end": 3113.589,
+      "text": "fifth fingers the weak fingers"
+    },
+    {
+      "start": 3113.589,
+      "end": 3114.47,
+      "text": "or if i'm playing a portion of the song"
+    },
+    {
+      "start": 3114.47,
+      "end": 3117.03,
+      "text": "that is"
+    },
+    {
+      "start": 3117.03,
+      "end": 3117.91,
+      "text": "legato then i don't want to use the same"
+    },
+    {
+      "start": 3117.91,
+      "end": 3120.549,
+      "text": "finger to play"
+    },
+    {
+      "start": 3120.549,
+      "end": 3122.39,
+      "text": "two notes uh right after the other i've"
+    },
+    {
+      "start": 3122.39,
+      "end": 3124.79,
+      "text": "gotta use two different fingers for that"
+    },
+    {
+      "start": 3124.79,
+      "end": 3125.589,
+      "text": "so you have a penalty if f i equals f i"
+    },
+    {
+      "start": 3125.589,
+      "end": 3127.99,
+      "text": "plus one"
+    },
+    {
+      "start": 3127.99,
+      "end": 3129.349,
+      "text": "and these two notes are not the same uh"
+    },
+    {
+      "start": 3129.349,
+      "end": 3131.27,
+      "text": "then"
+    },
+    {
+      "start": 3131.27,
+      "end": 3132.47,
+      "text": "and we're in legato mode then we add a"
+    },
+    {
+      "start": 3132.47,
+      "end": 3135.27,
+      "text": "penalty term"
+    },
+    {
+      "start": 3135.27,
+      "end": 3137.349,
+      "text": "and things like that i would prefer if"
+    },
+    {
+      "start": 3137.349,
+      "end": 3137.99,
+      "text": "i'm going from a very low note to a very"
+    },
+    {
+      "start": 3137.99,
+      "end": 3139.829,
+      "text": "high note"
+    },
+    {
+      "start": 3139.829,
+      "end": 3141.349,
+      "text": "i'd like to use more extreme fingers"
+    },
+    {
+      "start": 3141.349,
+      "end": 3142.71,
+      "text": "things like that"
+    },
+    {
+      "start": 3142.71,
+      "end": 3145.349,
+      "text": "okay but we're just going to assume this"
+    },
+    {
+      "start": 3145.349,
+      "end": 3149.43,
+      "text": "di d function is given to us"
+    },
+    {
+      "start": 3149.43,
+      "end": 3151.349,
+      "text": "it's some you know const was"
+    },
+    {
+      "start": 3151.349,
+      "end": 3152.95,
+      "text": "some polynomial size if you imagine the"
+    },
+    {
+      "start": 3152.95,
+      "end": 3155.829,
+      "text": "notes on your keyboard"
+    },
+    {
+      "start": 3155.829,
+      "end": 3157.109,
+      "text": "are n notes or m notes then some"
+    },
+    {
+      "start": 3157.109,
+      "end": 3166.069,
+      "text": "polynomial and m"
+    },
+    {
+      "start": 3166.069,
+      "end": 3181.27,
+      "text": "so how do we solve this problem"
+    },
+    {
+      "start": 3181.27,
+      "end": 3182.63,
+      "text": "the idea"
+    },
+    {
+      "start": 3182.63,
+      "end": 3189.99,
+      "text": "and this is going to use sub-problem"
+    },
+    {
+      "start": 3189.99,
+      "end": 3194.47,
+      "text": "so the sub-problems are going to be"
+    },
+    {
+      "start": 3194.47,
+      "end": 3203.03,
+      "text": "x of i comma f this is the minimum"
+    },
+    {
+      "start": 3203.03,
+      "end": 3207.51,
+      "text": "to play a suffix because i like suffixes"
+    },
+    {
+      "start": 3207.51,
+      "end": 3222.63,
+      "text": "ti up to tn minus one"
+    },
+    {
+      "start": 3222.63,
+      "end": 3224.79,
+      "text": "uh on note ti"
+    },
+    {
+      "start": 3224.79,
+      "end": 3225.99,
+      "text": "okay so the obvious sub problems would"
+    },
+    {
+      "start": 3225.99,
+      "end": 3228.15,
+      "text": "be without this"
+    },
+    {
+      "start": 3228.15,
+      "end": 3230.309,
+      "text": "constraint this here is a sub problem"
+    },
+    {
+      "start": 3230.309,
+      "end": 3231.829,
+      "text": "constraint"
+    },
+    {
+      "start": 3231.829,
+      "end": 3233.67,
+      "text": "and you could try to define the sub"
+    },
+    {
+      "start": 3233.67,
+      "end": 3234.95,
+      "text": "problems just as what's the best way to"
+    },
+    {
+      "start": 3234.95,
+      "end": 3236.63,
+      "text": "play a suffix"
+    },
+    {
+      "start": 3236.63,
+      "end": 3238.71,
+      "text": "but i claim it's important to know which"
+    },
+    {
+      "start": 3238.71,
+      "end": 3240.549,
+      "text": "finger we start with so we're going to"
+    },
+    {
+      "start": 3240.549,
+      "end": 3242.47,
+      "text": "multiply the number of sub-problems by"
+    },
+    {
+      "start": 3242.47,
+      "end": 3245.109,
+      "text": "capital f which is just five so"
+    },
+    {
+      "start": 3245.109,
+      "end": 3246.15,
+      "text": "very small sub-problem expansion and"
+    },
+    {
+      "start": 3246.15,
+      "end": 3247.589,
+      "text": "then we're going to constrain each"
+    },
+    {
+      "start": 3247.589,
+      "end": 3248.79,
+      "text": "sub-problem to say well what if i"
+    },
+    {
+      "start": 3248.79,
+      "end": 3250.069,
+      "text": "started with my first finger what if i"
+    },
+    {
+      "start": 3250.069,
+      "end": 3253.51,
+      "text": "started with my second finger what if"
+    },
+    {
+      "start": 3253.51,
+      "end": 3256.069,
+      "text": "up to the fifth finger try them all"
+    },
+    {
+      "start": 3256.069,
+      "end": 3258.39,
+      "text": "okay then i turns out i can write a"
+    },
+    {
+      "start": 3258.39,
+      "end": 3262.15,
+      "text": "relation"
+    },
+    {
+      "start": 3262.15,
+      "end": 3265.03,
+      "text": "which is x of i f"
+    },
+    {
+      "start": 3265.03,
+      "end": 3265.589,
+      "text": "equals the min what should i what should"
+    },
+    {
+      "start": 3265.589,
+      "end": 3268.95,
+      "text": "i min"
+    },
+    {
+      "start": 3268.95,
+      "end": 3270.71,
+      "text": "over i'll just uh guess"
+    },
+    {
+      "start": 3270.71,
+      "end": 3272.23,
+      "text": "this i'm already told what my first"
+    },
+    {
+      "start": 3272.23,
+      "end": 3275.349,
+      "text": "finger is"
+    },
+    {
+      "start": 3275.349,
+      "end": 3276.789,
+      "text": "to use which finger i should use for ti"
+    },
+    {
+      "start": 3276.789,
+      "end": 3278.63,
+      "text": "so what's the next thing that matters"
+    },
+    {
+      "start": 3278.63,
+      "end": 3280.95,
+      "text": "well i guess what finger to use"
+    },
+    {
+      "start": 3280.95,
+      "end": 3283.109,
+      "text": "for the ti plus one the very next note"
+    },
+    {
+      "start": 3283.109,
+      "end": 3286.789,
+      "text": "which what is the next finger i use"
+    },
+    {
+      "start": 3286.789,
+      "end": 3290.87,
+      "text": "i will call that f prime and minimize"
+    },
+    {
+      "start": 3290.87,
+      "end": 3294.47,
+      "text": "over f prime between one and capital f"
+    },
+    {
+      "start": 3294.47,
+      "end": 3298.23,
+      "text": "of the remaining suffix"
+    },
+    {
+      "start": 3298.23,
+      "end": 3299.03,
+      "text": "starting with f prime plus my difficulty"
+    },
+    {
+      "start": 3299.03,
+      "end": 3302.63,
+      "text": "function"
+    },
+    {
+      "start": 3302.63,
+      "end": 3307.109,
+      "text": "from t i comma f to t i plus 1"
+    },
+    {
+      "start": 3307.109,
+      "end": 3310.63,
+      "text": "comma f prime end of bracket"
+    },
+    {
+      "start": 3310.63,
+      "end": 3311.91,
+      "text": "okay so there's kind of a lot going here"
+    },
+    {
+      "start": 3311.91,
+      "end": 3317.03,
+      "text": "this is a"
+    },
+    {
+      "start": 3317.03,
+      "end": 3318.71,
+      "text": "but actually if you think about what i'd"
+    },
+    {
+      "start": 3318.71,
+      "end": 3321.109,
+      "text": "like to write the recurrence on"
+    },
+    {
+      "start": 3321.109,
+      "end": 3322.789,
+      "text": "i start with the suffix i i like to"
+    },
+    {
+      "start": 3322.789,
+      "end": 3325.67,
+      "text": "recurse on the smaller suffix so that's"
+    },
+    {
+      "start": 3325.67,
+      "end": 3329.03,
+      "text": "x of i plus one"
+    },
+    {
+      "start": 3329.03,
+      "end": 3331.03,
+      "text": "and so here uh if if i know that i'm"
+    },
+    {
+      "start": 3331.03,
+      "end": 3334.069,
+      "text": "parametrizing by finger number"
+    },
+    {
+      "start": 3334.069,
+      "end": 3335.51,
+      "text": "for i well then i in order to even call"
+    },
+    {
+      "start": 3335.51,
+      "end": 3337.03,
+      "text": "this function i need to know what finger"
+    },
+    {
+      "start": 3337.03,
+      "end": 3338.39,
+      "text": "i'm using for i plus one so once you"
+    },
+    {
+      "start": 3338.39,
+      "end": 3339.99,
+      "text": "decide on these sub problems it's really"
+    },
+    {
+      "start": 3339.99,
+      "end": 3343.03,
+      "text": "obvious you need to guess"
+    },
+    {
+      "start": 3343.03,
+      "end": 3345.43,
+      "text": "what is the next finger and then recurse"
+    },
+    {
+      "start": 3345.43,
+      "end": 3346.549,
+      "text": "on that finger recurs on the remaining"
+    },
+    {
+      "start": 3346.549,
+      "end": 3349.109,
+      "text": "suffix of that finger"
+    },
+    {
+      "start": 3349.109,
+      "end": 3349.67,
+      "text": "now why did we need to know what f what"
+    },
+    {
+      "start": 3349.67,
+      "end": 3352.309,
+      "text": "these"
+    },
+    {
+      "start": 3352.309,
+      "end": 3353.75,
+      "text": "fingers were why not just guess what the"
+    },
+    {
+      "start": 3353.75,
+      "end": 3354.87,
+      "text": "first finger is"
+    },
+    {
+      "start": 3354.87,
+      "end": 3357.109,
+      "text": "uh well it has to do with this"
+    },
+    {
+      "start": 3357.109,
+      "end": 3358.39,
+      "text": "difficulty function for this difficulty"
+    },
+    {
+      "start": 3358.39,
+      "end": 3361.349,
+      "text": "function i know that i want to measure"
+    },
+    {
+      "start": 3361.349,
+      "end": 3363.91,
+      "text": "the difficulty from t i to t i plus one"
+    },
+    {
+      "start": 3363.91,
+      "end": 3365.67,
+      "text": "and to do that because this function is"
+    },
+    {
+      "start": 3365.67,
+      "end": 3367.51,
+      "text": "parametrized by four things i need to"
+    },
+    {
+      "start": 3367.51,
+      "end": 3369.75,
+      "text": "know both the finger for ti"
+    },
+    {
+      "start": 3369.75,
+      "end": 3370.549,
+      "text": "and at the same time the finger for ti"
+    },
+    {
+      "start": 3370.549,
+      "end": 3373.51,
+      "text": "plus one"
+    },
+    {
+      "start": 3373.51,
+      "end": 3375.19,
+      "text": "if i remove this f i could you know add"
+    },
+    {
+      "start": 3375.19,
+      "end": 3375.67,
+      "text": "a min over one finger but i can't really"
+    },
+    {
+      "start": 3375.67,
+      "end": 3378.87,
+      "text": "add a"
+    },
+    {
+      "start": 3378.87,
+      "end": 3381.27,
+      "text": "min over two fingers so what this does"
+    },
+    {
+      "start": 3381.27,
+      "end": 3382.39,
+      "text": "by parameterizing by f here and writing"
+    },
+    {
+      "start": 3382.39,
+      "end": 3385.91,
+      "text": "down the optimal"
+    },
+    {
+      "start": 3385.91,
+      "end": 3389.03,
+      "text": "for each starting finger f i can"
+    },
+    {
+      "start": 3389.03,
+      "end": 3392.71,
+      "text": "at some sense i'm remembering"
+    },
+    {
+      "start": 3392.71,
+      "end": 3394.39,
+      "text": "in this call what finger i started with"
+    },
+    {
+      "start": 3394.39,
+      "end": 3397.03,
+      "text": "because i told it you have to start with"
+    },
+    {
+      "start": 3397.03,
+      "end": 3400.39,
+      "text": "finger f prime and so locally to"
+    },
+    {
+      "start": 3400.39,
+      "end": 3402.47,
+      "text": "x i f um"
+    },
+    {
+      "start": 3402.47,
+      "end": 3404.15,
+      "text": "i know what finger f prime is being used"
+    },
+    {
+      "start": 3404.15,
+      "end": 3405.75,
+      "text": "for t i plus pos1 and also"
+    },
+    {
+      "start": 3405.75,
+      "end": 3407.99,
+      "text": "because of the definition of x i f i"
+    },
+    {
+      "start": 3407.99,
+      "end": 3409.349,
+      "text": "know what finger i'm using for ti"
+    },
+    {
+      "start": 3409.349,
+      "end": 3412.15,
+      "text": "and so i get to know both of these"
+    },
+    {
+      "start": 3412.15,
+      "end": 3413.829,
+      "text": "fingers one comes out of this min"
+    },
+    {
+      "start": 3413.829,
+      "end": 3415.27,
+      "text": "and the other is given to me as this"
+    },
+    {
+      "start": 3415.27,
+      "end": 3416.789,
+      "text": "parameter"
+    },
+    {
+      "start": 3416.789,
+      "end": 3418.789,
+      "text": "and then of course if i can solve these"
+    },
+    {
+      "start": 3418.789,
+      "end": 3420.39,
+      "text": "problems i can solve the original"
+    },
+    {
+      "start": 3420.39,
+      "end": 3423.43,
+      "text": "problem"
+    },
+    {
+      "start": 3423.43,
+      "end": 3426.549,
+      "text": "by just one more min"
+    },
+    {
+      "start": 3426.549,
+      "end": 3429.67,
+      "text": "of 1 up 1 up to capital f"
+    },
+    {
+      "start": 3429.67,
+      "end": 3431.99,
+      "text": "of x 0 little"
+    },
+    {
+      "start": 3431.99,
+      "end": 3433.109,
+      "text": "f right i don't know which finger to"
+    },
+    {
+      "start": 3433.109,
+      "end": 3435.829,
+      "text": "start with but that's just"
+    },
+    {
+      "start": 3435.829,
+      "end": 3436.549,
+      "text": "f choices and so then this recurrence"
+    },
+    {
+      "start": 3436.549,
+      "end": 3440.069,
+      "text": "gives me"
+    },
+    {
+      "start": 3440.069,
+      "end": 3442.069,
+      "text": "the overall solution in i'll just jump"
+    },
+    {
+      "start": 3442.069,
+      "end": 3445.51,
+      "text": "to the time you need a base case"
+    },
+    {
+      "start": 3445.51,
+      "end": 3449.109,
+      "text": "and uh topological order but it is"
+    },
+    {
+      "start": 3449.109,
+      "end": 3451.75,
+      "text": "n f squared time there are n"
+    },
+    {
+      "start": 3451.75,
+      "end": 3452.15,
+      "text": "times f sub problems here and for each"
+    },
+    {
+      "start": 3452.15,
+      "end": 3454.789,
+      "text": "one"
+    },
+    {
+      "start": 3454.789,
+      "end": 3455.99,
+      "text": "i'm doing an optimization over f choices"
+    },
+    {
+      "start": 3455.99,
+      "end": 3458.63,
+      "text": "so i get n times f"
+    },
+    {
+      "start": 3458.63,
+      "end": 3459.99,
+      "text": "squared it's a polynomial and if f is a"
+    },
+    {
+      "start": 3459.99,
+      "end": 3463.03,
+      "text": "constant this is actually linear"
+    },
+    {
+      "start": 3463.03,
+      "end": 3463.99,
+      "text": "time very fast dp now what i described"
+    },
+    {
+      "start": 3463.99,
+      "end": 3466.39,
+      "text": "here is for"
+    },
+    {
+      "start": 3466.39,
+      "end": 3467.589,
+      "text": "one hand one note at a time but you can"
+    },
+    {
+      "start": 3467.589,
+      "end": 3469.51,
+      "text": "generalize this to"
+    },
+    {
+      "start": 3469.51,
+      "end": 3471.109,
+      "text": "two hands each with one note well that's"
+    },
+    {
+      "start": 3471.109,
+      "end": 3472.63,
+      "text": "just ten fingers so"
+    },
+    {
+      "start": 3472.63,
+      "end": 3473.99,
+      "text": "uh you could solve this separately for"
+    },
+    {
+      "start": 3473.99,
+      "end": 3475.43,
+      "text": "the right hand and left hand if you know"
+    },
+    {
+      "start": 3475.43,
+      "end": 3477.589,
+      "text": "which notes are being played"
+    },
+    {
+      "start": 3477.589,
+      "end": 3480.789,
+      "text": "with left-handed right hand but some"
+    },
+    {
+      "start": 3480.789,
+      "end": 3482.63,
+      "text": "pieces that's not obvious"
+    },
+    {
+      "start": 3482.63,
+      "end": 3483.829,
+      "text": "so to make it more interesting what if"
+    },
+    {
+      "start": 3483.829,
+      "end": 3485.589,
+      "text": "you have multiple notes"
+    },
+    {
+      "start": 3485.589,
+      "end": 3487.03,
+      "text": "at the same time and let's say i think"
+    },
+    {
+      "start": 3487.03,
+      "end": 3490.069,
+      "text": "it's reasonable so you can only play"
+    },
+    {
+      "start": 3490.069,
+      "end": 3493.349,
+      "text": "up to f notes at a time"
+    },
+    {
+      "start": 3493.349,
+      "end": 3494.71,
+      "text": "one for each finger and so we have an"
+    },
+    {
+      "start": 3494.71,
+      "end": 3497.109,
+      "text": "upper bound of the number of notes"
+    },
+    {
+      "start": 3497.109,
+      "end": 3498.63,
+      "text": "at a time that we're playing which is"
+    },
+    {
+      "start": 3498.63,
+      "end": 3501.349,
+      "text": "good"
+    },
+    {
+      "start": 3501.349,
+      "end": 3502.39,
+      "text": "oh i have a drawing of this dp by the"
+    },
+    {
+      "start": 3502.39,
+      "end": 3505.43,
+      "text": "way"
+    },
+    {
+      "start": 3505.43,
+      "end": 3507.349,
+      "text": "as a subproblem dag so"
+    },
+    {
+      "start": 3507.349,
+      "end": 3508.95,
+      "text": "this is the original problem which is we"
+    },
+    {
+      "start": 3508.95,
+      "end": 3511.349,
+      "text": "don't know which finger to"
+    },
+    {
+      "start": 3511.349,
+      "end": 3513.27,
+      "text": "start with but then we just have a"
+    },
+    {
+      "start": 3513.27,
+      "end": 3515.109,
+      "text": "complete bipartite graph here"
+    },
+    {
+      "start": 3515.109,
+      "end": 3516.789,
+      "text": "where we write on each of these edges"
+    },
+    {
+      "start": 3516.789,
+      "end": 3518.309,
+      "text": "what is the difficulty of this"
+    },
+    {
+      "start": 3518.309,
+      "end": 3520.789,
+      "text": "transition"
+    },
+    {
+      "start": 3520.789,
+      "end": 3522.23,
+      "text": "the y axis here is which finger i'm"
+    },
+    {
+      "start": 3522.23,
+      "end": 3524.069,
+      "text": "using one two three four five"
+    },
+    {
+      "start": 3524.069,
+      "end": 3525.67,
+      "text": "and the x-axis is which suffix i'm"
+    },
+    {
+      "start": 3525.67,
+      "end": 3528.309,
+      "text": "considering which note"
+    },
+    {
+      "start": 3528.309,
+      "end": 3530.15,
+      "text": "do i start on and so you could solve"
+    },
+    {
+      "start": 3530.15,
+      "end": 3532.15,
+      "text": "this with shortest paths and a dag"
+    },
+    {
+      "start": 3532.15,
+      "end": 3534.71,
+      "text": "or you could just solve it directly this"
+    },
+    {
+      "start": 3534.71,
+      "end": 3538.15,
+      "text": "dp either top down or bottom up"
+    },
+    {
+      "start": 3538.15,
+      "end": 3541.349,
+      "text": "okay jumping ahead"
+    },
+    {
+      "start": 3541.349,
+      "end": 3543.03,
+      "text": "so if you do multiple notes at a time"
+    },
+    {
+      "start": 3543.03,
+      "end": 3544.71,
+      "text": "instead of this finger choice which just"
+    },
+    {
+      "start": 3544.71,
+      "end": 3552.15,
+      "text": "had f choices"
+    },
+    {
+      "start": 3552.15,
+      "end": 3555.43,
+      "text": "what do i write here t"
+    },
+    {
+      "start": 3555.43,
+      "end": 3559.03,
+      "text": "to the f uh"
+    },
+    {
+      "start": 3559.03,
+      "end": 3562.309,
+      "text": "possible states"
+    },
+    {
+      "start": 3562.309,
+      "end": 3570.23,
+      "text": "where t is the maximum number of notes"
+    },
+    {
+      "start": 3570.23,
+      "end": 3572.63,
+      "text": "and usually this is at most f one for"
+    },
+    {
+      "start": 3572.63,
+      "end": 3579.75,
+      "text": "finger but we could generalize"
+    },
+    {
+      "start": 3579.75,
+      "end": 3580.549,
+      "text": "so i could deal with all 10 fingers of a"
+    },
+    {
+      "start": 3580.549,
+      "end": 3584.549,
+      "text": "typical"
+    },
+    {
+      "start": 3584.549,
+      "end": 3586.549,
+      "text": "human set of arms hands"
+    },
+    {
+      "start": 3586.549,
+      "end": 3587.75,
+      "text": "and say there's at most 10 and so this"
+    },
+    {
+      "start": 3587.75,
+      "end": 3590.309,
+      "text": "is 10 to the 10. it's a"
+    },
+    {
+      "start": 3590.309,
+      "end": 3590.87,
+      "text": "big constant but it's constant uh like a"
+    },
+    {
+      "start": 3590.87,
+      "end": 3594.069,
+      "text": "billion"
+    },
+    {
+      "start": 3594.069,
+      "end": 3597.19,
+      "text": "billion right 10 billion"
+    },
+    {
+      "start": 3597.19,
+      "end": 3597.99,
+      "text": "but then is that times n and maybe that"
+    },
+    {
+      "start": 3597.99,
+      "end": 3600.71,
+      "text": "squared times"
+    },
+    {
+      "start": 3600.71,
+      "end": 3602.15,
+      "text": "n will let me exhaustively enumerate all"
+    },
+    {
+      "start": 3602.15,
+      "end": 3605.349,
+      "text": "the possible things i could do"
+    },
+    {
+      "start": 3605.349,
+      "end": 3607.27,
+      "text": "be doing with all of my hands so you can"
+    },
+    {
+      "start": 3607.27,
+      "end": 3609.349,
+      "text": "apply this not only to"
+    },
+    {
+      "start": 3609.349,
+      "end": 3611.67,
+      "text": "piano fingering but also to guitar"
+    },
+    {
+      "start": 3611.67,
+      "end": 3613.43,
+      "text": "fingering also to rock band rock band is"
+    },
+    {
+      "start": 3613.43,
+      "end": 3615.75,
+      "text": "an easy case where you just have five"
+    },
+    {
+      "start": 3615.75,
+      "end": 3617.349,
+      "text": "buttons and usually only four fingers"
+    },
+    {
+      "start": 3617.349,
+      "end": 3618.71,
+      "text": "that you use"
+    },
+    {
+      "start": 3618.71,
+      "end": 3620.549,
+      "text": "and this doesn't really make any sound"
+    },
+    {
+      "start": 3620.549,
+      "end": 3623.589,
+      "text": "so it's not that exciting"
+    },
+    {
+      "start": 3623.589,
+      "end": 3626.23,
+      "text": "so the case where f equals four"
+    },
+    {
+      "start": 3626.23,
+      "end": 3626.87,
+      "text": "is uh you can apply to optimally figure"
+    },
+    {
+      "start": 3626.87,
+      "end": 3628.549,
+      "text": "out which"
+    },
+    {
+      "start": 3628.549,
+      "end": 3630.15,
+      "text": "which finger once you have a difficulty"
+    },
+    {
+      "start": 3630.15,
+      "end": 3631.99,
+      "text": "function of what transitions are easy"
+    },
+    {
+      "start": 3631.99,
+      "end": 3634.789,
+      "text": "and hard"
+    },
+    {
+      "start": 3634.789,
+      "end": 3636.15,
+      "text": "for rock band then you can optimally"
+    },
+    {
+      "start": 3636.15,
+      "end": 3637.349,
+      "text": "figure out your fingering for rock band"
+    },
+    {
+      "start": 3637.349,
+      "end": 3640.829,
+      "text": "songs"
+    },
+    {
+      "start": 3640.829,
+      "end": 3643.589,
+      "text": "with a real guitar this is a little bit"
+    },
+    {
+      "start": 3643.589,
+      "end": 3645.43,
+      "text": "harder and"
+    },
+    {
+      "start": 3645.43,
+      "end": 3646.71,
+      "text": "because there are actually multiple ways"
+    },
+    {
+      "start": 3646.71,
+      "end": 3650.23,
+      "text": "to play the same note"
+    },
+    {
+      "start": 3650.23,
+      "end": 3653.829,
+      "text": "for example i can play"
+    },
+    {
+      "start": 3653.829,
+      "end": 3656.15,
+      "text": "the note of this string like this"
+    },
+    {
+      "start": 3656.15,
+      "end": 3656.95,
+      "text": "these should both sound the same my"
+    },
+    {
+      "start": 3656.95,
+      "end": 3660.47,
+      "text": "guitar were"
+    },
+    {
+      "start": 3660.47,
+      "end": 3661.829,
+      "text": "perfectly tuned which is not"
+    },
+    {
+      "start": 3661.829,
+      "end": 3663.67,
+      "text": "and that's you know properties of"
+    },
+    {
+      "start": 3663.67,
+      "end": 3666.23,
+      "text": "strings and the way these things are"
+    },
+    {
+      "start": 3666.23,
+      "end": 3668.15,
+      "text": "are played so in addition to what finger"
+    },
+    {
+      "start": 3668.15,
+      "end": 3670.15,
+      "text": "i use i should also decide which string"
+    },
+    {
+      "start": 3670.15,
+      "end": 3672.23,
+      "text": "to play that note on if all i'm given is"
+    },
+    {
+      "start": 3672.23,
+      "end": 3674.47,
+      "text": "sheet music different notes to play"
+    },
+    {
+      "start": 3674.47,
+      "end": 3676.63,
+      "text": "another thing i could guess is which"
+    },
+    {
+      "start": 3676.63,
+      "end": 3679.51,
+      "text": "string to play that note on"
+    },
+    {
+      "start": 3679.51,
+      "end": 3688.87,
+      "text": "so for example maybe i want to play my"
+    },
+    {
+      "start": 3688.87,
+      "end": 3689.829,
+      "text": "the super mario brothers my favorite"
+    },
+    {
+      "start": 3689.829,
+      "end": 3691.27,
+      "text": "song um"
+    },
+    {
+      "start": 3691.27,
+      "end": 3693.589,
+      "text": "i can keep going but i actually can't"
+    },
+    {
+      "start": 3693.589,
+      "end": 3694.95,
+      "text": "keep going it won't be as impressive"
+    },
+    {
+      "start": 3694.95,
+      "end": 3696.87,
+      "text": "uh i don't actually know how to play"
+    },
+    {
+      "start": 3696.87,
+      "end": 3698.309,
+      "text": "guitar uh but the"
+    },
+    {
+      "start": 3698.309,
+      "end": 3701.03,
+      "text": "there are a lot of choices there right"
+    },
+    {
+      "start": 3701.03,
+      "end": 3705.27,
+      "text": "um i started with uh playing this note"
+    },
+    {
+      "start": 3705.27,
+      "end": 3707.349,
+      "text": "down on this um down on this string"
+    },
+    {
+      "start": 3707.349,
+      "end": 3709.109,
+      "text": "that's good i could have also played it"
+    },
+    {
+      "start": 3709.109,
+      "end": 3710.95,
+      "text": "on this string"
+    },
+    {
+      "start": 3710.95,
+      "end": 3712.63,
+      "text": "but that's more work for my finger so i"
+    },
+    {
+      "start": 3712.63,
+      "end": 3714.15,
+      "text": "have a diff penalty function that says"
+    },
+    {
+      "start": 3714.15,
+      "end": 3715.75,
+      "text": "well if i play an open string that's a"
+    },
+    {
+      "start": 3715.75,
+      "end": 3718.15,
+      "text": "lot easier"
+    },
+    {
+      "start": 3718.15,
+      "end": 3719.349,
+      "text": "and then i had a transition from here"
+    },
+    {
+      "start": 3719.349,
+      "end": 3723.51,
+      "text": "this note"
+    },
+    {
+      "start": 3723.51,
+      "end": 3726.23,
+      "text": "to this note to this note and if you"
+    },
+    {
+      "start": 3726.23,
+      "end": 3727.99,
+      "text": "focus on my fingering here i chose to"
+    },
+    {
+      "start": 3727.99,
+      "end": 3729.51,
+      "text": "use my"
+    },
+    {
+      "start": 3729.51,
+      "end": 3731.029,
+      "text": "index finger for the first one because"
+    },
+    {
+      "start": 3731.029,
+      "end": 3731.67,
+      "text": "that index finger is always the easiest"
+    },
+    {
+      "start": 3731.67,
+      "end": 3733.19,
+      "text": "to use"
+    },
+    {
+      "start": 3733.19,
+      "end": 3734.87,
+      "text": "but also gives me lots of room to move"
+    },
+    {
+      "start": 3734.87,
+      "end": 3736.63,
+      "text": "my pinky over to here"
+    },
+    {
+      "start": 3736.63,
+      "end": 3738.069,
+      "text": "and then i like to use my middle finger"
+    },
+    {
+      "start": 3738.069,
+      "end": 3739.91,
+      "text": "to come up here"
+    },
+    {
+      "start": 3739.91,
+      "end": 3741.589,
+      "text": "you could also use your index finger"
+    },
+    {
+      "start": 3741.589,
+      "end": 3743.349,
+      "text": "it's just a little bit more of a reach"
+    },
+    {
+      "start": 3743.349,
+      "end": 3745.27,
+      "text": "so you have to define some difficulty"
+    },
+    {
+      "start": 3745.27,
+      "end": 3747.43,
+      "text": "function it might depend on how"
+    },
+    {
+      "start": 3747.43,
+      "end": 3749.91,
+      "text": "big your fingers are you can do that and"
+    },
+    {
+      "start": 3749.91,
+      "end": 3752.39,
+      "text": "then optimize using these algorithms"
+    },
+    {
+      "start": 3752.39,
+      "end": 3753.67,
+      "text": "what is the best guitar fingering for a"
+    },
+    {
+      "start": 3753.67,
+      "end": 3755.589,
+      "text": "given piece"
+    },
+    {
+      "start": 3755.589,
+      "end": 3757.589,
+      "text": "one note at a time or several notes at a"
+    },
+    {
+      "start": 3757.589,
+      "end": 3757.99,
+      "text": "time you could even add in parameters"
+    },
+    {
+      "start": 3757.99,
+      "end": 3761.029,
+      "text": "like"
+    },
+    {
+      "start": 3761.029,
+      "end": 3763.349,
+      "text": "oh maybe i want to play a bar"
+    },
+    {
+      "start": 3763.349,
+      "end": 3764.549,
+      "text": "that's not a perfect bar but this would"
+    },
+    {
+      "start": 3764.549,
+      "end": 3767.829,
+      "text": "be great for my"
+    },
+    {
+      "start": 3767.829,
+      "end": 3769.67,
+      "text": "playing this note down here and this"
+    },
+    {
+      "start": 3769.67,
+      "end": 3772.549,
+      "text": "note up here"
+    },
+    {
+      "start": 3772.549,
+      "end": 3773.829,
+      "text": "bad example uh so you could do other"
+    },
+    {
+      "start": 3773.829,
+      "end": 3774.63,
+      "text": "things with the guitar to make it more"
+    },
+    {
+      "start": 3774.63,
+      "end": 3776.549,
+      "text": "interesting"
+    },
+    {
+      "start": 3776.549,
+      "end": 3778.309,
+      "text": "and you know generalize this dynamic"
+    },
+    {
+      "start": 3778.309,
+      "end": 3781.51,
+      "text": "program suitably"
+    },
+    {
+      "start": 3781.51,
+      "end": 3784.23,
+      "text": "but i think this gives you a flavor how"
+    },
+    {
+      "start": 3784.23,
+      "end": 3784.71,
+      "text": "with subproblem expansion i can capture"
+    },
+    {
+      "start": 3784.71,
+      "end": 3786.71,
+      "text": "almost"
+    },
+    {
+      "start": 3786.71,
+      "end": 3788.549,
+      "text": "any aspect of a problem that i want as"
+    },
+    {
+      "start": 3788.549,
+      "end": 3790.95,
+      "text": "long as the number of states that i"
+    },
+    {
+      "start": 3790.95,
+      "end": 3792.95,
+      "text": "need to keep track of is small i can"
+    },
+    {
+      "start": 3792.95,
+      "end": 3794.23,
+      "text": "just multiply the number of subproblems"
+    },
+    {
+      "start": 3794.23,
+      "end": 3795.829,
+      "text": "by that state"
+    },
+    {
+      "start": 3795.829,
+      "end": 3798.23,
+      "text": "and i can keep track of any kind of"
+    },
+    {
+      "start": 3798.23,
+      "end": 3800.23,
+      "text": "transition from one state to another"
+    },
+    {
+      "start": 3800.23,
+      "end": 3801.91,
+      "text": "which i could also do with taking the"
+    },
+    {
+      "start": 3801.91,
+      "end": 3803.589,
+      "text": "product of a graph"
+    },
+    {
+      "start": 3803.589,
+      "end": 3805.75,
+      "text": "but dynamic programming gives you a kind"
+    },
+    {
+      "start": 3805.75,
+      "end": 3808.39,
+      "text": "of methodical way to think about this"
+    },
+    {
+      "start": 3808.39,
+      "end": 3810.23,
+      "text": "by figuring out some property in this"
+    },
+    {
+      "start": 3810.23,
+      "end": 3812.63,
+      "text": "case the state of how my"
+    },
+    {
+      "start": 3812.63,
+      "end": 3813.67,
+      "text": "how my fingers are applied to the"
+    },
+    {
+      "start": 3813.67,
+      "end": 3815.75,
+      "text": "instrument"
+    },
+    {
+      "start": 3815.75,
+      "end": 3824.39,
+      "text": "and then just sort of brute forcing the"
+    },
+    {
+      "start": 3824.39,
+      "end": 3827.39,
+      "text": "framework"
+    }
+  ]
+}

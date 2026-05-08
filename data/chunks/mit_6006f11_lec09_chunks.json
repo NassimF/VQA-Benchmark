@@ -1,0 +1,639 @@
+[
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_000",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 0.0,
+    "end_time": 45.0,
+    "text": "the following content is provided under a Creative Commons license your support will help MIT open courseware continue to offer highquality educational resources for free to make a donation or view additional materials from hundreds ocw.mit.edu a Trilogy if you will on hashing um we did a lot of cool hashing stuff in some sense we already have what we want with hashing hashing with chaining we can do constant time expected constant expected time I should say uh constant"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_001",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 35.0,
+    "end_time": 80.0,
+    "text": "can do constant time expected constant expected time I should say uh constant as long as um yeah if we're doing insert delete an exact search is this key in there if so return the item otherwise say no and we did that with hashing with chaining under the analysis we did was with simple uniform hashing an alternative is to use un hashing is not really in this class but if if you find this weird then this is less weird and hashing with chaining the idea was we had this giant Universe of all Keyes could be actually all integers so it's infinite uh but then what we actually are storing in our structure is some"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_002",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 70.0,
+    "end_time": 115.0,
+    "text": "weird and hashing with chaining the idea was we had this giant Universe of all Keyes could be actually all integers so it's infinite uh but then what we actually are storing in our structure is some finite set of n Keys here I'm labeling them K1 through K4 and is four but in general I mean you don't know what they're going to be uh we have a we we redu reduce that to a table of size M via this hash function H stuff drawn in red and so here I have a three-way Collision these three keys all maap to one and so I store a linked list of K1 K4 and K2 they're in no particular order that's the point of that picture uh here K3 happens to map to its own slot and the other slots are empty so they just have"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_003",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 105.0,
+    "end_time": 150.0,
+    "text": "K2 they're in no particular order that's the point of that picture uh here K3 happens to map to its own slot and the other slots are empty so they just have a null saying there's an empty link list there okay total size of this structure is uh n plus M there's M to store the table there's n to store the sum of the L lengths of all the list is going to be n uh and then we said the expected chain length uh if everything's uniform then the probability of a particular key going to particular slot is 1/ M and it's if everything's nice and independent or if you use Universal hashing you can show that uh the total"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_004",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 140.0,
+    "end_time": 185.0,
+    "text": "going to particular slot is 1/ M and it's if everything's nice and independent or if you use Universal hashing you can show that uh the total expected chain length is n / m n independent trials each probability one over M of falling here and we called that Alpha the load factor and so and we concluded that the operation time to do an insert delete or search was order 1 Alpha so that's in expectation so that was hashing with chaining this is good news as long as Alpha is a constant we get constant time and just for for collection uh today we're not really going to be thinking too much about what"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_005",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 175.0,
+    "end_time": 220.0,
+    "text": "news as long as Alpha is a constant we get constant time and just for for collection uh today we're not really going to be thinking too much about what the hash function is but just remember two of them I talked about one uh this one we actually will use today uh where you just take the key and take it modulo m that's one easy way of mapping all integers into the space 0o through n minus one that's called the division method multiplication method is more fancy uh you multiply by a random integer and then you uh look at the middle of that multiplication and that's where lots of copies of the key K get mixed up together and that's sort of the the name of hashing and that's a better hash function in the real"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_006",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 210.0,
+    "end_time": 255.0,
+    "text": "mixed up together and that's sort of the the name of hashing and that's a better hash function in the real world uh so that's hashing with chaining cool now there is it seemed like a complete picture but there's one crucial thing that we're missing here any suggestions if I went to go implement this data and one answer could be the hasch function but we're going to ignore that okay I know you know the answer do anyone else know the answer yeah table grow the table Yeah the question is what should M"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_007",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 245.0,
+    "end_time": 290.0,
+    "text": "anyone else know the answer yeah table grow the table Yeah the question is what should M be okay we have to create a table size M and we put our keys into it we know we'd like M to be about the same as n but the trouble is we don't really know n because insertions come along and then we might have to grow the table if n gets really big relative to M we're we're in trouble because this Con this Factor will go up and it'll be no longer constant time the other hand if we set M to be really big uh we're also kind of wasteful I the whole point of this structure was to avoid having one slot for every possible key because that was"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_008",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 280.0,
+    "end_time": 325.0,
+    "text": "to be really big uh we're also kind of wasteful I the whole point of this structure was to avoid having one slot for every possible key because that was giant we wanted to save space so we want M to be big enough that our structure is fast but small enough that it's not wasteful in space and so that's the question we want M to be Theta n we want it to be uh Omega n so we want it to be at least some constant times n in order to make alpha be a constant and"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_009",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 315.0,
+    "end_time": 360.0,
+    "text": "question we want M to be Theta n we want it to be uh Omega n so we want it to be at least some constant times n in order to make alpha be a constant and we want it to be Big O of n in order to and the way we're going to do this as table we're going to start with m equal to some constant pick your favorite constant 20 20 my favorite constant seven uh probably I want it to be a"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_010",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 350.0,
+    "end_time": 395.0,
+    "text": "to some constant pick your favorite constant 20 20 my favorite constant seven uh probably I want it to be a power of two but what the hell uh and then we're going to grow and Shrink as necessary this is a pretty obvious idea the interesting part is to get it to work and it's going to introduce a whole new concept uh which is amortization thing uh so it's it's it's going to be cool trust me at this not only we're going to solve this problem of how to choose M we're also going to figure out how py p uh the python data structure called list also known as"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_011",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 385.0,
+    "end_time": 430.0,
+    "text": "only we're going to solve this problem of how to choose M we're also going to figure out how py p uh the python data structure called list also known as array is implemented so it's the same exactly the same problem well I'll get so for example let's say that we I said M should be Theta n let's say we want M to be at least n at all times okay so what happens we start with m equals 8 and so let's say we start with an empty uh hash table an empty dictionary and then I insert eight things and then I go to insert the ninth thing I say oh"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_012",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 420.0,
+    "end_time": 465.0,
+    "text": "and so let's say we start with an empty uh hash table an empty dictionary and then I insert eight things and then I go to insert the ninth thing I say oh do so this would be like at the end of an insertion algorithm after I insert something I say oh if m is greater than n then I'm getting worried that m is getting much bigger than n so I'd like to grow the table okay uh let's take a little"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_013",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 455.0,
+    "end_time": 500.0,
+    "text": "table okay uh let's take a little mean so uh maybe I have current size M and I'd like to go to a new size M Prime this would actually work if you're growing or shrinking but M could be bigger or smaller than M Prime what should I do what do I need to do in size easy warm up yeah allocate memory and reash yeah allocate the memory and rehash so we have all these Keys they're"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_014",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 490.0,
+    "end_time": 535.0,
+    "text": "size easy warm up yeah allocate memory and reash yeah allocate the memory and rehash so we have all these Keys they're stored with some hash function in here in table of size M I need to build an entirely new table size M Prime and then I need to rehash"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_015",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 525.0,
+    "end_time": 570.0,
+    "text": "uh one way to think of this is for each table T Prime I think that's worth a cushion we're we're you got one all right you don't want to get hit it's fine we're not burning through these questions fast enough so answer more questions okay so how much time does this take that's the main point of this"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_016",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 560.0,
+    "end_time": 605.0,
+    "text": "fine we're not burning through these questions fast enough so answer more questions okay so how much time does this take that's the main point of this yeah or order M yeah I think as long as M and M Prime are Theta n this is order n uh in general it's going to be n plus M plus M Prime but you're right most of the time that's I mean in the situation we're going to construct this will be Theta n okay but in general uh there's this issue that for example to iterate over"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_017",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 595.0,
+    "end_time": 640.0,
+    "text": "that's I mean in the situation we're going to construct this will be Theta n okay but in general uh there's this issue that for example to iterate over every item in the table you have to look at every slot and so you have to pay order M just to visit every slot order n to visit all those lists uh M Prime just to build the new table of size M Prime initialize it all to nil good uh fine I guess another main point here is that we have to build a new hash function why do we need to build a new hash function because the hash function Prime the hash function is all about"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_018",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 630.0,
+    "end_time": 675.0,
+    "text": "Prime the hash function is all about mapping the universe of keys to a table of size M so if M changes we need we definitely need a new hash function if you use the old hash function you would just use the beginning of the table if you add more slots down here you're not going to use them so for every key you've got to rehash it figure out where it goes okay I think I've drilled that on enough times so the question becomes when we see that our table is too big how much we need to make it bigger but how much bigger suggestions yeah 2x 2x twice M good"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_019",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 665.0,
+    "end_time": 710.0,
+    "text": "big how much we need to make it bigger but how much bigger suggestions yeah 2x 2x twice M good suggestion any other suggestions 3x okay um M Prime = 2m is the correct answer but for fun or for pain I guess let's think about the wrong answer which would be just make it one bigger that'll make m equal to n again so that seems it's at least safe it will maintain my invariant that m is at least N I get this wrong sorry it's the wrong"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_020",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 700.0,
+    "end_time": 745.0,
+    "text": "least safe it will maintain my invariant that m is at least N I get this wrong sorry it's the wrong way n is greater than M I want M to be greater than or equal to n all right so if we just incremented our table size then the question becomes insertions so say we start with an empty table so and it has size eight or whatever some constant and we insert n times then after eight insertions when we insert we have to rebuild our entire table that takes linear time after we insert one more we have to rebuild that"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_021",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 735.0,
+    "end_time": 780.0,
+    "text": "times then after eight insertions when we insert we have to rebuild our entire table that takes linear time after we insert one more we have to rebuild that takes linear time and so the cost is going to be something like uh after you get to eight it's going to be 1 + 2+ 3 + 4 it's a triangular number every time we insert we have to rebuild everything okay so this is quadratic bad fortunately if all we do is double M we're golden and this is sort of the point of why it's called table I call it table resizing there in order to not give it"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_022",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 770.0,
+    "end_time": 815.0,
+    "text": "we're golden and this is sort of the point of why it's called table I call it table resizing there in order to not give it doubling okay let's just think of the cost of n insertions there's also deletions but if we just again start with an empty table and we repeatedly insert then the cost we get uh if we double each time and we're inserting after we get to eight we insert we double to 16 then we insert eight more times then we double to 32 then we insert 16 times then we double to 64 all these numbers are roughly the same they're within a factor of two of"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_023",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 805.0,
+    "end_time": 850.0,
+    "text": "eight more times then we double to 32 then we insert 16 times then we double to 64 all these numbers are roughly the same they're within a factor of two of each other every time we're rebuilding in linear time but we're only doing it like log n times right if we're going from from one to n they're log n growths log n doublings that we're able to do so you might think oh it's uh n log n but we don't want n logn that would be binary search trees we want to do better than n log n if you think about the costs here the cost to rebuild the first time is constant it's like eight and then the cost to rebuild the second time is 16 so twice that the cost to build the next time is"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_024",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 840.0,
+    "end_time": 885.0,
+    "text": "constant it's like eight and then the cost to rebuild the second time is 16 so twice that the cost to build the next time is 64 so these go up geometrically I me you've got to get from one to n with log n steps the natural way to do is by doubling and you can prove that indeed this is the case so this is a geometric series mean to cross it out there and so this is Theta okay now it's a little strange to be talking about Theta n this is a data structure supposed to be constant time per operation this data structure is not constant time per operation okay even ignoring all the hashing business all"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_025",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 875.0,
+    "end_time": 920.0,
+    "text": "per operation this data structure is not constant time per operation okay even ignoring all the hashing business all you're trying to do is grow a table it takes more than constant time for some operations near the end when you have to rebuild the last time you're restructuring the entire table that takes linear time for one operation it's that you might say that's bad but the comforting thing is that there are only a few operations log n of them that are really expensive the rest are all constant time you don't do anything you just add into the table so"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_026",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 910.0,
+    "end_time": 955.0,
+    "text": "anything you just add into the table so amortization maybe I should write here okay so the idea with amortization let me give you a definition"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_027",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 945.0,
+    "end_time": 990.0,
+    "text": "actually I'm gonna be a little bit bag here and just say uh want T van let me"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_028",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 980.0,
+    "end_time": 1025.0,
+    "text": "so uh we're going to use a concept of usually we say the running time is T of N and we started saying the expected running time is some T of n 1 plus Alpha whatever uh now we're going to be able to say the amortized running time is T ofn or the running time is T ofn amortised that's what this is saying and what that"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_029",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 1015.0,
+    "end_time": 1060.0,
+    "text": "to say the amortized running time is T ofn or the running time is T ofn amortised that's what this is saying and what that means is that uh it's not any statement about the individual running time of the operations it's saying if you do a whole bunch of operations K of them then the total running time is at most K * T ofn this is a way to amorti or to yeah amortize this is in the in the economic sense of amortize I guess you spread out the high costs so that it's cheap on average all the time this kind of like normally we pay rent every month but you could think of it instead as you're only paying $50 a day or something for your"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_030",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 1050.0,
+    "end_time": 1095.0,
+    "text": "normally we pay rent every month but you could think of it instead as you're only paying $50 a day or something for your monthly rent okay it's uh maybe you know if you if you really if you want to smooth things out that would be a nice way to think about paying your rent or every second you're paying I don't know a penny or something um that's that's close actually a little bit off Factor too um anyway so uh of this is kind of like saying that the running time of an operation is T of n"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_031",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 1085.0,
+    "end_time": 1130.0,
+    "text": "of this is kind of like saying that the running time of an operation is T of n on average but it's put that in quotes we don't usually use that terminology um so maybe you can put a Tilda here operations so this is something that only makes sense for data structures data structures are things that have lots of operations on them over time and if you just instead of counting individual operation times and then"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_032",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 1120.0,
+    "end_time": 1165.0,
+    "text": "data structures are things that have lots of operations on them over time and if you just instead of counting individual operation times and then adding them up if you add them up and then divide by the number of operations that's your amortized running time so the point is in table is Theta 1 because it's n in total well at this point we've only analyzed insertions"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_033",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 1155.0,
+    "end_time": 1200.0,
+    "text": "inserts if we're just doing insertions take Theta K insert okay it's a simple idea but a useful one because typically unless you're in like a real-time system you typically only care about the overall running time of your algorithm which might use a data structure as as a sub routine you don't care if individual"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_034",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 1190.0,
+    "end_time": 1235.0,
+    "text": "you're in like a real-time system you typically only care about the overall running time of your algorithm which might use a data structure as as a sub routine you don't care if individual operations are expensive as long as all the operations together are cheap if you're using hashing to solve some other problem like counting duplicate words in Doc you just care about the running time of counting duplicate words you don't care about how long each step of the for Loop takes just the aggregate so this is good most of the time and we've proved it for insertions it's also true um when you have"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_035",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 1225.0,
+    "end_time": 1270.0,
+    "text": "it's also true um when you have deletes uh they certainly take order K time actually this is easy to prove at this point because we haven't change delete so what delete does is it just deletes something from the table leaves the table the same size uh and so it actually makes life better for us because if it decreases is m in order to make M big again you have to do more insertions than you had to before and the only extra cost we're thinking about here is the the growing the"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_036",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 1260.0,
+    "end_time": 1305.0,
+    "text": "order to make M big again you have to do more insertions than you had to before and the only extra cost we're thinking about here is the the growing the rebuild cost from inserting too big and so this is still true deletions only help us if you have K total inserts and deletes then uh still be order K so we advertised but this is not totally satisfying because the table might get big again M might become much larger than n for example suppose I do n inserts and then I do n deletes so now I have an empty table n equals z but m is going to be"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_037",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 1295.0,
+    "end_time": 1340.0,
+    "text": "example suppose I do n inserts and then I do n deletes so now I have an empty table n equals z but m is going to be around the original value of n or the time so we can fix this is a little more subtle there's two obvious answers one is correct and the other is"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_038",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 1330.0,
+    "end_time": 1375.0,
+    "text": "yeah good so option one is if the shrink to have sure okay that's on the right track anyone see a problem with that yeah you're like resizing when you're going from like 8 to 9 you can go from 8 to 9 9 or so good so if you're resizing and say you're you're have a table of size"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_039",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 1365.0,
+    "end_time": 1410.0,
+    "text": "from like 8 to 9 you can go from 8 to 9 9 or so good so if you're resizing and say you're you're have a table of size or you have you have eight items in your table you you add a ninth item and so you double to 16 then you delete that ninth item you're back to eight and then you say oh now m equals n/2 so I'm going to shrink to half the size and if I insert again delete insert delete insert I spend linear time for every operation so that's problem uh this is slow uh if we go from 2 to the K to 2 the k + 1 we go this way I insert sorry"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_040",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 1400.0,
+    "end_time": 1445.0,
+    "text": "problem uh this is slow uh if we go from 2 to the K to 2 the k + 1 we go this way I insert sorry 2 the k + one then I said it right insert to go to the right delete to go to the left then we'll get linear time operation that is bad so how do we fix"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_041",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 1435.0,
+    "end_time": 1480.0,
+    "text": "good I'm going to do four if you don't mind I'll keep it powers of two any number bigger than three will work any number bigger than two will work here but it's kind of nice to stick to powers of two um just for fun I mean it doesn't really matter because as you say we're still going to shrink to half the size but we're only going to trigger it when we're 3/4 empty so we're only using a quarter the space then it turns out you can afford to shrink to half the size because in order to explode again in order to need to grow again you'd have to still insert n over uh"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_042",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 1470.0,
+    "end_time": 1515.0,
+    "text": "a quarter the space then it turns out you can afford to shrink to half the size because in order to explode again in order to need to grow again you'd have to still insert n over uh M M over two items you because it's half empty so when you're only a quarter full you shrink to become a half full because then to grow again requires a lot of insertions I haven't proved anything here but it turns out if you do this uh becomes constant for K insertions and deletions arbitrary combination you'll maintain linear size because of these two because you're maintaining the invariant that m is"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_043",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 1505.0,
+    "end_time": 1550.0,
+    "text": "constant for K insertions and deletions arbitrary combination you'll maintain linear size because of these two because you're maintaining the invariant that m is between um 4N you maintain that invariant that's easy to check so you always have linear size and the advertised running time becomes constant uh we don't really have time to prove that in in the class it's a little bit tricky uh read the textbook if you questions all"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_044",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 1540.0,
+    "end_time": 1585.0,
+    "text": "questions all right full ring no it's it's cool because not only can we solve the hashing problem of how do we set m in order to keep Alpha a constant we can also solve python list python lists or arrays you may have wondered how they work because they offer Random Access we can go to the C the I item in constant time and modify it or get the value we can add a new item at the end in"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_045",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 1575.0,
+    "end_time": 1620.0,
+    "text": "time and modify it or get the value we can add a new item at the end in append and we can delete the last item in constant time that's one version is list.pop it's also delete list Square braet minus one uh you may you should know that deleting the first item is not constant time that takes linear time because what it does is it copies all the values over lists python lists are implemented by arrays but how do you support this Dynamic where you can increase the length and decrease the length and still keep linear space well you do table doubling and I don't know whether python uses two or some other constant but any constant will do as"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_046",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 1610.0,
+    "end_time": 1655.0,
+    "text": "length and still keep linear space well you do table doubling and I don't know whether python uses two or some other constant but any constant will do as long as the deletion constant is smaller than the insertion constant uh and and that's how they work so in fact list. a pen and list. pop are constant amortized before we just said for Simplicity they're constant time and for the most part you can just think of them as constant time but in reality they're constant amortized now for fun just in case you're curious you can do all of this stuff in constant worst case time per operation Maybe fun exercise uh do you want to know"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_047",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 1645.0,
+    "end_time": 1690.0,
+    "text": "this stuff in constant worst case time per operation Maybe fun exercise uh do you want to know how yeah uh the rough idea is when you realize that you're going to get that you're getting kind of full you start building on the side a new table of twice the size and every time you insert into the actual table you move like five of the items over to the new table or some con it needs to be a big enough constant so that by the time you're full you just switch over immediately to the other Str it's kind of cool uh it's very tricky to actually get that to work but if you're in a realtime system you might care to know that for the most part people don't Implement those things uh because"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_048",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 1680.0,
+    "end_time": 1725.0,
+    "text": "it's kind of cool uh it's very tricky to actually get that to work but if you're in a realtime system you might care to know that for the most part people don't Implement those things uh because they're complicated but it is possible amortis cool let's move on to the next topic which is more hashing related this is sort of General data structures in order to implement hashing with chaining but didn't really care about hashing per se we assumed here that we can evaluate the hash function in constant time that we can do insertion in constant time but that's the name of the game here but otherwise we didn't really care as long as the rebuilding was linear time this"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_049",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 1715.0,
+    "end_time": 1760.0,
+    "text": "the hash function in constant time that we can do insertion in constant time but that's the name of the game here but otherwise we didn't really care as long as the rebuilding was linear time this at a new problem there's lots of practical applications I mentioned some of these problems in the last class uh which is string matching this is essentially the problem how many people have used grep in their life okay most of you um how many people have used find in a text editor okay the rest of you um and so these are the same sorts of problems you"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_050",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 1750.0,
+    "end_time": 1795.0,
+    "text": "many people have used find in a text editor okay the rest of you um and so these are the same sorts of problems you want to search for a pattern which is just going to be a substring in some giant string which is your document your formally given two strings s and t you want to know does s substring of"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_051",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 1785.0,
+    "end_time": 1830.0,
+    "text": "substring of T so for example maybe s is a string 66 and T is your entire the mail that you've ever received in your life or your inbox or something okay so it's t is Big typically and S is small it's what you type usually maybe you're searching for all email from Patza so you put the Patza from string or whatever you're searching for that in this giant thing you'd like to do that quickly okay another application s is"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_052",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 1820.0,
+    "end_time": 1865.0,
+    "text": "Patza from string or whatever you're searching for that in this giant thing you'd like to do that quickly okay another application s is what you type into Google T is the entire web that's what Google does it searches for your string in the entire web I'm not joking okay uh fine so we'd like to do that what's the obvious way to search for a substring in a giant yeah just check each substring of the right length so it's got to be of the length of s and just there's only a linear number of them so check each one"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_053",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 1855.0,
+    "end_time": 1900.0,
+    "text": "yeah just check each substring of the right length so it's got to be of the length of s and just there's only a linear number of them so check each one actually just for fun I have pseudo code"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_054",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 1890.0,
+    "end_time": 1935.0,
+    "text": "actually just for fun I have pseudo code it I have python code for it even more okay I don't know if you know all these python features but you should they're"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_055",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 1925.0,
+    "end_time": 1970.0,
+    "text": "okay I don't know if you know all these python features but you should they're super cool this is uh string splicing so uh we're looking at in t let me draw the picture here we have S here we have t it is a big string we'd like to compare s like that and then we'd like to compare s shifted over one see whether all of the characters match there and then shifted over one more and so on and so we're looking at a substring of T from position I to position I plus the length of s not including the last one so that's of length exactly length of s"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_056",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 1960.0,
+    "end_time": 2005.0,
+    "text": "from position I to position I plus the length of s not including the last one so that's of length exactly length of s this is s this is T and so each of these looks like that pattern We compare s to T what this comparison operation does in Python is it checks the first character see if they're equal uh if they are keep going until they find a mismatch if there's no mismatch then you return true otherwise you return false okay and then we do this roughly length of T times because that's how many shifts there are except at the end we run out of room we don't care about if we shift beyond the right because that's clearly not going to match and so it's actually length of T minus length of s that's the number of iterations okay hopefully I got all the"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_057",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 1995.0,
+    "end_time": 2040.0,
+    "text": "if we shift beyond the right because that's clearly not going to match and so it's actually length of T minus length of s that's the number of iterations okay hopefully I got all the index arithmetic right and there's no plus ones or minus ones I think this is correct okay we want to know whether any of these match if so the answer is uh yes s occurs in sub uh as a substring of T of course in reality you want to know not just do any match but show them to me things like that but you can change that same amount of time so what's the algorithm so my relevant things are the"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_058",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 2030.0,
+    "end_time": 2075.0,
+    "text": "algorithm so my relevant things are the length of s and the length of T what's the running time sorry T by T multipli by S yeah exactly technically it's length of s uh s okay but typically this is just s * T it's always at most s * T and it's usually the same thing because s is usually smaller by at least a constant Factor than T this is kind of slow if you're"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_059",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 2065.0,
+    "end_time": 2110.0,
+    "text": "T it's always at most s * T and it's usually the same thing because s is usually smaller by at least a constant Factor than T this is kind of slow if you're searching for a big string uh it's it's not so great I mean certainly you need t s plus T you've got to look at the strings but s * T is kind of it could be quadratic if you're searching for a really long string and another string so what we'd like to do today is use hashing to get this down to linear"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_060",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 2100.0,
+    "end_time": 2145.0,
+    "text": "that using hashing subtle UMES okay so you want to decompose your string into words and use the fact there are fewer words than characters you could probably get something out of that and old search engines used to do that um but it's not necessary turns out and it also depend on what your average word length is"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_061",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 2135.0,
+    "end_time": 2180.0,
+    "text": "and old search engines used to do that um but it's not necessary turns out and it also depend on what your average word length is so we we in the end today I mean we're not going to analyze it fully but we are going to get an algorithm that runs in this time guaranteed in expectation because we're good so the idea is to what we're looking at is a rolling window of T always of size s and at each time we want to know is it the same as s now if somehow it's expensive to check whether a string is equal to a string there's no"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_062",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 2170.0,
+    "end_time": 2215.0,
+    "text": "looking at is a rolling window of T always of size s and at each time we want to know is it the same as s now if somehow it's expensive to check whether a string is equal to a string there's no way getting around that well there are ways but there isn't a way for just given two strings but if somehow instead of checking the strings we could check a hash function of the strings because strings are big potentially we don't know how big S is and so that's the universe of of strings of length s is potentially very big it's expensive to compare things if we could just hash it down to some reasonable size to something that fits in a word then we can compare whether those two words are equal whether those two hash values are equal whether there's a collision in the table that would somehow that would make"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_063",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 2205.0,
+    "end_time": 2250.0,
+    "text": "something that fits in a word then we can compare whether those two words are equal whether those two hash values are equal whether there's a collision in the table that would somehow that would make things go faster we could do that in constant time perer operation how could we do that that's tricky part but that is exactly the right I think"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_064",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 2240.0,
+    "end_time": 2285.0,
+    "text": "I think uh do things a little out of order from what I have in my notes and tell you about something called rolling hashes and then we'll see how they're used so shove that idea we're going to come back to it we need a data structure to help us do this uh because if we just compute the hash function of this thing compare it to the hash function of this thing and then compute the hash function of the next the shifted value of T and compare it we don't have to recompute the hash s that's going to be free once you do it once but Computing the hash function of this and then the hash function of this"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_065",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 2275.0,
+    "end_time": 2320.0,
+    "text": "next the shifted value of T and compare it we don't have to recompute the hash s that's going to be free once you do it once but Computing the hash function of this and then the hash function of this the hash function of this usually to compute each of those hash function would take length of s time and so we're not saving any time somehow if we have the hash function of this the first substring of length s we'd like to very quickly compute the hash function of the yeah yeah you look at this portion s and this portion of s they share s minus one of the characters just one character different first one gets deleted last"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_066",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 2310.0,
+    "end_time": 2355.0,
+    "text": "this portion of s they share s minus one of the characters just one character different first one gets deleted last character gets added so here's what we want we'd like given a hash value maybe I should call this R just to it's not the hash function give it a rolling hash value you might say I'd like to be able to append a character okay I should say um string so there's some string let's call it uh"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_067",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 2345.0,
+    "end_time": 2390.0,
+    "text": "string so there's some string let's call it uh X and this what r. aend of C does is ADD character X and then we also want an operation which is you might call it pop left in Python I'm going to call it"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_068",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 2380.0,
+    "end_time": 2425.0,
+    "text": "assuming it's C so we can do this because over here what we want to do is add this character which is like T of length of s and we want to delete this character from the front which is T of zero then we will get the next string okay and at all times R what's the point of this R you can say R let's say open per close peren this will give you a hash value of the current"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_069",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 2415.0,
+    "end_time": 2460.0,
+    "text": "R you can say R let's say open per close peren this will give you a hash value of the current string so this is basically h of x for some hash function H some reasonable hash function okay if we could do this and we could do each of these operations in constant time then we can do string matching let me tell you how this is called the carp Raven string algorithm and if it's not clear exactly"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_070",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 2450.0,
+    "end_time": 2495.0,
+    "text": "algorithm and if it's not clear exactly what's allowed here you'll see it as we it first thing I'd like to do is compute the hash function of s I only need to do that once so I'll do it in this data structure the only thing you're allowed to do is add characters initially you have an empty string and so for each character in s I'll just append it and now RS gives me a hash value of s okay"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_071",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 2485.0,
+    "end_time": 2530.0,
+    "text": "character in s I'll just append it and now RS gives me a hash value of s okay now I'd like to get started and compute the hash function of the first s T so this would be s and I'm going to call this thing RT and append those characters so now RS is a rolling hash of s RT is a rolling hash of the first s characters in t so I should check whether they're equal if"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_072",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 2520.0,
+    "end_time": 2565.0,
+    "text": "and append those characters so now RS is a rolling hash of s RT is a rolling hash of the first s characters in t so I should check whether they're equal if they're not add one charact shift over by one add one character at the end delete character from the beginning I'm going to have to do this many times so uh I guess technically I need if they're equal then we'll talk about it in a moment the main thing I need to do is this for"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_073",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 2555.0,
+    "end_time": 2600.0,
+    "text": "other and all I need to do is throw away the first letter which I know is T of IUS length s and add the next letter which is going I and then after I do that I don't change HS because that's fixed that's just or sorry I switched from H to in my notes I have H and I've been switching to R so all those H's are rs sorry about"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_074",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 2590.0,
+    "end_time": 2635.0,
+    "text": "just or sorry I switched from H to in my notes I have H and I've been switching to R so all those H's are rs sorry about that so then if RS then potentially that substring of T matches s but it's potentially because we're hashing things are only true in expectation there's some probability of failure just because the hash function of two strings comes out equal doesn't mean the strings themselves are equal because there are"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_075",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 2625.0,
+    "end_time": 2670.0,
+    "text": "expectation there's some probability of failure just because the hash function of two strings comes out equal doesn't mean the strings themselves are equal because there are collisions even distinct strings May map to the same slot in the table so what we check whether H oh gosh s equals T I did slightly less conveniently than before it's like IUS length of s + 1 to I + 1 oh well that wasn't very beautiful but it works"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_076",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 2660.0,
+    "end_time": 2705.0,
+    "text": "1 to I + 1 oh well that wasn't very beautiful but it works um so in this casee I'm going to check it character by character okay if they're equal then we found a match so it's kind of okay that I spent all this time to check them and particular if I'm just looking for the first match like you're searching through a text document you just care about the first match uh then you're done so yeah I spent order s time to do this but if they're equal it's sort of worth that effort I found a match uh if they're not equal we basically hope or we we will"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_077",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 2695.0,
+    "end_time": 2740.0,
+    "text": "this but if they're equal it's sort of worth that effort I found a match uh if they're not equal we basically hope or we we will engineer it so that uh this happens with s we can do that then the expected time so that would be good because then all this if these are"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_078",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 2730.0,
+    "end_time": 2775.0,
+    "text": "so that would be good because then all this if these are taking if skip and a pen take constant time and this sort of double checking only takes constant expected time except when we find matches and then we're we're okay with it then this overall thing will take linear time okay in fact uh you pay S Plus T then you also pay for each match that you want to report you pay a length of s I'm not sure whether you can get rid of that term but in particular if you"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_079",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 2765.0,
+    "end_time": 2810.0,
+    "text": "T then you also pay for each match that you want to report you pay a length of s I'm not sure whether you can get rid of that term but in particular if you cool uh there's one remaining question though which is how do you build this data structure is the algorithm clear though I mean I've wrote it out in gory detail so you can really see what's happening also because you need to do it in your problem set so I give you as much code to work from as possible question what is RS RS is a going to be is going to represent a hash value of s"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_080",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 2800.0,
+    "end_time": 2845.0,
+    "text": "question what is RS RS is a going to be is going to represent a hash value of s okay uh you could just say h of s but uh what I'd like to show is that all you need are these operations and so given a data structure that will compute a hash function given the append operation what I did up here was just append every letter of s into this thing and then RS open PR Clos pren gives me the hash function of do yeah so so there are two rolling hashes one's called RS and one's called RT okay this was a an ADT and I I didn't"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_081",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 2835.0,
+    "end_time": 2880.0,
+    "text": "do yeah so so there are two rolling hashes one's called RS and one's called RT okay this was a an ADT and I I didn't say it at the begin line one I say RS equals a new rolling hash RT equals a new rolling hash sorry I should bind my variables okay so I'm using two of them because I want to compare their values like this other questions it's actually a pretty big idea this is an algorithm from the 90s recent and it's one of the first examples of really using randomization in a super cool way"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_082",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 2870.0,
+    "end_time": 2915.0,
+    "text": "recent and it's one of the first examples of really using randomization in a super cool way structure all right so the remaining thing to do is figure out how to build this ADT what's a data structure that implements this doing spending constant operations now to tell you the truth doing it depends on which hashing method you use which hash function you want to use I just erased the multiplication method because it's a pain to use the"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_083",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 2905.0,
+    "end_time": 2950.0,
+    "text": "operations now to tell you the truth doing it depends on which hashing method you use which hash function you want to use I just erased the multiplication method because it's a pain to use the um bet you could use it actually that's an exercise for you to think about I'm going to use a division method because it's the simplest hash function and it turns out in this setting it does work we're not going to prove uh that this is true this is going to be true in expectation time but carp and Raven prove that this this running time holds even if you just"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_084",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 2940.0,
+    "end_time": 2985.0,
+    "text": "time but carp and Raven prove that this this running time holds even if you just use this simple hash function of the division method where m is chosen to be Prime let's say about as big as or let's say at least as big as length of s the bigger you make the higher probability this is going to be true but length of s will give you this in in on average so we're not going to talk about in this class how to find a random Prime but the the algorithm is choose a random number of about the right size and check"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_085",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 2975.0,
+    "end_time": 3020.0,
+    "text": "average so we're not going to talk about in this class how to find a random Prime but the the algorithm is choose a random number of about the right size and check whether it's Prime if it's not do it again and you know by prime number theorem after log n trials you will find a prime okay and we're not going to talk about how to check whether a number is prime but it can be done all right so uh we're basically done the point is to look at if you look at an operation and you think about how this hash function changes it when you add a single"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_086",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 3010.0,
+    "end_time": 3055.0,
+    "text": "operation and you think about how this hash function changes it when you add a single character oh I should tell you um we're going to treat the string X as a function and the base is the size of alphabet so if you're using asy it's 256 if you're using some uni code it might be larger okay but whatever the charact the size of your characters in your string then when I add a character this"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_087",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 3045.0,
+    "end_time": 3090.0,
+    "text": "alphabet so if you're using asy it's 256 if you're using some uni code it might be larger okay but whatever the charact the size of your characters in your string then when I add a character this is like taking my number shifting it over by one and then adding a new value so how do I shift over by one I multiply by a so if I have some value some current hash value U it changes to U * a or sorry this is the the uh number represented by the string I multiply by a and then I add on the character or in Python you'd write or of the character that's the number associated with that character okay that gives me the new string very"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_088",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 3080.0,
+    "end_time": 3125.0,
+    "text": "the character or in Python you'd write or of the character that's the number associated with that character okay that gives me the new string very easy if I want to do Skip it's slightly more annoying but skip means just annihilate this value and so it's like U goes to U minus uh the character time a the^ size of uus one that's I have to shift over shift this character over to that position then annihilate it with a minus sign you could also do xor okay when I do this I just think about how the hash function is changing everything is just modul m so if I have"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_089",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 3115.0,
+    "end_time": 3160.0,
+    "text": "sign you could also do xor okay when I do this I just think about how the hash function is changing everything is just modul m so if I have some hash value here r i take R * A Plus or of c and I just do that computation modulo M and I'll get the new Hash Hash value do the same thing down here I'll get the new hash value so what R stores is the current hash value and it stores a to the power length of U um or length of X whatever you want to call it so that would be a little better and then it can do these in constant number of operations just compute everything modu m one"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec09_chunk_090",
+    "video_id": "mit_6006f11_lec09",
+    "start_time": 3150.0,
+    "end_time": 3195.0,
+    "text": "it so that would be a little better and then it can do these in constant number of operations just compute everything modu m one multiplication one addition you can do aend and Skip and then you have the hash value instantly it's just stored and"
+  }
+]

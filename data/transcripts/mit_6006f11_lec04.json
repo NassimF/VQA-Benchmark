@@ -1,0 +1,4681 @@
+{
+  "video_id": "mit_6006f11_lec04",
+  "source": "youtube_auto_captions",
+  "segments": [
+    {
+      "start": 1.87,
+      "end": 4.63,
+      "text": "the following content is provided under"
+    },
+    {
+      "start": 4.63,
+      "end": 6.749,
+      "text": "a Creative Commons license your support"
+    },
+    {
+      "start": 6.749,
+      "end": 8.709,
+      "text": "will help MIT open courseware continue"
+    },
+    {
+      "start": 8.709,
+      "end": 11.87,
+      "text": "to offer highquality educational"
+    },
+    {
+      "start": 11.87,
+      "end": 13.829,
+      "text": "resources for free to make a donation or"
+    },
+    {
+      "start": 13.829,
+      "end": 17.15,
+      "text": "view additional materials from hundreds"
+    },
+    {
+      "start": 17.15,
+      "end": 23.429,
+      "text": "of MIT courses visit MIT opencourseware"
+    },
+    {
+      "start": 23.429,
+      "end": 25.509,
+      "text": "ocw.mit.edu one of the cutest little"
+    },
+    {
+      "start": 25.509,
+      "end": 28.47,
+      "text": "data structures uh that was ever"
+    },
+    {
+      "start": 28.47,
+      "end": 31.83,
+      "text": "invented called the Heap and we're going"
+    },
+    {
+      "start": 31.83,
+      "end": 34.47,
+      "text": "to use uh the Heap as an example"
+    },
+    {
+      "start": 34.47,
+      "end": 39.549,
+      "text": "implementation of a priority"
+    },
+    {
+      "start": 39.549,
+      "end": 42.83,
+      "text": "q and we'll also use heaps to build a"
+    },
+    {
+      "start": 42.83,
+      "end": 45.11,
+      "text": "sorting algorithm called Heap Sort um"
+    },
+    {
+      "start": 45.11,
+      "end": 49.189,
+      "text": "that is very very different from either"
+    },
+    {
+      "start": 49.189,
+      "end": 50.99,
+      "text": "insertion sort or merge sort and it has"
+    },
+    {
+      "start": 50.99,
+      "end": 55.27,
+      "text": "some nice properties that neither"
+    },
+    {
+      "start": 55.27,
+      "end": 58.549,
+      "text": "insertion sort nor merge sort have but"
+    },
+    {
+      "start": 58.549,
+      "end": 60.47,
+      "text": "what I want to do is get started with"
+    },
+    {
+      "start": 60.47,
+      "end": 61.83,
+      "text": "motivating"
+    },
+    {
+      "start": 61.83,
+      "end": 63.95,
+      "text": "the Heap data"
+    },
+    {
+      "start": 63.95,
+      "end": 66.91,
+      "text": "structure regardless of whether you're"
+    },
+    {
+      "start": 66.91,
+      "end": 69.149,
+      "text": "interested in sorting or not so the"
+    },
+    {
+      "start": 69.149,
+      "end": 71.99,
+      "text": "notion of priority Q I think makes"
+    },
+    {
+      "start": 71.99,
+      "end": 75.67,
+      "text": "intuitive sense to all of you it's"
+    },
+    {
+      "start": 75.67,
+      "end": 105.749,
+      "text": "essentially a structure that implements"
+    },
+    {
+      "start": 105.749,
+      "end": 108.10900000000001,
+      "text": "key and as you can imagine a priority Q"
+    },
+    {
+      "start": 108.10900000000001,
+      "end": 110.749,
+      "text": "is something where you queue up for"
+    },
+    {
+      "start": 110.749,
+      "end": 112.31,
+      "text": "something uh you want to buy something"
+    },
+    {
+      "start": 112.31,
+      "end": 114.709,
+      "text": "you want to sell something you have"
+    },
+    {
+      "start": 114.709,
+      "end": 118.069,
+      "text": "certain priorities assigned to"
+    },
+    {
+      "start": 118.069,
+      "end": 120.109,
+      "text": "you and uh you want to pick the maximum"
+    },
+    {
+      "start": 120.109,
+      "end": 121.99,
+      "text": "priority or the Min priority you want to"
+    },
+    {
+      "start": 121.99,
+      "end": 123.749,
+      "text": "be able to delete it from the queue you"
+    },
+    {
+      "start": 123.749,
+      "end": 125.55,
+      "text": "want to be able to insert things into"
+    },
+    {
+      "start": 125.55,
+      "end": 129.109,
+      "text": "this queue you want to be able to change"
+    },
+    {
+      "start": 129.109,
+      "end": 131.71,
+      "text": "priorities in the queue so all of these"
+    },
+    {
+      "start": 131.71,
+      "end": 135.75,
+      "text": "operations are are interesting"
+    },
+    {
+      "start": 135.75,
+      "end": 137.82999999999998,
+      "text": "operations that should run fast and for"
+    },
+    {
+      "start": 137.82999999999998,
+      "end": 139.50900000000001,
+      "text": "some definition of fast obviously we"
+    },
+    {
+      "start": 139.50900000000001,
+      "end": 141.55,
+      "text": "interested in the asmic complexity"
+    },
+    {
+      "start": 141.55,
+      "end": 143.67000000000002,
+      "text": "definition of fast in that case we'll be"
+    },
+    {
+      "start": 143.67000000000002,
+      "end": 147.75,
+      "text": "saying does this operation run in order"
+    },
+    {
+      "start": 147.75,
+      "end": 150.15,
+      "text": "end time order log end time Etc um so in"
+    },
+    {
+      "start": 150.15,
+      "end": 153.949,
+      "text": "general I think for the next few"
+    },
+    {
+      "start": 153.949,
+      "end": 156.71,
+      "text": "lectures you're going to see uh a"
+    },
+    {
+      "start": 156.71,
+      "end": 158.869,
+      "text": "specification of a data structure in"
+    },
+    {
+      "start": 158.869,
+      "end": 160.79,
+      "text": "terms of the operations that the data"
+    },
+    {
+      "start": 160.79,
+      "end": 163.03,
+      "text": "structure should perform and those of"
+    },
+    {
+      "start": 163.03,
+      "end": 165.27,
+      "text": "you who have taken 65 you'll see that"
+    },
+    {
+      "start": 165.27,
+      "end": 168.149,
+      "text": "it's basically an abstract data typee"
+    },
+    {
+      "start": 168.149,
+      "end": 169.63,
+      "text": "that's associated with this uh these"
+    },
+    {
+      "start": 169.63,
+      "end": 173.22899999999998,
+      "text": "operations so it's a spec for the"
+    },
+    {
+      "start": 173.22899999999998,
+      "end": 176.309,
+      "text": "abstract data type um in 65 you didn't"
+    },
+    {
+      "start": 176.309,
+      "end": 177.99,
+      "text": "really spend a lot of time on asmic"
+    },
+    {
+      "start": 177.99,
+      "end": 180.35,
+      "text": "complexity or the efficiency of"
+    },
+    {
+      "start": 180.35,
+      "end": 183.75,
+      "text": "operations on the abstract data type"
+    },
+    {
+      "start": 183.75,
+      "end": 186.869,
+      "text": "here in6 we'll specify this"
+    },
+    {
+      "start": 186.869,
+      "end": 189.949,
+      "text": "ADT and specify the set of operations or"
+    },
+    {
+      "start": 189.949,
+      "end": 191.71,
+      "text": "methods in the ADT and we'll talk about"
+    },
+    {
+      "start": 191.71,
+      "end": 194.83,
+      "text": "whether these are order n complexity or"
+    },
+    {
+      "start": 194.83,
+      "end": 198.63,
+      "text": "order n log n complexity and compare and"
+    },
+    {
+      "start": 198.63,
+      "end": 199.75,
+      "text": "contrast different adts so today's ADT"
+    },
+    {
+      "start": 199.75,
+      "end": 201.82999999999998,
+      "text": "is a"
+    },
+    {
+      "start": 201.82999999999998,
+      "end": 205.22899999999998,
+      "text": "heap and so what"
+    },
+    {
+      "start": 205.22899999999998,
+      "end": 208.55,
+      "text": "is the set of operations that we'd like"
+    },
+    {
+      "start": 208.55,
+      "end": 210.55,
+      "text": "to perform on a priority queue so we can"
+    },
+    {
+      "start": 210.55,
+      "end": 215.35,
+      "text": "use that to motivate the development of"
+    },
+    {
+      "start": 215.35,
+      "end": 217.35,
+      "text": "a heap and those are insert SX so you"
+    },
+    {
+      "start": 217.35,
+      "end": 218.429,
+      "text": "have a set of elements s and you want to"
+    },
+    {
+      "start": 218.429,
+      "end": 220.63,
+      "text": "be able to"
+    },
+    {
+      "start": 220.63,
+      "end": 223.39,
+      "text": "insert"
+    },
+    {
+      "start": 223.39,
+      "end": 226.07,
+      "text": "element X"
+    },
+    {
+      "start": 226.07,
+      "end": 230.47,
+      "text": "into set"
+    },
+    {
+      "start": 230.47,
+      "end": 251.03,
+      "text": "s um you want to be able to do Max of"
+    },
+    {
+      "start": 251.03,
+      "end": 256.469,
+      "text": "key and different from Max of x s rather"
+    },
+    {
+      "start": 256.469,
+      "end": 259.87,
+      "text": "is extract Max of s which not only"
+    },
+    {
+      "start": 259.87,
+      "end": 265.749,
+      "text": "Returns the element with the largest key"
+    },
+    {
+      "start": 265.749,
+      "end": 269.749,
+      "text": "also removes"
+    },
+    {
+      "start": 269.749,
+      "end": 271.99,
+      "text": "it from s so this is you have a Q and"
+    },
+    {
+      "start": 271.99,
+      "end": 273.39,
+      "text": "and the person in the que was serviced"
+    },
+    {
+      "start": 273.39,
+      "end": 275.11,
+      "text": "or the element in the que was serviced"
+    },
+    {
+      "start": 275.11,
+      "end": 279.35,
+      "text": "and then removed from the"
+    },
+    {
+      "start": 279.35,
+      "end": 280.909,
+      "text": "que um and finally you can"
+    },
+    {
+      "start": 280.909,
+      "end": 283.469,
+      "text": "imagine"
+    },
+    {
+      "start": 283.469,
+      "end": 287.95,
+      "text": "changing the priority of a particular"
+    },
+    {
+      "start": 287.95,
+      "end": 292.629,
+      "text": "element X in the set s and this priority"
+    },
+    {
+      "start": 292.629,
+      "end": 294.55,
+      "text": "this an Associated uh key as we have up"
+    },
+    {
+      "start": 294.55,
+      "end": 301.23,
+      "text": "up up there with each element and that"
+    },
+    {
+      "start": 301.23,
+      "end": 312.79,
+      "text": "key is call it K and increase key s x"
+    },
+    {
+      "start": 312.79,
+      "end": 324.189,
+      "text": "value of x's"
+    },
+    {
+      "start": 324.189,
+      "end": 326.79,
+      "text": "K right and you know"
+    },
+    {
+      "start": 326.79,
+      "end": 330.309,
+      "text": "K could correspond to it's just called"
+    },
+    {
+      "start": 330.309,
+      "end": 331.83,
+      "text": "increase uh most of the time uh you're"
+    },
+    {
+      "start": 331.83,
+      "end": 333.15,
+      "text": "increasing the value in maybe a"
+    },
+    {
+      "start": 333.15,
+      "end": 335.469,
+      "text": "particular application you could have"
+    },
+    {
+      "start": 335.469,
+      "end": 337.67,
+      "text": "certainly a decrease key and you'd have"
+    },
+    {
+      "start": 337.67,
+      "end": 339.59000000000003,
+      "text": "to know what the previous value was and"
+    },
+    {
+      "start": 339.59000000000003,
+      "end": 341.029,
+      "text": "it's just a matter of exactly what"
+    },
+    {
+      "start": 341.029,
+      "end": 344.15,
+      "text": "operation you want to perform you could"
+    },
+    {
+      "start": 344.15,
+      "end": 345.35,
+      "text": "call it update and or increment whatever"
+    },
+    {
+      "start": 345.35,
+      "end": 348.67,
+      "text": "you"
+    },
+    {
+      "start": 348.67,
+      "end": 350.59000000000003,
+      "text": "like I'm going to spend most of the time"
+    },
+    {
+      "start": 350.59000000000003,
+      "end": 352.749,
+      "text": "here talking"
+    },
+    {
+      "start": 352.749,
+      "end": 355.67,
+      "text": "about how you"
+    },
+    {
+      "start": 355.67,
+      "end": 359.30899999999997,
+      "text": "maintain a repin variant of this data"
+    },
+    {
+      "start": 359.30899999999997,
+      "end": 361.71,
+      "text": "structure called the Heap that allows"
+    },
+    {
+      "start": 361.71,
+      "end": 364.55,
+      "text": "you to to do these operations in an"
+    },
+    {
+      "start": 364.55,
+      "end": 366.189,
+      "text": "efficient way and we'll talk about what"
+    },
+    {
+      "start": 366.189,
+      "end": 367.83,
+      "text": "the efficiency is and we'll try and"
+    },
+    {
+      "start": 367.83,
+      "end": 370.43,
+      "text": "analyze the efficiency of these"
+    },
+    {
+      "start": 370.43,
+      "end": 373.469,
+      "text": "algorithms that we put up all"
+    },
+    {
+      "start": 373.469,
+      "end": 376.15,
+      "text": "right so let's talk about a heap a heap"
+    },
+    {
+      "start": 376.15,
+      "end": 380.87,
+      "text": "is an implementation of a priority"
+    },
+    {
+      "start": 380.87,
+      "end": 384.15,
+      "text": "Cube it's amazingly an array"
+    },
+    {
+      "start": 384.15,
+      "end": 403.99,
+      "text": "structure except that your visualizing"
+    },
+    {
+      "start": 403.99,
+      "end": 407.39,
+      "text": "treat and so what does that mean exactly"
+    },
+    {
+      "start": 407.39,
+      "end": 410.23,
+      "text": "well the best way to understand that is"
+    },
+    {
+      "start": 410.23,
+      "end": 425.43,
+      "text": "by looking at an"
+    },
+    {
+      "start": 425.43,
+      "end": 426.67,
+      "text": "1 2 3 4 5 6 7 8 9 10 so here's my array"
+    },
+    {
+      "start": 426.67,
+      "end": 430.07,
+      "text": "of 10"
+    },
+    {
+      "start": 430.07,
+      "end": 433.55,
+      "text": "elements and the elements"
+    },
+    {
+      "start": 433.55,
+      "end": 441.629,
+      "text": "are 16"
+    },
+    {
+      "start": 441.629,
+      "end": 443.55,
+      "text": "7 so some set of elements they're in"
+    },
+    {
+      "start": 443.55,
+      "end": 446.15,
+      "text": "random order clearly not"
+    },
+    {
+      "start": 446.15,
+      "end": 447.749,
+      "text": "sorted and I'm looking at the indices"
+    },
+    {
+      "start": 447.749,
+      "end": 450.43,
+      "text": "and I'm looking at the elements and I'm"
+    },
+    {
+      "start": 450.43,
+      "end": 452.79,
+      "text": "going to visualize this as has a nearly"
+    },
+    {
+      "start": 452.79,
+      "end": 454.23,
+      "text": "complete binary tree it's not a full"
+    },
+    {
+      "start": 454.23,
+      "end": 456.99,
+      "text": "binary tree because I only have 10"
+    },
+    {
+      "start": 456.99,
+      "end": 460.07,
+      "text": "elements in it and it would have to have"
+    },
+    {
+      "start": 460.07,
+      "end": 462.83,
+      "text": "16 uh 15 elements to be a a complete"
+    },
+    {
+      "start": 462.83,
+      "end": 465.749,
+      "text": "binary tree and we want to be able to do"
+    },
+    {
+      "start": 465.749,
+      "end": 469.029,
+      "text": "the general case of an arbitrary size"
+    },
+    {
+      "start": 469.029,
+      "end": 471.30899999999997,
+      "text": "array and so that's why we have a nearly"
+    },
+    {
+      "start": 471.30899999999997,
+      "end": 475.029,
+      "text": "complete here so what does it mean to"
+    },
+    {
+      "start": 475.029,
+      "end": 479.749,
+      "text": "visualize this as a tree"
+    },
+    {
+      "start": 479.749,
+      "end": 483.55,
+      "text": "well index one is the root of the tree"
+    },
+    {
+      "start": 483.55,
+      "end": 485.23,
+      "text": "and that's item with the value"
+    },
+    {
+      "start": 485.23,
+      "end": 489.67,
+      "text": "16"
+    },
+    {
+      "start": 489.67,
+      "end": 503.23,
+      "text": "and what I have are indices two and"
+    },
+    {
+      "start": 503.23,
+      "end": 505.629,
+      "text": "and four five six and seven are the"
+    },
+    {
+      "start": 505.629,
+      "end": 507.79,
+      "text": "children of two and"
+    },
+    {
+      "start": 507.79,
+      "end": 515.509,
+      "text": "three"
+    },
+    {
+      "start": 515.509,
+      "end": 519.79,
+      "text": "nine and"
+    },
+    {
+      "start": 519.79,
+      "end": 522.11,
+      "text": "10 are the children of uh four and five"
+    },
+    {
+      "start": 522.11,
+      "end": 523.7090000000001,
+      "text": "in this case and so that's the the"
+    },
+    {
+      "start": 523.7090000000001,
+      "end": 525.71,
+      "text": "picture you want to keep in your head"
+    },
+    {
+      "start": 525.71,
+      "end": 527.79,
+      "text": "for the rest of this lecture anytime you"
+    },
+    {
+      "start": 527.79,
+      "end": 529.269,
+      "text": "see an array you say we're going we're"
+    },
+    {
+      "start": 529.269,
+      "end": 531.829,
+      "text": "looking at the Heap representation of"
+    },
+    {
+      "start": 531.829,
+      "end": 534.79,
+      "text": "the array the picture on the right tells"
+    },
+    {
+      "start": 534.79,
+      "end": 536.47,
+      "text": "you what the Heap looks like and so the"
+    },
+    {
+      "start": 536.47,
+      "end": 539.55,
+      "text": "I'm not going to fill in all of these"
+    },
+    {
+      "start": 539.55,
+      "end": 542.67,
+      "text": "you can but I'll do a couple so you have"
+    },
+    {
+      "start": 542.67,
+      "end": 546.59,
+      "text": "10 here"
+    },
+    {
+      "start": 546.59,
+      "end": 550.509,
+      "text": "and 8 7"
+    },
+    {
+      "start": 550.509,
+      "end": 553.19,
+      "text": "Etc so that's that's a heap structure so"
+    },
+    {
+      "start": 553.19,
+      "end": 557.069,
+      "text": "what's nice about this Heap structure is"
+    },
+    {
+      "start": 557.069,
+      "end": 560.069,
+      "text": "that uh you have a tree"
+    },
+    {
+      "start": 560.069,
+      "end": 562.949,
+      "text": "representation of an array and that lets"
+    },
+    {
+      "start": 562.949,
+      "end": 564.75,
+      "text": "you do a bunch of interesting things"
+    },
+    {
+      "start": 564.75,
+      "end": 566.91,
+      "text": "what do you"
+    },
+    {
+      "start": 566.91,
+      "end": 574.67,
+      "text": "get out of this"
+    },
+    {
+      "start": 574.67,
+      "end": 582.55,
+      "text": "the root of the"
+    },
+    {
+      "start": 582.55,
+      "end": 585.67,
+      "text": "element corresponding to I equal"
+    },
+    {
+      "start": 585.67,
+      "end": 587.47,
+      "text": "1 the"
+    },
+    {
+      "start": 587.47,
+      "end": 591.35,
+      "text": "parent of"
+    },
+    {
+      "start": 591.35,
+      "end": 596.19,
+      "text": "I is I /"
+    },
+    {
+      "start": 596.19,
+      "end": 600.15,
+      "text": "2 the left child of I is 2"
+    },
+    {
+      "start": 600.15,
+      "end": 603.43,
+      "text": "I and the right child"
+    },
+    {
+      "start": 603.43,
+      "end": 607.509,
+      "text": "of I is 2 I +"
+    },
+    {
+      "start": 607.509,
+      "end": 610.269,
+      "text": "1 all right so that's essentially what"
+    },
+    {
+      "start": 610.269,
+      "end": 613.31,
+      "text": "this mapping corresponds to now on top"
+    },
+    {
+      "start": 613.31,
+      "end": 616.509,
+      "text": "of that um this is just what a heap"
+    },
+    {
+      "start": 616.509,
+      "end": 619.99,
+      "text": "corresponds to um we're going to have"
+    },
+    {
+      "start": 619.99,
+      "end": 623.35,
+      "text": "particular types of heaps that that"
+    },
+    {
+      "start": 623.35,
+      "end": 624.91,
+      "text": "we'll call Max heaps and Min heaps and"
+    },
+    {
+      "start": 624.91,
+      "end": 627.35,
+      "text": "as you can imagine Max heaps and Min"
+    },
+    {
+      "start": 627.35,
+      "end": 629.949,
+      "text": "heaps have additional properties on top"
+    },
+    {
+      "start": 629.949,
+      "end": 631.87,
+      "text": "of the basic Heap structure so this is"
+    },
+    {
+      "start": 631.87,
+      "end": 634.15,
+      "text": "essentially a definition of a heap now"
+    },
+    {
+      "start": 634.15,
+      "end": 644.509,
+      "text": "I'm going to Define what the max Heap"
+    },
+    {
+      "start": 644.509,
+      "end": 651.31,
+      "text": "is and the max he property says"
+    },
+    {
+      "start": 651.31,
+      "end": 659.79,
+      "text": "key of a"
+    },
+    {
+      "start": 659.79,
+      "end": 668.31,
+      "text": "to the Keys"
+    },
+    {
+      "start": 668.31,
+      "end": 672.47,
+      "text": "children okay that's it um it's"
+    },
+    {
+      "start": 672.47,
+      "end": 677.069,
+      "text": "obviously recursive um in the sense that"
+    },
+    {
+      "start": 677.069,
+      "end": 680.31,
+      "text": "you have to have this true for every"
+    },
+    {
+      "start": 680.31,
+      "end": 683.67,
+      "text": "node in the tree and when you get down"
+    },
+    {
+      "start": 683.67,
+      "end": 685.03,
+      "text": "to the leaves of the tree uh they"
+    },
+    {
+      "start": 685.03,
+      "end": 687.43,
+      "text": "they're not children corresponding to"
+    },
+    {
+      "start": 687.43,
+      "end": 689.91,
+      "text": "the leaves so that's a trivial property"
+    },
+    {
+      "start": 689.91,
+      "end": 691.629,
+      "text": "but at higher levels"
+    },
+    {
+      "start": 691.629,
+      "end": 693.75,
+      "text": "you're going to have children and you"
+    },
+    {
+      "start": 693.75,
+      "end": 695.47,
+      "text": "have to check that so if you look at"
+    },
+    {
+      "start": 695.47,
+      "end": 697.629,
+      "text": "this example"
+    },
+    {
+      "start": 697.629,
+      "end": 701.269,
+      "text": "here I maybe I should fill this whole"
+    },
+    {
+      "start": 701.269,
+      "end": 704.75,
+      "text": "thing out so I have eight and seven here"
+    },
+    {
+      "start": 704.75,
+      "end": 706.19,
+      "text": "and six would be nine and I have three"
+    },
+    {
+      "start": 706.19,
+      "end": 712.15,
+      "text": "over"
+    },
+    {
+      "start": 712.15,
+      "end": 714.71,
+      "text": "here and then two 4 1 right so we can"
+    },
+    {
+      "start": 714.71,
+      "end": 717.75,
+      "text": "look at this and and check whether it"
+    },
+    {
+      "start": 717.75,
+      "end": 721.59,
+      "text": "has the max heat property or not um does"
+    },
+    {
+      "start": 721.59,
+      "end": 724.15,
+      "text": "it have the max heat property do he yeah"
+    },
+    {
+      "start": 724.15,
+      "end": 728.629,
+      "text": "all you have to do is look at one these"
+    },
+    {
+      "start": 728.629,
+      "end": 730.55,
+      "text": "nodes one two three indices index four"
+    },
+    {
+      "start": 730.55,
+      "end": 732.71,
+      "text": "five six and well you don't have to look"
+    },
+    {
+      "start": 732.71,
+      "end": 734.829,
+      "text": "at six and seven uh because they don't"
+    },
+    {
+      "start": 734.829,
+      "end": 738.389,
+      "text": "have any children uh but you could stop"
+    },
+    {
+      "start": 738.389,
+      "end": 741.829,
+      "text": "with u with five here and you you look"
+    },
+    {
+      "start": 741.829,
+      "end": 745.189,
+      "text": "at the children and there you go uh the"
+    },
+    {
+      "start": 745.189,
+      "end": 747.35,
+      "text": "parent is greater than or equal to"
+    },
+    {
+      "start": 747.35,
+      "end": 750.59,
+      "text": "either of its children or its only child"
+    },
+    {
+      "start": 750.59,
+      "end": 752.949,
+      "text": "in the case of node five and so you have"
+    },
+    {
+      "start": 752.949,
+      "end": 755.269,
+      "text": "the Maxi property right it's a fairly"
+    },
+    {
+      "start": 755.269,
+      "end": 758.75,
+      "text": "straightforward"
+    },
+    {
+      "start": 758.75,
+      "end": 762.15,
+      "text": "property and you can imagine"
+    },
+    {
+      "start": 762.15,
+      "end": 764.389,
+      "text": "defining the Min Heap property in an"
+    },
+    {
+      "start": 764.389,
+      "end": 766.269,
+      "text": "equivalent way all right just replace"
+    },
+    {
+      "start": 766.269,
+      "end": 769.59,
+      "text": "the greater than or equal to with less"
+    },
+    {
+      "start": 769.59,
+      "end": 771.23,
+      "text": "than or equal to so right off the"
+    },
+    {
+      "start": 771.23,
+      "end": 775.15,
+      "text": "bat"
+    },
+    {
+      "start": 775.15,
+      "end": 776.55,
+      "text": "um what operation is going to be"
+    },
+    {
+      "start": 776.55,
+      "end": 779.949,
+      "text": "trivially"
+    },
+    {
+      "start": 779.949,
+      "end": 782.11,
+      "text": "performed on a Max Heat this is a kind"
+    },
+    {
+      "start": 782.11,
+      "end": 783.829,
+      "text": "of a trivial question"
+    },
+    {
+      "start": 783.829,
+      "end": 786.11,
+      "text": "but"
+    },
+    {
+      "start": 786.11,
+      "end": 791.03,
+      "text": "yep just finding the biggest element"
+    },
+    {
+      "start": 791.03,
+      "end": 793.55,
+      "text": "exactly right um the max operation now"
+    },
+    {
+      "start": 793.55,
+      "end": 798.15,
+      "text": "um what about extract"
+    },
+    {
+      "start": 798.15,
+      "end": 802.87,
+      "text": "Max is that trivially performed on a Max"
+    },
+    {
+      "start": 802.87,
+      "end": 806.829,
+      "text": "Heap no because uh uh so what do I mean"
+    },
+    {
+      "start": 806.829,
+      "end": 809.23,
+      "text": "by that by when you say Max is trivially"
+    },
+    {
+      "start": 809.23,
+      "end": 811.43,
+      "text": "performed what it means is that you can"
+    },
+    {
+      "start": 811.43,
+      "end": 814.87,
+      "text": "return the max you can find the maximum"
+    },
+    {
+      "start": 814.87,
+      "end": 817.43,
+      "text": "element or a maximum element and uh you"
+    },
+    {
+      "start": 817.43,
+      "end": 819.67,
+      "text": "obviously don't modify the Heap and the"
+    },
+    {
+      "start": 819.67,
+      "end": 822.389,
+      "text": "Heap stays the same so it stays a Max"
+    },
+    {
+      "start": 822.389,
+      "end": 824.43,
+      "text": "Heap in general when we talk about data"
+    },
+    {
+      "start": 824.43,
+      "end": 826.55,
+      "text": "structures and this goes back to repin"
+    },
+    {
+      "start": 826.55,
+      "end": 828.67,
+      "text": "variance which I mentioned already you"
+    },
+    {
+      "start": 828.67,
+      "end": 832.269,
+      "text": "typically want to maintain this repin"
+    },
+    {
+      "start": 832.269,
+      "end": 834.389,
+      "text": "variant and so the repin variant of our"
+    },
+    {
+      "start": 834.389,
+      "end": 836.55,
+      "text": "data structure in this case is a Max"
+    },
+    {
+      "start": 836.55,
+      "end": 839.189,
+      "text": "heat property okay so if we want to"
+    },
+    {
+      "start": 839.189,
+      "end": 841.189,
+      "text": "maintain the max heat property as we"
+    },
+    {
+      "start": 841.189,
+      "end": 843.31,
+      "text": "modify the Heap so if you go from one"
+    },
+    {
+      "start": 843.31,
+      "end": 845.629,
+      "text": "Heap to another you start with a Max"
+    },
+    {
+      "start": 845.629,
+      "end": 848.069,
+      "text": "Heap you want to end with a Max Heap"
+    },
+    {
+      "start": 848.069,
+      "end": 850.43,
+      "text": "okay and it makes perfect sense because"
+    },
+    {
+      "start": 850.43,
+      "end": 852.67,
+      "text": "um one of the simplest things that you"
+    },
+    {
+      "start": 852.67,
+      "end": 854.79,
+      "text": "want to do in a priority queue is you"
+    },
+    {
+      "start": 854.79,
+      "end": 856.71,
+      "text": "want to be able to create a priority"
+    },
+    {
+      "start": 856.71,
+      "end": 859.269,
+      "text": "queue and you want to be able to run"
+    },
+    {
+      "start": 859.269,
+      "end": 861.87,
+      "text": "extract Max on the priority queue over"
+    },
+    {
+      "start": 861.87,
+      "end": 863.43,
+      "text": "and over right and what that means is"
+    },
+    {
+      "start": 863.43,
+      "end": 865.749,
+      "text": "that you take the max element you delete"
+    },
+    {
+      "start": 865.749,
+      "end": 868.47,
+      "text": "it take the next Max element delete it"
+    },
+    {
+      "start": 868.47,
+      "end": 869.629,
+      "text": "and so on and so forth and there you go"
+    },
+    {
+      "start": 869.629,
+      "end": 872.31,
+      "text": "all right"
+    },
+    {
+      "start": 872.31,
+      "end": 874.629,
+      "text": "and it's a bit of a preview here but uh"
+    },
+    {
+      "start": 874.629,
+      "end": 878.269,
+      "text": "you can imagine that if you did that uh"
+    },
+    {
+      "start": 878.269,
+      "end": 880.949,
+      "text": "you would get a sorted list of elements"
+    },
+    {
+      "start": 880.949,
+      "end": 883.47,
+      "text": "in decreasing order right so you see the"
+    },
+    {
+      "start": 883.47,
+      "end": 884.79,
+      "text": "connection to sorting because you could"
+    },
+    {
+      "start": 884.79,
+      "end": 886.87,
+      "text": "imagine that once we have this Heap"
+    },
+    {
+      "start": 886.87,
+      "end": 889.35,
+      "text": "structure and we can maintain the max he"
+    },
+    {
+      "start": 889.35,
+      "end": 891.55,
+      "text": "property that we could continually run"
+    },
+    {
+      "start": 891.55,
+      "end": 894.03,
+      "text": "extract Max on it and if we could build"
+    },
+    {
+      "start": 894.03,
+      "end": 897.67,
+      "text": "extract Max in an efficient way we might"
+    },
+    {
+      "start": 897.67,
+      "end": 904.35,
+      "text": "have a a fantastic sorting algorithm all"
+    },
+    {
+      "start": 904.35,
+      "end": 906.749,
+      "text": "so the big question that really remains"
+    },
+    {
+      "start": 906.749,
+      "end": 910.91,
+      "text": "is how do we maintain the max heat"
+    },
+    {
+      "start": 910.91,
+      "end": 913.389,
+      "text": "property as we modify the heat okay and"
+    },
+    {
+      "start": 913.389,
+      "end": 915.829,
+      "text": "how would you go the other question"
+    },
+    {
+      "start": 915.829,
+      "end": 923.629,
+      "text": "which I haven't answered"
+    },
+    {
+      "start": 923.629,
+      "end": 928.03,
+      "text": "um there's a there's there's um this"
+    },
+    {
+      "start": 928.03,
+      "end": 931.11,
+      "text": "array that turns out it was a Max heat"
+    },
+    {
+      "start": 931.11,
+      "end": 943.749,
+      "text": "okay but it's quite possible that I have"
+    },
+    {
+      "start": 943.749,
+      "end": 946.949,
+      "text": "array in fact let me make this"
+    },
+    {
+      "start": 946.949,
+      "end": 949.15,
+      "text": "one that is that is not a Max Heap it's"
+    },
+    {
+      "start": 949.15,
+      "end": 952.309,
+      "text": "not a Max Heap it's not a Min Heap it's"
+    },
+    {
+      "start": 952.309,
+      "end": 957.829,
+      "text": "neither right it's just a heap okay so"
+    },
+    {
+      "start": 957.829,
+      "end": 960.749,
+      "text": "transform or visualized I should say"
+    },
+    {
+      "start": 960.749,
+      "end": 963.069,
+      "text": "this array as as a heap I don't have a"
+    },
+    {
+      "start": 963.069,
+      "end": 967.15,
+      "text": "Max Heap I don't have a Min Heap so if I"
+    },
+    {
+      "start": 967.15,
+      "end": 968.309,
+      "text": "were interested in sorting and I am um"
+    },
+    {
+      "start": 968.309,
+      "end": 969.71,
+      "text": "there's there's another thing that's"
+    },
+    {
+      "start": 969.71,
+      "end": 971.99,
+      "text": "sort of missing here that we have to"
+    },
+    {
+      "start": 971.99,
+      "end": 975.91,
+      "text": "work on which is how are we going to"
+    },
+    {
+      "start": 975.91,
+      "end": 978.949,
+      "text": "build a Max Heap out of an initially"
+    },
+    {
+      "start": 978.949,
+      "end": 982.389,
+      "text": "unsorted array right which may or may"
+    },
+    {
+      "start": 982.389,
+      "end": 983.79,
+      "text": "not turn into a Max seat this trivially"
+    },
+    {
+      "start": 983.79,
+      "end": 985.87,
+      "text": "happened to be exactly the right thing"
+    },
+    {
+      "start": 985.87,
+      "end": 989.15,
+      "text": "because I picked it and it turned into a"
+    },
+    {
+      "start": 989.15,
+      "end": 990.35,
+      "text": "Max SE just by visualizing it but it's"
+    },
+    {
+      "start": 990.35,
+      "end": 992.069,
+      "text": "quite possible that you know you have"
+    },
+    {
+      "start": 992.069,
+      "end": 996.59,
+      "text": "arrays that are input to your sorting"
+    },
+    {
+      "start": 996.59,
+      "end": 1000.43,
+      "text": "algorithm that look like that right"
+    },
+    {
+      "start": 1000.43,
+      "end": 1002.069,
+      "text": "yep okay so let's dive into Heap"
+    },
+    {
+      "start": 1002.069,
+      "end": 1003.99,
+      "text": "operations I'm going to have to"
+    },
+    {
+      "start": 1003.99,
+      "end": 1007.55,
+      "text": "spend some"
+    },
+    {
+      "start": 1007.55,
+      "end": 1009.87,
+      "text": "time describing to you a bunch of"
+    },
+    {
+      "start": 1009.87,
+      "end": 1013.509,
+      "text": "different methods that you would call on"
+    },
+    {
+      "start": 1013.509,
+      "end": 1015.71,
+      "text": "a heap and all of these methods are"
+    },
+    {
+      "start": 1015.71,
+      "end": 1017.629,
+      "text": "going to have to maintain our"
+    },
+    {
+      "start": 1017.629,
+      "end": 1019.749,
+      "text": "representation invariant or the Maxi"
+    },
+    {
+      "start": 1019.749,
+      "end": 1021.15,
+      "text": "property"
+    },
+    {
+      "start": 1021.15,
+      "end": 1025.15,
+      "text": "so what are the Heap"
+    },
+    {
+      "start": 1025.15,
+      "end": 1028.949,
+      "text": "operations that we have to"
+    },
+    {
+      "start": 1028.949,
+      "end": 1032.71,
+      "text": "implement and analyze the complexity for"
+    },
+    {
+      "start": 1032.71,
+      "end": 1036.789,
+      "text": "well we're going to have build max"
+    },
+    {
+      "start": 1036.789,
+      "end": 1049.51,
+      "text": "heat which"
+    },
+    {
+      "start": 1049.51,
+      "end": 1051.669,
+      "text": "array so somehow"
+    },
+    {
+      "start": 1051.669,
+      "end": 1057.99,
+      "text": "I got to turn this"
+    },
+    {
+      "start": 1057.99,
+      "end": 1060.63,
+      "text": "into for example 4 2 1 okay which is in"
+    },
+    {
+      "start": 1060.63,
+      "end": 1062.19,
+      "text": "effect sorting this array right or"
+    },
+    {
+      "start": 1062.19,
+      "end": 1064.549,
+      "text": "changing the order maybe not fully"
+    },
+    {
+      "start": 1064.549,
+      "end": 1066.15,
+      "text": "sorting it but changing the order so"
+    },
+    {
+      "start": 1066.15,
+      "end": 1070.27,
+      "text": "that's what I'll have to do and build"
+    },
+    {
+      "start": 1070.27,
+      "end": 1075.029,
+      "text": "max Heap is going to have to do"
+    },
+    {
+      "start": 1075.029,
+      "end": 1076.99,
+      "text": "that in order to do build max Heap um"
+    },
+    {
+      "start": 1076.99,
+      "end": 1079.789,
+      "text": "the"
+    },
+    {
+      "start": 1079.789,
+      "end": 1081.909,
+      "text": "first procedure"
+    },
+    {
+      "start": 1081.909,
+      "end": 1083.71,
+      "text": "that I'm going to describe to you is"
+    },
+    {
+      "start": 1083.71,
+      "end": 1087.07,
+      "text": "called is called Max"
+    },
+    {
+      "start": 1087.07,
+      "end": 1092.75,
+      "text": "heapify right heapify right sounds"
+    },
+    {
+      "start": 1092.75,
+      "end": 1097.029,
+      "text": "but I guess you can IFI pretty much"
+    },
+    {
+      "start": 1097.029,
+      "end": 1122.07,
+      "text": "anything um so you correct a"
+    },
+    {
+      "start": 1122.07,
+      "end": 1125.31,
+      "text": "tree uh sub tre's"
+    },
+    {
+      "start": 1125.31,
+      "end": 1127.23,
+      "text": "root okay and I'll explain what I mean"
+    },
+    {
+      "start": 1127.23,
+      "end": 1130.549,
+      "text": "by that in just a"
+    },
+    {
+      "start": 1130.549,
+      "end": 1132.39,
+      "text": "minute so uh Max Cy is the fundamental"
+    },
+    {
+      "start": 1132.39,
+      "end": 1134.909,
+      "text": "operation that we have to understand"
+    },
+    {
+      "start": 1134.909,
+      "end": 1138.789,
+      "text": "here and we're going to use it over and"
+    },
+    {
+      "start": 1138.789,
+      "end": 1141.31,
+      "text": "over um what it does is takes some"
+    },
+    {
+      "start": 1141.31,
+      "end": 1144.07,
+      "text": "something that is not a heap not a Max"
+    },
+    {
+      "start": 1144.07,
+      "end": 1146.39,
+      "text": "Heap when I say not a heap from now"
+    },
+    {
+      "start": 1146.39,
+      "end": 1147.47,
+      "text": "on pretend that I'm saying not a Max"
+    },
+    {
+      "start": 1147.47,
+      "end": 1149.31,
+      "text": "Heap we're only going to be talking"
+    },
+    {
+      "start": 1149.31,
+      "end": 1155.27,
+      "text": "about ma Max heaps for the rest of this"
+    },
+    {
+      "start": 1155.27,
+      "end": 1159.27,
+      "text": "lecture okay uh and what Max cify does"
+    },
+    {
+      "start": 1159.27,
+      "end": 1161.029,
+      "text": "is take something that is not quite a"
+    },
+    {
+      "start": 1161.029,
+      "end": 1163.07,
+      "text": "Max heat it can't take anything"
+    },
+    {
+      "start": 1163.07,
+      "end": 1165.31,
+      "text": "arbitrary it's going to take something"
+    },
+    {
+      "start": 1165.31,
+      "end": 1170.59,
+      "text": "where there's a single violation of the"
+    },
+    {
+      "start": 1170.59,
+      "end": 1172.47,
+      "text": "max heed property at some sub of this"
+    },
+    {
+      "start": 1172.47,
+      "end": 1174.51,
+      "text": "this Heap that is given to you and"
+    },
+    {
+      "start": 1174.51,
+      "end": 1177.47,
+      "text": "there's a single violation of that and"
+    },
+    {
+      "start": 1177.47,
+      "end": 1180.549,
+      "text": "it's got to fix that okay and we need to"
+    },
+    {
+      "start": 1180.549,
+      "end": 1182.909,
+      "text": "be able to do this recursively at"
+    },
+    {
+      "start": 1182.909,
+      "end": 1184.549,
+      "text": "different levels to go build a Max he"
+    },
+    {
+      "start": 1184.549,
+      "end": 1186.71,
+      "text": "from an unordered"
+    },
+    {
+      "start": 1186.71,
+      "end": 1188.549,
+      "text": "array um and then once you have that you"
+    },
+    {
+      "start": 1188.549,
+      "end": 1190.63,
+      "text": "can do all sorts of things like insert"
+    },
+    {
+      "start": 1190.63,
+      "end": 1193.71,
+      "text": "and extract Max and Heap Sort and so on"
+    },
+    {
+      "start": 1193.71,
+      "end": 1196.35,
+      "text": "and so forth so let's take a look at Max"
+    },
+    {
+      "start": 1196.35,
+      "end": 1199.59,
+      "text": "Cy using an example I'm not going to"
+    },
+    {
+      "start": 1199.59,
+      "end": 1202.11,
+      "text": "write pseudo code"
+    },
+    {
+      "start": 1202.11,
+      "end": 1204.71,
+      "text": "for Max cpy I'll run through an example"
+    },
+    {
+      "start": 1204.71,
+      "end": 1207.47,
+      "text": "and the pseud code is in the"
+    },
+    {
+      "start": 1207.47,
+      "end": 1209.31,
+      "text": "notes the big assumption and you can"
+    },
+    {
+      "start": 1209.31,
+      "end": 1215.47,
+      "text": "think of this as a"
+    },
+    {
+      "start": 1215.47,
+      "end": 1218.19,
+      "text": "precondition for running Max C5 is that"
+    },
+    {
+      "start": 1218.19,
+      "end": 1220.75,
+      "text": "the trees"
+    },
+    {
+      "start": 1220.75,
+      "end": 1223.99,
+      "text": "rooted"
+    },
+    {
+      "start": 1223.99,
+      "end": 1237.27,
+      "text": "at left"
+    },
+    {
+      "start": 1237.27,
+      "end": 1240.95,
+      "text": "heaps right so max hey is going to take"
+    },
+    {
+      "start": 1240.95,
+      "end": 1244.95,
+      "text": "it's going to look like a comma I a is"
+    },
+    {
+      "start": 1244.95,
+      "end": 1248.149,
+      "text": "simply the array and I is the index okay"
+    },
+    {
+      "start": 1248.149,
+      "end": 1252.149,
+      "text": "and a Max Cy is willing to you're you're"
+    },
+    {
+      "start": 1252.149,
+      "end": 1254.19,
+      "text": "you're you're allowed to crash uh uh and"
+    },
+    {
+      "start": 1254.19,
+      "end": 1257.27,
+      "text": "not do anything useful if this"
+    },
+    {
+      "start": 1257.27,
+      "end": 1259.39,
+      "text": "precondition is violated in Max cp5 but"
+    },
+    {
+      "start": 1259.39,
+      "end": 1261.71,
+      "text": "if the precondition is true"
+    },
+    {
+      "start": 1261.71,
+      "end": 1263.83,
+      "text": "then what you have to do is you have to"
+    },
+    {
+      "start": 1263.83,
+      "end": 1272.19,
+      "text": "return a Max Heap correcting this"
+    },
+    {
+      "start": 1272.19,
+      "end": 1274.549,
+      "text": "contract so let's take a look at an"
+    },
+    {
+      "start": 1274.549,
+      "end": 1281.35,
+      "text": "example um I think what I want to do is"
+    },
+    {
+      "start": 1281.35,
+      "end": 1283.51,
+      "text": "here I wanted you I want you to see all"
+    },
+    {
+      "start": 1283.51,
+      "end": 1295.909,
+      "text": "of the steps here so we'll take a simple"
+    },
+    {
+      "start": 1295.909,
+      "end": 1297.37,
+      "text": "and let's take a look"
+    },
+    {
+      "start": 1297.37,
+      "end": 1299.029,
+      "text": "at"
+    },
+    {
+      "start": 1299.029,
+      "end": 1327.269,
+      "text": "[Music]"
+    },
+    {
+      "start": 1327.269,
+      "end": 1337.07,
+      "text": "and I'm just going to draw the indices"
+    },
+    {
+      "start": 1337.07,
+      "end": 1340.549,
+      "text": "bother so there you go uh is this a Max"
+    },
+    {
+      "start": 1340.549,
+      "end": 1344.75,
+      "text": "Heap no because right here I got a"
+    },
+    {
+      "start": 1344.75,
+      "end": 1348.789,
+      "text": "problem four is less than 14 therefore I"
+    },
+    {
+      "start": 1348.789,
+      "end": 1360.59,
+      "text": "have a violation right and so I if you"
+    },
+    {
+      "start": 1360.59,
+      "end": 1362.31,
+      "text": "cify 8 comma 2 this is an index two and"
+    },
+    {
+      "start": 1362.31,
+      "end": 1364.63,
+      "text": "all you have to do is to look at this"
+    },
+    {
+      "start": 1364.63,
+      "end": 1367.35,
+      "text": "sub tree and what you"
+    },
+    {
+      "start": 1367.35,
+      "end": 1371.11,
+      "text": "want what you need to be satisfied in"
+    },
+    {
+      "start": 1371.11,
+      "end": 1375.269,
+      "text": "order to run Max cify is that the sub"
+    },
+    {
+      "start": 1375.269,
+      "end": 1378.029,
+      "text": "trees of node index two which is this"
+    },
+    {
+      "start": 1378.029,
+      "end": 1378.95,
+      "text": "four node are Max heeps and if you go"
+    },
+    {
+      "start": 1378.95,
+      "end": 1380.51,
+      "text": "look below"
+    },
+    {
+      "start": 1380.51,
+      "end": 1383.789,
+      "text": "you see that this is a Max he and that's"
+    },
+    {
+      "start": 1383.789,
+      "end": 1386.07,
+      "text": "a Max he okay most of the time by the"
+    },
+    {
+      "start": 1386.07,
+      "end": 1387.87,
+      "text": "way you'll be sort of working bottom up"
+    },
+    {
+      "start": 1387.87,
+      "end": 1389.71,
+      "text": "and that's why this is going to make"
+    },
+    {
+      "start": 1389.71,
+      "end": 1392.59,
+      "text": "sense right this will all work out"
+    },
+    {
+      "start": 1392.59,
+      "end": 1394.149,
+      "text": "because leaves are by definition Max"
+    },
+    {
+      "start": 1394.149,
+      "end": 1396.269,
+      "text": "heeps because you don't have to check"
+    },
+    {
+      "start": 1396.269,
+      "end": 1399.99,
+      "text": "anything right when you put two leaves"
+    },
+    {
+      "start": 1399.99,
+      "end": 1402.47,
+      "text": "together and you want to create a a tree"
+    },
+    {
+      "start": 1402.47,
+      "end": 1405.87,
+      "text": "like like that or a heap like that then"
+    },
+    {
+      "start": 1405.87,
+      "end": 1407.75,
+      "text": "you run Max seify and then you have when"
+    },
+    {
+      "start": 1407.75,
+      "end": 1409.43,
+      "text": "you have a couple of different Max seeps"
+    },
+    {
+      "start": 1409.43,
+      "end": 1411.43,
+      "text": "and you want to put them to together to"
+    },
+    {
+      "start": 1411.43,
+      "end": 1414.83,
+      "text": "make it a bigger Max SE you'd have to"
+    },
+    {
+      "start": 1414.83,
+      "end": 1416.35,
+      "text": "run Max cify right so so that's the way"
+    },
+    {
+      "start": 1416.35,
+      "end": 1420.549,
+      "text": "it's going to work so you want to do Max"
+    },
+    {
+      "start": 1420.549,
+      "end": 1422.31,
+      "text": "cify a comma 2 and one of the things"
+    },
+    {
+      "start": 1422.31,
+      "end": 1425.269,
+      "text": "that's going to be important not in this"
+    },
+    {
+      "start": 1425.269,
+      "end": 1427.95,
+      "text": "example but when we get to sorting is"
+    },
+    {
+      "start": 1427.95,
+      "end": 1429.75,
+      "text": "that we want to know what the size of"
+    },
+    {
+      "start": 1429.75,
+      "end": 1434.23,
+      "text": "the Heap is and in this case the Heap"
+    },
+    {
+      "start": 1434.23,
+      "end": 1438.51,
+      "text": "size is 10 right so what does Max cpy"
+    },
+    {
+      "start": 1438.51,
+      "end": 1442.07,
+      "text": "do well all Max cpy does is ex ex"
+    },
+    {
+      "start": 1442.07,
+      "end": 1443.99,
+      "text": "changes elements and so if you looked at"
+    },
+    {
+      "start": 1443.99,
+      "end": 1446.63,
+      "text": "the code for Max cpy and you walk"
+    },
+    {
+      "start": 1446.63,
+      "end": 1449.35,
+      "text": "through it this is what it would do U"
+    },
+    {
+      "start": 1449.35,
+      "end": 1450.95,
+      "text": "you're going to look at four and 14 and"
+    },
+    {
+      "start": 1450.95,
+      "end": 1452.789,
+      "text": "it's going to say okay I'm going to look"
+    },
+    {
+      "start": 1452.789,
+      "end": 1454.909,
+      "text": "at both my children and I'm going to go"
+    },
+    {
+      "start": 1454.909,
+      "end": 1458.029,
+      "text": "ahead and exchange with the bigger"
+    },
+    {
+      "start": 1458.029,
+      "end": 1460.149,
+      "text": "bigger child so I'm going to"
+    },
+    {
+      "start": 1460.149,
+      "end": 1472.19,
+      "text": "exchange"
+    },
+    {
+      "start": 1472.19,
+      "end": 1476.669,
+      "text": "take"
+    },
+    {
+      "start": 1476.669,
+      "end": 1479.789,
+      "text": "this make this four and make this"
+    },
+    {
+      "start": 1479.789,
+      "end": 1483.19,
+      "text": "14 and that would be step"
+    },
+    {
+      "start": 1483.19,
+      "end": 1485.909,
+      "text": "one and then you would when you get to"
+    },
+    {
+      "start": 1485.909,
+      "end": 1489.07,
+      "text": "this point recursively uh you'd realize"
+    },
+    {
+      "start": 1489.07,
+      "end": 1492.909,
+      "text": "that there the Maxi property at this"
+    },
+    {
+      "start": 1492.909,
+      "end": 1494.59,
+      "text": "level is violated and so you would go"
+    },
+    {
+      "start": 1494.59,
+      "end": 1505.269,
+      "text": "ahead"
+    },
+    {
+      "start": 1505.269,
+      "end": 1507.59,
+      "text": "a comma"
+    },
+    {
+      "start": 1507.59,
+      "end": 1509.75,
+      "text": "4"
+    },
+    {
+      "start": 1509.75,
+      "end": 1512.549,
+      "text": "and when that"
+    },
+    {
+      "start": 1512.549,
+      "end": 1515.63,
+      "text": "happen or that call happens you're going"
+    },
+    {
+      "start": 1515.63,
+      "end": 1518.909,
+      "text": "to look at the two children"
+    },
+    {
+      "start": 1518.909,
+      "end": 1520.51,
+      "text": "corresponding to this little sub tree"
+    },
+    {
+      "start": 1520.51,
+      "end": 1523.549,
+      "text": "there and you're going to do the"
+    },
+    {
+      "start": 1523.549,
+      "end": 1533.23,
+      "text": "exchange you're going to have eight here"
+    },
+    {
+      "start": 1533.23,
+      "end": 1535.83,
+      "text": "A4"
+    },
+    {
+      "start": 1535.83,
+      "end": 1543.029,
+      "text": "with"
+    },
+    {
+      "start": 1543.029,
+      "end": 1545.669,
+      "text": "and now you're done so there no more"
+    },
+    {
+      "start": 1545.669,
+      "end": 1548.269,
+      "text": "calls all right so fairly"
+    },
+    {
+      "start": 1548.269,
+      "end": 1550.029,
+      "text": "straightforward it's actually not any"
+    },
+    {
+      "start": 1550.029,
+      "end": 1553.029,
+      "text": "more complicated than this there may be"
+    },
+    {
+      "start": 1553.029,
+      "end": 1554.549,
+      "text": "many steps what might happen is that"
+    },
+    {
+      "start": 1554.549,
+      "end": 1557.389,
+      "text": "you'd have to go all the way down to the"
+    },
+    {
+      "start": 1557.389,
+      "end": 1558.789,
+      "text": "leaves and in this case you went a"
+    },
+    {
+      "start": 1558.789,
+      "end": 1561.19,
+      "text": "couple of steps"
+    },
+    {
+      "start": 1561.19,
+      "end": 1562.75,
+      "text": "and then you got to stop but obviously"
+    },
+    {
+      "start": 1562.75,
+      "end": 1567.029,
+      "text": "you could have a large Heap and it could"
+    },
+    {
+      "start": 1567.029,
+      "end": 1569.549,
+      "text": "take a bunch of time so what is the"
+    },
+    {
+      "start": 1569.549,
+      "end": 1577.669,
+      "text": "complexity of Max"
+    },
+    {
+      "start": 1577.669,
+      "end": 1587.23,
+      "text": "anybody yeah back there well"
+    },
+    {
+      "start": 1587.23,
+      "end": 1589.75,
+      "text": "every every node to make it order n"
+    },
+    {
+      "start": 1589.75,
+      "end": 1594.11,
+      "text": "um everybody anybody AG you have a"
+    },
+    {
+      "start": 1594.11,
+      "end": 1630.59,
+      "text": "different answer log why why is it log n"
+    },
+    {
+      "start": 1630.59,
+      "end": 1632.63,
+      "text": "so you're you're arguing that the the"
+    },
+    {
+      "start": 1632.63,
+      "end": 1634.95,
+      "text": "solution to the recurrence gives you a"
+    },
+    {
+      "start": 1634.95,
+      "end": 1637.31,
+      "text": "logarithmic complexity all right not"
+    },
+    {
+      "start": 1637.31,
+      "end": 1649.99,
+      "text": "quite um there's there's an easier way"
+    },
+    {
+      "start": 1649.99,
+      "end": 1651.87,
+      "text": "swap for each level and go all the way"
+    },
+    {
+      "start": 1651.87,
+      "end": 1655.31,
+      "text": "from to that's right so what is the"
+    },
+    {
+      "start": 1655.31,
+      "end": 1657.95,
+      "text": "complexity L log in great good"
+    },
+    {
+      "start": 1657.95,
+      "end": 1661.87,
+      "text": "excellent definitely worth a"
+    },
+    {
+      "start": 1661.87,
+      "end": 1663.99,
+      "text": "cushion who missed you by that much all"
+    },
+    {
+      "start": 1663.99,
+      "end": 1667.63,
+      "text": "right it it was it's pretty soft by the"
+    },
+    {
+      "start": 1667.63,
+      "end": 1671.029,
+      "text": "way right okay so um if I hit somebody"
+    },
+    {
+      "start": 1671.029,
+      "end": 1674.669,
+      "text": "they get a cushion okay"
+    },
+    {
+      "start": 1674.669,
+      "end": 1677.11,
+      "text": "um um all right so uh that's exactly"
+    },
+    {
+      "start": 1677.11,
+      "end": 1679.63,
+      "text": "right uh thanks um uh for that"
+    },
+    {
+      "start": 1679.63,
+      "end": 1682.47,
+      "text": "description um so first off there's"
+    },
+    {
+      "start": 1682.47,
+      "end": 1684.47,
+      "text": "there's two important aspects to this uh"
+    },
+    {
+      "start": 1684.47,
+      "end": 1686.549,
+      "text": "argument the first thing is that we're"
+    },
+    {
+      "start": 1686.549,
+      "end": 1689.909,
+      "text": "visualizing this as a nearly complete"
+    },
+    {
+      "start": 1689.909,
+      "end": 1691.47,
+      "text": "binary tree okay it is not an unbalanced"
+    },
+    {
+      "start": 1691.47,
+      "end": 1693.35,
+      "text": "tree all right we'll talk about"
+    },
+    {
+      "start": 1693.35,
+      "end": 1695.23,
+      "text": "unbalanced trees and balanced trees in"
+    },
+    {
+      "start": 1695.23,
+      "end": 1697.87,
+      "text": "the next couple of lectures but the"
+    },
+    {
+      "start": 1697.87,
+      "end": 1699.549,
+      "text": "visualization of a heap is a nearly"
+    },
+    {
+      "start": 1699.549,
+      "end": 1701.63,
+      "text": "complete binary tree and in fact if you"
+    },
+    {
+      "start": 1701.63,
+      "end": 1704.95,
+      "text": "had 15 elements it'd be a perfect binary"
+    },
+    {
+      "start": 1704.95,
+      "end": 1709.029,
+      "text": "tree okay so the good news is that at"
+    },
+    {
+      "start": 1709.029,
+      "end": 1712.19,
+      "text": "the height of this visualization tree is"
+    },
+    {
+      "start": 1712.19,
+      "end": 1714.389,
+      "text": "bounded by log n okay that's the good"
+    },
+    {
+      "start": 1714.389,
+      "end": 1717.35,
+      "text": "news all right and you want to exploit"
+    },
+    {
+      "start": 1717.35,
+      "end": 1720.43,
+      "text": "that good news by creating algorithms"
+    },
+    {
+      "start": 1720.43,
+      "end": 1721.99,
+      "text": "that go level by level right if you can"
+    },
+    {
+      "start": 1721.99,
+      "end": 1724.63,
+      "text": "do that you're going to have logarithmic"
+    },
+    {
+      "start": 1724.63,
+      "end": 1726.11,
+      "text": "complexity algorithms all right and so"
+    },
+    {
+      "start": 1726.11,
+      "end": 1728.43,
+      "text": "that was one aspect of it the other"
+    },
+    {
+      "start": 1728.43,
+      "end": 1730.35,
+      "text": "aspect of it is the key assumption that"
+    },
+    {
+      "start": 1730.35,
+      "end": 1732.71,
+      "text": "we're making with respect to build max"
+    },
+    {
+      "start": 1732.71,
+      "end": 1735.59,
+      "text": "Heap that there was a single violation"
+    },
+    {
+      "start": 1735.59,
+      "end": 1737.63,
+      "text": "all right it is true that the the answer"
+    },
+    {
+      "start": 1737.63,
+      "end": 1740.269,
+      "text": "that was given was order n you know"
+    },
+    {
+      "start": 1740.269,
+      "end": 1742.35,
+      "text": "would be a problem I could set it up so"
+    },
+    {
+      "start": 1742.35,
+      "end": 1744.95,
+      "text": "so that's actually the right answer if"
+    },
+    {
+      "start": 1744.95,
+      "end": 1747.149,
+      "text": "if I did not have this assumption when"
+    },
+    {
+      "start": 1747.149,
+      "end": 1748.95,
+      "text": "do I have that here um assume that the"
+    },
+    {
+      "start": 1748.95,
+      "end": 1750.71,
+      "text": "trees rooted at left eye and right eye"
+    },
+    {
+      "start": 1750.71,
+      "end": 1752.87,
+      "text": "are Max seeps okay so maybe that's what"
+    },
+    {
+      "start": 1752.87,
+      "end": 1754.509,
+      "text": "you were thinking but this is a key"
+    },
+    {
+      "start": 1754.509,
+      "end": 1756.75,
+      "text": "assumption this is you know going back"
+    },
+    {
+      "start": 1756.75,
+      "end": 1760.31,
+      "text": "and I like uh making connections between"
+    },
+    {
+      "start": 1760.31,
+      "end": 1762.43,
+      "text": "classes um this is a precondition that"
+    },
+    {
+      "start": 1762.43,
+      "end": 1766.43,
+      "text": "makes the the algorithm more efficient"
+    },
+    {
+      "start": 1766.43,
+      "end": 1768.99,
+      "text": "makes the implementation easier and at"
+    },
+    {
+      "start": 1768.99,
+      "end": 1771.19,
+      "text": "this precondition essentially says that"
+    },
+    {
+      "start": 1771.19,
+      "end": 1772.909,
+      "text": "you have to just go down and do a number"
+    },
+    {
+      "start": 1772.909,
+      "end": 1775.71,
+      "text": "of steps that's the number of levels in"
+    },
+    {
+      "start": 1775.71,
+      "end": 1779.389,
+      "text": "the tree which is logarithmic all"
+    },
+    {
+      "start": 1779.389,
+      "end": 1782.63,
+      "text": "right so that's the story here with Max"
+    },
+    {
+      "start": 1782.63,
+      "end": 1784.909,
+      "text": "cpy it's order log"
+    },
+    {
+      "start": 1784.909,
+      "end": 1788.549,
+      "text": "n in terms of complexity that's the"
+    },
+    {
+      "start": 1788.549,
+      "end": 1792.909,
+      "text": "number of steps that you have and it's"
+    },
+    {
+      "start": 1792.909,
+      "end": 1794.47,
+      "text": "a uh a basic building block for all of"
+    },
+    {
+      "start": 1794.47,
+      "end": 1797.07,
+      "text": "the other algorithms that we'll look at"
+    },
+    {
+      "start": 1797.07,
+      "end": 1800.029,
+      "text": "for the rest of this lecture and in"
+    },
+    {
+      "start": 1800.029,
+      "end": 1803.59,
+      "text": "section tomorrow"
+    },
+    {
+      "start": 1803.59,
+      "end": 1808.269,
+      "text": "let's talk about how you would take Max"
+    },
+    {
+      "start": 1808.269,
+      "end": 1810.99,
+      "text": "heapify and use it to do build max Heap"
+    },
+    {
+      "start": 1810.99,
+      "end": 1813.23,
+      "text": "so the first step now let's say that we"
+    },
+    {
+      "start": 1813.23,
+      "end": 1815.43,
+      "text": "want to go and get a nice sorting"
+    },
+    {
+      "start": 1815.43,
+      "end": 1817.95,
+      "text": "algorithm we we don't like insertion"
+    },
+    {
+      "start": 1817.95,
+      "end": 1820.909,
+      "text": "sort we don't like merge sort we'd like"
+    },
+    {
+      "start": 1820.909,
+      "end": 1823.11,
+      "text": "to get a heap based sorting algorithm"
+    },
+    {
+      "start": 1823.11,
+      "end": 1826.63,
+      "text": "one of the things that we need to do as"
+    },
+    {
+      "start": 1826.63,
+      "end": 1828.47,
+      "text": "I said is to take an unordered array and"
+    },
+    {
+      "start": 1828.47,
+      "end": 1831.35,
+      "text": "turn it into a Max Heat"
+    },
+    {
+      "start": 1831.35,
+      "end": 1832.909,
+      "text": "which is a non-trivial thing to do and"
+    },
+    {
+      "start": 1832.909,
+      "end": 1837.63,
+      "text": "once we do that we can do this extract"
+    },
+    {
+      "start": 1837.63,
+      "end": 1850.95,
+      "text": "max deal uh to to sort the array so the"
+    },
+    {
+      "start": 1850.95,
+      "end": 1853.71,
+      "text": "convert an array A1 through n into a Max"
+    },
+    {
+      "start": 1853.71,
+      "end": 1855.509,
+      "text": "Heat and the key word here is Max he"
+    },
+    {
+      "start": 1855.509,
+      "end": 1856.75,
+      "text": "because every array can be visualized as"
+    },
+    {
+      "start": 1856.75,
+      "end": 1860.07,
+      "text": "a"
+    },
+    {
+      "start": 1860.07,
+      "end": 1862.789,
+      "text": "heat and and I'm I'm I'm am going to"
+    },
+    {
+      "start": 1862.789,
+      "end": 1865.31,
+      "text": "write the pseudo code for build max Heap"
+    },
+    {
+      "start": 1865.31,
+      "end": 1866.83,
+      "text": "because it's two lines of"
+    },
+    {
+      "start": 1866.83,
+      "end": 1870.95,
+      "text": "code"
+    },
+    {
+      "start": 1870.95,
+      "end": 1873.07,
+      "text": "and that's about the limit of U the size"
+    },
+    {
+      "start": 1873.07,
+      "end": 1894.87,
+      "text": "of program I can really"
+    },
+    {
+      "start": 1894.87,
+      "end": 1899.35,
+      "text": "all right that's it Bill Max Heap says"
+    },
+    {
+      "start": 1899.35,
+      "end": 1904.549,
+      "text": "go from I equals n by two down to one"
+    },
+    {
+      "start": 1904.549,
+      "end": 1907.11,
+      "text": "okay Max heapify a ofi all right so"
+    },
+    {
+      "start": 1907.11,
+      "end": 1912.23,
+      "text": "someone explained to me"
+    },
+    {
+      "start": 1912.23,
+      "end": 1916.07,
+      "text": "and why I'm I can start with n / two and"
+    },
+    {
+      "start": 1916.07,
+      "end": 1921.549,
+      "text": "why I'm going down to one yep I saw you"
+    },
+    {
+      "start": 1921.549,
+      "end": 1923.629,
+      "text": "leaves are good ah leaves are good good"
+    },
+    {
+      "start": 1923.629,
+      "end": 1926.23,
+      "text": "so leaves are good I'll let you go on"
+    },
+    {
+      "start": 1926.23,
+      "end": 1931.389,
+      "text": "for a second in a second leaves are good"
+    },
+    {
+      "start": 1931.389,
+      "end": 1937.389,
+      "text": "because um if you look at um"
+    },
+    {
+      "start": 1937.389,
+      "end": 1940.23,
+      "text": "elements a of n/ 2 + 1 through"
+    },
+    {
+      "start": 1940.23,
+      "end": 1943.23,
+      "text": "n are all"
+    },
+    {
+      "start": 1943.23,
+      "end": 1947.07,
+      "text": "leaves okay that's a good observation"
+    },
+    {
+      "start": 1947.07,
+      "end": 1949.549,
+      "text": "all right um so and this is true for any"
+    },
+    {
+      "start": 1949.549,
+      "end": 1950.95,
+      "text": "array all right doesn't matter what n is"
+    },
+    {
+      "start": 1950.95,
+      "end": 1952.389,
+      "text": "doesn't have to be a power of two or 2"
+    },
+    {
+      "start": 1952.389,
+      "end": 1954.149,
+      "text": "rais to n minus one or anything like"
+    },
+    {
+      "start": 1954.149,
+      "end": 1957.389,
+      "text": "that so and leaves are good because they"
+    },
+    {
+      "start": 1957.389,
+      "end": 1964.23,
+      "text": "automatically satisfy uh the the max"
+    },
+    {
+      "start": 1964.23,
+      "end": 1977.549,
+      "text": "continue"
+    },
+    {
+      "start": 1977.549,
+      "end": 1984.11,
+      "text": "right that's exactly right so beautiful"
+    },
+    {
+      "start": 1984.11,
+      "end": 1987.669,
+      "text": "won't hit anybody here um so so that's"
+    },
+    {
+      "start": 1987.669,
+      "end": 1990.629,
+      "text": "it the reason this works is because"
+    },
+    {
+      "start": 1990.629,
+      "end": 1993.43,
+      "text": "you're calling Max epy multiple times"
+    },
+    {
+      "start": 1993.43,
+      "end": 1994.149,
+      "text": "but every time you call it you satisfy"
+    },
+    {
+      "start": 1994.149,
+      "end": 1998.19,
+      "text": "the"
+    },
+    {
+      "start": 1998.19,
+      "end": 2000.789,
+      "text": "precondition okay and uh the leaves are"
+    },
+    {
+      "start": 2000.789,
+      "end": 2002.43,
+      "text": "automatically Max seeps when you start"
+    },
+    {
+      "start": 2002.43,
+      "end": 2005.789,
+      "text": "with"
+    },
+    {
+      "start": 2005.789,
+      "end": 2008.23,
+      "text": "n/2 you're going to see two leaves as"
+    },
+    {
+      "start": 2008.23,
+      "end": 2010.95,
+      "text": "your children for the n/2 number right I"
+    },
+    {
+      "start": 2010.95,
+      "end": 2012.87,
+      "text": "mean just pick an example here um n"
+    },
+    {
+      "start": 2012.87,
+      "end": 2016.669,
+      "text": "number two is a of five"
+    },
+    {
+      "start": 2016.669,
+      "end": 2017.95,
+      "text": "right um and so you're out here right"
+    },
+    {
+      "start": 2017.95,
+      "end": 2019.47,
+      "text": "and and in this case you know depending"
+    },
+    {
+      "start": 2019.47,
+      "end": 2021.389,
+      "text": "on the value of n you may have either"
+    },
+    {
+      "start": 2021.389,
+      "end": 2023.31,
+      "text": "two children or just one child and you"
+    },
+    {
+      "start": 2023.31,
+      "end": 2024.549,
+      "text": "have one child but regardless of that"
+    },
+    {
+      "start": 2024.549,
+      "end": 2027.269,
+      "text": "you know that's going to be a maxi"
+    },
+    {
+      "start": 2027.269,
+      "end": 2028.629,
+      "text": "because it's a leaf right and so you"
+    },
+    {
+      "start": 2028.629,
+      "end": 2030.909,
+      "text": "you'll have two leaves and you need to"
+    },
+    {
+      "start": 2030.909,
+      "end": 2034.789,
+      "text": "put them together and that's a fairly"
+    },
+    {
+      "start": 2034.789,
+      "end": 2036.389,
+      "text": "straightforward process of U attaching"
+    },
+    {
+      "start": 2036.389,
+      "end": 2039.07,
+      "text": "the leaves together you might have to do"
+    },
+    {
+      "start": 2039.07,
+      "end": 2042.07,
+      "text": "a a swap based on what the element is"
+    },
+    {
+      "start": 2042.07,
+      "end": 2046.23,
+      "text": "one operation and you get a little small"
+    },
+    {
+      "start": 2046.23,
+      "end": 2048.03,
+      "text": "little tree that's a maxi um and then"
+    },
+    {
+      "start": 2048.03,
+      "end": 2052.31,
+      "text": "you do a bunch of other things that all"
+    },
+    {
+      "start": 2052.31,
+      "end": 2054.27,
+      "text": "work on leaves because n /2 uh minus one"
+    },
+    {
+      "start": 2054.27,
+      "end": 2057.71,
+      "text": "is probably also going to have leaves as"
+    },
+    {
+      "start": 2057.71,
+      "end": 2058.909,
+      "text": "is children given the large value of N"
+    },
+    {
+      "start": 2058.909,
+      "end": 2062.19,
+      "text": "and there'll be a bunch of things where"
+    },
+    {
+      "start": 2062.19,
+      "end": 2064.71,
+      "text": "you work on uh on these level one nodes"
+    },
+    {
+      "start": 2064.71,
+      "end": 2066.629,
+      "text": "if you will that all have leaves as"
+    },
+    {
+      "start": 2066.629,
+      "end": 2068.869,
+      "text": "children and then you work on the level"
+    },
+    {
+      "start": 2068.869,
+      "end": 2070.55,
+      "text": "two nodes and so so on and so forth and"
+    },
+    {
+      "start": 2070.55,
+      "end": 2072.75,
+      "text": "as I said before you're working your way"
+    },
+    {
+      "start": 2072.75,
+      "end": 2075.389,
+      "text": "up and you're only working with Max"
+    },
+    {
+      "start": 2075.389,
+      "end": 2077.99,
+      "text": "heaps as your left child and your right"
+    },
+    {
+      "start": 2077.99,
+      "end": 2081.389,
+      "text": "child all right that makes"
+    },
+    {
+      "start": 2081.389,
+      "end": 2084.829,
+      "text": "sense all right"
+    },
+    {
+      "start": 2084.829,
+      "end": 2086.99,
+      "text": "so uh if you do that uh and this is a"
+    },
+    {
+      "start": 2086.99,
+      "end": 2088.79,
+      "text": "fairly straightforward question and if"
+    },
+    {
+      "start": 2088.79,
+      "end": 2091.55,
+      "text": "you do a straightforward analysis of"
+    },
+    {
+      "start": 2091.55,
+      "end": 2093.71,
+      "text": "this uh what is the complexity of build"
+    },
+    {
+      "start": 2093.71,
+      "end": 2101.95,
+      "text": "max"
+    },
+    {
+      "start": 2101.95,
+      "end": 2105.75,
+      "text": "right so that's a"
+    },
+    {
+      "start": 2105.75,
+      "end": 2108.15,
+      "text": "order order n log n okay"
+    },
+    {
+      "start": 2108.15,
+      "end": 2109.71,
+      "text": "now this is through a simple analysis"
+    },
+    {
+      "start": 2109.71,
+      "end": 2111.79,
+      "text": "now I'm going to give you a"
+    },
+    {
+      "start": 2111.79,
+      "end": 2115.71,
+      "text": "chance to tell"
+    },
+    {
+      "start": 2115.71,
+      "end": 2116.95,
+      "text": "me if you can do better than that or not"
+    },
+    {
+      "start": 2116.95,
+      "end": 2119.589,
+      "text": "in terms of"
+    },
+    {
+      "start": 2119.589,
+      "end": 2122.67,
+      "text": "analysis okay so here's here's the it's"
+    },
+    {
+      "start": 2122.67,
+      "end": 2125.87,
+      "text": "a subtle question all right um it's a"
+    },
+    {
+      "start": 2125.87,
+      "end": 2129.19,
+      "text": "subtle question that I'm asking I'm"
+    },
+    {
+      "start": 2129.19,
+      "end": 2131.43,
+      "text": "saying this is the algorithm all right I"
+    },
+    {
+      "start": 2131.43,
+      "end": 2134.03,
+      "text": "don't want you to change the algorithm"
+    },
+    {
+      "start": 2134.03,
+      "end": 2136.39,
+      "text": "but I want you to change your analysis"
+    },
+    {
+      "start": 2136.39,
+      "end": 2140.27,
+      "text": "right the analysis that sorry you you"
+    },
+    {
+      "start": 2140.27,
+      "end": 2143.87,
+      "text": "just did was you said I got you know"
+    },
+    {
+      "start": 2143.87,
+      "end": 2147.47,
+      "text": "Theta n steps here because it's n by two"
+    },
+    {
+      "start": 2147.47,
+      "end": 2151.79,
+      "text": "steps um looks like each of the steps is"
+    },
+    {
+      "start": 2151.79,
+      "end": 2156.51,
+      "text": "taking log n time so that's n log n and"
+    },
+    {
+      "start": 2156.51,
+      "end": 2158.19,
+      "text": "I I was careful um I put Big O here okay"
+    },
+    {
+      "start": 2158.19,
+      "end": 2161.63,
+      "text": "because that's an upper bomb so that's a"
+    },
+    {
+      "start": 2161.63,
+      "end": 2163.39,
+      "text": "valid answer right can you do better can"
+    },
+    {
+      "start": 2163.39,
+      "end": 2165.39,
+      "text": "you do a better analysis and I'll let"
+    },
+    {
+      "start": 2165.39,
+      "end": 2168.829,
+      "text": "you go first can you do a better"
+    },
+    {
+      "start": 2168.829,
+      "end": 2191.47,
+      "text": "analysis that uh that you know somehow"
+    },
+    {
+      "start": 2191.47,
+      "end": 2194.95,
+      "text": "um a"
+    },
+    {
+      "start": 2194.95,
+      "end": 2198.95,
+      "text": "constant number of comparisons to to Max"
+    },
+    {
+      "start": 2198.95,
+      "end": 2205.71,
+      "text": "to Maxi that all the things below it um"
+    },
+    {
+      "start": 2205.71,
+      "end": 2207.55,
+      "text": "uh yeah it's it's it's it's hard to"
+    },
+    {
+      "start": 2207.55,
+      "end": 2209.75,
+      "text": "explain you're you're on the right track"
+    },
+    {
+      "start": 2209.75,
+      "end": 2212.069,
+      "text": "you're absolutely on the right track uh"
+    },
+    {
+      "start": 2212.069,
+      "end": 2213.589,
+      "text": "um so it turns out that and I'll do this"
+    },
+    {
+      "start": 2213.589,
+      "end": 2215.39,
+      "text": "it's going to take a few minutes here"
+    },
+    {
+      "start": 2215.39,
+      "end": 2217.829,
+      "text": "because I had to write some things out"
+    },
+    {
+      "start": 2217.829,
+      "end": 2219.91,
+      "text": "um we got to sum up a bunch of"
+    },
+    {
+      "start": 2219.91,
+      "end": 2222.309,
+      "text": "arithmetic series and so on so it's it's"
+    },
+    {
+      "start": 2222.309,
+      "end": 2225.349,
+      "text": "it's a bit unfair to to have to speak"
+    },
+    {
+      "start": 2225.349,
+      "end": 2229.63,
+      "text": "out the answer uh but the correct answer"
+    },
+    {
+      "start": 2229.63,
+      "end": 2231.75,
+      "text": "in fact uh is that this is uh order n"
+    },
+    {
+      "start": 2231.75,
+      "end": 2234.15,
+      "text": "complexity okay this algorithm that I"
+    },
+    {
+      "start": 2234.15,
+      "end": 2236.79,
+      "text": "put up here if you do a careful analysis"
+    },
+    {
+      "start": 2236.79,
+      "end": 2239.069,
+      "text": "of it you can get order n out of it okay"
+    },
+    {
+      "start": 2239.069,
+      "end": 2241.95,
+      "text": "and we'll do this careful analysis and"
+    },
+    {
+      "start": 2241.95,
+      "end": 2244.75,
+      "text": "I'll tell you why it's order n in terms"
+    },
+    {
+      "start": 2244.75,
+      "end": 2248.03,
+      "text": "of U sort of a handwavy argument okay"
+    },
+    {
+      "start": 2248.03,
+      "end": 2250.829,
+      "text": "the handwavy argument is that you're"
+    },
+    {
+      "start": 2250.829,
+      "end": 2252.39,
+      "text": "doing basically obviously no work for"
+    },
+    {
+      "start": 2252.39,
+      "end": 2254.67,
+      "text": "the leaves but you're not even counting"
+    },
+    {
+      "start": 2254.67,
+      "end": 2258.589,
+      "text": "that because you're starting with n /2"
+    },
+    {
+      "start": 2258.589,
+      "end": 2260.55,
+      "text": "but when you look at the n/2 node it's"
+    },
+    {
+      "start": 2260.55,
+      "end": 2262.23,
+      "text": "uh essentially one operation or two"
+    },
+    {
+      "start": 2262.23,
+      "end": 2266.349,
+      "text": "operations in which way whichever way"
+    },
+    {
+      "start": 2266.349,
+      "end": 2269.67,
+      "text": "you count to build Maxi right and so for"
+    },
+    {
+      "start": 2269.67,
+      "end": 2272.03,
+      "text": "that first level of nodes it's exactly"
+    },
+    {
+      "start": 2272.03,
+      "end": 2274.71,
+      "text": "one operation that the first level that"
+    },
+    {
+      "start": 2274.71,
+      "end": 2277.069,
+      "text": "are above the leaves for the next level"
+    },
+    {
+      "start": 2277.069,
+      "end": 2279.63,
+      "text": "you may be doing you know two operations"
+    },
+    {
+      "start": 2279.63,
+      "end": 2281.87,
+      "text": "and so there's this uh increase in"
+    },
+    {
+      "start": 2281.87,
+      "end": 2284.63,
+      "text": "operations as you get higher and higher"
+    },
+    {
+      "start": 2284.63,
+      "end": 2286.71,
+      "text": "up but there's fewer and fewer nodes as"
+    },
+    {
+      "start": 2286.71,
+      "end": 2290.67,
+      "text": "you get higher and higher up right"
+    },
+    {
+      "start": 2290.67,
+      "end": 2293.47,
+      "text": "because um there's only one node that is"
+    },
+    {
+      "start": 2293.47,
+      "end": 2295.91,
+      "text": "the highest level node the root node"
+    },
+    {
+      "start": 2295.91,
+      "end": 2298.79,
+      "text": "that node has logarithmic number of"
+    },
+    {
+      "start": 2298.79,
+      "end": 2300.87,
+      "text": "operations but it's only one node right"
+    },
+    {
+      "start": 2300.87,
+      "end": 2302.51,
+      "text": "um and then the the ones down at the"
+    },
+    {
+      "start": 2302.51,
+      "end": 2305.71,
+      "text": "bottom have a constant number of"
+    },
+    {
+      "start": 2305.71,
+      "end": 2307.55,
+      "text": "operations okay so I'll put all of this"
+    },
+    {
+      "start": 2307.55,
+      "end": 2310.27,
+      "text": "down and hopefully you'll be convinced"
+    },
+    {
+      "start": 2310.27,
+      "end": 2314.829,
+      "text": "by the time we've done some math here or"
+    },
+    {
+      "start": 2314.829,
+      "end": 2318.39,
+      "text": "arithmetic here but you can quantify"
+    },
+    {
+      "start": 2318.39,
+      "end": 2321.23,
+      "text": "what I just said fairly"
+    },
+    {
+      "start": 2321.23,
+      "end": 2323.15,
+      "text": "easily as long as you're careful about"
+    },
+    {
+      "start": 2323.15,
+      "end": 2325.15,
+      "text": "the accounting that we have to do so"
+    },
+    {
+      "start": 2325.15,
+      "end": 2327.39,
+      "text": "this is this is really truly accounting"
+    },
+    {
+      "start": 2327.39,
+      "end": 2328.71,
+      "text": "analysis is has a lot to do with"
+    },
+    {
+      "start": 2328.71,
+      "end": 2330.91,
+      "text": "accounting and we're just being more"
+    },
+    {
+      "start": 2330.91,
+      "end": 2333.109,
+      "text": "careful with with the accounting as"
+    },
+    {
+      "start": 2333.109,
+      "end": 2334.79,
+      "text": "opposed to this straightforward argument"
+    },
+    {
+      "start": 2334.79,
+      "end": 2336.109,
+      "text": "that wasn't particularly careful with"
+    },
+    {
+      "start": 2336.109,
+      "end": 2339.109,
+      "text": "the"
+    },
+    {
+      "start": 2339.109,
+      "end": 2341.75,
+      "text": "counting so let's take a look at exactly"
+    },
+    {
+      "start": 2341.75,
+      "end": 2343.95,
+      "text": "this algorithm and I want to make an"
+    },
+    {
+      "start": 2343.95,
+      "end": 2352.87,
+      "text": "observation which is what I just did but"
+    },
+    {
+      "start": 2352.87,
+      "end": 2406.39,
+      "text": "heapify"
+    },
+    {
+      "start": 2406.39,
+      "end": 2409.03,
+      "text": "believes okay"
+    },
+    {
+      "start": 2409.03,
+      "end": 2411.23,
+      "text": "that's observation number one"
+    },
+    {
+      "start": 2411.23,
+      "end": 2417.75,
+      "text": "observation number two is that we have n"
+    },
+    {
+      "start": 2417.75,
+      "end": 2419.23,
+      "text": "nodes with give or take one depending on"
+    },
+    {
+      "start": 2419.23,
+      "end": 2422.39,
+      "text": "you know the value of N I don't want to"
+    },
+    {
+      "start": 2422.39,
+      "end": 2423.71,
+      "text": "get uh hung up on floors and ceilings"
+    },
+    {
+      "start": 2423.71,
+      "end": 2425.95,
+      "text": "and in any case we're eventually going"
+    },
+    {
+      "start": 2425.95,
+      "end": 2427.87,
+      "text": "to get an asmic result so we don't have"
+    },
+    {
+      "start": 2427.87,
+      "end": 2431.03,
+      "text": "to worry about that but we have n/4"
+    },
+    {
+      "start": 2431.03,
+      "end": 2433.309,
+      "text": "nodes with level one n/"
+    },
+    {
+      "start": 2433.309,
+      "end": 2439.55,
+      "text": "8 with level"
+    },
+    {
+      "start": 2439.55,
+      "end": 2443.75,
+      "text": "two da da da da da um and one"
+    },
+    {
+      "start": 2443.75,
+      "end": 2446.99,
+      "text": "node at log with with log"
+    },
+    {
+      "start": 2446.99,
+      "end": 2449.47,
+      "text": "n at at sort of the log n level okay"
+    },
+    {
+      "start": 2449.47,
+      "end": 2453.309,
+      "text": "which is the the root node okay so"
+    },
+    {
+      "start": 2453.309,
+      "end": 2456.67,
+      "text": "there's this decrease in terms of nodes"
+    },
+    {
+      "start": 2456.67,
+      "end": 2457.95,
+      "text": "as the work that you're doing increases"
+    },
+    {
+      "start": 2457.95,
+      "end": 2459.91,
+      "text": "all right and that's the careful"
+    },
+    {
+      "start": 2459.91,
+      "end": 2463.67,
+      "text": "accounting that we have to do and so all"
+    },
+    {
+      "start": 2463.67,
+      "end": 2466.43,
+      "text": "I have to do now to prove to you that"
+    },
+    {
+      "start": 2466.43,
+      "end": 2469.67,
+      "text": "this is actually an order and algorithm"
+    },
+    {
+      "start": 2469.67,
+      "end": 2472.67,
+      "text": "is to write a little summation that sums"
+    },
+    {
+      "start": 2472.67,
+      "end": 2500.27,
+      "text": "up all of the work across these"
+    },
+    {
+      "start": 2500.27,
+      "end": 2504.23,
+      "text": "Loop can be summed as n / 4 * 1 * C so"
+    },
+    {
+      "start": 2504.23,
+      "end": 2505.309,
+      "text": "there's some um I have one level here"
+    },
+    {
+      "start": 2505.309,
+      "end": 2506.829,
+      "text": "and you know I'm going to do some"
+    },
+    {
+      "start": 2506.829,
+      "end": 2508.43,
+      "text": "constant amount of work for that one"
+    },
+    {
+      "start": 2508.43,
+      "end": 2509.71,
+      "text": "level all right so I'm just going to put"
+    },
+    {
+      "start": 2509.71,
+      "end": 2511.39,
+      "text": "C out there because eventually I can"
+    },
+    {
+      "start": 2511.39,
+      "end": 2513.829,
+      "text": "take away the C right that's the beauty"
+    },
+    {
+      "start": 2513.829,
+      "end": 2516.79,
+      "text": "of astics right so we don't need to"
+    },
+    {
+      "start": 2516.79,
+      "end": 2519.95,
+      "text": "argue about about how much work is done"
+    },
+    {
+      "start": 2519.95,
+      "end": 2521.63,
+      "text": "at that one level how many swaps etc etc"
+    },
+    {
+      "start": 2521.63,
+      "end": 2523.829,
+      "text": "but the fact is that it's these n/4"
+    },
+    {
+      "start": 2523.829,
+      "end": 2528.15,
+      "text": "nodes are one level above the leaf right"
+    },
+    {
+      "start": 2528.15,
+      "end": 2537.87,
+      "text": "that's what's key and then I have n / 8"
+    },
+    {
+      "start": 2537.87,
+      "end": 2539.43,
+      "text": "* 2 C plus n / 16 * 3 C plus BL BL 1"
+    },
+    {
+      "start": 2539.43,
+      "end": 2544.549,
+      "text": "*"
+    },
+    {
+      "start": 2544.549,
+      "end": 2547.27,
+      "text": "log of n c right I'm essentially written"
+    },
+    {
+      "start": 2547.27,
+      "end": 2550.67,
+      "text": "uh in an arithmetic expression exactly"
+    },
+    {
+      "start": 2550.67,
+      "end": 2553.19,
+      "text": "what I have observed on the board above"
+    },
+    {
+      "start": 2553.19,
+      "end": 2556.589,
+      "text": "all right stop me if you have"
+    },
+    {
+      "start": 2556.589,
+      "end": 2558.43,
+      "text": "questions now I'm going to set just to"
+    },
+    {
+      "start": 2558.43,
+      "end": 2561.79,
+      "text": "try and make this a little easier to"
+    },
+    {
+      "start": 2561.79,
+      "end": 2563.99,
+      "text": "look at and easier to reason about I'm"
+    },
+    {
+      "start": 2563.99,
+      "end": 2569.109,
+      "text": "going to"
+    },
+    {
+      "start": 2569.109,
+      "end": 2571.309,
+      "text": "set n / 4 to 2 ra to K okay and I'm"
+    },
+    {
+      "start": 2571.309,
+      "end": 2572.549,
+      "text": "going to simplify and just pulling out"
+    },
+    {
+      "start": 2572.549,
+      "end": 2588.67,
+      "text": "certain things and this thing is going"
+    },
+    {
+      "start": 2588.67,
+      "end": 2596.069,
+      "text": "uh times 1 / 2 to 0 2 ided 2 to 1 3 / 2"
+    },
+    {
+      "start": 2596.069,
+      "end": 2597.71,
+      "text": "to 2 Etc k + 1 ided by 2 raised to K"
+    },
+    {
+      "start": 2597.71,
+      "end": 2600.91,
+      "text": "okay"
+    },
+    {
+      "start": 2600.91,
+      "end": 2604.19,
+      "text": "um if that was confusing raise your hand"
+    },
+    {
+      "start": 2604.19,
+      "end": 2605.829,
+      "text": "but it's uh essentially identical given"
+    },
+    {
+      "start": 2605.829,
+      "end": 2608.63,
+      "text": "the substitution instead of just"
+    },
+    {
+      "start": 2608.63,
+      "end": 2610.39,
+      "text": "applying the distributive law all right"
+    },
+    {
+      "start": 2610.39,
+      "end": 2615.109,
+      "text": "and the reason I did this is because I"
+    },
+    {
+      "start": 2615.109,
+      "end": 2617.87,
+      "text": "wanted you to see the arithmetic"
+    },
+    {
+      "start": 2617.87,
+      "end": 2621.43,
+      "text": "expression uh that's in here now we do"
+    },
+    {
+      "start": 2621.43,
+      "end": 2624.23,
+      "text": "know that you know 2 ra to K is is is n/"
+    },
+    {
+      "start": 2624.23,
+      "end": 2626.829,
+      "text": "4 of course uh but if you look at this"
+    },
+    {
+      "start": 2626.829,
+      "end": 2630.87,
+      "text": "expression that's inside"
+    },
+    {
+      "start": 2630.87,
+      "end": 2635.75,
+      "text": "here U what is what is this expression"
+    },
+    {
+      "start": 2635.75,
+      "end": 2638.71,
+      "text": "uh anyone uh can you can you bound this"
+    },
+    {
+      "start": 2638.71,
+      "end": 2647.51,
+      "text": "expression some"
+    },
+    {
+      "start": 2647.51,
+      "end": 2650.829,
+      "text": "question remember your arithmetic series"
+    },
+    {
+      "start": 2650.829,
+      "end": 2654.51,
+      "text": "from uh whatever it"
+    },
+    {
+      "start": 2654.51,
+      "end": 2656.109,
+      "text": "was GE uh yeah you know better than I"
+    },
+    {
+      "start": 2656.109,
+      "end": 2660.19,
+      "text": "you know I guess you you took those"
+    },
+    {
+      "start": 2660.19,
+      "end": 2662.27,
+      "text": "courses you know more recently but um so"
+    },
+    {
+      "start": 2662.27,
+      "end": 2663.79,
+      "text": "what what happens with that um I mean"
+    },
+    {
+      "start": 2663.79,
+      "end": 2667.15,
+      "text": "those of you who have calculators I mean"
+    },
+    {
+      "start": 2667.15,
+      "end": 2676.47,
+      "text": "you could plug that in and uh you know"
+    },
+    {
+      "start": 2676.47,
+      "end": 2679.309,
+      "text": "ahead that's exactly what I was looking"
+    },
+    {
+      "start": 2679.309,
+      "end": 2681.069,
+      "text": "for right um essentially well it's it's"
+    },
+    {
+      "start": 2681.069,
+      "end": 2682.67,
+      "text": "not quite two because you have a one"
+    },
+    {
+      "start": 2682.67,
+      "end": 2684.15,
+      "text": "here and you have a one here but you're"
+    },
+    {
+      "start": 2684.15,
+      "end": 2686.79,
+      "text": "exactly right I mean you know two two is"
+    },
+    {
+      "start": 2686.79,
+      "end": 2687.829,
+      "text": "good is astics I mean come on you know"
+    },
+    {
+      "start": 2687.829,
+      "end": 2690.43,
+      "text": "I'm not going to complain about two"
+    },
+    {
+      "start": 2690.43,
+      "end": 2692.95,
+      "text": "versus three right um so the point is"
+    },
+    {
+      "start": 2692.95,
+      "end": 2695.27,
+      "text": "this bounded by a constant okay it's"
+    },
+    {
+      "start": 2695.27,
+      "end": 2697.23,
+      "text": "bounded by a constant all right this is"
+    },
+    {
+      "start": 2697.23,
+      "end": 2699.27,
+      "text": "a convergence series and and it's"
+    },
+    {
+      "start": 2699.27,
+      "end": 2701.79,
+      "text": "bounded by a constant all right and we"
+    },
+    {
+      "start": 2701.79,
+      "end": 2704.79,
+      "text": "can argue about what that constant is um"
+    },
+    {
+      "start": 2704.79,
+      "end": 2706.109,
+      "text": "it's uh it's less than three okay and it"
+    },
+    {
+      "start": 2706.109,
+      "end": 2707.829,
+      "text": "doesn't matter even if K goes to"
+    },
+    {
+      "start": 2707.829,
+      "end": 2709.19,
+      "text": "Infinity right I mean you want K to go"
+    },
+    {
+      "start": 2709.19,
+      "end": 2712.109,
+      "text": "to Infinity but it doesn't matter if K"
+    },
+    {
+      "start": 2712.109,
+      "end": 2723.39,
+      "text": "is small or k is large this is bounded"
+    },
+    {
+      "start": 2723.39,
+      "end": 2725.109,
+      "text": "key observation so what do we have left"
+    },
+    {
+      "start": 2725.109,
+      "end": 2727.39,
+      "text": "what do we have left we have a constant"
+    },
+    {
+      "start": 2727.39,
+      "end": 2729.549,
+      "text": "there okay we have a c which is a"
+    },
+    {
+      "start": 2729.549,
+      "end": 2733.51,
+      "text": "constant and we have 2 raised to K which"
+    },
+    {
+      "start": 2733.51,
+      "end": 2735.75,
+      "text": "is really n okay so there you go there"
+    },
+    {
+      "start": 2735.75,
+      "end": 2737.63,
+      "text": "you have your Theta n complexity okay"
+    },
+    {
+      "start": 2737.63,
+      "end": 2740.549,
+      "text": "now I can say Theta n because I know"
+    },
+    {
+      "start": 2740.549,
+      "end": 2744.19,
+      "text": "it's Theta n right but Big O of n Theta"
+    },
+    {
+      "start": 2744.19,
+      "end": 2746.51,
+      "text": "n that's what it is right so that was a"
+    },
+    {
+      "start": 2746.51,
+      "end": 2748.99,
+      "text": "I'd say a subtle analysis clearly a"
+    },
+    {
+      "start": 2748.99,
+      "end": 2750.95,
+      "text": "little more complicated than anything"
+    },
+    {
+      "start": 2750.95,
+      "end": 2752.87,
+      "text": "we've done so far and let me see if"
+    },
+    {
+      "start": 2752.87,
+      "end": 2753.91,
+      "text": "their their questions how many people"
+    },
+    {
+      "start": 2753.91,
+      "end": 2758.03,
+      "text": "got"
+    },
+    {
+      "start": 2758.03,
+      "end": 2761.309,
+      "text": "this I did too right okay uh someone who"
+    },
+    {
+      "start": 2761.309,
+      "end": 2763.069,
+      "text": "didn't get it ask a question what didn't"
+    },
+    {
+      "start": 2763.069,
+      "end": 2764.79,
+      "text": "you get what step what step would you"
+    },
+    {
+      "start": 2764.79,
+      "end": 2774.51,
+      "text": "like me to repeat"
+    },
+    {
+      "start": 2774.51,
+      "end": 2775.95,
+      "text": "step to this thing here right here okay"
+    },
+    {
+      "start": 2775.95,
+      "end": 2778.19,
+      "text": "so you're you're you're not convinced"
+    },
+    {
+      "start": 2778.19,
+      "end": 2780.109,
+      "text": "that that this expression got translated"
+    },
+    {
+      "start": 2780.109,
+      "end": 2781.63,
+      "text": "to this expression all right so let me"
+    },
+    {
+      "start": 2781.63,
+      "end": 2783.15,
+      "text": "let me try and convince you of that all"
+    },
+    {
+      "start": 2783.15,
+      "end": 2787.71,
+      "text": "right so let's take a look at each of"
+    },
+    {
+      "start": 2787.71,
+      "end": 2789.95,
+      "text": "the terms okay um n by4 is 2 ra to K I'm"
+    },
+    {
+      "start": 2789.95,
+      "end": 2795.47,
+      "text": "just looking at this term and this term"
+    },
+    {
+      "start": 2795.47,
+      "end": 2797.99,
+      "text": "okay n by4 is 2 ra to K right C is C all"
+    },
+    {
+      "start": 2797.99,
+      "end": 2803.79,
+      "text": "right and I just wrote one"
+    },
+    {
+      "start": 2803.79,
+      "end": 2805.43,
+      "text": "as uh as 1 ided 2 raed to 0 which is one"
+    },
+    {
+      "start": 2805.43,
+      "end": 2806.79,
+      "text": "okay and the reason I want you to do"
+    },
+    {
+      "start": 2806.79,
+      "end": 2809.75,
+      "text": "this is because I wanted to show you an"
+    },
+    {
+      "start": 2809.75,
+      "end": 2811.95,
+      "text": "expression where in some sense this is"
+    },
+    {
+      "start": 2811.95,
+      "end": 2814.19,
+      "text": "the term that is the summation for your"
+    },
+    {
+      "start": 2814.19,
+      "end": 2818.549,
+      "text": "expression if you just replace this with"
+    },
+    {
+      "start": 2818.549,
+      "end": 2819.43,
+      "text": "you can write that out as I equal uh 0"
+    },
+    {
+      "start": 2819.43,
+      "end": 2825.95,
+      "text": "through"
+    },
+    {
+      "start": 2825.95,
+      "end": 2829.03,
+      "text": "k um I + 1 / 2 to I all right that is"
+    },
+    {
+      "start": 2829.03,
+      "end": 2831.75,
+      "text": "the symbolic form of this expression"
+    },
+    {
+      "start": 2831.75,
+      "end": 2833.75,
+      "text": "which came from here all right and then"
+    },
+    {
+      "start": 2833.75,
+      "end": 2835.79,
+      "text": "the argument was made that this is a"
+    },
+    {
+      "start": 2835.79,
+      "end": 2841.51,
+      "text": "convergence series and is bounded by a"
+    },
+    {
+      "start": 2841.51,
+      "end": 2843.67,
+      "text": "constant all right that makes sense good"
+    },
+    {
+      "start": 2843.67,
+      "end": 2846.39,
+      "text": "um so that's pretty neat right I I mean"
+    },
+    {
+      "start": 2846.39,
+      "end": 2848.51,
+      "text": "you had the same algorithm and and voila"
+    },
+    {
+      "start": 2848.51,
+      "end": 2850.63,
+      "text": "it suddenly got more efficient right"
+    },
+    {
+      "start": 2850.63,
+      "end": 2853.069,
+      "text": "doesn't always happen but that tells you"
+    },
+    {
+      "start": 2853.069,
+      "end": 2854.87,
+      "text": "that you have to have some care in doing"
+    },
+    {
+      "start": 2854.87,
+      "end": 2857.309,
+      "text": "your analysis because what really"
+    },
+    {
+      "start": 2857.309,
+      "end": 2859.349,
+      "text": "happened here was you did a rudimentary"
+    },
+    {
+      "start": 2859.349,
+      "end": 2861.589,
+      "text": "analysis you said this was order log n"
+    },
+    {
+      "start": 2861.589,
+      "end": 2863.87,
+      "text": "Big O log n and you said this was Theta"
+    },
+    {
+      "start": 2863.87,
+      "end": 2866.19,
+      "text": "n and you ended up with this but in"
+    },
+    {
+      "start": 2866.19,
+      "end": 2869.15,
+      "text": "reality it's actually a faster algorithm"
+    },
+    {
+      "start": 2869.15,
+      "end": 2872.91,
+      "text": "all right so that's the good news build"
+    },
+    {
+      "start": 2872.91,
+      "end": 2874.589,
+      "text": "max Heap can be done in order end time"
+    },
+    {
+      "start": 2874.589,
+      "end": 2878.23,
+      "text": "um now in the time that I have left it"
+    },
+    {
+      "start": 2878.23,
+      "end": 2882.19,
+      "text": "turns out we're essentially"
+    },
+    {
+      "start": 2882.19,
+      "end": 2885.79,
+      "text": "uh all the way to Heap sword because all"
+    },
+    {
+      "start": 2885.79,
+      "end": 2888.829,
+      "text": "we have to do is uh use once we have"
+    },
+    {
+      "start": 2888.829,
+      "end": 2891.309,
+      "text": "build max Heap I'll just write out the"
+    },
+    {
+      "start": 2891.309,
+      "end": 2894.87,
+      "text": "code for Heap Sort and you can take a"
+    },
+    {
+      "start": 2894.87,
+      "end": 2897.03,
+      "text": "look at uh examples in the"
+    },
+    {
+      "start": 2897.03,
+      "end": 2900.03,
+      "text": "notes the pseudo code I should say for"
+    },
+    {
+      "start": 2900.03,
+      "end": 2904.069,
+      "text": "Heap Sort and it looks like this the"
+    },
+    {
+      "start": 2904.069,
+      "end": 2908.23,
+      "text": "first step that you do is you build max"
+    },
+    {
+      "start": 2908.23,
+      "end": 2910.71,
+      "text": "heat from the unordered"
+    },
+    {
+      "start": 2910.71,
+      "end": 2915.589,
+      "text": "array"
+    },
+    {
+      "start": 2915.589,
+      "end": 2918.71,
+      "text": "okay um then you find the maximum"
+    },
+    {
+      "start": 2918.71,
+      "end": 2920.349,
+      "text": "element A1 all of this I've said"
+    },
+    {
+      "start": 2920.349,
+      "end": 2923.79,
+      "text": "multiple"
+    },
+    {
+      "start": 2923.79,
+      "end": 2928.589,
+      "text": "times now the key step is you could do"
+    },
+    {
+      "start": 2928.589,
+      "end": 2932.589,
+      "text": "extract Max but one nice way of handling"
+    },
+    {
+      "start": 2932.589,
+      "end": 2934.549,
+      "text": "this is to swap the elements a"
+    },
+    {
+      "start": 2934.549,
+      "end": 2937.43,
+      "text": "n with"
+    },
+    {
+      "start": 2937.43,
+      "end": 2940.71,
+      "text": "A1 okay and let me write this out and"
+    },
+    {
+      "start": 2940.71,
+      "end": 2953.19,
+      "text": "I'll explain exactly what uh that means"
+    },
+    {
+      "start": 2953.19,
+      "end": 2955.99,
+      "text": "array okay when you do the swap that's"
+    },
+    {
+      "start": 2955.99,
+      "end": 2958.829,
+      "text": "the one step that I'll have to spend"
+    },
+    {
+      "start": 2958.829,
+      "end": 2961.309,
+      "text": "another minute on now we"
+    },
+    {
+      "start": 2961.309,
+      "end": 2967.47,
+      "text": "discard node"
+    },
+    {
+      "start": 2967.47,
+      "end": 2969.069,
+      "text": "n from the Heap simply by decrementing"
+    },
+    {
+      "start": 2969.069,
+      "end": 2973.47,
+      "text": "Heap"
+    },
+    {
+      "start": 2973.47,
+      "end": 2976.549,
+      "text": "size so the Heap becomes n minus one in"
+    },
+    {
+      "start": 2976.549,
+      "end": 2978.789,
+      "text": "size from n in the first"
+    },
+    {
+      "start": 2978.789,
+      "end": 2981.43,
+      "text": "iteration now the new"
+    },
+    {
+      "start": 2981.43,
+      "end": 2984.71,
+      "text": "root which after the"
+    },
+    {
+      "start": 2984.71,
+      "end": 2989.309,
+      "text": "swap May"
+    },
+    {
+      "start": 2989.309,
+      "end": 2990.71,
+      "text": "violate Max he we'll call it the MHP the"
+    },
+    {
+      "start": 2990.71,
+      "end": 2993.829,
+      "text": "max he"
+    },
+    {
+      "start": 2993.829,
+      "end": 2999.829,
+      "text": "property but the"
+    },
+    {
+      "start": 2999.829,
+      "end": 3002.549,
+      "text": "because that's the one node that can"
+    },
+    {
+      "start": 3002.549,
+      "end": 3012.19,
+      "text": "possibly violate it so what that means"
+    },
+    {
+      "start": 3012.19,
+      "end": 3016.51,
+      "text": "heapify to to fix this and and that's it"
+    },
+    {
+      "start": 3016.51,
+      "end": 3019.39,
+      "text": "once you do that you go back to to that"
+    },
+    {
+      "start": 3019.39,
+      "end": 3020.829,
+      "text": "step so what's happened here exactly"
+    },
+    {
+      "start": 3020.829,
+      "end": 3022.91,
+      "text": "well this part you know we spent a bunch"
+    },
+    {
+      "start": 3022.91,
+      "end": 3025.67,
+      "text": "of time on you know that the top element"
+    },
+    {
+      "start": 3025.67,
+      "end": 3027.069,
+      "text": "is the maximum element so you grab that"
+    },
+    {
+      "start": 3027.069,
+      "end": 3029.91,
+      "text": "and you know that that's the max maximum"
+    },
+    {
+      "start": 3029.91,
+      "end": 3032.23,
+      "text": "element um you don't want to just one"
+    },
+    {
+      "start": 3032.23,
+      "end": 3033.75,
+      "text": "way of doing it is to use extract Max"
+    },
+    {
+      "start": 3033.75,
+      "end": 3035.71,
+      "text": "but rather than doing extract Max which"
+    },
+    {
+      "start": 3035.71,
+      "end": 3039.549,
+      "text": "I haven't explained to you um you could"
+    },
+    {
+      "start": 3039.549,
+      "end": 3041.91,
+      "text": "imagine that you go off and you swap the"
+    },
+    {
+      "start": 3041.91,
+      "end": 3045.23,
+      "text": "top element with the with the bottom"
+    },
+    {
+      "start": 3045.23,
+      "end": 3047.95,
+      "text": "element and then you discard it so"
+    },
+    {
+      "start": 3047.95,
+      "end": 3049.349,
+      "text": "here's a trivial example where let's say"
+    },
+    {
+      "start": 3049.349,
+      "end": 3052.549,
+      "text": "I"
+    },
+    {
+      "start": 3052.549,
+      "end": 3056.829,
+      "text": "had uh"
+    },
+    {
+      "start": 3056.829,
+      "end": 3058.47,
+      "text": "four two and one which is the max Heat"
+    },
+    {
+      "start": 3058.47,
+      "end": 3061.15,
+      "text": "what would happen is you'd say I'm going"
+    },
+    {
+      "start": 3061.15,
+      "end": 3066.63,
+      "text": "to take four and I'm going to swap it"
+    },
+    {
+      "start": 3066.63,
+      "end": 3070.75,
+      "text": "with one and so you have one two and"
+    },
+    {
+      "start": 3070.75,
+      "end": 3072.309,
+      "text": "four now a four is used to be A1 and"
+    },
+    {
+      "start": 3072.309,
+      "end": 3074.39,
+      "text": "that's the maximum element and I'm just"
+    },
+    {
+      "start": 3074.39,
+      "end": 3076.589,
+      "text": "going to delete it from the Heap which"
+    },
+    {
+      "start": 3076.589,
+      "end": 3078.789,
+      "text": "means I'm going to end up with a heap"
+    },
+    {
+      "start": 3078.789,
+      "end": 3080.63,
+      "text": "that looks like a heap not a Max Heap"
+    },
+    {
+      "start": 3080.63,
+      "end": 3082.63,
+      "text": "that looks like this and I write down"
+    },
+    {
+      "start": 3082.63,
+      "end": 3085.03,
+      "text": "four here four is the first element in"
+    },
+    {
+      "start": 3085.03,
+      "end": 3088.19,
+      "text": "my sorted array now I look at one and"
+    },
+    {
+      "start": 3088.19,
+      "end": 3090.19,
+      "text": "two and and one and two this is"
+    },
+    {
+      "start": 3090.19,
+      "end": 3092.15,
+      "text": "obviously not a Max Heap but I can run"
+    },
+    {
+      "start": 3092.15,
+      "end": 3094.19,
+      "text": "Max I know that the child is a Max Heap"
+    },
+    {
+      "start": 3094.19,
+      "end": 3098.069,
+      "text": "so I can run Max heapify on this and"
+    },
+    {
+      "start": 3098.069,
+      "end": 3100.19,
+      "text": "what this turns into is two and one okay"
+    },
+    {
+      "start": 3100.19,
+      "end": 3102.589,
+      "text": "and at this point I know that the max is"
+    },
+    {
+      "start": 3102.589,
+      "end": 3105.829,
+      "text": "the root because I've run Max Cy and I"
+    },
+    {
+      "start": 3105.829,
+      "end": 3107.71,
+      "text": "take two out and at this point after"
+    },
+    {
+      "start": 3107.71,
+      "end": 3110.95,
+      "text": "this it becomes trivial but that's a"
+    },
+    {
+      "start": 3110.95,
+      "end": 3113.75,
+      "text": "general uh algorithm so this whole thing"
+    },
+    {
+      "start": 3113.75,
+      "end": 3118.829,
+      "text": "takes order n log n time because even"
+    },
+    {
+      "start": 3118.829,
+      "end": 3121.789,
+      "text": "though build max Heep is is order n um"
+    },
+    {
+      "start": 3121.789,
+      "end": 3125.23,
+      "text": "the max element is constant time uh"
+    },
+    {
+      "start": 3125.23,
+      "end": 3129.75,
+      "text": "swapping the elements is constant time"
+    },
+    {
+      "start": 3129.75,
+      "end": 3132.349,
+      "text": "uh but uh running Max cp5 is order log n"
+    },
+    {
+      "start": 3132.349,
+      "end": 3134.589,
+      "text": "time and you have n"
+    },
+    {
+      "start": 3134.589,
+      "end": 3138.43,
+      "text": "steps"
+    },
+    {
+      "start": 3138.43,
+      "end": 3141.15,
+      "text": "so you have an order n log n algorithm"
+    },
+    {
+      "start": 3141.15,
+      "end": 3143.19,
+      "text": "but the first step was order n which is"
+    },
+    {
+      "start": 3143.19,
+      "end": 3145.67,
+      "text": "what we spent a bunch of time on so I'll"
+    },
+    {
+      "start": 3145.67,
+      "end": 3147.43,
+      "text": "show you um there examples in the notes"
+    },
+    {
+      "start": 3147.43,
+      "end": 3149.75,
+      "text": "and uh we'll you you'll get covered"
+    },
+    {
+      "start": 3149.75,
+      "end": 3152.75,
+      "text": "again in section I'll Stick Around for"
+    }
+  ]
+}

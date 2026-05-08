@@ -1,0 +1,1073 @@
+[
+  {
+    "chunk_id": "nyu_dl_week5_chunk_000",
+    "video_id": "nyu_dl_week5",
+    "start_time": 0.0,
+    "end_time": 45.0,
+    "text": "all right so as you can see today we don't have Yong Yong is somewhere else having fun hyeyeon okay so today's that we have our own de facto he's a research scientist at Facebook working mostly on optimization he's been there for the past three years and before he was a data scientist at Amita and then a student at the Australian National University so why don't we give a round of applause to the our speaker today I'll be talking about optimization and if we have time at the end the death of optimization so these are the topics I will be covering today"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_001",
+    "video_id": "nyu_dl_week5",
+    "start_time": 35.0,
+    "end_time": 80.0,
+    "text": "our speaker today I'll be talking about optimization and if we have time at the end the death of optimization so these are the topics I will be covering today now optimization is at the heart of machine learning and some of the things are going to be talking about today will be used every day in your role potentially as an applied scientist or even as a research scientist or a data scientist and I'm gonna focus on the application of these methods particularly rather than the theory behind them part of the reason for this is that we don't fully understand all of these methods so for me to come up here and say this is why it works I would be oversimplifying things but what I can tell you is how to use them how we know"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_002",
+    "video_id": "nyu_dl_week5",
+    "start_time": 70.0,
+    "end_time": 115.0,
+    "text": "these methods so for me to come up here and say this is why it works I would be oversimplifying things but what I can tell you is how to use them how we know that they work in certain situations and what the best method may be to use to train your neural network and to introduce you to the topic of optimization I need to start with the worst method in the world gradient descent and I'll explain in a minute why it's the worst method but to begin with we're going to use the most generic formulation of optimization now the problems you're going to be considering will have more structure than this but it's very useful useful notationally to start this way so we talked about a"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_003",
+    "video_id": "nyu_dl_week5",
+    "start_time": 105.0,
+    "end_time": 150.0,
+    "text": "formulation of optimization now the problems you're going to be considering will have more structure than this but it's very useful useful notationally to start this way so we talked about a function f now we're trying to prove properties of our optimizer will assume additional structure on f but in practice the structure in our neural networks essentially obey no of the assumptions none of the assumptions people make in practice I'm just gonna start with the generic F and we'll assume it's continuous and differentiable even though we're already getting into the realm of incorrect assumptions since the neural networks most people are using in practice these days are not differentiable instead you have a equivalent sub differential which you can essentially plug into all these"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_004",
+    "video_id": "nyu_dl_week5",
+    "start_time": 140.0,
+    "end_time": 185.0,
+    "text": "assumptions since the neural networks most people are using in practice these days are not differentiable instead you have a equivalent sub differential which you can essentially plug into all these formulas and if you cross your fingers there's no theory to support this it should work so the method of gradient descent is shown here it's an iterative method so you start at a point k equals zero and at each step you update your point and here we're going to use W to represent our current iterate either it being the standard nomenclature for the point for your neural network this w will be some large collection of weights one weight tensor per layer but notation we we kind of squash the whole thing down to a single vector and you can"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_005",
+    "video_id": "nyu_dl_week5",
+    "start_time": 175.0,
+    "end_time": 220.0,
+    "text": "will be some large collection of weights one weight tensor per layer but notation we we kind of squash the whole thing down to a single vector and you can imagine just doing that literally by reshaping all your vectors to all your tensors two vectors and just concatenate them together and this method is remarkably simple all we do is we follow the direction of the negative gradient and the rationale for this it's pretty simple so let me give you a diagram and maybe this will help explain exactly why following the negative gradient direction is a good idea so we don't know enough about our function to do better this is a high level idea when we're optimizing a function we look at"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_006",
+    "video_id": "nyu_dl_week5",
+    "start_time": 210.0,
+    "end_time": 255.0,
+    "text": "direction is a good idea so we don't know enough about our function to do better this is a high level idea when we're optimizing a function we look at the landscape the optimization landscape locally so by optimization landscape I mean the domain of all possible weights of our network now we don't know what's going to happen if we use any particular weights on your network we don't know if it'll be better at the task we're trying to train it to or worse but we do know locally is the point that are currently ad and the gradient and this gradient provides some information about a direction which we can travel in that may improve the performance of our network or in this case reduce the value of our function were minimizing here in this set up this general setup"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_007",
+    "video_id": "nyu_dl_week5",
+    "start_time": 245.0,
+    "end_time": 290.0,
+    "text": "direction which we can travel in that may improve the performance of our network or in this case reduce the value of our function were minimizing here in this set up this general setup minimizing a function is essentially training in your network so minimizing the loss will give you the best performance on your classification task or whatever you're trying to do and because we only look at the world locally here this gradient is basically the best information we have and you can think of this as descending a valley where you start somewhere horrible some pinkie part of the landscape the top of a mountain for instance and you travel down from there and at each point you follow the direction near you that has the most sorry the steepest descent and"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_008",
+    "video_id": "nyu_dl_week5",
+    "start_time": 280.0,
+    "end_time": 325.0,
+    "text": "down from there and at each point you follow the direction near you that has the most sorry the steepest descent and in fact the go the method of grading % is sometimes called the method of steepest descent and this direction will change as you move in the space now if you move locally by only an infinitesimal amount assuming this smoothness that I mentioned before which is actually not true in practice but we'll get to that assuming the smoothness this small step will only change the gradient a small amount so the direction you're traveling in is at least a good direction when you take small steps and we essentially just follow this path taking as larger steps as we can traversing the landscape until we reach the valley at the bottom which is the"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_009",
+    "video_id": "nyu_dl_week5",
+    "start_time": 315.0,
+    "end_time": 360.0,
+    "text": "small steps and we essentially just follow this path taking as larger steps as we can traversing the landscape until we reach the valley at the bottom which is the minimizer our function now there's a little bit more we can say for some problem classes and I'm going to use the most simplistic problem class we can just because it's the only thing that I can really do any mathematics for on one slide so bear with me this class is quadratics so for a quadratic optimization problem we actually know quite a bit just based off the gradient so firstly a gradient cuts off an entire half of a space and now illustrate this here with this green line so we're at that point there where"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_010",
+    "video_id": "nyu_dl_week5",
+    "start_time": 350.0,
+    "end_time": 395.0,
+    "text": "the gradient so firstly a gradient cuts off an entire half of a space and now illustrate this here with this green line so we're at that point there where the line starts near the Green Line we know the solution cannot be in the rest of the space and this is not true from your networks but it's still a genuinely a good guideline that we want to follow the direction of negative gradient there could be better solutions elsewhere in the space but finding them is is much harder than just trying to find the best solution near to where we are so that's what we do we trying to find the best solution near to where we are you could imagine this being the surface of the earth where there are many hills and valleys and we can't hope to know something about a mountain on the other side of the planet but we can certainly look for the valley directly beneath the mountain where we currently are"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_011",
+    "video_id": "nyu_dl_week5",
+    "start_time": 385.0,
+    "end_time": 430.0,
+    "text": "earth where there are many hills and valleys and we can't hope to know something about a mountain on the other side of the planet but we can certainly look for the valley directly beneath the mountain where we currently are in fact you can think of these functions here as being represented with these topographic maps this is the same as topographic maps you use that you may be familiar with from from the planet Earth where mountains are shown by these rings now here the rings are representing descent so this is the bottom of the valley we're showing here not the top of a hill at the center there so yes our gradient knocks off a whole half of the possible space now it's very reasonable then to go in the direction find this negative gradient because it's kind of orthogonal to this line that cuts off"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_012",
+    "video_id": "nyu_dl_week5",
+    "start_time": 420.0,
+    "end_time": 465.0,
+    "text": "possible space now it's very reasonable then to go in the direction find this negative gradient because it's kind of orthogonal to this line that cuts off after space and you can see that I've got the indication of orthogonal you there the little la square so the properties of gradient to spend a gradient descent depend greatly on the structure of the problem for these quadratic problems it's actually relatively simple to characterize what will happen so I'm going to give you a little bit of an overview here and I'll spend a few minutes on this because it's quite interesting and I'm hoping that those of you with some background in linear algebra can follow this derivation but we're going to consider a quadratic optimization problem"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_013",
+    "video_id": "nyu_dl_week5",
+    "start_time": 455.0,
+    "end_time": 500.0,
+    "text": "spend a few minutes on this because it's quite interesting and I'm hoping that those of you with some background in linear algebra can follow this derivation but we're going to consider a quadratic optimization problem now the problem stated in the gray box at the top you can see that this is a quadratic where a is a positive definite matrix we can handle broader classes of Quadra quadratics and this potentially but the analysis is most simple in the positive definite case and the grating of that function is very simple of course as a w- b and u the solution of this problem has a closed form in the case of quadratics it's as inverse of a times B now what we do is we take the"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_014",
+    "video_id": "nyu_dl_week5",
+    "start_time": 490.0,
+    "end_time": 535.0,
+    "text": "this problem has a closed form in the case of quadratics it's as inverse of a times B now what we do is we take the steps they're shown in the green box and we just plug it into the distance from solution so this wk minus 1 minus W star is a distance from solution so we want to see how this changes over time and the idea is that if we're moving closer to the solution over time the method is converging so we start with that distance from solution to be plug in the value of the update now with a little the terms we can group the terms together and we can write B as a inverse"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_015",
+    "video_id": "nyu_dl_week5",
+    "start_time": 525.0,
+    "end_time": 570.0,
+    "text": "the terms we can group the terms together and we can write B as a inverse so we can pull or we can pull the W star inside the inside the brackets there and then we get this expression where it's matrix times the previous distance to the solution matrix times previous distance solution now we don't know anything about which directions this quadratic it varies most extremely in but we can just not bound this very simply by taking the product of the matrix as norm and the distance to the solution here this norm at the bottom so"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_016",
+    "video_id": "nyu_dl_week5",
+    "start_time": 560.0,
+    "end_time": 605.0,
+    "text": "quadratic it varies most extremely in but we can just not bound this very simply by taking the product of the matrix as norm and the distance to the solution here this norm at the bottom so that's the bottom line now now when you're considering matrix norms it's pretty straightforward to see that you're going to have an expression where the eigen values of this matrix are going to be 1 minus mu gamma or 1 minus L gamma now the way I get this is I just look at what are the extreme eigen values of a which we call them mu and L and by plugging these into the expression we can see what the extreme eigen values will be of this combined matrix I minus gamma a and you have this absolute value here now you can optimize this and get an optimal learning rate"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_017",
+    "video_id": "nyu_dl_week5",
+    "start_time": 595.0,
+    "end_time": 640.0,
+    "text": "expression we can see what the extreme eigen values will be of this combined matrix I minus gamma a and you have this absolute value here now you can optimize this and get an optimal learning rate for the quadratics but that optimal learning rate is not robust in practice you probably don't want to use that so a simpler value you can use is 1 over L ll being the largest eigen value and this gives you this convergence rate of 1 minus mu L reduction in distance to solution every step do we have any questions here I"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_018",
+    "video_id": "nyu_dl_week5",
+    "start_time": 630.0,
+    "end_time": 675.0,
+    "text": "yes yes it's it's a substitution from in that gray box do you see the bottom line on the gray box yeah that's that's just a by definition we can solve the gradient so by taking the gradient to zero if you see in that second line in the box taking the gradient to zero this so replaced our gradient with zero and rearranging you get the closed form solution to the problem here so the problem with using that closed form solution in practice is we have to invert a matrix and by using gradient descent we can solve this problem by only doing matrix multiplications instead I'm not that I would suggest you actually use this technique to solve the"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_019",
+    "video_id": "nyu_dl_week5",
+    "start_time": 665.0,
+    "end_time": 710.0,
+    "text": "invert a matrix and by using gradient descent we can solve this problem by only doing matrix multiplications instead I'm not that I would suggest you actually use this technique to solve the matrix as I mentioned before it's the worst method in the world and the convergence rate of this method is controlled by this new overall quantity now these are standard notations so we're going from linear algebra where you talk about the min and Max eigen value to the notation typically used in the field of optimization moving smallest eigen value L being largest eigen value and this mu over L is the inverse of the condition number condition number being L over Mir this gives you a broad characterization of"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_020",
+    "video_id": "nyu_dl_week5",
+    "start_time": 700.0,
+    "end_time": 745.0,
+    "text": "inverse of the condition number condition number being L over Mir this gives you a broad characterization of how quickly optimization methods will work on this problem and this these military terms they don't exist for neural networks only in the very simplest situations do we have L exists and we essentially never have mu existing nevertheless we want to talk about network networks being polar conditioned and well conditioned and poorly conditioned would typically be some approximation to L is very large and well conditioned maybe L is very close to one so the step size we can select in one summer training depends"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_021",
+    "video_id": "nyu_dl_week5",
+    "start_time": 735.0,
+    "end_time": 780.0,
+    "text": "and well conditioned maybe L is very close to one so the step size we can select in one summer training depends very heavily on these constants so let me give you a little bit of an intuition for step sizes and this is very important in practice I myself find a lot of my time is spent treating learning rates and I'm sure you'll be involved in similar procedure so we have a couple of situations that can occur if we use a learning rate that's too low we'll find that we make steady progress towards the solution here we're minimizing a little 1d quadratic and by steady progress I mean that every iteration the gradient stays in buffer"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_022",
+    "video_id": "nyu_dl_week5",
+    "start_time": 770.0,
+    "end_time": 815.0,
+    "text": "minimizing a little 1d quadratic and by steady progress I mean that every iteration the gradient stays in buffer the same direction and you make similar progress as you approach the solution this is slower than it is possible so what you would ideally want to do is go straight to the solution for a quadratic especially a 1d one like this that's going to be pretty straightforward there's going to be an exact step size that'll get you all the way to solution but more generally you can't do that and what you typically want to use is actually a step size a bit above that optimal and this is for a number of reasons it tends to be quicker in practice we have to be very very careful because you get divergence and the term divergence means that the iterates will"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_023",
+    "video_id": "nyu_dl_week5",
+    "start_time": 805.0,
+    "end_time": 850.0,
+    "text": "optimal and this is for a number of reasons it tends to be quicker in practice we have to be very very careful because you get divergence and the term divergence means that the iterates will get further away than from the solution instead of closer this will typically happen if you use two larger learning rate unfortunately for us we want to use learning rates as large as possible to get as quick learning as possible so we're always at the edge of divergence in fact it's very rare that you'll see that the gradients follow this nice trajectory where they all point the same direction until you kind of reach the solution what almost always happens in practice especially with gradient descent invariants is that you observe this zigzagging behavior now we can't actually see zigzagging in million dimensional spaces that we train your"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_024",
+    "video_id": "nyu_dl_week5",
+    "start_time": 840.0,
+    "end_time": 885.0,
+    "text": "practice especially with gradient descent invariants is that you observe this zigzagging behavior now we can't actually see zigzagging in million dimensional spaces that we train your networks in but it's very evident in these 2d plots of a quadratic so here I'm showing the level sets you can see the numbers or the function value indicated there on the level sets and when we use a learning rate that is good not optimal but good we get pretty close to that blue dot the solution are for the 10 steps when we use a learning rate that seems nicer in that it's not oscillating it's well-behaved when we use such a learning rate we actually end up quite a bit further away from the solution so it's a fact of life that we have to deal with these learning rates"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_025",
+    "video_id": "nyu_dl_week5",
+    "start_time": 875.0,
+    "end_time": 920.0,
+    "text": "oscillating it's well-behaved when we use such a learning rate we actually end up quite a bit further away from the solution so it's a fact of life that we have to deal with these learning rates that are stressfully high it's kind of like a race right you know no one wins a a race by driving safely so our network training should be very comparable to that so the core topic we want to talk about is actually it stochastic optimization and this is the method that we will be using every day for training neural networks in practice so it's de casting optimization is actually not so different what we're gonna do is we're going to replace the gradients in our"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_026",
+    "video_id": "nyu_dl_week5",
+    "start_time": 910.0,
+    "end_time": 955.0,
+    "text": "neural networks in practice so it's de casting optimization is actually not so different what we're gonna do is we're going to replace the gradients in our gradient descent step with a stochastic approximation to the gradient now in a neural network we can be a bit more precise here by stochastic approximation what we mean is the gradient of the loss for a single data point single instance you might want to call it so I've got that in the notation here this function L is the loss of one day the point here the data point is indexed by AI and we would write this typically in the optimization literature as the function fi and I'm going to use this notation"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_027",
+    "video_id": "nyu_dl_week5",
+    "start_time": 945.0,
+    "end_time": 990.0,
+    "text": "L is the loss of one day the point here the data point is indexed by AI and we would write this typically in the optimization literature as the function fi and I'm going to use this notation but you should imagine fi as being the loss for a single instance I and here I'm using supervised learning setup where we have data points I labels Y I so they points X I labels Y I the full loss for a function is shown at the top there it's a sum of all these F is now let me give you a bit more explanation for what we're doing here we're placing this through gradient with a stochastic gradient this is a Luisi approximation and this is how it's often explained in"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_028",
+    "video_id": "nyu_dl_week5",
+    "start_time": 980.0,
+    "end_time": 1025.0,
+    "text": "gradient this is a Luisi approximation and this is how it's often explained in the stochastic optimization setup so we have this function the gradient and in our setup it's expected value is equal to the full gradient so you can think of a stochastic gradient descent step as being a full gradient step in expectation now this is not actually the best way to view it because there's a lot more going on than that it's not just gradient descent with noise so let me give you a little bit more detail but first I let anybody ask any questions I have here before I move on yes"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_029",
+    "video_id": "nyu_dl_week5",
+    "start_time": 1015.0,
+    "end_time": 1060.0,
+    "text": "me give you a little bit more detail but first I let anybody ask any questions I have here before I move on yes mm-hmm yeah I could talk a bit more about that but yes so you're right so using your entire dataset to calculate a gradient is here what I mean by gradient descent we also call that full batch gradient descent just to be clear now in machine learning we virtually always use mini batches so people may use the name gradient descent or something when they're really talking about stochastic gradient descent and what you mentioned is absolutely true so there are some difficulties of training neural networks using very large batch sizes and this is understood to some degree and I'll actually explain that on the very next slide so let me let me get to to your point first"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_030",
+    "video_id": "nyu_dl_week5",
+    "start_time": 1050.0,
+    "end_time": 1095.0,
+    "text": "difficulties of training neural networks using very large batch sizes and this is understood to some degree and I'll actually explain that on the very next slide so let me let me get to to your point first so the point the answer to your question is actually the third point here the noise in stochastic gradient descent induces this phenomena known as annealing and the diagram directly to the right of it illustrates this phenomena so your network training landscapes have a bumpy structure to them where there are lots of small minima that are not good minima that appear on the path to the good minima so the theory that a lot of people subscribe to is that SGD in particular the noise induced in the gradient"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_031",
+    "video_id": "nyu_dl_week5",
+    "start_time": 1085.0,
+    "end_time": 1130.0,
+    "text": "minima that are not good minima that appear on the path to the good minima so the theory that a lot of people subscribe to is that SGD in particular the noise induced in the gradient actually helps the optimizer to jump over these bad minima and the theory is that these bad minima are quite small in the space and so they're easy to jump over we're good minima that results in good performance around your own network are larger and harder to skip so does this answer your question yes so besides that annealing point of view there's there's actually a few other reasons so we have a lot of redundancy in the information we get from each terms gradient and using stochastic gradient"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_032",
+    "video_id": "nyu_dl_week5",
+    "start_time": 1120.0,
+    "end_time": 1165.0,
+    "text": "we have a lot of redundancy in the information we get from each terms gradient and using stochastic gradient lets us exploit this redundancy in a lot of situations the gradient computed on a few hundred examples is almost as good as a gradient computed on the full data set and often thousands of times cheaper depending on your problem so it's it's hard to come up with a compelling reason to use gradient descent given the success of stochastic gradient descent disgusted gradient said is one of the best misses we have but gradient descent is one of the worst and in fact early stages the correlation is remarkable this disgusted gradient can be"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_033",
+    "video_id": "nyu_dl_week5",
+    "start_time": 1155.0,
+    "end_time": 1200.0,
+    "text": "disgusted gradient said is one of the best misses we have but gradient descent is one of the worst and in fact early stages the correlation is remarkable this disgusted gradient can be correlated up to a coefficient of 0.999 correlation coefficient to the true gradient at those early steps of optimization so I want to briefly talk about a something you need to know about I think Jana has already mentioned this briefly but in practice we don't use individual instances in stochastic gradient descent how we use mini batches of instances so I'm just using some notation here but everybody uses different notation for mini batching so you shouldn't get too attached to the notation but essentially at every step you have some batch here I'm going to"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_034",
+    "video_id": "nyu_dl_week5",
+    "start_time": 1190.0,
+    "end_time": 1235.0,
+    "text": "notation here but everybody uses different notation for mini batching so you shouldn't get too attached to the notation but essentially at every step you have some batch here I'm going to call it B an index with I for step and you basically use the average of the gradients over this mini batch which is a subset of your data rather than a single instance or the full full batch now almost everybody will use this mini batch selected uniformly at random some people use with replacement sampling and some people use without with replacement sampling but the differences are not important for this purposes you can use either and there's a lot of advantages to mini batching so there's actually some good impelling"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_035",
+    "video_id": "nyu_dl_week5",
+    "start_time": 1225.0,
+    "end_time": 1270.0,
+    "text": "differences are not important for this purposes you can use either and there's a lot of advantages to mini batching so there's actually some good impelling theoretical reasons to not be any batch but the practical reasons are overwhelming part of these practical reasons are computational we make ammonia may utilize our hardware say at 1% efficiency when training some of the network's we use if we try and use single instances and we get the most efficient utilization of the hardware with batch sizes often in the hundreds if you're training on the typical imagenet data set for in for instance you don't use batch sizes less than about 64 to get good efficiency maybe can go down to 32 but another important"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_036",
+    "video_id": "nyu_dl_week5",
+    "start_time": 1260.0,
+    "end_time": 1305.0,
+    "text": "about 64 to get good efficiency maybe can go down to 32 but another important application is distributed training and this is really becoming a big thing so as was mentioned before people were recently able to Train imagenet days said that normally takes two days to train and not so long ago it took in a week to train in only one hour and the way they did that was using very large mini batches and along with using large many batches there are some tricks that you need to use to get it to work it's probably not something that you would cover an introductory lecture so I encourage you to check out that paper if you're interested it's imagenet in one hour leaves face book authors I can't recall"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_037",
+    "video_id": "nyu_dl_week5",
+    "start_time": 1295.0,
+    "end_time": 1340.0,
+    "text": "would cover an introductory lecture so I encourage you to check out that paper if you're interested it's imagenet in one hour leaves face book authors I can't recall the first author at the moment as a side note there are some situations where you need to do full batch optimization do not use gradient descent in that situation I can't emphasize it enough to not use gradient ascent ever if you have full batch data by far the most effective method that is kind of plug-and-play you don't to think about it is known as l-bfgs it's accumulation of 50 years of optimization research and it works really well torch's implementation is pretty good but the SyFy implementation causes some filtering code that was written 15 years"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_038",
+    "video_id": "nyu_dl_week5",
+    "start_time": 1330.0,
+    "end_time": 1375.0,
+    "text": "it works really well torch's implementation is pretty good but the SyFy implementation causes some filtering code that was written 15 years ago that is pretty much bulletproof so because they were those so that's a good question classically you do need to use the full data set now pipe torches implementation actually supports using mini battery now this is somewhat of a gray area in that there's really no theory to support the use of this and it may work well for your problem or it may not so it could be worth trying I mean you want to use your whole data set for each gradient evaluation or probably more likely since it's very rarely you want to do that probably more likely you're solving some other optimization problem that isn't"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_039",
+    "video_id": "nyu_dl_week5",
+    "start_time": 1365.0,
+    "end_time": 1410.0,
+    "text": "whole data set for each gradient evaluation or probably more likely since it's very rarely you want to do that probably more likely you're solving some other optimization problem that isn't isn't training in your network but maybe some ancillary problem related and you need to solve an optimization problem without this data point structure that doesn't summer isn't a sum of data points yeah hopefully it was another question yep oh yes the question was young recommended we used mini batches equal to the size of the number of classes we have in our data set why is that reasonable that was the question the answer is that we want any vectors to be representative of the full data set and typically each class is quite distinct from the other classes in its"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_040",
+    "video_id": "nyu_dl_week5",
+    "start_time": 1400.0,
+    "end_time": 1445.0,
+    "text": "that reasonable that was the question the answer is that we want any vectors to be representative of the full data set and typically each class is quite distinct from the other classes in its properties so about using a mini batch that contains on average one instance from each class in fact we can enforce that explicitly although it's not necessary by having an approximately equal to that size we can assume it has the kind of structure of a food gradient so you capture a lot of the correlations in the data you see with the full gradient and it's a good guide especially if you're using training on CPU where you're not constrained too much by hardware efficiency here when training on energy on a CPU batch size is not critical for"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_041",
+    "video_id": "nyu_dl_week5",
+    "start_time": 1435.0,
+    "end_time": 1480.0,
+    "text": "constrained too much by hardware efficiency here when training on energy on a CPU batch size is not critical for hardware utilization it's problem dependent I would always recommend mini batching I don't think it's worth trying size one as a starting point if you try to eke out small gains maybe that's worth exploring yes there was another question so in the annealing example so the question was why is the lost landscape so wobbly and this is this is actually something that is very a very realistic depiction of actual law slams codes for neural networks they're incredibly in the sense that they have a"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_042",
+    "video_id": "nyu_dl_week5",
+    "start_time": 1470.0,
+    "end_time": 1515.0,
+    "text": "realistic depiction of actual law slams codes for neural networks they're incredibly in the sense that they have a lot of hills and valleys and this is something that is actively researched now what we can say for instance is that there is a very large number of good minima and and so hills and valleys we know this because your networks have this combinatorial aspect to them you can reaper ammeter eyes a neural network by shifting all the weights around and you can get in your work you'll know if it outputs exactly the same output for whatever task you're looking at with all these weights moved around and that correspondence essentially to a different location in parameter space so given that there's an exponential number of these possible ways of rearranging"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_043",
+    "video_id": "nyu_dl_week5",
+    "start_time": 1505.0,
+    "end_time": 1550.0,
+    "text": "these weights moved around and that correspondence essentially to a different location in parameter space so given that there's an exponential number of these possible ways of rearranging the weights to get the same network you're going to end up with the space that's incredibly spiky exponential number of these spikes now the reason why these these local minima appear that is something that is still active research so I'm not sure I can give you a great answer there but they're definitely observed in practice and what I can say is they appear to be less of a like close to state-of-the-art networks so these local minima were considered big problems 15 years ago but so much at the moment people essentially never hit"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_044",
+    "video_id": "nyu_dl_week5",
+    "start_time": 1540.0,
+    "end_time": 1585.0,
+    "text": "like close to state-of-the-art networks so these local minima were considered big problems 15 years ago but so much at the moment people essentially never hit them in practice when using kind of recommended parameters and things like that when you use very large batches you can run into these problems it's not even clear that the the poor performance when using large batches is even attributable to these larger minima to these local minima so this is yes to ongoing research yes the problem is you can't really see this local structure because we're in this million dimensional space it's not a good way to see it so yeah I don't know if people might have explored that already I'm not familiar with papers on that but I bet someone has looked at it so you might want to google that yeah so a lot of the advances in neural network design have"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_045",
+    "video_id": "nyu_dl_week5",
+    "start_time": 1575.0,
+    "end_time": 1620.0,
+    "text": "might have explored that already I'm not familiar with papers on that but I bet someone has looked at it so you might want to google that yeah so a lot of the advances in neural network design have actually been in reducing this bumpiness in a lot of ways so this is part of the reason why it's not considered a huge problem anymore whether it was it was considered a big problem in the past there's any other questions yes so it's it is hard to see but there are certain things you can do that we make the the peaks and valleys smaller certainly and by rescaling some parts the neural network you can amplify certain directions the curvature in certain directions can be stretched and squashed the particular innovation residual connections that were mentioned they're very easy to see that they smooth out"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_046",
+    "video_id": "nyu_dl_week5",
+    "start_time": 1610.0,
+    "end_time": 1655.0,
+    "text": "directions the curvature in certain directions can be stretched and squashed the particular innovation residual connections that were mentioned they're very easy to see that they smooth out the the loss in fact you can kind of draw two line between two points in the space and you can see what happens along that line that's really the best way we have a visualizing million dimensional spaces so I turn him into one dimension and you can see that it's that it's a much nicer between these two points whatever two points you choose when using these residual connections I'll be talking all about dodging or later in the lecture so yeah if hopefully I'll answer that question without you having to ask it again but we'll see thanks any other questions yes so l-bfgs excellent method it's it's kind of a constellation of optimization researchers that we still use SGD a"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_047",
+    "video_id": "nyu_dl_week5",
+    "start_time": 1645.0,
+    "end_time": 1690.0,
+    "text": "thanks any other questions yes so l-bfgs excellent method it's it's kind of a constellation of optimization researchers that we still use SGD a method invented in the 60s or earlier is still state of the art but there has been some innovation in fact only a couple years later but there was some innovation since the invention of sed and one of these innovations is and I'll talk about another later so momentum it's a trick that you should pretty much always be using when you're using stochastic gradient descent it's worth be going into this in a little bit of detail you'll often be tuning the momentum parameter and your network and it's useful to understand what it's actually doing when you're tuning up so part of"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_048",
+    "video_id": "nyu_dl_week5",
+    "start_time": 1680.0,
+    "end_time": 1725.0,
+    "text": "into this in a little bit of detail you'll often be tuning the momentum parameter and your network and it's useful to understand what it's actually doing when you're tuning up so part of the problem with momentum it's very misunderstood and this can be explained by the fact that there's actually three different ways of writing momentum that look completely different but turn out to be equivalent I'm only going to present two of these ways because the third way is not as well known but is actually in my opinion the correct way to view it I don't talk about my research here so we'll talk about how it's actually implemented in the packages you'll be using and this first form here is what's actually implemented in Python and other software that you'll be using here we maintain two variables now you'll see lots of papers using"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_049",
+    "video_id": "nyu_dl_week5",
+    "start_time": 1715.0,
+    "end_time": 1760.0,
+    "text": "packages you'll be using and this first form here is what's actually implemented in Python and other software that you'll be using here we maintain two variables now you'll see lots of papers using different notation here P is the notation used in physics for momentum and it's very common to use that also as the momentum variable when talking about sed with momentum so I'll be following that convention so instead of having a single iterate we now have to Eretz P and W and at every step we update both and this is quite a simple update so the P update involves adding to the old P and instead of adding exactly to the old P we kind of damp the old P we reduce it by multiplying it by a constant that's worse than one so reduce the old P and"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_050",
+    "video_id": "nyu_dl_week5",
+    "start_time": 1750.0,
+    "end_time": 1795.0,
+    "text": "P update involves adding to the old P and instead of adding exactly to the old P we kind of damp the old P we reduce it by multiplying it by a constant that's worse than one so reduce the old P and here I'm using beta hat as the constant there so that would probably be 0.9 in practice a small amount of damping and we add to that the new gradient so P is kind of this accumulated gradient buffer you can think of where new gradients come in at full value and past gradients are reduced at each step by a certain factor usually 0.9 which used to reduce reduced so the buffer tends to be a some sort of running sum of gradients and it's basically we just modify this to custer gradient two-step descent step by"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_051",
+    "video_id": "nyu_dl_week5",
+    "start_time": 1785.0,
+    "end_time": 1830.0,
+    "text": "reduced so the buffer tends to be a some sort of running sum of gradients and it's basically we just modify this to custer gradient two-step descent step by using this P instead of the negative gradient instead of the gradient sorry using P instead of the in the update since the two line formula it may be better to understand this by the second form that I put below this is equivalent you've got a map the beta with a small transformation so it's not exactly the same beta between the two methods but it's practically the same for in practice so these are essentially this film I think is maybe clearer this form is called the stochastic heavy ball method and here our update still"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_052",
+    "video_id": "nyu_dl_week5",
+    "start_time": 1820.0,
+    "end_time": 1865.0,
+    "text": "this film I think is maybe clearer this form is called the stochastic heavy ball method and here our update still includes the gradient but we're also adding on a multiplied copy of the past direction we traveled in now what does this mean what are we actually doing here so it's actually not too difficult to visualize and I'm going to kind of use a visualization from a distilled publication you can see the dress at the bottom there and I disagree with a lot of what they talked about in that document but I like the visualizations so let's use had and I'll explain why I disagreed some regards later but it's quite simple so you can think of"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_053",
+    "video_id": "nyu_dl_week5",
+    "start_time": 1855.0,
+    "end_time": 1900.0,
+    "text": "document but I like the visualizations so let's use had and I'll explain why I disagreed some regards later but it's quite simple so you can think of momentum as the physical process and I mention those of you have done introductory physics courses would have covered this so momentum is the property of something to keep moving in the direction that's currently moving in all right if you're familiar with Newton's laws things want to keep going in the direction they're going and this is momentum and when you do this mapping the physics the gradient is kind of a force that is pushing you're literate which by this analogy is a heavy ball it's pushing this heavy ball at each point so rather than making dramatic"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_054",
+    "video_id": "nyu_dl_week5",
+    "start_time": 1890.0,
+    "end_time": 1935.0,
+    "text": "force that is pushing you're literate which by this analogy is a heavy ball it's pushing this heavy ball at each point so rather than making dramatic changes in the direction we travel at every step which is shown in that left diagram instead of making these dramatic changes we're going to make kind of a bit more modest changes so when we realize we're going in the wrong direction we kind of do a u-turn instead of putting the hand brake on and swinging around it turns out in a lot of practical problems this gives you a big improvement so here you can see you're getting much closer to the solution by the end of it with much less oscillation and you can see this oscillation so it's kind of a fact of life if you're using gradient descent type methods so here we talk about momentum on top of gradient"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_055",
+    "video_id": "nyu_dl_week5",
+    "start_time": 1925.0,
+    "end_time": 1970.0,
+    "text": "the end of it with much less oscillation and you can see this oscillation so it's kind of a fact of life if you're using gradient descent type methods so here we talk about momentum on top of gradient descent in the visualization you're gonna get this oscillation it's just a property of gradient descent no way to get rid of it without modifying the method and we're meant to them to some degree dampens this oscillation I've got another visualization here which will kind of give you an intuition for how this beta parameter controls things now the Department of these to be greater than zero if it's equal to zero you distr in gradient descent and it's gotta be less than one otherwise the Met everything blows up as you start including past gradients with more and more weight over times it's gotta be"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_056",
+    "video_id": "nyu_dl_week5",
+    "start_time": 1960.0,
+    "end_time": 2005.0,
+    "text": "be less than one otherwise the Met everything blows up as you start including past gradients with more and more weight over times it's gotta be between zero and one and typical values range from you know small 0.25 up to like 0.99 so in practice you can get pretty close to one and what happens is the smaller values they result in you're changing direction quicker okay so in this diagram you can see on the left with the small beta you as soon as you get close to the solution you kind of change direction pretty rapidly and head towards a solution when you use these larger betas it takes longer for you to make this dramatic turn you can think of it as a car with a bad turning circle takes you quite a long time to get"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_057",
+    "video_id": "nyu_dl_week5",
+    "start_time": 1995.0,
+    "end_time": 2040.0,
+    "text": "change direction pretty rapidly and head towards a solution when you use these larger betas it takes longer for you to make this dramatic turn you can think of it as a car with a bad turning circle takes you quite a long time to get around that corner and head towards solution now this may seem like a bad thing but actually in practice this significantly dampens the oscillations that you get from gradient descent and that's the nice property of it now in terms of practice I can give you some pretty clear guidance here you pretty much always want to use momentum it's pretty hard to find problems where it's actually not beneficial to some degree now part of the reason for this is it's just an extra parameter now typically when you take some method and just add more parameters to it you can usually find some value of that parameter that"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_058",
+    "video_id": "nyu_dl_week5",
+    "start_time": 2030.0,
+    "end_time": 2075.0,
+    "text": "now part of the reason for this is it's just an extra parameter now typically when you take some method and just add more parameters to it you can usually find some value of that parameter that makes us slightly better now that is sometimes the case here but often these improvements from using momentum are actually quite substantial and using a momentum value of point nine is really a default value used in machine learning quite often and often in some situations 0.99 may be better so I would recommend trying both values if you have time otherwise just try point nine but I have to do a warning the way momentum is stated in this expression if you look at it carefully when we increase the momentum we kind of increase the step"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_059",
+    "video_id": "nyu_dl_week5",
+    "start_time": 2065.0,
+    "end_time": 2110.0,
+    "text": "stated in this expression if you look at it carefully when we increase the momentum we kind of increase the step size now it's not the step size of the current gradient so the current gradient is included in the step with the same strengths but past gradients become included in the step with a higher strength when you increase momentum now when you write momentum in other forms this becomes a lot more obvious so this firm kind of occludes that but what you should generally do when you change momentum you want to change it so that you have your step size divided by one minus beta is your new step size so if your old step size was using a certain B do you want to map it to that equation then map it back to get the the new step"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_060",
+    "video_id": "nyu_dl_week5",
+    "start_time": 2100.0,
+    "end_time": 2145.0,
+    "text": "you have your step size divided by one minus beta is your new step size so if your old step size was using a certain B do you want to map it to that equation then map it back to get the the new step size now this may be very modest change but if you're going from momentum 0.9 to momentum 0.99 you may need to reduce your learning rate by a factor of 10 approximately so just be wary of that you can't expect to keep the same learning rate and change the momentum parameter at wallmart work now I want to go into a bit of detail about why momentum works is very misunderstood and the explanation you'll see in that Distilled post is acceleration and this is certainly a contributor to the performance of momentum now acceleration is a topic yes if you've got a question"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_061",
+    "video_id": "nyu_dl_week5",
+    "start_time": 2135.0,
+    "end_time": 2180.0,
+    "text": "Distilled post is acceleration and this is certainly a contributor to the performance of momentum now acceleration is a topic yes if you've got a question the question was is there a big difference between using momentum and using a mini batch of two and there is so momentum has advantages in for when using gradient descent as well as stochastic gradient descent so in fact this acceleration explanation were about to use applies both in the stochastic and non stochastic case so no matter what batch size you're going to use the benefits of momentum still are shown now it also has benefits in the stochastic case as well which I'll cover in a slide or two so the answer is it's quite distinct from batch size and you shouldn't complete them"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_062",
+    "video_id": "nyu_dl_week5",
+    "start_time": 2170.0,
+    "end_time": 2215.0,
+    "text": "benefits of momentum still are shown now it also has benefits in the stochastic case as well which I'll cover in a slide or two so the answer is it's quite distinct from batch size and you shouldn't complete them learn it like really you should be changing your learning rate when you change your bat size rather than changing the momentum and for very large batch sizes there's a clear relationship between learning rate and batch size but for small batch sizes it's not clear so it's problem dependent any other questions before I move on on momentum yes yes it's it's just blow up so it's actually in the in the in the physics interpretation it's conservation of momentum would be exactly equal to one now that's not good because if you're in a world with no friction then you drop a heavy ball somewhere it's gonna keep moving forever it's not good stuff so we"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_063",
+    "video_id": "nyu_dl_week5",
+    "start_time": 2205.0,
+    "end_time": 2250.0,
+    "text": "momentum would be exactly equal to one now that's not good because if you're in a world with no friction then you drop a heavy ball somewhere it's gonna keep moving forever it's not good stuff so we need some dampening and this is where the physics interpretation breaks down so you do need some damping now now you can imagine if you use a larger value than one those past gradients get amplified every step so in fact the first gradient you evaluate in your network is not relevant information content wise later in optimization but if it used to be the larger than 1 it would dominate the step that you're using does that answer your question yeah ok any other questions about momentum before we move on they are for a particular value of beta yes it's strictly equivalent it's not very hard"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_064",
+    "video_id": "nyu_dl_week5",
+    "start_time": 2240.0,
+    "end_time": 2285.0,
+    "text": "yeah ok any other questions about momentum before we move on they are for a particular value of beta yes it's strictly equivalent it's not very hard to you should be able to do it in like two lines if you try and do the equivalence yourself no the bidders are not quite the same but the the gamma is the same that's why I use the same notation for it oh yes so that's what I mentioned yes so when you change beta you want to scale your learning rate by the learning rate divided by one over beta so in this form I'm not sure if it appears in this form it could be a mistake but I think I'm okay here I think it's not in this formula but yeah what you definitely when you change beta you need to change learning rate as well to keep things balanced yeah"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_065",
+    "video_id": "nyu_dl_week5",
+    "start_time": 2275.0,
+    "end_time": 2320.0,
+    "text": "think it's not in this formula but yeah what you definitely when you change beta you need to change learning rate as well to keep things balanced yeah Oh either averaging form it's probably not worth going over but you can think of it as momentum is basically changing the point that you evaluate the gradient at in the standard firm you evaluate the gradient at this W point in the inner averaging form you take a running average of the points you've been evaluating the Grady Nutt and you evaluate at that point so it's basically instead of averaging gradients to average points it's clear sense Jewell yes yes so acceleration now this is something you can spend the whole career"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_066",
+    "video_id": "nyu_dl_week5",
+    "start_time": 2310.0,
+    "end_time": 2355.0,
+    "text": "instead of averaging gradients to average points it's clear sense Jewell yes yes so acceleration now this is something you can spend the whole career studying and it's it's somewhat poorly understood now if you try and read Nesterov original work on it now Nesterov is kind of the grandfather of modern optimization in practically half the methods we use are named after him to some degree which is can be confusing at times and in the 80s he came up with this formulation he didn't write it in this form he wrote it in another form which people realized a while later could be written in this form and his analysis is also very opaque and originally written in Russian doesn't"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_067",
+    "video_id": "nyu_dl_week5",
+    "start_time": 2345.0,
+    "end_time": 2390.0,
+    "text": "could be written in this form and his analysis is also very opaque and originally written in Russian doesn't help no for understanding unfortunately those nice people the NSA translated all of the Russian literature back then so so we have access to them and it's actually a very small modification of the momentum step but I think that small modification belittles what it's actually doing it's really not the same method at all what I can say is with Nesterov Swimmer momentum if you very carefully choose these constants you can get what's known as accelerated convergence now this doesn't apply in your networks but for convex problems I won't go into details of convexity but"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_068",
+    "video_id": "nyu_dl_week5",
+    "start_time": 2380.0,
+    "end_time": 2425.0,
+    "text": "carefully choose these constants you can get what's known as accelerated convergence now this doesn't apply in your networks but for convex problems I won't go into details of convexity but some of you may know what that means it's kind of a simple structure but convex problems it's a radically improved convergence rate from this acceleration but only for very carefully chosen constants and you really can't choose these carefully ahead of time so you've got to do quite a large search over your parameters your hyper parameters sorry to find the right constants to get that acceleration what I can say is this actually occurs for quadratics when using regular momentum and this is confused a lot of people so you'll see a lot of people say that momentum is an accelerated method it's excited only for quadratics and even then it's it's a little bit iffy I would not recommend using it for quadratics"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_069",
+    "video_id": "nyu_dl_week5",
+    "start_time": 2415.0,
+    "end_time": 2460.0,
+    "text": "so you'll see a lot of people say that momentum is an accelerated method it's excited only for quadratics and even then it's it's a little bit iffy I would not recommend using it for quadratics use conjugate gradients or some new methods that have been developed over the last few years and this is definitely a contributing factor to our momentum works so well in practice and there's definitely some acceleration going on but this acceleration is hard to realize when you have stochastic gradients now when you look at what makes acceleration work noise really kills it and it's it's hard to believe that it's the main factor contributing to the performance but it's certainly there and the the still post I mentioned attributes or the performance of"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_070",
+    "video_id": "nyu_dl_week5",
+    "start_time": 2450.0,
+    "end_time": 2495.0,
+    "text": "kills it and it's it's hard to believe that it's the main factor contributing to the performance but it's certainly there and the the still post I mentioned attributes or the performance of momentum to acceleration but I wouldn't go that quite that far but it's definitely a contributing factor but probably the practical and provable reason why acceleration why knows sorry why momentum helps is noise smoothing and this is very intuitive momentum averages gradients in a sense we keep this running buffer gradients that we use as a step instead of individual gradients this is kind of a form of averaging and it turns out that when you use s to D without momentum to prove anything at all about it"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_071",
+    "video_id": "nyu_dl_week5",
+    "start_time": 2485.0,
+    "end_time": 2530.0,
+    "text": "use as a step instead of individual gradients this is kind of a form of averaging and it turns out that when you use s to D without momentum to prove anything at all about it you actually have to work with the average of all the points you visited you can get really weak bounds on the last point that you ended up at but really you've got to work with this average of points and this is suboptimal like we never want to actually take this average in practice it's heavily weighted with points that we visited a long time ago which may be irrelevant and in fact this averaging doesn't work very well in practice for neural networks it's really only important for convex problems but nevertheless it's necessary to analyze regular s2d and one of the remarkable facts about momentum is actually this averaging is no longer theoretically necessary so essentially"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_072",
+    "video_id": "nyu_dl_week5",
+    "start_time": 2520.0,
+    "end_time": 2565.0,
+    "text": "necessary to analyze regular s2d and one of the remarkable facts about momentum is actually this averaging is no longer theoretically necessary so essentially momentum adds smoothing dream optimization that makes it makes us so the last point you visit is still a good approximation to the solution with SGG really you want to average a whole bunch of last points you've seen in order to get a good approximation to the solution now let me illustrate that here so this is this is a very typical example of what happens when using STD STD at the beginning you make great progress the gradient is essentially almost the same as the stochastic gradient so first few steps you make great progress towards solution but then you end up in this ball now recall here"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_073",
+    "video_id": "nyu_dl_week5",
+    "start_time": 2555.0,
+    "end_time": 2600.0,
+    "text": "progress the gradient is essentially almost the same as the stochastic gradient so first few steps you make great progress towards solution but then you end up in this ball now recall here that's a valley that we're heading down so this ball here is kind of the floor of the valley and you kind of bounce around in this floor and the most common solution of this is if you reduce your learning rate you'll bounce around slower not exactly a great solution but it's one way to handle it but when you use s to deal with momentum you can kind of smooth out this bouncing around and you kind of just kind of wheel around now the path is not always going to be this corkscrew tile path it's actually quite random you could kind of wobble left and right but when I seeded it with 42 this is what it spread out so that's what I'm using here you typically get"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_074",
+    "video_id": "nyu_dl_week5",
+    "start_time": 2590.0,
+    "end_time": 2635.0,
+    "text": "this corkscrew tile path it's actually quite random you could kind of wobble left and right but when I seeded it with 42 this is what it spread out so that's what I'm using here you typically get this corkscrew you get this cork scoring for this set of parameters and yeah I think this is a good explanation so some combination of acceleration and noise smoothing is why momentum works oh yes yes so I should say that when we inject noise here the gradient may not even be the right direction to travel in fact it could be in the opposite direction from where you want to go and this is why you kind of bounce around in the valley there so in fact the gray you can see here that the first step with SUV is practically orthogonal to the level set there that's because it is such a good step at the beginning but once you get further down it can point"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_075",
+    "video_id": "nyu_dl_week5",
+    "start_time": 2625.0,
+    "end_time": 2670.0,
+    "text": "the valley there so in fact the gray you can see here that the first step with SUV is practically orthogonal to the level set there that's because it is such a good step at the beginning but once you get further down it can point in pretty much any direction vaguely around the solution so yesterday with momentum is currently state of the art optimization method for a lot of machine learning problems so you'll probably be using it in your course for a lot of problems but there has been some other innovations over the years and these are particularly useful for poorly conditioned problems now as I mentioned earlier in the lecture some problems have this kind of well condition property that we can't really characterize for neural networks but we can measure it by the test that if s to D works then it's well conditioned eventually there doesent works and if I"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_076",
+    "video_id": "nyu_dl_week5",
+    "start_time": 2660.0,
+    "end_time": 2705.0,
+    "text": "property that we can't really characterize for neural networks but we can measure it by the test that if s to D works then it's well conditioned eventually there doesent works and if I must be walking poorly conditioned so we have other methods we can handle we can use to handle this in some situations and these generally are called adaptive methods now you need to be a little bit careful because what are you adapting to people in literature use this nomenclature for adapting learning rates adapting momentum parameters but in our our situation we're talk about a specific type of adaptivity roman this adaptivity is individual learning rates now what I mean by that so in the"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_077",
+    "video_id": "nyu_dl_week5",
+    "start_time": 2695.0,
+    "end_time": 2740.0,
+    "text": "specific type of adaptivity roman this adaptivity is individual learning rates now what I mean by that so in the simulation I already showed you a stochastic gradient descent I used a global learning rate by that I mean every single rate in your network is updated using an equation with the same gamma now gamma could vary over time step so you used gamma K in the notation but often you use a fixed camera for quite a long time but for adaptive methods we want to adapt a learning rate for every weight individually and we want to use information we get from gradients for each weight to adapt this so this seems like the obvious thing to do and people have been trying to get this stuff to"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_078",
+    "video_id": "nyu_dl_week5",
+    "start_time": 2730.0,
+    "end_time": 2775.0,
+    "text": "individually and we want to use information we get from gradients for each weight to adapt this so this seems like the obvious thing to do and people have been trying to get this stuff to work for decades and we're kind of stumbled upon some methods that work and some that don't but I want to ask for questions here if there's any any explanation needed so I can say that it's not entirely clear why you need to do this right if your network is well conditioned you don't need to do this potentially but often the network's we use in practice have very different structure in different parts of the network so for instance the early parts of your convolutional neural network may be very shallow convolutional layers on large images later in the network you're going to be doing convolutions with"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_079",
+    "video_id": "nyu_dl_week5",
+    "start_time": 2765.0,
+    "end_time": 2810.0,
+    "text": "network so for instance the early parts of your convolutional neural network may be very shallow convolutional layers on large images later in the network you're going to be doing convolutions with large numbers of channels on small images now these operations are very different and there's no reason to believe that a learning rate that works well for one would work well for the other and this is why the adaptive learning rates can be useful any questions here yes so unfortunately there's no good definition for neural networks we couldn't measure it even if there was a good definition so I'm going to use it in a vague sense that it actually doesn't works and it's poorly yes so in the sort of quadratic case if you recall I have an explicit definition"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_080",
+    "video_id": "nyu_dl_week5",
+    "start_time": 2800.0,
+    "end_time": 2845.0,
+    "text": "doesn't works and it's poorly yes so in the sort of quadratic case if you recall I have an explicit definition of this condition number L over mu L being maximized in value mu being smallest eigen value and yeah the large of this gap between largest larger and smaller eigen value the worst condition it is this does not imply if in your network so that mu does not exist in your networks L still has some information in it but I wouldn't say it's a determining factor there's just a lot going on so there are some ways that your looks behave a lot like simple problems but there are other ways where we just kind of hang wave and say that they like them yeah yeah yes so for this particular network this is a network"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_081",
+    "video_id": "nyu_dl_week5",
+    "start_time": 2835.0,
+    "end_time": 2880.0,
+    "text": "problems but there are other ways where we just kind of hang wave and say that they like them yeah yeah yes so for this particular network this is a network that actually isn't too poorly conditioned already in fact this is a VDD 16 which is practically the best net method best network when you had a train before the invention of certain techniques to improve conditioning so this is almost the best of first condition you can actually get and there are a lot of the structure of this network is actually defined by this conditioning like we double the number of channels after certain steps because that seems to result in networks at a world condition rather than any other reason but it's certainly what you can say is that weights very light the network have very large effect on the output that very last layer there with"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_082",
+    "video_id": "nyu_dl_week5",
+    "start_time": 2870.0,
+    "end_time": 2915.0,
+    "text": "world condition rather than any other reason but it's certainly what you can say is that weights very light the network have very large effect on the output that very last layer there with if there are 4096 weights in it that's a very small number of whites this network has millions of whites I believe those 4096 weights have a very strong effect on the output because they directly dictate that output and for that reason you generally want to use smaller learning rates for those whereas yeah weights early in the network some of them might have a large effect but especially when you've initialized network of randomly they typically will have a smaller effect of those those earlier weights and this is very hand wavy and the reason why is because we really don't understand this well enough for me to give you a precise precise"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_083",
+    "video_id": "nyu_dl_week5",
+    "start_time": 2905.0,
+    "end_time": 2950.0,
+    "text": "have a smaller effect of those those earlier weights and this is very hand wavy and the reason why is because we really don't understand this well enough for me to give you a precise precise statement here 120 million weights in this network actually so yeah so that last layer is like 4096 by 4096 matrix yeah okay any other questions yeah yes I would recommend only using them when your problem doesn't have a structure that decomposes into a large sum of similar things okay yeah that's a bit of a mouthful but sut works well when you have an objective that is a sum where each term of the sum is is vaguely"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_084",
+    "video_id": "nyu_dl_week5",
+    "start_time": 2940.0,
+    "end_time": 2985.0,
+    "text": "similar things okay yeah that's a bit of a mouthful but sut works well when you have an objective that is a sum where each term of the sum is is vaguely comparable so in machine learning each sub term in this sum is a loss of one data point and these have very similar structures individual losses that's a hand-wavy sense that they have very similar structure because of course each data point could be quite different but when your problem doesn't have a large sum as the main part of its structure then l-bfgs would be useful that's the general answer I doubt you make use of it in this course l-bfgs doubt it that it can be very handy for small networks you can experiment around with it with the leaner v network or something which I'm sure you probably use in this course"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_085",
+    "video_id": "nyu_dl_week5",
+    "start_time": 2975.0,
+    "end_time": 3020.0,
+    "text": "it in this course l-bfgs doubt it that it can be very handy for small networks you can experiment around with it with the leaner v network or something which I'm sure you probably use in this course you could experiment with l-bfgs probably and have some success there one of the kind of founding techniques in modern your network training is rmsprop and i'm going to talk about this year now at some point kind of the standard practice in the field of optimization is in research and optimization kind of diverged with what people were actually doing when training neural networks and this IMS prop was kind of the fracturing point where we all went off in different directions and this rmsprop is usually attributed to Geoffrey Hinton slides"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_086",
+    "video_id": "nyu_dl_week5",
+    "start_time": 3010.0,
+    "end_time": 3055.0,
+    "text": "doing when training neural networks and this IMS prop was kind of the fracturing point where we all went off in different directions and this rmsprop is usually attributed to Geoffrey Hinton slides which he then attributes to an unpublished paper from someone else which is really unsatisfying to be citing someone slides in a paper but anyway it's a method that has some it has no proof behind why it works but it's similar to methods that you can prove work so that's at least something and it works pretty well in practice and that's why I look if we use it so I want to give you that kind of introduction before what I explained what it actually is and rmsprop stands for root mean squared propagation this was from the era where everything we do the fuel networks we"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_087",
+    "video_id": "nyu_dl_week5",
+    "start_time": 3045.0,
+    "end_time": 3090.0,
+    "text": "before what I explained what it actually is and rmsprop stands for root mean squared propagation this was from the era where everything we do the fuel networks we called propagation such-and-such like back prop which now we call deep so it probably be called Armas deep propyl something if it was embedded now and it's a little bit of a modification so it still to line algorithm but a little bit different so I'm gonna go over these terms in some detail because it's important to understand this now we we keep around this V buffer now this is not a momentum buffer okay so we using different notation here he is doing something different and I'm going to use some notation that that some people really hates but I think it's convenient"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_088",
+    "video_id": "nyu_dl_week5",
+    "start_time": 3080.0,
+    "end_time": 3125.0,
+    "text": "not a momentum buffer okay so we using different notation here he is doing something different and I'm going to use some notation that that some people really hates but I think it's convenient I'm going to write the element wise square of a vector just by squaring the vector this is not really confusing notationally in almost all situations but it's a nice way to write it so here I'm writing the gradient squared I really mean you take every element in that vector million element vector or whatever it is and square each element individually so this video update is what's known as an exponential moving average I do I have a quick show of hands who's familiar with exponential moving averages I want to know if I need to talk about it in some more seems like it's probably need to explain it in some depth but in expose for a moving average"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_089",
+    "video_id": "nyu_dl_week5",
+    "start_time": 3115.0,
+    "end_time": 3160.0,
+    "text": "hands who's familiar with exponential moving averages I want to know if I need to talk about it in some more seems like it's probably need to explain it in some depth but in expose for a moving average it's a standard way this has been used for many many decades across many fields for maintaining an average that are the quantity that may change over time okay so when a quantity is changing over time we need to put larger weights on newer values because they provide more information and one way to do that is down weight old values exponentially and when you do this exponentially you mean that the weight of an old value from say ten steps ago will have weight alpha to the ten in your thing so that's where"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_090",
+    "video_id": "nyu_dl_week5",
+    "start_time": 3150.0,
+    "end_time": 3195.0,
+    "text": "when you do this exponentially you mean that the weight of an old value from say ten steps ago will have weight alpha to the ten in your thing so that's where the exponential comes in the output of the ten now it's that's not really in the notation and in the notation at each step we just download the pass vector by this alpha constant and as if you can imagine in your head things in that buffer the V buffer that are very old at each step they get downloaded by alpha at every step and just as before alpha here is something between zero and one so we can't use values greater than one there so this will damp those all values until they no longer the exponential moving average so this method keeps an exponential moving average of the second moment I mean non-central second moment so we do not"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_091",
+    "video_id": "nyu_dl_week5",
+    "start_time": 3185.0,
+    "end_time": 3230.0,
+    "text": "the exponential moving average so this method keeps an exponential moving average of the second moment I mean non-central second moment so we do not subtract off the mean here the part or implementation has a switch where you can tell it to subtract off the mean play with that if you like it'll probably perform very similarly in practice there's a paper on that I'm sure but the original method does not subtract off the mean there and we use this second moment to normalize the gradient and we do this element-wise so all this notation is element wise every element of the gradient is divided through by the square root of the second moment estimate and if you think that this square root is really being the standard deviation even though this is not a central moment so it's not"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_092",
+    "video_id": "nyu_dl_week5",
+    "start_time": 3220.0,
+    "end_time": 3265.0,
+    "text": "through by the square root of the second moment estimate and if you think that this square root is really being the standard deviation even though this is not a central moment so it's not actually the standard deviation it's useful to think of it that way and the name you know root means square is kind of alluding to that division by the root of the mean of the squares and the important technical detail here you have to add epsilon here for the annoying problem that when you divide 0 by 0 everything breaks so you occasionally have zeros in your network there are some situations where it makes a difference outside of when your gradients zero but you absolutely do need that epsilon in your method and"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_093",
+    "video_id": "nyu_dl_week5",
+    "start_time": 3255.0,
+    "end_time": 3300.0,
+    "text": "some situations where it makes a difference outside of when your gradients zero but you absolutely do need that epsilon in your method and you'll see this is a recurring theme all of these no adaptive methods basically you've got to put an epsilon when your the divide something just to avoiding to avoid dividing by 0 and typically that epsilon will be close to your machine Epsilon I don't know if so if you're familiar with that term but it's something like 10 to a negative 7 sometimes 10 to the negative 8 something of that order so really only has a small effect on the value before I talk about why this method works I want to talk about the the most recent kind of innovation on top of this method and that is the method that we actually use in practice so rmsprop is sometimes still use but more often we use a method"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_094",
+    "video_id": "nyu_dl_week5",
+    "start_time": 3290.0,
+    "end_time": 3335.0,
+    "text": "about the the most recent kind of innovation on top of this method and that is the method that we actually use in practice so rmsprop is sometimes still use but more often we use a method notice atom an atom means adaptive moment estimation so Adam is rmsprop with momentum so I spent 20 minutes telling you I should use momentum so I'm going to say well you should put it on top of rmsprop as well there's always of doing that at least half a dozen in this papers for each of them but Adam is the one that caught on and the way we do have a mention here is we actually convert the momentum update to an exponential moving average as well now this may seem like a quantity"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_095",
+    "video_id": "nyu_dl_week5",
+    "start_time": 3325.0,
+    "end_time": 3370.0,
+    "text": "we actually convert the momentum update to an exponential moving average as well now this may seem like a quantity qualitatively different update like doing momentum by moving average in fact what we were doing before is essentially equivalent to that you can work out some constants where you can get a method where you use a moving exponential moving average momentum that is equivalent to the regular mentum so don't think of this moving average momentum as being anything different than your previous momentum but it has a nice property that you don't need to change the learning rate when you mess with the beta here which I think it's a big improvement so yeah we added momentum of the gradient and just as before with rmsprop we have this exponential moving average of the"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_096",
+    "video_id": "nyu_dl_week5",
+    "start_time": 3360.0,
+    "end_time": 3405.0,
+    "text": "big improvement so yeah we added momentum of the gradient and just as before with rmsprop we have this exponential moving average of the squared gradient on top of that we basically just plug in this moving average gradient where we had the gradient in the previous update so it's not too complicated now if you actually read the atom paper you'll see a whole bunch of additional notation the algorithm is like ten lines long instead of three and that is because they add something called bias correction this is actually not necessary but it'll help a little bit so everybody uses it and all it does is it increases the value of these parameters during the early stages of optimization and the reason you do that is because you initialize this"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_097",
+    "video_id": "nyu_dl_week5",
+    "start_time": 3395.0,
+    "end_time": 3440.0,
+    "text": "it does is it increases the value of these parameters during the early stages of optimization and the reason you do that is because you initialize this momentum buffer at zero typically now imagine your initial initializer at zero then after the first step we're going to be adding to that a value of 1 minus beta times the gradient now 1 minus beta will typically be 0.1 because we typically use momentum point 9 so when we do that our gradient step is actually using a learning rate 10 times smaller because this momentum buffer has a tenth of a gradient in it and that's undesirable so all the bias correction does is just multiply by 10 the step in those early iterations and the bias correction formula is just basically the correct way to do that to"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_098",
+    "video_id": "nyu_dl_week5",
+    "start_time": 3430.0,
+    "end_time": 3475.0,
+    "text": "correction does is just multiply by 10 the step in those early iterations and the bias correction formula is just basically the correct way to do that to result in a step that's unbiased and unbiased here means just the expectation of the momentum buffer is the gradient so it's nothing too mysterious yeah don't think of it as being like a huge addition although I do think that the atom paper was the first one to use bicycle action in a mainstream optimization method I don't know if they invented it but it certainly pioneered the base correction so these methods work really well in practice let me just give you a common empirical comparison here now this quadratic I'm using is a diagonal quadratic so it's a little bit shading to use a method that works well on down or quadratics on and diagonal"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_099",
+    "video_id": "nyu_dl_week5",
+    "start_time": 3465.0,
+    "end_time": 3510.0,
+    "text": "give you a common empirical comparison here now this quadratic I'm using is a diagonal quadratic so it's a little bit shading to use a method that works well on down or quadratics on and diagonal quadratic but I'm gonna do that anyway and you can see that the direction they travel is quite an improvement over SGD so in this simplified problem sut kind of goes in the wrong direction at the beginning where rmsprop basically heads in the right direction now the problem is rmsprop suffers from noise just as regular sut without noise suffers so you get this situation where kind of bounces around the optimum quite significantly and just as with std with momentum when we add momentum to atom we get the same kind of improvement where we kind of corkscrew or sometimes reverse corkscrew"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_100",
+    "video_id": "nyu_dl_week5",
+    "start_time": 3500.0,
+    "end_time": 3545.0,
+    "text": "and just as with std with momentum when we add momentum to atom we get the same kind of improvement where we kind of corkscrew or sometimes reverse corkscrew around the solution that kind of thing and this gets you to the solution quicker and it means that the last point you're currently at is a good estimate of the solution not a noisy estimate but it's kind of the best estimate you have so I would generally recommend using a demova rmsprop and it's serving the case that for some problems you just can't use SGD atom is necessary for training some of the neural networks were using our language models or say our language models it's necessary for training the network so I'm going to talk about near"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_101",
+    "video_id": "nyu_dl_week5",
+    "start_time": 3535.0,
+    "end_time": 3580.0,
+    "text": "models it's necessary for training the network so I'm going to talk about near it's generally the if I have to recommend something you should use you should try either s to D with momentum or atom as you'll go to methods for optimizing your networks so there's some practical advice for you personally I hate atom because I'm an optimization researcher and the theory and their paper is wrong this has been shown recently so the method in fact does not converge and you can show this on very simple test problems so one of the most heavily music use methods in modern machine learning actually doesn't work in a lot of situations this is unsatisfying and it's"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_102",
+    "video_id": "nyu_dl_week5",
+    "start_time": 3570.0,
+    "end_time": 3615.0,
+    "text": "simple test problems so one of the most heavily music use methods in modern machine learning actually doesn't work in a lot of situations this is unsatisfying and it's I'm kind of an ongoing research question of the best way to fix this I don't think just modifying Adam a little bit to try and fix it is really the best solution I think it's got some more fundamental problems but I won't go into any detail for that there is a very practical problem they need to talk about though Adam is known to sometimes give worse generalization error I think Yara's talked in detail about generalization error do I go over that so yeah generalization error is the error on data that you didn't train your model on basically so your networks are very heavily parameter over"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_103",
+    "video_id": "nyu_dl_week5",
+    "start_time": 3605.0,
+    "end_time": 3650.0,
+    "text": "so yeah generalization error is the error on data that you didn't train your model on basically so your networks are very heavily parameter over parameterised and if you train them to give zero loss on the data you trained it on they won't give zero loss on other data points data that it's never seen before and this generalization error is that error typically the best thing we can do is minimize the loss and the data we have but sometimes that's suboptimal and it turns out when you use Adam it's quite common on particularly on image problems that you get worst generalization error than when you use STD and people attribute this to a whole bunch of different things it may be"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_104",
+    "video_id": "nyu_dl_week5",
+    "start_time": 3640.0,
+    "end_time": 3685.0,
+    "text": "problems that you get worst generalization error than when you use STD and people attribute this to a whole bunch of different things it may be finding those bad local minima that I mentioned earlier the ones that are smaller it's kind of unfortunate that the better your optimization method the more likely it is to hit those small local minima because they're closer to where you currently are and kind of it's the goal of an optimization method to find you the closest minima in a sense these local optimization methods we use but there's a whole bunch of other reasons that you can attribute to it less noise in Adam perhaps it could be some structure maybe these methods where you rescale space like this have this fundamental problem where they give worst generalization we don't really"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_105",
+    "video_id": "nyu_dl_week5",
+    "start_time": 3675.0,
+    "end_time": 3720.0,
+    "text": "less noise in Adam perhaps it could be some structure maybe these methods where you rescale space like this have this fundamental problem where they give worst generalization we don't really understand this but it's important to know that this may be a problem or in some cases it's not to say that it will give horrible performance you'll still get a pretty good neuron that workout at the end and what I can tell you is the language models that we trained at Facebook use methods like atom or atom itself and they much better results than if you use STD and there's a kind of a small thing that won't affect you at all I would expect but with Adam you have to maintain these three buffers where's sed you have two buffers of parameters this doesn't matter except when you're training a model that's like 12 gigabytes and then"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_106",
+    "video_id": "nyu_dl_week5",
+    "start_time": 3710.0,
+    "end_time": 3755.0,
+    "text": "but with Adam you have to maintain these three buffers where's sed you have two buffers of parameters this doesn't matter except when you're training a model that's like 12 gigabytes and then it really becomes a problem I don't think you'll encounter that in practice and surely there's a little bit iffy so you gotta trim two parameters instead of one so yeah that's practical advice use Adam arrest you do but onto something that is also sup is also kind of a core thing oh sorry have a question yes yes you absolutely correct but typically I guess the question the question was weren't using a small epsilon in the denominator result in blow-up certainly if the numerator was equal to roughly one than dividing through by ten to the"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_107",
+    "video_id": "nyu_dl_week5",
+    "start_time": 3745.0,
+    "end_time": 3790.0,
+    "text": "weren't using a small epsilon in the denominator result in blow-up certainly if the numerator was equal to roughly one than dividing through by ten to the negative seven could be catastrophic and this this is a legitimate question but typically in order for the V buffer to have very small values the gradient also has to have had very small values you can see that from the way the exponential moving averages are updated so in fact it's not a practical problem when this when this V is incredibly small the momentum is also very small and when you're dividing small thing by a small thing you don't get blow-up oh yeah so the question is should I you buy an SUV and atom separately at the same time and just see which one works better"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_108",
+    "video_id": "nyu_dl_week5",
+    "start_time": 3780.0,
+    "end_time": 3825.0,
+    "text": "a small thing you don't get blow-up oh yeah so the question is should I you buy an SUV and atom separately at the same time and just see which one works better in fact that is pretty much what we do because we have lots of computers we just have one computer runners you need one computer one atom and see which one works better although we kind of know from most problems which one is the better choice for whatever problems you're working with maybe you can try both it depends how long it's going to take to train I'm not sure exactly what you're gonna be doing in terms of practice in this course yeah certainly legitimate way to do it in fact some people use SGD at the beginning and then switch to atom at the end that's certainly a good approach it just makes it more complicated and complexity should be avoided if possible yes this is one of those deep unanswered"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_109",
+    "video_id": "nyu_dl_week5",
+    "start_time": 3815.0,
+    "end_time": 3860.0,
+    "text": "beginning and then switch to atom at the end that's certainly a good approach it just makes it more complicated and complexity should be avoided if possible yes this is one of those deep unanswered questions so the question was should we 1s you deal with lots of different initializations and see which one gets the best solution won't I help with the bumpiness this is the case with small neural net that you will get different solutions depending on your initialization now there's a remarkable property of the kind of large networks we use at the moment and the art networks as long as you use similar random initialization in terms of the variance of initialization you'll end up practically at a similar quality solutions and this is not well understood so yeah it's it's quite remarkable that your neural network can train for three hundred epochs and you"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_110",
+    "video_id": "nyu_dl_week5",
+    "start_time": 3850.0,
+    "end_time": 3895.0,
+    "text": "you'll end up practically at a similar quality solutions and this is not well understood so yeah it's it's quite remarkable that your neural network can train for three hundred epochs and you end up with solution the test error is like almost exactly the same as what you got with some completely different initialization we don't understand this so if you really need to eke out tiny performance gains you may be able to get a little bit better Network by running multiple and picking the best and it seems the bigger your network and the harder your problem the less game you get from doing that yes so the question was we have three buffers for each weight on the answer answer is yes so essentially yeah we basically in memory we have a copy of the same size as our weight data so our weight will be a whole bunch of tensors in memory we have"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_111",
+    "video_id": "nyu_dl_week5",
+    "start_time": 3885.0,
+    "end_time": 3930.0,
+    "text": "weight on the answer answer is yes so essentially yeah we basically in memory we have a copy of the same size as our weight data so our weight will be a whole bunch of tensors in memory we have a separate whole bunch of tensors that our momentum tensors and we have a whole bunch of other tensors that are the the second moment tensors so yeah so normalization layers so this is kind of a clever idea why try and salt why try and come up with a better optimization algorithm where we can just come up with modern neural networks typically we modify the network by adding additional layers in between existing layers and"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_112",
+    "video_id": "nyu_dl_week5",
+    "start_time": 3920.0,
+    "end_time": 3965.0,
+    "text": "modern neural networks typically we modify the network by adding additional layers in between existing layers and the goal of these layers to improve the optimization and generalization performance of the network and the way they do this can happen in a few different ways but let me give you an example so we would typically take standard kind of combinations so as you know in modern your networks we typically alternate linear operations with nonlinear operations and here I call that activation functions we alternate them linear nonlinear linear nonlinear what we could do is we can place these normalization layers either between the linear order non-linear or"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_113",
+    "video_id": "nyu_dl_week5",
+    "start_time": 3955.0,
+    "end_time": 4000.0,
+    "text": "nonlinear what we could do is we can place these normalization layers either between the linear order non-linear or before so there in this case we are using for instance this is the kind of structure we have in real networks where we have a convolution recover that convolutions or linear operations followed by batch normalization this is a type of normalization which I will detail in a minute followed by riilu which is currently the most popular activation function and we place this mobilization between these existing layers and what I want to make clear is this normalization layers they affect the flow of data through so they modify the data that's flowing through but they don't change the power of the"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_114",
+    "video_id": "nyu_dl_week5",
+    "start_time": 3990.0,
+    "end_time": 4035.0,
+    "text": "existing layers and what I want to make clear is this normalization layers they affect the flow of data through so they modify the data that's flowing through but they don't change the power of the network in the sense that that you can set up the weights in the network in some way that'll still give whatever output you had in an unknown alized network with a normalized network so normalization layers you're not making that work more powerful they improve it in other ways normally when we add things to a neural network the goal is to make it more powerful and yes this normalization layer can also be after the activation or before the linear or you know because this wraps around we do this in order a lot of them are equivalent but any questions here this is this bits yes yes so that's certainly true but we kind of want that we want"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_115",
+    "video_id": "nyu_dl_week5",
+    "start_time": 4025.0,
+    "end_time": 4070.0,
+    "text": "equivalent but any questions here this is this bits yes yes so that's certainly true but we kind of want that we want the real o2 sensor some of the data but not too much but it's also not quite accurate because normalization layers can also scale and ship the data and so it won't necessarily be that although it's certainly at initialization they do not do that scaling in ship so typically cut off half the data and in fact if you try to do a theoretical analysis of this it's very convenient that it cuts off half the data so the structure this normalization layers they all pretty much do the same kind of operation and how many use kind of generic notation here so you should imagine that X is an input to the normalization layer and Y"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_116",
+    "video_id": "nyu_dl_week5",
+    "start_time": 4060.0,
+    "end_time": 4105.0,
+    "text": "much do the same kind of operation and how many use kind of generic notation here so you should imagine that X is an input to the normalization layer and Y is an output and what you do is use do a whitening or normalization operation where you subtract off some estimate of the mean of the data and you divide through by some estimate of the standard deviation and remember before that I mentioned we want to keep the representational power of the network the same what we do to ensure that is we multiply by an alpha and we add a sorry in height multiplied by an hey and we add a B and this is just so that the layer can still output values over any particular range"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_117",
+    "video_id": "nyu_dl_week5",
+    "start_time": 4095.0,
+    "end_time": 4140.0,
+    "text": "by an alpha and we add a sorry in height multiplied by an hey and we add a B and this is just so that the layer can still output values over any particular range or if we just always had every layer output in white and data the network couldn't output like a value million or something like that it wouldn't it could only do that you know with very in very rare cases because that would be very heavy on the tail of the normal distribution so this allows our layers to essentially output things that are the same range as before and yes so normalization layers have parameters and in the network is a little bit more complicated in the sensor has more parameters it's typically a very small number of parameters like rounding error in your counts of network parameters"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_118",
+    "video_id": "nyu_dl_week5",
+    "start_time": 4130.0,
+    "end_time": 4175.0,
+    "text": "in the network is a little bit more complicated in the sensor has more parameters it's typically a very small number of parameters like rounding error in your counts of network parameters typically and yeah so the complexity of this is on being kind of vague about how you compute the mean and standard deviation the reason I'm doing that is because all the methods compute in a different way and I'll detail that in a second yes question weighs re lb oh it's just a shift parameter so the data could have had a nonzero mean and we want it delayed to be able to produce outputs with a nonzero mean so if we always just subtract off the mean it couldn't do that so it just adds back representational power to the layer yes so the question"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_119",
+    "video_id": "nyu_dl_week5",
+    "start_time": 4165.0,
+    "end_time": 4210.0,
+    "text": "delayed to be able to produce outputs with a nonzero mean so if we always just subtract off the mean it couldn't do that so it just adds back representational power to the layer yes so the question is don't these a and B parameters reverse the normalization and and in fact that often is the case that they do something similar but they move at different time scales so between the steps or between evaluations your network the mean and variance can can shift quite substantially based off the data you're feeding but these a and B parameters are quite stable they move slowly as you learn them so because they're most stable this has beneficial properties and I'll describe those a little bit later but I want to talk about is exactly how you normalize the data and this is where the crucial thing so the earliest of these methods"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_120",
+    "video_id": "nyu_dl_week5",
+    "start_time": 4200.0,
+    "end_time": 4245.0,
+    "text": "they're most stable this has beneficial properties and I'll describe those a little bit later but I want to talk about is exactly how you normalize the data and this is where the crucial thing so the earliest of these methods developed was batch norm and he is this kind of a bizarre normalization that I I think is a horrible idea but unfortunately works fantastically well so it normalizes across batches so we want information about a certain channel recall for a convolutional neural network which channel is one of these latent images that you have in your network that part way through the network you have some data it doesn't really look like an image if you actually look at it but it's it's shaped like an image anyway and that's a channel so we want to compute an average over this over this channel but we only"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_121",
+    "video_id": "nyu_dl_week5",
+    "start_time": 4235.0,
+    "end_time": 4280.0,
+    "text": "really look like an image if you actually look at it but it's it's shaped like an image anyway and that's a channel so we want to compute an average over this over this channel but we only have a small amount of data that's what's in this channel basically height times width if it's a if it's an image and it turns out that's not enough data to get good estimates of these mean and variance parameters so what batchman does is it takes a mean and variance estimate across all the instances in your mini-batch pretty straightforward and that's what it divides blue by the reason why I don't like this is it is no longer actually stochastic gradient descent if you using batch normalization so it breaks all the theory that I work on for a living so I prefer some other"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_122",
+    "video_id": "nyu_dl_week5",
+    "start_time": 4270.0,
+    "end_time": 4315.0,
+    "text": "longer actually stochastic gradient descent if you using batch normalization so it breaks all the theory that I work on for a living so I prefer some other normalization strategies there in fact quite a soon after Bachelor and people tried normalizing via every other possible combination of things you can normalize by and it turns out the three that kind of work a layer instance and group norm and layer norm here in this diagram you averaged across all of the channels and across height and width now this doesn't work on all problems so I would only recommend it on a problem where you know it already works and that's typically a problem where people already using it so look at what the network's people are using if that's a good idea or not will depend the"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_123",
+    "video_id": "nyu_dl_week5",
+    "start_time": 4305.0,
+    "end_time": 4350.0,
+    "text": "would only recommend it on a problem where you know it already works and that's typically a problem where people already using it so look at what the network's people are using if that's a good idea or not will depend the instance normalization is something that's used a lot in modern language models and this you do not average across the batch anymore which is nice I won't we talk about that much depth I really the one I would rather you rather you use in practice is group normalization so here we have which across a group of channels and this group is trapped is chosen arbitrarily and fixed at the beginning so typically we just group things numerically so channel 0 to 10 would be a group channel you know 10 to 20 making sure you don't overlap of"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_124",
+    "video_id": "nyu_dl_week5",
+    "start_time": 4340.0,
+    "end_time": 4385.0,
+    "text": "we just group things numerically so channel 0 to 10 would be a group channel you know 10 to 20 making sure you don't overlap of course disjoint groups of channels and the size of these groups is a parameter that you need to tune although we always use 32 in practice you could tune that and you just do this because there's not enough information on a single channel and using all the channels is too much so you just use something in between it's it's really quite a simple idea and it turns out this group norm often works better than batch normal a lot of problems and it does mean that my HUD theory that I work on is still balanced so why does normalization help this is a matter of dispute so in fact in the last"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_125",
+    "video_id": "nyu_dl_week5",
+    "start_time": 4375.0,
+    "end_time": 4420.0,
+    "text": "theory that I work on is still balanced so why does normalization help this is a matter of dispute so in fact in the last few years several papers have come out on this topic unfortunately the papers did not agree on why it works they all have completely separate explanations but there's some things that are definitely going on so we can shape it we can say for sure that the network appears to be easier to optimize so by that I mean you can use large learning rates better in a better condition network you can use larger learning rates and therefore get faster convergence so that does seem to be the another factor which is a little bit disputed but I think is reasonably well-established"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_126",
+    "video_id": "nyu_dl_week5",
+    "start_time": 4410.0,
+    "end_time": 4455.0,
+    "text": "convergence so that does seem to be the another factor which is a little bit disputed but I think is reasonably well-established you get noise in the data passing through your network when you use normalization in vaginal and this noise comes from other instances in the bash because it's random what I like instances are in your batch when you compute the mean using those other instances that mean is noisy and this noise is then added or sorry subtracted from your weight so when you do the normalization operation so this noise is actually potentially helping generalization performance in your network now there has been a lot of papers on injecting noise internet works"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_127",
+    "video_id": "nyu_dl_week5",
+    "start_time": 4445.0,
+    "end_time": 4490.0,
+    "text": "actually potentially helping generalization performance in your network now there has been a lot of papers on injecting noise internet works to help generalization so it's not such a crazy idea that this noise can be helping and in terms of a practical consideration this normalization makes the weight initialization that you use a lot less important it used to be kind of a black art to select the initialization your new your network and the people who really good motive is often it was just because they're really good at changing their initialization and this is just less the case now when we use normalization layers and also gives the benefit if you can kind of tile together layers with impunity so again it used to be the situation that if you just plug together two possible ways in your"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_128",
+    "video_id": "nyu_dl_week5",
+    "start_time": 4480.0,
+    "end_time": 4525.0,
+    "text": "benefit if you can kind of tile together layers with impunity so again it used to be the situation that if you just plug together two possible ways in your network it probably wouldn't work now that we use normalization layers it probably will work and even if it's a horrible idea and this has spurred a whole field of automated architecture search where they just randomly calm build together blocks and it's try thousands of them and see what works and that really wasn't possible before because that would typically result in a poorly conditioned Network you couldn't train and with normalization typically you can train it some practical considerations so the the bachelor on paper one of the reasons why it wasn't invented earlier is the kind of"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_129",
+    "video_id": "nyu_dl_week5",
+    "start_time": 4515.0,
+    "end_time": 4560.0,
+    "text": "you can train it some practical considerations so the the bachelor on paper one of the reasons why it wasn't invented earlier is the kind of non-obvious thing that you have to back propagate through the calculation of the mean and standard deviation if you don't do this everything blows up now you might have to do this yourself as it'll be implemented in the implementation that you use oh yes so I do not have the expertise to answer that I feel like it's kind of sometimes it's just a patent pet method like people like layering in suits normally that field more and in fact a good norm if you it's just the group size covers both so I would be sure that you could probably get the same performance using group norm with a particular group size chosen carefully"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_130",
+    "video_id": "nyu_dl_week5",
+    "start_time": 4550.0,
+    "end_time": 4595.0,
+    "text": "just the group size covers both so I would be sure that you could probably get the same performance using group norm with a particular group size chosen carefully yeah the choice of national does affect parallelization so the implementation zinc in your computer library or your CPU library are pretty efficient for each of these but it's complicated when you are spreading your computation across machines and you kind of have to synchronize these these these things and batch norm is a bit of a pain there because it would mean that you need to compute an average across all machines and aggregator whereas if you're using group norm every instance is on a different machine you can just completely compute the norm so in all those other three it's separate normalization for each instance it"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_131",
+    "video_id": "nyu_dl_week5",
+    "start_time": 4585.0,
+    "end_time": 4630.0,
+    "text": "and aggregator whereas if you're using group norm every instance is on a different machine you can just completely compute the norm so in all those other three it's separate normalization for each instance it doesn't depend on the other instances in the batch so it's nicer when you're distributing it's when people use batch norm on a cluster they actually do not sync the statistics across which makes it even less like SGD and makes me even more annoyed so what was it already yes yeah Bachelor basically has a lot of momentum not in the optimization sense but in the sense of people's minds so it's very heavily used for that reason but I would recommend group norm instead and there's kind of like a technical data with batch norm you don't want to compute these mean and standard"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_132",
+    "video_id": "nyu_dl_week5",
+    "start_time": 4620.0,
+    "end_time": 4665.0,
+    "text": "it's very heavily used for that reason but I would recommend group norm instead and there's kind of like a technical data with batch norm you don't want to compute these mean and standard deviations on batches during evaluation time by evaluation time I mean when you actually run your network on the test data set or we use it in the real world for some application it's typically in those situations you don't have batches any more batches or more for training things so you need some substitution in that case you can compute an exponential moving average as we talked about before and EMA of these mean and standard deviations you may think to yourself why don't we use an EMA in the implementation of batch norm the answer is because it doesn't work we it seems like a very reasonable idea though and"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_133",
+    "video_id": "nyu_dl_week5",
+    "start_time": 4655.0,
+    "end_time": 4700.0,
+    "text": "and EMA of these mean and standard deviations you may think to yourself why don't we use an EMA in the implementation of batch norm the answer is because it doesn't work we it seems like a very reasonable idea though and people have explored that and quite a lot of depth but it doesn't work oh yes this is quite crucial so yet people have tried normalizing things in neural networks before a batch norm was invented but they always made the mistake of not back popping through the mean and standard deviation and the reason why they didn't do that is because the math is really tricky and if you try to implement it yourself it will probably be wrong now that we have pie charts which which computes gradients correctly for you in all situations you could actually do this in practice and there are just a little bit but only a little bit because it's surprisingly difficult yeah so the question is is there a difference if we apply"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_134",
+    "video_id": "nyu_dl_week5",
+    "start_time": 4690.0,
+    "end_time": 4735.0,
+    "text": "could actually do this in practice and there are just a little bit but only a little bit because it's surprisingly difficult yeah so the question is is there a difference if we apply normalization before after than non-linearity and the answer is there will be a small difference in the performance of your network now I can't tell you which one's better because it appears in some situation one works a little bit better in other situations the other one works better what I can tell you is the way I draw it here is what's used in the PI project implementation of ResNet and most resonant implementations so just there's probably almost as good as you can get I think that would use the other form if it was better and it's certainly problem depended this is another one of those things where maybe the no correct answer how you do it and it's"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_135",
+    "video_id": "nyu_dl_week5",
+    "start_time": 4725.0,
+    "end_time": 4770.0,
+    "text": "think that would use the other form if it was better and it's certainly problem depended this is another one of those things where maybe the no correct answer how you do it and it's just random which works better I don't know yes yeah any other questions on this before I move on to the so you need more data to get accurate estimates of the mean and standard deviation the question was why is it a good idea to compute it across multiple channels rather than a single channel and yes it is because you just have more data to make a better estimates but you want to be careful you don't have too much data in that because then you don't get the noise and record that the noise is actually useful so basically the group size in group norm is just adjusting the amount of noise we have basically the question was how is this related to"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_136",
+    "video_id": "nyu_dl_week5",
+    "start_time": 4760.0,
+    "end_time": 4805.0,
+    "text": "noise and record that the noise is actually useful so basically the group size in group norm is just adjusting the amount of noise we have basically the question was how is this related to group convolutions this was all pioneered before good convolutions were used it certainly has some interaction with group convolutions if you use them and so you want to be a little bit careful there I don't know exactly what the correct thing to do is in those cases but I can tell you they definitely use normalization in those situations probably Batchelor more more than group norm because of the momentum I mentioned it's just more popular vaginal yes so the question is do we ever use our Beck instances from the mini-batch in group norm or is it always just a single instance we always just use a single instance because there's so many benefits to that it's so much simpler in"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_137",
+    "video_id": "nyu_dl_week5",
+    "start_time": 4795.0,
+    "end_time": 4840.0,
+    "text": "the question is do we ever use our Beck instances from the mini-batch in group norm or is it always just a single instance we always just use a single instance because there's so many benefits to that it's so much simpler in implementation and in theory to do that maybe you can get some improvement from that in fact I bet you there's a paper that does that somewhere because they've tried have any combination of this in practice I suspect if it worked well we'd probably be using it so probably probably doesn't work well under the the death of optimization I wanted to put something a little bit interesting because you've all been sitting through kind of a pretty dense lecture so this is something that I've kind of been working on a little bit I thought you might find interesting so you might have seen the the xkcd comic here that I've"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_138",
+    "video_id": "nyu_dl_week5",
+    "start_time": 4830.0,
+    "end_time": 4875.0,
+    "text": "is something that I've kind of been working on a little bit I thought you might find interesting so you might have seen the the xkcd comic here that I've modified it's not always this way it's kind of point of what it makes so sometimes we can just barge into a field we know nothing about it and improve on how they're currently doing it although you have to be a little bit careful so the problem I want to talk about is one that young I think mentioned briefly in the first lecture but I want to go into a bit of detail it's MRI reconstruction now in the MRI reconstruction problem we take a raw data from an MRI machine a medical imaging machine we take raw data from that machine and we reconstruct an image and there's some pipeline an algorithm in the middle there that"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_139",
+    "video_id": "nyu_dl_week5",
+    "start_time": 4865.0,
+    "end_time": 4910.0,
+    "text": "medical imaging machine we take raw data from that machine and we reconstruct an image and there's some pipeline an algorithm in the middle there that produces the image and the goal basically here is to replace 30 years of research into what algorithm they should use their with with neural networks because that's that's what I'll get paid to do and I'll give you a bit of detail so these MRI machines capture data in what's known as the Fourier domain I know a lot of you have done signal processing some of you may have no idea what this is and you don't need to yes so you may have seen the the further domain in one dimensional case"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_140",
+    "video_id": "nyu_dl_week5",
+    "start_time": 4900.0,
+    "end_time": 4945.0,
+    "text": "yes so you may have seen the the further domain in one dimensional case so for neural networks sorry for MRI reconstruction we have two dimensional Fourier domain the thing you need to know is it's a linear mapping to get from the fluid domain to image domain it's just linear and it's very efficient to do that mapping it literally takes milliseconds no matter how big your images on modern computers so linear and easy to convert back and forth between the two and the MRI machines actually capture either rows or columns of this Fourier domain as samples they're called sample in the literature so each time the machine computes a sample which is"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_141",
+    "video_id": "nyu_dl_week5",
+    "start_time": 4935.0,
+    "end_time": 4980.0,
+    "text": "capture either rows or columns of this Fourier domain as samples they're called sample in the literature so each time the machine computes a sample which is every few milliseconds it gets a role column of this image and this is actually technically a complex-valued image but this does not matter for my discussion of it so you can imagine it's just a two channel image if you imagine a real and imaginary channel just think of them as color channels the problem we want to do we want to solve is accelerating MRI acceleration here is in the sense of faster so we want to run the machines quicker and produce and one way we can do that in the most"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_142",
+    "video_id": "nyu_dl_week5",
+    "start_time": 4970.0,
+    "end_time": 5015.0,
+    "text": "the machines quicker and produce and one way we can do that in the most successful way so far is by just not capturing all of the columns we just skip some randomly it's useful in practice to also capture some of the middle columns it turns out they contain a lot of the information but outside the middle we just capture randomly and we can't just use a nice linear operation anymore that diagram on the right is the output of that linear operation I mentioned applied to this data so it doesn't give useful Apple they only do something a little bit more intelligent any questions on this before I move on it is frequency and phase dimensions so"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_143",
+    "video_id": "nyu_dl_week5",
+    "start_time": 5005.0,
+    "end_time": 5050.0,
+    "text": "little bit more intelligent any questions on this before I move on it is frequency and phase dimensions so in this particular case I'm actually sure this diagram one of the dimensions is frequency and one is phase and the value is the magnitude of a sine wave with that frequency and phase so if you add together all the sine waves wave them with the frequency oh so with the weight in this image you get the original image so it's it's a little bit more complicated because it's in two dimensions and the sine waves you gotta be little bit careful but it's basically just each pixel is the magnitude of a sine wave or if you want to compare to a 1d analogy you'll just have frequencies so the"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_144",
+    "video_id": "nyu_dl_week5",
+    "start_time": 5040.0,
+    "end_time": 5085.0,
+    "text": "just each pixel is the magnitude of a sine wave or if you want to compare to a 1d analogy you'll just have frequencies so the pixel intensity is the strength of that frequency if you have a musical note say a piano note with a C major as one of the frequencies that would be one pixel this image would be the C major frequency and another might be a minor or something like that and the magnitude of it is just how hard they press the key on the piano so you have frequency information yes so the video doesn't work there was one of the biggest breakthroughs in in Threat achill mathematics for a long time was the invention of compressed sensing I'm sure some of you have heard of compressed sensing a hands of show of hands"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_145",
+    "video_id": "nyu_dl_week5",
+    "start_time": 5075.0,
+    "end_time": 5120.0,
+    "text": "breakthroughs in in Threat achill mathematics for a long time was the invention of compressed sensing I'm sure some of you have heard of compressed sensing a hands of show of hands compressed sensing yeah some of you especially work in the mathematical sciences would be aware of it basically there's this phenomenal political paper that showed that we could actually in theory get a perfect reconstruction from these subsampled measurements and we had some requirements for this to work the requirements were that we needed to sample randomly in fact it's a bit weaker you have to sample incoherently but in practice everybody samples randomly so it's essentially the same thing now here we're randomly sampling columns but within the columns we do not randomly"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_146",
+    "video_id": "nyu_dl_week5",
+    "start_time": 5110.0,
+    "end_time": 5155.0,
+    "text": "sample incoherently but in practice everybody samples randomly so it's essentially the same thing now here we're randomly sampling columns but within the columns we do not randomly sample the reason being is it's not faster in the machine the machine can capture one column as quickly as you could capture half a column so we just kind of capture a whole column so that makes it no longer random so that's one kind of problem with it the other problem is kind of the the assumptions of this compressed sensing theory are violated by the kind of images we want to reconstruct I show you on the right they're an example of compressed sensing Theory reconstruction this was a big step forward from what they could do before you would you'll get something that looks like this previously that was really considered the best in fact some people would when this result came out"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_147",
+    "video_id": "nyu_dl_week5",
+    "start_time": 5145.0,
+    "end_time": 5190.0,
+    "text": "before you would you'll get something that looks like this previously that was really considered the best in fact some people would when this result came out swore though this was impossible it's actually not but you need some assumptions and these assumptions are pretty critical and I mention them there so you need sparsity of the image now that mi a-- majors not sparse by sparse I mean it has a lot of zero or black pixels it's clearly not sparse but it can be represented sparsely or approximately sparsely if you do a wavelet decomposition now I won't go to the details there's a little bit of problem though it's only approximately sparse and when you do that wavelet decomposition that's why this is not a perfect reconstruction if it was very sparse in the wavelet domain and perfectly that would be in exactly the"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_148",
+    "video_id": "nyu_dl_week5",
+    "start_time": 5180.0,
+    "end_time": 5225.0,
+    "text": "sparse and when you do that wavelet decomposition that's why this is not a perfect reconstruction if it was very sparse in the wavelet domain and perfectly that would be in exactly the same as the left image and this compressed sensing is based off of the field of optimization it kind of revitalize a lot of the techniques people have been using for a long time the way you get this reconstruction is you solve a little mini optimization problem at every step you every image you want to reconstruct how many other machines so your machine has to solve an optimization problem for every image every time it solves this little quadratic problem with this kind of complicated regularization term so this is great for optimization or all these people who had been getting low paid jobs at universities all of a sudden there of their research was trendy and"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_149",
+    "video_id": "nyu_dl_week5",
+    "start_time": 5215.0,
+    "end_time": 5260.0,
+    "text": "complicated regularization term so this is great for optimization or all these people who had been getting low paid jobs at universities all of a sudden there of their research was trendy and corporations needed their help so this is great but we can do better so we instead of solving this minimization problem at every time step I will use a neural network so obviously being here arbitrarily to represent the huge in your network beef a big of course we we hope that we can learn in your network of such sufficient complexity that it can essentially solve the optimization problem in one step it just outputs a solution that's as good as the optimization problem solution now this would have been considered impossible 15 years ago now we know better so it's actually not very difficult in fact we"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_150",
+    "video_id": "nyu_dl_week5",
+    "start_time": 5250.0,
+    "end_time": 5295.0,
+    "text": "problem in one step it just outputs a solution that's as good as the optimization problem solution now this would have been considered impossible 15 years ago now we know better so it's actually not very difficult in fact we can just take an example of we can solve a few of these a few I mean like a few hundred thousand of these optimization problems take the solution and the input and we're gonna strain a neural network to map from input to solution that's actually a little bit suboptimal because we get weakened in some cases we know a better solution than the solution to the optimization problem we can gather that by measuring the patient and that's what we actually do in practice so we don't try and solve the optimization problem we try and get to an even better solution and this works really well so I'll give you a very simple example of this so this is what you can do much better than the compressed sensory"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_151",
+    "video_id": "nyu_dl_week5",
+    "start_time": 5285.0,
+    "end_time": 5330.0,
+    "text": "try and solve the optimization problem we try and get to an even better solution and this works really well so I'll give you a very simple example of this so this is what you can do much better than the compressed sensory reconstruction using a neural network and this network involves the tricks I've mentioned so it's trained using Adam it uses group norm normalization layers and convolutional neural networks as you've already been taught and it uses a technique known as u nets which you may go over later in the course not sure about that but it's not a very complicated modification of only one it works as yeah this is the kind of thing you can do and this is this is very close to practical applications so you'll be seeing these accelerated MRI scans happening in in clinical practice in only a few years tired this is not"
+  },
+  {
+    "chunk_id": "nyu_dl_week5_chunk_152",
+    "video_id": "nyu_dl_week5",
+    "start_time": 5320.0,
+    "end_time": 5365.0,
+    "text": "you can do and this is this is very close to practical applications so you'll be seeing these accelerated MRI scans happening in in clinical practice in only a few years tired this is not vaporware and yeah that's everything i wanted to talk about you talk about today optimization and the death of"
+  }
+]
