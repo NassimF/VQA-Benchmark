@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-05-08
+
+- docs: mark pipeline run spec complete (phases 2.2–4.2) (8df7e4c)
+- feat: run full data pipeline (phases 2.2–4.2) (8a811bb)
+
 ## 2026-04-26
 
 - docs: add Overleaf sync rule to CLAUDE.md and roadmap (453903b)
@@ -8,7 +13,7 @@
 - docs: sync Overleaf fixes, update roadmap and changelog (206ce17)
 - docs: update CHANGELOG.md for Overleaf submodule (a770067)
 
-## 2026-04-26 (latest)
+## 2026-04-26
 
 - fix: BMVC compliance (ack, tables) + bib missing entries (a95ebc8)
 - docs: sync Overleaf submodule — paper skeleton (83f724c)
@@ -112,5 +117,5 @@
 ### Frame Captioning (Phase 4)
 
 - Qwen2-VL-7B-Instruct (Apache 2.0) replaces BLIP base — reads slide text, equations, whiteboard diagrams.
-- Frame extraction via ffmpeg at 30s intervals; ~642 frames across first 4 lectures.
-- Approach A: captions appended as `[frame caption: ...]` to chunk text, embedded with all-MiniLM-L6-v2 into Collection 2. Phase 4 pending — must complete before Phase 5.
+- Frame extraction via ffmpeg at 15s intervals (changed from 30s); all-in-window assignment gives ~3 captions per 45s chunk.
+- 60/60 videos captioned; 17,180 total captions. Approach A: captions appended as `[frame caption: ...]` to chunk text, embedded with all-MiniLM-L6-v2 into Collection 2.
