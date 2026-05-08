@@ -20,8 +20,8 @@ Status: ✅ Complete | ⚠️ Partial | ⏳ Pending
 | 3.2 | Run chunking for remaining 56 lectures | ✅ 60/60 done |
 | 4.1 | `src/frame_captioner.py` — Qwen2-VL-7B captioner | ✅ |
 | 4.2 | Run `scripts/build_frame_captions.py --all --device cuda` | ✅ 60/60 done |
-| 5.1 | `src/retriever.py` — two ChromaDB collections | ⏳ |
-| 5.2 | `scripts/build_index.py` — ingest all chunks | ⏳ |
+| 5.1 | `src/retriever.py` — two ChromaDB collections | ✅ |
+| 5.2 | `scripts/build_index.py` — ingest all chunks | ✅ |
 | 6.1 | `src/generator.py` — grounded prompt + citations | ⏳ |
 | 7.1 | `src/qa_generator.py` — LLM draft QA | ⏳ |
 | 7.2 | `scripts/generate_qa.py` — CLI for draft generation | ⏳ |
@@ -197,27 +197,29 @@ boundary is retrievable from either side.
 
 ---
 
-## Phase 5 — RAG Ingestion ⏳
+## Phase 5 — RAG Ingestion ✅
 
-### 5.1 — Retriever module
+### 5.1 — Retriever module ✅
 **File:** `src/retriever.py`
 
-Two modes, one class:
-- `TranscriptOnlyRetriever` — embeds `data/chunks/{video_id}_chunks.json`
-- `TranscriptFramesRetriever` — embeds `data/chunks/{video_id}_chunks_augmented.json`
+Single `Retriever(mode="transcript_only" | "transcript_plus_frames")` class (not two classes —
+see `specs/2026-05-08-rag-ingestion/requirements.md`). Injects `chroma_client` and `embedder`
+overrides for unit-test isolation.
 
-Both use `sentence-transformers/all-MiniLM-L6-v2` and store in separate ChromaDB collections:
-- `lecture_transcript_only`
-- `lecture_transcript_plus_frames`
+- `build(video_ids, rebuild=False) -> int` — encodes and ingests chunks; skips existing unless `rebuild=True`
+- `query(question, top_k, video_id=None) -> list[dict]` — returns `{chunk_id, video_id, start_time, end_time, text, score}`; `score = 1 - cosine_distance`
+- `count() -> int`
 
-Metadata stored per chunk: `video_id`, `start_time`, `end_time`, `chunk_id`
+Collections: `lecture_transcript_only`, `lecture_transcript_plus_frames`  
+Metadata per chunk: `video_id`, `start_time`, `end_time`, `chunk_id`  
+Packages: chromadb 1.5.8, sentence-transformers 5.4.1
 
-### 5.2 — Ingestion script
+### 5.2 — Ingestion script ✅
 **File:** `scripts/build_index.py`
 
 - Ingests all chunks for all 60 lectures into both collections
-- Add `--rebuild` flag to force re-ingestion (default: skip if collection exists)
-- CLI: `python scripts/build_index.py --all [--rebuild]`
+- CLI: `python scripts/build_index.py --all [--video_id <id>] [--mode transcript_only|transcript_plus_frames|both] [--rebuild]`
+- Unit tests: `tests/test_retriever.py` — 8/8 passing with synthetic in-memory fixtures
 
 **Git checkpoint:** `feat: RAG ingestion, both configs (Phase 5)`
 
