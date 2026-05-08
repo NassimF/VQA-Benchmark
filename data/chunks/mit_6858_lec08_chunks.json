@@ -1,0 +1,996 @@
+[
+  {
+    "chunk_id": "mit_6858_lec08_chunk_000",
+    "video_id": "mit_6858_lec08",
+    "start_time": 0.0,
+    "end_time": 45.0,
+    "text": "all right guys let's get started with the next installment of our exciting journey into computer security uh today we're actually going to talk about web security web security is actually one of my favorite topics to talk about because it really exposes you to the true horrors of the world it's very easy to think as a student that everything will be great when you graduate today's lecture and the next lecture will be telling you that's in fact not the case uh everything is terrible so what is the web well back in the old days the web was actually much simpler than it is today right so clients which is to say the browsers couldn't really do anything with respect to displaying Rich interactive content basically they could just get static images static text and that was about it now the server side"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_001",
+    "video_id": "mit_6858_lec08",
+    "start_time": 35.0,
+    "end_time": 80.0,
+    "text": "today right so clients which is to say the browsers couldn't really do anything with respect to displaying Rich interactive content basically they could just get static images static text and that was about it now the server side was a little bit more interesting right because even if there were static content on the client side maybe the server was talking to databases maybe it was talking to other machines on the server side things like that and so for a very long time the notion of web security basically meant looking at what the server was doing right and up to this point in this class we've essentially taken that approach so we looked at things like uh buffer overflow attacks right so how clients can uh trick the server into doing things the server doesn't want to do we've also looked at the uh okws server um looked at how we can do some privilege isolation there uh so we've sort of to"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_002",
+    "video_id": "mit_6858_lec08",
+    "start_time": 70.0,
+    "end_time": 115.0,
+    "text": "trick the server into doing things the server doesn't want to do we've also looked at the uh okws server um looked at how we can do some privilege isolation there uh so we've sort of to this point sort of looked at security through the history that was actually uh through through the experiences that were actually experienced by the security researchers themselves but now uh actually the browser is very interesting to think about in terms of security because the browser is super super complicated these days right so now there's all kinds of insane Dynamic stuff that the browser can actually do so for example you've probably heard of JavaScript right so JavaScript now allows pages to execute client side code right to turn complete can do all kinds"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_003",
+    "video_id": "mit_6858_lec08",
+    "start_time": 105.0,
+    "end_time": 150.0,
+    "text": "so for example you've probably heard of JavaScript right so JavaScript now allows pages to execute client side code right to turn complete can do all kinds of wacky stuff there's the Dom model which we'll talk about uh in more depth later today the Dom model essentially allows JavaScript code to dynamically change uh the visual appearance of the page uh fiddle with things like uh font stylings and stuff like that uh there's uh XML HTTP requests these are basically a way for uh JavaScript to asynchronously fetch content from servers you may also hear XML HTP requests referred to as uh"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_004",
+    "video_id": "mit_6858_lec08",
+    "start_time": 140.0,
+    "end_time": 185.0,
+    "text": "uh JavaScript to asynchronously fetch content from servers you may also hear XML HTP requests referred to as uh Ajax a synchronous JavaScript fetching uh there are things like websockets this is actually a recently introduced API so websockets essentially allow full duplex communication between clients and servers right communication going both ways we've got uh all kinds of support so for example uh we have things like uh the video tag which allows a a web page to play video without using a flash app that it can actually just Play that video"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_005",
+    "video_id": "mit_6858_lec08",
+    "start_time": 175.0,
+    "end_time": 220.0,
+    "text": "like uh the video tag which allows a a web page to play video without using a flash app that it can actually just Play that video natively uh there's also a GE location so now a web page can actually determine physically where you are for example if you're running a web page on a smartphone uh the the browser can actually access your GPS unit if you're accessing a page on a desktop browser it can actually look at your Wi-Fi connection and connect to Google's Wi-Fi geolocation service to figure out where exactly you are that's kind of insane right but now web pages can do that kind of stuff and so uh We've also talked"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_006",
+    "video_id": "mit_6858_lec08",
+    "start_time": 210.0,
+    "end_time": 255.0,
+    "text": "geolocation service to figure out where exactly you are that's kind of insane right but now web pages can do that kind of stuff and so uh We've also talked about things like uh knack for example which allows browsers to run native code so there's many many other features that I haven't mentioned here but suffice it to say that the browser is now incredibly complicated and so what does this mean for uh from the perspective of security well basically uh it means that we're screwed right the threat surface for that right there is enormous and Loosely speaking you know when you're thinking about security you can think of a graph that sort of looks like this so you've got um you know the"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_007",
+    "video_id": "mit_6858_lec08",
+    "start_time": 245.0,
+    "end_time": 290.0,
+    "text": "can think of a graph that sort of looks like this so you've got um you know the correctness and then you've got the have and so you know if this graph starts up here at 100 well of course we never even started at 100 even with very simple code code because we can't even do bubble sort right and so essentially that curve looks something like this and web browsers are right over here right and so as we'll discuss today there's all kinds of wacky security bugs that are rising constantly and as soon as the old ones are fixed new ones are arising because people keep adding these new"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_008",
+    "video_id": "mit_6858_lec08",
+    "start_time": 280.0,
+    "end_time": 325.0,
+    "text": "so as we'll discuss today there's all kinds of wacky security bugs that are rising constantly and as soon as the old ones are fixed new ones are arising because people keep adding these new features right often times without thinking about what the security implications of those features are um and so if you think about uh what a web application is these days well it's this client thing and it's This Server thing and a web application now spans multiple programming languages multiple machines multiple Hardware programs right you could be using a Firefox on Windows then it's going to go talk to machine in the cloud that's running Linux it's running the Apache server um you know maybe it's running an arm chip as opposed to you know x86 or something like that maybe the other way around so long story short there's all of these problems of composition right there's all of these"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_009",
+    "video_id": "mit_6858_lec08",
+    "start_time": 315.0,
+    "end_time": 360.0,
+    "text": "running an arm chip as opposed to you know x86 or something like that maybe the other way around so long story short there's all of these problems of composition right there's all of these software layers and all these Hardware layers that all can impact Security in some way but it's also complicate it's not quite clear how we can make sense of the entire whole so for example um one common problem with the web is this context so as an example suppose that you had uh something in a page that looked like this you declare script tag inside that script tag you declare a variable there's some string here and"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_010",
+    "video_id": "mit_6858_lec08",
+    "start_time": 350.0,
+    "end_time": 395.0,
+    "text": "you had uh something in a page that looked like this you declare script tag inside that script tag you declare a variable there's some string here and let's say that this string comes from uh an untrusted party either the user or another machine or something like that and then you tag right so this stuff is trusted this stuff is trusted this stuff is not trusted so can anybody figure out why there might be some problems here if we there you can have a closing quotes Mark right right exactly so the problem is"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_011",
+    "video_id": "mit_6858_lec08",
+    "start_time": 385.0,
+    "end_time": 430.0,
+    "text": "there you can have a closing quotes Mark right right exactly so the problem is that there are multiple contexts that this entrusted code could sort of uh break into so for example if the entrusted code had you know a double quote here now we've close the definition of this JavaScript string right so now we're out of the JavaScript string context and we into the regular JavaScript execution context so then the attacker can just put a regular JavaScript code here and go to town right alternatively the attacker could could uh just put uh a closing script tag here right and then"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_012",
+    "video_id": "mit_6858_lec08",
+    "start_time": 420.0,
+    "end_time": 465.0,
+    "text": "could uh just put uh a closing script tag here right and then uh at that point uh the attacker can sort of get out of the JavaScript context right and then get into the HTML context maybe to find some new uh HTML nodes or something like that right and so you see this problem of composition all over the place in the web because there's so many different languages and runtimes we we to think about HTML CSS JavaScript maybe MySQL on the server side so on and so forth so this is a just a classic example of why you have to do something called content standardization so whenever you get untrusted input from someone you actually need to analyze it very carefully to make sure that it's not"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_013",
+    "video_id": "mit_6858_lec08",
+    "start_time": 455.0,
+    "end_time": 500.0,
+    "text": "to do something called content standardization so whenever you get untrusted input from someone you actually need to analyze it very carefully to make sure that it's not being used as a vector for an attack so another reason why web security is so uh tricky is because the web specifications are incredibly long they're incredibly tedious they're incredibly boring and they're often inconsistent and so by I mean the web specifications I mean things like you know the definition of jpeg the definition of CSS the definition of HTML these documents are like the size of the EU Constitution right and equally easy to understand right and so what ends up happening is that the browser vendors they see all these specs and they essentially say okay thanks for that I'm going to do something that somewhat resembles what these specs look like then they call it a day and they laugh"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_014",
+    "video_id": "mit_6858_lec08",
+    "start_time": 490.0,
+    "end_time": 535.0,
+    "text": "happening is that the browser vendors they see all these specs and they essentially say okay thanks for that I'm going to do something that somewhat resembles what these specs look like then they call it a day and they laugh about it with their friends okay so what ends up happening is that these specifications end up being sort of like these vague aspirational documents that don't always accurately reflect what real browsers are doing and if you want to understand the horror of this you can go to the site called quirks mod.org I mean don't go to the site if you want to be happy but you can go there and actually documents all of these terrible inconsistencies that browsers have with respect to you know what happens when the user hits a key press right there should just be one key press event that's generated you are so wrong so go to quirks mod.org you can check that out and see what's going on so anyways so in this uh lecture we're going to focus on"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_015",
+    "video_id": "mit_6858_lec08",
+    "start_time": 525.0,
+    "end_time": 570.0,
+    "text": "the user hits a key press right there should just be one key press event that's generated you are so wrong so go to quirks mod.org you can check that out and see what's going on so anyways so in this uh lecture we're going to focus on the client side of the web application in particular we're going to look at how we can isolate content from different web providers that has to coexist somehow on the same machine and the same browser and so at a high level there's this fundamental difference between the way you traditionally think of a desktop application and the way you think of a web application right abstractly speaking most of the desktop applications that you use you can think of as coming from a single principle right so word comes from Microsoft and you know maybe Turbo Tax comes from Mr Mrs Turbo Tax so on and so forth but when you look at a web application"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_016",
+    "video_id": "mit_6858_lec08",
+    "start_time": 560.0,
+    "end_time": 605.0,
+    "text": "of as coming from a single principle right so word comes from Microsoft and you know maybe Turbo Tax comes from Mr Mrs Turbo Tax so on and so forth but when you look at a web application something that looks to you uh visually as a single application is actually composed of a bunch of different content from a bunch of different people right so you go to CNN it looks like it's all in one tab but each piece of the uh each of those visual things that you see May in fact come from someone different so let's just uh look at a very uh simple example here so let's say that we were looking at uh the following site so HTTP uh food.com"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_017",
+    "video_id": "mit_6858_lec08",
+    "start_time": 595.0,
+    "end_time": 640.0,
+    "text": "looking at uh the following site so HTTP uh food.com index.html so you know you look at your uh browser tab what might you see so one thing that you might see is uh an advertisement so you might see an advertisement in the form of a gif and maybe that was downloaded from uh ads.com then you also might see uh let's say an"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_018",
+    "video_id": "mit_6858_lec08",
+    "start_time": 630.0,
+    "end_time": 675.0,
+    "text": "then you also might see uh let's say an google.com and so these libraries are very popular for doing things like tracking how many people have loaded your page looking to see where people uh click on things to see like which parts of your site are the most interesting for people to interact with soone and so forth and you might also have another jQuery and maybe that comes uh cdn.com so some content distribution Network that food.com runs jQuery is a"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_019",
+    "video_id": "mit_6858_lec08",
+    "start_time": 665.0,
+    "end_time": 710.0,
+    "text": "jQuery and maybe that comes uh cdn.com so some content distribution Network that food.com runs jQuery is a very popular library for doing things like a guey manipulation things like that so a lot of popular websites have jQuery although they serve it from different places uh then in this page you might see some uh HTML and here's where you might see stuff like uh you know buttons for the user to click on uh text input so on and so forth right so that's just raw HTML on the page uh and then you might see uh what they call"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_020",
+    "video_id": "mit_6858_lec08",
+    "start_time": 700.0,
+    "end_time": 745.0,
+    "text": "forth right so that's just raw HTML on the page uh and then you might see uh what they call inline a food.com and by inlines mean uh you know know you have a script tag and then you have a closed script tag and then you just have some JavaScript code included in there directly right that's as opposed to where you say something like uh you know script and then the source equals some thing that lives on some server remotely right so this is what's called inline JavaScript this is what's referred to as an externally defined Javascript file so"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_021",
+    "video_id": "mit_6858_lec08",
+    "start_time": 735.0,
+    "end_time": 780.0,
+    "text": "script and then the source equals some thing that lives on some server remotely right so this is what's called inline JavaScript this is what's referred to as an externally defined Javascript file so you might have some inline JavaScript there from from food.com and the other thing that you might have in here is actually uh a frame so we'll talk about frames a bit more uh in a little bit think of a frame is almost like a separate JavaScript Universe okay it's a little bit equivalent to like a process and Unix so you know maybe this Frame here uh maybe"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_022",
+    "video_id": "mit_6858_lec08",
+    "start_time": 770.0,
+    "end_time": 815.0,
+    "text": "this. HTML and so maybe in here we have some uh inline JavaScript from Facebook and then maybe we also have uh some image so you know f."
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_023",
+    "video_id": "mit_6858_lec08",
+    "start_time": 805.0,
+    "end_time": 850.0,
+    "text": "facebook.com okay so this is what uh a single tab might have in its contents but as I just mentioned all this can potentially come from all these different principles so there's a bunch of interesting questions that we can ask about an application that looks like this so for example can this analytics code from google.com uh actually access JavaScript state that resides in the jQuery code right so to First approximation maybe that seems like a bad idea because the these two pieces of code came from different places but then again maybe it's actually okay because presumably food.com brought both of"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_024",
+    "video_id": "mit_6858_lec08",
+    "start_time": 840.0,
+    "end_time": 885.0,
+    "text": "approximation maybe that seems like a bad idea because the these two pieces of code came from different places but then again maybe it's actually okay because presumably food.com brought both of these libraries in so that they could work with each other right so who knows another question you might have is uh you know can the analytics code here actually interact with the text inputs here so for example can the analytics code Define EV vent handlers right so a little bit of background on JavaScript JavaScript is a single-threaded uh vent driven model so basically there's just in each frame there's just an event Loop that's just constantly pulling events key presses Network events timers and stuff like that and then seeing if there are any handlers associated with those events and if so it fires them right so who should be able to to Define event handlers for this HTML should google.com"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_025",
+    "video_id": "mit_6858_lec08",
+    "start_time": 875.0,
+    "end_time": 920.0,
+    "text": "key presses Network events timers and stuff like that and then seeing if there are any handlers associated with those events and if so it fires them right so who should be able to to Define event handlers for this HTML should google.com be able to do it it's not from food.com so maybe maybe not right another question too is what's the relationship between this Facebook frame here and the larger frame right the Facebook frame is an https right secure food is at HTTP right non-secure so how should these two things be able to interact so basically to answer these questions uh browsers use a security model called the uh same"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_026",
+    "video_id": "mit_6858_lec08",
+    "start_time": 910.0,
+    "end_time": 955.0,
+    "text": "use a security model called the uh same policy and so there's sort of this vague goal right because a lot of things with respect to web security are kind of vague because nobody knows what they're doing but the basic idea is two websites uh should not be able to tamper with to and so defining what tampering means was actually easier when"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_027",
+    "video_id": "mit_6858_lec08",
+    "start_time": 945.0,
+    "end_time": 990.0,
+    "text": "to and so defining what tampering means was actually easier when the web was simpler right but as we keep adding these new apis it's more and more difficult to understand what this non- tampering goal means so for example it's obviously bad if two websites which don't trust each other can sort of override on each other's visual display right that seems like an obviously bad thing uh it seems like an Obviously good thing if two websites which want to collaborate are able to somehow exchange data uh in a safe way right so you can think of mashup sites you may have heard of so sometimes you'll see these things on the Internet it's like someone takes Google Map data and then takes you know the location of food trucks then you"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_028",
+    "video_id": "mit_6858_lec08",
+    "start_time": 980.0,
+    "end_time": 1025.0,
+    "text": "data uh in a safe way right so you can think of mashup sites you may have heard of so sometimes you'll see these things on the Internet it's like someone takes Google Map data and then takes you know the location of food trucks then you have this amazing mashup that allows you to eat cheaply and avoid salmonella right so that seems like a thing you should be able to do but how exactly do we enable that type of composition uh then there's other things that are kind of hard to say so for example if JavaScript code comes from origin X and it's inside of a page that's from origin Y how exactly should that code and that content compose so the strategy that the same origin policy uses uh it can be roughly uh described"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_029",
+    "video_id": "mit_6858_lec08",
+    "start_time": 1015.0,
+    "end_time": 1060.0,
+    "text": "compose so the strategy that the same origin policy uses uh it can be roughly uh described second and essentially uh JavaScript"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_030",
+    "video_id": "mit_6858_lec08",
+    "start_time": 1050.0,
+    "end_time": 1095.0,
+    "text": "origin and so this is the high level strategy the same origin policy uses but the devil's in the details and there just a ton of exceptions which we're going to look into uh in a second but first of all before we proceed let's define uh what an origin is so An Origin is basic basically"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_031",
+    "video_id": "mit_6858_lec08",
+    "start_time": 1085.0,
+    "end_time": 1130.0,
+    "text": "port so for example we could have something like right so the scheme here is HTTP the host name is f.com and the port is 80 now the port in this case is implicit right the port is the is the port on the server side that the client uses to connect right so if you see a URL from the HTTP scheme and"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_032",
+    "video_id": "mit_6858_lec08",
+    "start_time": 1120.0,
+    "end_time": 1165.0,
+    "text": "this case is implicit right the port is the is the port on the server side that the client uses to connect right so if you see a URL from the HTTP scheme and there's no Port that's explicitly uh supplied then implicitly that Port is 80 okay so then if we look at something once again index.html so these two URLs have the same host name right but they have actually uh different schemes right htps versus HTTP and also here the port is implicitly uh 443 right that's the default htps Port right so these two"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_033",
+    "video_id": "mit_6858_lec08",
+    "start_time": 1155.0,
+    "end_time": 1200.0,
+    "text": "actually uh different schemes right htps versus HTTP and also here the port is implicitly uh 443 right that's the default htps Port right so these two URLs have different Origins and then as a final example you know if you had a site like http.com then you can use this uh colon notation 8181 you know whatever these things Beyond here don't matter with respect to the uh the same origin policy uh at least with respect to this very simple example here we see that we have a scheme of HTTP a host name of uh bar.com and here we've explicitly specified the port so in this case it's it's a non"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_034",
+    "video_id": "mit_6858_lec08",
+    "start_time": 1190.0,
+    "end_time": 1235.0,
+    "text": "example here we see that we have a scheme of HTTP a host name of uh bar.com and here we've explicitly specified the port so in this case it's it's a non default Port of 8181 so does that make sense it's pretty straightforward okay so this is basically what an origin is Loosely speaking you can think of an origin as a uid in Unix with the frame being Loosely considered as like a process ideas uh behind the browser's uh implement mentation of the same origin policy so first idea"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_035",
+    "video_id": "mit_6858_lec08",
+    "start_time": 1225.0,
+    "end_time": 1270.0,
+    "text": "ideas uh behind the browser's uh implement mentation of the same origin policy so first idea origin uh resources and so what are examples of cookies now you can think of cookies as a very simple way to implement state in a stateless protocol like HTTP uh basically a cookie is like a tiny file that's associated with each origin we'll"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_036",
+    "video_id": "mit_6858_lec08",
+    "start_time": 1260.0,
+    "end_time": 1305.0,
+    "text": "a very simple way to implement state in a stateless protocol like HTTP uh basically a cookie is like a tiny file that's associated with each origin we'll talk about the specifics of this in a bit but the basic idea is that when the browser sends a request to a particular uh website it includes any cookies that the client has for that website right you can use things uh you can use these cookies for things like implementing um you know password remembering maybe if you're going to an e-commerce site you can remember stuff about a user's uh you know shop carton these cookies so on and so forth so cookies are one thing that each uh origin can be associated with um also you can think of uh Dom storage as another one of these resources this is a fairly new interface but think of Dom"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_037",
+    "video_id": "mit_6858_lec08",
+    "start_time": 1295.0,
+    "end_time": 1340.0,
+    "text": "each uh origin can be associated with um also you can think of uh Dom storage as another one of these resources this is a fairly new interface but think of Dom storage is just a a key value store right so Dom storage allows An Origin to say for this given key which is a string let me associate it with this given value which is also a string uh another thing that uh is associated with an origin is a namespace right so that JavaScript namespace defines you know what functions and what interfaces are available um to that origin right some of those interfaces are built in like let's say the string prototype and stuff like that and then an application might"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_038",
+    "video_id": "mit_6858_lec08",
+    "start_time": 1330.0,
+    "end_time": 1375.0,
+    "text": "namespace defines you know what functions and what interfaces are available um to that origin right some of those interfaces are built in like let's say the string prototype and stuff like that and then an application might actually fill the JavaScript namespace with some other content um there's also this thing called the Dom tree so Dom is a short for document object model and the Dom tree is essentially a JavaScript reflection of the HTML in a page right so you can imagine that um you know the Dom tree has a node for the topmost HTML node in the in the uh HTML and then it's going to have a node for uh the head"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_039",
+    "video_id": "mit_6858_lec08",
+    "start_time": 1365.0,
+    "end_time": 1410.0,
+    "text": "has a node for the topmost HTML node in the in the uh HTML and then it's going to have a node for uh the head tag then it's going to have a node for tag right so on and so forth so the way that a lot of uh Dynamic uh web pages are made Dynamic is the JavaScript code can access this data structure in JavaScript that mirrors the HTML content so you can imagine an animation takes place by changing some of these nodes down here to implement you know different organizations of various tags right so that's what the Dom Tre is uh there's also um you know a visual"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_040",
+    "video_id": "mit_6858_lec08",
+    "start_time": 1400.0,
+    "end_time": 1445.0,
+    "text": "different organizations of various tags right so that's what the Dom Tre is uh there's also um you know a visual although we'll see that the visual display area actually interacts very strangely with the same origin policy um so on and so forth so at high level each origin has access to some set of client side resources of this of these types right does that make sense and then uh the second big idea is"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_041",
+    "video_id": "mit_6858_lec08",
+    "start_time": 1435.0,
+    "end_time": 1480.0,
+    "text": "URL right so as I mentioned before a frame is roughly analogous to a process uh in Unix it's kind of like a name space that Aggregates a bunch of other different idea is that"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_042",
+    "video_id": "mit_6858_lec08",
+    "start_time": 1470.0,
+    "end_time": 1515.0,
+    "text": "origin okay so what that means is that you know f.com Imports a Javascript file from bar.com well that Javascript file is going to be able to act with the authority of food.com and so loosely speaking this is sort of similar to you know if you were in the Unix world to run a binary that sort of belonged in someone else's home"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_043",
+    "video_id": "mit_6858_lec08",
+    "start_time": 1505.0,
+    "end_time": 1550.0,
+    "text": "food.com and so loosely speaking this is sort of similar to you know if you were in the Unix world to run a binary that sort of belonged in someone else's home directory right that thing would sort of execute with your privileges there and the fourth thing is uh there's passive content so images for example right or uh CSS files or things like that these are things which we don't think of as having executable code so passive content uh"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_044",
+    "video_id": "mit_6858_lec08",
+    "start_time": 1540.0,
+    "end_time": 1585.0,
+    "text": "executable code so passive content uh browser so that kind of makes sense uh we'll see why this fourth thing is a little bit subtle in a second so going back to our example here so we see for example um that the Google analytics script right and the jQuery script they can access all kinds of uh stuff in food.com so for example they can read and write um cookies they can do things like attach event handlers to buttons here uh so on and so forth um if we look at the Facebook frame and its relationship to the larger food.com frame then we see they're from different"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_045",
+    "video_id": "mit_6858_lec08",
+    "start_time": 1575.0,
+    "end_time": 1620.0,
+    "text": "here uh so on and so forth um if we look at the Facebook frame and its relationship to the larger food.com frame then we see they're from different Origins right because they have uh different schemes here they have different uh host names right different ports so what this means is that they are to a first approximation isolated right now they can communicate if they both opt into it message so post message uh allows two different frames to exchange asynchronous immutable U messages with with each other so think of this"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_046",
+    "video_id": "mit_6858_lec08",
+    "start_time": 1610.0,
+    "end_time": 1655.0,
+    "text": "message so post message uh allows two different frames to exchange asynchronous immutable U messages with with each other so think of this facility is allowing you know Facebook to try to send uh a string not a reference a string up to the enclosing food.com frame now note that if uh food.com doesn't want to receive those messages it doesn't have to right so this has to be opt in uh from both sides to get this thing to work so note that uh the JavaScript code here in the Facebook frame it cannot issue an XML HTTP request to uh the food.com server right that's once again because Network destinations also have these Origins that are associated with them and so because uh facebook.com does"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_047",
+    "video_id": "mit_6858_lec08",
+    "start_time": 1645.0,
+    "end_time": 1690.0,
+    "text": "issue an XML HTTP request to uh the food.com server right that's once again because Network destinations also have these Origins that are associated with them and so because uh facebook.com does not have the same origin as food.com it can't asynchronously fetch stuff from it via xmlhttp requests and so uh the last thing we can look at we can see okay we've got an image up here from ads.com this is rule number four over there so it seems pretty straightforward this is an image it has no executable code so clearly the browser should give it no Authority now that seems kind of like a dumb thing like why are you even talking about images having Authority or not having Authority it seems obvious that images shouldn't be able to do stuff well this is security class right so clearly there is Mischief that hides in uh statement"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_048",
+    "video_id": "mit_6858_lec08",
+    "start_time": 1680.0,
+    "end_time": 1725.0,
+    "text": "shouldn't be able to do stuff well this is security class right so clearly there is Mischief that hides in uh statement number four up there so what happens if the browser incorrectly uh parses an misattributed these before you know it's something like uh you know text. HTML or you know image. jpeg things like that it's like a mime type and so old versions of iie used to do um something that they thought was going to be helpful for you right so sometimes what web servers will do is they will"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_049",
+    "video_id": "mit_6858_lec08",
+    "start_time": 1715.0,
+    "end_time": 1760.0,
+    "text": "it's like a mime type and so old versions of iie used to do um something that they thought was going to be helpful for you right so sometimes what web servers will do is they will misattribute the file extension of an object right so you can imagine that a web server that's been configured incorrectly it might attach a HTML suffix to something that's really an image right or it might attach attach a JPEG suffix to something that's really HTML so what iie would do back in the olden days is try to help you out right so iie would go out it would go fetch this resource and it would say okay this resource uh claims to be of some type according to its file name extension right but then it would actually look at the first 256 bytes of what was in that"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_050",
+    "video_id": "mit_6858_lec08",
+    "start_time": 1750.0,
+    "end_time": 1795.0,
+    "text": "this resource and it would say okay this resource uh claims to be of some type according to its file name extension right but then it would actually look at the first 256 bytes of what was in that that object and if it found certain magic values in there that indicated that there was a different type for that object it would just say hey I found something uh cool here the web server misidentified the object let me just treat the object like its type that I found in these first 256 bytes and then everybody's a winner right because I've helped the web server developer out because now you know their website's going to uh it's going to render properly and the users going to like this because they get to unlock this content that would have been garbage before right but this is clearly a vulnerability right because suppose that"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_051",
+    "video_id": "mit_6858_lec08",
+    "start_time": 1785.0,
+    "end_time": 1830.0,
+    "text": "this because they get to unlock this content that would have been garbage before right but this is clearly a vulnerability right because suppose that a page includes some passive content right like let's say an image from a domain that's controlled by the attacker now from the perspective of the victim page it's saying even if this attacker site is is evil it's passive content it can't do anything right like it wors it displays like an unfortunate image but it can't actually access any code because passive content gets zero Authority right but what would happen is that iie uh could sniff this image the first 256 bytes and the attacker could intentionally put HTML and JavaScript in there right so what happened is that the victim site brings in what it thinks is"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_052",
+    "video_id": "mit_6858_lec08",
+    "start_time": 1820.0,
+    "end_time": 1865.0,
+    "text": "first 256 bytes and the attacker could intentionally put HTML and JavaScript in there right so what happened is that the victim site brings in what it thinks is an image IE coerces it into HTML and JavaScript and then executes that code right in the context of uh that enclosing page right so does that attack make sense right and so this is uh sort of an example of how complex browsers are and how adding even a very sort of well-intentioned feature can cause these very uh sort of subtle security bugs right so let's now uh sort of dig down and take a deeper look at how the"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_053",
+    "video_id": "mit_6858_lec08",
+    "start_time": 1855.0,
+    "end_time": 1900.0,
+    "text": "very uh sort of subtle security bugs right so let's now uh sort of dig down and take a deeper look at how the browser uh secures various resources so uh let's look at um objects so frames represent these sort of separate JavaScript universes that we discussed over here uh I mean implementation wise a frame with respect to JavaScript is is is an instance of a Dom node right so I forget where I drew oh yeah this Dom node up here so you know the frame would exist as a Dom node object somewhere in this hierarchy that's that's visible to JavaScript uh"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_054",
+    "video_id": "mit_6858_lec08",
+    "start_time": 1890.0,
+    "end_time": 1935.0,
+    "text": "Dom node right so I forget where I drew oh yeah this Dom node up here so you know the frame would exist as a Dom node object somewhere in this hierarchy that's that's visible to JavaScript uh in JavaScript the window object is actually an alias for the global name space it's kind of this wacky idea but like if you define This Global variable named X you can also access it via the name window dox okay uh so basically frames and window objects are very powerful references for you to be able to access and they contain pointers to each other right the frame contains a pointer to the associated window object and vice versa um so these two things are essentially equivalently powerful so frame and window objects uh they uh"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_055",
+    "video_id": "mit_6858_lec08",
+    "start_time": 1925.0,
+    "end_time": 1970.0,
+    "text": "are essentially equivalently powerful so frame and window objects uh they uh origin URL or right because there's always an or in web security uh they get uh they can get original uh the original uh domain name"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_056",
+    "video_id": "mit_6858_lec08",
+    "start_time": 1960.0,
+    "end_time": 2005.0,
+    "text": "original uh the original uh domain name example uh a frame could start off z.com right and so let's ignore the uh the scheme and the protocol for a second so initially uh the page can start off like this it can then intentionally say I want to set my origin to be y. z.com a suffix of that right and the way that it indicates this is by um doing an assignment to the special"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_057",
+    "video_id": "mit_6858_lec08",
+    "start_time": 1995.0,
+    "end_time": 2040.0,
+    "text": "I want to set my origin to be y. z.com a suffix of that right and the way that it indicates this is by um doing an assignment to the special document uh. domain value that's accessible via JavaScript so it can set document. domain explicitly to this right here right and that's allowable because this guy is a suffix of that guy and then similarly it could also set document. domain to z.com and effectively reset its origin like that now what it cannot do is it cannot do something like setting document do domain to uh a.y. z.com um that's disallowed because"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_058",
+    "video_id": "mit_6858_lec08",
+    "start_time": 2030.0,
+    "end_time": 2075.0,
+    "text": "now what it cannot do is it cannot do something like setting document do domain to uh a.y. z.com um that's disallowed because this is not a this is not a proper suffix of the original um origin and also it cannot set its suffix to Doom so does anyone have any theories about why this is a bad idea right exactly so people are laughing because clearly this is going to bring out the apocalypse right so if it does this and this means that the site could somehow um you know be able to impact cookies or things like that in anycom site which would be pretty devastating ating the motivation for why these types of things are allowable is"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_059",
+    "video_id": "mit_6858_lec08",
+    "start_time": 2065.0,
+    "end_time": 2110.0,
+    "text": "to impact cookies or things like that in anycom site which would be pretty devastating ating the motivation for why these types of things are allowable is because presumably these uh Origins have some type of pre-existing trust relationship so this seems to be vaguely okay whereas this would seem to be bad so slits on any dot or actually any point for example for xy. zz.com can you change that to z.com no so it's it's on every dot is there a reason that it wasn't made so that you could specify any some do but the uh but but somehow they they had to agree on where the information was coming from so like you you said some"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_060",
+    "video_id": "mit_6858_lec08",
+    "start_time": 2100.0,
+    "end_time": 2145.0,
+    "text": "do but the uh but but somehow they they had to agree on where the information was coming from so like you you said some kind of I want to consider all of these the same origin as me and so any of can impact me and then you need this need in order for me to impact them as well so me anything that's impct me and then you both need to to agree Yeah It's Tricky so so there's a couple different answers to that so first of all people were very worried about this attack here and so they wanted to uh sort of make the domain manipulation language be at least somewhat easy to understand um so they don't sort of allow more broke settings I'll get to one thing in a second which kind of allows what you're talking about"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_061",
+    "video_id": "mit_6858_lec08",
+    "start_time": 2135.0,
+    "end_time": 2180.0,
+    "text": "domain manipulation language be at least somewhat easy to understand um so they don't sort of allow more broke settings I'll get to one thing in a second which kind of allows what you're talking about but only with respect to uh domain s physics so I'll get to that one second and another thing to mention too is that the post message interface does allow arbitrary domains to communicate with each other if they both opt into it so in practice people use post message to do cross domain communication if they can't sort of uh set their Origins to be the same using these tricks here so okay so so yeah so so browsers can can strain uh their or more like widen I should say their domain to these suffixes of the original domain um and there's also this little interesting Quirk here which is that browsers"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_062",
+    "video_id": "mit_6858_lec08",
+    "start_time": 2170.0,
+    "end_time": 2215.0,
+    "text": "can can strain uh their or more like widen I should say their domain to these suffixes of the original domain um and there's also this little interesting Quirk here which is that browsers actually distinguish between a document. domain value that has been written and one that has not been written okay and there's a subtle reason for this I'll other if one of two things is true right the first thing is uh both of the"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_063",
+    "video_id": "mit_6858_lec08",
+    "start_time": 2205.0,
+    "end_time": 2250.0,
+    "text": "the first thing is uh both of the and the other way that uh two frames can neither of those domain and of course uh both values have"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_064",
+    "video_id": "mit_6858_lec08",
+    "start_time": 2240.0,
+    "end_time": 2285.0,
+    "text": "match so the reason for this is a bit subtle but the basic idea is that these two rules uh prevent a domain from being attacked by one of its own buggy or malicious subdomains okay so imagine that you have uh you know the domain x.y do z.com and then imagine uh that it's trying to attack y z.com right so this guy up here is um"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_065",
+    "video_id": "mit_6858_lec08",
+    "start_time": 2275.0,
+    "end_time": 2320.0,
+    "text": "trying to attack y z.com right so this guy up here is um evil so what this guy could try to do is actually shorten his domain to be y. z.com and then start messing around with JavaScript state or cookies or stuff like that here right and so basically what these two rules over here will say is that if y. z.com doeses not want to actually allow anyone to interact with it it will never change it document. domain value right so that when this uh frame up here does shorten it the browser will say aha you've shortened it you have not there's a match here in terms of the values but this person"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_066",
+    "video_id": "mit_6858_lec08",
+    "start_time": 2310.0,
+    "end_time": 2355.0,
+    "text": "domain value right so that when this uh frame up here does shorten it the browser will say aha you've shortened it you have not there's a match here in terms of the values but this person hasn't indicate that they want to opt in into this type of sense okay so that is basically uh how frames work with respect to the same uh so then we can look at uh how are Dom nodes treated so Dom nodes uh it's pretty straightforward for Dom nodes so Dom nodes basically get the origin of their surrounding frame makes sense uh"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_067",
+    "video_id": "mit_6858_lec08",
+    "start_time": 2345.0,
+    "end_time": 2390.0,
+    "text": "pretty straightforward for Dom nodes so Dom nodes basically get the origin of their surrounding frame makes sense uh then we can look at cookies cookies are uh complicated and a bit tricky so cookies they have uh a path so for example you can imagine a cookie uh might have the be associated with the following information so asterisk mit.edu and then 6 do 858 right so you've got sort of this domain thing sitting here and then"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_068",
+    "video_id": "mit_6858_lec08",
+    "start_time": 2380.0,
+    "end_time": 2425.0,
+    "text": "asterisk mit.edu and then 6 do 858 right so you've got sort of this domain thing sitting here and then you've got this path thing sitting over here and so note that uh this domain can be uh possibly complete suffix of the Page's current domain so you can play somewhat similar tricks as we had over there uh and note that this path here can actually just be set to um just to the slash with nothing else there which indicates uh that all paths in the domain should be able to have access to this cookie here but in this case we actually have one of these non-empty paths and so whoever sets this cookie right basically gets to choose what the"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_069",
+    "video_id": "mit_6858_lec08",
+    "start_time": 2415.0,
+    "end_time": 2460.0,
+    "text": "this cookie here but in this case we actually have one of these non-empty paths and so whoever sets this cookie right basically gets to choose what the domain and the path look like and it can actually be Set uh by the server or can be set on the client side so on the client side you can basically write to um this do uh JavaScript object called document.cookie and there's sort of this Byzantine format that you can use to indicate all these pass and things like that but it's vied to say it can be done um so JavaScript can set cookies like this and also the server can actually set cookies um on HTP responses when they come back over the wire um so you can basically just use uh the set cookie header if you're the server to set some of these"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_070",
+    "video_id": "mit_6858_lec08",
+    "start_time": 2450.0,
+    "end_time": 2495.0,
+    "text": "also the server can actually set cookies um on HTP responses when they come back over the wire um so you can basically just use uh the set cookie header if you're the server to set some of these things um and know that there's also uh flag that you can set uh in the cookie to indicate that it's an https cookie right meaning that HTTP content should not be able to access that cookie and so that's the basic idea uh behind cookies um now note that whenever the browser generates a request to a particular web server it's going to include all of the matching cookies in that request so there's a bit little bit of sort of like string matching algorithms that to take place to figure"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_071",
+    "video_id": "mit_6858_lec08",
+    "start_time": 2485.0,
+    "end_time": 2530.0,
+    "text": "particular web server it's going to include all of the matching cookies in that request so there's a bit little bit of sort of like string matching algorithms that to take place to figure out you know what are all the exact cookies that should be sent to the server for particular request because you can have all of these weird sort of suffix domain things going on and so on and so forth but that's the basic uh idea uh behind cookies so does that all make access yeah so frames can do that but it's you know it's dependent on you know how the document that domain has been set and then it's dependent on you know what the cookie domain and path have been set so yeah so after a bunch of"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_072",
+    "video_id": "mit_6858_lec08",
+    "start_time": 2520.0,
+    "end_time": 2565.0,
+    "text": "it's you know it's dependent on you know how the document that domain has been set and then it's dependent on you know what the cookie domain and path have been set so yeah so after a bunch of these sort of string uh sort of comparisons yes frames can access each pass okay so so yes that leads me into the next question so we're trying to figure out how um different frames can access each other's cookies so you know what's the problem what would be the problem if we allowed arbitrary frames to write arbitrary people's cookies so think well it would be bad to I it to"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_073",
+    "video_id": "mit_6858_lec08",
+    "start_time": 2555.0,
+    "end_time": 2600.0,
+    "text": "think well it would be bad to I it to say right the reason it would be bad is because once again these cookies allow the uh the client side of the application to store a per user data right so you can imagine that uh if an attacker could control or override a user's cookie the attacker could actually for example change that cookie for a Gmail to make uh the user log into the attacker's Gmail account right and so when the user logged into the attacker's Gmail account um any email that the uh user typed in could be read by the attacker for example you could also imagine that uh someone could tamper with your amazon.com cookie you"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_074",
+    "video_id": "mit_6858_lec08",
+    "start_time": 2590.0,
+    "end_time": 2635.0,
+    "text": "attacker's Gmail account um any email that the uh user typed in could be read by the attacker for example you could also imagine that uh someone could tamper with your amazon.com cookie you know put all kinds of embarrassing ridiculous stuff in your shopping cart perhaps or you know so on and so forth so cookies are actually a very important resource to protect and a lot of of web uh security attacks uh try to steal that cookie right to do various kinds of evil so here's another interesting question with respect to cookies so let's say that um you've got the site that's coming from uh fu. co.uk so should this to the site from uh this host name be allowed to set a"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_075",
+    "video_id": "mit_6858_lec08",
+    "start_time": 2625.0,
+    "end_time": 2670.0,
+    "text": "coming from uh fu. co.uk so should this to the site from uh this host name be allowed to set a co.uk right so this is a bit subtle because you know according to the rules that we've discussed before a site from here should be able to you know shorten its domain right set a cookie for this and that all seems to be legal now of course as a human we think this is kind of suspicious right because as a human we actually understand that this is morally speaking a single Atomic domain right morally speaking this is"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_076",
+    "video_id": "mit_6858_lec08",
+    "start_time": 2660.0,
+    "end_time": 2705.0,
+    "text": "of suspicious right because as a human we actually understand that this is morally speaking a single Atomic domain right morally speaking this is equivalent tot right the British got screwed that to have a dot in there but that's not their fault history is unfair right so morally speaking this is a single domain right so you actually have to have some special infrastructure to get the cookie setting rules to work out correctly right so essentially Mozilla uh they they have this website called and basically what this website contains are lists of these rules for you know how cookies and"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_077",
+    "video_id": "mit_6858_lec08",
+    "start_time": 2695.0,
+    "end_time": 2740.0,
+    "text": "and basically what this website contains are lists of these rules for you know how cookies and Origins and domain should be shrunk given that you know some things might have dots in them but actually they should be treated as a single um sort of atomic thing right and so actually when your browser is figuring out you know how it should do all these various cookie manipulations uh it's actually going to consult this site or it's going to have this baked in somehow or something like that to make sure that you know food. co.uk can't actually just shorten its domain to co.uk and then you know perform some chicanery so once again this is very subtle and a lot of the interesting uh web security issues that we find come"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_078",
+    "video_id": "mit_6858_lec08",
+    "start_time": 2730.0,
+    "end_time": 2775.0,
+    "text": "know perform some chicanery so once again this is very subtle and a lot of the interesting uh web security issues that we find come about because a lot of the original infrastructure was designed just for the English language you know for asky text or something like this it wasn't designed for you know an international um Community right and so as the internet became more popular and people said hey we made some pretty big design decisions here at the beginning we should actually make this use people who don't you know use our narrow understanding of what language means you run into all these crazy problems and I'll give you another example of one of those later in the lecture um so does this this all make sense okay um so with respect"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_079",
+    "video_id": "mit_6858_lec08",
+    "start_time": 2765.0,
+    "end_time": 2810.0,
+    "text": "those later in the lecture um so does this this all make sense okay um so with respect to um XML HTTP responses so how are they treated by uh the same origin so by default uh JavaScript can only generate one of these if it's going to its origin server okay however there is this new uh interface called cross origin request or"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_080",
+    "video_id": "mit_6858_lec08",
+    "start_time": 2800.0,
+    "end_time": 2845.0,
+    "text": "this new uh interface called cross origin request or and so basically this adds a new HTTP response header uh called Access origin right so let's say that JavaScript from food.com wants to make an xmlhttp request to bar.com right so that's cross origin as we've described"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_081",
+    "video_id": "mit_6858_lec08",
+    "start_time": 2835.0,
+    "end_time": 2880.0,
+    "text": "origin right so let's say that JavaScript from food.com wants to make an xmlhttp request to bar.com right so that's cross origin as we've described in the rule so far so if the server in bar.com wants to allow this it will return in its HTP response this header here that's going to say yes I allow for f.com to uh send me these cross origin uh XML HTP requests right the server in bar.com could actually say no it could refuse the request right in which case the browser would sort of fail the XML HTP request um so this is sort of a new thing that's that's come up in large"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_082",
+    "video_id": "mit_6858_lec08",
+    "start_time": 2870.0,
+    "end_time": 2915.0,
+    "text": "bar.com could actually say no it could refuse the request right in which case the browser would sort of fail the XML HTP request um so this is sort of a new thing that's that's come up in large part because of these mashup applications this mean for somehow um applications from different developers in different domains to be able to share data in some type of constrained way right so this could also be asterisk over here if anybody can fetch the data cross origin so on and so forth so I think that's pretty straightforward um so I mean there's a bunch of other resources we could look at um for example images so a frame can load images from any origin that it desires but it can't actually inspect"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_083",
+    "video_id": "mit_6858_lec08",
+    "start_time": 2905.0,
+    "end_time": 2950.0,
+    "text": "um for example images so a frame can load images from any origin that it desires but it can't actually inspect the bits in that image right because somehow the same origin policy says that you know having different Origins directly inspect each other's content that's a bad thing so the frame can't inspect the bits but it can actually infer things like what the size of the image is right because it can actually see like you know where the other Dom nodes in that page have been placed for example so this is another one of these weird instances where the same origin policy is sensibly trying to prevent all information leakage but it can't actually prevent all of it because embedding inherently reveals some types of information uh CSS has a similar uh"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_084",
+    "video_id": "mit_6858_lec08",
+    "start_time": 2940.0,
+    "end_time": 2985.0,
+    "text": "actually prevent all of it because embedding inherently reveals some types of information uh CSS has a similar uh story to images so a frame can embed CSS from uh any origin however uh it cannot directly inspect the text inside that CSS file if it's from a different origin but it can actually imply what the CSS does because it just can create a bunch of nodes and then see how their styling gets changed right so it's a bit it's a bit wacky JavaScript is actually my favorite sort of example of how the same origin policy kind of struggles to maintain any type of intellectual consistency so the idea here is that if you do a cross origin"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_085",
+    "video_id": "mit_6858_lec08",
+    "start_time": 2975.0,
+    "end_time": 3020.0,
+    "text": "of how the same origin policy kind of struggles to maintain any type of intellectual consistency so the idea here is that if you do a cross origin fetch of JavaScript that is allowed you can allow that external Javascript to execute in the context of your own page you cannot however look at the source code for it right so if you have you know a script tag source equals something outside your domain then when that Source gets executed you can call functions in it but you can't actually look at the JavaScript source code in it you know okay fine so that seems very nice however there are a bunch of holes of this so for example um JavaScript is a dynamic scripting language and functions are first class objects so for"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_086",
+    "video_id": "mit_6858_lec08",
+    "start_time": 3010.0,
+    "end_time": 3055.0,
+    "text": "of this so for example um JavaScript is a dynamic scripting language and functions are first class objects so for any function f you can just call f.2 string and that will give you the source code for the function and people do this all the time to do things like uh Implement Dynamic rewriting and stuff like that so even though the same origin policy doesn't allow you to directly look at the contents of the script tag itself you can just call this for any public function that external script has given you and just get the source code like that right another thing you could imagine doing is you could just get your home server from your domain to just fetch the source code for you and then just send it back to you right so oops I mean you essentially just ask your Home"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_087",
+    "video_id": "mit_6858_lec08",
+    "start_time": 3045.0,
+    "end_time": 3090.0,
+    "text": "home server from your domain to just fetch the source code for you and then just send it back to you right so oops I mean you essentially just ask your Home Server to run W gets then you get the source code that way way okay so that's kind of goofy so long story short the the the same origin policies here are a bit odd yeah is to prevent the usering because get to you yeah seron have that is true although in practice a lot of times the raw source code itself is not user tailored in practice but you're but you're right that it will prevent um sort of cookie Medi attacks like that modul some of the cookie stealing attacks we'll talk about later"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_088",
+    "video_id": "mit_6858_lec08",
+    "start_time": 3080.0,
+    "end_time": 3125.0,
+    "text": "lot of times the raw source code itself is not user tailored in practice but you're but you're right that it will prevent um sort of cookie Medi attacks like that modul some of the cookie stealing attacks we'll talk about later but that's exactly correct um so anyway so because it's actually pretty easy for users and uh applications to get JavaScript Source Code A lot of times JavaScript source code when it's deployed it's actually obusca and minified so if you've ever sort of tried to look and see how a web page works if you look at the source sometimes people will do things like remove all the Whit space right they will also like change all the variable names to be super short and have like all these exclamation marks looks like characters cursing in the cartoons right uh and so that's sort of like a cheap form of like digital Rights Management but I mean it's it's"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_089",
+    "video_id": "mit_6858_lec08",
+    "start_time": 3115.0,
+    "end_time": 3160.0,
+    "text": "and have like all these exclamation marks looks like characters cursing in the cartoons right uh and so that's sort of like a cheap form of like digital Rights Management but I mean it's it's all ultimately uh you know a bit of a a crapshoot because you can do things like you know execute that code in your own browser see what it does you know sniff the network see who it talks to so on and so forth but that's basically the the uh same origin story for JavaScript um plugins yeah I was the impression that like the reason you do that is like the short variable name is just you know so that so that is also a reason they do that too that's a good point um but there are uh I mean if you type into the internet you know sort of uh web page opusc or stuff like that people often"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_090",
+    "video_id": "mit_6858_lec08",
+    "start_time": 3150.0,
+    "end_time": 3195.0,
+    "text": "that too that's a good point um but there are uh I mean if you type into the internet you know sort of uh web page opusc or stuff like that people often try to somehow bake some type of secrets into either their HTML or their JavaScript you know maybe they want to obscure the protocol for example that the client uses to talk to the server so people will also do the uh obfuscation for that reason pure minification in other words just making the variable name small um and removing the wies space yeah that's just to uh save uh time okay so that's a story for JavaScript um there's also uh plugins so this is stuff like uh javva and things"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_091",
+    "video_id": "mit_6858_lec08",
+    "start_time": 3185.0,
+    "end_time": 3230.0,
+    "text": "time okay so that's a story for JavaScript um there's also uh plugins so this is stuff like uh javva and things like this so frame can basically run a plug-in from any origin uh now plugins depending on who you believe are actually going the way to the dinosaurs right because a lot of the new HTML 5 features like the video tag and things like this can actually do stuff that you used to only be able to do with a plug-in like Java so it's not clear how much longer these things are going to be around okay so any questions okay so remember that uh when the browser generates an HTP request it automatically includes the relevant cookies in that request so what happens"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_092",
+    "video_id": "mit_6858_lec08",
+    "start_time": 3220.0,
+    "end_time": 3265.0,
+    "text": "questions okay so remember that uh when the browser generates an HTP request it automatically includes the relevant cookies in that request so what happens if uh malicious site generates um a URL that looks like this so so for example it creates a new frame a new child frame bank.com and then it actually tries to uh mimic what the browser would do if there was going to be a transfer of URL in this Frame that the attacker is"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_093",
+    "video_id": "mit_6858_lec08",
+    "start_time": 3255.0,
+    "end_time": 3300.0,
+    "text": "URL in this Frame that the attacker is trying to create it tries invoke this transfer command here it's saying 500 bucks and that should go to the attacker's account at the bank right now the attacker page which the users visited because somehow the attacker has lured the visitor to go there what's interesting about this is that even though the attacker page won't be able to see the contents of this child frame right because it's probably going to be in a different origin the bank.com page will still do what the attacker wants right because the browser is going to transfer all the"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_094",
+    "video_id": "mit_6858_lec08",
+    "start_time": 3290.0,
+    "end_time": 3335.0,
+    "text": "child frame right because it's probably going to be in a different origin the bank.com page will still do what the attacker wants right because the browser is going to transfer all the user's cookies with this request it's going to look at this command here and say oh the user must have somehow asked me to transfer 500 bucks to this mysteriously named individual named attacker okay I'll do it right seems reasonable so that's a problem that the reason this attack works is because essentially uh the attacker can figure out deterministically what this command should look like right there's no Randomness in this command here so essentially what the attacker can do do is try this on you know his or her own bank account figure out this protocol and then just you know somehow Force the uh user browser to execute this on the"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_095",
+    "video_id": "mit_6858_lec08",
+    "start_time": 3325.0,
+    "end_time": 3370.0,
+    "text": "Randomness in this command here so essentially what the attacker can do do is try this on you know his or her own bank account figure out this protocol and then just you know somehow Force the uh user browser to execute this on the attacker's behalf so this is what's forgery and so sometimes you hear this uh called uh and so the solution to fixing uh this attack here is that you actually just need to include some Randomness in this URL that's generated a type of Randomness that the attacker can't guess"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_096",
+    "video_id": "mit_6858_lec08",
+    "start_time": 3360.0,
+    "end_time": 3405.0,
+    "text": "and so the solution to fixing uh this attack here is that you actually just need to include some Randomness in this URL that's generated a type of Randomness that the attacker can't guess statically so for example you can imagine that um inside uh the bank's web page it's going to have some form right the form is the thing which actually generates a request like this so maybe the uh action of that form is CGI and then inside this form you're going to have an input inputs are usually used to get in um user input like text uh key presses Mouse clicks stuff like that but we can actually give"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_097",
+    "video_id": "mit_6858_lec08",
+    "start_time": 3395.0,
+    "end_time": 3440.0,
+    "text": "going to have an input inputs are usually used to get in um user input like text uh key presses Mouse clicks stuff like that but we can actually give this input a type of hidden which means that it's not shown to the user and then we can give it this attribute uh we'll call it um value you know a 72f whatever right and so remember this is generated on the server side right so when the when the when the user goes to this page on the server side it somehow generates this random token here right and embeds that"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_098",
+    "video_id": "mit_6858_lec08",
+    "start_time": 3430.0,
+    "end_time": 3475.0,
+    "text": "value you know a 72f whatever right and so remember this is generated on the server side right so when the when the when the user goes to this page on the server side it somehow generates this random token here right and embeds that in the HTML that the user receives so when the user submits this form then this URL that we have up here we'll actually have this uh this extra thing up here which is the uh this token here right and so what this does is that this now means that the attacker would have to be able to guess the particular random token that the server had generated for the user each time the user had gone to the page right so if you have a significant if you have a sufficient Randomness here the attacker"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_099",
+    "video_id": "mit_6858_lec08",
+    "start_time": 3465.0,
+    "end_time": 3510.0,
+    "text": "random token that the server had generated for the user each time the user had gone to the page right so if you have a significant if you have a sufficient Randomness here the attacker can't just forge one of these things because the attacker guesses the wrong uh token then the server will just reject the request why should these values be ined in the URL body of Hest and US htps yeah yeah so htps helps with a lot of these things right and there's actually no intrinsic reason why you couldn't uh put some of this stuff in like the body of the request I you know there's like some Legacy reasons why forms sort of work like this but you're correct that in practice you could put that information somewhere else in the HP request but note that just moving that information for example to the body"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_100",
+    "video_id": "mit_6858_lec08",
+    "start_time": 3500.0,
+    "end_time": 3545.0,
+    "text": "there's like some Legacy reasons why forms sort of work like this but you're correct that in practice you could put that information somewhere else in the HP request but note that just moving that information for example to the body of the request there there's still a challenge there potentially right because if there's uh something there that the attacker can guess then the attacker may still be able to somehow conjure up uh that URL for example by making an XML HTP request and then explicitly setting the body to this thing that the attacker knows how to guess if the attacker just gives you a a a URL that just gets encoded in the in the header of the request not the a if the attacker just gives you a URL um so if you if you're just setting a frame to a URL right then basically that's all that the attacker can control right but"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_101",
+    "video_id": "mit_6858_lec08",
+    "start_time": 3535.0,
+    "end_time": 3580.0,
+    "text": "the header of the request not the a if the attacker just gives you a URL um so if you if you're just setting a frame to a URL right then basically that's all that the attacker can control right but if you're using an XML HTP request if somehow the attacker can generate one of those then XML HTTP interface actually body XML H request would be Li by same origin but the attacker could just write it using post and then it's sent in the body but still that's right so so xmlb request is limited uh to the same origin however if for example the attacker can maybe you know do something like this for example right then the attacker could inject the XML HB request here"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_102",
+    "video_id": "mit_6858_lec08",
+    "start_time": 3570.0,
+    "end_time": 3615.0,
+    "text": "request is limited uh to the same origin however if for example the attacker can maybe you know do something like this for example right then the attacker could inject the XML HB request here which would then execute with the page can the attacker gets the Rand value by inspecting the ah yes that's actually a good question right so it depends on what the attacker has access to if the attacker for example by doing something goofy like that can actually uh access this JavaScript property called um inter HTML this is a property of all Dom noes right so if I call like um you"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_103",
+    "video_id": "mit_6858_lec08",
+    "start_time": 3605.0,
+    "end_time": 3650.0,
+    "text": "JavaScript property called um inter HTML this is a property of all Dom noes right so if I call like um you know document.body doin HTML I will get all of the HTML that's inside that page right now so yeah so if the attacker can do this then yeah then you're in trouble that's right so a lot of these details though depend on exactly what the attacker can and can't do right which kind of makes sense right so if the attacker can or cannot generate Ajax request that means one thing the attacker can or cannot look at the raw HTML that means another thing so on and so forth all right so so yeah so this this token based thing is sort of a pop way to get around these uh these C surf attacks uh all right so another thing we"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_104",
+    "video_id": "mit_6858_lec08",
+    "start_time": 3640.0,
+    "end_time": 3685.0,
+    "text": "token based thing is sort of a pop way to get around these uh these C surf attacks uh all right so another thing we and so this gets into some of the conversations we've been having about you know who the attacker can and not example so with the respect to network addresses uh a frame can send uh HTTP and htps request to a host plus support that matches his"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_105",
+    "video_id": "mit_6858_lec08",
+    "start_time": 3675.0,
+    "end_time": 3720.0,
+    "text": "example so with the respect to network addresses uh a frame can send uh HTTP and htps request to a host plus support that matches his origin but no note that the security of the same origin policy is actually very tightly tied to the security of the DNS infrastructure right because all the same origin policies rules are based upon what names mean right so if you can control what names mean you can actually launch some pretty vicious attacks so an example of this is uh the attack right so in this attack"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_106",
+    "video_id": "mit_6858_lec08",
+    "start_time": 3710.0,
+    "end_time": 3755.0,
+    "text": "attack right so in this attack the goal of the attacker is run uh authority of some victim website you we right so the attacker wants to bust the same origin policies and somehow run code that that uh he has written with the authority of some other site so uh here's the"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_107",
+    "video_id": "mit_6858_lec08",
+    "start_time": 3745.0,
+    "end_time": 3790.0,
+    "text": "same origin policies and somehow run code that that uh he has written with the authority of some other site so uh here's the approach so the first thing that the attacker is going to name so let's say we just call that you right very simple to do just pay a couple of bucks you're ready to go you own your own domain name and so note that the attacker is also going to set up a DNS server to respond to name resolution requests for things for objects that reside in attacker.com so"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_108",
+    "video_id": "mit_6858_lec08",
+    "start_time": 3780.0,
+    "end_time": 3825.0,
+    "text": "own your own domain name and so note that the attacker is also going to set up a DNS server to respond to name resolution requests for things for objects that reside in attacker.com so the second thing that has to happen is that the user um has to in particular the the user has to visit some website that hangs off of this domain name right this part is actually not tricky right so you can create an ad campaign you know free iPad everybody wants a free iPad even though nobody know everyone who's ever want a free iPad they click on this they're there right send a fishing email so on so forth this part's not hard right so what's going to happen so this is actually going to uh uh cause the"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_109",
+    "video_id": "mit_6858_lec08",
+    "start_time": 3815.0,
+    "end_time": 3860.0,
+    "text": "forth this part's not hard right so what's going to happen so this is actually going to uh uh cause the right because this page has some objects that refer to some uh some objects that live in attacker.com the browser is going to say I've never seen this domain before let me see a DNS res let me send the DNS resolution request to attacker.com right so what's going to end up happening is that the attacker's DNS server is going to respond to that"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_110",
+    "video_id": "mit_6858_lec08",
+    "start_time": 3850.0,
+    "end_time": 3895.0,
+    "text": "before let me see a DNS res let me send the DNS resolution request to attacker.com right so what's going to end up happening is that the attacker's DNS server is going to respond to that request right but it's going to respond with the DNS uh result that has a very short time deliver live okay meaning that it's the browser will think that it's only valid for a very short period of time before it has to go out and revalidate that"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_111",
+    "video_id": "mit_6858_lec08",
+    "start_time": 3885.0,
+    "end_time": 3930.0,
+    "text": "okay fine so the user gets the response back the uh malicious website is now running on the user's side meanwhile while the user is interacting with the site the attacker is going to configure the DNS server that he controls the attacker is going to bind the attacker.com"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_112",
+    "video_id": "mit_6858_lec08",
+    "start_time": 3920.0,
+    "end_time": 3965.0,
+    "text": "address right so what that means is that now if the user's browser asks for a domain name resolution for something that resides in attacker.com it's actually going to get some internal address um to victim.com right this is actually very subtle now why can the attacker DNS resolver do that because the attacker configures it to do so right there the attacker's DNS server does not have to consult victim.com to do this rebinding right so perhaps you can see sort of the outline of the attack now so what will happen is that"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_113",
+    "video_id": "mit_6858_lec08",
+    "start_time": 3955.0,
+    "end_time": 4000.0,
+    "text": "does not have to consult victim.com to do this rebinding right so perhaps you can see sort of the outline of the attack now so what will happen is that Ajax right and it thinks that that Ajax request is going to go to attacker.com somewhere externally but this Ajax request uh actually"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_114",
+    "video_id": "mit_6858_lec08",
+    "start_time": 3990.0,
+    "end_time": 4035.0,
+    "text": "request uh actually right and the reason why that's bad is because now we've got this code on the client side that resides on the uh attacker.com web page right that's actually accessing now data that is from a different origin from victim.com right and so once this step of the attack completes then the attacker.com web page can you know send that content back to the server using cores or do other things like that right so does this attack make sense would it be more"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_115",
+    "video_id": "mit_6858_lec08",
+    "start_time": 4025.0,
+    "end_time": 4070.0,
+    "text": "other things like that right so does this attack make sense would it be more victim. toap that way your same origin as VI get cookies yeah so that would work too as well so so so what's nice about um this though is that presumably uh this allows you to do nice things like Port scanning and stuff like that I mean your your approach will work right but I think here the the reason why you do uh because essentially you can do things like uh constantly rebind what attacker.com points to to different"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_116",
+    "video_id": "mit_6858_lec08",
+    "start_time": 4060.0,
+    "end_time": 4105.0,
+    "text": "here the the reason why you do uh because essentially you can do things like uh constantly rebind what attacker.com points to to different machine names and different ports inside of uh victim.com Network right so then you can sort of Step through so so in other words let's say that the attacker.com web page always thinks it's going to um you know attacker just what to say it's just going to attacker.com and issuing an Ajax request there so every time uh the DNS server rebinds it can set this to some different IP address inside of victim.com network right so it can just sort of Step through the IP addresses one by one and see if anybody's responding to those"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_117",
+    "video_id": "mit_6858_lec08",
+    "start_time": 4095.0,
+    "end_time": 4140.0,
+    "text": "inside of victim.com network right so it can just sort of Step through the IP addresses one by one and see if anybody's responding to those requests but the the client you're inside uh so what this attack typically assumes is that there are certain firewall rules that would prevent attacker.com from outside the network from actually looking through each one of the IP addresses inside a victim.com however if you're inside corpet if you're inside the corporate firewall let's say then machines often do have the ability to sort of contract contract contact arbitrary machines yeah yeah https ah so that's an interesting"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_118",
+    "video_id": "mit_6858_lec08",
+    "start_time": 4130.0,
+    "end_time": 4175.0,
+    "text": "the ability to sort of contract contract contact arbitrary machines yeah yeah https ah so that's an interesting question so https right has these these keys right and so the way you'd have to get this to work with htps is if somehow for example uh if attacker.com could uh let me think about this yeah it's interesting because presumably if you're using htps then when you sent out this Ajax request the victim machine wouldn't have the attacker htps keys right so the the cryptography would fail"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_119",
+    "video_id": "mit_6858_lec08",
+    "start_time": 4165.0,
+    "end_time": 4210.0,
+    "text": "when you sent out this Ajax request the victim machine wouldn't have the attacker htps keys right so the the cryptography would fail somehow right so I think htps would stop that I think victim only has things on HTT yeah so so I think that that would it if you configure detector a c name record with the brows the initial or the C resol the uh that's a good question I'm actually not sure about that so it actually a lot of these attacks will depend on the devil in the details right so I'm not actually sure how that would work um the it would use the first"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_120",
+    "video_id": "mit_6858_lec08",
+    "start_time": 4200.0,
+    "end_time": 4245.0,
+    "text": "resol the uh that's a good question I'm actually not sure about that so it actually a lot of these attacks will depend on the devil in the details right so I'm not actually sure how that would work um the it would use the first okay yep why can't the attacker respond with the victim's IP address in the first Ser attack oh well yeah so so the attacker has to somehow get its own code on the victim machine first before it can then start doing this nonsense where it's looking inside the network so's that initial step where it has to put that"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_121",
+    "video_id": "mit_6858_lec08",
+    "start_time": 4235.0,
+    "end_time": 4280.0,
+    "text": "has to somehow get its own code on the victim machine first before it can then start doing this nonsense where it's looking inside the network so's that initial step where it has to put that code on the victim's machine all right so so this just the time let's keep moving forward though but come see me uh after class if you want to uh pull up the question uh so uh all right so that's the DNS rebinding attack so how can you um fix this so one way you can fix it is so that you modify your client side DNS resolvers so that external host names can never resolve to internal IP addresses right it's kind of goofy that someone outside of your network should be able to create a DNS binding for something inside of your network so that's kind of the most straightforward solution you could also imagine that uh the browser could do"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_122",
+    "video_id": "mit_6858_lec08",
+    "start_time": 4270.0,
+    "end_time": 4315.0,
+    "text": "goofy that someone outside of your network should be able to create a DNS binding for something inside of your network so that's kind of the most straightforward solution you could also imagine that uh the browser could do something called DNS pinning whereby if it receives a DNS resolution record then it will always treat that record as valid for let's say 30 minutes regardless of whether it has a short TTL set inside of it so that also prevents the attack as well that solution is a little bit tricky because there are some sites that actually intentionally use Dynamic DNS to do things like load balancing and stuff like that so the first solution is probably the better one uh okay so here is sort of a fun attack so we've talked about a lot of"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_123",
+    "video_id": "mit_6858_lec08",
+    "start_time": 4305.0,
+    "end_time": 4350.0,
+    "text": "one uh okay so here is sort of a fun attack so we've talked about a lot of uh resources that the origin protects the same origin policy protect so what about pixels so how does the same origin policy protect pixels well as it turns out uh pixels don't really have an origin so each frame gets its own little bounding box right just a square basically and so a frame can draw wherever it wants on that square right so this is actually a problem because what this means is that a parent frame can draw a top of its child frame right so this can lead to some very in cious attack so let's say that the"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_124",
+    "video_id": "mit_6858_lec08",
+    "start_time": 4340.0,
+    "end_time": 4385.0,
+    "text": "what this means is that a parent frame can draw a top of its child frame right so this can lead to some very in cious attack so let's say that the attacker creates uh some page and let's say uh inside of that page the attacker says you know click to when the iPad the very standard thing so this is the parent frame now what the parent frame can do is actually create a child frame right that is actually the uh face"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_125",
+    "video_id": "mit_6858_lec08",
+    "start_time": 4375.0,
+    "end_time": 4420.0,
+    "text": "frame right that is actually the uh face frame right so Facebook uh allows you to you know run this little piece of Facebook code you can put on your page you know if the user clicks like then that means that it'll go on Facebook and say hey the users like this particular page so you know we've got this this child frame over here uh that actually turned out remarkably well anyway so uh so you've got this uh like thing over here now what the attacker can do is actually overlay this frame on top of the clip to get the free iPad and also"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_126",
+    "video_id": "mit_6858_lec08",
+    "start_time": 4410.0,
+    "end_time": 4455.0,
+    "text": "actually overlay this frame on top of the clip to get the free iPad and also make this invisible right so CSS lets you do that right so what's going to happen as we've already established everybody wants a free iPad so the user going to go to this site click on this thing this area of the screen right thinking that they're going to click here and get the free iPad but in reality they're clicking the like button that they can't see that's invisible that's like layer at top the c Index right and so what that means is that now you know maybe they go check their Facebook profile and they've liked attacker.com you know and they don't remember how that happened right so this is actually called a clickjacking attack cuz you can imagine you can do all kinds of evil things here so you can imagine"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_127",
+    "video_id": "mit_6858_lec08",
+    "start_time": 4445.0,
+    "end_time": 4490.0,
+    "text": "attacker.com you know and they don't remember how that happened right so this is actually called a clickjacking attack cuz you can imagine you can do all kinds of evil things here so you can imagine like if there was a you could steal passwords this way you could get raw input I mean it's just it's Madness right so once again this this happens because um the parent ESS ually gets the right to draw over anything that's inside of its bounding box right so is that a attack makes sense mean so so basic so so what I'm trying to indicate here um is that visually speaking like what the user just sees is"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_128",
+    "video_id": "mit_6858_lec08",
+    "start_time": 4480.0,
+    "end_time": 4525.0,
+    "text": "mean so so basic so so what I'm trying to indicate here um is that visually speaking like what the user just sees is this okay that's the parent yeah this is the parent friend that's right this is the child friend so visually speaking the user just sees this but using the miracle of my DCI style drawing techniques this is actually overlay at top this transparently right and so that's the child frame that's the parent frame okay so there's a couple different solutions you can imagine for solving this um the first solution is to code so you can actually use uh JavaScript Expressions to figure out if"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_129",
+    "video_id": "mit_6858_lec08",
+    "start_time": 4515.0,
+    "end_time": 4560.0,
+    "text": "code so you can actually use uh JavaScript Expressions to figure out if you have been put into a frame that by someone else so like one of these tests is you compare the reference uh self to top so in the JavaScript World self refers to the frame that you yourself are in top refers to the frame at the top of the frame hierarchy right so if you do this test and you find out that self is not equal to top then you realize that you are a child frame and then you can refuse to load or do things like this so This in fact is what happen if you try to create a frame for let's say CNN.com you can actually look in the"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_130",
+    "video_id": "mit_6858_lec08",
+    "start_time": 4550.0,
+    "end_time": 4595.0,
+    "text": "realize that you are a child frame and then you can refuse to load or do things like this so This in fact is what happen if you try to create a frame for let's say CNN.com you can actually look in the JavaScript source and see that it does this test right because CNN.com doesn't want other people taking credit for its content so it only wants to be the top most frame so that's one solution you can use here um the other solution that you can use here is also to have your web server um send this HTTP response options right so when the web server returns a response it can set this header and it can basically say hey browser do not allow anyone to put my content inside of a frame and so that allows for the browser to do the enforcement so that's uh pretty"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_131",
+    "video_id": "mit_6858_lec08",
+    "start_time": 4585.0,
+    "end_time": 4630.0,
+    "text": "header and it can basically say hey browser do not allow anyone to put my content inside of a frame and so that allows for the browser to do the enforcement so that's uh pretty straightforward so there's a bunch of other um sort of crazy attacks that you can launch um here's another one that's actually pretty funny so as I was mentioning before um the fact that we're now living in a web that's internationalized actually means that uh there's all these issues that come up involving naming and how you represent host names so for example let's say that you see this letter right here right so what does this look like this look like a c right but is this a c in asy in the Latin alphabet or is this a c in"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_132",
+    "video_id": "mit_6858_lec08",
+    "start_time": 4620.0,
+    "end_time": 4665.0,
+    "text": "a c right but is this a c in asy in the Latin alphabet or is this a c in cilic hard to say right and so you can end up having these really strange attacks right where attackers will register you know a domain name like you know cats.com for example but this is a cerlic seat right and so users will go this domain right they might click on or whatever thinking they're going to you know Latin alphabet C right cats.com but instead they're going to an attacker one right and then all kinds of Madness can happen from there as well right and so you might have heard of attacks like this or like typo squatting attacks where where people register for names like"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_133",
+    "video_id": "mit_6858_lec08",
+    "start_time": 4655.0,
+    "end_time": 4700.0,
+    "text": "happen from there as well right and so you might have heard of attacks like this or like typo squatting attacks where where people register for names like book.com right this is a common like fumble finger typing for facebook.com and so you know if you control this you're going to get a ton of traffic from people who think they're going to facebook.com right and so there's a bunch of different sort of wacky attacks that you can launch through uh the domain registry system um that are sort of tricky to defend from first principles because how are you going to prevent users from mistyping things for example or how would the browser indicate to the user like hey this is cerlic is the browser going to alert the"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_134",
+    "video_id": "mit_6858_lec08",
+    "start_time": 4690.0,
+    "end_time": 4735.0,
+    "text": "principles because how are you going to prevent users from mistyping things for example or how would the browser indicate to the user like hey this is cerlic is the browser going to alert the user every time cerlic fonts are included that's going to make people angry if they actually use cerlic as their native font right so it's not quite clear you know technologically speaking how we deal with some of those issues so um yeah there's a bunch of other sort of security issues that are very subtle here um one thing that's interesting is you know if you look at plugins so how do plugins treat the same origin policy well plugins often have very subtle sort of incompatibilities with the rest of the browser with respect to the same origin so for"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_135",
+    "video_id": "mit_6858_lec08",
+    "start_time": 4725.0,
+    "end_time": 4770.0,
+    "text": "origin policy well plugins often have very subtle sort of incompatibilities with the rest of the browser with respect to the same origin so for example if you look at a Java plugin so Java often times assumes that uh different host names that have the same IP address actually have the same origin right that's actually a pretty big deviation from the standard interpretation of the same origin policy right because this means that if you docomomo the same IP address address then Java will consider these to be in the same origin right which is a problem"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_136",
+    "video_id": "mit_6858_lec08",
+    "start_time": 4760.0,
+    "end_time": 4805.0,
+    "text": "docomomo the same IP address address then Java will consider these to be in the same origin right which is a problem if for example this site gets owned but this one doesn't right so there's a bunch of other sort of corner cases involving plugins um you can refer to the tangled web to see some more about some of those types of things so the final thing that I want to discuss you can see the lecture notes are more examples of you know sort of crazy attacks that people can launch but the final thing that I want to discuss is um the screen sharing attack right so HML 5 actually defines this new API by which a web page can allow all the bits in its screen to be shared with another"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_137",
+    "video_id": "mit_6858_lec08",
+    "start_time": 4795.0,
+    "end_time": 4840.0,
+    "text": "HML 5 actually defines this new API by which a web page can allow all the bits in its screen to be shared with another browser or shared with the server right this seems like a really cool idea because now I can do collaborative Fu you know we can sort of collaborate on a document at the same time and it's exciting because we live in the future but what's funny about this is that when they Design This API and it's a very new API they apparently didn't think about same origin policies at all and so what that means is that you know if you have some page that has multiple frames then any one of these frames if they are granted permission to take a screenshot of your of your monitor it"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_138",
+    "video_id": "mit_6858_lec08",
+    "start_time": 4830.0,
+    "end_time": 4875.0,
+    "text": "page that has multiple frames then any one of these frames if they are granted permission to take a screenshot of your of your monitor it can take an entire screenshot of the entire thing regardless of what origin that other content's coming from right so this is actually a pretty devastating flaw in the same origin policy right so there's some pretty obvious fixes you could think about so for example example if this person's given uh screenshot capabilities only let it take a screenshot of this right not this whole thing why didn't the browser vendors implement it like this because there's such pressure to compete on features and to innovate on features and to get that next new thing out there so for example a lot of the questions that people were"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_139",
+    "video_id": "mit_6858_lec08",
+    "start_time": 4865.0,
+    "end_time": 4910.0,
+    "text": "such pressure to compete on features and to innovate on features and to get that next new thing out there so for example a lot of the questions that people were asking uh about this particular lecture online in pza was like well why couldn't you do this wouldn't this thing make more sense it seems like this current scheme is brain dead wouldn't this other one be better and the answer is yes everything yes it's exactly correct right almost anything would be better than this I'm ashamed to be associated with this right but this is what we have and so what ends up happening is that if you look at sort of the nuts and bolts of how web browsers get developed people are a little bit better about security now but like with the screen sharing thing people were so pumped to get this thing out there they didn't realize that it's going to leak all the bits on your screen right and so now we're sort of at"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_140",
+    "video_id": "mit_6858_lec08",
+    "start_time": 4900.0,
+    "end_time": 4945.0,
+    "text": "thing people were so pumped to get this thing out there they didn't realize that it's going to leak all the bits on your screen right and so now we're sort of at this point with the web where I mean look at all these things we discussed today right so if we were going to start from scratch and come up with a better security policy you know what fraction of websites that you have today are going to actually work like approximately 0 2% of them right so users are going to complain this is another constant story with security right once you give users a feature it's often very difficult to claw that back even if that feature is insecure right and so uh today we discussed a lot of different things about the same origin policy stuff like that and next lecture we'll go into some more depth about some"
+  },
+  {
+    "chunk_id": "mit_6858_lec08_chunk_141",
+    "video_id": "mit_6858_lec08",
+    "start_time": 4935.0,
+    "end_time": 4980.0,
+    "text": "even if that feature is insecure right and so uh today we discussed a lot of different things about the same origin policy stuff like that and next lecture we'll go into some more depth about some"
+  }
+]

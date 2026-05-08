@@ -1,0 +1,1031 @@
+[
+  {
+    "chunk_id": "mit_6046_lec16_chunk_000",
+    "video_id": "mit_6046_lec16",
+    "start_time": 0.0,
+    "end_time": 45.0,
+    "text": "the following content is provided under a Creative Commons license your support will help MIT open courseware continue to offer highquality educational resources for free to make a donation or view additional materials from hundreds ocw.mit.edu all right today we do NP completeness an entire field in one lecture uh should be fun I actually taught an entire class about this topic last semester but now we're going to do it in 80 minutes um and we're GNA look"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_001",
+    "video_id": "mit_6046_lec16",
+    "start_time": 35.0,
+    "end_time": 80.0,
+    "text": "lecture uh should be fun I actually taught an entire class about this topic last semester but now we're going to do it in 80 minutes um and we're GNA look at lots of different problems from Super Mario Brothers to jigsaw puzzles and show that they're MP complete uh this is a fun area as shy mentioned last class it's all about reductions it's all about converting one problem into another which is a fun kind of puzzle in itself it's an algorithm Challenge and uh we're going to do it a lot uh but first i'm going to remind you of some of the things you learned from 006 and tell you what we need to do in order to prove uh all of these relations what exactly we need to show for each of those arrows and why it's"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_002",
+    "video_id": "mit_6046_lec16",
+    "start_time": 70.0,
+    "end_time": 115.0,
+    "text": "what we need to do in order to prove uh all of these relations what exactly we need to show for each of those arrows and why it's interesting so uh this is generally around the P versus NP problem so remember p is all the problems we know how to solve in polinomial time well not just the ones we know how to solve but much uh which is the topic of 66 and 6046 up till now but from now in the next few lectures we'll be talking about problems that are probably not polom solvable and what to do about them uh"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_003",
+    "video_id": "mit_6046_lec16",
+    "start_time": 105.0,
+    "end_time": 150.0,
+    "text": "6046 up till now but from now in the next few lectures we'll be talking about problems that are probably not polom solvable and what to do about them uh polinomial as you know is like n to the Su constant polinomial good exponential there uh what is n i guess n is the size of the problem okay which we'll have to be a little bit careful about today and then [Music] NP is not problem solvable not in polinomial time but it's problem solvable in non-deterministic polinomial time so uh and in this case we need to focus on a particular type of problem"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_004",
+    "video_id": "mit_6046_lec16",
+    "start_time": 140.0,
+    "end_time": 185.0,
+    "text": "solvable in non-deterministic polinomial time so uh and in this case we need to focus on a particular type of problem decision just means that the answer is answer we'll see why we need to restrict to that kind of problem in a moment uh"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_005",
+    "video_id": "mit_6046_lec16",
+    "start_time": 175.0,
+    "end_time": 220.0,
+    "text": "uh so this is problems you can solve in polinomial Time same notion of polinomial some notion of n but in a totally unrealistic model of computation which is a non-deterministic model in a non-deterministic model what you can do is uh say instead of computing something from something you know you can make a guess so you can"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_006",
+    "video_id": "mit_6046_lec16",
+    "start_time": 210.0,
+    "end_time": 255.0,
+    "text": "from something you know you can make a guess so you can guess uh so normally constant time operation a regular model is like you add two numbers or you do an if that sort of thing here we can make a guess I give I give the computer polom many options I'm"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_007",
+    "video_id": "mit_6046_lec16",
+    "start_time": 245.0,
+    "end_time": 290.0,
+    "text": "regular model is like you add two numbers or you do an if that sort of thing here we can make a guess I give I give the computer polom many options I'm interested in computer's going to give me one of them it's going to give me a good guess guess is guaranteed to be good and good means here that I want to get to a yes answer if I can so the formal statement is guess uh would lead answer then"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_008",
+    "video_id": "mit_6046_lec16",
+    "start_time": 280.0,
+    "end_time": 325.0,
+    "text": "answer then guess okay this is weird and it's asymmetric it's bi us towards yes and this is why we can only think about decision problems yes or no you could buy us WS no you get something else called Co NP but we'll focus here just on NP so the idea is uh I'd really like to find a guess that leads to a yes answer and the Machine magically gives me one if there is one which means if I end up saying no that means there was absolutely no path that would lead to a yes so uh when you get a no you get a lot of information when you get a yes you get some information but hey you"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_009",
+    "video_id": "mit_6046_lec16",
+    "start_time": 315.0,
+    "end_time": 360.0,
+    "text": "end up saying no that means there was absolutely no path that would lead to a yes so uh when you get a no you get a lot of information when you get a yes you get some information but hey you were lucky hard to hard to complain so this in6 I often call this the lucky model of computation that's the informal version but nondeterminism is what's really going on here so uh maybe it's useful to think to get an example so here's a problem we'll this is probably this is the sort of granddaddy of all MP complete problems we'll get to completeness in a moment uh"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_010",
+    "video_id": "mit_6046_lec16",
+    "start_time": 350.0,
+    "end_time": 395.0,
+    "text": "we'll get to completeness in a moment uh satisfiability so in threat the input to the problem looks something like this example and in case you've forgotten your weird logic notation this is an"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_011",
+    "video_id": "mit_6046_lec16",
+    "start_time": 385.0,
+    "end_time": 430.0,
+    "text": "example and in case you've forgotten your weird logic notation this is an and these are ores uh and I'm using this for negation not okay so uh in other words my I'm given a formula which is an and of ores and each or Clause only has three things and a literal is either a variable X subi or it's the negation of a variable not X subi okay so this is a typical example"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_012",
+    "video_id": "mit_6046_lec16",
+    "start_time": 420.0,
+    "end_time": 465.0,
+    "text": "and a literal is either a variable X subi or it's the negation of a variable not X subi okay so this is a typical example you could have no negations you could here I have one negation two negations any number of negations per Clause these groups of three these or of three things three literals are called Clauses and uh they're all anded together and my goal is this should be a decision question so I have a yes or no question and that question is uh can you"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_013",
+    "video_id": "mit_6046_lec16",
+    "start_time": 455.0,
+    "end_time": 500.0,
+    "text": "X1 uh to true or false so each variable I get to choose or true or a false designation uh such that the formula I use T and F for true and false uh so I want to set these variables such that every Clause comes out true because they're anded together so I have to satisfy this clause in one of three ways maybe I satisfy it all three ways doesn't matter as long as at least one"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_014",
+    "video_id": "mit_6046_lec16",
+    "start_time": 490.0,
+    "end_time": 535.0,
+    "text": "want to set these variables such that every Clause comes out true because they're anded together so I have to satisfy this clause in one of three ways maybe I satisfy it all three ways doesn't matter as long as at least one of these should be true and at least one of each Clause should be true okay so that's the threap problem this is a hard problem we don't know a polinomial time algorithm there probably isn't one but there is a polinomial Time non-deterministic algorithm so this innp uh because if I have lucky guesses uh it's"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_015",
+    "video_id": "mit_6046_lec16",
+    "start_time": 525.0,
+    "end_time": 570.0,
+    "text": "because if I have lucky guesses uh it's kind of designed to solve this kind of problem what I'm going to do is guess whether whether X1 uh is true or false so I have two choices and I'm going to ask my machine to make the right choice whether it should be true or false then I'll guess X2 each of these guess operations takes constant time so I do it for every variable and then I'm going to check"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_016",
+    "video_id": "mit_6046_lec16",
+    "start_time": 560.0,
+    "end_time": 605.0,
+    "text": "variable and then I'm going to check formula and if it comes out true then I'll return yes and if it comes out no and because NP is biased towards yes answers it always finds a yes answer if you can if there's some way to satisfy the formula then I will get it if there's some way to make the formula come out true then this algorithm will return yes if there's no way to satisfy it then the formula then the this non-deterministic"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_017",
+    "video_id": "mit_6046_lec16",
+    "start_time": 595.0,
+    "end_time": 640.0,
+    "text": "the formula then I will get it if there's some way to make the formula come out true then this algorithm will return yes if there's no way to satisfy it then the formula then the this non-deterministic algorithm will return no that's just the definition of how non-deterministic machines work it's a little weird but uh you can see from this kind of prototype of a non-deterministic algorithm you can actually always arrange for your guessing to be at the beginning and then you do some polinomial regular polinomial time checking without a deterministic checking so when you rewrite your algorithm like this with guesses up front and then checking you can also think of it as a verification algorithm uh so you can say you know your friend"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_018",
+    "video_id": "mit_6046_lec16",
+    "start_time": 630.0,
+    "end_time": 675.0,
+    "text": "algorithm like this with guesses up front and then checking you can also think of it as a verification algorithm uh so you can say you know your friend claims that uh this threat formula is satisfiable meaning there's a way to set the variable so that it comes out true true and you're like no I don't believe you your friend says no no no really it's true and here's how I can prove it you set X1 to false you set X2 to true you set X3 basically they give you the guesses and then you don't have to be convinced that those are the right guesses you can check that it's the"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_019",
+    "video_id": "mit_6046_lec16",
+    "start_time": 665.0,
+    "end_time": 710.0,
+    "text": "set X1 to false you set X2 to true you set X3 basically they give you the guesses and then you don't have to be convinced that those are the right guesses you can check that it's the right guess you can compute this formula in linear time see what the outcome is if someone tells you what the XIs are you can very quickly see whether that was a satisfying assignment so you could call this a solution and then there's a polinomial Time verification algorithm that checks that Solutions are valid but you can only do that for yes answers if your friend says no this is not satisfiable they have no way of proving it to you right I mean other than checking all the the assignments separately which should take exponential"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_020",
+    "video_id": "mit_6046_lec16",
+    "start_time": 700.0,
+    "end_time": 745.0,
+    "text": "satisfiable they have no way of proving it to you right I mean other than checking all the the assignments separately which should take exponential time there's no easy way to confirm that the answer to this problem is no but there is an easy way to check that the answer is yes namely I give you the satisfying assignment okay so this definition of NP is what I'll stick to it's the sort of I like guessing because it's like dynamic programming with dynamic programming we also guess um and guessing actually originally comes from this world non-determinism um in dynamic programming we don't allow this kind of model and so we have to check the guesses separately and so we spend lots of time here magically you always get the right guess in only constant time so"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_021",
+    "video_id": "mit_6046_lec16",
+    "start_time": 735.0,
+    "end_time": 780.0,
+    "text": "programming we don't allow this kind of model and so we have to check the guesses separately and so we spend lots of time here magically you always get the right guess in only constant time so this is a much more powerful model of course there's no computers that work like this sadly um or I guess more interestingly so uh this is more about confirming that your problem is not totally impossible at least you can check the answers in polinomial time so"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_022",
+    "video_id": "mit_6046_lec16",
+    "start_time": 770.0,
+    "end_time": 815.0,
+    "text": "so this is an equivalent definition of NP because you can take a"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_023",
+    "video_id": "mit_6046_lec16",
+    "start_time": 805.0,
+    "end_time": 850.0,
+    "text": "so this is an equivalent definition of NP because you can take a non-deterministic algorithm and put the guessing up top you can call the results of those guesses a certificate that an answer is yes and then you have a polom a regular old deterministic polinomial time algorithm that given that certificate will verify uh that the that it actually uh proves that the answer is yes um yeah it's just that certificate has to be polinomial size you can't guess something of exponential size you can only guess something of polinomial size in this model okay so uh seems a"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_024",
+    "video_id": "mit_6046_lec16",
+    "start_time": 840.0,
+    "end_time": 885.0,
+    "text": "has to be polinomial size you can't guess something of exponential size you can only guess something of polinomial size in this model okay so uh seems a little weird uh but we'll see why this is useful in a little it's NP complete if x is in NP and X is NP hard but I haven't told you what NP hard"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_025",
+    "video_id": "mit_6046_lec16",
+    "start_time": 875.0,
+    "end_time": 920.0,
+    "text": "complete if x is in NP and X is NP hard but I haven't told you what NP hard"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_026",
+    "video_id": "mit_6046_lec16",
+    "start_time": 910.0,
+    "end_time": 955.0,
+    "text": "uh so um I need to Define reduce so maybe I'll do that as well then we can"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_027",
+    "video_id": "mit_6046_lec16",
+    "start_time": 945.0,
+    "end_time": 990.0,
+    "text": "okay a lot of definitions um but the"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_028",
+    "video_id": "mit_6046_lec16",
+    "start_time": 980.0,
+    "end_time": 1025.0,
+    "text": "okay a lot of definitions um but the idea of NP hardness is very simple uh if a problem X is NP hard it means that it's at least as hard as uh sorry that is a y it's at least as hard as all problems in NP okay I want intuitively X means it's at least as hard as everything in NP whereas being in NP is a positive statement it says it's not too hard at least there's a polinomial Time verification algorithm so being an NP is a is good news it says you're no harder than NP uh NP hard says you're at least"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_029",
+    "video_id": "mit_6046_lec16",
+    "start_time": 1015.0,
+    "end_time": 1060.0,
+    "text": "least there's a polinomial Time verification algorithm so being an NP is a is good news it says you're no harder than NP uh NP hard says you're at least as hard as everything in NP and so NP NP complete is a nice answer because it says you're exactly as hard as everything in NP no harder no easier uh if you draw in this vague sense uh computational difficulty on one axis which is not really accurate but I like to do it anyway uh and you have uh p is all of these easy problems down here and NP is some larger set like this"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_030",
+    "video_id": "mit_6046_lec16",
+    "start_time": 1050.0,
+    "end_time": 1095.0,
+    "text": "p is all of these easy problems down here and NP is some larger set like this complete okay being in NP means you're left of this line or on the line and being NP hard means you're right of this line or on the line and MP complete means you're right there so it's that's a very definitive sense of hardness now there is this slight catch which is we don't know whether P equals NP so maybe this is the same as this but probably not unless you believe in luck basically"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_031",
+    "video_id": "mit_6046_lec16",
+    "start_time": 1085.0,
+    "end_time": 1130.0,
+    "text": "don't know whether P equals NP so maybe this is the same as this but probably not unless you believe in luck basically unless you imagine that a computer could engineer luck and always guess the right things without spending a lot of time then P does not equal NP and in that world what we get is that if you have an NP complete problem or actually any NP problem you know it cannot be in P okay so if you have that X is NP hard uh then you know that X is not in P unless all of NP is in P so unless P equals NP and most reasonable people do"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_032",
+    "video_id": "mit_6046_lec16",
+    "start_time": 1120.0,
+    "end_time": 1165.0,
+    "text": "hard uh then you know that X is not in P unless all of NP is in P so unless P equals NP and most reasonable people do not believe this and so instead they have to believe this that your problem is not polom solvable so why is this true uh because if your problem is NP hard it's at least as hard as every problem in NP um and we and if you believe that there's some problem in NP we don't necessarily know which one but if there's any problem out there in NP that is not in P then X has to be uh at least as hard as it so it also requires uh non-p polinomial time something larger than"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_033",
+    "video_id": "mit_6046_lec16",
+    "start_time": 1155.0,
+    "end_time": 1200.0,
+    "text": "P then X has to be uh at least as hard as it so it also requires uh non-p polinomial time something larger than polinomial time okay what does at least as hard mean though we're going to Define it in terms of reduction uctions reduction from one problem to another is just a polom Time algorithm regular deterministic polom time that converts an input to problem a into an equivalent input to problem B equivalent means uh that it has the same yes or no answer okay we'll just be thinking about today"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_034",
+    "video_id": "mit_6046_lec16",
+    "start_time": 1190.0,
+    "end_time": 1235.0,
+    "text": "today so why would I care about a reduction because what it tells me is that if I know how to solve problem B then I also know how to solve problem a right if I have a say a polinomial time algorithm for solving B and I want one for a I just take my a input I convert it into the equivalent B input then I run my algorithm for B and then it gives me the answer to the a problem because the answers are the same okay so if you have a reduction like this uh and if say B has a polinomial algorithm then so does"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_035",
+    "video_id": "mit_6046_lec16",
+    "start_time": 1225.0,
+    "end_time": 1270.0,
+    "text": "a reduction like this uh and if say B has a polinomial algorithm then so does a because you can just convert a into B and then solve B uh also this works algorithms okay not too important but uh so what this tells us is that in a certain sense get this right uh was is saying if I can solve B then I can solve a uh so this is saying"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_036",
+    "video_id": "mit_6046_lec16",
+    "start_time": 1260.0,
+    "end_time": 1305.0,
+    "text": "uh was is saying if I can solve B then I can solve a uh so this is saying that uh B is at least as hard as a I got that right a little tricky uh so if we want to prove the problem is NP hard what we do is show that every problem in NP can be reduced to the problem X so now we can go back and say well if we believe that there's some problem y that is in NP minus P if there's something out here that is not in P then we can take that problem Y and by this definition we can reduce it to X because everything in NP reduces to X"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_037",
+    "video_id": "mit_6046_lec16",
+    "start_time": 1295.0,
+    "end_time": 1340.0,
+    "text": "in P then we can take that problem Y and by this definition we can reduce it to X because everything in NP reduces to X and so then I can solve my problem my problem Y which is in NP minus P by converting it to X and solving X so that means X better not have a polom Time algorithm because if it did y would also have a polinomial Time algorithm and then in in general P would equal NP because every problem in NP can be converted to X so if x has a polom Time question a ah so you're asking about the reverse"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_038",
+    "video_id": "mit_6046_lec16",
+    "start_time": 1330.0,
+    "end_time": 1375.0,
+    "text": "question a ah so you're asking about the reverse question if a is an NP can we conclude the B is an NP and the answer is because this reduction only lets us convert from A to B it doesn't let us do anything for converting from B to a so if we know how to solve a and we also know how to convert a into B it doesn't tell us anything it could be B is uh a situation sorry uh that's I think as"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_039",
+    "video_id": "mit_6046_lec16",
+    "start_time": 1365.0,
+    "end_time": 1410.0,
+    "text": "tell us anything it could be B is uh a situation sorry uh that's I think as good as I can do for that other all right it is really tricky to get these directions right so uh let me give you a handy guide on how to not make a here what we care about from an algorithmic perspective is uh proving"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_040",
+    "video_id": "mit_6046_lec16",
+    "start_time": 1400.0,
+    "end_time": 1445.0,
+    "text": "here what we care about from an algorithmic perspective is uh proving because if we prove MP completeness I mean really we care about MP hardness but we might as well do MP completeness most of the problems are that we'll see MP hard or also MP complete uh so when we prove this we prove that there's basically no polinomial time algorithm for that problem so that's good to know because then we can just give up searching for polinomial time algorithm uh so you know all the problems we've seen so far have polinomial time algorithms except a couple in your"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_041",
+    "video_id": "mit_6046_lec16",
+    "start_time": 1435.0,
+    "end_time": 1480.0,
+    "text": "problem so that's good to know because then we can just give up searching for polinomial time algorithm uh so you know all the problems we've seen so far have polinomial time algorithms except a couple in your problem sets which were actually MP complete and the best you could have done was exponential unless P equals NP so uh here's how you can prove this kind of lower bound to say look I don't need to look for algorithms anymore because my problem is just too hard it's as hard as everything in NP so this is just a summary of those definitions the first thing you do is prove that X is NP in NP the second thing you do is prove that X is NP hard and to do that you reduce"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_042",
+    "video_id": "mit_6046_lec16",
+    "start_time": 1470.0,
+    "end_time": 1515.0,
+    "text": "prove that X is NP in NP the second thing you do is prove that X is NP hard and to do that you reduce from some known NP complete problem or I guess NP hard but we'll use complete to your problem X maybe I'll y okay so to prove that X is an NP you do something like what we did over here which is to give a non-deterministic algorithm or you can think of it as"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_043",
+    "video_id": "mit_6046_lec16",
+    "start_time": 1505.0,
+    "end_time": 1550.0,
+    "text": "y okay so to prove that X is an NP you do something like what we did over here which is to give a non-deterministic algorithm or you can think of it as defining what the certificate is and then giving a polinomial time uh verification algorithm so sort of two meth two approaches you give a non-deterministic polinomial Time algorithm verifier there's no right or wrong certificate I mean a certificate you can Define however you want as long as the verifier can actually check it and when it says yes then the answer to the"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_044",
+    "video_id": "mit_6046_lec16",
+    "start_time": 1540.0,
+    "end_time": 1585.0,
+    "text": "verifier there's no right or wrong certificate I mean a certificate you can Define however you want as long as the verifier can actually check it and when it says yes then the answer to the problem was yes so it's really the same thing just want to say there's some certificate that a verifier could actually check okay so that's proving your problem is in NP it's sort of an algorithmic thing the second part is all about reductions now the definition says that I should reduce every problem in NP to my problem X that's tedious because there are a lot of problems in the world so I don't want to do it for every problem in NP I'd like to just do it for one now if I reduce sorting to my problem that's not very interesting it says my problem is at least as hard as sorting okay but I already know how to"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_045",
+    "video_id": "mit_6046_lec16",
+    "start_time": 1575.0,
+    "end_time": 1620.0,
+    "text": "problem in NP I'd like to just do it for one now if I reduce sorting to my problem that's not very interesting it says my problem is at least as hard as sorting okay but I already know how to solve sorting but if I start from an NP complete problem then I know by the definition that every problem in NP can be reduced to that problem and if I show how to reduce the NP complete problem to me then I know that I'm NP complete too because if I have any problem Z in NP by the definition of NP complete of Y I can reduce that to Y and then if I have if I can build a reduction from y to X then I get this reduction and so that means I can convert any problem in NP to my problem"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_046",
+    "video_id": "mit_6046_lec16",
+    "start_time": 1610.0,
+    "end_time": 1655.0,
+    "text": "Y and then if I have if I can build a reduction from y to X then I get this reduction and so that means I can convert any problem in NP to my problem X which means X is NP hard that's the definition so all this is to say the first time you prove a problem as MP complete in in the world this happened in the 70s um by cook basically he proved that threat is MP complete uh that was annoying because he had to start from any problem in NP and he had to show that you could reduce any problem in NP to three set but now that that hard work is done done our life is much easier and in this class all you need to think about is picking your"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_047",
+    "video_id": "mit_6046_lec16",
+    "start_time": 1645.0,
+    "end_time": 1690.0,
+    "text": "problem in NP to three set but now that that hard work is done done our life is much easier and in this class all you need to think about is picking your favorite MP complete problem three sets a good choice for almost anything but we'll see a bunch of other problems today from here and then reduce from that known problem to your problem that you're trying to prove is NP hard if you can do that you know your problem is empty hard okay so we only need one reduction for each hardness result which is nice and this picture is a collection of reductions we're going to start from threat I'm not going to prove that MP complete though I'll give you a hint of why that's true we're going to reduce it to Super Mario Brothers we're going to reduce it to three-dimensional matching we're going to reduce threedimensional matching to subset sum to partition to"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_048",
+    "video_id": "mit_6046_lec16",
+    "start_time": 1680.0,
+    "end_time": 1725.0,
+    "text": "why that's true we're going to reduce it to Super Mario Brothers we're going to reduce it to three-dimensional matching we're going to reduce threedimensional matching to subset sum to partition to rectangle packing to jigsaw puzzles um we're going to do all those reductions hopefully and that's proving uh NP hardness of all those problems they're also all in NP all right so uh 30 30 second intuition why threat is NP hard well uh if you have any problem in NP that means there is one of these uh non-deterministic polinomial time algorithms or there is some verifier"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_049",
+    "video_id": "mit_6046_lec16",
+    "start_time": 1715.0,
+    "end_time": 1760.0,
+    "text": "problem in NP that means there is one of these uh non-deterministic polinomial time algorithms or there is some verifier given a polinomial size certificate so that verifier it's just some algorithm and you know software and Hardware are basically the same thing right so you can convert that algorithm into a circuit that implements the algorithm and if I have a circuit with like ANS and ores and Knots I can convert that into a Boolean formula with ANS ores and Knots circuits and formulas are about the same and if I have a formula uh fun fact although this is a little less obvious you can convert it into this form the an an and of triple ORS okay and once you've done that that"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_050",
+    "video_id": "mit_6046_lec16",
+    "start_time": 1750.0,
+    "end_time": 1795.0,
+    "text": "obvious you can convert it into this form the an an and of triple ORS okay and once you've done that that formula is equivalent to the original algorithm uh and the inputs to the to that verification algorithm the certificate are represented by these variables XIs and so deciding whether there's some way to set the XIs to make the formula true is the same thing as saying is there some certificate where the verifier says yes which is the same thing as saying that uh the problem has answer yes okay so given an NP algorithm one of these non-deterministic funny algorithms we can convert it into a formula satisfaction problem and that's how you prove three sat is MP complete"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_051",
+    "video_id": "mit_6046_lec16",
+    "start_time": 1785.0,
+    "end_time": 1830.0,
+    "text": "answer yes okay so given an NP algorithm one of these non-deterministic funny algorithms we can convert it into a formula satisfaction problem and that's how you prove three sat is MP complete but to do that can take many lectures so the the main annoying part is being formal about what exactly an algorithm is uh which we don't do in this class so um if you're interested take 6045 so which is some people are actually in the overlap this semester um cool let's do some reductions this is where things get fun so we're going to start with reducing threat to Super Mario Brothers uh so I I assume how many"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_052",
+    "video_id": "mit_6046_lec16",
+    "start_time": 1820.0,
+    "end_time": 1865.0,
+    "text": "where things get fun so we're going to start with reducing threat to Super Mario Brothers uh so I I assume how many people have played Super Mario Brothers easy one I hope if you haven't played you've seen it uh because we're going to rely very much on Super Mario Brother physics which I hope is fairly intuitive obviously and we're going to reduce"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_053",
+    "video_id": "mit_6046_lec16",
+    "start_time": 1855.0,
+    "end_time": 1900.0,
+    "text": "now uh this this is a a theorem by uh uh bunch of people one MIT grad student myself and a couple other collaborators outside if not at MIT um and it of course the this result holds for all versions of Super Mario Brothers so far released I think uh the proofs are a little bit different for each one especially Mario 2 which is its own universe but um I'm going to talk about the original Super Mario Brothers NES classic which I"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_054",
+    "video_id": "mit_6046_lec16",
+    "start_time": 1890.0,
+    "end_time": 1935.0,
+    "text": "especially Mario 2 which is its own universe but um I'm going to talk about the original Super Mario Brothers NES classic which I grew up with um so now the real Super Mario Brothers is you know on a 320 by 240 screen it's a little bit small once you go right you can't go back left except in the Maze levels anyway uh so I need to generalize a little bit because uh if you assume that the the screen size of Super Mario Brothers is constant in fact you can Dynamic program your way through and find the optimal solution in polinomial bit to uh arbitrary board size arbitrary screen"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_055",
+    "video_id": "mit_6046_lec16",
+    "start_time": 1925.0,
+    "end_time": 1970.0,
+    "text": "bit to uh arbitrary board size arbitrary screen size so in fact my entire level will be in one screen no scrolling never mind this is a sides scrolling Adventure uh and so that's my generalized problem and I claim this is n hard if I give you a level and I want to and I ask you can you get to the end of this level that problem is NP hard okay also no time limit uh the time limit would be okay but you have to generalize it instead of 300 seconds or whatever it has to be an arbitrary value okay uh so how are we going to do"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_056",
+    "video_id": "mit_6046_lec16",
+    "start_time": 1960.0,
+    "end_time": 2005.0,
+    "text": "limit would be okay but you have to generalize it instead of 300 seconds or whatever it has to be an arbitrary value okay uh so how are we going to do this we're going to reduce from threat to Super Mario Brothers so that means I'm given I don't get to choose I'm given one of these formulas and I have to convert it into an equivalent Super Mario Brother instance so I have to convert it into a level a hypothetical level of Super Mario Brothers given formula I have to build a level that implements that formula okay so here's what it's going to look like I'm going to start out somewhere here's here's my drawing of Mario uh Mario uh or you could play Luigi it doesn't matter um first thing"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_057",
+    "video_id": "mit_6046_lec16",
+    "start_time": 1995.0,
+    "end_time": 2040.0,
+    "text": "somewhere here's here's my drawing of Mario uh Mario uh or you could play Luigi it doesn't matter um first thing it's going to do is enter a little black box called a variable okay this is supposed to represent let's call it X1 okay and so there's it's some black box I'm going to tell you what it is in a moment and it has two outputs there's the true output and the false output and the idea is that Mario has to choose whether to set X1 to true or Gadget so here's the oops upside down here's the variable Gadget"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_058",
+    "video_id": "mit_6046_lec16",
+    "start_time": 2030.0,
+    "end_time": 2075.0,
+    "text": "Gadget so here's the oops upside down here's the variable Gadget uh so here's Mario uh could enter from this way or that way we'll need a couple of entrances in a moment and then uh falls down once Mario's down here if you check the jump height you cannot get back up to here so this is like a oneway once you're down here you have a choice should I fall to the left or fall to the right and if you make these Falls large enough uh once you fall you can't unfall uh so once you make a choice of whether I leave on the true exit or the F exit false exit that's a permanent choice you can't undo it unless you can come back to here but we'll set up so that never happens so uh I mean if"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_059",
+    "video_id": "mit_6046_lec16",
+    "start_time": 2065.0,
+    "end_time": 2110.0,
+    "text": "F exit false exit that's a permanent choice you can't undo it unless you can come back to here but we'll set up so that never happens so uh I mean if you're trying to solve the level you you don't know which way to go you have to guess okay go fall to the left or fall to the right or or do something um so uh the existence of a playthrough this level is the same as saying there is a choice for the X1 variable now we have to do this for lots of variables uh so there's the X2 variable X3 variable and so on each one has a true exit and a false exit Okay so the actual level will have n instances of this if we have n"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_060",
+    "video_id": "mit_6046_lec16",
+    "start_time": 2100.0,
+    "end_time": 2145.0,
+    "text": "each one has a true exit and a false exit Okay so the actual level will have n instances of this if we have n variables now uh what do I do once Mario decides that this is a true thing uh what I'm going to do is have this is called a gadget by the way in general most NP hardness proofs use these things called gadgets which is just saying we take various features of the input and we convert them into corresponding features in the output so here I'm taking each variable X1 X2 X3 and so on and building this little gadget for each of those variables now the other thing the other main thing you have in threat are the Clauses we have triples of variables or they negations that kind of come have to come together and be"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_061",
+    "video_id": "mit_6046_lec16",
+    "start_time": 2135.0,
+    "end_time": 2180.0,
+    "text": "of those variables now the other thing the other main thing you have in threat are the Clauses we have triples of variables or they negations that kind of come have to come together and be satisfied one of them has to be true so okay and I think I'll switch colors is about to get messy so the idea is that some of the Clauses have X1 in them X1 with a true the true version of X1 not"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_062",
+    "video_id": "mit_6046_lec16",
+    "start_time": 2170.0,
+    "end_time": 2215.0,
+    "text": "about to get messy so the idea is that some of the Clauses have X1 in them X1 with a true the true version of X1 not X1 bar okay so for those clauses I want to connect I'm going to dip into the Clause briefly so from this wire I'm going to dip into the Clause here and then I'm going to go to the next Clause that has X1 uh maybe it's this one and the next one and so on okay all the Clauses that have X1 in it I I dip into the other ones I don't and then once I'm done I'm going to come back and feed into X2 okay uh next I look at this false wire for X1 so all the Clauses that have"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_063",
+    "video_id": "mit_6046_lec16",
+    "start_time": 2205.0,
+    "end_time": 2250.0,
+    "text": "into X2 okay uh next I look at this false wire for X1 so all the Clauses that have X1 bar in them I'm going to connect so I don't know which one they are maybe this one and this one something okay and then come here okay so the idea is that Mario makes a choice whether X1 is true or false if X1 is true it's going to visit Mario is going to visit all of the Clauses that have X1 true in them and then it's going to go to the X2 Choice then it's going to choose whether X2 is true or false and repeat okay or X1 or Mario decides X1 should be false that"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_064",
+    "video_id": "mit_6046_lec16",
+    "start_time": 2240.0,
+    "end_time": 2285.0,
+    "text": "then it's going to go to the X2 Choice then it's going to choose whether X2 is true or false and repeat okay or X1 or Mario decides X1 should be false that will satisfy all the Clauses that have X1 equal X1 bar in them and then again we we feed back into X2 so this is why we have two inputs into the X2 Gadget one of them is when the previous variable was true the other is when the previous variable is false X the choice of X2 doesn't depend on the choice of X1 so they feed into the same thing and you have to make your choice okay so uh so far so good now the question is what's happening in these clauses and then there's uh yeah one other aspect which is after"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_065",
+    "video_id": "mit_6046_lec16",
+    "start_time": 2275.0,
+    "end_time": 2320.0,
+    "text": "okay so uh so far so good now the question is what's happening in these clauses and then there's uh yeah one other aspect which is after you've set all of the variables at the very end after this last variable xn uh at the very end what we're going to do is come and go through all the Clauses and then this is the flag this is where you win the level sorry I drew it backwards but the the goal is for Mario to start here and get to here in order to do that you have to be able to Traverse through these closes so what do the claes look like uh this is a little bit more"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_066",
+    "video_id": "mit_6046_lec16",
+    "start_time": 2310.0,
+    "end_time": 2355.0,
+    "text": "here in order to do that you have to be able to Traverse through these closes so what do the claes look like uh this is a little bit more elaborate so here we go magnets um this is a clause Gadget so there are three ways to dip into the Clause it's actually upside down relative to that picture but that's not a problem so uh if Mario comes here uh then he can hit the question mark from below and inside this question mark is an invincibility star the invincibility star will come up here and just Bounce Around forever okay we checked the star will just stay there for as long as you let it sit unfortunately all of these"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_067",
+    "video_id": "mit_6046_lec16",
+    "start_time": 2345.0,
+    "end_time": 2390.0,
+    "text": "star will come up here and just Bounce Around forever okay we checked the star will just stay there for as long as you let it sit unfortunately all of these are solid blocks so Mario can't actually get up to here to get the star okay but as long as Mario can visit this question mark or this question mark or this question mark then there will be at least one star up here so the idea is that each of these represents one of the literals that's in the clause and if we choose so let's say let's look at this first Clause X1 or X3 or X6 bar so if we choose X1 to be true then the then we'll follow the path and we'll be able to hit the star or if we choose X3 to be true then we'll come in here and hit this"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_068",
+    "video_id": "mit_6046_lec16",
+    "start_time": 2380.0,
+    "end_time": 2425.0,
+    "text": "follow the path and we'll be able to hit the star or if we choose X3 to be true then we'll come in here and hit this star okay or if we choose X6 to be false then that path will lead to here and we'll be able to hit this question mark and get the star up here so as long as we satis the Clause there will be at least one star won't help if you have multiple stars then uh the final traversal part so that was this first clause and now we're traversing through actually in this picture it's left to right uh just turn your head um and so now Mario's going to have to Traverse this gadget from left to right on this top part and if Mario comes in here and you can barely jump over that if there's a star"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_069",
+    "video_id": "mit_6046_lec16",
+    "start_time": 2415.0,
+    "end_time": 2460.0,
+    "text": "turn your head um and so now Mario's going to have to Traverse this gadget from left to right on this top part and if Mario comes in here and you can barely jump over that if there's a star you can collect the star and then run through all of these flaming uh bars of death uh if there's no star you can't you'll die if you try to Traverse so in order to be able to Traverse all these Clauses they must all be true and them all being true is the same as their and being true so you will be able to survive through all these Clauses if and only if this formula has a satisfying assignment the satisfying assignment would be given to you by the uh the level play the choices that Mario makes"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_070",
+    "video_id": "mit_6046_lec16",
+    "start_time": 2450.0,
+    "end_time": 2495.0,
+    "text": "only if this formula has a satisfying assignment the satisfying assignment would be given to you by the uh the level play the choices that Mario makes in this gadget will tell you whether X each variable should be true or false okay so uh to elaborate just a little bit more in general when you have a reduction like this to prove that it actually works you need to check two things you need to check that if there is a way to satisfy this formula then there is a way to play this level and then conversely you need to show that if there's a way to play this level then the formula has a satisfying assignment so for that latter part in order to check uh in order to convert a level play into a satisfying assignment you just check which way Mario falls in each of these"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_071",
+    "video_id": "mit_6046_lec16",
+    "start_time": 2485.0,
+    "end_time": 2530.0,
+    "text": "so for that latter part in order to check uh in order to convert a level play into a satisfying assignment you just check which way Mario falls in each of these gadgets left or right that tells you the variable assignment and because of the way the Clauses work uh you'll only be able to finish the level if there was at least one star here and stars run out after some time so you have you can barely make it through all the Flaming bars of death then you get to the next Clause you need another star for each one conversely if there is a satisfying assignment you can actually play through to the level you just make these choices according to what the satisfying assignment is so either way it's equivalent we always get uh a yes or no answer here uh whenever we get a yes corresponding yes or no answer to the"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_072",
+    "video_id": "mit_6046_lec16",
+    "start_time": 2520.0,
+    "end_time": 2565.0,
+    "text": "according to what the satisfying assignment is so either way it's equivalent we always get uh a yes or no answer here uh whenever we get a yes corresponding yes or no answer to the threet problem okay you also need to check that this reduction is polinomial size it generates a pol or it can be computed in polinomial time so there's an issue given this thing you have to like lay this out in a grid and draw all these wires and there's one problem here which is is these wires cross each other and that's that's a little awkward because these wires are basically just long Tunnels for Mario to walk through but what does it mean to have a Crossing wire I really if Mario's coming this way I don't want them to be able to go up"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_073",
+    "video_id": "mit_6046_lec16",
+    "start_time": 2555.0,
+    "end_time": 2600.0,
+    "text": "long Tunnels for Mario to walk through but what does it mean to have a Crossing wire I really if Mario's coming this way I don't want them to be able to go up here he has to go straight otherwise this reduction won't work so I need what's called a crossover Gadget and everywhere here I have a Crossing I have a crossover and this Gadget has to guarantee that I can go through one way or the other way but there's no leakage from One path to the other path actually if if I if I first Traverse through here and then I Traverse through here it's okay if I leak back because once I visit a wire it's kind of done but uh I can't have leakage if only one of them is"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_074",
+    "video_id": "mit_6046_lec16",
+    "start_time": 2590.0,
+    "end_time": 2635.0,
+    "text": "okay if I leak back because once I visit a wire it's kind of done but uh I can't have leakage if only one of them is traversed so this is the last Gadget uh the most complicated of them all so this took a while to construct as you might imagine um so this is what we call a uh unidirectional crossover you can either go from left to right or from bottom to top but you cannot go from bottom to right or bottom to left or left to bottom that kind of thing okay so I'm told that Mario's only going to enter from here to here because all of these wires I can make oneway wires I only have to think about going in a particular direction I could have Falls"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_075",
+    "video_id": "mit_6046_lec16",
+    "start_time": 2625.0,
+    "end_time": 2670.0,
+    "text": "told that Mario's only going to enter from here to here because all of these wires I can make oneway wires I only have to think about going in a particular direction I could have Falls to force Mario to only go one way along these wires and uh so let me show you the valid traversals um maybe the simplest one is from here so let's say Mario comes in here Falls so can't backtrack can jump up here and then if Mario's big he can break this block break this block but if he's big uh oh there should be a couple more zigzags here uh let's try to run you can you can Crouch slide through here uh but then you'll sort of lose your momentum and you won't be able to go through all these traversals as big Mario"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_076",
+    "video_id": "mit_6046_lec16",
+    "start_time": 2660.0,
+    "end_time": 2705.0,
+    "text": "you can you can Crouch slide through here uh but then you'll sort of lose your momentum and you won't be able to go through all these traversals as big Mario okay so uh you can break these blocks and then get up to the top and leave or if big Mario comes from over this way you can first take a damage become small Mario then you can fit through these Wiggly blocks but uh you cannot break blocks anymore as small Mario so once you've committed to going small uh you have to stay small until you get to here and then you can get a there's a mushroom in this block so you can get big again and then you can break this block and leave okay but once you're big you can't backtrack because big Mario can't fit through these tiny tubes see it clear"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_077",
+    "video_id": "mit_6046_lec16",
+    "start_time": 2695.0,
+    "end_time": 2740.0,
+    "text": "block and leave okay but once you're big you can't backtrack because big Mario can't fit through these tiny tubes see it clear right so uh slight detail which is at the beginning we need to make Mario big so there's a little mushroom I think they have three spots uh at the beginning and also at the end there has to be something like this that checks that you actually have a mushroom so the only time you're allowed to take damage is briefly in this gadget you take damage if you tried to backtrack you would get stuck there's a long fall here uh and then you have to get the mushroom so you can escape again okay so at the end there's like a mushroom uh"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_078",
+    "video_id": "mit_6046_lec16",
+    "start_time": 2730.0,
+    "end_time": 2775.0,
+    "text": "so you can escape again okay so at the end there's like a mushroom uh check make sure you have it so most of the time Mario's big and just in these little crossovers you have to make these decisions this would make a giant level but it is polinomial size probably quadratic or something okay therefore Super Mario so uh if you want more fun examples like this you should check out 6890 the class I taught last semester which has online video lectur soon to be on open courseware so you can play with that any"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_079",
+    "video_id": "mit_6046_lec16",
+    "start_time": 2765.0,
+    "end_time": 2810.0,
+    "text": "I taught last semester which has online video lectur soon to be on open courseware so you can play with that any Mario all right I hope you'll all play so next topic uh is a problem you probably haven't heard about uh matching this is a kind of a graph Theory problem U it's we're going to"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_080",
+    "video_id": "mit_6046_lec16",
+    "start_time": 2800.0,
+    "end_time": 2845.0,
+    "text": "matching this is a kind of a graph Theory problem U it's we're going to call it 3dm for short uh and you've seen matching problems based on Flow matching problems are usually about pairs of things you're pairing them up uh which you might call two-dimensional matching that can be solved in polinomial time but if you change two to three and you're tripling things up then suddenly the problem becomes NP complete so uh it's a useful starting"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_081",
+    "video_id": "mit_6046_lec16",
+    "start_time": 2835.0,
+    "end_time": 2880.0,
+    "text": "um you're given set X of n elements a set y of n elements and a set Z of n elements no none of them are shared uh but more importantly you are given a bunch of triples these are the allowable triples uh so we'll call the set of allowable triples uh T and so we're looking at the cross product this is the set of all triples X Y and Z or X is and X Y is and Y and Z is and z uh but not all triples are allowed only some subset of triples is is allowed and your goal"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_082",
+    "video_id": "mit_6046_lec16",
+    "start_time": 2870.0,
+    "end_time": 2915.0,
+    "text": "set of all triples X Y and Z or X is and X Y is and Y and Z is and z uh but not all triples are allowed only some subset of triples is is allowed and your goal is to choose among those subsets sorry among those triples a subset of the triples so we're trying to choose a subset s of element so the things in x y and z are called elements so I'm just taking somebody in the union XYZ um it should be"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_083",
+    "video_id": "mit_6046_lec16",
+    "start_time": 2905.0,
+    "end_time": 2950.0,
+    "text": "element so the things in x y and z are called elements so I'm just taking somebody in the union XYZ um it should be exactly S okay uh this is a little weird but you can think of this problem as you have uh an alien race with three genders male female neuter I guess those are the X Y and Z there's an equal number of each and your goal and and every triple reports to you whether that is a compatible matching who knows what"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_084",
+    "video_id": "mit_6046_lec16",
+    "start_time": 2940.0,
+    "end_time": 2985.0,
+    "text": "and Z there's an equal number of each and your goal and and every triple reports to you whether that is a compatible matching who knows what they're doing all three of them um so you're told up front you you take a survey there's only NCB different triples for each of them they say yeah i' do that um so you given that subset and now your goal is to permanently triple up these guys and everybody wants to be in exactly one triple so it's a monogamous race imagine um so you want to everybody wants to be put in one triple but only one triple okay and the question is is this possible this is threedimensional matching certainly not always going to"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_085",
+    "video_id": "mit_6046_lec16",
+    "start_time": 2975.0,
+    "end_time": 3020.0,
+    "text": "um so you want to everybody wants to be put in one triple but only one triple okay and the question is is this possible this is threedimensional matching certainly not always going to be possible but sometimes it is uh if it is you want to answer yes if it's not possible you want to answer no this problem is NP complete uh why is it an NP uh because I can basically guess which elements of T are in s there's only at most n cubed of them so for each one I just guess yes or no is that element of T in s and then I check whether this coverage constraint holds innp the challenge is to prove that it's NP hard and we're going to do that again"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_086",
+    "video_id": "mit_6046_lec16",
+    "start_time": 3010.0,
+    "end_time": 3055.0,
+    "text": "innp the challenge is to prove that it's NP hard and we're going to do that again bye Mario uh so we're going to make a reduction from threat to three-dimensional matching direction is important always reduce from the thing you know is hard reduce to the thing you don't know as hard so again we're given a formula we want to convert that formula into an equivalent threedimensional matching"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_087",
+    "video_id": "mit_6046_lec16",
+    "start_time": 3045.0,
+    "end_time": 3090.0,
+    "text": "don't know as hard so again we're given a formula we want to convert that formula into an equivalent threedimensional matching input so the formula has variables and Clauses for each variable we're going to build a gadget that looks like this uh and for each Clause we're going to build a gadget so here's what they look like if we have a variable say XI we're"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_088",
+    "video_id": "mit_6046_lec16",
+    "start_time": 3080.0,
+    "end_time": 3125.0,
+    "text": "now looks pretty crazy at the moment um crazy this is not supposed to be obvious you have to think for a while it's a puzzle to figure out this kind of thing uh but I call this thing a variable"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_089",
+    "video_id": "mit_6046_lec16",
+    "start_time": 3115.0,
+    "end_time": 3160.0,
+    "text": "crazy this is not supposed to be obvious you have to think for a while it's a puzzle to figure out this kind of thing uh but I call this thing a variable Gadget because locally so um so there's basically a A Wheel in the center here and then there's these extra dots for every pair of dots consecutive pair of dots in the wheel okay and what I've drawn is the set of triples that are allowed there's tons of other triples which are forbidden uh the triples that are in t are the ones that I draw as little triangles okay and I two-color them because they're exactly two ways to solve this gadget locally now these dots are going to be connected to other gadgets but these dots only exist in this gadget which means they've got to"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_090",
+    "video_id": "mit_6046_lec16",
+    "start_time": 3150.0,
+    "end_time": 3195.0,
+    "text": "them because they're exactly two ways to solve this gadget locally now these dots are going to be connected to other gadgets but these dots only exist in this gadget which means they've got to be covered they've got to be covered exactly once so either you choose the blue uh triangles or you choose the red triangles that each of them will exactly cover each of these guys once um you cannot mix and match red and blue because you'd either get overlap if you choose two guys that share point or you'd miss one if I choose like this blue and this red then I can't cover this point because both of these would overlap those two and over here you have to choose disjoint triples they can't overlap at all and uh everybody has to get covered so just given those"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_091",
+    "video_id": "mit_6046_lec16",
+    "start_time": 3185.0,
+    "end_time": 3230.0,
+    "text": "overlap those two and over here you have to choose disjoint triples they can't overlap at all and uh everybody has to get covered so just given those constraints locally you can see you have to choose red or blue guess what one of them is true the other one is false okay let's say that red is true and blue is false in general when you trying to build a variable Gadget you build something that has exactly two solutions one representing true one representing false now how big do I make this this wheel uh big enough uh one you could make it as big as the number of Clauses I'm going to"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_092",
+    "video_id": "mit_6046_lec16",
+    "start_time": 3220.0,
+    "end_time": 3265.0,
+    "text": "enough uh one you could make it as big as the number of Clauses I'm going to make it uh into 2 nxi so uh wheel and uh this number is the number of XI in the formula so this is the number of Clauses that contain either XI or x i bar that's n XI I'm going to double that because when I get over here is basically XI being uh true for those guys uh"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_093",
+    "video_id": "mit_6046_lec16",
+    "start_time": 3255.0,
+    "end_time": 3300.0,
+    "text": "basically XI being uh true for those guys uh actually yeah that's actually right looks backwards guys one way or the other we'll figure it out um so I basically in order for XI to appear in say five different clauses I want five of the true things and five of the false things and so I need to double in order to get uh I potentially have twice I have twice as many as I actually need but this way I'm guaranteed to have false or true whichever I need okay in the in reality have some true occurrences I have some false"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_094",
+    "video_id": "mit_6046_lec16",
+    "start_time": 3290.0,
+    "end_time": 3335.0,
+    "text": "twice I have twice as many as I actually need but this way I'm guaranteed to have false or true whichever I need okay in the in reality have some true occurrences I have some false occurrences some x1's some X1 bars this will guarantee that I have enough of these uh free points to connect into my Clause gadgets okay how do I do a clause uh so claw always looks like this maybe there's some negations uh yeah let's do something like"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_095",
+    "video_id": "mit_6046_lec16",
+    "start_time": 3325.0,
+    "end_time": 3370.0,
+    "text": "uh so claw always looks like this maybe there's some negations uh yeah let's do something like that I'm going to convert it into a very picture it's going to be XI Dot and XJ bar Dot and XK Dot and then uh well maybe I'll stick to these okay again uh these two points only appear in this Clause Gadget these dots"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_096",
+    "video_id": "mit_6046_lec16",
+    "start_time": 3360.0,
+    "end_time": 3405.0,
+    "text": "okay again uh these two points only appear in this Clause Gadget these dots are actually these dots so there you know there's one of these pictures for X1 there's another one for X2 X3 and so XI has one of these wheels I want this dot to be one of these dots of the wheel and then uh I want this dot to be one of the dots in the XJ wheel with the false setting one the red dots I want this one to be a XK true setting in the XK wheel okay so these things are all connected together in a complicated pattern but the point is I within this gadget I only have three uh allowed triples and these points only appear in this gadget which"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_097",
+    "video_id": "mit_6046_lec16",
+    "start_time": 3395.0,
+    "end_time": 3440.0,
+    "text": "okay so these things are all connected together in a complicated pattern but the point is I within this gadget I only have three uh allowed triples and these points only appear in this gadget which means they have to be covered in this gadget uh they can be covered by this triple or this triple or this triple but once you choose one you can't choose the others okay what this means is if I I set XI to be true it leaves Behind these points marked true if I choose the red things then it's the blue points that are left behind leaving points behind in this case is going to be good because this clause in order to satisfy this clause in order to choose one of these three triples at least one of these must"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_098",
+    "video_id": "mit_6046_lec16",
+    "start_time": 3430.0,
+    "end_time": 3475.0,
+    "text": "this case is going to be good because this clause in order to satisfy this clause in order to choose one of these three triples at least one of these must be uh left behind by the wheel if all of these are covered by their wheels then there's no way I can't choose any of these guys but if at least one of these is left behind by the wheel then uh I can choose the corresponding triple and cover these points so I'll be able to cover these points if and only if uh at least one of these is true and that's a clause that's what a clause is supposed to do in three set if at least one of these is true then the Clause is satisfied I need all the Clauses to be satisfied because I need to cover all of these points for all the instances of these"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_099",
+    "video_id": "mit_6046_lec16",
+    "start_time": 3465.0,
+    "end_time": 3510.0,
+    "text": "these is true then the Clause is satisfied I need all the Clauses to be satisfied because I need to cover all of these points for all the instances of these Clauses and that's how it works now slight catch uh if you do this not all the points will be covered even so uh right maybe all of these are true so they're all left behind and I can only cover one of them with the Clause so little messy uh you need another collection I don't want to spend too"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_100",
+    "video_id": "mit_6046_lec16",
+    "start_time": 3500.0,
+    "end_time": 3545.0,
+    "text": "collection I don't want to spend too much time on it uh but you have uh two dots and then you have every single uh XI uh these these dots uh all true and false dots and you're going to have this triple and this triple and this triple and this triple and so on it looks an awful lot like a clause uh but this is like a clause that's connected to everybody in the entire universe and you repeat this the appropriate number of"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_101",
+    "video_id": "mit_6046_lec16",
+    "start_time": 3535.0,
+    "end_time": 3580.0,
+    "text": "awful lot like a clause uh but this is like a clause that's connected to everybody in the entire universe and you repeat this the appropriate number of times which is uh something like sum of Clauses okay why because if you look at a wheel it has size 2 * NX uh for variable X and half of the points will be left uncovered okay so that means NX of them will be uncovered then the Clause if everything works out correctly the Clause will cover exactly one of those points uh so each for each Clause we"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_102",
+    "video_id": "mit_6046_lec16",
+    "start_time": 3570.0,
+    "end_time": 3615.0,
+    "text": "uncovered then the Clause if everything works out correctly the Clause will cover exactly one of those points uh so each for each Clause we cover one of the points that means this this difference is exactly how many points are left uncovered and so we make this gadget exactly that many times and it's free to cover anybody so whatever's left over this garbage collector will clean up and if we use exactly the right number of them this garbage collector won't run out of things to collect okay so this is this makes the proof messy but uh I want to move on to somewhat simpler proofs and for other problems yeah uh real quick what about the key or points that we didn't cover because we"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_103",
+    "video_id": "mit_6046_lec16",
+    "start_time": 3605.0,
+    "end_time": 3650.0,
+    "text": "but uh I want to move on to somewhat simpler proofs and for other problems yeah uh real quick what about the key or points that we didn't cover because we didn't actually need that many right so this this also includes the points that weren't even connected to Clauses uh it I think this is the right number no matter what because this is counting the total number of uncovered whether they're connected to Clauses or not each Clause will in a satisfied situation it will cover exactly one of those points the ones that aren't connected to Clauses won't be covered at all but that will still be in this difference so yeah it's good to check that I the first time I wrote this down I forgot about those points and got it wrong but I think this is right hopefully I did not come up with this proof uh Gary and Johnson I think or no"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_104",
+    "video_id": "mit_6046_lec16",
+    "start_time": 3640.0,
+    "end_time": 3685.0,
+    "text": "it's good to check that I the first time I wrote this down I forgot about those points and got it wrong but I think this is right hopefully I did not come up with this proof uh Gary and Johnson I think or no this is a I forget this is a yeah this is a Gary and Johnson proof there's a cool book from L 7s by Gary and Johnson does a lot of mp completeness uh you're curious all right so hopefully you believe three-dimensional matching is hard now I'm going to use it to prove that some very different types of problems are hard this is a kind of graph Theory problem uh you'll see more graph Theory problems in recitation uh at this point I can erase threat and Mario so"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_105",
+    "video_id": "mit_6046_lec16",
+    "start_time": 3675.0,
+    "end_time": 3720.0,
+    "text": "problem uh you'll see more graph Theory problems in recitation uh at this point I can erase threat and Mario so uh in in the world most NP hardness proofs are reductions from threat or some variation of threat in some sense you can think of threedimensional matching is kind of like a version of threat uh but it's a little bit more stringent and that that stringency helps us do other reductions so here's another problem where we'll reduce from three-dimensional"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_106",
+    "video_id": "mit_6046_lec16",
+    "start_time": 3710.0,
+    "end_time": 3755.0,
+    "text": "three-dimensional uh so you're given n integers A1 up to a n and you're given a Target sum also an integer call it t what you'd like to know is is there a subset of the integers that adds up to"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_107",
+    "video_id": "mit_6046_lec16",
+    "start_time": 3745.0,
+    "end_time": 3790.0,
+    "text": "can you choose some of the integers so that I'll write it the sum of s but what this means is the sum over the AIS that are in s of the value AI I want that to equal T so this is a definition this is the constraint so I give you a bunch of numbers do any subset of them add up to T that's all this is asking this problem is NP hard uh it's NP complete in fact I mean you can guess which integers should go in the subset and then add them up see if you got it"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_108",
+    "video_id": "mit_6046_lec16",
+    "start_time": 3780.0,
+    "end_time": 3825.0,
+    "text": "T that's all this is asking this problem is NP hard uh it's NP complete in fact I mean you can guess which integers should go in the subset and then add them up see if you got it right uh it's it is NP hard but it's hard and why don't I come back to the definition of that in a moment let me first show you the proof it's actually really easy once now that we have this three-dimensional matching problem uh that's pretty cool so these numbers are going to be huge um what"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_109",
+    "video_id": "mit_6046_lec16",
+    "start_time": 3815.0,
+    "end_time": 3860.0,
+    "text": "we have this three-dimensional matching problem uh that's pretty cool so these numbers are going to be huge um what we're going to say is let's view so again we're given three dimensional matching instance right to get the directions right we're given a set of triples we want to solve this problem by reducing it to uh subset sum so we get to construct integers that represent triples that's what we're going to do so uh here we go we get to choose the number so I'm going to think of them in a particular base uh B which is going to be 1 plus the"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_110",
+    "video_id": "mit_6046_lec16",
+    "start_time": 3850.0,
+    "end_time": 3895.0,
+    "text": "go we get to choose the number so I'm going to think of them in a particular base uh B which is going to be 1 plus the max of the NX I so again this is the number of occurrences of variable X I in a true or false form so I take the maximum occurrence of any variable add one that's my base just has to be large enough okay and this is basically the entire reduction and is one line if I have three triples uh if I have a triple x i XJ XK I'm going to convert that into a number"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_111",
+    "video_id": "mit_6046_lec16",
+    "start_time": 3885.0,
+    "end_time": 3930.0,
+    "text": "line if I have three triples uh if I have a triple x i XJ XK I'm going to convert that into a number where the one positions are I don't really know the order but they are i j and k everything else is zero and this is in base B not base 2 okay it's a little weird all my digits are zero or one but I'm in base B and three of the digits are one and the rest are zero why because of my target sum Target sum is going to be 1 one one one one one one one one"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_112",
+    "video_id": "mit_6046_lec16",
+    "start_time": 3920.0,
+    "end_time": 3965.0,
+    "text": "are one and the rest are zero why because of my target sum Target sum is going to be 1 one one one one one one one one one okay so uh you this number you in algebra You' write this as B to the I plus b to the J plus b to the K this you would write as the sum of B to the I for all I do you see why this works it's actually really simple um when I if I'm so choosing for this instance my my goal is to choose a subset of these numbers that add up to this number how could that possibly happen well I've got to choose every time I choose one of the numbers"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_113",
+    "video_id": "mit_6046_lec16",
+    "start_time": 3955.0,
+    "end_time": 4000.0,
+    "text": "to choose a subset of these numbers that add up to this number how could that possibly happen well I've got to choose every time I choose one of the numbers those three digits get set to one in my sum if I ever have a collision if I add two ones together I'm going to get a two that's not good because once I get a two I'll never be able to get back to a one because my base is really big uh this base is designed so that the total this is the total number of colliding ones so we set it one larger than that which means you'll never get a carry when you're adding up in this base that's why I set the base to be something large not base two base two might work but this is much"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_114",
+    "video_id": "mit_6046_lec16",
+    "start_time": 3990.0,
+    "end_time": 4035.0,
+    "text": "you're adding up in this base that's why I set the base to be something large not base two base two might work but this is much safer uh so what that means is for each of these ones in the in the Target sum I've got to find a triple that has those ones and those triples can't overlap so that means choosing a set of numbers that add up to this is exactly the same as choosing a set of triples that covers all of the elements done super easy once you have the right problem okay good now why do I call this weekly NP hard because these numbers are giant uh if I have uh how's it go if I"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_115",
+    "video_id": "mit_6046_lec16",
+    "start_time": 4025.0,
+    "end_time": 4070.0,
+    "text": "problem okay good now why do I call this weekly NP hard because these numbers are giant uh if I have uh how's it go if I have n elements in XYZ over there I guess I here they're called x i y k ZK sorry maybe I should have called them that here doesn't matter uh if I have n of those elements in x x Union y Union Z the number of digits here is n right so the the number of digits is order n this is fine from an MP completeness standpoint this is"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_116",
+    "video_id": "mit_6046_lec16",
+    "start_time": 4060.0,
+    "end_time": 4105.0,
+    "text": "the the number of digits is order n this is fine from an MP completeness standpoint this is polinomial size the number of digits in my numbers is is uh polinomial and this base is also pretty small so if you wrote it out in binary it would also be polinomial just lose a log Factor okay but the size of the numbers the actual exponential okay with weak NP hardness that's allowed with strong NP hardness that's forbidden in strong NP hardness"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_117",
+    "video_id": "mit_6046_lec16",
+    "start_time": 4095.0,
+    "end_time": 4140.0,
+    "text": "exponential okay with weak NP hardness that's allowed with strong NP hardness that's forbidden in strong NP hardness you want the values of the numbers to be polom so in this case number of bits is small but the actual values are are giant okay because you have to exponentiate it would be cool and this problem is only weekly andb hard maybe you actually know a pseudo polinomial time algorithm for this it's basically napsack if these numbers are have polinomial value then uh you can basically in your sub problems in dynamic programming you can uh write down the the number T and just solve it for all values of T and"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_118",
+    "video_id": "mit_6046_lec16",
+    "start_time": 4130.0,
+    "end_time": 4175.0,
+    "text": "value then uh you can basically in your sub problems in dynamic programming you can uh write down the the number T and just solve it for all values of T and then it's easy to solve it in polinomial time polom in the uh integer values so we call that pseudo polinomial because it's not really polinomial it's not polinomial in the number of digits you have to write down the number polinomial and the values weak andp hardness goes together with pseudo polinomial um they're kind of that's kind of a matching results say look pseudo polinomial is the best you can do you can't hope for polinomial because if you let the numbers get huge then uh the problem is NP complete but if you force the numbers to be small this problem is"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_119",
+    "video_id": "mit_6046_lec16",
+    "start_time": 4165.0,
+    "end_time": 4210.0,
+    "text": "you can't hope for polinomial because if you let the numbers get huge then uh the problem is NP complete but if you force the numbers to be small this problem is easy so uh subset sum is a little funny in that sense cool I think I'm"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_120",
+    "video_id": "mit_6046_lec16",
+    "start_time": 4200.0,
+    "end_time": 4245.0,
+    "text": "let me tell you about another partition so partition is pretty much uh let's say they're positive and I want to know is their subset I'm not given a"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_121",
+    "video_id": "mit_6046_lec16",
+    "start_time": 4235.0,
+    "end_time": 4280.0,
+    "text": "to know is their subset I'm not given a forced what I would like is uh the sum of all the values in s to equal the sum of all the values not in s that's a minus s okay which in other words is going to be the sum of all the values in a divid by two so this is called Partition because you're taking a set you're splitting it into two halves of equal sum every element has to go in one of the two halves and you they're called S and A minus s it's like cuts from in"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_122",
+    "video_id": "mit_6046_lec16",
+    "start_time": 4270.0,
+    "end_time": 4315.0,
+    "text": "you're splitting it into two halves of equal sum every element has to go in one of the two halves and you they're called S and A minus s it's like cuts from in the flow stuff uh and you want those two halves to have exactly the same sum which means they will be the sum divided two so that better be even it's not going to be possible so again you want to decide this whether this is possible or impossible yes or no okay I claim this problem is also weekly NP complete and we can reduce from subset sum to partition this is a little interesting because partition is actually a special case of subset sum right it is the case where T equals this okay subset sum you're trying to"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_123",
+    "video_id": "mit_6046_lec16",
+    "start_time": 4305.0,
+    "end_time": 4350.0,
+    "text": "because partition is actually a special case of subset sum right it is the case where T equals this okay subset sum you're trying to solve it no matter what T is T is a given input so there's more instances over here some of them some of these instances are the case where T equals the sum over two those are partition instances so this is like a subset of the possible inputs as over there which means this problem is easier than this one in a no harder anyway uh in other words I can reduce partition to subset sum right I just compute this value and set that to T and then leave the A's alone that will reduce partition to subset sum but that's not the direction I want I"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_124",
+    "video_id": "mit_6046_lec16",
+    "start_time": 4340.0,
+    "end_time": 4385.0,
+    "text": "partition to subset sum right I just compute this value and set that to T and then leave the A's alone that will reduce partition to subset sum but that's not the direction I want I want to reduce from subset sum a problem I can prove is MP compete to partition because I want to prove that partition is empty complete so in this case there's an easy reduction in in both directions uh this direction is a little so I'm given a bunch of AIS I'm not going to touch them and I'm given a Target sum T and I basically want to make that Target sum into this half to"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_125",
+    "video_id": "mit_6046_lec16",
+    "start_time": 4375.0,
+    "end_time": 4420.0,
+    "text": "so I'm given a bunch of AIS I'm not going to touch them and I'm given a Target sum T and I basically want to make that Target sum into this half to do that I'm going to add two numbers to my set so I'm going to let uh Sigma be the sum of the given A's okay and then I'm going to add so I'm given A1 through a n I'm going to add uh an a n minus a a n+ one is going to be uh Sigma + T and I'm going to add uh a n +"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_126",
+    "video_id": "mit_6046_lec16",
+    "start_time": 4410.0,
+    "end_time": 4455.0,
+    "text": "be uh Sigma + T and I'm going to add uh a n + 2 to be 2 Sigma minus t Okay uh why so these are two basically numbers uh because Sigma is bigger than I mean it's the sum of all the numbers so it's bigger than all of them and so uh imagine for a moment that I put these two in the same side of the partition I put them both in s or i put them both out of s their sum by themselves is three sigma right the t's cancel whereas all the other items their"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_127",
+    "video_id": "mit_6046_lec16",
+    "start_time": 4445.0,
+    "end_time": 4490.0,
+    "text": "them both out of s their sum by themselves is three sigma right the t's cancel whereas all the other items their sum is Sigma so I'm I'm I'm host if I have three sigma on one side and sigma on the other I'm not going to make them equal okay so in fact these two elements have to be on opposite sides so there's a side that has Sigma plus T there's a side that has 2 Sigma minus t and then there's all the other n items and some of them are going to go to this side some of them are going to go to this side their total value is Sigma right now this is close to Sigma this is close to two Sigma so they have to kind of meet in the middle in fact what you'll"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_128",
+    "video_id": "mit_6046_lec16",
+    "start_time": 4480.0,
+    "end_time": 4525.0,
+    "text": "now this is close to Sigma this is close to two Sigma so they have to kind of meet in the middle in fact what you'll uh Sigma minus t over add uh T over here okay think about it for a second if I add Sigma minus t this comes out to two Sigma if I add T to this this comes out to two Sigma that would be good because they're equal and notice that this is Sigma minus t this is T their sum is Sigma so in fact it has to be like this you have to you add something over here and sigma minus something over here for all the other AIS and the something has to be T in"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_129",
+    "video_id": "mit_6046_lec16",
+    "start_time": 4515.0,
+    "end_time": 4560.0,
+    "text": "has to be like this you have to you add something over here and sigma minus something over here for all the other AIS and the something has to be T in order for these two values to equalize so in order to solve this slightly larger partition problem you have to actually solve the subset some problem because you have to con you have to construct a subset that adds up to t t was an arbitrary given value so this is pretty nifty um we're adding some values so that the new Target sum is the 50/50 split uh when we're given some values that had an arbitrary Target sum all right so partition is weekly and"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_130",
+    "video_id": "mit_6046_lec16",
+    "start_time": 4550.0,
+    "end_time": 4595.0,
+    "text": "50/50 split uh when we're given some values that had an arbitrary Target sum all right so partition is weekly and complete let me go so rectangle packing I'm going to draw the picture uh I give you a bunch of rectangles of varying"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_131",
+    "video_id": "mit_6046_lec16",
+    "start_time": 4585.0,
+    "end_time": 4630.0,
+    "text": "so rectangle packing I'm going to draw the picture uh I give you a bunch of rectangles of varying sizes and I give you a Target rectangle it's called T these are the RIS I want to put these rectangles into this picture uh without any overlaps okay this each of these rectangles here corresponds to what of the rect re angles over here so uh I'll tell you that all these re the sum of the areas of these rectangles is equal to the area of T and the question is can you pack those rectangles into T without any overlaps and therefore without any"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_132",
+    "video_id": "mit_6046_lec16",
+    "start_time": 4620.0,
+    "end_time": 4665.0,
+    "text": "the areas of these rectangles is equal to the area of T and the question is can you pack those rectangles into T without any overlaps and therefore without any gaps the areas are exactly the same I claim this problem is weakly NP hard I guess NP complete the um by a reduction easy if you followed what the definition of partition is we're given some numbers some integers Ai and we're going to take each of them and convert them into a uh"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_133",
+    "video_id": "mit_6046_lec16",
+    "start_time": 4655.0,
+    "end_time": 4700.0,
+    "text": "some integers Ai and we're going to take each of them and convert them into a uh let's say 1 by 3 AI rectangle three is to avoid some rotation we'll see and then uh we're also given the Target or no target sum is given uh Target sum is the sum over two but anyway uh we're going to build our Target uh rectangle be it's actually going to be really big but uh it's going to be uh two by 3 * t uh so this is that thing so"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_134",
+    "video_id": "mit_6046_lec16",
+    "start_time": 4690.0,
+    "end_time": 4735.0,
+    "text": "two by 3 * t uh so this is that thing so this is three Hales sum of the A's okay that's about it uh in order to pack these rectangles into here because each of them is at least three long you cannot pack them vertically they have to be horizontal so in fact what you're packing will look like is there'll be the top half and the bottom half and the top half the total lengths of those rectangles has to add up to uh three Hales sum of a everything was scaled up by three so that's half of a on the top and the bottom that's a partition in order to pack the rectangles into here you have to solve the partition problem"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_135",
+    "video_id": "mit_6046_lec16",
+    "start_time": 4725.0,
+    "end_time": 4770.0,
+    "text": "Hales sum of a everything was scaled up by three so that's half of a on the top and the bottom that's a partition in order to pack the rectangles into here you have to solve the partition problem and vice versa easy uh okay me show puzzles this is uh not the jigsaw puzzles you grew up on uh somewhat more generalized um so a piece is going to look something like"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_136",
+    "video_id": "mit_6046_lec16",
+    "start_time": 4760.0,
+    "end_time": 4805.0,
+    "text": "puzzles you grew up on uh somewhat more generalized um so a piece is going to look something like this okay uh I drew them intentionally different um so on each you have a square a unit Square some of the sides can be uh flat some of them can be tabs some of them can be Pockets each Tab and pocket has a shape and they're not in a perfect matching with each other so there could be seven of these tabs and seven of these pockets all the same shape this is what you might call ambig jigsaw puzzles plus there's no image on the piece so this is like hardcore jigsaw puzzles uh this is MP"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_137",
+    "video_id": "mit_6046_lec16",
+    "start_time": 4795.0,
+    "end_time": 4840.0,
+    "text": "shape this is what you might call ambig jigsaw puzzles plus there's no image on the piece so this is like hardcore jigsaw puzzles uh this is MP complete and what I'd like to do is to simulate a rectangle with a bunch of Jigsaw pieces so it would look this okay if I have a one by something rectangle I'm going to simulate it with that same something uh little jigsaw pieces and I'm going to make these uh shapes only match each other and so for every"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_138",
+    "video_id": "mit_6046_lec16",
+    "start_time": 4830.0,
+    "end_time": 4875.0,
+    "text": "to simulate it with that same something uh little jigsaw pieces and I'm going to make these uh shapes only match each other and so for every rectangle uh they're going to have a little a different shape okay this one will be squares at that point I run out of shape so I can easily draw but you get the idea each rectangle has a different shape and so these have to match to each other they can't you can't mix the tiles which which means you have to build this rectangle you have to build this rectangle and then if if the jigsa problem is can you fit these into a given rectangle then you get rectangle packing but this is not a valid [Music] reduction you can't"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_139",
+    "video_id": "mit_6046_lec16",
+    "start_time": 4865.0,
+    "end_time": 4910.0,
+    "text": "packing but this is not a valid [Music] reduction you can't partition because these numbers are huge remember the values of the numbers in my partition instance are exponential so if I have a value Ai and it's exponential in my problem size and I try to make AI little tiles that means the number of of Jigsaw pieces will be exponential in N that's not good that's not allowed this is why weak NP hardness is"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_140",
+    "video_id": "mit_6046_lec16",
+    "start_time": 4900.0,
+    "end_time": 4945.0,
+    "text": "Jigsaw pieces will be exponential in N that's not good that's not allowed this is why weak NP hardness is annoying so instead uh we need a strong NP hard this is a problem that's NP hard even when the numbers are polinomial in value not just in partition for partition you're given uh an integers as"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_141",
+    "video_id": "mit_6046_lec16",
+    "start_time": 4935.0,
+    "end_time": 4980.0,
+    "text": "an integers as usual uh say set is a and you want to split those integers into sum uh so this would be sum of a / n/4 that's your target sum so before we had to split into two parts that had the same sum that was partition now we have"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_142",
+    "video_id": "mit_6046_lec16",
+    "start_time": 4970.0,
+    "end_time": 5015.0,
+    "text": "sum uh so this would be sum of a / n/4 that's your target sum so before we had to split into two parts that had the same sum that was partition now we have to split into n over four parts each part will have exactly four numbers four integers and they should all have the same sum this problem is hard even when the integers have polinomial value so the values are uh at most some polinomial and N okay I won't prove it here but it's in my lecture notes if you're curious It's like this proof but harder um you end up instead of having like igit numbers you have five-digit numbers each digit is only has a"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_143",
+    "video_id": "mit_6046_lec16",
+    "start_time": 5005.0,
+    "end_time": 5050.0,
+    "text": "like this proof but harder um you end up instead of having like igit numbers you have five-digit numbers each digit is only has a polinomial and N different values so the total number of the total value of the numbers is only polinomial it's like n to the 5ifth or something good news is that this reduction I just gave you uh because uh it's the same setup again I'm given integers each integer I'm going to represent by uh that many tiles now the number of tiles is only polinomial so"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_144",
+    "video_id": "mit_6046_lec16",
+    "start_time": 5040.0,
+    "end_time": 5085.0,
+    "text": "because uh it's the same setup again I'm given integers each integer I'm going to represent by uh that many tiles now the number of tiles is only polinomial so this is a valid reduction and again if I have to pack all of these tiles into a rectangular board that's exactly the same as packing these integers well I guess I should do rectangle packing again so this is a proof rectangle packing was weakly n hard but in fact it's strongly NP hard you just change these Dimensions you say well uh I want to I need uh whatever n over4 different parts each of size the sum Over N over four you need some scale factor here three doesn't work use n"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_145",
+    "video_id": "mit_6046_lec16",
+    "start_time": 5075.0,
+    "end_time": 5120.0,
+    "text": "parts each of size the sum Over N over four you need some scale factor here three doesn't work use n something n and n that will prove that rectangle packing is actually strongly NP hard because we're reducing from four partition instead of partition and then you can reduce rectangle packing to jigsaw puzzles because you have strong hardness over over here over here we don't have numbers we just have these pieces so whenever you convert from a number problem to a non-number problem uh if you're representing the numbers in un which is what's going on here you need strong NP hardness for it to work weak NP hardness isn't enough then we get jigsaw puzzles which you know and love are empty"
+  },
+  {
+    "chunk_id": "mit_6046_lec16_chunk_146",
+    "video_id": "mit_6046_lec16",
+    "start_time": 5110.0,
+    "end_time": 5155.0,
+    "text": "weak NP hardness isn't enough then we get jigsaw puzzles which you know and love are empty"
+  }
+]

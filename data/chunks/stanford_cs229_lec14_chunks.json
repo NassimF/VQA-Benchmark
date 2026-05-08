@@ -1,0 +1,954 @@
+[
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_000",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 0.0,
+    "end_time": 45.0,
+    "text": "this presentation is delivered by the development okay so welcome back and um what I want to do today is talk about um is wrap up our discussion on factor analysis and in particular what I want to do is Step through um parts of the derivation for em for factor analysis because again there there there are few steps in the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_001",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 35.0,
+    "end_time": 80.0,
+    "text": "particular what I want to do is Step through um parts of the derivation for em for factor analysis because again there there there are few steps in the EM derivation they are particularly tricky and um that there are specific mistakes that people often make on deriving em algs algs like factor analysis so I want to show you how to do those steps right so you can apply the same ideas to other problems as well um and then in the second half or so of this lecture I'll talk about principal component analysis which is um a very powerful algorithm for um dimensionality reduction you'll see later what that means so just a recap um in the previous lecture I described a few properties of"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_002",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 70.0,
+    "end_time": 115.0,
+    "text": "reduction you'll see later what that means so just a recap um in the previous lecture I described a few properties of Gan distributions one was that um if you have a random variable a random value Vector X that can be partitioned into two portions X1 and X2 um and if x is you know Gan with mean mu and covariant sigma where mu is um itself a partition vector and um so of a partition Matrix that can be"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_003",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 105.0,
+    "end_time": 150.0,
+    "text": "vector and um so of a partition Matrix that can be written like that so I'm just writing Sigma in terms of you know the four subblocks um then you can look at the distribution of X and ask what is the marginal distribution right of say X1 um and the answer excuse me we said last time was that X1 the marginal distribution of X1 is Gan with mean mu and covariant sigma 1 one where Sigma 1 one is the upper left block of that cience Matrix Sigma right so this this one is no surprise and I"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_004",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 140.0,
+    "end_time": 185.0,
+    "text": "Gan with mean mu and covariant sigma 1 one where Sigma 1 one is the upper left block of that cience Matrix Sigma right so this this one is no surprise and I also wrote down the formula for computing conditional distributions um such as what is p of X1 given X2 and last time I wrote down that you know the distribution of X1 given X2 would also be Gan um with parameters that I wrote as Mu of 1 given two and sigma of 1 given 2 where um mu"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_005",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 175.0,
+    "end_time": 220.0,
+    "text": "two and sigma of 1 given 2 where um mu time okay so with these formulas we'll be able to look at um a pair of joint gan random variables X1 and X2 here are both vectors and compute the marginal and conditional distributions of the P"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_006",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 210.0,
+    "end_time": 255.0,
+    "text": "gan random variables X1 and X2 here are both vectors and compute the marginal and conditional distributions of the P of X1 or P of X1 given X to um so when I come back and derive the Eep actually well I'll come back and use the marginal formula in a second and then when I come back and derive the Eep in the EM Alm for factor analysis I'll actually be using these two formulas again okay um and the again just to continue um summarizing what we did last time we said that you know in factor analysis um our model let's see this is an unsupervised"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_007",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 245.0,
+    "end_time": 290.0,
+    "text": "time we said that you know in factor analysis um our model let's see this is an unsupervised learning problem and so we're given an unlabeled training set right where each XI is a vector in RN as usual and um we want to to model the density of X and um our model for X would be that we imagine there a latent random variable Z that's generating well this that's just variance and Z will be some low"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_008",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 280.0,
+    "end_time": 325.0,
+    "text": "that's generating well this that's just variance and Z will be some low where and uh we imagine the x is generated as Mu plus Lambda Z Plus Epsilon where Epsilon is a g random variable with mean zero and the coari Matrix S and so the parameters of this model are um mu which is an N dimensional Vector Lambda which is an N by D"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_009",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 315.0,
+    "end_time": 360.0,
+    "text": "model are um mu which is an N dimensional Vector Lambda which is an N by D dimensional Vector Matrix and S which is N it's a diagonal and it's a diagonal um uh Matrix so I guess the cartoon I drew last time for factor analysis was you that maybe that's a typical example of data point Z if um and in this example I had D equals 1 uh Nal 2 right so so Z in this example is onedimensional"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_010",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 350.0,
+    "end_time": 395.0,
+    "text": "data point Z if um and in this example I had D equals 1 uh Nal 2 right so so Z in this example is onedimensional equals 1 and so um you take this data map it to say some mu plus Lambda Z and that some set of points there and lastly this model was envisioning that you know you place a little gussan bump around each of these say and Sample let's change short colors"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_011",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 385.0,
+    "end_time": 430.0,
+    "text": "say and Sample let's change short colors uh the X's are then maybe that's that that that would be a typical sample of the ex's under this model okay right so how do we fit the parameters of this well the joint distribution of um"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_012",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 420.0,
+    "end_time": 465.0,
+    "text": "well the joint distribution of um znx you know is actually Galan with parameters given by some Vector I wrote as mux Z and some cience Matrix Sigma um and if you write out what those two things are this Vector mux Z is a vector of Zer dependent to the vector mu and the Matrix Matrix okay we also worked this out last"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_013",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 455.0,
+    "end_time": 500.0,
+    "text": "Matrix okay we also worked this out last um so you can ask what's the distribution of X under this model and the answer is well under this model X is mu and covariance Lambda Lambda transvers plus s right so it's just you know take the second block of the mean vector and take that lower um lower right hand corner block of the cience Matrix and so this is this is really my formula for computing the marginal distribution of a gan except"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_014",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 490.0,
+    "end_time": 535.0,
+    "text": "lower um lower right hand corner block of the cience Matrix and so this is this is really my formula for computing the marginal distribution of a gan except that I'm Computing the marginal distribution of you know the the the second half of the vector rather than the first half right so this is the marginal distribution of X under my model um and so if you want to learn yeah so the initial distribution you had that's the uh yeah let's see oh yes you're um yes so in this Bo I'm writing down the right this this is really um specifying the conditional distribution of x given Z right so um the conditional distribution of x given"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_015",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 525.0,
+    "end_time": 570.0,
+    "text": "yes so in this Bo I'm writing down the right this this is really um specifying the conditional distribution of x given Z right so um the conditional distribution of x given Z this is gussian would mean um mu plus Lambda Z and covariant S so this is what that specifying right um yeah so um since this is the marginal distribution of x given my training set of M unlabeled examples I can actually write down the log likelihood of my training set right so you know the log"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_016",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 560.0,
+    "end_time": 605.0,
+    "text": "distribution of x given my training set of M unlabeled examples I can actually write down the log likelihood of my training set right so you know the log likelihood of my training set um actually let me just write down the likelihood right so the likelihood of my excuse me the likelihood of my parameters given my training set is the product from IAL 1 to M of P of x i you um I can actually write down what that is because XI is Gan with parameter mu and variance LDA LDA transpose Time s so you can just write this down as you know 1"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_017",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 595.0,
+    "end_time": 640.0,
+    "text": "is because XI is Gan with parameter mu and variance LDA LDA transpose Time s so you can just write this down as you know 1 of right and then right so that's my formula for the density of a gan that"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_018",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 630.0,
+    "end_time": 675.0,
+    "text": "right so that's my formula for the density of a gan that has mean mu and Co Varian Lambda Lambda transpose plus I okay so this is my likelihood of the parameters given a training set and one thing you could do is actually take this likelihood and try to maximize it in terms of the parameters try to find the maximum likelihood estim of parameters um but if you do that you find that if you try you know take log to get the log like here take der set D equal to zero you find that you'll be unable to solve for the maximum of this um"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_019",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 665.0,
+    "end_time": 710.0,
+    "text": "you try you know take log to get the log like here take der set D equal to zero you find that you'll be unable to solve for the maximum of this um analytically right and so so if you you won't be able to solve this maximum likely estimation problem if you take the derivative of this respect to the parameters set the derivators equals to zero and try to solve for the value of the parameters Lambda mu and S that maximizes you so if you won't be able to do that go and try to join so what we'll do what what we'll use instead um to estimate the parameters in our factor analysis model"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_020",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 700.0,
+    "end_time": 745.0,
+    "text": "Al yeah why is the log not oh right okay so question is why why why is the likelihood p ofx and not P ofx given Z or p ofx and Z so the answer is let's see we're in an um so by analogy to the mixture of Gan distributions models um you know we're given a training set that just comprises um an unlabeled training a set of unlb"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_021",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 735.0,
+    "end_time": 780.0,
+    "text": "distributions models um you know we're given a training set that just comprises um an unlabeled training a set of unlb training examples but you know for convenience for whatever reason um it's easier for me to write down a model that defines the joint Distribution on P of X comma Z but um what I would like to do is really maximize you know as a function of my parameters I'm using Theta as a Shand to do all the parameters of the model I want to maximize the probability of the data I actually observed and this would"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_022",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 770.0,
+    "end_time": 815.0,
+    "text": "maximize the probability of the data I actually observed and this would be actually Max over Theta product from I = 1 to M and this is Z okay so I only ever get to observe x's and the z's are latent random variables or hidden random variables and so um what I like to do is do this maximization in which I've implicitly integrated out Z does that make sense okay"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_023",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 805.0,
+    "end_time": 850.0,
+    "text": "maximization in which I've implicitly integrated out Z does that make sense okay cool um are there other questions about so okay"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_024",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 840.0,
+    "end_time": 885.0,
+    "text": "um right in the East step we compute the um you know conditional distribution of Z given XI and our current setting of The parameters and then the M"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_025",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 875.0,
+    "end_time": 920.0,
+    "text": "and in the mend step we perform this maximization um and if this looks a little bit different from the previous versions of em that you've seen the only difference is that now I'm integrating over z uh because Z is is now is is now gy random variable it's now this continuous value thing so rather than"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_026",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 910.0,
+    "end_time": 955.0,
+    "text": "difference is that now I'm integrating over z uh because Z is is now is is now gy random variable it's now this continuous value thing so rather than summing over zi Now integrate over zi um and if you replace this integr over sum you give a dzi then this is exactly the M step you saw when we worked it out for the mixture of gum small than the other models so it turns out that um in order to implement the E step and the M step there are just two little things actually there actually three key things that are different from the models that you saw previously want to talk about them um the first one is that uh the first of the three is maybe the simplest which is that in the Eep um Z is now a continuous value random"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_027",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 945.0,
+    "end_time": 990.0,
+    "text": "talk about them um the first one is that uh the first of the three is maybe the simplest which is that in the Eep um Z is now a continuous value random variable and so um you know to you now need a way to represent these continuous value densities probabbly density functions to represent Qi of z um [Applause] so fortunately um in this problem is not difficult to particular right um the conditional distribution of Z given XI and and our parameters which I'm going to open it from this equation"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_028",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 980.0,
+    "end_time": 1025.0,
+    "text": "particular right um the conditional distribution of Z given XI and and our parameters which I'm going to open it from this equation be um Galan with mean and Co variance given by you know these two things I write like where this is going to be equal to the okay and um the way I got this formula"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_029",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 1015.0,
+    "end_time": 1060.0,
+    "text": "okay and um the way I got this formula was um if you if you match this to the formula I had previously for computing conditional distributions of gaussians you know this corresponded to the terms mu1 minus Sigma 1 2 Sigma 22 inverse * X2 - mu okay so those are the terms corresponding to the formula I had previously for computing the marginal distributions of a"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_030",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 1050.0,
+    "end_time": 1095.0,
+    "text": "again those are the terms corresponding to the formulas I had for the um uh the the the very first thing I did the the the formulas for computing conditional distributions of gines okay um and so this is Eep you need to compute the Q distribution you need to compute excuse me Qi of Z and to do that what you actually do is you compute this Vector"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_031",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 1085.0,
+    "end_time": 1130.0,
+    "text": "distribution you need to compute excuse me Qi of Z and to do that what you actually do is you compute this Vector mu of zi given XI and sigma of Z given x i um and together these represent the mean and Co variance of the distribution Q where Q is going to be gum so that's the Eep um now here's the M step then and um just mention the the there are so of two ways to do to derive M steps for for for especially Galaxy models like these"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_032",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 1120.0,
+    "end_time": 1165.0,
+    "text": "then and um just mention the the there are so of two ways to do to derive M steps for for for especially Galaxy models like these um and here's the key trick I guess which is that when you compute the mstep you often need to compute integrals that look like these right and then there'll be some function of Z let me just write z there for instance right so there are two ways to compute integrals like these one is if you write out this is a common made mistake in in well not mistake common made un necessary complication I guess um one way to try to compute this integral is you can write this out as integral of a z and well we know what Qi"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_033",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 1155.0,
+    "end_time": 1200.0,
+    "text": "made un necessary complication I guess um one way to try to compute this integral is you can write this out as integral of a z and well we know what Qi is Right Qi is a gan so you know 2 pi so d/ 2 um the co Varian of Qi is this Sigma given x i right which you've computed in the Eep and then times e to the minus 12 Z minus uh mu of Z given x i you"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_034",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 1190.0,
+    "end_time": 1235.0,
+    "text": "so that's my Gan density and then times Z dzii okay and so writing the zel is the unnecessarily complicated way to do it because once you've written out this integral if you want to you know actually integrate that's the times right it's multiplication you want to if you actually want to evaluate this integral it just looks horribly complicated I'm not quite sure how to evaluate this um by far the simpler way to evaluate this"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_035",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 1225.0,
+    "end_time": 1270.0,
+    "text": "integral it just looks horribly complicated I'm not quite sure how to evaluate this um by far the simpler way to evaluate this integral is to recognize that this is just the expectation with respect to Z Qi of the random variable Z and once you write it out this way you notice that well this is just the expected value of Z under the distribution Qi but Qi is a gan distri distribution you know with mean given by that mu vector and coari given by that Sigma vector and so the expected value of Z"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_036",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 1260.0,
+    "end_time": 1305.0,
+    "text": "you know with mean given by that mu vector and coari given by that Sigma vector and so the expected value of Z under this distribution is just mu of Z given XI okay does make sense so by making this observation that this is just an expected value this is a much easier way to compute that integral um um yeah so we'll apply the same idea to the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_037",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 1295.0,
+    "end_time": 1340.0,
+    "text": "um yeah so we'll apply the same idea to the right there there's also sum over I there's Al summation over I outside but this is essentially the term inside the agmax of the mstep where you know taking the integral of a z and and just observe that that's actually that just corresponds to an"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_038",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 1330.0,
+    "end_time": 1375.0,
+    "text": "this is essentially the term inside the agmax of the mstep where you know taking the integral of a z and and just observe that that's actually that just corresponds to an expectation respect to the random variable Z of the thing"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_039",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 1365.0,
+    "end_time": 1410.0,
+    "text": "okay um and it turns out actually all all I did here was use the fact that you know P of x given Z * P of Z equals P of X comma Z right that's just combining this term and that term gives you the numerator in the original um and so it turns out that for factor analysis um in in in these two terms"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_040",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 1400.0,
+    "end_time": 1445.0,
+    "text": "numerator in the original um and so it turns out that for factor analysis um in in in these two terms parameters um the distribution P of Z has no parameters because Z was just drawn from a gan with zero mean and identity Co variance you know Qi of Z is this fixed Galan it doesn't depend on a parameters theeta um and so in the mstep we really just need to maximize this one term with respect to our parameters um mu Lambda and S okay so"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_041",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 1435.0,
+    "end_time": 1480.0,
+    "text": "term with respect to our parameters um mu Lambda and S okay so see yeah there's sort of one more key step I want to show but to get there I have to write down sort of an unfortunately large amount of math but let's let's"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_042",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 1470.0,
+    "end_time": 1515.0,
+    "text": "maximize um and our our expectations with with respect to Z drawn from the distributions Qi and sometimes I'll be okay and now um this distribution right P of z p of x"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_043",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 1505.0,
+    "end_time": 1550.0,
+    "text": "okay and now um this distribution right P of z p of x i given Z that is a gan density because um you know x i given z um this is Gan with mean given by right mu plus LDA Z and covariant S and so um in this step of the derivation I will actually go ahead and substitute in the formula for the gum density so I will go ahead and take this and you know plug into here 1 over 2 pi to the N / 2 um s inverse e to the dot dot dot okay so we'll go ahead"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_044",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 1540.0,
+    "end_time": 1585.0,
+    "text": "take this and you know plug into here 1 over 2 pi to the N / 2 um s inverse e to the dot dot dot okay so we'll go ahead and plug the Gin density and when you do oh excuse me right I forgot to say um to maintain sort of I don't know to to to not make the derivation too complicated I'm actually just going to maximize this with respect to the parameters Lambda okay so let me just show how to so you want to maximize this with respect to Lambda s and mu but just to keep the amount of math I'm going to do it in class s I'm just going to show how to"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_045",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 1575.0,
+    "end_time": 1620.0,
+    "text": "with respect to the parameters Lambda okay so let me just show how to so you want to maximize this with respect to Lambda s and mu but just to keep the amount of math I'm going to do it in class s I'm just going to show how to maximize this with respect to the Matrix Lambda and I'll pretend that s are fixed okay and so um if you subtitute in the Galax density you get some expect expected value of a constant um the constant may depend on S but not on"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_046",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 1610.0,
+    "end_time": 1655.0,
+    "text": "thing okay um and this quadratic term essentially came from you know the exponent in your Gan density when I take log of exponent then you end up with this quadratic term um and"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_047",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 1645.0,
+    "end_time": 1690.0,
+    "text": "lomda and you set that to zero right so um we want to maximize this expression with respect to the paramet Lambda so you take the derivative of this with respect to Lambda oh excuse me minus sign in set the derivative of this expression um to zero set der is equal to zero to maximize things right um when you do that and simplify you end up with the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_048",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 1680.0,
+    "end_time": 1725.0,
+    "text": "um to zero set der is equal to zero to maximize things right um when you do that and simplify you end up with the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_049",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 1715.0,
+    "end_time": 1760.0,
+    "text": "um okay and so that's the um in the M step this is the value you get this is a value you should get um yeah that that should use update your expectations um are with respect to Z drawn from the distributions Qi"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_050",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 1750.0,
+    "end_time": 1795.0,
+    "text": "expectations um are with respect to Z drawn from the distributions Qi right so the very long step of this derivation is um we need to work out what these two expect ations are and so the very first term you know e Z given XI transpose because because the QI distribution is has mean given by this in right um to work out the other term"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_051",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 1785.0,
+    "end_time": 1830.0,
+    "text": "QI distribution is has mean given by this in right um to work out the other term um let me just remind you I guess that if um if you have a random variable Z this Gan with mean mu and coari sigma then the cience Matrix Sigma is ezz transpose transpose that's you know one of the definitions of the covariance and so this implies that ezz transpose"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_052",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 1820.0,
+    "end_time": 1865.0,
+    "text": "transpose that's you know one of the definitions of the covariance and so this implies that ezz transpose e easy here um becomes Sigma Z given mu [Music]"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_053",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 1855.0,
+    "end_time": 1900.0,
+    "text": "[Music] okay um and so that's how you compute e of zi transpose and E of Z zi transpose and substitute them back into this formula and you would then have your mstep update to the parameter Matrix ler um and the last thing I want to point out in this derivation is that it turns out it's probably because of the name em algorithm expectation maximization um one common mistake for the EM algorithm is in the Eep um someone to take the expectation of the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_054",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 1890.0,
+    "end_time": 1935.0,
+    "text": "maximization um one common mistake for the EM algorithm is in the Eep um someone to take the expectation of the random variable Z and then in the M step they just plug in the expected value everywhere you see it right so in particular one common mistake in deriving em for factor analysis is to look at this and say oh look I see ZZ trans spells let's just plug in the expected value under the Q distribution that right mu of zi given XI * mu of Z given XI transpose into that expectation and this is and this is an incorrect D and that would be an incorrect"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_055",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 1925.0,
+    "end_time": 1970.0,
+    "text": "that right mu of zi given XI * mu of Z given XI transpose into that expectation and this is and this is an incorrect D and that would be an incorrect derivation of em and because um it's missing this other term Sigma of Z given x i okay so so one common misconception for em is that in the E step you just compute the expected value of the Hidden random variable and the M step you plug in the expected value and it turns out in some algorithms that turns out to be the right thing to do in in the mixture of gaussians and in the mixture of naive based models that would actually give me the right answer but in general the EM Alm is more complicated than just taking the expected values of the random variables and then pretending that you know they were sort of observe that the expected values okay so I want to go through this just to illustrate that step as"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_056",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 1960.0,
+    "end_time": 2005.0,
+    "text": "the expected values of the random variables and then pretending that you know they were sort of observe that the expected values okay so I want to go through this just to illustrate that step as well um and so just to summarize the three you know the three key things to keep in that that that came up in this derivation were one for the Eep we had a continuous gine random variable and so to compute the Eep we actually compute the mean and Co variance of the G of the distribution Qi um the second thing that came up was um in the mstep when you see these integrals uh sometimes if you expect the interpret that as an expectation then the rest of the math becomes much easier and the final thing"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_057",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 1995.0,
+    "end_time": 2040.0,
+    "text": "these integrals uh sometimes if you expect the interpret that as an expectation then the rest of the math becomes much easier and the final thing was again in the mstep um you know the EM algorith is derived by a certain maximum ation problem that we Sol is not necessarily just plugging the expected value of Z everywhere okay um let's see okay feel like you just did a ton of math and wrote down way too many equations um and and and even doing this that was skipping many steps so you can go to lecture notes to see you know the deriv all the steps all the derivations of the steps I skipped like how you actually take der with respect to the Matrix lomer um and how to compute the updates for the other parameters as well for Mu for size since"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_058",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 2030.0,
+    "end_time": 2075.0,
+    "text": "the derivations of the steps I skipped like how you actually take der with respect to the Matrix lomer um and how to compute the updates for the other parameters as well for Mu for size since this is only for Lambda um and so that's the factor analysis algorithm um just I was just wondering uh in the step in the lower right board well you said that uh I guess the second term doesn't have any parameters uh that we're interested in the first term has all the parameters so we'll just drop but uh it seems to me that Qi is uh has a lot of has a lot of parameters um let's see right um let's see so question right so you know doesn't the term Qi"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_059",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 2065.0,
+    "end_time": 2110.0,
+    "text": "but uh it seems to me that Qi is uh has a lot of has a lot of parameters um let's see right um let's see so question right so you know doesn't the term Qi have parameters right so um so in the EM algorithm um Qi is um actually sends out in the EM algorithm sometimes P of z may have parameters but Qi of zi may never have any parameters um in in the specific case of factor analysis P of Z doesn't have parameters um in in in another example and make sure gan's model say Z was a multinomial random variable and so in that example Pi P of Z had some parameters but it turns out that Q of zi will never have any parameters and in"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_060",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 2100.0,
+    "end_time": 2145.0,
+    "text": "sure gan's model say Z was a multinomial random variable and so in that example Pi P of Z had some parameters but it turns out that Q of zi will never have any parameters and in particular you know Qi of zi is going to be um uh is is this Gan distribution right is you know is Gan with mean given by mu of Z given XI and coari you know and so um it's true that mu and sigma made themselves have depended on the values of the parameters I had in the previous iteration of em but um the way I think"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_061",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 2135.0,
+    "end_time": 2180.0,
+    "text": "um it's true that mu and sigma made themselves have depended on the values of the parameters I had in the previous iteration of em but um the way I think about Q is I'm going to take the parameters from the previous iteration of the algorithm and use that to compute what Qi of Z is and that's that's that's the Eep and EM algorithm and then once I computed what Qi of Z is then this is a fixed distribution and I'm going to use these fixed values for mu and sigma and just keep these two values fixed as I as I run the M step see so those okay I guess I was confused because because in the in the uh the the second board over there's a lot of it looks like there parameters"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_062",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 2170.0,
+    "end_time": 2215.0,
+    "text": "run the M step see so those okay I guess I was confused because because in the in the uh the the second board over there's a lot of it looks like there parameters but I guess they're old iterations of the yeah yes yeah yeah you're right yeah the the the when I wrote down Qi zi that was a function of so yeah the parameters from the previous generation and I want to compute the new setting of questions okay cool um boy so this is probably the most math I'll ever do in the lecture in this entire qu there"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_063",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 2205.0,
+    "end_time": 2250.0,
+    "text": "questions okay cool um boy so this is probably the most math I'll ever do in the lecture in this entire qu there let's now talk about a different um actually which board was I on"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_064",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 2240.0,
+    "end_time": 2285.0,
+    "text": "so what I want to do now is talk about analysis um she soften abbreviated uh PCA and here's the idea um PCA has a very similar motivation as factor analysis"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_065",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 2275.0,
+    "end_time": 2320.0,
+    "text": "abbreviated uh PCA and here's the idea um PCA has a very similar motivation as factor analysis but it sort of maybe gets to the problem um you know a little bit more directly than just factor analysis um so question is given right so still doing unsupervised learning so given a training set of um M examples where each XI um is an N dimensional as usual what I like to do is reduce"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_066",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 2310.0,
+    "end_time": 2355.0,
+    "text": "usual what I like to do is reduce set where K is less is um strictly less than n and often and and quite often it'll be much much smaller than n um so I'm give a couple examples of why we want to do this um imagine that you're given a data set that contains measurements and you know unknown to you I don't know measure measurements of I don't know P Pole or something um and unnown to you whoever collected this data actually included the height of the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_067",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 2345.0,
+    "end_time": 2390.0,
+    "text": "don't know P Pole or something um and unnown to you whoever collected this data actually included the height of the person in centimeters as well as the height of the person in inches and so because they're rounding off to the nearest centimeter or rounding off to the nearest inch the values won't exactly match up but you know along two um it'll lie extremely close to the straight line right but but it won't lie exactly on a straight line because they rounding off to the nearest centimet or inch but L very close the straight line and so um we have a data set like this it seems that you know what you really care about is is that axis right is and"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_068",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 2380.0,
+    "end_time": 2425.0,
+    "text": "inch but L very close the straight line and so um we have a data set like this it seems that you know what you really care about is is that axis right is and this is s of really this axis is really interest you know that's May the closest thing you have to the TR height of a person and um you know this other axis is just noise okay and so if you can reduce the dimension of this data from two-dimensional to onedimensional um then maybe get rid of some noise in this data um and quite often you won't know that this was CM and this was inches you may have a data set with 100 attributes but you just didn't happen to"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_069",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 2415.0,
+    "end_time": 2460.0,
+    "text": "this data um and quite often you won't know that this was CM and this was inches you may have a data set with 100 attributes but you just didn't happen to notice one was CM one was inches right um another Mo and another example that I sometimes think about is you know some of you know that my students and I um uh work with autonomous helicopters a lot right and so um you imagine that you take you know surveys of quizzes or measurements of radio control helicopter Pilots um maybe one axis you have measurements skill yeah of how skillful your"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_070",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 2450.0,
+    "end_time": 2495.0,
+    "text": "measurements skill yeah of how skillful your helicopter pilot is and um on another axis maybe you measure how much they actually enjoy flying and maybe this is really maybe this is actually roughly onedimensional data and there's some you know intrinsic variable aptitude that somehow determines the skill and how much they enjoy finding something and so again if you can reduce this data from two Dimensions to onedimensional maybe it have a slightly better measure of you know what I'm"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_071",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 2485.0,
+    "end_time": 2530.0,
+    "text": "skill and how much they enjoy finding something and so again if you can reduce this data from two Dimensions to onedimensional maybe it have a slightly better measure of you know what I'm calling Loosely pilot apptitude which may be what you're really wanting to capture okay so let's talk with an Al room to do this and um I should come back and talk about more applications of"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_072",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 2520.0,
+    "end_time": 2565.0,
+    "text": "um before running PCA is normally you pre-process the data as follows um I'll"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_073",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 2590.0,
+    "end_time": 2635.0,
+    "text": "um okay let something I know some of you writing well okay so this is maybe just unnecessary amount of writing to say that you know compute the mean of my training set and subtract out the means so now I've zeroed out the mean of my training set and the other step is um I'll compute the variance of each of my features you after zeroing out the mean and then I'll divide by divide each feature by the standard deviation so that each of my features now has equal variance so these are so standard"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_074",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 2625.0,
+    "end_time": 2670.0,
+    "text": "features you after zeroing out the mean and then I'll divide by divide each feature by the standard deviation so that each of my features now has equal variance so these are so standard pre-processing that will often do for PCA um I just mentioned that sometimes um the second step is usually done only when your different features are on different scale so if um I don't know if you're taking measurements of people and so you know one one one feature may be their height then another may be their weight another maybe be the strength another maybe I don't know how the age or whatever all of these all of these quantities on very different scales and so um you normally normalize the variance sometimes if all the XIs are the qu same type of thing um so for"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_075",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 2660.0,
+    "end_time": 2705.0,
+    "text": "so um you normally normalize the variance sometimes if all the XIs are the qu same type of thing um so for example if um you're taking uh you're working with images and the x i JS are the pixels of different you know are on the same scale because they're all pixel intensity values ranging from 0 to 255 then you may forget then you may omit this step okay um so after pre-processing let's talk about how we would find the um main axes along which the data varies or how we find the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_076",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 2695.0,
+    "end_time": 2740.0,
+    "text": "the data varies or how we find the that um let me describe let me just go through one specific example and then we'll formalize the okay here's my training set comprising five examples and you it has roughly zero mean and and and the variance on the uh"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_077",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 2730.0,
+    "end_time": 2775.0,
+    "text": "okay here's my training set comprising five examples and you it has roughly zero mean and and and the variance on the uh you know X1 and X2 axis are the same X1 that's X2 axis and so you know the principal axis the variation of this data is roughly the the the the positive 45° axis right so what I like to do is have my algorithm conclude that this direction that I've drawn with this Arrow U is is is the best Direction onto which to project the data so the the axis by which my data really varies um so let's think about how we formalize that right well one thing on look at is"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_078",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 2765.0,
+    "end_time": 2810.0,
+    "text": "axis by which my data really varies um so let's think about how we formalize that right well one thing on look at is um suppose I take that axis this is really the axis onto which I want to project on that I want to capture use to capture most of the variation of my data and I take my training set and project it onto this line right did not get you know that set of points okay and so you notice that those dots the projections of my training sets onto this axis um has very large variance right in contrast if I were to choose um"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_079",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 2800.0,
+    "end_time": 2845.0,
+    "text": "this axis um has very large variance right in contrast if I were to choose um a different direction let's say this is really the orthogonal in the worst Direction onto which to project my data axis right then I find that the projections of my data onto the um purple line onto this other line has much smaller variance that my points are clustered together much more tightly okay so one way to formalize this notion"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_080",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 2835.0,
+    "end_time": 2880.0,
+    "text": "purple line onto this other line has much smaller variance that my points are clustered together much more tightly okay so one way to formalize this notion of finding the the the the um the main axis of variation of data is I would like to find a vector U I would like to find the direction U so that when I project my data onto that direction um the projected points vary as much as possible so in other words I'm going to find find a Direction so that when I project my data onto it you know the projections are largely widely [Applause]"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_081",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 2870.0,
+    "end_time": 2915.0,
+    "text": "[Applause] see um so I want to find the direction U and um just a reminder if I have a vector U of Norm one then the length of um a vector x i"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_082",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 2905.0,
+    "end_time": 2950.0,
+    "text": "one then the length of um a vector x i well then the vector x i projected onto U you know has length um x i transverse U right this is the to to project a vector on to um to Project X onto unit Vector the length of the projection is just X I transpose U um and so to formalize my PCA problem I'm going to choose the vector U to maximize right so I choose use and this"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_083",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 2940.0,
+    "end_time": 2985.0,
+    "text": "um and so to formalize my PCA problem I'm going to choose the vector U to maximize right so I choose use and this is subject to the constraint that the norm of U that the length of U is one um but I'm going to M um the length of the project projection of the vectors X onto U okay in particular I want the sum of square distances of the projections to be far from the origin I want the projections of X on U to have large variant and just to simplify some of the math later let me put a one over m in"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_084",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 2975.0,
+    "end_time": 3020.0,
+    "text": "be far from the origin I want the projections of X on U to have large variant and just to simplify some of the math later let me put a one over m in front um and so that quantity on the right um is equal to 1 / m c let's see U transfers XI times x I transfers U right and so um Can simplify and I get this is U"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_085",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 3010.0,
+    "end_time": 3055.0,
+    "text": "um so want to maximize UT transpose time some Matrix time U subject to the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_086",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 3045.0,
+    "end_time": 3090.0,
+    "text": "um so want to maximize UT transpose time some Matrix time U subject to the constraint that the length of U must be equ Al to one um and so some of you recognize that this means U must be the Principal ARG Vector of this Matrix in the middle right so let me just write that down I'll say a few more words about it so Vector um of the Matrix and I'll just call this Matrix Sigma it actually turns out the co variance Matrix"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_087",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 3080.0,
+    "end_time": 3125.0,
+    "text": "Vector um of the Matrix and I'll just call this Matrix Sigma it actually turns out the co variance Matrix M SP okay um actually let's check how many of you are how many of you are familiar with igen vectors wow cool most um yeah well what about the save PR is is it's very extremely familiar but this it's worth it's worth saying anyway um so right so if um uh if you have a matrix a and you have a vector U and they satisfy Au U"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_088",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 3115.0,
+    "end_time": 3160.0,
+    "text": "it's worth it's worth saying anyway um so right so if um uh if you have a matrix a and you have a vector U and they satisfy Au U equals Lambda U then this is what it means for U to be an a vector of the um and uh the value LDA here is called value right and so the principal ion Vector is just the ion Vector that corresponds to the largest ion value value um one thing that you may that some of you may have seen but I'm not sure that you have I just just want to relate this to stuff you already know as well is that um you know optimization"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_089",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 3150.0,
+    "end_time": 3195.0,
+    "text": "value um one thing that you may that some of you may have seen but I'm not sure that you have I just just want to relate this to stuff you already know as well is that um you know optimization problem is really maximize U transpose U subject to the norm of U is equal to one right and um let me write that constraint as that U transpose U equals 1 and so con to to to solve this sort of you know constraint optimization problem"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_090",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 3185.0,
+    "end_time": 3230.0,
+    "text": "multiplier right um and so because this is a constraint optimization right and so to actually solve this optimization you take the derivative of L with respect to U and that gives you um Sigma U minus Lambda U you set the derivative equals to zero and this shows that Sigma U equals Lambda U and therefore the value of U that solves this you know constraint optimization problem that we care about must be an ARG Vector of Sigma and in particular it turns out to be the Principal AR Vector"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_091",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 3220.0,
+    "end_time": 3265.0,
+    "text": "that solves this you know constraint optimization problem that we care about must be an ARG Vector of Sigma and in particular it turns out to be the Principal AR Vector okay so just to summarize um what have we done we're shown that given a training set if you want to find the principal axis of variation of data you want to find you know the 1D axis on which the data really varies the most what we do is we construct The cience Matrix Sigma the the the the Matrix Sigma that I wrote down just now and then you would find the principal ion Vector of the Matrix Sigma and um this gives you the best 1D Subspace onto"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_092",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 3255.0,
+    "end_time": 3300.0,
+    "text": "then you would find the principal ion Vector of the Matrix Sigma and um this gives you the best 1D Subspace onto which to project the data um and more"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_093",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 3290.0,
+    "end_time": 3335.0,
+    "text": "um and more generally if you want a k dimensional Subspace onto which to project your data you would then choose U1 for UK to be the top K ion vectors of Sigma and by top K ion vectors I just mean the I vectors corresponding to the K highest igen values um I guess I showed this only for"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_094",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 3325.0,
+    "end_time": 3370.0,
+    "text": "Sigma and by top K ion vectors I just mean the I vectors corresponding to the K highest igen values um I guess I showed this only for you know for the case of a 1D Subspace but this holds more generally um and now the ion vectors U1 for UK um represent so give you a new basis with which to represent your data okay so yeah is different ax that has to Beal uh let's see so by convention in PCA we will choose the axis yeah right so um this wor I'm saying so here's here's just one more example imagine that you"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_095",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 3360.0,
+    "end_time": 3405.0,
+    "text": "will choose the axis yeah right so um this wor I'm saying so here's here's just one more example imagine that you have a thre dimensional data set um and imagine that your three dimensional data set it's very hard to draw in 3D on the board so let me let me try this um imagine that you know my X1 and X2 axes line the plane of the board and the X3 axis points directly out the board right so imagine that you have a data set where um most of the data lies on the plane of the board but there just a little bit of fuzz so imagine that you know the XV axis points orthogonally all of the board and all the data lies roughly in the plane of the board but there's just"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_096",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 3395.0,
+    "end_time": 3440.0,
+    "text": "the board but there just a little bit of fuzz so imagine that you know the XV axis points orthogonally all of the board and all the data lies roughly in the plane of the board but there's just s of like a tiny little bit of fuzz that so that so that some of the data lies just a couple of millimeters off the board right so you run PC on this data you find that um U1 and U2 will be some pair of bases that you know essentially lie in the plane of the board and uh u3 will be an orthogonal axis that points roughly out of the plane of the board okay so um if I reduce this data to two dimensions then the bases U1 and U2 Now give me a new basis with which to"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_097",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 3430.0,
+    "end_time": 3475.0,
+    "text": "board okay so um if I reduce this data to two dimensions then the bases U1 and U2 Now give me a new basis with which to construct my lower dimensional representation of the data um just be conf about what that had right we have say fairly High dimensional uh input data x i and RN and now if I want to represent my data and this you know new basis given by U1 up to"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_098",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 3465.0,
+    "end_time": 3510.0,
+    "text": "to is that um I would take each of my original training examples x i and I would now represent it or replace it with a different Vector which I call Yi and that will be computed as U1 transpose"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_099",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 3500.0,
+    "end_time": 3545.0,
+    "text": "um the Yi are going to be K dimensional where K will be less you know your choice of K will be less than n so this represents a lower dimensional representation of your data and this represents so an approximate representation of your original data where you're using only K numbers to represent each training example rather"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_100",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 3535.0,
+    "end_time": 3580.0,
+    "text": "um let's yeah have vectors have triv vectors uh is it possible to have not have igen vectors have trivial igen vectors it's only determined by your data s need let's see what do you mean by"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_101",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 3570.0,
+    "end_time": 3615.0,
+    "text": "need let's see what do you mean by factors oh okay yes so I see yeah so see get this right so there's some there's some matrices that that that that um I think degenerate that don't have a full set of ion vectors um sorry deficient I think is what it's called is that right ziko yeah so some matrices are deficient and actually don't have a full don't don't don't have a full set of I vectors so then you like an N byn Matrix that does not have n distinct vectors but that turns out not to be possible in this case because um The ciance Matrix Sigma is symmetric and symmetric uh matrices are never deficient so the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_102",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 3605.0,
+    "end_time": 3650.0,
+    "text": "does not have n distinct vectors but that turns out not to be possible in this case because um The ciance Matrix Sigma is symmetric and symmetric uh matrices are never deficient so the Matrix Sigma will always have a full set of ion vectors um it's possible that you know if you um uh yeah there's one issue which is repeated I values so um uh for example it turns out that um in this in this example if my covariance Matrix looks like this right yeah 0.01 I guess right it turns out that the identity of the first two ion vectors is ambiguous um and by that I mean um you can choose this to be U1 and this to be"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_103",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 3640.0,
+    "end_time": 3685.0,
+    "text": "guess right it turns out that the identity of the first two ion vectors is ambiguous um and by that I mean um you can choose this to be U1 and this to be U2 or I can just as well rotate these ion vectors I can choose that to be U1 and that to be U2 or even you know choose that to be U1 and choose that to be U2 and so on and so um when you apply PCA one thing to just keep in mind is um sometimes ion vectors can rotate freely within their subspaces um when you have repeat ion values or or close to repeat ion values and so um the way to think about the vectors use think of as a bases with which to represent your data"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_104",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 3675.0,
+    "end_time": 3720.0,
+    "text": "ion values and so um the way to think about the vectors use think of as a bases with which to represent your data but you know the bases vectors can sometimes rotate freely and so it's not always useful to look at the ion vectors one at a time and say you know this is my first ion vector and it's capturing whatever the the the height of the person a second I Vector it captures the skill at this t or whatever that's a very dangerous thing to do when you do the people when you do PCA um what's what is Meaningful is the Subspace spanned by the igen vectors but looking at the IG vectors one at a time is sometimes a dangerous thing to do okay because because it can often rotate freely or tiny numerical changes can cause I con vectors to change a lot but"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_105",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 3710.0,
+    "end_time": 3755.0,
+    "text": "sometimes a dangerous thing to do okay because because it can often rotate freely or tiny numerical changes can cause I con vectors to change a lot but the Subspace Spann by the top k i con same um all right um actually turns out there are multiple"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_106",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 3745.0,
+    "end_time": 3790.0,
+    "text": "um actually turns out there are multiple possible interpretations of PCA um I'll just give one more without proof which um you know whatever given a trading set like this um another view of PCA is and let me just choose the direction this is not the principal components right um and choose some direction and project my it this is clearly not the direction PCA would choose but what you can think of PC as doing is choose a Subspace onto"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_107",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 3780.0,
+    "end_time": 3825.0,
+    "text": "it this is clearly not the direction PCA would choose but what you can think of PC as doing is choose a Subspace onto which to project your data so as to minimize the sum of squares uh differences between the projections and the original points so in other words um another way to think of PCA is trying to minimize the sum of squares of these of of of these distances between know the dots the the the points X and the dots onto which I'm projecting the data um and it turns out they're actually they're actually I don't remember there's like nine or 10 different interpretations of PCA and this is this is another one there a bunch of uh ways to derive PCA you you and you you you get to play with some of"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_108",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 3815.0,
+    "end_time": 3860.0,
+    "text": "don't remember there's like nine or 10 different interpretations of PCA and this is this is another one there a bunch of uh ways to derive PCA you you and you you you get to play with some of you get to play with PCA ideas more in the next problem set um what I want to do next is um okay actually what I want to do next is um talk about a few applications of PCA so here are some ways that PCA is used"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_109",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 3850.0,
+    "end_time": 3895.0,
+    "text": "so here are some ways that PCA is used visualization right um very often you have high dimensional data sets someone gives you like a 50 dimensional data set and it's very hard to for you to look at the data set that's 50 dimensional and understand what's going on because you can't plot something in 50 Dimensions um so common practice if you want to visualize a very high dimensional data set is to take your data and project it into say a 2d plot or project into a 3D plot so you can you render like a 3D display on your computer um so you can better visualize"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_110",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 3885.0,
+    "end_time": 3930.0,
+    "text": "your data and project it into say a 2d plot or project into a 3D plot so you can you render like a 3D display on your computer um so you can better visualize the data and look for structure um one particular cool example that that I learned about of doing this recently was in Krishna shano's lab here in Stanford uh in which he um he had readings from 50 different parts of a monkey brain I actually don't was the number of 50 but of tens of Parts different parts of monkey Reign and so you know youd have this 50-dimensional readings of 5050 dimensional vectors correspond to different amounts of electrical activities in different parts of the monkey brain there's actually 50 neurons but you tens of neurons um but it was"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_111",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 3920.0,
+    "end_time": 3965.0,
+    "text": "dimensional vectors correspond to different amounts of electrical activities in different parts of the monkey brain there's actually 50 neurons but you tens of neurons um but it was tens of neurons in the monkey brain and so you have a 50-dimensional Time series um and very hard to visualize this very high dimensional data but what he and the students did was use PCA to project this 50-dimensional data down to free dimensions and then you can visualize this data in three dimensions of just using a 3D plot and so you could you so of visualize what the monkey is thinking over time so that was cool um another common application of PCA is uh compression right so if you have high dimensional data and you want to store"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_112",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 3955.0,
+    "end_time": 4000.0,
+    "text": "cool um another common application of PCA is uh compression right so if you have high dimensional data and you want to store it with few real numbers clearly PC is a great way to do this um it turns out also that um sometimes in machine learning sometimes you just given extremely high-dimensional input data and for computational reasons you don't want to deal with such high dimensional computation data such hyperdimensional data right and so um fairly one one common use of PCA is takeing very high dimensional data and represent it you with a low dimensional Subspace is at Yi is the representation I wrote down just now so that you can"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_113",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 3990.0,
+    "end_time": 4035.0,
+    "text": "takeing very high dimensional data and represent it you with a low dimensional Subspace is at Yi is the representation I wrote down just now so that you can work with much lower dimensional data and um it turns out to be just seems to like a fact of life that when you're given extremely high dimensional data um almost all the time just in practice of all the high very high dimensional DSS I've ever seen you know High very high dimensional DSS often have all their points lying on much lower dimensional subspaces so very often you can dramatically reduce the dimension of your data and really not and and really not be throwing too much uh too much of the information away um so um let's see right so if you're"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_114",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 4025.0,
+    "end_time": 4070.0,
+    "text": "not be throwing too much uh too much of the information away um so um let's see right so if you're learning algorithm it takes a long time to run on on on very high dimensional data you can often use PCA to compress the data to lower Dimension so that your learning A runs much faster and you can often do this with your sacrificing almost no performance in your learning algorithm um there's one other use of PCA for learning uh which is um you remember when we talked about learning theory we said that the more features you have the more complex your hypothesis class if say you're doing linear classification right if you have more features you have lots of features then you may be more prone to"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_115",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 4060.0,
+    "end_time": 4105.0,
+    "text": "you have the more complex your hypothesis class if say you're doing linear classification right if you have more features you have lots of features then you may be more prone to overfitting so one other thing you could do with PCA is just use that to reduce the dimension of your data so that you know you have few feat and you're maybe slightly less prone to overfitting um this particular application of PCA to learning I should say you know it sometimes works it often works I I'll actually later show a couple of examples where you sort of do this and it works um but this particular application of PCA I find when looking in Industry it also seems to be a little bit overused um and and in particular actually let me say more about that later um I'll come back to that later um there one more one couple of other"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_116",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 4095.0,
+    "end_time": 4140.0,
+    "text": "um and and in particular actually let me say more about that later um I'll come back to that later um there one more one couple of other applications I talk one is um outli detection right and so um the idea is um suppose they give you a data set you may then run PCA to find you know roughly the Subspace on which your data lies and then um if you want to find anomalies in in future examples you then just look at your future examples and see if they lie very far from your Subspace so this isn't a fantastic anomaly detection"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_117",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 4130.0,
+    "end_time": 4175.0,
+    "text": "in future examples you then just look at your future examples and see if they lie very far from your Subspace so this isn't a fantastic anomaly detection ALG it's not a it's not a very good an right so the idea is if I give you a data set you may find a low dimensional Subspace on which it lies and then if you ever find a point that's far from your Subspace you can flat that as anomaly so this is not this isn't this really isn't the best anom detection Al room but but sometimes this is done um and the last application that I'm going to talk spin spin of go into a little um is U matching or to find better"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_118",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 4165.0,
+    "end_time": 4210.0,
+    "text": "um is U matching or to find better calculations so and let me say what what I mean by this now go into much more so here's the idea um let's say you want to do face recognition see I need to use my laptop later just make"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_119",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 4200.0,
+    "end_time": 4245.0,
+    "text": "so here's the idea um let's say you want to do face recognition see I need to use my laptop later just make sure just W this up for okay so let's say once you do face recognition and you have um 100 by 100 images right so um you know picture of a face is like whatever right some array of pixels and the pixels have different grayscale values and depending on you know the different gray scale values you get different people's of different pictures of people's faces right and so"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_120",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 4235.0,
+    "end_time": 4280.0,
+    "text": "pictures of people's faces right and so awake okay um so you have 100 by 100 uh pixel images and think of each face as a 10,000 dimensional Vector um which is very high um these two Contin to keep in mind and think of you know here's so so here's a here's my plot of my 100 dimensional space right and if you look at a lot of different pictures of"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_121",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 4270.0,
+    "end_time": 4315.0,
+    "text": "um these two Contin to keep in mind and think of you know here's so so here's a here's my plot of my 100 dimensional space right and if you look at a lot of different pictures of faces you know each face will be along will will be some point in this 100,000 dimension space and um in this cartoon I want to think of it as maybe most of this data lies on a relatively low dimensional Subspace because um in this 100,000 in this 10,000 dimensional space really not all points correspond to valid images of faces right the vast majority of values the vast majority of 10,000 dimensional images just correspond to random noise light looking things and don't"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_122",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 4305.0,
+    "end_time": 4350.0,
+    "text": "faces right the vast majority of values the vast majority of 10,000 dimensional images just correspond to random noise light looking things and don't correspond to a valid image of a face but inste um the space of possible face images probably spans a much lower dimensional Subspace okay shoot laptop's not waking up for some reason let me works okay um and so what we'll do is we'll use PCA to find the low dimension Subspace on which the data lies and in"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_123",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 4340.0,
+    "end_time": 4385.0,
+    "text": "works okay um and so what we'll do is we'll use PCA to find the low dimension Subspace on which the data lies and in practice um a PCA dimension of 50 would be fairly typical and um right so think of you know there's some axes that really face and there are some other axes that we're not interested in that are maybe just you know random noise so what we'll do is um for face recognition I might give you a picture of a face and ask you what face looks the most similar to this I going give you a picture of someone and ask"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_124",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 4375.0,
+    "end_time": 4420.0,
+    "text": "noise so what we'll do is um for face recognition I might give you a picture of a face and ask you what face looks the most similar to this I going give you a picture of someone and ask you can you find other pictures of the same person um and so you know the key step to do that right is to look at two faces and to compare how similar these two so just okay and so here's how we use PCA um given a phas there and a different phas there the way I measure the distance between these two faces is I won't just measure the ukian distance similarity instead I'll take"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_125",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 4410.0,
+    "end_time": 4455.0,
+    "text": "there and a different phas there the way I measure the distance between these two faces is I won't just measure the ukian distance similarity instead I'll take this face and project it onto my 50 dimensional Subspace and take this project to my 50 dimensional Subspace and measure the similarity between those two points in the Subspace okay and so when I do that I end up with you know a face here and a face here that look very far upon the original space but when I project them onto the Subspace they may end up looking much more similar so what I want to show you in a second on the laptop is um let's see you know given each of these training examples"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_126",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 4445.0,
+    "end_time": 4490.0,
+    "text": "second on the laptop is um let's see you know given each of these training examples right um as a 10,000 dimensional Vector I can plot that as a grayscale image and I get like a per like picture of some person's face what I'll also show you on the laptop will be plot of my I vectors and so the IG vectors also live in the 10,000 dimensional Subspace and I plot that you get you know some image that's um and these images are called ion faces and what PCA is doing is essentially using linear combinations of these ion phase images to approximate"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_127",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 4480.0,
+    "end_time": 4525.0,
+    "text": "that's um and these images are called ion faces and what PCA is doing is essentially using linear combinations of these ion phase images to approximate these XI and there's this ion faces that span the of these bases U1 you two and so on to span hopefully the Subspace along which um my faces live okay so boy sorry about running a bit late I'm"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_128",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 4515.0,
+    "end_time": 4560.0,
+    "text": "boy sorry about running a bit late I'm"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_129",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 4585.0,
+    "end_time": 4630.0,
+    "text": "yeah no idea why it's taking so long to"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_130",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 4620.0,
+    "end_time": 4665.0,
+    "text": "yeah no idea why it's taking so long to but there all right yeah now ta Paul spent a lot of time in the middle of the last night last night preparing some of these images so got sh them okay cool so here's a train set comprising you know aligned images like these um LGE much larger set than than than the shown here and so when you run PCA um these are um some of the plots that the UI so remember I said plot the IG"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_131",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 4655.0,
+    "end_time": 4700.0,
+    "text": "um these are um some of the plots that the UI so remember I said plot the IG vectors UI um in the same way there plotting the training examples and so you end up with the I vectors being sort of grayscale images like these and will approximate images of faces with linear combinations of these so I said it's dangerous look at individual ion vectors but um and and you really shouldn't do that but let me just do that a little bit anyway so if you look at the first icon Vector this corresponds roughly to whether the face is illuminated from the left or the right right so depending on how heavy the weight is on this image that roughly captures variation and illumination um second image just hard to tell it seems to be capturing"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_132",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 4690.0,
+    "end_time": 4735.0,
+    "text": "left or the right right so depending on how heavy the weight is on this image that roughly captures variation and illumination um second image just hard to tell it seems to be capturing variation and overall brightness of the face um the third ion Vector capturing roughly you know how much of a shadow or maybe a beard or something the person has and so on it's dangerous to look at individual I vectors but sort of just slightly inform of look at it um here's an example of a specific um application of igon faces so this is um from Sandy pendland Alex penland's lab in MIT um in this display this upper leftmost image is the input to the igen phases algorithm and um the algorithm is then"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_133",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 4725.0,
+    "end_time": 4770.0,
+    "text": "pendland Alex penland's lab in MIT um in this display this upper leftmost image is the input to the igen phases algorithm and um the algorithm is then also go for datab pH and find the most similar faces and so you know this second image here is what it thinks is the most similar face of the input um the next one over is the second most similar the next one over is the third most similar and so on and so using ion faces and using by measuring distances between faces in that low dimensional Subspace is able to do you know reasonal job identifying pictures of the same person even so with the with with faces the person removed oh and the next row shows the next most similar phase and so on so this just um uh this one is the is the fourth most"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_134",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 4760.0,
+    "end_time": 4805.0,
+    "text": "the person removed oh and the next row shows the next most similar phase and so on so this just um uh this one is the is the fourth most similar phase and so on this one more different okay so the use application of ion faces um the last thing I want to say is just um when people talk tell me about machine learning problems I do often recommend they try PCA for different things so PCA is a useful thing to to to know to use for compression visualization so on um but in Industry I just tend to see sometimes PCA used slightly more often than there there also sometimes where you see people using PCA when they're really shouldn't so just one final piece of advice for use of PCA is um before you use it also think about whether you could just do it with the original"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec14_chunk_135",
+    "video_id": "stanford_cs229_lec14",
+    "start_time": 4795.0,
+    "end_time": 4840.0,
+    "text": "shouldn't so just one final piece of advice for use of PCA is um before you use it also think about whether you could just do it with the original training data XI without compressing it since I've also definitely seen people compress the data when they really did need to um but but but having said that I also often advise people to use PCA for various problems it also works um okay sorry about running late let's wrap"
+  }
+]

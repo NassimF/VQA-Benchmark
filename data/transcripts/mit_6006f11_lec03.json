@@ -1,0 +1,5081 @@
+{
+  "video_id": "mit_6006f11_lec03",
+  "source": "youtube_auto_captions",
+  "segments": [
+    {
+      "start": 1.87,
+      "end": 4.63,
+      "text": "the following content is provided under"
+    },
+    {
+      "start": 4.63,
+      "end": 6.749,
+      "text": "a Creative Commons license your support"
+    },
+    {
+      "start": 6.749,
+      "end": 8.709,
+      "text": "will help MIT open courseware continue"
+    },
+    {
+      "start": 8.709,
+      "end": 11.87,
+      "text": "to offer highquality educational"
+    },
+    {
+      "start": 11.87,
+      "end": 13.829,
+      "text": "resources for free to make a donation or"
+    },
+    {
+      "start": 13.829,
+      "end": 17.15,
+      "text": "view additional materials from hundreds"
+    },
+    {
+      "start": 17.15,
+      "end": 25.91,
+      "text": "of MIT courses visit MIT opencourseware"
+    },
+    {
+      "start": 25.91,
+      "end": 28.669,
+      "text": "ocw.mit.edu so today's lecture is on"
+    },
+    {
+      "start": 28.669,
+      "end": 31.189,
+      "text": "sorting we'll be talking about specific"
+    },
+    {
+      "start": 31.189,
+      "end": 34.51,
+      "text": "sorting algorithms today"
+    },
+    {
+      "start": 34.51,
+      "end": 36.15,
+      "text": "I want to start by motivating why we're"
+    },
+    {
+      "start": 36.15,
+      "end": 38.31,
+      "text": "interested in sorting which should be"
+    },
+    {
+      "start": 38.31,
+      "end": 41.67,
+      "text": "fairly"
+    },
+    {
+      "start": 41.67,
+      "end": 43.67,
+      "text": "easy and then I want to discuss a"
+    },
+    {
+      "start": 43.67,
+      "end": 46.47,
+      "text": "particular sorting algorithm that's"
+    },
+    {
+      "start": 46.47,
+      "end": 48.31,
+      "text": "called insertion sort that's probably"
+    },
+    {
+      "start": 48.31,
+      "end": 52.029,
+      "text": "the simplest sorting algorithm you can"
+    },
+    {
+      "start": 52.029,
+      "end": 53.549,
+      "text": "write it's uh five lines of code um it's"
+    },
+    {
+      "start": 53.549,
+      "end": 55.59,
+      "text": "not the best sorting algorithm that's"
+    },
+    {
+      "start": 55.59,
+      "end": 59.67,
+      "text": "out there and so we'll try and improve"
+    },
+    {
+      "start": 59.67,
+      "end": 61.709,
+      "text": "it and we'll also talk about merge sort"
+    },
+    {
+      "start": 61.709,
+      "end": 64.91,
+      "text": "which is a divide and conquer Al"
+    },
+    {
+      "start": 64.91,
+      "end": 67.789,
+      "text": "algorithm and that's going to"
+    },
+    {
+      "start": 67.789,
+      "end": 70.27,
+      "text": "motivate the last thing that I want to"
+    },
+    {
+      "start": 70.27,
+      "end": 72.83,
+      "text": "spend time on which is recurrences and"
+    },
+    {
+      "start": 72.83,
+      "end": 75.03,
+      "text": "how you solve recurrences and typically"
+    },
+    {
+      "start": 75.03,
+      "end": 78.19,
+      "text": "the recurrences that we'll be looking at"
+    },
+    {
+      "start": 78.19,
+      "end": 80.91,
+      "text": "in6 are going to come from divide and"
+    },
+    {
+      "start": 80.91,
+      "end": 83.27,
+      "text": "conquer problems like merge sort but"
+    },
+    {
+      "start": 83.27,
+      "end": 86.149,
+      "text": "you'll see this over and"
+    },
+    {
+      "start": 86.149,
+      "end": 95.95,
+      "text": "over so let's talk about why we're"
+    },
+    {
+      "start": 95.95,
+      "end": 99.38900000000001,
+      "text": "applications like if you want to"
+    },
+    {
+      "start": 99.38900000000001,
+      "end": 102.31,
+      "text": "maintain a phone book you got a bunch"
+    },
+    {
+      "start": 102.31,
+      "end": 103.429,
+      "text": "of names and numbers corresponding to a"
+    },
+    {
+      "start": 103.429,
+      "end": 105.19,
+      "text": "telephone"
+    },
+    {
+      "start": 105.19,
+      "end": 108.22999999999999,
+      "text": "directory and you want to keep them in"
+    },
+    {
+      "start": 108.22999999999999,
+      "end": 111.749,
+      "text": "sorted order so it's easy to search mp3"
+    },
+    {
+      "start": 111.749,
+      "end": 113.50999999999999,
+      "text": "organizers spreadsheets Etc so there's"
+    },
+    {
+      "start": 113.50999999999999,
+      "end": 116.31,
+      "text": "lots of obvious"
+    },
+    {
+      "start": 116.31,
+      "end": 119.91,
+      "text": "applications there's"
+    },
+    {
+      "start": 119.91,
+      "end": 136.03,
+      "text": "also some interesting problems that"
+    },
+    {
+      "start": 136.03,
+      "end": 145.47,
+      "text": "sorted and one example of"
+    },
+    {
+      "start": 145.47,
+      "end": 153.91,
+      "text": "example so let's say that you have a"
+    },
+    {
+      "start": 153.91,
+      "end": 157.67000000000002,
+      "text": "a0 through"
+    },
+    {
+      "start": 157.67000000000002,
+      "end": 168.22899999999998,
+      "text": "n and a0 through n contains n numbers"
+    },
+    {
+      "start": 168.22899999999998,
+      "end": 169.79,
+      "text": "sorted when you sort you turn this into"
+    },
+    {
+      "start": 169.79,
+      "end": 172.79,
+      "text": "B 0 through"
+    },
+    {
+      "start": 172.79,
+      "end": 174.50900000000001,
+      "text": "n where if it's just numbers then you"
+    },
+    {
+      "start": 174.50900000000001,
+      "end": 176.19,
+      "text": "may sort them in increasing order or"
+    },
+    {
+      "start": 176.19,
+      "end": 179.43,
+      "text": "decreasing order let's just call it"
+    },
+    {
+      "start": 179.43,
+      "end": 181.869,
+      "text": "increasing order for now or if they"
+    },
+    {
+      "start": 181.869,
+      "end": 184.789,
+      "text": "record and they're not numbers then you"
+    },
+    {
+      "start": 184.789,
+      "end": 186.83,
+      "text": "have to provide a comparison function to"
+    },
+    {
+      "start": 186.83,
+      "end": 189.27,
+      "text": "determine which record is smaller than"
+    },
+    {
+      "start": 189.27,
+      "end": 191.949,
+      "text": "another record and that's another input"
+    },
+    {
+      "start": 191.949,
+      "end": 194.39,
+      "text": "that you have to have in order to do the"
+    },
+    {
+      "start": 194.39,
+      "end": 196.07,
+      "text": "Sorting so it doesn't really matter what"
+    },
+    {
+      "start": 196.07,
+      "end": 198.55,
+      "text": "the items are as long as you have the"
+    },
+    {
+      "start": 198.55,
+      "end": 201.55,
+      "text": "comparison function think of it as less"
+    },
+    {
+      "start": 201.55,
+      "end": 203.99,
+      "text": "than or equal to and if you have that"
+    },
+    {
+      "start": 203.99,
+      "end": 206.149,
+      "text": "and it's a straightforward you obviously"
+    },
+    {
+      "start": 206.149,
+      "end": 208.429,
+      "text": "to check that three is less than four"
+    },
+    {
+      "start": 208.429,
+      "end": 210.63,
+      "text": "Etc but it may be a little more"
+    },
+    {
+      "start": 210.63,
+      "end": 212.99,
+      "text": "complicated uh for for more"
+    },
+    {
+      "start": 212.99,
+      "end": 215.22899999999998,
+      "text": "sophisticated sorting applications but"
+    },
+    {
+      "start": 215.22899999999998,
+      "end": 217.47,
+      "text": "the bottom line is that if you have your"
+    },
+    {
+      "start": 217.47,
+      "end": 219.429,
+      "text": "algorithm that takes a comparison"
+    },
+    {
+      "start": 219.429,
+      "end": 221.82999999999998,
+      "text": "function as an input you're going to be"
+    },
+    {
+      "start": 221.82999999999998,
+      "end": 224.07,
+      "text": "able to go after a certain amount of"
+    },
+    {
+      "start": 224.07,
+      "end": 227.67000000000002,
+      "text": "time get"
+    },
+    {
+      "start": 227.67000000000002,
+      "end": 229.55,
+      "text": "b0n now if you want to Def the median of"
+    },
+    {
+      "start": 229.55,
+      "end": 232.63,
+      "text": "the set of numbers that were originally"
+    },
+    {
+      "start": 232.63,
+      "end": 243.39,
+      "text": "in the array a uh what would you do once"
+    },
+    {
+      "start": 243.39,
+      "end": 244.99,
+      "text": "yep oh absolutely but um there's u i I'm"
+    },
+    {
+      "start": 244.99,
+      "end": 246.50900000000001,
+      "text": "you know this is sort of a side effect"
+    },
+    {
+      "start": 246.50900000000001,
+      "end": 248.83,
+      "text": "of having a sorted"
+    },
+    {
+      "start": 248.83,
+      "end": 251.35,
+      "text": "list I'm I'm you know if you happen to"
+    },
+    {
+      "start": 251.35,
+      "end": 254.99,
+      "text": "have a sorted list there's many ways"
+    },
+    {
+      "start": 254.99,
+      "end": 257.99,
+      "text": "that U you could um uh imagine you know"
+    },
+    {
+      "start": 257.99,
+      "end": 259.03,
+      "text": "building up a sorted list one way is you"
+    },
+    {
+      "start": 259.03,
+      "end": 261.069,
+      "text": "have something that's completely"
+    },
+    {
+      "start": 261.069,
+      "end": 263.39,
+      "text": "unsorted and you run insertion sort or"
+    },
+    {
+      "start": 263.39,
+      "end": 265.39,
+      "text": "merge sort um another way would be to"
+    },
+    {
+      "start": 265.39,
+      "end": 268.11,
+      "text": "maintain a sorted list as you're getting"
+    },
+    {
+      "start": 268.11,
+      "end": 269.95,
+      "text": "items put into the list okay so if you"
+    },
+    {
+      "start": 269.95,
+      "end": 271.55,
+      "text": "happen to have a sorted list and you"
+    },
+    {
+      "start": 271.55,
+      "end": 274.469,
+      "text": "need to have the sorted list for some"
+    },
+    {
+      "start": 274.469,
+      "end": 277.31,
+      "text": "reason the point I'm making here is that"
+    },
+    {
+      "start": 277.31,
+      "end": 281.11,
+      "text": "finding the median is easy okay and it's"
+    },
+    {
+      "start": 281.11,
+      "end": 283.95,
+      "text": "easy because all you have to do is to go"
+    },
+    {
+      "start": 283.95,
+      "end": 287.83,
+      "text": "look at depending on whether n is odd or"
+    },
+    {
+      "start": 287.83,
+      "end": 289.11,
+      "text": "even and look at B of n /2 right that"
+    },
+    {
+      "start": 289.11,
+      "end": 292.07,
+      "text": "that would give you the median because"
+    },
+    {
+      "start": 292.07,
+      "end": 295.27,
+      "text": "you'd have a bunch of numbers uh that"
+    },
+    {
+      "start": 295.27,
+      "end": 296.79,
+      "text": "are less than that and and the equal set"
+    },
+    {
+      "start": 296.79,
+      "end": 298.71,
+      "text": "of numbers that are greater than that"
+    },
+    {
+      "start": 298.71,
+      "end": 301.59,
+      "text": "which is the definition of median all"
+    },
+    {
+      "start": 301.59,
+      "end": 304.43,
+      "text": "right so this"
+    },
+    {
+      "start": 304.43,
+      "end": 307.27,
+      "text": "is not necessarily the best way as you"
+    },
+    {
+      "start": 307.27,
+      "end": 310.15,
+      "text": "pointed out of finding the median but um"
+    },
+    {
+      "start": 310.15,
+      "end": 312.87,
+      "text": "it's constant time if you have a sorted"
+    },
+    {
+      "start": 312.87,
+      "end": 315.31,
+      "text": "list all right that's the point I wanted"
+    },
+    {
+      "start": 315.31,
+      "end": 319.79,
+      "text": "to make um there are other things that"
+    },
+    {
+      "start": 319.79,
+      "end": 323.79,
+      "text": "you could do and this came up in Eric's"
+    },
+    {
+      "start": 323.79,
+      "end": 327.39,
+      "text": "lecture which is the notion of binary"
+    },
+    {
+      "start": 327.39,
+      "end": 331.11,
+      "text": "search finding an element in an array a"
+    },
+    {
+      "start": 331.11,
+      "end": 334.39,
+      "text": "specific element you have an A list of"
+    },
+    {
+      "start": 334.39,
+      "end": 336.23,
+      "text": "uh items again a 0 through n and you're"
+    },
+    {
+      "start": 336.23,
+      "end": 344.87,
+      "text": "looking"
+    },
+    {
+      "start": 344.87,
+      "end": 347.23,
+      "text": "item you could obviously"
+    },
+    {
+      "start": 347.23,
+      "end": 349.27,
+      "text": "scan the array and that would take you"
+    },
+    {
+      "start": 349.27,
+      "end": 352.189,
+      "text": "linear time to find this"
+    },
+    {
+      "start": 352.189,
+      "end": 354.71,
+      "text": "item if the array happened to be"
+    },
+    {
+      "start": 354.71,
+      "end": 357.83,
+      "text": "sorted"
+    },
+    {
+      "start": 357.83,
+      "end": 361.309,
+      "text": "then you can find this in logarithmic"
+    },
+    {
+      "start": 361.309,
+      "end": 363.79,
+      "text": "time using what's called B binary search"
+    },
+    {
+      "start": 363.79,
+      "end": 366.23,
+      "text": "okay and binary search let's say you're"
+    },
+    {
+      "start": 366.23,
+      "end": 367.189,
+      "text": "looking for a specific item let's call"
+    },
+    {
+      "start": 367.189,
+      "end": 371.11,
+      "text": "it"
+    },
+    {
+      "start": 371.11,
+      "end": 377.35,
+      "text": "K binary search roughly speaking would"
+    },
+    {
+      "start": 377.35,
+      "end": 379.35,
+      "text": "work like you go compare K to again B of"
+    },
+    {
+      "start": 379.35,
+      "end": 384.55,
+      "text": "n /"
+    },
+    {
+      "start": 384.55,
+      "end": 388.27,
+      "text": "2 and decide given that b is sorted you"
+    },
+    {
+      "start": 388.27,
+      "end": 392.71,
+      "text": "you get to look at one half of the array"
+    },
+    {
+      "start": 392.71,
+      "end": 394.35,
+      "text": "uh if B of n /2 is not exactly k then I"
+    },
+    {
+      "start": 394.35,
+      "end": 396.749,
+      "text": "uh well if it's exactly K you're done"
+    },
+    {
+      "start": 396.749,
+      "end": 399.909,
+      "text": "otherwise you look at the left half you"
+    },
+    {
+      "start": 399.909,
+      "end": 402.11,
+      "text": "do your divide and conquer Paradigm and"
+    },
+    {
+      "start": 402.11,
+      "end": 404.909,
+      "text": "you can do this in logarithmic time all"
+    },
+    {
+      "start": 404.909,
+      "end": 407.35,
+      "text": "right so keep this in mind because uh"
+    },
+    {
+      "start": 407.35,
+      "end": 410.029,
+      "text": "bind research is going to come up in"
+    },
+    {
+      "start": 410.029,
+      "end": 413.30899999999997,
+      "text": "today's lecture and and again in other"
+    },
+    {
+      "start": 413.30899999999997,
+      "end": 415.07,
+      "text": "lectures it's really a a great Paradigm"
+    },
+    {
+      "start": 415.07,
+      "end": 417.30899999999997,
+      "text": "of divide and conquer probably the"
+    },
+    {
+      "start": 417.30899999999997,
+      "end": 419.909,
+      "text": "simplest and it essentially takes"
+    },
+    {
+      "start": 419.909,
+      "end": 421.629,
+      "text": "something that's linear"
+    },
+    {
+      "start": 421.629,
+      "end": 424.55,
+      "text": "uh a linear search and turns it into"
+    },
+    {
+      "start": 424.55,
+      "end": 429.07,
+      "text": "logarithmic search so those are a couple"
+    },
+    {
+      "start": 429.07,
+      "end": 433.029,
+      "text": "of uh problems that become easy if you"
+    },
+    {
+      "start": 433.029,
+      "end": 440.15,
+      "text": "have a sorted list and there's some you"
+    },
+    {
+      "start": 440.15,
+      "end": 444.07,
+      "text": "obvious"
+    },
+    {
+      "start": 444.07,
+      "end": 446.71,
+      "text": "applications of sorting for example data"
+    },
+    {
+      "start": 446.71,
+      "end": 449.55,
+      "text": "compression if you wanted to compress a"
+    },
+    {
+      "start": 449.55,
+      "end": 451.909,
+      "text": "file one of the things that you could do"
+    },
+    {
+      "start": 451.909,
+      "end": 454.71,
+      "text": "is to and it's just a it's a set of"
+    },
+    {
+      "start": 454.71,
+      "end": 456.83,
+      "text": "items you could uh uh you could sort the"
+    },
+    {
+      "start": 456.83,
+      "end": 459.35,
+      "text": "items and that automatically finds"
+    },
+    {
+      "start": 459.35,
+      "end": 462.869,
+      "text": "duplicates and you could say um if I"
+    },
+    {
+      "start": 462.869,
+      "end": 465.71,
+      "text": "have 100 items that are all identical"
+    },
+    {
+      "start": 465.71,
+      "end": 468.11,
+      "text": "I'm going to compress the file by"
+    },
+    {
+      "start": 468.11,
+      "end": 469.469,
+      "text": "representing the item once and then"
+    },
+    {
+      "start": 469.469,
+      "end": 472.71,
+      "text": "having a number associated with the"
+    },
+    {
+      "start": 472.71,
+      "end": 475.869,
+      "text": "frequency of that item s similar to what"
+    },
+    {
+      "start": 475.869,
+      "end": 478.43,
+      "text": "document distance does document distance"
+    },
+    {
+      "start": 478.43,
+      "end": 480.589,
+      "text": "is can be viewed as a way of compressing"
+    },
+    {
+      "start": 480.589,
+      "end": 482.51,
+      "text": "your initial input obviously you lose"
+    },
+    {
+      "start": 482.51,
+      "end": 484.43,
+      "text": "the you know the works of Shakespeare or"
+    },
+    {
+      "start": 484.43,
+      "end": 487.79,
+      "text": "whatever it was and and it becomes a"
+    },
+    {
+      "start": 487.79,
+      "end": 491.79,
+      "text": "bunch of words and frequencies but it is"
+    },
+    {
+      "start": 491.79,
+      "end": 494.55,
+      "text": "something that uh that uh compresses the"
+    },
+    {
+      "start": 494.55,
+      "end": 497.43,
+      "text": "input um and gives you a different"
+    },
+    {
+      "start": 497.43,
+      "end": 502.07,
+      "text": "representation and so people use sorting"
+    },
+    {
+      "start": 502.07,
+      "end": 506.309,
+      "text": "in as a sub routine in data"
+    },
+    {
+      "start": 506.309,
+      "end": 510.469,
+      "text": "compression computer Graphics uses"
+    },
+    {
+      "start": 510.469,
+      "end": 512.149,
+      "text": "sorting most of the time when you render"
+    },
+    {
+      "start": 512.149,
+      "end": 514.509,
+      "text": "scenes in computer Graphics you have"
+    },
+    {
+      "start": 514.509,
+      "end": 518.19,
+      "text": "many layers corresponding to the scenes"
+    },
+    {
+      "start": 518.19,
+      "end": 519.43,
+      "text": "it turns out that I that in computer"
+    },
+    {
+      "start": 519.43,
+      "end": 522.909,
+      "text": "Graphics most of the time you're"
+    },
+    {
+      "start": 522.909,
+      "end": 525.35,
+      "text": "actually rendering front to back because"
+    },
+    {
+      "start": 525.35,
+      "end": 528.949,
+      "text": "uh when you have a big opaque object in"
+    },
+    {
+      "start": 528.949,
+      "end": 530.31,
+      "text": "front uh you want to render that first"
+    },
+    {
+      "start": 530.31,
+      "end": 533.67,
+      "text": "uh so you don't have to worry about"
+    },
+    {
+      "start": 533.67,
+      "end": 535.59,
+      "text": "everything that's uded by this big Opa"
+    },
+    {
+      "start": 535.59,
+      "end": 537.949,
+      "text": "object and that makes things more"
+    },
+    {
+      "start": 537.949,
+      "end": 539.43,
+      "text": "efficient and so you keep things sorted"
+    },
+    {
+      "start": 539.43,
+      "end": 541.47,
+      "text": "front to back most of the time in"
+    },
+    {
+      "start": 541.47,
+      "end": 542.71,
+      "text": "computer Graphics rendering but some of"
+    },
+    {
+      "start": 542.71,
+      "end": 544.59,
+      "text": "the time if you're worried about"
+    },
+    {
+      "start": 544.59,
+      "end": 546.87,
+      "text": "transparency you have to render things"
+    },
+    {
+      "start": 546.87,
+      "end": 549.79,
+      "text": "back to front so typically you have"
+    },
+    {
+      "start": 549.79,
+      "end": 551.71,
+      "text": "sorted lists corresponding to the"
+    },
+    {
+      "start": 551.71,
+      "end": 553.63,
+      "text": "different objects in both orders both"
+    },
+    {
+      "start": 553.63,
+      "end": 556.03,
+      "text": "increasing order and decreasing order"
+    },
+    {
+      "start": 556.03,
+      "end": 560.23,
+      "text": "and you're maintaining that so sorting"
+    },
+    {
+      "start": 560.23,
+      "end": 561.67,
+      "text": "is a a real important sub routine in"
+    },
+    {
+      "start": 561.67,
+      "end": 563.389,
+      "text": "pretty much any sophisticated"
+    },
+    {
+      "start": 563.389,
+      "end": 566.35,
+      "text": "application you look at so it's"
+    },
+    {
+      "start": 566.35,
+      "end": 568.23,
+      "text": "worthwhile to look at the variety of"
+    },
+    {
+      "start": 568.23,
+      "end": 569.63,
+      "text": "sorting algorithms that are out there"
+    },
+    {
+      "start": 569.63,
+      "end": 571.949,
+      "text": "and we're going to do some simple ones"
+    },
+    {
+      "start": 571.949,
+      "end": 574.67,
+      "text": "today but if you go look at Wikipedia"
+    },
+    {
+      "start": 574.67,
+      "end": 576.75,
+      "text": "and and do a Google search there's you"
+    },
+    {
+      "start": 576.75,
+      "end": 579.55,
+      "text": "know all sorts of sorts like cocktail"
+    },
+    {
+      "start": 579.55,
+      "end": 583.269,
+      "text": "sort and bonic sort"
+    },
+    {
+      "start": 583.269,
+      "end": 584.63,
+      "text": "and and what have you and there's"
+    },
+    {
+      "start": 584.63,
+      "end": 587.43,
+      "text": "reasons why each of these sorting"
+    },
+    {
+      "start": 587.43,
+      "end": 591.23,
+      "text": "algorithms exist because in specific"
+    },
+    {
+      "start": 591.23,
+      "end": 594.59,
+      "text": "cases they end up you know winning on on"
+    },
+    {
+      "start": 594.59,
+      "end": 598.47,
+      "text": "types of inputs or types of problems all"
+    },
+    {
+      "start": 598.47,
+      "end": 600.79,
+      "text": "right so let's take a look at our first"
+    },
+    {
+      "start": 600.79,
+      "end": 604.03,
+      "text": "sorting algorithm I'm not going to write"
+    },
+    {
+      "start": 604.03,
+      "end": 606.35,
+      "text": "code but it will be in the notes and it"
+    },
+    {
+      "start": 606.35,
+      "end": 609.43,
+      "text": "is in your document"
+    },
+    {
+      "start": 609.43,
+      "end": 612.23,
+      "text": "distance python files but I'll just give"
+    },
+    {
+      "start": 612.23,
+      "end": 614.03,
+      "text": "you pseudo code here and walk through"
+    },
+    {
+      "start": 614.03,
+      "end": 617.509,
+      "text": "what insertion sort looks like because"
+    },
+    {
+      "start": 617.509,
+      "end": 619.67,
+      "text": "the purpose of really describing this"
+    },
+    {
+      "start": 619.67,
+      "end": 621.829,
+      "text": "algorithm to you is to analyze its"
+    },
+    {
+      "start": 621.829,
+      "end": 623.35,
+      "text": "complexity we need to do some counting"
+    },
+    {
+      "start": 623.35,
+      "end": 625.949,
+      "text": "here with respect to this"
+    },
+    {
+      "start": 625.949,
+      "end": 628.55,
+      "text": "algorithm to figure out how fast it's"
+    },
+    {
+      "start": 628.55,
+      "end": 630.269,
+      "text": "going to run in and what the worst case"
+    },
+    {
+      "start": 630.269,
+      "end": 635.43,
+      "text": "complexity is"
+    },
+    {
+      "start": 635.43,
+      "end": 638.75,
+      "text": "so what is insertion sort for I = 1 2"
+    },
+    {
+      "start": 638.75,
+      "end": 640.71,
+      "text": "through n given a sorted excuse me given"
+    },
+    {
+      "start": 640.71,
+      "end": 642.71,
+      "text": "an input to be"
+    },
+    {
+      "start": 642.71,
+      "end": 644.35,
+      "text": "sorted what we're going to do is we're"
+    },
+    {
+      "start": 644.35,
+      "end": 648.47,
+      "text": "going to"
+    },
+    {
+      "start": 648.47,
+      "end": 649.91,
+      "text": "insert a ofi in the right position and"
+    },
+    {
+      "start": 649.91,
+      "end": 653.269,
+      "text": "we can assume"
+    },
+    {
+      "start": 653.269,
+      "end": 657.03,
+      "text": "that we are sort of Midway through the"
+    },
+    {
+      "start": 657.03,
+      "end": 660.069,
+      "text": "Sorting process where we have"
+    },
+    {
+      "start": 660.069,
+      "end": 663.75,
+      "text": "sorted a0 through"
+    },
+    {
+      "start": 663.75,
+      "end": 668.269,
+      "text": "i-1 and we're going to expand this to"
+    },
+    {
+      "start": 668.269,
+      "end": 670.19,
+      "text": "this array to have I +1 elements and a"
+    },
+    {
+      "start": 670.19,
+      "end": 671.79,
+      "text": "ofi is going to get inserted into the"
+    },
+    {
+      "start": 671.79,
+      "end": 674.55,
+      "text": "the correct"
+    },
+    {
+      "start": 674.55,
+      "end": 685.03,
+      "text": "position and we're going to do this by"
+    },
+    {
+      "start": 685.03,
+      "end": 687.75,
+      "text": "swaps"
+    },
+    {
+      "start": 687.75,
+      "end": 691.629,
+      "text": "down to the"
+    },
+    {
+      "start": 691.629,
+      "end": 694.19,
+      "text": "correct position for the number that is"
+    },
+    {
+      "start": 694.19,
+      "end": 702.509,
+      "text": "initially in a"
+    },
+    {
+      "start": 702.509,
+      "end": 705.269,
+      "text": "through an example of this we're going"
+    },
+    {
+      "start": 705.269,
+      "end": 714.19,
+      "text": "to sort in increasing order just have"
+    },
+    {
+      "start": 714.19,
+      "end": 716.11,
+      "text": "numbers and initially we have 5 2 4"
+    },
+    {
+      "start": 716.11,
+      "end": 719.35,
+      "text": "613 and we're going to take a look at"
+    },
+    {
+      "start": 719.35,
+      "end": 721.19,
+      "text": "this and you start with the index one or"
+    },
+    {
+      "start": 721.19,
+      "end": 723.629,
+      "text": "the second element because the very"
+    },
+    {
+      "start": 723.629,
+      "end": 726.269,
+      "text": "first element it's a single element and"
+    },
+    {
+      "start": 726.269,
+      "end": 728.269,
+      "text": "it's already sorted by definition but"
+    },
+    {
+      "start": 728.269,
+      "end": 729.67,
+      "text": "you you start from here and this is what"
+    },
+    {
+      "start": 729.67,
+      "end": 732.91,
+      "text": "we call our"
+    },
+    {
+      "start": 732.91,
+      "end": 735.31,
+      "text": "key um and that's essentially a a"
+    },
+    {
+      "start": 735.31,
+      "end": 737.269,
+      "text": "pointer to where we're at right now and"
+    },
+    {
+      "start": 737.269,
+      "end": 739.03,
+      "text": "the key keeps moving to the right as we"
+    },
+    {
+      "start": 739.03,
+      "end": 741.069,
+      "text": "go through the different steps of the"
+    },
+    {
+      "start": 741.069,
+      "end": 743.91,
+      "text": "algorithm um and so what you do is you"
+    },
+    {
+      "start": 743.91,
+      "end": 747.31,
+      "text": "look at this and you have um this is a"
+    },
+    {
+      "start": 747.31,
+      "end": 750.189,
+      "text": "of I that's your key and uh you have a"
+    },
+    {
+      "start": 750.189,
+      "end": 752.79,
+      "text": "of 0 to Z which is"
+    },
+    {
+      "start": 752.79,
+      "end": 755.829,
+      "text": "and uh this since we want to sort in"
+    },
+    {
+      "start": 755.829,
+      "end": 758.79,
+      "text": "increasing order uh this is not sorted"
+    },
+    {
+      "start": 758.79,
+      "end": 761.35,
+      "text": "and so we do a swap so what this would"
+    },
+    {
+      "start": 761.35,
+      "end": 764.829,
+      "text": "do in the in in this step is to do a"
+    },
+    {
+      "start": 764.829,
+      "end": 766.71,
+      "text": "swap and we would"
+    },
+    {
+      "start": 766.71,
+      "end": 772.23,
+      "text": "go"
+    },
+    {
+      "start": 772.23,
+      "end": 774.99,
+      "text": "obtain uh 2 5 4 61 3 so all that's"
+    },
+    {
+      "start": 774.99,
+      "end": 776.189,
+      "text": "happened here in this step in the very"
+    },
+    {
+      "start": 776.189,
+      "end": 778.75,
+      "text": "first step where the key is in the"
+    },
+    {
+      "start": 778.75,
+      "end": 779.829,
+      "text": "second position is what one swap swap"
+    },
+    {
+      "start": 779.829,
+      "end": 783.269,
+      "text": "happened"
+    },
+    {
+      "start": 783.269,
+      "end": 784.87,
+      "text": "um now your key is here at item four"
+    },
+    {
+      "start": 784.87,
+      "end": 788.75,
+      "text": "again you need to put four into the"
+    },
+    {
+      "start": 788.75,
+      "end": 791.15,
+      "text": "right spot and so you do pair wise swaps"
+    },
+    {
+      "start": 791.15,
+      "end": 793.189,
+      "text": "and in this case you have to do one Swap"
+    },
+    {
+      "start": 793.189,
+      "end": 794.71,
+      "text": "and you get 2 four five and you're done"
+    },
+    {
+      "start": 794.71,
+      "end": 804.75,
+      "text": "with this this"
+    },
+    {
+      "start": 804.75,
+      "end": 807.03,
+      "text": "here is you have two 4"
+    },
+    {
+      "start": 807.03,
+      "end": 809.59,
+      "text": "five"
+    },
+    {
+      "start": 809.59,
+      "end": 813.189,
+      "text": "613 and"
+    },
+    {
+      "start": 813.189,
+      "end": 817.949,
+      "text": "now the key is over here at six now at"
+    },
+    {
+      "start": 817.949,
+      "end": 819.71,
+      "text": "this point things um are kind of easy in"
+    },
+    {
+      "start": 819.71,
+      "end": 821.87,
+      "text": "the sense that you look at it and you"
+    },
+    {
+      "start": 821.87,
+      "end": 824.31,
+      "text": "say well six is I know that this part is"
+    },
+    {
+      "start": 824.31,
+      "end": 827.35,
+      "text": "already sorted um six is greater than"
+    },
+    {
+      "start": 827.35,
+      "end": 828.87,
+      "text": "five so you have to do nothing so"
+    },
+    {
+      "start": 828.87,
+      "end": 832.91,
+      "text": "there's there's nothing there's no swaps"
+    },
+    {
+      "start": 832.91,
+      "end": 836.509,
+      "text": "that happen in this step um"
+    },
+    {
+      "start": 836.509,
+      "end": 841.15,
+      "text": "so all that happens here is you're going"
+    },
+    {
+      "start": 841.15,
+      "end": 846.47,
+      "text": "to move the key to one step to the"
+    },
+    {
+      "start": 846.47,
+      "end": 848.749,
+      "text": "right so you have 2 4 five 6 1 3 and"
+    },
+    {
+      "start": 848.749,
+      "end": 851.99,
+      "text": "your key is now at"
+    },
+    {
+      "start": 851.99,
+      "end": 853.269,
+      "text": "one uh here you have to do more work now"
+    },
+    {
+      "start": 853.269,
+      "end": 855.87,
+      "text": "you"
+    },
+    {
+      "start": 855.87,
+      "end": 857.749,
+      "text": "see one aspect of the complexity of this"
+    },
+    {
+      "start": 857.749,
+      "end": 860.59,
+      "text": "algorithm given that you're doing pair"
+    },
+    {
+      "start": 860.59,
+      "end": 863.35,
+      "text": "wise swaps uh the way this algorithm was"
+    },
+    {
+      "start": 863.35,
+      "end": 866.189,
+      "text": "defined in pseudo code out there was I'm"
+    },
+    {
+      "start": 866.189,
+      "end": 869.189,
+      "text": "going to use pairwise swaps to find the"
+    },
+    {
+      "start": 869.189,
+      "end": 872.55,
+      "text": "correct position so what you're going to"
+    },
+    {
+      "start": 872.55,
+      "end": 875.35,
+      "text": "do is you're going to have to swap first"
+    },
+    {
+      "start": 875.35,
+      "end": 878.35,
+      "text": "one and six and then you'll swap one is"
+    },
+    {
+      "start": 878.35,
+      "end": 880.11,
+      "text": "over here so you'll you'll swap um this"
+    },
+    {
+      "start": 880.11,
+      "end": 886.79,
+      "text": "position and that position and then"
+    },
+    {
+      "start": 886.79,
+      "end": 891.949,
+      "text": "swap essentially do four swaps uh to get"
+    },
+    {
+      "start": 891.949,
+      "end": 894.91,
+      "text": "to the point where um you have 1 2 4 5 6"
+    },
+    {
+      "start": 894.91,
+      "end": 899.23,
+      "text": "3 so"
+    },
+    {
+      "start": 899.23,
+      "end": 905.189,
+      "text": "this is the result"
+    },
+    {
+      "start": 905.189,
+      "end": 906.829,
+      "text": "1 2 4 five 6 three and the important"
+    },
+    {
+      "start": 906.829,
+      "end": 909.15,
+      "text": "thing to understand here is that you've"
+    },
+    {
+      "start": 909.15,
+      "end": 910.87,
+      "text": "done four swaps to get one to the"
+    },
+    {
+      "start": 910.87,
+      "end": 913.99,
+      "text": "correct position now you can imagine a"
+    },
+    {
+      "start": 913.99,
+      "end": 916.069,
+      "text": "different data structure where you move"
+    },
+    {
+      "start": 916.069,
+      "end": 918.829,
+      "text": "this over there and you shift them all"
+    },
+    {
+      "start": 918.829,
+      "end": 920.67,
+      "text": "to the right but in fact that shifting"
+    },
+    {
+      "start": 920.67,
+      "end": 924.79,
+      "text": "of these four elements is going to be"
+    },
+    {
+      "start": 924.79,
+      "end": 926.87,
+      "text": "computed in our model as four operations"
+    },
+    {
+      "start": 926.87,
+      "end": 928.55,
+      "text": "or four steps anyway so there's no"
+    },
+    {
+      "start": 928.55,
+      "end": 931.91,
+      "text": "getting away from the fact that you have"
+    },
+    {
+      "start": 931.91,
+      "end": 933.949,
+      "text": "to do four things here uh and the way"
+    },
+    {
+      "start": 933.949,
+      "end": 935.749,
+      "text": "insertion sort the code that we have for"
+    },
+    {
+      "start": 935.749,
+      "end": 938.269,
+      "text": "insertion"
+    },
+    {
+      "start": 938.269,
+      "end": 940.43,
+      "text": "sort does this is by using pairwise"
+    },
+    {
+      "start": 940.43,
+      "end": 944.91,
+      "text": "swaps so we're almost"
+    },
+    {
+      "start": 944.91,
+      "end": 948.629,
+      "text": "done now we have the"
+    },
+    {
+      "start": 948.629,
+      "end": 951.03,
+      "text": "key at um"
+    },
+    {
+      "start": 951.03,
+      "end": 953.47,
+      "text": "three and now three needs to get put"
+    },
+    {
+      "start": 953.47,
+      "end": 957.269,
+      "text": "into the correct position and so you got"
+    },
+    {
+      "start": 957.269,
+      "end": 960.23,
+      "text": "to do a few swaps this is the last"
+    },
+    {
+      "start": 960.23,
+      "end": 962.389,
+      "text": "step and what happens here here is three"
+    },
+    {
+      "start": 962.389,
+      "end": 964.35,
+      "text": "is going to get swapped with"
+    },
+    {
+      "start": 964.35,
+      "end": 967.11,
+      "text": "six uh and then three needs to get"
+    },
+    {
+      "start": 967.11,
+      "end": 970.269,
+      "text": "swapped with five and then three needs"
+    },
+    {
+      "start": 970.269,
+      "end": 973.069,
+      "text": "to get swapped with four and then since"
+    },
+    {
+      "start": 973.069,
+      "end": 977.829,
+      "text": "three is greater than two uh you're done"
+    },
+    {
+      "start": 977.829,
+      "end": 980.269,
+      "text": "so you have 1 2 3 4 five"
+    },
+    {
+      "start": 980.269,
+      "end": 984.309,
+      "text": "six and that's"
+    },
+    {
+      "start": 984.309,
+      "end": 994.99,
+      "text": "it so"
+    },
+    {
+      "start": 994.99,
+      "end": 998.949,
+      "text": "yep no and how many steps do I"
+    },
+    {
+      "start": 998.949,
+      "end": 1001.509,
+      "text": "have um I guess that was a that wasn't a"
+    },
+    {
+      "start": 1001.509,
+      "end": 1004.23,
+      "text": "good question if I think of a step as"
+    },
+    {
+      "start": 1004.23,
+      "end": 1005.55,
+      "text": "being a movement of the key how many"
+    },
+    {
+      "start": 1005.55,
+      "end": 1012.79,
+      "text": "steps do I"
+    },
+    {
+      "start": 1012.79,
+      "end": 1015.15,
+      "text": "have I have uh Theta n steps uh and uh"
+    },
+    {
+      "start": 1015.15,
+      "end": 1017.11,
+      "text": "in this case you can think of it as uh"
+    },
+    {
+      "start": 1017.11,
+      "end": 1032.11,
+      "text": "as n minus one steps since you started"
+    },
+    {
+      "start": 1032.11,
+      "end": 1035.63,
+      "text": "positions and you're right it is uh n"
+    },
+    {
+      "start": 1035.63,
+      "end": 1038.75,
+      "text": "Square because at any given step it's"
+    },
+    {
+      "start": 1038.75,
+      "end": 1041.47,
+      "text": "quite possible that I have to do theta n"
+    },
+    {
+      "start": 1041.47,
+      "end": 1046.029,
+      "text": "work and one example is this one right"
+    },
+    {
+      "start": 1046.029,
+      "end": 1047.669,
+      "text": "here where I had to do four swaps and in"
+    },
+    {
+      "start": 1047.669,
+      "end": 1050.549,
+      "text": "general you can construct a scenario"
+    },
+    {
+      "start": 1050.549,
+      "end": 1053.71,
+      "text": "where um at towards the end of the"
+    },
+    {
+      "start": 1053.71,
+      "end": 1055.99,
+      "text": "algorithm you you'd have to do theta n"
+    },
+    {
+      "start": 1055.99,
+      "end": 1059.07,
+      "text": "work but if you had a list that was"
+    },
+    {
+      "start": 1059.07,
+      "end": 1062.07,
+      "text": "reverse sorted you would essentially"
+    },
+    {
+      "start": 1062.07,
+      "end": 1063.909,
+      "text": "have to do on an average n by two swaps"
+    },
+    {
+      "start": 1063.909,
+      "end": 1067.909,
+      "text": "as you go through each of the steps and"
+    },
+    {
+      "start": 1067.909,
+      "end": 1070.83,
+      "text": "that's Theta n so each"
+    },
+    {
+      "start": 1070.83,
+      "end": 1078.31,
+      "text": "step is Theta"
+    },
+    {
+      "start": 1078.31,
+      "end": 1087.029,
+      "text": "swaps okay and when I say swaps I could"
+    },
+    {
+      "start": 1087.029,
+      "end": 1088.27,
+      "text": "Compares and swaps all right and this is"
+    },
+    {
+      "start": 1088.27,
+      "end": 1090.63,
+      "text": "going to be important because I'm going"
+    },
+    {
+      "start": 1090.63,
+      "end": 1092.63,
+      "text": "to ask you an interesting question in a"
+    },
+    {
+      "start": 1092.63,
+      "end": 1094.909,
+      "text": "minute but let me"
+    },
+    {
+      "start": 1094.909,
+      "end": 1097.149,
+      "text": "summarize um what I have here is a Theta"
+    },
+    {
+      "start": 1097.149,
+      "end": 1099.909,
+      "text": "n Square algorithm the reason this is a"
+    },
+    {
+      "start": 1099.909,
+      "end": 1101.87,
+      "text": "Theta n Square algorithm is because I"
+    },
+    {
+      "start": 1101.87,
+      "end": 1105.83,
+      "text": "have Theta n"
+    },
+    {
+      "start": 1105.83,
+      "end": 1108.789,
+      "text": "steps and each step is Theta"
+    },
+    {
+      "start": 1108.789,
+      "end": 1111.11,
+      "text": "n when I'm counting what do I what am I"
+    },
+    {
+      "start": 1111.11,
+      "end": 1113.59,
+      "text": "counting in terms of operations the"
+    },
+    {
+      "start": 1113.59,
+      "end": 1116.11,
+      "text": "Assumption here unspoken assumption is"
+    },
+    {
+      "start": 1116.11,
+      "end": 1118.35,
+      "text": "being that an operation is a compare and"
+    },
+    {
+      "start": 1118.35,
+      "end": 1121.029,
+      "text": "a swap and they're essentially equal in"
+    },
+    {
+      "start": 1121.029,
+      "end": 1123.549,
+      "text": "cost okay and in most computers that's"
+    },
+    {
+      "start": 1123.549,
+      "end": 1126.149,
+      "text": "true you have a single instruction and"
+    },
+    {
+      "start": 1126.149,
+      "end": 1128.35,
+      "text": "say the x86 of the myips architecture"
+    },
+    {
+      "start": 1128.35,
+      "end": 1131.75,
+      "text": "that can do a compare and the same thing"
+    },
+    {
+      "start": 1131.75,
+      "end": 1133.27,
+      "text": "for swapping registers so perfectly"
+    },
+    {
+      "start": 1133.27,
+      "end": 1137.19,
+      "text": "reasonable assumption that comparison"
+    },
+    {
+      "start": 1137.19,
+      "end": 1139.51,
+      "text": "swaps for numbers are have exactly the"
+    },
+    {
+      "start": 1139.51,
+      "end": 1142.11,
+      "text": "same cost but if you had a record and"
+    },
+    {
+      "start": 1142.11,
+      "end": 1144.47,
+      "text": "you are comparing records and the"
+    },
+    {
+      "start": 1144.47,
+      "end": 1147.63,
+      "text": "comparison function that you use for the"
+    },
+    {
+      "start": 1147.63,
+      "end": 1150.59,
+      "text": "records was in itself a a method call or"
+    },
+    {
+      "start": 1150.59,
+      "end": 1153.39,
+      "text": "a sub routine it's quite possible that"
+    },
+    {
+      "start": 1153.39,
+      "end": 1155.83,
+      "text": "all you're doing is is swapping pointers"
+    },
+    {
+      "start": 1155.83,
+      "end": 1157.909,
+      "text": "or references to do the swap but the"
+    },
+    {
+      "start": 1157.909,
+      "end": 1163.35,
+      "text": "comparison could be substantially more"
+    },
+    {
+      "start": 1163.35,
+      "end": 1165.51,
+      "text": "expensive okay um for the most of the"
+    },
+    {
+      "start": 1165.51,
+      "end": 1167.39,
+      "text": "time and we'll differentiate if it"
+    },
+    {
+      "start": 1167.39,
+      "end": 1168.95,
+      "text": "becomes necessary we're going to be"
+    },
+    {
+      "start": 1168.95,
+      "end": 1171.63,
+      "text": "counting comparisons in the sorting"
+    },
+    {
+      "start": 1171.63,
+      "end": 1174.789,
+      "text": "algorithms that we'll be putting out and"
+    },
+    {
+      "start": 1174.789,
+      "end": 1176.47,
+      "text": "we'll be assuming that uh either you"
+    },
+    {
+      "start": 1176.47,
+      "end": 1179.909,
+      "text": "know comparison swaps are are roughly"
+    },
+    {
+      "start": 1179.909,
+      "end": 1182.669,
+      "text": "the same or that compares"
+    },
+    {
+      "start": 1182.669,
+      "end": 1184.669,
+      "text": "are and we'll say which one of"
+    },
+    {
+      "start": 1184.669,
+      "end": 1186.63,
+      "text": "course all that compares are"
+    },
+    {
+      "start": 1186.63,
+      "end": 1190.669,
+      "text": "substantially more expensive than than"
+    },
+    {
+      "start": 1190.669,
+      "end": 1192.51,
+      "text": "swaps okay so if you had either of those"
+    },
+    {
+      "start": 1192.51,
+      "end": 1194.11,
+      "text": "cases for insertion sort you have a"
+    },
+    {
+      "start": 1194.11,
+      "end": 1195.95,
+      "text": "Theta n Square algorithm all right you"
+    },
+    {
+      "start": 1195.95,
+      "end": 1197.19,
+      "text": "have Theta n Square Compares and Theta n"
+    },
+    {
+      "start": 1197.19,
+      "end": 1199.83,
+      "text": "Square"
+    },
+    {
+      "start": 1199.83,
+      "end": 1203.07,
+      "text": "swaps now here's the"
+    },
+    {
+      "start": 1203.07,
+      "end": 1210.19,
+      "text": "question let's say that"
+    },
+    {
+      "start": 1210.19,
+      "end": 1212.59,
+      "text": "expensive than"
+    },
+    {
+      "start": 1212.59,
+      "end": 1216.27,
+      "text": "swaps and so I'm concerned about the"
+    },
+    {
+      "start": 1216.27,
+      "end": 1219.11,
+      "text": "Theta n s comparison"
+    },
+    {
+      "start": 1219.11,
+      "end": 1221.31,
+      "text": "cost I'm not as concerned because of the"
+    },
+    {
+      "start": 1221.31,
+      "end": 1224.789,
+      "text": "constant factors involved with the Theta"
+    },
+    {
+      "start": 1224.789,
+      "end": 1227.27,
+      "text": "n Square swap cost all right what's a"
+    },
+    {
+      "start": 1227.27,
+      "end": 1231.11,
+      "text": "simple this is a cushion question okay"
+    },
+    {
+      "start": 1231.11,
+      "end": 1233.95,
+      "text": "this um what's a what's a simple fix"
+    },
+    {
+      "start": 1233.95,
+      "end": 1238.63,
+      "text": "change to this algorithm that would give"
+    },
+    {
+      "start": 1238.63,
+      "end": 1240.27,
+      "text": "me a better complexity in the case where"
+    },
+    {
+      "start": 1240.27,
+      "end": 1243.35,
+      "text": "Compares are more expensive or I'm only"
+    },
+    {
+      "start": 1243.35,
+      "end": 1246.909,
+      "text": "looking at the complexity of Compares so"
+    },
+    {
+      "start": 1246.909,
+      "end": 1258.07,
+      "text": "the Theta whatever of Compares right"
+    },
+    {
+      "start": 1258.07,
+      "end": 1260.149,
+      "text": "there you could compare with the middle"
+    },
+    {
+      "start": 1260.149,
+      "end": 1263.31,
+      "text": "what did I call call it what what what"
+    },
+    {
+      "start": 1263.31,
+      "end": 1265.909,
+      "text": "is I I I called it something what you"
+    },
+    {
+      "start": 1265.909,
+      "end": 1268.149,
+      "text": "just said I called it something yeah I"
+    },
+    {
+      "start": 1268.149,
+      "end": 1270.31,
+      "text": "saw you first binary search that's right"
+    },
+    {
+      "start": 1270.31,
+      "end": 1271.63,
+      "text": "two questions for this one all right so"
+    },
+    {
+      "start": 1271.63,
+      "end": 1273.35,
+      "text": "you pick pick them up after after"
+    },
+    {
+      "start": 1273.35,
+      "end": 1276.029,
+      "text": "lecture so you're exactly right you got"
+    },
+    {
+      "start": 1276.029,
+      "end": 1280.149,
+      "text": "it right I called it binary search uh up"
+    },
+    {
+      "start": 1280.149,
+      "end": 1282.149,
+      "text": "here okay um and so if if you you can"
+    },
+    {
+      "start": 1282.149,
+      "end": 1284.95,
+      "text": "take insertion sord and you can sort of"
+    },
+    {
+      "start": 1284.95,
+      "end": 1287.149,
+      "text": "trivially turn it into a Theta n log n"
+    },
+    {
+      "start": 1287.149,
+      "end": 1289.99,
+      "text": "algorithm if you're talking about n"
+    },
+    {
+      "start": 1289.99,
+      "end": 1292.63,
+      "text": "being the the number of pairs okay and"
+    },
+    {
+      "start": 1292.63,
+      "end": 1295.029,
+      "text": "all you have to do to do that is to say"
+    },
+    {
+      "start": 1295.029,
+      "end": 1296.909,
+      "text": "you know what I'm going to replace this"
+    },
+    {
+      "start": 1296.909,
+      "end": 1300.029,
+      "text": "with binary"
+    },
+    {
+      "start": 1300.029,
+      "end": 1301.51,
+      "text": "search and you can do that um and that"
+    },
+    {
+      "start": 1301.51,
+      "end": 1304.75,
+      "text": "was the key"
+    },
+    {
+      "start": 1304.75,
+      "end": 1308.23,
+      "text": "observation that because a of0 through"
+    },
+    {
+      "start": 1308.23,
+      "end": 1310.669,
+      "text": "IUS one is already sorted right and so"
+    },
+    {
+      "start": 1310.669,
+      "end": 1320.11,
+      "text": "you can do binary search on that part of"
+    },
+    {
+      "start": 1320.11,
+      "end": 1322.95,
+      "text": "down do a binary search"
+    },
+    {
+      "start": 1322.95,
+      "end": 1331.909,
+      "text": "on a of 0 through"
+    },
+    {
+      "start": 1331.909,
+      "end": 1335.75,
+      "text": "sorted and essentially you can think of"
+    },
+    {
+      "start": 1335.75,
+      "end": 1338.269,
+      "text": "it as Theta log I"
+    },
+    {
+      "start": 1338.269,
+      "end": 1348.149,
+      "text": "time and for each of those steps and so"
+    },
+    {
+      "start": 1348.149,
+      "end": 1349.35,
+      "text": "but okay now why can't I Thea log n in"
+    },
+    {
+      "start": 1349.35,
+      "end": 1351.549,
+      "text": "terms of"
+    },
+    {
+      "start": 1351.549,
+      "end": 1353.43,
+      "text": "Compares does this"
+    },
+    {
+      "start": 1353.43,
+      "end": 1356.87,
+      "text": "help the"
+    },
+    {
+      "start": 1356.87,
+      "end": 1359.35,
+      "text": "swaps for an array data"
+    },
+    {
+      "start": 1359.35,
+      "end": 1362.909,
+      "text": "structure no because binary search will"
+    },
+    {
+      "start": 1362.909,
+      "end": 1366.11,
+      "text": "require insertion into a of 0 through"
+    },
+    {
+      "start": 1366.11,
+      "end": 1369.43,
+      "text": "IUS one right so here's the problem why"
+    },
+    {
+      "start": 1369.43,
+      "end": 1372.11,
+      "text": "why don't we have a full-fledged Theta n"
+    },
+    {
+      "start": 1372.11,
+      "end": 1374.75,
+      "text": "log n algorithm regardless of the cost"
+    },
+    {
+      "start": 1374.75,
+      "end": 1376.789,
+      "text": "of Compares or swaps we don't quite have"
+    },
+    {
+      "start": 1376.789,
+      "end": 1380.23,
+      "text": "that right we don't quite have that"
+    },
+    {
+      "start": 1380.23,
+      "end": 1383.63,
+      "text": "because um we need to"
+    },
+    {
+      "start": 1383.63,
+      "end": 1387.669,
+      "text": "insert our a of I into the right"
+    },
+    {
+      "start": 1387.669,
+      "end": 1388.99,
+      "text": "position into a of uh Z through IUS one"
+    },
+    {
+      "start": 1388.99,
+      "end": 1390.71,
+      "text": "when you do that if you have an array"
+    },
+    {
+      "start": 1390.71,
+      "end": 1392.47,
+      "text": "structure it might get into the middle"
+    },
+    {
+      "start": 1392.47,
+      "end": 1394.11,
+      "text": "and you have to shift things over to the"
+    },
+    {
+      "start": 1394.11,
+      "end": 1395.83,
+      "text": "to the right and when you shift things"
+    },
+    {
+      "start": 1395.83,
+      "end": 1397.31,
+      "text": "over to the right in the worst case you"
+    },
+    {
+      "start": 1397.31,
+      "end": 1399.269,
+      "text": "may be shifting a lot of things over to"
+    },
+    {
+      "start": 1399.269,
+      "end": 1403.47,
+      "text": "the right and that gives back to worst"
+    },
+    {
+      "start": 1403.47,
+      "end": 1407.07,
+      "text": "case complexity of of theta n okay so so"
+    },
+    {
+      "start": 1407.07,
+      "end": 1409.59,
+      "text": "a binary search in insertion sort gives"
+    },
+    {
+      "start": 1409.59,
+      "end": 1413.07,
+      "text": "you Theta n log n for Compares but it's"
+    },
+    {
+      "start": 1413.07,
+      "end": 1415.99,
+      "text": "still Theta and square for swaps all"
+    },
+    {
+      "start": 1415.99,
+      "end": 1417.269,
+      "text": "right okay good so as you can see"
+    },
+    {
+      "start": 1417.269,
+      "end": 1418.95,
+      "text": "there's many varieties of sorting"
+    },
+    {
+      "start": 1418.95,
+      "end": 1422.51,
+      "text": "algorithms we just looked at a couple of"
+    },
+    {
+      "start": 1422.51,
+      "end": 1425.11,
+      "text": "them and and they were both um insertion"
+    },
+    {
+      "start": 1425.11,
+      "end": 1427.31,
+      "text": "sort the second one that I just put up"
+    },
+    {
+      "start": 1427.31,
+      "end": 1429.75,
+      "text": "is uh I guess technically called binary"
+    },
+    {
+      "start": 1429.75,
+      "end": 1432.99,
+      "text": "insertion sort uh because it does binary"
+    },
+    {
+      "start": 1432.99,
+      "end": 1434.909,
+      "text": "search and the vanilla insertion sort is"
+    },
+    {
+      "start": 1434.909,
+      "end": 1437.35,
+      "text": "the one that you have the code for in"
+    },
+    {
+      "start": 1437.35,
+      "end": 1439.31,
+      "text": "the doc dis program or at least one of"
+    },
+    {
+      "start": 1439.31,
+      "end": 1443.549,
+      "text": "the doc dis files"
+    },
+    {
+      "start": 1443.549,
+      "end": 1445.23,
+      "text": "so let's move on and uh talk about uh a"
+    },
+    {
+      "start": 1445.23,
+      "end": 1447.07,
+      "text": "different algorithm so what we'd like to"
+    },
+    {
+      "start": 1447.07,
+      "end": 1449.47,
+      "text": "do now this is about this class is about"
+    },
+    {
+      "start": 1449.47,
+      "end": 1452.669,
+      "text": "constant Improvement right you we're"
+    },
+    {
+      "start": 1452.669,
+      "end": 1455.47,
+      "text": "never happy uh we always want to do a"
+    },
+    {
+      "start": 1455.47,
+      "end": 1457.669,
+      "text": "little bit better right and eventually"
+    },
+    {
+      "start": 1457.669,
+      "end": 1459.149,
+      "text": "once we run out of room from an asmic"
+    },
+    {
+      "start": 1459.149,
+      "end": 1460.75,
+      "text": "standpoint you take these other classes"
+    },
+    {
+      "start": 1460.75,
+      "end": 1464.549,
+      "text": "where you try and improve constant"
+    },
+    {
+      "start": 1464.549,
+      "end": 1467.149,
+      "text": "factors and get 10% and 5% and 1% and so"
+    },
+    {
+      "start": 1467.149,
+      "end": 1469.19,
+      "text": "on and so forth but we'll stick to uh"
+    },
+    {
+      "start": 1469.19,
+      "end": 1471.87,
+      "text": "improving"
+    },
+    {
+      "start": 1471.87,
+      "end": 1474.11,
+      "text": "uh asmic complexity and we're not quite"
+    },
+    {
+      "start": 1474.11,
+      "end": 1475.99,
+      "text": "happy with uh binary insertion sort"
+    },
+    {
+      "start": 1475.99,
+      "end": 1478.51,
+      "text": "because in the case of numbers our"
+    },
+    {
+      "start": 1478.51,
+      "end": 1480.75,
+      "text": "binary insertion sort has Theta n Square"
+    },
+    {
+      "start": 1480.75,
+      "end": 1482.63,
+      "text": "complexity if you look at swaps right so"
+    },
+    {
+      "start": 1482.63,
+      "end": 1487.31,
+      "text": "we'd like to go find an algorithm that"
+    },
+    {
+      "start": 1487.31,
+      "end": 1489.83,
+      "text": "is Theta n log n and and then I guess"
+    },
+    {
+      "start": 1489.83,
+      "end": 1492.11,
+      "text": "eventually we'll have to stop but you"
+    },
+    {
+      "start": 1492.11,
+      "end": 1495.149,
+      "text": "know Eric will take care of"
+    },
+    {
+      "start": 1495.149,
+      "end": 1497.07,
+      "text": "that um there's a reason to stop it's"
+    },
+    {
+      "start": 1497.07,
+      "end": 1499.269,
+      "text": "it's when you can prove that you can't"
+    },
+    {
+      "start": 1499.269,
+      "end": 1500.029,
+      "text": "do any better right and so we'll get to"
+    },
+    {
+      "start": 1500.029,
+      "end": 1502.549,
+      "text": "that"
+    },
+    {
+      "start": 1502.549,
+      "end": 1506.35,
+      "text": "eventually so merge sort is also"
+    },
+    {
+      "start": 1506.35,
+      "end": 1508.83,
+      "text": "something that You' probably"
+    },
+    {
+      "start": 1508.83,
+      "end": 1511.47,
+      "text": "seen but there' probably be a couple of"
+    },
+    {
+      "start": 1511.47,
+      "end": 1512.99,
+      "text": "subtleties that come out as I describ"
+    },
+    {
+      "start": 1512.99,
+      "end": 1515.269,
+      "text": "this algorithm that hopefully will be"
+    },
+    {
+      "start": 1515.269,
+      "end": 1518.269,
+      "text": "interesting to those of you who already"
+    },
+    {
+      "start": 1518.269,
+      "end": 1519.83,
+      "text": "know mer sort and those of you who don't"
+    },
+    {
+      "start": 1519.83,
+      "end": 1524.83,
+      "text": "it's a very pretty"
+    },
+    {
+      "start": 1524.83,
+      "end": 1528.07,
+      "text": "algorithm um it's a standard"
+    },
+    {
+      "start": 1528.07,
+      "end": 1530.789,
+      "text": "recursion algorithm recursive algorithm"
+    },
+    {
+      "start": 1530.789,
+      "end": 1533.87,
+      "text": "so similar to a bind research uh what we"
+    },
+    {
+      "start": 1533.87,
+      "end": 1538.59,
+      "text": "do here is we have an array a we split"
+    },
+    {
+      "start": 1538.59,
+      "end": 1542.83,
+      "text": "it into two parts L and"
+    },
+    {
+      "start": 1542.83,
+      "end": 1547.269,
+      "text": "R and essentially we kind of do no work"
+    },
+    {
+      "start": 1547.269,
+      "end": 1550.029,
+      "text": "really uh in in terms of the L and R in"
+    },
+    {
+      "start": 1550.029,
+      "end": 1551.75,
+      "text": "the sense that we just call we keep"
+    },
+    {
+      "start": 1551.75,
+      "end": 1553.99,
+      "text": "splitting splitting splitting and all"
+    },
+    {
+      "start": 1553.99,
+      "end": 1556.47,
+      "text": "the work is done down at the bottom in"
+    },
+    {
+      "start": 1556.47,
+      "end": 1560.11,
+      "text": "this routine called merge where we are"
+    },
+    {
+      "start": 1560.11,
+      "end": 1563.99,
+      "text": "merging a pair of elements at the leaves"
+    },
+    {
+      "start": 1563.99,
+      "end": 1565.389,
+      "text": "and then we merge two pairs and get four"
+    },
+    {
+      "start": 1565.389,
+      "end": 1568.789,
+      "text": "elements and then we"
+    },
+    {
+      "start": 1568.789,
+      "end": 1572.51,
+      "text": "merge two four tles of elements Etc and"
+    },
+    {
+      "start": 1572.51,
+      "end": 1575.63,
+      "text": "go all the way up so while I'm saying L"
+    },
+    {
+      "start": 1575.63,
+      "end": 1577.95,
+      "text": "turns into L"
+    },
+    {
+      "start": 1577.95,
+      "end": 1580.83,
+      "text": "Prime out"
+    },
+    {
+      "start": 1580.83,
+      "end": 1583.99,
+      "text": "here there's no real explicit code that"
+    },
+    {
+      "start": 1583.99,
+      "end": 1586.11,
+      "text": "you can see that turns L into L prime it"
+    },
+    {
+      "start": 1586.11,
+      "end": 1587.63,
+      "text": "happens really later there's no real"
+    },
+    {
+      "start": 1587.63,
+      "end": 1588.83,
+      "text": "sorting code here it happens in the"
+    },
+    {
+      "start": 1588.83,
+      "end": 1590.95,
+      "text": "merge routine"
+    },
+    {
+      "start": 1590.95,
+      "end": 1597.789,
+      "text": "and you'll see that quite clearly when"
+    },
+    {
+      "start": 1597.789,
+      "end": 1600.59,
+      "text": "example so you have L and R turn into L"
+    },
+    {
+      "start": 1600.59,
+      "end": 1604.909,
+      "text": "Prime and L uh L Prime and R"
+    },
+    {
+      "start": 1604.909,
+      "end": 1611.43,
+      "text": "Prime and what we end up getting is uh a"
+    },
+    {
+      "start": 1611.43,
+      "end": 1614.35,
+      "text": "array"
+    },
+    {
+      "start": 1614.35,
+      "end": 1620.389,
+      "text": "a and we have a what's called a merge"
+    },
+    {
+      "start": 1620.389,
+      "end": 1622.549,
+      "text": "that takes L Prime and RP Prime and"
+    },
+    {
+      "start": 1622.549,
+      "end": 1626.11,
+      "text": "merges them into the sorted array so at"
+    },
+    {
+      "start": 1626.11,
+      "end": 1628.389,
+      "text": "the top level what you see"
+    },
+    {
+      "start": 1628.389,
+      "end": 1632.31,
+      "text": "is split into"
+    },
+    {
+      "start": 1632.31,
+      "end": 1635.63,
+      "text": "two and do a merge and get to the SED"
+    },
+    {
+      "start": 1635.63,
+      "end": 1640.07,
+      "text": "array the input is of size"
+    },
+    {
+      "start": 1640.07,
+      "end": 1643.71,
+      "text": "n you have two"
+    },
+    {
+      "start": 1643.71,
+      "end": 1654.029,
+      "text": "arrays of size n /"
+    },
+    {
+      "start": 1654.029,
+      "end": 1663.669,
+      "text": "of size n /2 and then finally you have a"
+    },
+    {
+      "start": 1663.669,
+      "end": 1671.99,
+      "text": "n so if you want to follow the recursive"
+    },
+    {
+      "start": 1671.99,
+      "end": 1675.149,
+      "text": "example then you'll be able to"
+    },
+    {
+      "start": 1675.149,
+      "end": 1677.31,
+      "text": "see how this works and we'll do a fairly"
+    },
+    {
+      "start": 1677.31,
+      "end": 1680.11,
+      "text": "straightforward example with eight"
+    },
+    {
+      "start": 1680.11,
+      "end": 1683.549,
+      "text": "elements so at the top"
+    },
+    {
+      "start": 1683.549,
+      "end": 1687.669,
+      "text": "level before we get there merge is going"
+    },
+    {
+      "start": 1687.669,
+      "end": 1690.669,
+      "text": "to assume that you have two sorted"
+    },
+    {
+      "start": 1690.669,
+      "end": 1693.63,
+      "text": "arrays and merge them"
+    },
+    {
+      "start": 1693.63,
+      "end": 1696.509,
+      "text": "together that's the invariant in merge"
+    },
+    {
+      "start": 1696.509,
+      "end": 1699.59,
+      "text": "sort or for the merge routine it assumes"
+    },
+    {
+      "start": 1699.59,
+      "end": 1703.029,
+      "text": "the inputs are sorted L and R actually I"
+    },
+    {
+      "start": 1703.029,
+      "end": 1709.23,
+      "text": "should say l Prime and R Prime so let's"
+    },
+    {
+      "start": 1709.23,
+      "end": 1713.43,
+      "text": "say you have 20 13 7 and 2 you have 12"
+    },
+    {
+      "start": 1713.43,
+      "end": 1715.549,
+      "text": "11 9 and 1 and this could be L Prime and"
+    },
+    {
+      "start": 1715.549,
+      "end": 1717.909,
+      "text": "this could be R"
+    },
+    {
+      "start": 1717.909,
+      "end": 1720.63,
+      "text": "Prime um what you have is what we call a"
+    },
+    {
+      "start": 1720.63,
+      "end": 1723.43,
+      "text": "two finger algorithm and so you got two"
+    },
+    {
+      "start": 1723.43,
+      "end": 1725.389,
+      "text": "fingers and each of them point to"
+    },
+    {
+      "start": 1725.389,
+      "end": 1727.31,
+      "text": "something and in this case one of them"
+    },
+    {
+      "start": 1727.31,
+      "end": 1730.11,
+      "text": "is pointing to L my left finger is"
+    },
+    {
+      "start": 1730.11,
+      "end": 1731.789,
+      "text": "pointing to L prime or some element in L"
+    },
+    {
+      "start": 1731.789,
+      "end": 1734.669,
+      "text": "Prime my right finger is pointing to"
+    },
+    {
+      "start": 1734.669,
+      "end": 1737.31,
+      "text": "some element in R Prime and I'm going to"
+    },
+    {
+      "start": 1737.31,
+      "end": 1738.83,
+      "text": "compare the two elements that my fingers"
+    },
+    {
+      "start": 1738.83,
+      "end": 1742.11,
+      "text": "are pointing to"
+    },
+    {
+      "start": 1742.11,
+      "end": 1743.99,
+      "text": "and I'm going to uh choose in this case"
+    },
+    {
+      "start": 1743.99,
+      "end": 1746.59,
+      "text": "the smaller of those elements and I'm"
+    },
+    {
+      "start": 1746.59,
+      "end": 1751.029,
+      "text": "going to put them into this the sorted"
+    },
+    {
+      "start": 1751.029,
+      "end": 1753.47,
+      "text": "array okay so start out here uh I look"
+    },
+    {
+      "start": 1753.47,
+      "end": 1756.269,
+      "text": "at that and that and I compared two and"
+    },
+    {
+      "start": 1756.269,
+      "end": 1759.269,
+      "text": "one and which is smaller one is smaller"
+    },
+    {
+      "start": 1759.269,
+      "end": 1760.63,
+      "text": "so I'm going to write one down so this"
+    },
+    {
+      "start": 1760.63,
+      "end": 1763.95,
+      "text": "is"
+    },
+    {
+      "start": 1763.95,
+      "end": 1766.029,
+      "text": "a two finger algo for merge and I put"
+    },
+    {
+      "start": 1766.029,
+      "end": 1768.23,
+      "text": "one down when I put one down I have to"
+    },
+    {
+      "start": 1768.23,
+      "end": 1770.149,
+      "text": "cross out one so effectively what"
+    },
+    {
+      "start": 1770.149,
+      "end": 1772.149,
+      "text": "happens is let me just circle that"
+    },
+    {
+      "start": 1772.149,
+      "end": 1775.789,
+      "text": "instead of Crossing it out and my finger"
+    },
+    {
+      "start": 1775.789,
+      "end": 1778.669,
+      "text": "moves up to to nine okay so now I'm"
+    },
+    {
+      "start": 1778.669,
+      "end": 1780.87,
+      "text": "pointing at two and nine and I repeat"
+    },
+    {
+      "start": 1780.87,
+      "end": 1782.63,
+      "text": "this step right so now in this case two"
+    },
+    {
+      "start": 1782.63,
+      "end": 1786.35,
+      "text": "is smaller so I'm going to go ahead and"
+    },
+    {
+      "start": 1786.35,
+      "end": 1788.99,
+      "text": "write two down and I can cross out two"
+    },
+    {
+      "start": 1788.99,
+      "end": 1791.59,
+      "text": "and move my finger up to to seven all"
+    },
+    {
+      "start": 1791.59,
+      "end": 1794.389,
+      "text": "right and so that's it um I won't bore"
+    },
+    {
+      "start": 1794.389,
+      "end": 1796.87,
+      "text": "you with the the rest of the steps it's"
+    },
+    {
+      "start": 1796.87,
+      "end": 1798.75,
+      "text": "essentially walking up you have a couple"
+    },
+    {
+      "start": 1798.75,
+      "end": 1801.75,
+      "text": "of pointers and you're walking up these"
+    },
+    {
+      "start": 1801.75,
+      "end": 1807.99,
+      "text": "two arrays and you're writing down 1 2 7"
+    },
+    {
+      "start": 1807.99,
+      "end": 1810.71,
+      "text": "9 11 12 13 20 okay and that's your merge"
+    },
+    {
+      "start": 1810.71,
+      "end": 1813.23,
+      "text": "routine and all of the work really is"
+    },
+    {
+      "start": 1813.23,
+      "end": 1815.509,
+      "text": "done in the merge routine because other"
+    },
+    {
+      "start": 1815.509,
+      "end": 1816.95,
+      "text": "other than that the body is simply a"
+    },
+    {
+      "start": 1816.95,
+      "end": 1818.63,
+      "text": "recursive call I mean you have to"
+    },
+    {
+      "start": 1818.63,
+      "end": 1820.549,
+      "text": "obviously split the array but that's"
+    },
+    {
+      "start": 1820.549,
+      "end": 1824.19,
+      "text": "fairly straightforward if you have an"
+    },
+    {
+      "start": 1824.19,
+      "end": 1825.87,
+      "text": "array you know a zero through n then"
+    },
+    {
+      "start": 1825.87,
+      "end": 1830.669,
+      "text": "depending on whether n"
+    },
+    {
+      "start": 1830.669,
+      "end": 1837.59,
+      "text": "is odd or even you can imagine that you"
+    },
+    {
+      "start": 1837.59,
+      "end": 1840.35,
+      "text": "set um L you know to be uh a 0 n by 2 -"
+    },
+    {
+      "start": 1840.35,
+      "end": 1842.509,
+      "text": "one and R"
+    },
+    {
+      "start": 1842.509,
+      "end": 1844.83,
+      "text": "similarly and so you just split it"
+    },
+    {
+      "start": 1844.83,
+      "end": 1845.909,
+      "text": "halfway in the middle and I'll talk"
+    },
+    {
+      "start": 1845.909,
+      "end": 1847.549,
+      "text": "about that a little bit more there's a"
+    },
+    {
+      "start": 1847.549,
+      "end": 1851.31,
+      "text": "subtlety associated with that that we'll"
+    },
+    {
+      "start": 1851.31,
+      "end": 1853.99,
+      "text": "get to uh in in in in a few minutes but"
+    },
+    {
+      "start": 1853.99,
+      "end": 1856.43,
+      "text": "to finish up in terms of the computation"
+    },
+    {
+      "start": 1856.43,
+      "end": 1859.269,
+      "text": "of merge sort this is it the merge"
+    },
+    {
+      "start": 1859.269,
+      "end": 1861.149,
+      "text": "routine is doing"
+    },
+    {
+      "start": 1861.149,
+      "end": 1862.669,
+      "text": "most if not all of the work and this"
+    },
+    {
+      "start": 1862.669,
+      "end": 1866.83,
+      "text": "two-finger algorithm is going to be able"
+    },
+    {
+      "start": 1866.83,
+      "end": 1870.71,
+      "text": "to take two sorted arrays and put them"
+    },
+    {
+      "start": 1870.71,
+      "end": 1873.19,
+      "text": "into a single SED array by interspersing"
+    },
+    {
+      "start": 1873.19,
+      "end": 1876.23,
+      "text": "or interleaving these elements and"
+    },
+    {
+      "start": 1876.23,
+      "end": 1878.23,
+      "text": "what's the complexity of merge if um I"
+    },
+    {
+      "start": 1878.23,
+      "end": 1880.11,
+      "text": "have you know two arrays of size n / two"
+    },
+    {
+      "start": 1880.11,
+      "end": 1884.269,
+      "text": "here what do I"
+    },
+    {
+      "start": 1884.269,
+      "end": 1897.789,
+      "text": "have yeah n all right uh we'll give you"
+    },
+    {
+      "start": 1897.789,
+      "end": 1901.11,
+      "text": "complexity so so far so good um it's a"
+    },
+    {
+      "start": 1901.11,
+      "end": 1903.47,
+      "text": "little I know I know you know the answer"
+    },
+    {
+      "start": 1903.47,
+      "end": 1905.269,
+      "text": "as to what the complexity of merge s is"
+    },
+    {
+      "start": 1905.269,
+      "end": 1907.029,
+      "text": "but I'm guessing that most of you won't"
+    },
+    {
+      "start": 1907.029,
+      "end": 1908.629,
+      "text": "be able to prove it to me because I'm"
+    },
+    {
+      "start": 1908.629,
+      "end": 1911.59,
+      "text": "kind of a hard guy to prove something to"
+    },
+    {
+      "start": 1911.59,
+      "end": 1912.99,
+      "text": "you anyway uh but and I could always say"
+    },
+    {
+      "start": 1912.99,
+      "end": 1915.669,
+      "text": "no I don't I don't I don't believe you"
+    },
+    {
+      "start": 1915.669,
+      "end": 1917.95,
+      "text": "what I don't understand right so uh so"
+    },
+    {
+      "start": 1917.95,
+      "end": 1919.629,
+      "text": "it's it's"
+    },
+    {
+      "start": 1919.629,
+      "end": 1921.509,
+      "text": "the complexity and and you've said this"
+    },
+    {
+      "start": 1921.509,
+      "end": 1923.71,
+      "text": "before in class and I think Eric's"
+    },
+    {
+      "start": 1923.71,
+      "end": 1928.47,
+      "text": "mentioned it the overall complexity of"
+    },
+    {
+      "start": 1928.47,
+      "end": 1930.43,
+      "text": "this algorithm is Theta n log n okay and"
+    },
+    {
+      "start": 1930.43,
+      "end": 1934.47,
+      "text": "where does that come from how do you"
+    },
+    {
+      "start": 1934.47,
+      "end": 1938.11,
+      "text": "prove that and so what we'll do now is"
+    },
+    {
+      "start": 1938.11,
+      "end": 1940.149,
+      "text": "take a look at merge sord and we'll look"
+    },
+    {
+      "start": 1940.149,
+      "end": 1941.509,
+      "text": "at a recursion tree and we'll try and"
+    },
+    {
+      "start": 1941.509,
+      "end": 1943.75,
+      "text": "there many ways of proving that merge"
+    },
+    {
+      "start": 1943.75,
+      "end": 1946.389,
+      "text": "sort is Theta and log n uh the way we're"
+    },
+    {
+      "start": 1946.389,
+      "end": 1950.07,
+      "text": "going to do this is uh what's called you"
+    },
+    {
+      "start": 1950.07,
+      "end": 1952.71,
+      "text": "know proof by picture um and it's not"
+    },
+    {
+      "start": 1952.71,
+      "end": 1955.11,
+      "text": "established proof technique uh but it's"
+    },
+    {
+      "start": 1955.11,
+      "end": 1958.07,
+      "text": "something that uh uh is very helpful to"
+    },
+    {
+      "start": 1958.07,
+      "end": 1960.95,
+      "text": "get an intuition behind behind the proof"
+    },
+    {
+      "start": 1960.95,
+      "end": 1962.029,
+      "text": "and why the result is true right so and"
+    },
+    {
+      "start": 1962.029,
+      "end": 1965.35,
+      "text": "you can always take that and you can"
+    },
+    {
+      "start": 1965.35,
+      "end": 1968.629,
+      "text": "formalize it and make this"
+    },
+    {
+      "start": 1968.629,
+      "end": 1970.909,
+      "text": "U make this something that uh everyone"
+    },
+    {
+      "start": 1970.909,
+      "end": 1973.509,
+      "text": "believes and you can we'll also look at"
+    },
+    {
+      "start": 1973.509,
+      "end": 1976.629,
+      "text": "uh substitution possibly in section"
+    },
+    {
+      "start": 1976.629,
+      "end": 1979.87,
+      "text": "tomorrow for recurrent solving so where"
+    },
+    {
+      "start": 1979.87,
+      "end": 1981.029,
+      "text": "we at right now is that we have a divid"
+    },
+    {
+      "start": 1981.029,
+      "end": 1984.509,
+      "text": "and concer"
+    },
+    {
+      "start": 1984.509,
+      "end": 1986.75,
+      "text": "algorithm that has a merge"
+    },
+    {
+      "start": 1986.75,
+      "end": 1989.909,
+      "text": "step that is Theta"
+    },
+    {
+      "start": 1989.909,
+      "end": 1993.509,
+      "text": "n and so if I just look at this"
+    },
+    {
+      "start": 1993.509,
+      "end": 1996.629,
+      "text": "structure that I have here I can write a"
+    },
+    {
+      "start": 1996.629,
+      "end": 2003.99,
+      "text": "recurrence for merge short that looks"
+    },
+    {
+      "start": 2003.99,
+      "end": 2006.669,
+      "text": "complexity I can say t of n which is the"
+    },
+    {
+      "start": 2006.669,
+      "end": 2008.43,
+      "text": "work done for n items is going to be"
+    },
+    {
+      "start": 2008.43,
+      "end": 2009.71,
+      "text": "some constant time"
+    },
+    {
+      "start": 2009.71,
+      "end": 2013.35,
+      "text": "in order"
+    },
+    {
+      "start": 2013.35,
+      "end": 2015.43,
+      "text": "to divide the array so this could be the"
+    },
+    {
+      "start": 2015.43,
+      "end": 2018.029,
+      "text": "part corresponding to dividing the"
+    },
+    {
+      "start": 2018.029,
+      "end": 2021.35,
+      "text": "array and there's going to be two"
+    },
+    {
+      "start": 2021.35,
+      "end": 2031.23,
+      "text": "problems of size n /2 and so I have 2 T"
+    },
+    {
+      "start": 2031.23,
+      "end": 2032.71,
+      "text": "part and I'm going to have C * n which"
+    },
+    {
+      "start": 2032.71,
+      "end": 2035.029,
+      "text": "is the merg"
+    },
+    {
+      "start": 2035.029,
+      "end": 2037.95,
+      "text": "part okay and that's some constant times"
+    },
+    {
+      "start": 2037.95,
+      "end": 2039.71,
+      "text": "n which is um"
+    },
+    {
+      "start": 2039.71,
+      "end": 2040.75,
+      "text": "what uh we have here with respect to the"
+    },
+    {
+      "start": 2040.75,
+      "end": 2042.99,
+      "text": "Theta n"
+    },
+    {
+      "start": 2042.99,
+      "end": 2044.909,
+      "text": "complexity so you have a recurrence like"
+    },
+    {
+      "start": 2044.909,
+      "end": 2047.269,
+      "text": "this and and I know you've some of you"
+    },
+    {
+      "start": 2047.269,
+      "end": 2050.03,
+      "text": "have seen recurrences in 6042 and you"
+    },
+    {
+      "start": 2050.03,
+      "end": 2053.55,
+      "text": "know how to solve this what I like to do"
+    },
+    {
+      "start": 2053.55,
+      "end": 2056.51,
+      "text": "is show you this recursion tree"
+    },
+    {
+      "start": 2056.51,
+      "end": 2059.349,
+      "text": "expansion that not only tells you how to"
+    },
+    {
+      "start": 2059.349,
+      "end": 2062.669,
+      "text": "solve this recurrence but also gives"
+    },
+    {
+      "start": 2062.669,
+      "end": 2064.589,
+      "text": "you a a means of solving recurrences"
+    },
+    {
+      "start": 2064.589,
+      "end": 2066.349,
+      "text": "where instead of having C of n you have"
+    },
+    {
+      "start": 2066.349,
+      "end": 2068.03,
+      "text": "something else out here you have F ofn"
+    },
+    {
+      "start": 2068.03,
+      "end": 2071.43,
+      "text": "which is a different function from the"
+    },
+    {
+      "start": 2071.43,
+      "end": 2076.03,
+      "text": "linear function and this recursion tree"
+    },
+    {
+      "start": 2076.03,
+      "end": 2079.71,
+      "text": "is in my mind the the simplest way of"
+    },
+    {
+      "start": 2079.71,
+      "end": 2081.79,
+      "text": "arguing the Theta n log n complexity of"
+    },
+    {
+      "start": 2081.79,
+      "end": 2084.869,
+      "text": "merge sord right so what I want to do is"
+    },
+    {
+      "start": 2084.869,
+      "end": 2109.31,
+      "text": "expand this recurrence out and let's do"
+    },
+    {
+      "start": 2109.31,
+      "end": 2111.95,
+      "text": "so I have C of n on"
+    },
+    {
+      "start": 2111.95,
+      "end": 2114.99,
+      "text": "top um I'm going to"
+    },
+    {
+      "start": 2114.99,
+      "end": 2117.79,
+      "text": "ignore uh this constant Factor because C"
+    },
+    {
+      "start": 2117.79,
+      "end": 2120.75,
+      "text": "ofn dominates so I just start with c ofn"
+    },
+    {
+      "start": 2120.75,
+      "end": 2124.23,
+      "text": "i I want to break things"
+    },
+    {
+      "start": 2124.23,
+      "end": 2127.27,
+      "text": "up as I do the recursion so when I go C"
+    },
+    {
+      "start": 2127.27,
+      "end": 2129.75,
+      "text": "of n at the top level that's the work I"
+    },
+    {
+      "start": 2129.75,
+      "end": 2131.63,
+      "text": "have to do at the merg at the top level"
+    },
+    {
+      "start": 2131.63,
+      "end": 2134.63,
+      "text": "and then when I go down to two smaller"
+    },
+    {
+      "start": 2134.63,
+      "end": 2137.99,
+      "text": "problems each of them is size n /2 so I"
+    },
+    {
+      "start": 2137.99,
+      "end": 2140.75,
+      "text": "do CF C * n excuse me divided by two"
+    },
+    {
+      "start": 2140.75,
+      "end": 2142.47,
+      "text": "work so this is just a constant c um it"
+    },
+    {
+      "start": 2142.47,
+      "end": 2145.109,
+      "text": "just represents I don't want to write"
+    },
+    {
+      "start": 2145.109,
+      "end": 2146.75,
+      "text": "thetas up here you could um and I'll say"
+    },
+    {
+      "start": 2146.75,
+      "end": 2148.67,
+      "text": "a little bit more about that later but"
+    },
+    {
+      "start": 2148.67,
+      "end": 2151.87,
+      "text": "but think of this CN as representing the"
+    },
+    {
+      "start": 2151.87,
+      "end": 2156.63,
+      "text": "Theta n complexity and C is this"
+    },
+    {
+      "start": 2156.63,
+      "end": 2159.39,
+      "text": "constant so C of C * n here C * n /2"
+    },
+    {
+      "start": 2159.39,
+      "end": 2165.91,
+      "text": "here and then when I keep going I have C"
+    },
+    {
+      "start": 2165.91,
+      "end": 2169.39,
+      "text": "of C * n over 4 C * n over 4"
+    },
+    {
+      "start": 2169.39,
+      "end": 2170.95,
+      "text": "Etc and so on and so forth and when I"
+    },
+    {
+      "start": 2170.95,
+      "end": 2173.47,
+      "text": "come down all the way here n is"
+    },
+    {
+      "start": 2173.47,
+      "end": 2176.87,
+      "text": "eventually going to become"
+    },
+    {
+      "start": 2176.87,
+      "end": 2180.23,
+      "text": "one or essentially a constant and I'm"
+    },
+    {
+      "start": 2180.23,
+      "end": 2184.069,
+      "text": "going to have a bunch of C's here all"
+    },
+    {
+      "start": 2184.069,
+      "end": 2186.99,
+      "text": "right so here's another"
+    },
+    {
+      "start": 2186.99,
+      "end": 2189.71,
+      "text": "question that I'd like you to answer"
+    },
+    {
+      "start": 2189.71,
+      "end": 2192.43,
+      "text": "someone tell me what the number of"
+    },
+    {
+      "start": 2192.43,
+      "end": 2194.15,
+      "text": "levels in this tree are precisely and"
+    },
+    {
+      "start": 2194.15,
+      "end": 2197.109,
+      "text": "the number of leaves in this tree are"
+    },
+    {
+      "start": 2197.109,
+      "end": 2201.23,
+      "text": "precisely"
+    },
+    {
+      "start": 2201.23,
+      "end": 2209.069,
+      "text": "yeah log n+ 1 log to the base 2 + 1 yeah"
+    },
+    {
+      "start": 2209.069,
+      "end": 2212.87,
+      "text": "leaves yeah you want you raise your hand"
+    },
+    {
+      "start": 2212.87,
+      "end": 2216.19,
+      "text": "back there first number of leaves think"
+    },
+    {
+      "start": 2216.19,
+      "end": 2218.47,
+      "text": "yeah you're right you think right okay"
+    },
+    {
+      "start": 2218.47,
+      "end": 2220.91,
+      "text": "so 1 + log"
+    },
+    {
+      "start": 2220.91,
+      "end": 2224.23,
+      "text": "n and n"
+    },
+    {
+      "start": 2224.23,
+      "end": 2225.71,
+      "text": "leaves all right then n n becomes one"
+    },
+    {
+      "start": 2225.71,
+      "end": 2227.829,
+      "text": "you know how many of them do you have"
+    },
+    {
+      "start": 2227.829,
+      "end": 2232.19,
+      "text": "you're down to a a single element which"
+    },
+    {
+      "start": 2232.19,
+      "end": 2234.39,
+      "text": "is uh by definition sorted and uh you"
+    },
+    {
+      "start": 2234.39,
+      "end": 2237.39,
+      "text": "have end leaves right so now let's add"
+    },
+    {
+      "start": 2237.39,
+      "end": 2240.15,
+      "text": "up the work right so this is I really"
+    },
+    {
+      "start": 2240.15,
+      "end": 2242.71,
+      "text": "like this uh picture because it's just"
+    },
+    {
+      "start": 2242.71,
+      "end": 2244.95,
+      "text": "so in intuitive in terms of getting us"
+    },
+    {
+      "start": 2244.95,
+      "end": 2247.19,
+      "text": "the result that we're looking for right"
+    },
+    {
+      "start": 2247.19,
+      "end": 2249.87,
+      "text": "so you add up the work in each of the"
+    },
+    {
+      "start": 2249.87,
+      "end": 2252.589,
+      "text": "each of of the levels of this tree all"
+    },
+    {
+      "start": 2252.589,
+      "end": 2255.71,
+      "text": "right so the top level is CN the second"
+    },
+    {
+      "start": 2255.71,
+      "end": 2257.589,
+      "text": "level is CN because I added half and"
+    },
+    {
+      "start": 2257.589,
+      "end": 2261.43,
+      "text": "half"
+    },
+    {
+      "start": 2261.43,
+      "end": 2264.99,
+      "text": "CN CN wow what"
+    },
+    {
+      "start": 2264.99,
+      "end": 2268.43,
+      "text": "symmetry okay so you're"
+    },
+    {
+      "start": 2268.43,
+      "end": 2270.95,
+      "text": "doing the same amount of"
+    },
+    {
+      "start": 2270.95,
+      "end": 2274.19,
+      "text": "work modu of you know the constant"
+    },
+    {
+      "start": 2274.19,
+      "end": 2276.43,
+      "text": "factors here with uh with what's going"
+    },
+    {
+      "start": 2276.43,
+      "end": 2278.19,
+      "text": "on with the C1 which we've ignored but"
+    },
+    {
+      "start": 2278.19,
+      "end": 2280.71,
+      "text": "roughly the same amount of work in each"
+    },
+    {
+      "start": 2280.71,
+      "end": 2284.79,
+      "text": "of the levels right and now you know how"
+    },
+    {
+      "start": 2284.79,
+      "end": 2286.71,
+      "text": "many levels there are it's uh 1+ log n"
+    },
+    {
+      "start": 2286.71,
+      "end": 2290.99,
+      "text": "so if you want to"
+    },
+    {
+      "start": 2290.99,
+      "end": 2294.71,
+      "text": "write an equation for T of"
+    },
+    {
+      "start": 2294.71,
+      "end": 2296.51,
+      "text": "n it's you know 1"
+    },
+    {
+      "start": 2296.51,
+      "end": 2298.589,
+      "text": "+ log"
+    },
+    {
+      "start": 2298.589,
+      "end": 2304.71,
+      "text": "n"
+    },
+    {
+      "start": 2304.71,
+      "end": 2309.15,
+      "text": "times C of n which is Theta of n log"
+    },
+    {
+      "start": 2309.15,
+      "end": 2311.79,
+      "text": "n all right so I've fxed in constant C"
+    },
+    {
+      "start": 2311.79,
+      "end": 2313.829,
+      "text": "and thetas they're for the purposes of"
+    },
+    {
+      "start": 2313.829,
+      "end": 2317.109,
+      "text": "this description they're interchangeable"
+    },
+    {
+      "start": 2317.109,
+      "end": 2327.19,
+      "text": "you will see recurrences that look like"
+    },
+    {
+      "start": 2327.19,
+      "end": 2329.55,
+      "text": "class and things like that um don't get"
+    },
+    {
+      "start": 2329.55,
+      "end": 2332.27,
+      "text": "confused um it's just a constant"
+    },
+    {
+      "start": 2332.27,
+      "end": 2335.349,
+      "text": "multiplicative factor in front of the"
+    },
+    {
+      "start": 2335.349,
+      "end": 2336.75,
+      "text": "function that you have and it's just a"
+    },
+    {
+      "start": 2336.75,
+      "end": 2338.39,
+      "text": "little easier I think to write down"
+    },
+    {
+      "start": 2338.39,
+      "end": 2341.23,
+      "text": "these constant factors factors and"
+    },
+    {
+      "start": 2341.23,
+      "end": 2343.829,
+      "text": "realize that the amount of work done is"
+    },
+    {
+      "start": 2343.829,
+      "end": 2346.03,
+      "text": "the same in each of the leaves and once"
+    },
+    {
+      "start": 2346.03,
+      "end": 2347.829,
+      "text": "you know the dimensions of this tree in"
+    },
+    {
+      "start": 2347.829,
+      "end": 2350.47,
+      "text": "terms of levels and in terms of the"
+    },
+    {
+      "start": 2350.47,
+      "end": 2353.67,
+      "text": "number of leaves you get your you get"
+    },
+    {
+      "start": 2353.67,
+      "end": 2357.03,
+      "text": "your result all"
+    },
+    {
+      "start": 2357.03,
+      "end": 2369.03,
+      "text": "right so we've looked at two algorithms"
+    },
+    {
+      "start": 2369.03,
+      "end": 2372.109,
+      "text": "far and insertion sort if you talk about"
+    },
+    {
+      "start": 2372.109,
+      "end": 2376.75,
+      "text": "numbers is Theta n Square for swaps"
+    },
+    {
+      "start": 2376.75,
+      "end": 2380.87,
+      "text": "merge sort is Theta n log n um here's"
+    },
+    {
+      "start": 2380.87,
+      "end": 2398.99,
+      "text": "another interesting question what is one"
+    },
+    {
+      "start": 2398.99,
+      "end": 2402.19,
+      "text": "mean that's exactly right that's exactly"
+    },
+    {
+      "start": 2402.19,
+      "end": 2404.109,
+      "text": "right um so the the two guys who"
+    },
+    {
+      "start": 2404.109,
+      "end": 2406.51,
+      "text": "answered the questions before with the"
+    },
+    {
+      "start": 2406.51,
+      "end": 2409.63,
+      "text": "levels and you come out come to me after"
+    },
+    {
+      "start": 2409.63,
+      "end": 2412.309,
+      "text": "class uh so that's a great answer uh"
+    },
+    {
+      "start": 2412.309,
+      "end": 2415.39,
+      "text": "it's in place sorting is something that"
+    },
+    {
+      "start": 2415.39,
+      "end": 2417.91,
+      "text": "has to do with auxiliary space and so"
+    },
+    {
+      "start": 2417.91,
+      "end": 2420.109,
+      "text": "what you see here and it was a bit bit"
+    },
+    {
+      "start": 2420.109,
+      "end": 2425.51,
+      "text": "hidden here but the fact of the matter"
+    },
+    {
+      "start": 2425.51,
+      "end": 2428.43,
+      "text": "is that uh you had LP Prime and R Prime"
+    },
+    {
+      "start": 2428.43,
+      "end": 2430.829,
+      "text": "and L Prime and RP Prime are different"
+    },
+    {
+      "start": 2430.829,
+      "end": 2433.43,
+      "text": "from L and R which were the initial"
+    },
+    {
+      "start": 2433.43,
+      "end": 2436.63,
+      "text": "halves of the inputs to the Sorting"
+    },
+    {
+      "start": 2436.63,
+      "end": 2438.95,
+      "text": "algorithm right and what I said here is"
+    },
+    {
+      "start": 2438.95,
+      "end": 2441.27,
+      "text": "we're going to dump this into a that's"
+    },
+    {
+      "start": 2441.27,
+      "end": 2445.75,
+      "text": "what this picture shows this says sorted"
+    },
+    {
+      "start": 2445.75,
+      "end": 2446.55,
+      "text": "array a and so you had to make a copy of"
+    },
+    {
+      "start": 2446.55,
+      "end": 2450.15,
+      "text": "the"
+    },
+    {
+      "start": 2450.15,
+      "end": 2453.349,
+      "text": "array in the two halves L and R in order"
+    },
+    {
+      "start": 2453.349,
+      "end": 2455.63,
+      "text": "to do the recursion and then to take the"
+    },
+    {
+      "start": 2455.63,
+      "end": 2458.99,
+      "text": "results and put them into the sorted"
+    },
+    {
+      "start": 2458.99,
+      "end": 2460.63,
+      "text": "array a so you need needed in merge sort"
+    },
+    {
+      "start": 2460.63,
+      "end": 2462.87,
+      "text": "you needed Theta"
+    },
+    {
+      "start": 2462.87,
+      "end": 2467.51,
+      "text": "n auxiliary"
+    },
+    {
+      "start": 2467.51,
+      "end": 2472.27,
+      "text": "space so merge sort you need Theta"
+    },
+    {
+      "start": 2472.27,
+      "end": 2480.109,
+      "text": "n extra space and the definition of in"
+    },
+    {
+      "start": 2480.109,
+      "end": 2483.55,
+      "text": "sorting implies that you have Theta one"
+    },
+    {
+      "start": 2483.55,
+      "end": 2486.39,
+      "text": "constant auxilary space"
+    },
+    {
+      "start": 2486.39,
+      "end": 2489.39,
+      "text": "okay the auxiliary space for insertion"
+    },
+    {
+      "start": 2489.39,
+      "end": 2491.99,
+      "text": "sord is simply that you know temporary"
+    },
+    {
+      "start": 2491.99,
+      "end": 2493.829,
+      "text": "variable uh that you need when you swap"
+    },
+    {
+      "start": 2493.829,
+      "end": 2495.75,
+      "text": "two elements right so when you want to"
+    },
+    {
+      "start": 2495.75,
+      "end": 2497.55,
+      "text": "swap a couple of resistors you got to"
+    },
+    {
+      "start": 2497.55,
+      "end": 2499.75,
+      "text": "store one of the values in a temporary"
+    },
+    {
+      "start": 2499.75,
+      "end": 2501.589,
+      "text": "location override the other Etc and"
+    },
+    {
+      "start": 2501.589,
+      "end": 2504.95,
+      "text": "that's the Theta 1 auxiliary space for"
+    },
+    {
+      "start": 2504.95,
+      "end": 2507.43,
+      "text": "insertion sort so there is an advantage"
+    },
+    {
+      "start": 2507.43,
+      "end": 2509.309,
+      "text": "of the version of insertion sort we've"
+    },
+    {
+      "start": 2509.309,
+      "end": 2511.15,
+      "text": "talked about today over merge sort and"
+    },
+    {
+      "start": 2511.15,
+      "end": 2513.71,
+      "text": "if you have a billion elements you know"
+    },
+    {
+      "start": 2513.71,
+      "end": 2514.91,
+      "text": "that's potentially something you don't"
+    },
+    {
+      "start": 2514.91,
+      "end": 2516.99,
+      "text": "want to store in memory if you want to"
+    },
+    {
+      "start": 2516.99,
+      "end": 2519.19,
+      "text": "do something really fast and store do"
+    },
+    {
+      "start": 2519.19,
+      "end": 2521.829,
+      "text": "everything everything in in cash or main"
+    },
+    {
+      "start": 2521.829,
+      "end": 2523.75,
+      "text": "memory and you want to sort billions or"
+    },
+    {
+      "start": 2523.75,
+      "end": 2526.51,
+      "text": "maybe even trillions of items this"
+    },
+    {
+      "start": 2526.51,
+      "end": 2529.349,
+      "text": "becomes an an important"
+    },
+    {
+      "start": 2529.349,
+      "end": 2533.309,
+      "text": "consideration um I will say that um you"
+    },
+    {
+      "start": 2533.309,
+      "end": 2536.349,
+      "text": "can uh reduce the constant factor of the"
+    },
+    {
+      "start": 2536.349,
+      "end": 2537.47,
+      "text": "Theta n so in the vanilla scheme you"
+    },
+    {
+      "start": 2537.47,
+      "end": 2539.109,
+      "text": "could imagine that you have to have a"
+    },
+    {
+      "start": 2539.109,
+      "end": 2543.15,
+      "text": "copy of the array so if you had n"
+    },
+    {
+      "start": 2543.15,
+      "end": 2545.43,
+      "text": "elements you essentially have n extra uh"
+    },
+    {
+      "start": 2545.43,
+      "end": 2549.15,
+      "text": "items of storage you can make that n /"
+    },
+    {
+      "start": 2549.15,
+      "end": 2553.069,
+      "text": "two with a simple coding trick by"
+    },
+    {
+      "start": 2553.069,
+      "end": 2554.67,
+      "text": "keeping 1 half of a uh the you can sort"
+    },
+    {
+      "start": 2554.67,
+      "end": 2557.67,
+      "text": "of throw away one of the L's or one of"
+    },
+    {
+      "start": 2557.67,
+      "end": 2559.109,
+      "text": "the RS and you can get it down to n/2"
+    },
+    {
+      "start": 2559.109,
+      "end": 2560.589,
+      "text": "and that turns out it's a reasonable"
+    },
+    {
+      "start": 2560.589,
+      "end": 2563.27,
+      "text": "thing to do if you have a billion"
+    },
+    {
+      "start": 2563.27,
+      "end": 2565.47,
+      "text": "elements and you want to reduce your"
+    },
+    {
+      "start": 2565.47,
+      "end": 2567.71,
+      "text": "your storage by a constant Factor so"
+    },
+    {
+      "start": 2567.71,
+      "end": 2569.91,
+      "text": "that's one coding trick now it turns out"
+    },
+    {
+      "start": 2569.91,
+      "end": 2572.15,
+      "text": "that you can actually go further and"
+    },
+    {
+      "start": 2572.15,
+      "end": 2574.67,
+      "text": "there's a fairly sophisticated algorithm"
+    },
+    {
+      "start": 2574.67,
+      "end": 2583.549,
+      "text": "that sort of beyond the scope of 66"
+    },
+    {
+      "start": 2583.549,
+      "end": 2586.829,
+      "text": "and this in place merge sort is kind of"
+    },
+    {
+      "start": 2586.829,
+      "end": 2589.15,
+      "text": "Impractical uh in the sense that um it"
+    },
+    {
+      "start": 2589.15,
+      "end": 2592.109,
+      "text": "doesn't do very well in terms of the"
+    },
+    {
+      "start": 2592.109,
+      "end": 2595.23,
+      "text": "constant Factor so while it's in place"
+    },
+    {
+      "start": 2595.23,
+      "end": 2597.63,
+      "text": "and it's still Theta n log n uh the"
+    },
+    {
+      "start": 2597.63,
+      "end": 2600.47,
+      "text": "problem is that the uh that the running"
+    },
+    {
+      "start": 2600.47,
+      "end": 2603.19,
+      "text": "time of an inplace merge sord is much"
+    },
+    {
+      "start": 2603.19,
+      "end": 2605.79,
+      "text": "worse than the regular merge sort that"
+    },
+    {
+      "start": 2605.79,
+      "end": 2608.15,
+      "text": "uses Theta n auxiliary space so people"
+    },
+    {
+      "start": 2608.15,
+      "end": 2610.349,
+      "text": "don't really use in place mer it's a"
+    },
+    {
+      "start": 2610.349,
+      "end": 2614.309,
+      "text": "great paper it's it's it's a great thing"
+    },
+    {
+      "start": 2614.309,
+      "end": 2617.63,
+      "text": "to read um it's a analysis uh uh is is a"
+    },
+    {
+      "start": 2617.63,
+      "end": 2620.47,
+      "text": "bit sophisticated or for6 so we won't we"
+    },
+    {
+      "start": 2620.47,
+      "end": 2622.069,
+      "text": "won't go there but it does exist so you"
+    },
+    {
+      "start": 2622.069,
+      "end": 2624.03,
+      "text": "can take merge sword and I just want to"
+    },
+    {
+      "start": 2624.03,
+      "end": 2626.19,
+      "text": "let you know that you can do things in"
+    },
+    {
+      "start": 2626.19,
+      "end": 2629.99,
+      "text": "place um in terms of"
+    },
+    {
+      "start": 2629.99,
+      "end": 2633.309,
+      "text": "numbers some experiments uh we ran uh a"
+    },
+    {
+      "start": 2633.309,
+      "end": 2635.309,
+      "text": "few years ago so these may not be"
+    },
+    {
+      "start": 2635.309,
+      "end": 2637.91,
+      "text": "completely valid because I'm going to"
+    },
+    {
+      "start": 2637.91,
+      "end": 2641.15,
+      "text": "actually give you numbers but merge"
+    },
+    {
+      "start": 2641.15,
+      "end": 2644.99,
+      "text": "s in"
+    },
+    {
+      "start": 2644.99,
+      "end": 2650.23,
+      "text": "Python if you if you write"
+    },
+    {
+      "start": 2650.23,
+      "end": 2652.23,
+      "text": "um a little curvefit program to do this"
+    },
+    {
+      "start": 2652.23,
+      "end": 2656.309,
+      "text": "is"
+    },
+    {
+      "start": 2656.309,
+      "end": 2659.589,
+      "text": "2.2 n log n micros seconds okay for a"
+    },
+    {
+      "start": 2659.589,
+      "end": 2661.549,
+      "text": "given n right so this is the merge start"
+    },
+    {
+      "start": 2661.549,
+      "end": 2664.95,
+      "text": "routine uh let"
+    },
+    {
+      "start": 2664.95,
+      "end": 2677.589,
+      "text": "me and if you look at a insertion sort"
+    },
+    {
+      "start": 2677.589,
+      "end": 2681.069,
+      "text": "that's something like 0 2 N sare"
+    },
+    {
+      "start": 2681.069,
+      "end": 2684.43,
+      "text": "microc okay so you see the the constant"
+    },
+    {
+      "start": 2684.43,
+      "end": 2687.309,
+      "text": "factors here if you do insertion sord in"
+    },
+    {
+      "start": 2687.309,
+      "end": 2690.349,
+      "text": "C which is a compiled"
+    },
+    {
+      "start": 2690.349,
+      "end": 2694.39,
+      "text": "language then I it's it's much faster"
+    },
+    {
+      "start": 2694.39,
+      "end": 2699.549,
+      "text": "it's about um 20 times"
+    },
+    {
+      "start": 2699.549,
+      "end": 2701.39,
+      "text": "faster it's 01 n² microsc okay so a"
+    },
+    {
+      "start": 2701.39,
+      "end": 2703.109,
+      "text": "little bit of practice on the side we do"
+    },
+    {
+      "start": 2703.109,
+      "end": 2704.43,
+      "text": "ask you to write code and this is"
+    },
+    {
+      "start": 2704.43,
+      "end": 2705.87,
+      "text": "important the reason we're interested in"
+    },
+    {
+      "start": 2705.87,
+      "end": 2710.47,
+      "text": "algorithms is because people want to run"
+    },
+    {
+      "start": 2710.47,
+      "end": 2714.19,
+      "text": "them and what you can see um is that you"
+    },
+    {
+      "start": 2714.19,
+      "end": 2716.589,
+      "text": "can actually um find an N so regardless"
+    },
+    {
+      "start": 2716.589,
+      "end": 2718.87,
+      "text": "of whether your python or C this sort of"
+    },
+    {
+      "start": 2718.87,
+      "end": 2721.069,
+      "text": "tells you that asmic complexity is is"
+    },
+    {
+      "start": 2721.069,
+      "end": 2724.51,
+      "text": "pretty important because once n gets"
+    },
+    {
+      "start": 2724.51,
+      "end": 2727.23,
+      "text": "Beyond about uh 4,000 uh you're going to"
+    },
+    {
+      "start": 2727.23,
+      "end": 2730.43,
+      "text": "see that mer merge s in Python you know"
+    },
+    {
+      "start": 2730.43,
+      "end": 2734.51,
+      "text": "beats insertion sort in C right so so"
+    },
+    {
+      "start": 2734.51,
+      "end": 2737.23,
+      "text": "the constant factors get uh"
+    },
+    {
+      "start": 2737.23,
+      "end": 2738.87,
+      "text": "subsumed Beyond certain values of n so"
+    },
+    {
+      "start": 2738.87,
+      "end": 2740.95,
+      "text": "that's why asmic complexity is is"
+    },
+    {
+      "start": 2740.95,
+      "end": 2742.95,
+      "text": "important and you do have a factor of 20"
+    },
+    {
+      "start": 2742.95,
+      "end": 2746.349,
+      "text": "here but that doesn't really help you in"
+    },
+    {
+      "start": 2746.349,
+      "end": 2748.39,
+      "text": "terms of keeping an nsquare algorithm"
+    },
+    {
+      "start": 2748.39,
+      "end": 2751.15,
+      "text": "competitive it stays competitive for a"
+    },
+    {
+      "start": 2751.15,
+      "end": 2752.03,
+      "text": "little bit longer but then falls behind"
+    },
+    {
+      "start": 2752.03,
+      "end": 2755.99,
+      "text": "all"
+    },
+    {
+      "start": 2755.99,
+      "end": 2757.87,
+      "text": "right okay so that's what I wanted to"
+    },
+    {
+      "start": 2757.87,
+      "end": 2760.589,
+      "text": "cover for sorting so hopefully you have"
+    },
+    {
+      "start": 2760.589,
+      "end": 2763.43,
+      "text": "a sense of what happens with these two"
+    },
+    {
+      "start": 2763.43,
+      "end": 2765.109,
+      "text": "sorting algorithms we'll look at a very"
+    },
+    {
+      "start": 2765.109,
+      "end": 2767.19,
+      "text": "different sorting algorithm next time"
+    },
+    {
+      "start": 2767.19,
+      "end": 2769.91,
+      "text": "using heaps which is a different data"
+    },
+    {
+      "start": 2769.91,
+      "end": 2771.51,
+      "text": "structure um the last thing I want to do"
+    },
+    {
+      "start": 2771.51,
+      "end": 2774.309,
+      "text": "in the couple of minutes I have left is"
+    },
+    {
+      "start": 2774.309,
+      "end": 2777.03,
+      "text": "give you a little more intuition as to"
+    },
+    {
+      "start": 2777.03,
+      "end": 2779.109,
+      "text": "recurrence solving based on this diagram"
+    },
+    {
+      "start": 2779.109,
+      "end": 2781.589,
+      "text": "that I wrote up there and so we're going"
+    },
+    {
+      "start": 2781.589,
+      "end": 2783.15,
+      "text": "to use exactly this structure and we're"
+    },
+    {
+      "start": 2783.15,
+      "end": 2785.87,
+      "text": "going to look at a couple of different"
+    },
+    {
+      "start": 2785.87,
+      "end": 2788.47,
+      "text": "recurrences that I won't really motivate"
+    },
+    {
+      "start": 2788.47,
+      "end": 2790.309,
+      "text": "in terms of having a specific algorithm"
+    },
+    {
+      "start": 2790.309,
+      "end": 2794.23,
+      "text": "but um I'll just write out the"
+    },
+    {
+      "start": 2794.23,
+      "end": 2795.589,
+      "text": "recurrence and um we'll look at the"
+    },
+    {
+      "start": 2795.589,
+      "end": 2798.27,
+      "text": "we'll look at the recursion tree for"
+    },
+    {
+      "start": 2798.27,
+      "end": 2801.349,
+      "text": "that and I'll I'll try"
+    },
+    {
+      "start": 2801.349,
+      "end": 2804.95,
+      "text": "and tease out of you the complexity"
+    },
+    {
+      "start": 2804.95,
+      "end": 2812.589,
+      "text": "associated with these recurrences or the"
+    },
+    {
+      "start": 2812.589,
+      "end": 2814.349,
+      "text": "complexity so let's take a look at T of"
+    },
+    {
+      "start": 2814.349,
+      "end": 2820.589,
+      "text": "n"
+    },
+    {
+      "start": 2820.589,
+      "end": 2825.03,
+      "text": "equals 2 T of n / 2 2 plus C"
+    },
+    {
+      "start": 2825.03,
+      "end": 2827.39,
+      "text": "n² Okay C * n let me just call that CN"
+    },
+    {
+      "start": 2827.39,
+      "end": 2831.069,
+      "text": "no need for the"
+    },
+    {
+      "start": 2831.069,
+      "end": 2833.75,
+      "text": "brackets so constant C * n s so if you"
+    },
+    {
+      "start": 2833.75,
+      "end": 2835.95,
+      "text": "had a crummy merge routine and it was"
+    },
+    {
+      "start": 2835.95,
+      "end": 2838.15,
+      "text": "taking n square and you coded it up"
+    },
+    {
+      "start": 2838.15,
+      "end": 2840.069,
+      "text": "wrong you know that would be uh it's not"
+    },
+    {
+      "start": 2840.069,
+      "end": 2842.39,
+      "text": "a great motivation for this recurrence"
+    },
+    {
+      "start": 2842.39,
+      "end": 2845.03,
+      "text": "but it's it is way this recurrence could"
+    },
+    {
+      "start": 2845.03,
+      "end": 2847.51,
+      "text": "have come up all right so what does this"
+    },
+    {
+      "start": 2847.51,
+      "end": 2849.43,
+      "text": "uh this recursive tree look like"
+    },
+    {
+      "start": 2849.43,
+      "end": 2853.109,
+      "text": "well it looks kind of the same obviously"
+    },
+    {
+      "start": 2853.109,
+      "end": 2857.79,
+      "text": "you have CN squ you have CN Square ID 4"
+    },
+    {
+      "start": 2857.79,
+      "end": 2859.75,
+      "text": "CN Square divid 4 CN squ ID"
+    },
+    {
+      "start": 2859.75,
+      "end": 2862.87,
+      "text": "16 four"
+    },
+    {
+      "start": 2862.87,
+      "end": 2865.75,
+      "text": "times looking a little bit different"
+    },
+    {
+      "start": 2865.75,
+      "end": 2868.109,
+      "text": "from the other one um the levels and the"
+    },
+    {
+      "start": 2868.109,
+      "end": 2870.829,
+      "text": "leaves are exactly the same eventually n"
+    },
+    {
+      "start": 2870.829,
+      "end": 2873.75,
+      "text": "is going to go down to one so you will"
+    },
+    {
+      "start": 2873.75,
+      "end": 2880.47,
+      "text": "see C all the way here and you're going"
+    },
+    {
+      "start": 2880.47,
+      "end": 2882.39,
+      "text": "and you will have you know as before 1"
+    },
+    {
+      "start": 2882.39,
+      "end": 2885.19,
+      "text": "plus log n"
+    },
+    {
+      "start": 2885.19,
+      "end": 2886.87,
+      "text": "levels everything is the same right and"
+    },
+    {
+      "start": 2886.87,
+      "end": 2888.95,
+      "text": "this is why I like this recursive tree"
+    },
+    {
+      "start": 2888.95,
+      "end": 2892.47,
+      "text": "formulation so much because now all I"
+    },
+    {
+      "start": 2892.47,
+      "end": 2895.069,
+      "text": "have to do is add up the work associated"
+    },
+    {
+      "start": 2895.069,
+      "end": 2897.15,
+      "text": "with each of the levels to get the"
+    },
+    {
+      "start": 2897.15,
+      "end": 2900.03,
+      "text": "solution to the recurrence right now"
+    },
+    {
+      "start": 2900.03,
+      "end": 2901.43,
+      "text": "take a look at what happens here CN s CN"
+    },
+    {
+      "start": 2901.43,
+      "end": 2904.47,
+      "text": "s divid by"
+    },
+    {
+      "start": 2904.47,
+      "end": 2908.109,
+      "text": "2 CN 2 /"
+    },
+    {
+      "start": 2908.109,
+      "end": 2909.75,
+      "text": "4 and this is n *"
+    },
+    {
+      "start": 2909.75,
+      "end": 2915.069,
+      "text": "C"
+    },
+    {
+      "start": 2915.069,
+      "end": 2918.15,
+      "text": "right so what does that add up to"
+    },
+    {
+      "start": 2918.15,
+      "end": 2925.23,
+      "text": "yeah yeah exactly exactly right so if"
+    },
+    {
+      "start": 2925.23,
+      "end": 2927.67,
+      "text": "dominates all of the other things are"
+    },
+    {
+      "start": 2927.67,
+      "end": 2929.91,
+      "text": "actually less than that okay and you"
+    },
+    {
+      "start": 2929.91,
+      "end": 2931.91,
+      "text": "said bounded by 2 CN Square because this"
+    },
+    {
+      "start": 2931.91,
+      "end": 2934.789,
+      "text": "part is bounded by CN s and you already"
+    },
+    {
+      "start": 2934.789,
+      "end": 2937.51,
+      "text": "have CN square up at the top right so"
+    },
+    {
+      "start": 2937.51,
+      "end": 2939.109,
+      "text": "this particular algor that corresponds"
+    },
+    {
+      "start": 2939.109,
+      "end": 2941.39,
+      "text": "to this crummy merge sort or wherever"
+    },
+    {
+      "start": 2941.39,
+      "end": 2943.03,
+      "text": "this recurrence came"
+    },
+    {
+      "start": 2943.03,
+      "end": 2947.39,
+      "text": "from"
+    },
+    {
+      "start": 2947.39,
+      "end": 2951.349,
+      "text": "is a Theta n Square algorithm and in"
+    },
+    {
+      "start": 2951.349,
+      "end": 2954.51,
+      "text": "this case all of the work done is at the"
+    },
+    {
+      "start": 2954.51,
+      "end": 2957.549,
+      "text": "root at the top level of the recursion"
+    },
+    {
+      "start": 2957.549,
+      "end": 2959.87,
+      "text": "okay here there was roughly equal amount"
+    },
+    {
+      "start": 2959.87,
+      "end": 2962.19,
+      "text": "of work done in each of the different"
+    },
+    {
+      "start": 2962.19,
+      "end": 2965.03,
+      "text": "levels all right"
+    },
+    {
+      "start": 2965.03,
+      "end": 2969.27,
+      "text": "here all of the work was done at the"
+    },
+    {
+      "start": 2969.27,
+      "end": 2972.71,
+      "text": "root okay and so to close up shop here"
+    },
+    {
+      "start": 2972.71,
+      "end": 2975.789,
+      "text": "let me just give you real quick a"
+    },
+    {
+      "start": 2975.789,
+      "end": 2976.829,
+      "text": "recurrence where all of the work is done"
+    },
+    {
+      "start": 2976.829,
+      "end": 2979.47,
+      "text": "at the"
+    },
+    {
+      "start": 2979.47,
+      "end": 2983.309,
+      "text": "leaves just for"
+    },
+    {
+      "start": 2983.309,
+      "end": 2985.87,
+      "text": "closure so if I had magically a a merge"
+    },
+    {
+      "start": 2985.87,
+      "end": 2987.71,
+      "text": "routine that actually happened in"
+    },
+    {
+      "start": 2987.71,
+      "end": 2990.43,
+      "text": "constant time either through you know"
+    },
+    {
+      "start": 2990.43,
+      "end": 2994.75,
+      "text": "buggy analysis or because it was buggy"
+    },
+    {
+      "start": 2994.75,
+      "end": 2996.91,
+      "text": "uh then what does the tree look like for"
+    },
+    {
+      "start": 2996.91,
+      "end": 2999.109,
+      "text": "that and I can think of this as being"
+    },
+    {
+      "start": 2999.109,
+      "end": 3001.589,
+      "text": "you know Theta 1 or I can think of this"
+    },
+    {
+      "start": 3001.589,
+      "end": 3002.95,
+      "text": "as being just a constant C I'll stick"
+    },
+    {
+      "start": 3002.95,
+      "end": 3011.43,
+      "text": "with that so I have"
+    },
+    {
+      "start": 3011.43,
+      "end": 3019.63,
+      "text": "c and well I tried to move that up that"
+    },
+    {
+      "start": 3019.63,
+      "end": 3023.51,
+      "text": "before and so if I look at what I have"
+    },
+    {
+      "start": 3023.51,
+      "end": 3027.069,
+      "text": "here I have C at the top level I have 2"
+    },
+    {
+      "start": 3027.069,
+      "end": 3029.19,
+      "text": "c um and so on and so forth 4 C and then"
+    },
+    {
+      "start": 3029.19,
+      "end": 3032.75,
+      "text": "I I go all the way down to"
+    },
+    {
+      "start": 3032.75,
+      "end": 3034.99,
+      "text": "NC all right and so what happens here is"
+    },
+    {
+      "start": 3034.99,
+      "end": 3040.91,
+      "text": "this"
+    },
+    {
+      "start": 3040.91,
+      "end": 3045.349,
+      "text": "recurrence the whole thing runs in Theta"
+    },
+    {
+      "start": 3045.349,
+      "end": 3049.27,
+      "text": "n so what the solution to that is Theta"
+    },
+    {
+      "start": 3049.27,
+      "end": 3051.789,
+      "text": "n and what you have here"
+    },
+    {
+      "start": 3051.789,
+      "end": 3054.67,
+      "text": "is all of the work being done at the"
+    },
+    {
+      "start": 3054.67,
+      "end": 3057.67,
+      "text": "leaves all right um we're not going to"
+    },
+    {
+      "start": 3057.67,
+      "end": 3059.829,
+      "text": "really cover this this theorem that"
+    },
+    {
+      "start": 3059.829,
+      "end": 3063.109,
+      "text": "that gives you a mechanical way of"
+    },
+    {
+      "start": 3063.109,
+      "end": 3065.03,
+      "text": "figuring this out because we think the"
+    },
+    {
+      "start": 3065.03,
+      "end": 3066.87,
+      "text": "recursive tree is the is a better way of"
+    },
+    {
+      "start": 3066.87,
+      "end": 3068.99,
+      "text": "looking at it but you can see that"
+    },
+    {
+      "start": 3068.99,
+      "end": 3070.99,
+      "text": "depending on what that function is in"
+    },
+    {
+      "start": 3070.99,
+      "end": 3072.75,
+      "text": "terms of the work being done in the"
+    },
+    {
+      "start": 3072.75,
+      "end": 3074.789,
+      "text": "merge routine you'd have different"
+    },
+    {
+      "start": 3074.789,
+      "end": 3076.19,
+      "text": "versions of recurrences all right I'll"
+    },
+    {
+      "start": 3076.19,
+      "end": 3078.19,
+      "text": "stick around and people who answered"
+    },
+    {
+      "start": 3078.19,
+      "end": 3081.19,
+      "text": "questions please pick up your cushions"
+    }
+  ]
+}

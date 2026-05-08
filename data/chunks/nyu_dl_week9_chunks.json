@@ -1,0 +1,1423 @@
+[
+  {
+    "chunk_id": "nyu_dl_week9_chunk_000",
+    "video_id": "nyu_dl_week9",
+    "start_time": 0.0,
+    "end_time": 45.0,
+    "text": "all right so i guess we can get started uh this is the third part of uh the lecture on energy based models uh which we are we're going to continue a little bit what we talked about last time on sparse coding and talk about gans very briefly you'll hear more about it tomorrow from alfredo and then talk about learning world models and similar things also about a bit of a little bit about exotic self-supervised and unsupervised learning algorithms that are kind of you know active research topics at the moment so one thing i talked about last time was sparse coding and i'm going to mention just a"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_001",
+    "video_id": "nyu_dl_week9",
+    "start_time": 35.0,
+    "end_time": 80.0,
+    "text": "research topics at the moment so one thing i talked about last time was sparse coding and i'm going to mention just a very simple idea which consists in sort combining uh sparse coding or the audio sparsely encoder with uh discriminative training so imagine that the architecture i'm showing you here uh the the encoder if you will the the first uh part on the left is uh mostly uh similar to the encoder i talked about for the the lista method so you start with the x variable you run it through a matrix then you run that through a non-linearity it could be a value for"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_002",
+    "video_id": "nyu_dl_week9",
+    "start_time": 70.0,
+    "end_time": 115.0,
+    "text": "talked about for the the lista method so you start with the x variable you run it through a matrix then you run that through a non-linearity it could be a value for example this is the case here and then you take the result multiplied by some matrix which we're going to learn at this with the product of the input by the encoding matrix we and then pass this to a non-linearity and you can repeat this little block this green block here multiple times each of those is a layer basically that consists in a matrix or a bunch of convolutions uh in addition with uh some you know pre-existing variable and a non-linearity so this is you know a funny kind of neural network where you have kind of"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_003",
+    "video_id": "nyu_dl_week9",
+    "start_time": 105.0,
+    "end_time": 150.0,
+    "text": "a matrix or a bunch of convolutions uh in addition with uh some you know pre-existing variable and a non-linearity so this is you know a funny kind of neural network where you have kind of uh skipping connections and then we're going to train this neural network to do uh three different things or with three different criteria one criterion is going to be uh just reconstruct x okay so there's going to be a decoding matrix that is uh going to reproduce the input on the output and we're going to do this by just minimizing squared error so this is what's indicated by the decoding filters here and again this could be convolutional or not depending on which version you you like there's going to be an l1 criterion"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_004",
+    "video_id": "nyu_dl_week9",
+    "start_time": 140.0,
+    "end_time": 185.0,
+    "text": "so this is what's indicated by the decoding filters here and again this could be convolutional or not depending on which version you you like there's going to be an l1 criterion on the on the feature vector that makes it sparse so this is very much like a sparse auto encoder of the type that we talked about last week but then we're also going to add a third term and this third term is going to be basically a a simple linear classifier which is going to try to predict a category okay and we're going to train the system to minimize all three criteria at the same time so this is a sparse autoencoder that also tries to find codes that do a good job at prediction"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_005",
+    "video_id": "nyu_dl_week9",
+    "start_time": 175.0,
+    "end_time": 220.0,
+    "text": "train the system to minimize all three criteria at the same time so this is a sparse autoencoder that also tries to find codes that do a good job at prediction and this is sort of a good way you can you can see this in two different ways you can you can see this as an auto encoder that is biased towards producing good labels or you can see this as a classifier multi-layer classifier that is regularized by an auto encoder what's the advantage of this with the advantage is that by forcing the system to find representations here at the second last layer that uh can reconstruct the input then you're basically biasing the system towards extracting features that contain as much"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_006",
+    "video_id": "nyu_dl_week9",
+    "start_time": 210.0,
+    "end_time": 255.0,
+    "text": "you're basically biasing the system towards extracting features that contain as much makes the features richer if you want it forces the system to not generate degenerate features but to generate features that contain as much information as possible about that works pretty well i think it's an underexplored method for training neural nets um because very often we don't have enough uh label training data or when the the training data is such that you don't have a lot of categories um to work with maybe it's a two or three or ten classic problem"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_007",
+    "video_id": "nyu_dl_week9",
+    "start_time": 245.0,
+    "end_time": 290.0,
+    "text": "uh label training data or when the the training data is such that you don't have a lot of categories um to work with maybe it's a two or three or ten classic problem which we know tend to produce very generic degenerate features uh in a neural net as we discussed last time then forcing the system to reconstruct basically tells it you know you can't generate features that are too degenerate will sort of generate that uh you can't reconstruct the input from it so that's sort of a good you could think of it as a good regularizer okay group sparsity and structural sparsity so there's some work going back about 10 years maybe a little more uh in fact the first work on this are about 20 years old on the idea of goose parsley what does"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_008",
+    "video_id": "nyu_dl_week9",
+    "start_time": 280.0,
+    "end_time": 325.0,
+    "text": "sparsity so there's some work going back about 10 years maybe a little more uh in fact the first work on this are about 20 years old on the idea of goose parsley what does that mean um here is here is the idea the idea is to train a system to generate spice features but not just normal features that are extracted say by a bunch of convolutions and values but to basically produce part spot features that are sparse after the pooling okay so you essentially have a system that consists of convolutions non-linearity and pooling and there's a number of different work the idea goes back to ivarian and hoyer in 2001 uh in the"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_009",
+    "video_id": "nyu_dl_week9",
+    "start_time": 315.0,
+    "end_time": 360.0,
+    "text": "and there's a number of different work the idea goes back to ivarian and hoyer in 2001 uh in the context of ica independent component analysis and then there were you know a few other papers one by osindero in jeff eaton's group um and then karai uh truly was a student of mine back in the late 2000s uh carl greger who was posed up with me giuliana merrell who is in the in france and a bunch of other people on on this idea of structural space coding so the idea basically is you take um uh so some of those uh models only have an encoder some of them only have a decoder and some of them are auto encoders right so the one on the left is in the airways"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_010",
+    "video_id": "nyu_dl_week9",
+    "start_time": 350.0,
+    "end_time": 395.0,
+    "text": "the idea basically is you take um uh so some of those uh models only have an encoder some of them only have a decoder and some of them are auto encoders right so the one on the left is in the airways model is an encoder only model julia alex model is a decoder only model and choreographers model is uh basically an autoencoder a space autoencoder of the type that we talked about last time um so how does that work uh let's take say an encoder only model you have a feature extractor which consists of convolutions or maybe just uh fully connected uh matrices over a patch an image patch for example and then instead of forcing the output"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_011",
+    "video_id": "nyu_dl_week9",
+    "start_time": 385.0,
+    "end_time": 430.0,
+    "text": "maybe just uh fully connected uh matrices over a patch an image patch for example and then instead of forcing the output of this to be after a non-linearity instead of forcing that to be sparse you you put a pulling layer and you you force the pulling to be sparse uh and this applies to uh all three of those um so here is a more specific example this is the the version that uh correct true uh did for his phd this is where he had a sparse auto encoder so you have an encoding function g e of w e y i it could be multiple layers in this case it was basically just two layers uh with one non-linearity you have a"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_012",
+    "video_id": "nyu_dl_week9",
+    "start_time": 420.0,
+    "end_time": 465.0,
+    "text": "he had a sparse auto encoder so you have an encoding function g e of w e y i it could be multiple layers in this case it was basically just two layers uh with one non-linearity you have a decoder which in this case was linear wd times e evaluating variable z and that agent variable instead of going to an l1 it goes through uh basically an l2 but it's l2 over groups right so you take a group of components of z you compute the l2 norm not the square to norm but the l2 norm which means the square root of the sum of the values of those components uh of the square of those components right so take each component compute the square and then compute the sum of a group of those squares and then compute the square root of that"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_013",
+    "video_id": "nyu_dl_week9",
+    "start_time": 455.0,
+    "end_time": 500.0,
+    "text": "of those components uh of the square of those components right so take each component compute the square and then compute the sum of a group of those squares and then compute the square root of that so that's the l2 norm of that within that group and then you do this for multiple groups the groups can be overlapping or non-overlapping and you compute the sum and that's your regularizer that's your sparsity regularizer so what does that tend to do it tends to basically turn off the maximum number of groups okay the system basically is sparsity on groups so it wants the smallest number of groups to be on at any one time but within a group because it's an l2 norm within a group it doesn't care how many units are on within the group"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_014",
+    "video_id": "nyu_dl_week9",
+    "start_time": 490.0,
+    "end_time": 535.0,
+    "text": "smallest number of groups to be on at any one time but within a group because it's an l2 norm within a group it doesn't care how many units are on within the group so many units can be on within a group so what does that do it it forces the system basically to group within a pool features that turn on simultaneously right so if you have features that are very similar feature extra extractors that are very similar filters that are very similar in a commercial net then those features will tend to kind of uh when you do the training they'll try to group themselves within a group because they will tend to be activated together that's the best way to minimize the number of groups that are activated"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_015",
+    "video_id": "nyu_dl_week9",
+    "start_time": 525.0,
+    "end_time": 570.0,
+    "text": "to group themselves within a group because they will tend to be activated together that's the best way to minimize the number of groups that are activated so to get those those interesting kind of pictures here the way this was obtained here the groups so what you're looking at here are the either the uh i think it's the decoding matrix so these are the the the columns of the wd matrix um that we can reconstruct an image patch from the sparse code"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_016",
+    "video_id": "nyu_dl_week9",
+    "start_time": 560.0,
+    "end_time": 605.0,
+    "text": "that we can reconstruct an image patch from the sparse code but what we do here is that we group those features into blocks of 36 so we arrange all the features in a 2d map that has nothing to do with the topology of the image we could choose any topology we want in fact this is not actually a 2d topology it's a it's a toridol topology so the left side touches the right side on the top touches the bottom so it's topologically identical to and what we do is we regroup sets of 36 features within a group okay"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_017",
+    "video_id": "nyu_dl_week9",
+    "start_time": 595.0,
+    "end_time": 640.0,
+    "text": "and what we do is we regroup sets of 36 features within a group okay and those uh groups of 36 features overlap by by three columns and three rows okay so we have multiple groups of 36 features six by six shifted by three you could think of this as kind of pulling over feature but not putting over space because there's no space here it's a free connected network but it has a bit of the flavor the same flavor as pooling except here you pull over 36 features you don't pull over space"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_018",
+    "video_id": "nyu_dl_week9",
+    "start_time": 630.0,
+    "end_time": 675.0,
+    "text": "except here you pull over 36 features you don't pull over space so then you you compute the sum of the l2 norm of the the features that are within each group and that's the regularizer you use when you train your your sparse autoencoder so the system uh wants to do is minimize the number of groups that are on at any one time and so as i said before it basically it regroups all the features that are similar and likely to fire simultaneously into into groups and because the groups overlap then it creates those kind of slowly evolving sets of features that sort of uh seem to kind of swirl"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_019",
+    "video_id": "nyu_dl_week9",
+    "start_time": 665.0,
+    "end_time": 710.0,
+    "text": "and because the groups overlap then it creates those kind of slowly evolving sets of features that sort of uh seem to kind of swirl around a point so the features you get as a result of this have some sort of invariance and they have some invariance not to shift but to things like rotation and scale and things like that whatever the system decides so here the reason for choosing a 2d topology is basically just for you know to make it look beautiful but uh you could you could choose any kind of topology you want what is on the x-axis and the y-axis here in this diagram so those are arbitrary axes i have i don't even remember how many"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_020",
+    "video_id": "nyu_dl_week9",
+    "start_time": 700.0,
+    "end_time": 745.0,
+    "text": "you want what is on the x-axis and the y-axis here in this diagram so those are arbitrary axes i have i don't even remember how many features there are here this this might be 256 features i think it's 16 by 16. so there's 256 uh hidden units right so imagine a network that has a 12 by 12 input patch okay an input image it's a patch from an image and 256 uh hidden units with a fully connected full connection uh non-linearity and there is uh another layer on top um then that's the encoder and then you have uh this group sparsity and then the the decoder is linear"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_021",
+    "video_id": "nyu_dl_week9",
+    "start_time": 735.0,
+    "end_time": 780.0,
+    "text": "uh another layer on top um then that's the encoder and then you have uh this group sparsity and then the the decoder is linear okay and what you're seeing here are the columns of the decoder and they are organized in a 2d topology okay but it's arbitrary each of these squares is a column of the decoder each of these square is a column of decoder that also corresponds to a component of z okay a component of the for the feature the future vector and so they are organized in a 16 by 16 matrix but it's kind of arbitrary we just you know put them in a in a matrix and then we train and because uh the groups take kind of six by six neighborhoods in this topology"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_022",
+    "video_id": "nyu_dl_week9",
+    "start_time": 770.0,
+    "end_time": 815.0,
+    "text": "put them in a in a matrix and then we train and because uh the groups take kind of six by six neighborhoods in this topology the system naturally kind of learns features that are similar when they're nearby within this topology all right but again i could have chosen any kind of topology neighborhood of some kind as long as the pooling is you know between neighbors on the graph so what i've done here is going to repeat this this little"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_023",
+    "video_id": "nyu_dl_week9",
+    "start_time": 805.0,
+    "end_time": 850.0,
+    "text": "so what i've done here is going to repeat this this little pattern um to kind of show uh because it's you know it's historical uh to show the you know how those those those patterns kind of repeat and are sort of periodical and the reason for visualizing it this way is that this is the kind of stuff that neuroscientists observe when they poke electrodes in the usual primary visual cortex of mammals but most most animals that have good vision they see kind of those kind of swirling patterns where neighboring neurons detect similar features which means similar oriented edges they are"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_024",
+    "video_id": "nyu_dl_week9",
+    "start_time": 840.0,
+    "end_time": 885.0,
+    "text": "good vision they see kind of those kind of swirling patterns where neighboring neurons detect similar features which means similar oriented edges they are sensitive to oriented edges and and neighboring neurons are similar are sensitive to similar angles or the same angles that similar scale or or things like that and so perhaps this is how you know the brain organizes its uh its neurons it's by kind of basically having some sort of criterion on the complex cells which are the equivalent of the pulling units that we're seeing um here is the another example here so this one is"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_025",
+    "video_id": "nyu_dl_week9",
+    "start_time": 875.0,
+    "end_time": 920.0,
+    "text": "of the pulling units that we're seeing um here is the another example here so this one is uh not at the patch level but it uses local connections but it's not convolutional in the sense that it doesn't use uh shared weights the reason for doing this is to have some you know a semi-realistic uh sort of correspondence to a uh uh sort of biological learning where of course you know neurons in the brain cancer can't share weights right they um they end up being similar because you know they train using some sort of unsupervised learning but there is no such thing as as well sharing in the brain as far as we know"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_026",
+    "video_id": "nyu_dl_week9",
+    "start_time": 910.0,
+    "end_time": 955.0,
+    "text": "you know they train using some sort of unsupervised learning but there is no such thing as as well sharing in the brain as far as we know so it was asked if the uh if you're a similar similar strategy of the training of the autoencoder with the classifier and the regular regularizer can be applied for a variation of the encoder and whether this has been explored if it works as well for the first slide you show yeah so um you're basically adding noise in a variation auto encoder and forcing sparsity are basically two ways to achieve the same purpose which is reduce the capacity of the of the legend variable reduce the capacity of the of the code that is extracted by the autoencoder and this is what prevents the system from"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_027",
+    "video_id": "nyu_dl_week9",
+    "start_time": 945.0,
+    "end_time": 990.0,
+    "text": "achieve the same purpose which is reduce the capacity of the of the legend variable reduce the capacity of the of the code that is extracted by the autoencoder and this is what prevents the system from running a trivial identity function which would not be useful right and what we talked about the last couple times is the fact that if you reduce the information capacity of the latent variable of the code you uh as a consequence you also minimize the volume of space that can take low energy okay because you limit the number of configurations of the code and so as a consequence you can limit the volume of space that can take low energy so essentially this idea of regularizing with l1 or sparsity or something like this or adding noise to a"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_028",
+    "video_id": "nyu_dl_week9",
+    "start_time": 980.0,
+    "end_time": 1025.0,
+    "text": "can limit the volume of space that can take low energy so essentially this idea of regularizing with l1 or sparsity or something like this or adding noise to a code where limiting the norm of the code achieves the same purpose which is limiting the capacity of the of the code for the purpose of limiting the volume of space that can take low energy and as a consequence if you train part of the space to have low energy by minimizing the reconstruction error on your training samples automatically the rest of the space will have higher energy because the capacity the volume the kentucky energy is limited um so this is uh just to recap uh we talked about last time and and a couple weeks ago"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_029",
+    "video_id": "nyu_dl_week9",
+    "start_time": 1015.0,
+    "end_time": 1060.0,
+    "text": "kentucky energy is limited um so this is uh just to recap uh we talked about last time and and a couple weeks ago this is to this is sort of the alternative so those kind of architectural methods are alternatives to the contrastive methods where you explicitly push up on the energy of bad samples which means you have to come up with a good idea you know a good way of generating bad samples in that case okay so again remember those two types of methods contractive methods you push down the energy of the training samples you push up the energy of stuff outside either by corrupting the original samples or by doing uh uh gradient noisy gradient descent you know contrast divergence things like this"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_030",
+    "video_id": "nyu_dl_week9",
+    "start_time": 1050.0,
+    "end_time": 1095.0,
+    "text": "outside either by corrupting the original samples or by doing uh uh gradient noisy gradient descent you know contrast divergence things like this or by generating contrasting points in some way um we've seen a bunch of different contrasting methods and then the alternative is limiting the capacity of a code uh or or kind of limiting the volume of stuff that can take low energy in the context of autoencoder or predictor this means limiting the capacity of the code and there are many ways to do this one way is through sparsity one way is through adding noise while limiting the norm that's the a east and there are other ways that we'll we'll talk about in a minute whenever you were talking before about the group"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_031",
+    "video_id": "nyu_dl_week9",
+    "start_time": 1085.0,
+    "end_time": 1130.0,
+    "text": "way is through sparsity one way is through adding noise while limiting the norm that's the a east and there are other ways that we'll we'll talk about in a minute whenever you were talking before about the group sparsity uh you are summing just a few samples like a few indexes within a small range what is that pj maybe i didn't ej is a group it's a pool so imagine this is a pool like in a convolutional net but the pool instead of putting just over space it pulls over features as well okay for a fully connected network it just pulls over components of the just features okay so ppj is like a set of indexes pj is a subset of uh indices of z of components of z"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_032",
+    "video_id": "nyu_dl_week9",
+    "start_time": 1120.0,
+    "end_time": 1165.0,
+    "text": "components of the just features okay so ppj is like a set of indexes pj is a subset of uh indices of z of components of z yeah okay thanks right so here pj is a group of six components of z that happen to be neighbors in this topology okay and that's that's one p and the next p is a similar square six by six square shifted by three pixels to the left to the top or uh or bottom okay okay bottom okay thanks so the overlapping between the groups is what kind of uh represents this topology if you want"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_033",
+    "video_id": "nyu_dl_week9",
+    "start_time": 1155.0,
+    "end_time": 1200.0,
+    "text": "okay okay bottom okay thanks so the overlapping between the groups is what kind of uh represents this topology if you want so in this this experiment you know is is very similar to the one we just uh talked about except here um we have local connections so we have an input it's a two-dimensional input here we kind of and and we have units uh possibly multiple units at one location uh looking at a piece of the input kind of a local patch on the input"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_034",
+    "video_id": "nyu_dl_week9",
+    "start_time": 1190.0,
+    "end_time": 1235.0,
+    "text": "and and we have units uh possibly multiple units at one location uh looking at a piece of the input kind of a local patch on the input and then those set of those sets of units are kind of you know replicated uh multiple times but there's no shared weights um so the the units these kind of units everywhere on the input but they the weights are not shared so i guess i'm not quite understanding the overall concept of the of feature pooling um i mean if i think about it in terms of like pooling that we used in in convolutional"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_035",
+    "video_id": "nyu_dl_week9",
+    "start_time": 1225.0,
+    "end_time": 1270.0,
+    "text": "overall concept of the of feature pooling um i mean if i think about it in terms of like pooling that we used in in convolutional networks than it it straightforward but i don't really understand how we how feature pooling works okay let me let me draw a picture maybe that'll be clear okay so you start with an input vector okay multiply by a matrix or pass it through uh some sort of uh encoder right which may have values and whatever or multiple matrices inside okay maybe multiple layers and you get a"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_036",
+    "video_id": "nyu_dl_week9",
+    "start_time": 1260.0,
+    "end_time": 1305.0,
+    "text": "encoder right which may have values and whatever or multiple matrices inside okay maybe multiple layers and you get a okay so let's call that z and now and now you do you do putting essentially so you divide this into groups in this case are non-overlapping and you compute the within one of those groups you compute the square root of the sum of the squares of those zi's where i belong to the group the pool okay it's called p because it's a pool"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_037",
+    "video_id": "nyu_dl_week9",
+    "start_time": 1295.0,
+    "end_time": 1340.0,
+    "text": "of the sum of the squares of those zi's where i belong to the group the pool okay it's called p because it's a pool okay and you do this for all the groups right so what you get here this output here looks very much like the output of a putting layer in the conversion from that this is not a conventional net okay it's a fully connected and that's your that's your regularizer now in the example i just showed you take the z and this is what you send to a decoder matrix for me to reconstruct the input okay so this is y this is y bar"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_038",
+    "video_id": "nyu_dl_week9",
+    "start_time": 1330.0,
+    "end_time": 1375.0,
+    "text": "you take the z and this is what you send to a decoder matrix for me to reconstruct the input okay so this is y this is y bar that's a prediction for the reconstruction and this this put this pooled layer here is is only used to compute the regularizer it's not actually used as uh for reconstruction you reconstruct from the sparse code directly but it is it looks very much like a pulling layer now if this were uh if this were a a convolutional net then that that dimension or a feature here would be"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_039",
+    "video_id": "nyu_dl_week9",
+    "start_time": 1365.0,
+    "end_time": 1410.0,
+    "text": "uh if this were a a convolutional net then that that dimension or a feature here would be features but you would have multiple feature maps okay so i'm representing the feature dimension vertically then the encoder would do multiple convolutions and would also generate multiple feature maps perhaps a larger and then the kind of pulling we would do after pulling we would take"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_040",
+    "video_id": "nyu_dl_week9",
+    "start_time": 1400.0,
+    "end_time": 1445.0,
+    "text": "after pulling we would take a window over space as well as over features and compute the square root of sum of the square there and that gives us one output in our pulling output and then we have multiple groups of features like this that go into different pulling so it doesn't matter whether this is convolutional or not in convolutions you would pull over space as well as feature type but um if you don't have convolution you just pull over features and that you know builds"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_041",
+    "video_id": "nyu_dl_week9",
+    "start_time": 1435.0,
+    "end_time": 1480.0,
+    "text": "space as well as feature type but um if you don't have convolution you just pull over features and that you know builds invariants to whatever it is that uh the citizens think is that clear does that answer your question yeah i think it's it's more clear thank you um i have a question for when you do when you split the z into groups and do the cooling would those groups overlap right so uh in the example i showed here they do not overlap but you can make them overlap okay so so let's say we have"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_042",
+    "video_id": "nyu_dl_week9",
+    "start_time": 1470.0,
+    "end_time": 1515.0,
+    "text": "right so uh in the example i showed here they do not overlap but you can make them overlap okay so so let's say we have i can take a pool here and a pool here and a pool here and here those groups overlap and if i do this and i do group sparsity where these other groups what's going to happen is that i'm going to have sort of a continuously varying set of features here that sort of vary from one end to the other because the system is going to want to group within a pool features that are similar and so because of the overlap it's going to sort of continuously vary them so that they change slowly"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_043",
+    "video_id": "nyu_dl_week9",
+    "start_time": 1505.0,
+    "end_time": 1550.0,
+    "text": "group within a pool features that are similar and so because of the overlap it's going to sort of continuously vary them so that they change slowly over the over the vector now uh in the pictures that i showed in the slides uh instead of organizing the the z features here in a 1d topology i organized them in a 2d topology and i made the groups 2-dimensional right so i take a six by six block uh that's one group and then the next group will be another six by six block with some overlap and then the next group will be yet another six by six block okay and maybe i have an another one because i have a torito topology that takes these guys and these guys okay and then there is you know the"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_044",
+    "video_id": "nyu_dl_week9",
+    "start_time": 1540.0,
+    "end_time": 1585.0,
+    "text": "yet another six by six block okay and maybe i have an another one because i have a torito topology that takes these guys and these guys okay and then there is you know the similar thing kind of um you know sliding up et cetera so the groups basically are those six by six windows that are shifted by three and and overlapping and so that's how you get those sort of continuously varying uh features uh along the along the dimension the two dimensions i could have equally well uh chosen to organize this into in a 3d topology or into some sort of tree right so i i take all the components of z and i organize them in some sort of"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_045",
+    "video_id": "nyu_dl_week9",
+    "start_time": 1575.0,
+    "end_time": 1620.0,
+    "text": "uh chosen to organize this into in a 3d topology or into some sort of tree right so i i take all the components of z and i organize them in some sort of graph so this is called structured structural sparsity not gross parsley anymore well depends how you do it i guess and then the groups would be things like uh this would this would be a group and then perhaps this would be a group as well uh and i can organize a group in sort of uh russian dolls like this uh and uh what's gonna happen there is that the"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_046",
+    "video_id": "nyu_dl_week9",
+    "start_time": 1610.0,
+    "end_time": 1655.0,
+    "text": "uh and i can organize a group in sort of uh russian dolls like this uh and uh what's gonna happen there is that the the groups that um the units that are in many groups will tend to be very sparse whereas the groups the units that are in a few groups will tend to be less sparse and so if you're if you do something like this with a tree what happens here is that the the feature in the center tends to be not sparse at all it's going to be something that really sort of detects just you know very sort of generic features and then at the first level in the tree they're going to be a little sparse so they're going to be sort of very sort of smooth edge extractors or something like that and then the more you go inside of the"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_047",
+    "video_id": "nyu_dl_week9",
+    "start_time": 1645.0,
+    "end_time": 1690.0,
+    "text": "they're going to be a little sparse so they're going to be sort of very sort of smooth edge extractors or something like that and then the more you go inside of the tree the more each feature enters in a large number of pools and therefore they get more uh pressure to be sparse and so they end up being much sparser which means they end up being more selective for particular features and what happens there is that when you show an image it tends to favor activating features that are along uh one particular branch in that tree because that's the best way to sort of minimize the number of pools that are on at any one time so that's"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_048",
+    "video_id": "nyu_dl_week9",
+    "start_time": 1680.0,
+    "end_time": 1725.0,
+    "text": "in that tree because that's the best way to sort of minimize the number of pools that are on at any one time so that's and there's a number of papers uh on this by uh uh julia merrell so this this goes back about i mean they co-authored this senior i really i put the reference in one of the slides and there's a paper by my group also by arthur schlamm which i'll i'll go to in a minute"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_049",
+    "video_id": "nyu_dl_week9",
+    "start_time": 1715.0,
+    "end_time": 1760.0,
+    "text": "the slides and there's a paper by my group also by arthur schlamm which i'll i'll go to in a minute can you explain why grouping regularization actually helps in grouping similar features well so that's a good question uh where first of all does it help and uh and the answer is not clear so those experiments were done uh quite a while ago before the computation was really available and the data was available uh for for this to really kind of work at a big scale this was mostly uh viewed as uh the people interested in this were interested in two things they were either interested in unsupervised running for things like"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_050",
+    "video_id": "nyu_dl_week9",
+    "start_time": 1750.0,
+    "end_time": 1795.0,
+    "text": "at a big scale this was mostly uh viewed as uh the people interested in this were interested in two things they were either interested in unsupervised running for things like image restoration and stuff like that this was what jeremiah was doing um all they were interested in uh uh unsupervised star supervised pre-training because at the time the data sets were very small for for training uh uh convolutional nets they were too small so they had to be some sort of pre-training procedure which is what i was interested in and so it's the same motivation that we now have again for self-supervised garnie but a lot of those methods haven't been brought back to the fore they tended to work very well when the data set was"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_051",
+    "video_id": "nyu_dl_week9",
+    "start_time": 1785.0,
+    "end_time": 1830.0,
+    "text": "garnie but a lot of those methods haven't been brought back to the fore they tended to work very well when the data set was small um so they tended to kind of improve performance of uh let's say a compositional net if you pre-trained this uh using a method so using a method very similar to the one i i uh i showed earlier so something a bit like this but convolutional so make the the encoder and the decoder convolutional and uh and and train with good sparsity on complex cells and then after you're you're done pre-training this uh the system you get rid of the decoder you only use the encoder as a feature extractor for uh say the first layer of a"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_052",
+    "video_id": "nyu_dl_week9",
+    "start_time": 1820.0,
+    "end_time": 1865.0,
+    "text": "good sparsity on complex cells and then after you're you're done pre-training this uh the system you get rid of the decoder you only use the encoder as a feature extractor for uh say the first layer of a conventional net and you stick a second layer on top of it okay so let me go through this a little bit so you start you start with a you have an encoder which is basically a convolution uh not much more than that okay just combination value uh there needs to be some sort of scaling layer afterwards for for this particular"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_053",
+    "video_id": "nyu_dl_week9",
+    "start_time": 1855.0,
+    "end_time": 1900.0,
+    "text": "not much more than that okay just combination value uh there needs to be some sort of scaling layer afterwards for for this particular case and you you train with group groups positive so you have a linear and you kind of reconstruct the input and you have you have a criterion here which is this group l1 okay so it's sum of a group sorry i call the good p right sum of a group a square root of sum for"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_054",
+    "video_id": "nyu_dl_week9",
+    "start_time": 1890.0,
+    "end_time": 1935.0,
+    "text": "okay so it's sum of a group sorry i call the good p right sum of a group a square root of sum for i in the group of z i squared okay so that's good sparsity so you train this little uh sparse uh auto encoder with good sparsity and then what you do is you you you take the the the the sparsity layer that you just used as a as a as a regularizer and so you basically eliminate um you cut this part out of the network you take the goosebumps d which is really a pulling layer an"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_055",
+    "video_id": "nyu_dl_week9",
+    "start_time": 1925.0,
+    "end_time": 1970.0,
+    "text": "and so you basically eliminate um you cut this part out of the network you take the goosebumps d which is really a pulling layer an l2 pulling layer and you stick it here but it has the same architecture as the one you use for the um you know for the groups the goose part city and then you use that as a feature extractor okay which is like it's like the first pair of layers of a combinational net composition value pulling okay with this l2 pulling not max pulling and then you can repeat the process you can train another instance of this network"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_056",
+    "video_id": "nyu_dl_week9",
+    "start_time": 1960.0,
+    "end_time": 2005.0,
+    "text": "l2 pulling not max pulling and then you can repeat the process you can train another instance of this network have a couple layers here i'm going to and have a decoder have this l2 uh pulling and sparsity criterion train this to reconstruct its input and then stick the pulling on top eliminate this and now we have you have a pre-trained two-layer accomplishment okay this is a procedure that some people call stacked audio encoder okay so you train an auto encoder to extract features and then you and then you generate features with the encoder of that"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_057",
+    "video_id": "nyu_dl_week9",
+    "start_time": 1995.0,
+    "end_time": 2040.0,
+    "text": "people call stacked audio encoder okay so you train an auto encoder to extract features and then you and then you generate features with the encoder of that part of that of the auto encoder and you stick another layer on top train that as another encoder and then keep going and the only characteristic here is that this autoencoder is trained with uh you know to produce environment features through group sparsity essentially we use all possible sub-trees as groups in the previous example uh no that's kind of up to you really what structure you use here you can use multiple trees you can use if you want multiple features to kind of be uh to represent an input even at the low frequency so that's really up to you"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_058",
+    "video_id": "nyu_dl_week9",
+    "start_time": 2030.0,
+    "end_time": 2075.0,
+    "text": "what structure you use here you can use multiple trees you can use if you want multiple features to kind of be uh to represent an input even at the low frequency so that's really up to you um you know it could be like what you can afford uh what you can do also is train the system with you know a bigger tree than necessary and then sort of prune the tree whenever there are branches that are not used or used very rarely okay so this is a the experiment i showed here is uh similar but there's only local connections and no and what you see here is this again this organization of the features in terms of what neuroscientists call pinwheel patterns so pinwheel patterns are those patterns"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_059",
+    "video_id": "nyu_dl_week9",
+    "start_time": 2065.0,
+    "end_time": 2110.0,
+    "text": "and what you see here is this again this organization of the features in terms of what neuroscientists call pinwheel patterns so pinwheel patterns are those patterns where the uh orientation selectivity varies continuously as you go around one of those red dots so you take one of those red dots and if you kind of do a little circle around the the red dots what you notice is that the orientation of the feature of the edge extractor kind of varies continuously as you move around and those are called pinwheel patterns and they are observed in the in the brain in fact those pictures here on the right come from neuroscience papers that describe this where the the the"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_060",
+    "video_id": "nyu_dl_week9",
+    "start_time": 2100.0,
+    "end_time": 2145.0,
+    "text": "in the brain in fact those pictures here on the right come from neuroscience papers that describe this where the the the color here encodes the orientation set activity [Music] kind of the singularities here the the center of the pinwheels is the group sparsity term trained uh to have a small value well it's a regularizer right let me um it's a it's it's a cost function during training or during inference depending on"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_061",
+    "video_id": "nyu_dl_week9",
+    "start_time": 2135.0,
+    "end_time": 2180.0,
+    "text": "um it's a it's it's a cost function during training or during inference depending on the sort of predictive version of it where you have latent variable or not but um but it's basically just a it's basically just a term in the energy right so the term itself is not trained it's fixed right it's just the l2 norm over groups and the groups are predetermined uh but because it's a criterion it sort of determines what the what the encoder and the decoders will do what type of features will be extracted here is um another example of a sort of you know exotic way of doing"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_062",
+    "video_id": "nyu_dl_week9",
+    "start_time": 2170.0,
+    "end_time": 2215.0,
+    "text": "decoders will do what type of features will be extracted here is um another example of a sort of you know exotic way of doing sparse coding through lateral inhibition and there's a bunch of different ways to do this that people are proposed this one came came from uh uh carol gregor and utter schlem in my lab about 10 years ago and so here there is again a linear decoder with a square reconstruction error this is wz minus x where x is the input here in this case and then there is a criterion in the energy which is uh the vector formed by the absolute values of z transpose times some matrix times the vector itself so it's an"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_063",
+    "video_id": "nyu_dl_week9",
+    "start_time": 2205.0,
+    "end_time": 2250.0,
+    "text": "which is uh the vector formed by the absolute values of z transpose times some matrix times the vector itself so it's an um a kind of a quadratic form uh that involves z and this matrix s and the matrix s is learned so as to kind of maximize this term okay and if the terms in uh in s are positive and large if one particular term s i j is large what that means is that the system does not want zi and zj to be on at the same time okay it wants the if zi is on"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_064",
+    "video_id": "nyu_dl_week9",
+    "start_time": 2240.0,
+    "end_time": 2285.0,
+    "text": "the system does not want zi and zj to be on at the same time okay it wants the if zi is on and s i j is large then it wants zj to be off and vice versa okay and so it's sort of a mutual inhibition people use people call this lateral inhibition uh in uh in neuroscience uh it's basically you know all your feature vectors basically inhibit other feature vectors through this matrix s you can decide that the matrix s a priori is structured so you can decide that only some terms are nonzero you can decide that some terms those terms are fixed or can be trained and the way you train them is by actually maximizing uh so it's kind of adversarial training a little bit you"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_065",
+    "video_id": "nyu_dl_week9",
+    "start_time": 2275.0,
+    "end_time": 2320.0,
+    "text": "some terms those terms are fixed or can be trained and the way you train them is by actually maximizing uh so it's kind of adversarial training a little bit you you try to find the the value of s that sort of you know uh is as large as possible if above a certain value of sij one of the z one of zi or zj is going to go to zero and that term is gonna disappear so the system is gonna you know maximize the sijs until uh it's large enough to kind of do the mutual inhibition between z and zj and it's not going to go any further"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_066",
+    "video_id": "nyu_dl_week9",
+    "start_time": 2310.0,
+    "end_time": 2355.0,
+    "text": "mutual inhibition between z and zj and it's not going to go any further and again if you organize s in terms of a tree so so here the the lines represent the the zero terms uh in the s matrix and whenever you don't have a line between two features there's a there's a non-zero term in the s matrix right so every feature inhibits all other features except the ones that are up the tree or down the tree uh from it uh and this is very much like lagroup's sparsity a little bit it's kind of the uh kind of the converse if you want of ghost parsity instead of"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_067",
+    "video_id": "nyu_dl_week9",
+    "start_time": 2345.0,
+    "end_time": 2390.0,
+    "text": "uh and this is very much like lagroup's sparsity a little bit it's kind of the uh kind of the converse if you want of ghost parsity instead of saying features within a branch of the tree need to be activated together by minimizing you know l2 minimizing the number of such groups that are on here you explicitly have a sort of inhibition term that for every every feature inhibits all other features in all the other branches of the tree and what you see again is that you see this systems are organizing the features in a more or less so continuous fashion um and in such a way that"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_068",
+    "video_id": "nyu_dl_week9",
+    "start_time": 2380.0,
+    "end_time": 2425.0,
+    "text": "this systems are organizing the features in a more or less so continuous fashion um and in such a way that features along a branch of the tree correspond to basically the same feature but with uh sort of different levels of selectivity and then features along the periphery sort of vary more or less continuously because there is you know in addition not just at the bottom level but also at the middle level okay so to uh to go back to this the way you train the system is uh at each iteration you give an x you find the z that minimizes this energy function so you find a z that reconstructs but also minimizes the second term"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_069",
+    "video_id": "nyu_dl_week9",
+    "start_time": 2415.0,
+    "end_time": 2460.0,
+    "text": "is uh at each iteration you give an x you find the z that minimizes this energy function so you find a z that reconstructs but also minimizes the second term which means that if you have an sij term that is nonzero it wants either zi or zj to be zero or at least very small you do one step a great in descent now uh turn to kind of update uh w so as to minimize the construction error and you do also if you want you can do one step of gradient ascent to make the terms in s larger by kind of computing the gradient of this energy with respect to s but then"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_070",
+    "video_id": "nyu_dl_week9",
+    "start_time": 2450.0,
+    "end_time": 2495.0,
+    "text": "terms in s larger by kind of computing the gradient of this energy with respect to s but then uh again if you use a not a tree but sort of some sort of 2d topology you also get those kind of those kind of and more complex ones if there are kind of multiple scales for the features okay so so much for sparse coding and structure space coding and the reason i'm i'm telling you about this is because uh although those don't have a huge amount of practical applications the they in my opinion uh"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_071",
+    "video_id": "nyu_dl_week9",
+    "start_time": 2485.0,
+    "end_time": 2530.0,
+    "text": "uh although those don't have a huge amount of practical applications the they in my opinion uh will be the basis for kind of self-supervised running methods of the next few years as i told you i think south surprise running right now is the hottest topic in nlp uh and it's becoming kind of a bit of a hot topic in computer vision as well and it's mostly now dominated by contrasting methods but i think uh the architectural methods are going to take over because contrasting methods don't scale very well so this is sort of you know giving you weapons for the future if you want understanding what this is all about um okay now for something completely"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_072",
+    "video_id": "nyu_dl_week9",
+    "start_time": 2520.0,
+    "end_time": 2565.0,
+    "text": "so this is sort of you know giving you weapons for the future if you want understanding what this is all about um okay now for something completely different this is something that alfredo will like because he works on this project and it's one of the users probably one of the most important users of star supervisor learning is the idea of learning world models for control systems or for other purpose so um when we when humans or animals learn a task we quite obviously have a kind of good internal model of how the world works of intuitive physics of"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_073",
+    "video_id": "nyu_dl_week9",
+    "start_time": 2555.0,
+    "end_time": 2600.0,
+    "text": "when we when humans or animals learn a task we quite obviously have a kind of good internal model of how the world works of intuitive physics of the fact that when an object is not supported it falls we've learned gravity when we were babies probably around the age of nine months or so eight or nine months that's when it pops up in babies um and we learned this mostly about observation so how is it that we can learn how the world works and all the concepts about the world by observation and there are there are two reasons for this right so one i already explained is the idea of supervised learning if you can train yourself to predict maybe you will spontaneously kind of learn abstract concepts about the world that"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_074",
+    "video_id": "nyu_dl_week9",
+    "start_time": 2590.0,
+    "end_time": 2635.0,
+    "text": "explained is the idea of supervised learning if you can train yourself to predict maybe you will spontaneously kind of learn abstract concepts about the world that might be useful in preparation for running a particular task or a set of tasks but there's another reason which is that you actually want to build models of the world if you want to be able to act on the world right so i'm holding this pen and i know that if i move my hand up the the pen will move with it because you know it's between my fingers i know that if i open my fingers the pen will fall i know by gravity i know by grasping uh i've learned all that stuff and i've learned mostly about observation i've learned also by experimentation but a lot of what i learned i learned"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_075",
+    "video_id": "nyu_dl_week9",
+    "start_time": 2625.0,
+    "end_time": 2670.0,
+    "text": "the pen will fall i know by gravity i know by grasping uh i've learned all that stuff and i've learned mostly about observation i've learned also by experimentation but a lot of what i learned i learned just by observation so the big question is can we learn can we use what we've learned about self-supervised learning to um and what is a well model okay so if you if you want to sort of give the an idea of the architecture of an autonomous it would be a system that is composed of essentially four major blocks here that are represented on the left so it's an intelligent agent or maybe not so intelligent we'll see it has a perception module and the"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_076",
+    "video_id": "nyu_dl_week9",
+    "start_time": 2660.0,
+    "end_time": 2705.0,
+    "text": "it would be a system that is composed of essentially four major blocks here that are represented on the left so it's an intelligent agent or maybe not so intelligent we'll see it has a perception module and the perception module basically observes the world and then computes a representation of the state of the world okay called st at time t s of t is the the idea that the system has of the state of the world this is necessarily an incomplete representation of the world because we can't observe the entire universe at once we only observe what's immediately around us and even that we can't see through occlusions and there is a lot of you know internal states about the world that we can't observe well enough even if you can observe your accuracy or observation may not be"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_077",
+    "video_id": "nyu_dl_week9",
+    "start_time": 2695.0,
+    "end_time": 2740.0,
+    "text": "see through occlusions and there is a lot of you know internal states about the world that we can't observe well enough even if you can observe your accuracy or observation may not be good enough so if i put this pen in my in my hand and it appears to be vertical and let it go it's going to fall but you can't really predict in what direction i've used that example before to describe the problem of alliatoric uh uncertainty which is the world is non-deterministic and you can't predict exactly what's going to happen because you don't have a perfect reading of the state of the world and maybe the world is intrinsically stochastic we don't know that actually okay so a forward model is a model that given the current state"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_078",
+    "video_id": "nyu_dl_week9",
+    "start_time": 2730.0,
+    "end_time": 2775.0,
+    "text": "and maybe the world is intrinsically stochastic we don't know that actually okay so a forward model is a model that given the current state of the world s of t or your idea of your current state of the world and an action that you're taking or that someone else is taking something that you can choose or at least observe and perhaps an auxiliary latent variable z of t which represents what you don't know about the world okay so the part of the world the state of the world that you don't know or the thing that's unpredictable about what's going to go and go on in the world the forward model predicts the next state of the world st plus one okay you discretized uh"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_079",
+    "video_id": "nyu_dl_week9",
+    "start_time": 2765.0,
+    "end_time": 2810.0,
+    "text": "go on in the world the forward model predicts the next state of the world st plus one okay you discretized uh time in in some way so if you have a model of the world of that type you can simulate in your head what's going to happen as a consequence of your actions okay so you have this uh this model in your head uh you know the current state of the world was some idea of the current state of the world you run your internal model of the world forward with a sequence of a of t which is a sequence of action that you imagine taking and your model of the world as you imagine it will predict"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_080",
+    "video_id": "nyu_dl_week9",
+    "start_time": 2800.0,
+    "end_time": 2845.0,
+    "text": "sequence of action that you imagine taking and your model of the world as you imagine it will predict if you could do this then you could plan a sequence of actions that will arrive at a particular goal okay so for example what sequence of action should i uh should i do to grab this pen um you know i should you know follow a particular trajectory you know actuate my muscles in a and the criterion the the the cost function i can measure is is whether i've grabbed the pen okay whether the pen is in my grasp i could measure this with some some"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_081",
+    "video_id": "nyu_dl_week9",
+    "start_time": 2835.0,
+    "end_time": 2880.0,
+    "text": "and the criterion the the the cost function i can measure is is whether i've grabbed the pen okay whether the pen is in my grasp i could measure this with some some function perhaps and the question is can i plan a sequence of action that given my model of the world which in this case is the model of my hand and the model of where the pen is will allow me to grab it okay it's a little more complicated if i throw the pen and i have to catch it in the air okay because i have to predict the trajectory of the pen so i have to have uh an intuitive model of physics to be able to uh grab that pen which of course i've learned through experience as well people are surprised you like so much reinforcement learning this is not reinforcement it has absolutely nothing to do with"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_082",
+    "video_id": "nyu_dl_week9",
+    "start_time": 2870.0,
+    "end_time": 2915.0,
+    "text": "to be able to uh grab that pen which of course i've learned through experience as well people are surprised you like so much reinforcement learning this is not reinforcement it has absolutely nothing to do with reinforcement learning maybe be very clear this has nothing to do with reinforcement learning uh this may have to do in the future okay but right now it doesn't um model-based reinforcement learning no it doesn't has nothing to do with refreshment running let me okay let me let me go through this a little bit can you explain the difference then someone asking um in a minute okay so now uh so on the left here you have this little agent it has this model of the world that you can run forward okay uh it can it has an actor or you can think of it as a policy that"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_083",
+    "video_id": "nyu_dl_week9",
+    "start_time": 2905.0,
+    "end_time": 2950.0,
+    "text": "so on the left here you have this little agent it has this model of the world that you can run forward okay uh it can it has an actor or you can think of it as a policy that produces a sequence of actions which is going to feed to the model and then a critic which is going to predict what the cost of the final state or the trajectory is going to be according to the criterion so the critic here computes the basically the cost of not fulfilling the goal that i set myself okay so if i if my task is to reach for the span and i kind of miss the pen by a few centimeters my cost is a few centimeters if i grab it the cost is zero if i miss it by a lot the cost is higher"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_084",
+    "video_id": "nyu_dl_week9",
+    "start_time": 2940.0,
+    "end_time": 2985.0,
+    "text": "the span and i kind of miss the pen by a few centimeters my cost is a few centimeters if i grab it the cost is zero if i miss it by a lot the cost is higher now okay so there there is a number of different things you can do with uh this sort of basic uh model of uh intelligent agent so the first one is uh you start from an initial state that you observe in the world you run your forward model you give a a proposal for a sequence of actions you measure the cost and what you can do here ignoring the the p here which represents a policy um let's let's imagine it doesn't exist"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_085",
+    "video_id": "nyu_dl_week9",
+    "start_time": 2975.0,
+    "end_time": 3020.0,
+    "text": "measure the cost and what you can do here ignoring the the p here which represents a policy um let's let's imagine it doesn't exist by gradient descent or by some sort of optimization algorithm you could you could try to find the sequence of actions that will minimize the overall cost over the trajectory i start from the state i run my forward model okay let me just call this a1 this is s1 or s1 and this is going to give me s2 and i'm going to measure the cost of s2"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_086",
+    "video_id": "nyu_dl_week9",
+    "start_time": 3010.0,
+    "end_time": 3055.0,
+    "text": "and this is going to give me s2 and i'm going to measure the cost of s2 okay the next time step running my make an action action proposal a2 this is all simulated this is all in my head right because this model this forward model is in my head see my frontal cortex so i'm not actually doing this in the etc right so i can unroll this for a few time steps those time steps can be"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_087",
+    "video_id": "nyu_dl_week9",
+    "start_time": 3045.0,
+    "end_time": 3090.0,
+    "text": "etc right so i can unroll this for a few time steps those time steps can be milliseconds if i control muscles they can be seconds if i control high level actions they can be hours okay so if i want to plan how to i don't know go to san francisco you know i need to to the airports and then catch a plane and then when i arrive there catch a taxi or something etc okay so this is independent at the the level of which level description of the of the thing okay so what i can do with this is i can do a very classical"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_088",
+    "video_id": "nyu_dl_week9",
+    "start_time": 3080.0,
+    "end_time": 3125.0,
+    "text": "level description of the of the thing okay so what i can do with this is i can do a very classical method called model predictive control optimal control which is a whole discipline that has been around since the the 50s if not if not earlier and some of the methods are method predictive controls goes go back to the the 1960s there's something called the"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_089",
+    "video_id": "nyu_dl_week9",
+    "start_time": 3115.0,
+    "end_time": 3160.0,
+    "text": "the 1960s there's something called the sure um so this is the method very similar to the one i'm describing at the moment and this was used primarily by nasa let's say to compute trajectories for rockets okay so when they started having computers in the 60s uh at nasa they they started computing trajectories with computers and they were basically using things like this before that they had to do it by hand okay and if you haven't seen the movie uh hidden figures i um it describes how people were"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_090",
+    "video_id": "nyu_dl_week9",
+    "start_time": 3150.0,
+    "end_time": 3195.0,
+    "text": "before that they had to do it by hand okay and if you haven't seen the movie uh hidden figures i um it describes how people were competing this by hand this was mostly due mostly done by black women black mathematicians uh women mathematicians who also ended up kind of programming those computers watch that movie is it's really great um okay so here is a basic idea here um this looks very much like a recurrent net okay because your ford model is basically the same network replicated over over time and this is like an unworld recurrent network and so well what you do here is you back propagate the value of the cost through this entire network all the way to the"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_091",
+    "video_id": "nyu_dl_week9",
+    "start_time": 3185.0,
+    "end_time": 3230.0,
+    "text": "recurrent network and so well what you do here is you back propagate the value of the cost through this entire network all the way to the actions and you don't use this for training you use this for inference you think of the actions as latent variables and you basically by gradient descent or some other optimization method you find a sequence of actions that will minimize the sum of the cost over the trajectory so basically you have an overall cost um i'm going to call it big c and that's going to be the sum or the time step"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_092",
+    "video_id": "nyu_dl_week9",
+    "start_time": 3220.0,
+    "end_time": 3265.0,
+    "text": "an overall cost um i'm going to call it big c and that's going to be the sum or the time step time steps of the little c of st okay uh and what you're going to do is big a which is the sequence of a is going to be replaced by its own value minus some step size times the gradient of big c with respect to a okay so as long as you can compute the gradient of the sum of those costs over the trajectory with respect to all of the components of a which means the a the trajectories of a you can do this optimization you don't have to do it necessarily for gradient"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_093",
+    "video_id": "nyu_dl_week9",
+    "start_time": 3255.0,
+    "end_time": 3300.0,
+    "text": "gradient of the sum of those costs over the trajectory with respect to all of the components of a which means the a the trajectories of a you can do this optimization you don't have to do it necessarily for gradient descent in some cases there are more efficient ways to do this optimization um using dynamic programming for example if a is discrete that might be more efficient but but if a is continuous and high dimensional you basically have no choice but to use gradient based methods okay so this is inference it's not there's no learning yet what is a big a is the sequence a1 okay so you have a differentiable objective function and you can minimize it with respect to the variables you're interested in so what do you get out of this"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_094",
+    "video_id": "nyu_dl_week9",
+    "start_time": 3290.0,
+    "end_time": 3335.0,
+    "text": "okay so you have a differentiable objective function and you can minimize it with respect to the variables you're interested in so what do you get out of this there are no weights in a a is a vector right so a is a vector yeah yeah so that was actually because we never use uh we never minimize vectors so far we always been minimizing we are always being optimizing weights so people are oh we have for latent variables like the z variables the latent variables of the energy-based models the latent variables we do minimize the energy with respect to z so this is the same problem here we're solving i think yeah i think not everyone understood that the latent variables are actually inputs so that was i think like also misunderstanding with the question we had on piazza about training"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_095",
+    "video_id": "nyu_dl_week9",
+    "start_time": 3325.0,
+    "end_time": 3370.0,
+    "text": "i think yeah i think not everyone understood that the latent variables are actually inputs so that was i think like also misunderstanding with the question we had on piazza about training these these uh latent variable models yeah you don't want to use the word training for literal variables or for things like this because uh you want to use inference okay you want to use the word to infer or to not to train i want to use the word inference not training what's the difference between inference and training training with training you learn a a parameter uh that is the same for a large number of samples"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_096",
+    "video_id": "nyu_dl_week9",
+    "start_time": 3360.0,
+    "end_time": 3405.0,
+    "text": "learn a a parameter uh that is the same for a large number of samples okay for inference you find the value of some variable a latent variable a in this case z in the case of a latent variable energy-based model uh that is specific to one sample okay you change the sample the written variable changes so you don't learn it because you don't remember it from one once when one time to the next you know there's no memory so that's the difference you know conceptually you're doing the same kind of operation where you do learning and inference and so at some level of abstraction they're the same"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_097",
+    "video_id": "nyu_dl_week9",
+    "start_time": 3395.0,
+    "end_time": 3440.0,
+    "text": "so that's the difference you know conceptually you're doing the same kind of operation where you do learning and inference and so at some level of abstraction they're the same but uh inference you do it per sample learning you do it uh over a bunch of samples and you the parameter is shared across the samples when we have an energy based model and we'd like to do inference we still have a minimization to do at every time we perform this uh we use it right so that was a big difference between after you after you've trained the model when you use it you you still have to do minimization with respect to the latent variables okay so that's the big difference same here here uh there may or may not be any training your forward model may be built"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_098",
+    "video_id": "nyu_dl_week9",
+    "start_time": 3430.0,
+    "end_time": 3475.0,
+    "text": "use it you you still have to do minimization with respect to the latent variables okay so that's the big difference same here here uh there may or may not be any training your forward model may be built by hand or maybe trained but by the time we're here it's trained we're not training anything here we're just doing inference we're figuring out what is the optimal value of the sequence of a is that we'll minimize our uh for cost overall cost and this is an inference problem just like energy-based models for example the fm the four model can be just a one line of equation of physics right it can be just a deterministic equation so imagine the forward model is the few equations that describe the the uh the the physics of a rocket and a is basically the action on the"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_099",
+    "video_id": "nyu_dl_week9",
+    "start_time": 3465.0,
+    "end_time": 3510.0,
+    "text": "so imagine the forward model is the few equations that describe the the uh the the physics of a rocket and a is basically the action on the the steering you know how you orient the so that would be the the collection of a would be the collection of those variables and then there is you know very simple physics newtonian physics basically uh you can write the equations it will give you the state of the racket at the next uh time step uh as a function of state of arc at the previous time step and the actions you're taking that's how you do simulations that's how and then your cost function if you want to shoot a rocket would be maybe a combination of two things one uh would be the"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_100",
+    "video_id": "nyu_dl_week9",
+    "start_time": 3500.0,
+    "end_time": 3545.0,
+    "text": "and then your cost function if you want to shoot a rocket would be maybe a combination of two things one uh would be the the uh energy spent during that time step okay the amount of fuel you spent something like that and the second term might be the distance to a target you want to reach maybe you want to rendezvous with a space station and uh the the second term in the cost would be the distance to the space station okay square distance to the space station uh if you measure the um the sum over the entire trajectory of the distance to the space station the system will try to minimize the time it will take to get to the space station because they will want to minimize the sum of the square of the distances to the space station over the trajectory but at the same time it wants to"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_101",
+    "video_id": "nyu_dl_week9",
+    "start_time": 3535.0,
+    "end_time": 3580.0,
+    "text": "the system will try to minimize the time it will take to get to the space station because they will want to minimize the sum of the square of the distances to the space station over the trajectory but at the same time it wants to minimize fuel so you have to balance those two terms right so that's a classical way of doing optimal control and that's called model predictive control is model is kalman filtering one type of model predictive control no camera filtering is a particular uh forward model if you want it's a way of estimating the state of the world okay but um it's you know basically given your observation of the state of the world through a perception system there's going to be some uncertainty about the state of the world and the command filter basically assumes a gaussian distribution on this uncertainty"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_102",
+    "video_id": "nyu_dl_week9",
+    "start_time": 3570.0,
+    "end_time": 3615.0,
+    "text": "observation of the state of the world through a perception system there's going to be some uncertainty about the state of the world and the command filter basically assumes a gaussian distribution on this uncertainty and now when you run through your forward model you're going to have a resulting uncertainty about the state of the world at the next time step because it wasn't certain to start with okay so given the uncertainty when you started from where you started from what's the uncertainty after one step of physics if you want and if you assume linearity of all those steps and gaussianity of the uncertainty that's what uh that's what the common filter is um"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_103",
+    "video_id": "nyu_dl_week9",
+    "start_time": 3605.0,
+    "end_time": 3650.0,
+    "text": "and gaussianity of the uncertainty that's what uh that's what the common filter is um most of the uncertainty comes from okay so now now your forward model produces a prediction and then the next time step you might get another reading of the state of the world because your sensors are still working so now you have two gaussians one is your new perception of the world tells you here is where i think the state of the world is and your ford model also predicted here is why i think it what where i think it is and you have to combine those two that's where the comp the complexity of common filtering comes in which is uh i've got two gaussian predictions so the resulting probability distribution is also a gaussian if you compute the covariance matrix and"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_104",
+    "video_id": "nyu_dl_week9",
+    "start_time": 3640.0,
+    "end_time": 3685.0,
+    "text": "filtering comes in which is uh i've got two gaussian predictions so the resulting probability distribution is also a gaussian if you compute the covariance matrix and et cetera and that's where the the formulas for um common filters come from okay so game filter is a way to deal with the uncertainty in the reading your perception of the world when you propagate this uncertainty in uh i think there was still a main difference i think you wanted to address the point that the this is different from already okay so what is rl in that context"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_105",
+    "video_id": "nyu_dl_week9",
+    "start_time": 3675.0,
+    "end_time": 3720.0,
+    "text": "uh i think there was still a main difference i think you wanted to address the point that the this is different from already okay so what is rl in that context okay so okay i need i need i need one more step before i talk about rl okay so what we had uh just a minute ago was a forward model that's takes a sequence of actions a1"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_106",
+    "video_id": "nyu_dl_week9",
+    "start_time": 3710.0,
+    "end_time": 3755.0,
+    "text": "takes a sequence of actions a1 s1 s2 and then we have the cost function here okay and this this could go on right now what we'd like to be able to do is not have to do this optimization with respect to a1 a2 a3 a4 uh every time every time we need to do a planning we don't want to have to do to go through this complex process of back propagating a gradient through this entire system to"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_107",
+    "video_id": "nyu_dl_week9",
+    "start_time": 3745.0,
+    "end_time": 3790.0,
+    "text": "uh every time every time we need to do a planning we don't want to have to do to go through this complex process of back propagating a gradient through this entire system to do model predictive uh control and so a simple simple way to get rid of that step is the same trick that we use in auto encoders versus passcoding so remember it's passcoding we wanted to reconstruct but then we had to do inference with respect to the latent variable by optimization and that turned out to be to be expensive so we talked about last week was the idea of using an encoder that we trained to predict the optimal value directly okay and we're going to do the same here that resulted in the idea as part of the encoder we're going to do the same here"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_108",
+    "video_id": "nyu_dl_week9",
+    "start_time": 3780.0,
+    "end_time": 3825.0,
+    "text": "was the idea of using an encoder that we trained to predict the optimal value directly okay and we're going to do the same here that resulted in the idea as part of the encoder we're going to do the same here i'm going to train a network to take the state and directly predict what the optimal value of the action is and this network of course we're going to apply every time step and this is going to be called a policy okay so the policy network takes the state and produces a guess about the best action"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_109",
+    "video_id": "nyu_dl_week9",
+    "start_time": 3815.0,
+    "end_time": 3860.0,
+    "text": "okay so the policy network takes the state and produces a guess about the best action to take at at this time so as to minimize the overall cost okay and this is going to be a trainable neural net or whatever model parametrized model that we want the way we're going to train this model is basically just back back propagation okay so we're going to uh using our perception module this is this is the this is the world here and we're looking at the world with a camera and there's a perception module that gives us a guess as to what the state of the world is"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_110",
+    "video_id": "nyu_dl_week9",
+    "start_time": 3850.0,
+    "end_time": 3895.0,
+    "text": "we're looking at the world with a camera and there's a perception module that gives us a guess as to what the state of the world is and this is a forward model applied multiple time steps okay so what we can do is run the system run through the perception we compute an action we run this action through the forward model this forward model gives us here is the next state we're going to be in compute the cost"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_111",
+    "video_id": "nyu_dl_week9",
+    "start_time": 3885.0,
+    "end_time": 3930.0,
+    "text": "run through the perception we compute an action we run this action through the forward model this forward model gives us here is the next state we're going to be in compute the cost and then keep going okay keep doing this just forward pop through this entire system which is really kind of an unrolled recurrent net if you want and once you're done you back propagate gradient gradients from the all the terms in the cost function all the way through the network all the way through the parameters okay so basically you compute uh d of big c so big c remember is the sum of all the c's"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_112",
+    "video_id": "nyu_dl_week9",
+    "start_time": 3920.0,
+    "end_time": 3965.0,
+    "text": "okay so basically you compute uh d of big c so big c remember is the sum of all the c's a long time with respect to d w okay and that's just going to be the sum of a time of the big c over sorry yeah big c over d a t d a t or d w okay i've just applied chain rule right but i don't need to right if i just you know define this function in python and just do backward it'll just do the right thing um so i can compute the gradient of the"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_113",
+    "video_id": "nyu_dl_week9",
+    "start_time": 3955.0,
+    "end_time": 4000.0,
+    "text": "or d w okay i've just applied chain rule right but i don't need to right if i just you know define this function in python and just do backward it'll just do the right thing um so i can compute the gradient of the overall cost with respect to the parameters of that policy network and so if i train this over sufficiently many uh samples if my forward model is correct if my cost function does what i want then my policy network is going to learn a good policy that just looking at the state will minimize the expected cost over trajectory okay the average cost over a trajectory there's no reinforcement running here this is all background okay now we can talk about the difference with refreshment running the main difference with reinforcement running here"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_114",
+    "video_id": "nyu_dl_week9",
+    "start_time": 3990.0,
+    "end_time": 4035.0,
+    "text": "this is all background okay now we can talk about the difference with refreshment running the main difference with reinforcement running here is uh is is twofold the first one is in reinforcement learning in most reinforcement training scenarios at least the the c function is a black box well it's a okay that's the first difference the second difference is that this is not a forward model of the world this is the"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_115",
+    "video_id": "nyu_dl_week9",
+    "start_time": 4025.0,
+    "end_time": 4070.0,
+    "text": "okay that's the first difference the second difference is that this is not a forward model of the world this is the and your measure of the state of the world is imperfect so inside of this policy network you might have a perception network here that estimates the state of the world so you have no control over the real world and your cost function is not known you can you can just get the output of the cost function by just trying something right you take an action you see the effect on the world"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_116",
+    "video_id": "nyu_dl_week9",
+    "start_time": 4060.0,
+    "end_time": 4105.0,
+    "text": "the real world and your cost function is not known you can you can just get the output of the cost function by just trying something right you take an action you see the effect on the world and that gives you uh what reinforcement running people call a reward but it's just a negative cost okay is the value of negative value of your cost but the cost is not differentiable you don't know the function of the cost you have to go through the world um and that's the that's that's the main issue with reinforcement running which is that the cost function is not uh it's it's unknown the only way to estimate it is by trying something and then observing the value which is what the reward is"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_117",
+    "video_id": "nyu_dl_week9",
+    "start_time": 4095.0,
+    "end_time": 4140.0,
+    "text": "uh it's it's unknown the only way to estimate it is by trying something and then observing the value which is what the reward is really it's a negative the negative of the reward is basically your your cost okay so in that situation since you cannot evaluate gradients to minimize your cost you have to try multiple things you have to try an action see the result and then try another action see if the result is better and then try another action see if the result is better and if your cost function is very flat you have to try many many things before you get a non-zero reward or you know a non-high cost and so that's that's where the the complexity goes there is the additional"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_118",
+    "video_id": "nyu_dl_week9",
+    "start_time": 4130.0,
+    "end_time": 4175.0,
+    "text": "have to try many many things before you get a non-zero reward or you know a non-high cost and so that's that's where the the complexity goes there is the additional problem of exploration so um you know you because you don't know the the form of the of the cost and because it's non-differentiable uh you might need to kind of try many actions in kind of a smart way to figure out in which part of the space to go to be able to sort of figure out how can i improve my uh my performance okay so that's the the main issue uh of uh uh exploration and then there is the issue of uh exploration versus exploitation so the fact that um when you're on a situation you don't want to take completely random"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_119",
+    "video_id": "nyu_dl_week9",
+    "start_time": 4165.0,
+    "end_time": 4210.0,
+    "text": "uh uh exploration and then there is the issue of uh exploration versus exploitation so the fact that um when you're on a situation you don't want to take completely random actions because they're likely to not result in anything interesting so you want to take actions that are kind of close to what you think might work uh and sort of you know occasionally kind of try something else while you're learning and learn your policy as you go what i'm describing what i was describing just before is a situation where you can do all of this in your head because you have a model of the world and you can optimize your sequence of action very efficiently because you have a differentiable cost function your cost function is computed by your your own brain if you want inside of"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_120",
+    "video_id": "nyu_dl_week9",
+    "start_time": 4200.0,
+    "end_time": 4245.0,
+    "text": "and you can optimize your sequence of action very efficiently because you have a differentiable cost function your cost function is computed by your your own brain if you want inside of your agent you can tell if you grab the if you go out the pen you can tell the distance between your hand and the pen so you can compute your own cost function and it is kind of in your internal world model is differentiable in the real world it's not in the real world you don't know the derivative of the distance of your hand to the pen unless you have some model of that in your head but by default you don't but because everything is in your head everything is differentiable everything is implemented by neural net and everything you can back properly gradient to everything so that's the big advantage of this kind of approach versus reinforcement planning"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_121",
+    "video_id": "nyu_dl_week9",
+    "start_time": 4235.0,
+    "end_time": 4280.0,
+    "text": "differentiable everything is implemented by neural net and everything you can back properly gradient to everything so that's the big advantage of this kind of approach versus reinforcement planning okay make everything differentiable so there's two problems with the world so there's one big advantage in this kind of this kind of scenario uh which is you can run this faster than real time because your forward model inside of your agent can run as fast as you want you don't need to run through the world okay that's one advantage second advantage is the actions you're taking will not kill you because you can predict uh using your forward model you know maybe you'll predict that the action will kill you but you're not going to take it in the real world so it won't kill you if you have an"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_122",
+    "video_id": "nyu_dl_week9",
+    "start_time": 4270.0,
+    "end_time": 4315.0,
+    "text": "because you can predict uh using your forward model you know maybe you'll predict that the action will kill you but you're not going to take it in the real world so it won't kill you if you have an third advantage because everything takes place in your head everything is internet everything is differentiable you can use all kinds of efficient inference algorithms to figure out a good course of actions okay so that's the difference with with reinforcement training in refreshment running you're telling yourself i have to go through the real world uh i don't have a model of the real world i don't know how to compute the cost"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_123",
+    "video_id": "nyu_dl_week9",
+    "start_time": 4305.0,
+    "end_time": 4350.0,
+    "text": "you're telling yourself i have to go through the real world uh i don't have a model of the real world i don't know how to compute the cost function in a differentiable way that said a lot of reinforcement learning methods actually work by training a model of the cost function okay so actor critic methods basically the role of the critic uh is to learn to evaluate to kind of predict the value of the overall objective function the expected value of the objective function and because it's a it's a neural net that you're going to train you can back backpropagate gradient to it so you're basically learning an approximation of the cost function of the real world of the real world using using a neural"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_124",
+    "video_id": "nyu_dl_week9",
+    "start_time": 4340.0,
+    "end_time": 4385.0,
+    "text": "that you're going to train you can back backpropagate gradient to it so you're basically learning an approximation of the cost function of the real world of the real world using using a neural net that's that's the role of a critic okay why is it so good to have models skill like learning to drive for example it's basically what allows you to learn quickly and to learn without killing yourself so if you don't have a good model of the world you don't know about gravity you don't know about the dynamics of objects uh you don't know anything and you put an agent at the at the wheel of a car the agent has no idea what the physics of a car is okay and you put the car next to a"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_125",
+    "video_id": "nyu_dl_week9",
+    "start_time": 4375.0,
+    "end_time": 4420.0,
+    "text": "uh you don't know anything and you put an agent at the at the wheel of a car the agent has no idea what the physics of a car is okay and you put the car next to a cliff the car is driving at you know 30 miles an hour next to next to a cliff the agent doesn't have a model of the world has no idea that by turning the wheel to the right the car will run off the cliff and will fall into the into the ravine it has to actually try it to figure it out it has to fall into the ravine to figure out that this is a bad idea okay and maybe just from one sample it's not going to be able to learn it so it's going to have to run into the ravine like thousands of times before it figures out the model of the world that first turning the wheel to the right makes the car go to the right"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_126",
+    "video_id": "nyu_dl_week9",
+    "start_time": 4410.0,
+    "end_time": 4455.0,
+    "text": "not going to be able to learn it so it's going to have to run into the ravine like thousands of times before it figures out the model of the world that first turning the wheel to the right makes the car go to the right and second that when the car goes above a raven it falls into a ravine and destroys itself okay if you have a model of the world that understands about gravity and things like this then you know that turning the wheel to the right is going to make the caveat to the ravine and you don't do it because you know it's going to kill you okay so it allows humans and animals to learn quickly much much quicker than any uh model-free reinforcement running methods that has ever been devised is is the fact that we have very very good word models now what does that tell us"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_127",
+    "video_id": "nyu_dl_week9",
+    "start_time": 4445.0,
+    "end_time": 4490.0,
+    "text": "is is the fact that we have very very good word models now what does that tell us um okay so here is the problem with with the world the world is not deterministic or if it is deterministic it's so complex that it equally well could be non-deterministic it doesn't make any difference for it for us there's two problems with predicting the next state of the world the first problem is that the world is not entirely predictable and it could be not entirely predictable for two reasons those are called electoric uncertainty and epistemic uncertainty auditory uncertainty is due to the fact that the world is"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_128",
+    "video_id": "nyu_dl_week9",
+    "start_time": 4480.0,
+    "end_time": 4525.0,
+    "text": "predictable for two reasons those are called electoric uncertainty and epistemic uncertainty auditory uncertainty is due to the fact that the world is intrinsically unpredictable or the fact that we don't have full information about the state of the world so we cannot predict exactly what's going to happen next so you're looking at me right now you're a pretty good model of the immediate environment of of me okay but you cannot exactly predict in which way i'm going to move my head next because you don't have an accurate model of what's inside my skull okay your perceptual system does not give you a full model of so so you cannot exactly predict what i'm you know what i'm going to do next"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_129",
+    "video_id": "nyu_dl_week9",
+    "start_time": 4515.0,
+    "end_time": 4560.0,
+    "text": "so so you cannot exactly predict what i'm you know what i'm going to do next what i'm going to say i'm going to move my head et cetera so that's elatoric uncertainty there is also epistemic uncertainty epistemic uncertainty is the fact that you can't completely predict the next uh state of the world because the amount of training data you've had is not was not enough your model hasn't been trained enough to really kind of figure it out okay that's kind of a different uh type of uncertainty so the big question now is though how do we train models of the world under a certainty i give you"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_130",
+    "video_id": "nyu_dl_week9",
+    "start_time": 4550.0,
+    "end_time": 4595.0,
+    "text": "okay that's kind of a different uh type of uncertainty so the big question now is though how do we train models of the world under a certainty i give you an st can you predict st plus one and it's the same problem we encountered before we start supervising i give you an x can you predict why but the problem is that there are now multiple y's that are compatible with x the multiple st plus ones are compatible with s even for a given so what does that mean that means that our model here or may take the state to the world and an action"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_131",
+    "video_id": "nyu_dl_week9",
+    "start_time": 4585.0,
+    "end_time": 4630.0,
+    "text": "may take the state to the world and an action a little variable which we don't know okay and this looks very much like what we talked about earlier where we had i'm going to draw this in a different topology but it's the same idea so we had x and it was going through a predictor computing h and then that was going"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_132",
+    "video_id": "nyu_dl_week9",
+    "start_time": 4620.0,
+    "end_time": 4665.0,
+    "text": "so we had x and it was going through a predictor computing h and then that was going a decoder that will take into account a latent variable okay this is a prediction for s and maybe at some time we might be able to actually take the action and observe the next state of the world while we are training our model we'll actually be observing the next state of the world okay so to train a forward model here we"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_133",
+    "video_id": "nyu_dl_week9",
+    "start_time": 4655.0,
+    "end_time": 4700.0,
+    "text": "we'll actually be observing the next state of the world okay so to train a forward model here we we take the state st we take an action if we have an action uh we have a latent variable and our prediction goes into a cost function that diagram is exactly identical to the right it's the same it's exactly the same diagram except i split the fm into two modules okay i get i've given it a particular architecture in fact i could make this"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_134",
+    "video_id": "nyu_dl_week9",
+    "start_time": 4690.0,
+    "end_time": 4735.0,
+    "text": "except i split the fm into two modules okay i get i've given it a particular architecture in fact i could make this i think you have the super thick marker selected i do so this would be my forward model okay so that's what inside this box uh inside of the ford model box here is st is now called x and s c plus one is not called y bar but i mean it's not for y but it's the same thing otherwise right so it's the"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_135",
+    "video_id": "nyu_dl_week9",
+    "start_time": 4725.0,
+    "end_time": 4770.0,
+    "text": "st is now called x and s c plus one is not called y bar but i mean it's not for y but it's the same thing otherwise right so it's the same scenario that we talked about before in late and variable energy-based models essentially but now we're going to use this to train uh a forward model to predict um we may have to play the same tricks that that we played uh that we talked about last week which is that um"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_136",
+    "video_id": "nyu_dl_week9",
+    "start_time": 4760.0,
+    "end_time": 4805.0,
+    "text": "which is that um okay the way i drew this last week was um what explained last week is that we can if we have while we are training our forward model we have a pair x and y and the way we find the value of z is by minimizing the energy with respect to z right so we basically find z"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_137",
+    "video_id": "nyu_dl_week9",
+    "start_time": 4795.0,
+    "end_time": 4840.0,
+    "text": "and the way we find the value of z is by minimizing the energy with respect to z right so we basically find z star which is the argument of c of y and y-bar y-bar being the output of our of our predictor okay and then we do one step of gradient descent so we change the parameters of our entire system according to the gradient of uh that cost but for this to work we had to regularize the"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_138",
+    "video_id": "nyu_dl_week9",
+    "start_time": 4830.0,
+    "end_time": 4875.0,
+    "text": "why is that well here we're we're trying to solve a prediction problem but imagine and we talked about this a couple weeks ago i give you an x and a y and you find the z that minimizes the overall energy and the z is not regularized if z is the same dimension as y the there's probably going to be a z for any y that makes the cost function zero right if there's enough capacity in z there's always going to be a value of z that makes the cost function zero and that's bad because that means my"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_139",
+    "video_id": "nyu_dl_week9",
+    "start_time": 4865.0,
+    "end_time": 4910.0,
+    "text": "right if there's enough capacity in z there's always going to be a value of z that makes the cost function zero and that's bad because that means my energy function is going to be completely flat it's going to be zero everywhere and i need it to be small on the training samples and high outside of the region of high data density and what we saw in the last couple weeks is that by regularizing z limiting its capacity either by making its farce for example or making making it noisy then we can limit this capacity why do we need zt if you already have 80"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_140",
+    "video_id": "nyu_dl_week9",
+    "start_time": 4900.0,
+    "end_time": 4945.0,
+    "text": "making it noisy then we can limit this capacity why do we need zt if you already have 80 well so 80 is the action you take right um okay i'm going to tell you i'm going to i'm going to let this pen go okay but you don't know which direction it's going to it's going to go right so let's say it goes this way but i have to predict in advance which way it's going to go it's like okay here's a better situation you are uh you're a goalie playing soccer okay and it's a penalty kick so you're in front of the you know the kicker in front of you and"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_141",
+    "video_id": "nyu_dl_week9",
+    "start_time": 4935.0,
+    "end_time": 4980.0,
+    "text": "uh you're a goalie playing soccer okay and it's a penalty kick so you're in front of the you know the kicker in front of you and the guy is going to kick the ball and you're going to have to jump one way or the other and you have to make a choice am i jumping left or right and you have to make that decision based on what you observe from the person but you don't know exactly what the ball is going to do a is which direction you do you jump in i mean it's basically how you jump z is what you don't know about the player in front of you doing okay you don't know the state of the world you don't know the state of the brain of this guy and so you don't know if he's going to shoot left or right or up or down okay that's the difference right"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_142",
+    "video_id": "nyu_dl_week9",
+    "start_time": 4970.0,
+    "end_time": 5015.0,
+    "text": "and so you don't know if he's going to shoot left or right or up or down okay that's the difference right z is what you cannot know about the world that is necessary to make the prediction the next state a is the action you take which in this case has very little influence on the immediate state of the world yeah it seems it seems to be clear now right so you need to regularize z and then one of the tricks we uh we described um so so the one of the things we described to regularize he was was passivity"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_143",
+    "video_id": "nyu_dl_week9",
+    "start_time": 5005.0,
+    "end_time": 5050.0,
+    "text": "so so the one of the things we described to regularize he was was passivity um but the other trick we described is this idea of having an encoder right so you have x or st run through the predictor the predictor goes into the decoder which makes a prediction about y let's call it y bar and here you have z and what we talked"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_144",
+    "video_id": "nyu_dl_week9",
+    "start_time": 5040.0,
+    "end_time": 5085.0,
+    "text": "and here you have z and what we talked about to predict the optimal value of z and then basically having a cost function that is determining the energy that measures the discrepancy between the value of z you actually use and the value of z predicted by the encoder and perhaps this is regularized in some and the predictor also has to influence so it's pretty clear that you need uh an"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_145",
+    "video_id": "nyu_dl_week9",
+    "start_time": 5075.0,
+    "end_time": 5120.0,
+    "text": "and the predictor also has to influence so it's pretty clear that you need uh an information bottleneck uh between the encoder the decoder otherwise the system will cheat it will completely ignore x you will be able to predict why exactly by just cheating by looking at the value of y running it through the encoder and then running it through the decoder and then predicting why right that's just a very simple encoder so unless you restrict the capacity of z the system will just cheat and not actually train itself to predict you have to push down on the information content of z so as to force the system to use"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_146",
+    "video_id": "nyu_dl_week9",
+    "start_time": 5110.0,
+    "end_time": 5155.0,
+    "text": "you have to push down on the information content of z so as to force the system to use uh the information from x okay to make the the best prediction okay now we can use that trick to to uh uh to train or forward model because again a ford model is basically just an instance of this and and this is uh the project that uh uh for autonomous driving that uh performance student michael enough uh worked on and uh alfredo has worked on this and is still working on this project"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_147",
+    "video_id": "nyu_dl_week9",
+    "start_time": 5145.0,
+    "end_time": 5190.0,
+    "text": "project that uh uh for autonomous driving that uh performance student michael enough uh worked on and uh alfredo has worked on this and is still working on this project and so here you're trying to train a car and what's difficult to predict what is what the car around you are going to do so you place a camera above a highway and you watch the the cars kind of go by and you can track every car and then extract the immediate neighborhood of the car basically a little rectangle around every car that indicates where the other cars are relative to the to your car and this is what represents represented at the bottom"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_148",
+    "video_id": "nyu_dl_week9",
+    "start_time": 5180.0,
+    "end_time": 5225.0,
+    "text": "basically a little rectangle around every car that indicates where the other cars are relative to the to your car and this is what represents represented at the bottom um so at the bottom you you have a little rectangle that's centered around a given car and then all the cars around are the uh you know a little rectangular centered on that car where the car is in a standardized location in the middle of that rectangle you do this for every car what it gives you is for every car a sequence of what the cars around it are going to do and we can use this to train a forward model that will predict what the cars run us are going to do the question is if this forward model is predicting all possible futures uh"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_149",
+    "video_id": "nyu_dl_week9",
+    "start_time": 5215.0,
+    "end_time": 5260.0,
+    "text": "model that will predict what the cars run us are going to do the question is if this forward model is predicting all possible futures uh irrespective of the action taken yeah where we predict a set of futures so given one action and so given one initial state one action and one cent one particular value of the latent variable will make a single prediction and then you can vary the latent variable and you will make multiple predictions you can change the action of course right so i've redrawn the little diagram i drew previously here here the the state basically is a sequence of three frames from this video um there's no abstract state here it's"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_150",
+    "video_id": "nyu_dl_week9",
+    "start_time": 5250.0,
+    "end_time": 5295.0,
+    "text": "so i've redrawn the little diagram i drew previously here here the the state basically is a sequence of three frames from this video um there's no abstract state here it's just the the picture itself the blue car is is our car and the green cars are the other cards so you take kind of three frames from the past run this through this uh neural net which attempts to predict the next uh the next frame okay using a basically a big convolutional net as a predictor and a big commercial net as a decoder but there's a latent variable here there's also an action here which is not drawn"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_151",
+    "video_id": "nyu_dl_week9",
+    "start_time": 5285.0,
+    "end_time": 5330.0,
+    "text": "variable here there's also an action here which is not drawn and the system also has an encoder so it looks more like this there's a and again the action here is not represented but imagine there is one so x is the the past frames it goes through a predictor that predicts a representation of the input and then that representation goes into a convolutional net that the decoder that predicts it basically is combined additively with a latent variable so it's added to a latent variable before going into a decoder that makes a"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_152",
+    "video_id": "nyu_dl_week9",
+    "start_time": 5320.0,
+    "end_time": 5365.0,
+    "text": "with a latent variable so it's added to a latent variable before going into a decoder that makes a and the latent variable itself is isolating variable but is being predicted by by an encoder which itself is also a convolutional net it takes the past and the and the future and tries to predict the ideal value of the latent variable now of course you have to restrict the information content here and this is done in this particular project using sort of a vae like approach where the um i mean it's basically a vie with a few a few tricks so this is sampled from a distribution that is obtained"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_153",
+    "video_id": "nyu_dl_week9",
+    "start_time": 5355.0,
+    "end_time": 5400.0,
+    "text": "approach where the um i mean it's basically a vie with a few a few tricks so this is sampled from a distribution that is obtained from the output of the encoder the output of the encoder outputs a prediction for z bar as well as prediction for variances and z is sampled from the from that distribution so it's not but there's also a term that tries to kind of minimize the sum of the square of disease over time uh which is the standard uh technique for vae and that goes into the decoder and so this is trend as a conditional autoencoder basically there's another trick that's added to this which is that half the time z is simply set to zero so"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_154",
+    "video_id": "nyu_dl_week9",
+    "start_time": 5390.0,
+    "end_time": 5435.0,
+    "text": "this is trend as a conditional autoencoder basically there's another trick that's added to this which is that half the time z is simply set to zero so half the time the system is told you're not allowed to use z just make your backs guess as the prediction without a z and that drives the system to sort of really kind of use the past in sort of a bigger way than if you just uh have a noisy z if you just use the standard the ie type training the system basically ignores the the past it just cheats it looks at the the answer why i will cover the rest in a greater detail in a lab in a future lab uh perhaps you want to because i will be actually going over"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_155",
+    "video_id": "nyu_dl_week9",
+    "start_time": 5425.0,
+    "end_time": 5470.0,
+    "text": "a greater detail in a lab in a future lab uh perhaps you want to because i will be actually going over this the whole presentation as well you are so gans are a particular form of contrastive learning okay so remember that uh when we talked about energy-based learning"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_156",
+    "video_id": "nyu_dl_week9",
+    "start_time": 5460.0,
+    "end_time": 5505.0,
+    "text": "with a cost function it could have any kind of structure but i'm just going to draw it so this would be sort of a reconstruction type model right so imagine that the model here is an auto encoder or something like this but you can imagine just about just about anything a simplified version i mean a more general version of this would be just"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_157",
+    "video_id": "nyu_dl_week9",
+    "start_time": 5495.0,
+    "end_time": 5540.0,
+    "text": "here is an auto encoder or something like this but you can imagine just about just about anything a simplified version i mean a more general version of this would be just y goes into a cost function and i'm not specifying so what the cost function computes is a in the space of y so let's say y is is an energy that we want to be low and here i deliberately drew a bad"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_158",
+    "video_id": "nyu_dl_week9",
+    "start_time": 5530.0,
+    "end_time": 5575.0,
+    "text": "is an energy that we want to be low and here i deliberately drew a bad energy function right so this energy function is bad it should be low around this region where we have data and it should be higher outside and right now it's it's pretty low so we talked about contrastive methods and contrastive methods consist in taking a sample and pushing down on its energy"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_159",
+    "video_id": "nyu_dl_week9",
+    "start_time": 5565.0,
+    "end_time": 5610.0,
+    "text": "taking a sample and pushing down on its energy which i'm going to draw in purple so contrastive sample should be a sample that our model already gives low energy to but should not give low energy to we're going to push that up okay so push up on the energy of this guy push down on the energy of that guy and if you keep picking those samples and those by minimizing some objective function that wants to make the energy of the blue point small and the energy of the pink points high then the system will"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_160",
+    "video_id": "nyu_dl_week9",
+    "start_time": 5600.0,
+    "end_time": 5645.0,
+    "text": "by minimizing some objective function that wants to make the energy of the blue point small and the energy of the pink points high then the system will will learn properly so we've seen several ways of generating contrasting samples the idea of denoising autoencoder which is to take a sample and basically corrupt it in some way contrasting divergence which takes a sample and then you go down the energy with some noise and that gives you a contracting sample to push up um and you know we've seen a number of other methods that are based on prior knowledge about similarity between between samples but here is here is another idea"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_161",
+    "video_id": "nyu_dl_week9",
+    "start_time": 5635.0,
+    "end_time": 5680.0,
+    "text": "um and you know we've seen a number of other methods that are based on prior knowledge about similarity between between samples but here is here is another idea the other idea is to use is to train a neural net to produce those contracted samples intelligently and that's the basic idea of gans at least in a form of gants that would be called energy-based gans you can do several formulations against in fact there's an entire laundry list of various types of gans but the basic idea of gans is is that you you train your energy model so the energy model in the context of gann is called a discriminator or sometimes a critic but it's basically just very similar to an energy model and you try need to take low energy on the data points"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_162",
+    "video_id": "nyu_dl_week9",
+    "start_time": 5670.0,
+    "end_time": 5715.0,
+    "text": "but it's basically just very similar to an energy model and you try need to take low energy on the data points and then you train another net neural net to generate contrastive data points and you move their energy up okay so the overall you have a discriminator and the discriminator really should be not drawn this way it could be a large neural net"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_163",
+    "video_id": "nyu_dl_week9",
+    "start_time": 5705.0,
+    "end_time": 5750.0,
+    "text": "and it tells you it's good or bad low energy if it's good high energy if it's so in one phase you collect a piece of data from the from your data set and just give it to your discriminator okay so this is a real y that's a training sample and you say the output of"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_164",
+    "video_id": "nyu_dl_week9",
+    "start_time": 5740.0,
+    "end_time": 5785.0,
+    "text": "that's a training sample and you say the output of of that should go down okay i should really write this as f because after all it's just it's an okay so make f of y go down of course by changing the parameters right df so f is a neural net"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_165",
+    "video_id": "nyu_dl_week9",
+    "start_time": 5775.0,
+    "end_time": 5820.0,
+    "text": "parameters right df so f is a neural net f is a neural net okay some primary choice function but probably a neural net probably a pretty complicated neural okay that's the first uh first thing and that will make the energy of data points small okay now there's a form of this that's conditional so the form of this as conditional you have an extra input here which is an observation okay but you can have this or not that's called conditional again it doesn't matter okay second phase or for contrastive samples uh"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_166",
+    "video_id": "nyu_dl_week9",
+    "start_time": 5810.0,
+    "end_time": 5855.0,
+    "text": "called conditional again it doesn't matter okay second phase or for contrastive samples uh you have a latent variable z that you sample from some distribution a distribution that's easy to sample from let's say a gaussian multi-multivariate gaussian or uniform or something you run this so this is a neural net and that neural something similar to white okay it just produces an image let's say for ir and again you run this through your"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_167",
+    "video_id": "nyu_dl_week9",
+    "start_time": 5845.0,
+    "end_time": 5890.0,
+    "text": "produces an image let's say for ir and again you run this through your but now you want to make that large okay so in fact what i told you before is a lie okay but here what you want is you want to make"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_168",
+    "video_id": "nyu_dl_week9",
+    "start_time": 5880.0,
+    "end_time": 5925.0,
+    "text": "and what you're going to do now is train the discriminator and the generator simultaneously so you're going to first have to come up with a cost function a loss function and this loss function is going to be you know some um you know a summer sample basically is a function of"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_169",
+    "video_id": "nyu_dl_week9",
+    "start_time": 5915.0,
+    "end_time": 5960.0,
+    "text": "basically is a function of f of y and f of y bar where y bar of course is generated from now this cost function needs to be a decreasing function of f of y and an increasing function of f of y bar okay you can use just about any cost function you want as long as it makes for y decrease and it makes f of y bar increase or as long as it makes a difference decrease f of y minus f of y bar good example of this would be kind of a hinge loss for"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_170",
+    "video_id": "nyu_dl_week9",
+    "start_time": 5950.0,
+    "end_time": 5995.0,
+    "text": "or as long as it makes a difference decrease f of y minus f of y bar good example of this would be kind of a hinge loss for example okay so something that says my loss function f of y plus some margin minus f of y bar positive part okay so this is a this is and it says i want to make f of y bar smaller than"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_171",
+    "video_id": "nyu_dl_week9",
+    "start_time": 5985.0,
+    "end_time": 6030.0,
+    "text": "and it says i want to make f of y bar smaller than m um other than that i don't care uh bigger than m i'm sorry i drew this backwards so overall as a function of f of y bar this function looks like this okay so it wants to make f of y bar larger than m okay so that's an example the the actual cost function that most uh the original formulation of gans used"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_172",
+    "video_id": "nyu_dl_week9",
+    "start_time": 6020.0,
+    "end_time": 6065.0,
+    "text": "larger than m okay so that's an example the the actual cost function that most uh the original formulation of gans used basically plugs uh each of those terms into a sigmoid and tries to make the you know the the sigmoid applied to f of y as close to one as possible and sigma applied to f uh y bar as close to zero as possible it's you know it's basically that nothing more than that so it's sigmoid plus one minus sigma eight of uh f of y bar and you you you take logs because um i mean this is not the last function this is kind of because before"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_173",
+    "video_id": "nyu_dl_week9",
+    "start_time": 6055.0,
+    "end_time": 6100.0,
+    "text": "uh f of y bar and you you you take logs because um i mean this is not the last function this is kind of because before the before the last function so this is kind of like a cross entropy but you have cross entropy that's positive for the the positive phase and sort of the the target is negative for the negative yeah i shouldn't write it this way this but you put it the largest class for each of those you know log log of 1 plus exponential f"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_174",
+    "video_id": "nyu_dl_week9",
+    "start_time": 6090.0,
+    "end_time": 6135.0,
+    "text": "each of those you know log log of 1 plus exponential f of y for the correct one and minus for that log f1 plus e to the f of y plus log but you could imagine a large number of objective functions of this type"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_175",
+    "video_id": "nyu_dl_week9",
+    "start_time": 6125.0,
+    "end_time": 6170.0,
+    "text": "but you could imagine a large number of objective functions of this type okay so this is the last function you're going to use to train the discriminator but the generator this is for the discriminator but it's going to be a loss function for the generator and that's a different loss function and you're going to optimize those two loss functions the same way the one for the generator is is one that basically wants to make the generator produce outputs that the discriminator thinks"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_176",
+    "video_id": "nyu_dl_week9",
+    "start_time": 6160.0,
+    "end_time": 6205.0,
+    "text": "basically wants to make the generator produce outputs that the discriminator thinks are good but they're not okay so basically the generator um uh wants to adapt its its weight so that the output that it produces y bar produces a low energy for f y okay so you sample a random variable z you run it through the generator it produces a y bar you run through the discriminator the f of y you get some value and then you back"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_177",
+    "video_id": "nyu_dl_week9",
+    "start_time": 6195.0,
+    "end_time": 6240.0,
+    "text": "for f y okay so you sample a random variable z you run it through the generator it produces a y bar you run through the discriminator the f of y you get some value and then you back propagate the value through the generator and adapt the weights to the generator so that this energy goes down okay so basically the generator is trying to find a white bar that has low energy as low as possible okay and it trains itself to kind of produce wise to have low energy again if if we're talking about conditional gains there's going to be an x variable that's going to enter those two modules"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_178",
+    "video_id": "nyu_dl_week9",
+    "start_time": 6230.0,
+    "end_time": 6275.0,
+    "text": "conditional gains there's going to be an x variable that's going to enter those two modules so lg is maybe simply an increasing function i think we are kind of running out of time we are so this would be uh some objective function of f of g if g is the generator of z where z is"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_179",
+    "video_id": "nyu_dl_week9",
+    "start_time": 6265.0,
+    "end_time": 6310.0,
+    "text": "so this would be uh some objective function of f of g if g is the generator of z where z is okay so you just do back up to this and you change the parameters of g let's call them u so that this goes down now this is gold this is called a game in a sense that you have two objective functions that you need to minimize simultaneously and they are incompatible with each other and so it's not a gradient descent problem you have to find what's called a nash equilibrium between those two functions and gradient descent will not do it uh by default so that leads to instabilities and there is"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_180",
+    "video_id": "nyu_dl_week9",
+    "start_time": 6300.0,
+    "end_time": 6345.0,
+    "text": "those two functions and gradient descent will not do it uh by default so that leads to instabilities and there is tons of papers on how to make guns actually work that's kind of a complicated part but alfredo will tell you all about this uh tomorrow maybe you also you want to mention the uh the one with the sigmoid that creates some issues uh if we have like samples that are close to the true manifold yes and then i think we can close the conclusion okay so let me mention that so"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_181",
+    "video_id": "nyu_dl_week9",
+    "start_time": 6335.0,
+    "end_time": 6380.0,
+    "text": "your data is around some manifold but it's a thin manifold so it's an infinitely thin okay in the original formulation of gan the the gan the discriminator would need to produce zero probability outside of this okay so it needs to produce zero probability here and it needs to produce on the manifold in eastwood to produce"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_182",
+    "video_id": "nyu_dl_week9",
+    "start_time": 6370.0,
+    "end_time": 6415.0,
+    "text": "probability here and it needs to produce on the manifold in eastwood to produce in such a way that the integral if this is really a density estimation in such a way that the integral of this density over the entire space is one and this is of course very hard so gans basically abandoned the idea of actually learning a distribution what they want to do is produce zero the original formulation produce zero outside the manifold of data and produce one here it's the output of the sigmoid that needs to be one which means the weighted sum going into that sigma it needs to be infinite essentially so it's not that different"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_183",
+    "video_id": "nyu_dl_week9",
+    "start_time": 6405.0,
+    "end_time": 6450.0,
+    "text": "and produce one here it's the output of the sigmoid that needs to be one which means the weighted sum going into that sigma it needs to be infinite essentially so it's not that different um and the problem with this is that if you train the system successfully and you get that energy function which is zero outside the data manifold and one on the data manifold your energy function is completely useless it's useless because it's a golf course right it's flat so the energy function basically that corresponds to this would be the negative log of that right so it would it would be infinity here and the minimum value of your cost function on the manifold which for example could be zero if it"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_184",
+    "video_id": "nyu_dl_week9",
+    "start_time": 6440.0,
+    "end_time": 6485.0,
+    "text": "it would be infinity here and the minimum value of your cost function on the manifold which for example could be zero if it if it's if it's an auto encoder the energy gonna be smaller than zero right um and so it's a it's a it's a golf course of infinite altitude which is really not that useful what you want as i said before for every energy-based model if you want an energy-based model to be useful you want the energy function to be smooth you don't want it to go to infinity in sort of a very small step you want it to be smooth so that you can do inference so that if you start from a point here it's easy to find a point on the manifold that's nearby using and descent for example"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_185",
+    "video_id": "nyu_dl_week9",
+    "start_time": 6475.0,
+    "end_time": 6520.0,
+    "text": "a very small step you want it to be smooth so that you can do inference so that if you start from a point here it's easy to find a point on the manifold that's nearby using and descent for example right so the original formulation of gan leads to first of all infinite weights in the discriminator instabilities something called mode collapse which alfredo will tell you about and in the end a contrast function an energy function that's essentially useless so it's not ideally formulated so people have proposed ways to fix it by regularizing the energy function basically forcing it to be smooth so one good example of this"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_186",
+    "video_id": "nyu_dl_week9",
+    "start_time": 6510.0,
+    "end_time": 6555.0,
+    "text": "the energy function basically forcing it to be smooth so one good example of this proposed by martin arjoski who just graduated from nyu and and the idea of of that is to basically limit the size of the weights of the discriminator so that the function is smooth and there is you know various mathematical arguments uh in probabilistic framework but that's the basic idea and there's lots of variations of this also questions about today class"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_187",
+    "video_id": "nyu_dl_week9",
+    "start_time": 6545.0,
+    "end_time": 6590.0,
+    "text": "is smooth and there is you know various mathematical arguments uh in probabilistic framework but that's the basic idea and there's lots of variations of this also questions about today class it was dense but at least we were you know answering every question it was coming right through so i think we we follow along today um i wasn't sure if maybe you like explained it in a different form and i didn't realize it's the same thing but i was a little um lost on what the policy network is okay what that does so the policy network takes the estimation of the state of the world and produces an action and it's trained to minimize the"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_188",
+    "video_id": "nyu_dl_week9",
+    "start_time": 6580.0,
+    "end_time": 6625.0,
+    "text": "okay what that does so the policy network takes the estimation of the state of the world and produces an action and it's trained to minimize the expected cost of uh the state over the over a trajectory but it takes just one action so right and there was a there was a part towards the end where i guess you drew a new connection um right that uh from like s to uh where it goes down to like connected through some module to a so what is happening there so the policy network"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_189",
+    "video_id": "nyu_dl_week9",
+    "start_time": 6615.0,
+    "end_time": 6660.0,
+    "text": "where it goes down to like connected through some module to a so what is happening there so the policy network is the indicated by pi here on the screen so it takes s the state okay okay okay that's what a policy is right you observe the state of the world and you take an action i see okay in fact a probabilistic policy is you don't take an action you give a distribution over actions and then you pick the action in some way and perform that distribution but here you know you just have to take an action if the number of actions is discrete"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_190",
+    "video_id": "nyu_dl_week9",
+    "start_time": 6650.0,
+    "end_time": 6695.0,
+    "text": "give a distribution over actions and then you pick the action in some way and perform that distribution but here you know you just have to take an action if the number of actions is discrete then uh this this pi network is this policy network is basically a classifier and it produces a bunch of scores for each possible action and then you take one of the actions probabilistically or deterministically deterministically you just take the action with the highest score uh probabilistically you can sample according to to the score and then you run through your phone model and you keep going okay so without the policy connection then then the action is just kind of it's a related variable so you have to optimize with respect to the latent variable to"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_191",
+    "video_id": "nyu_dl_week9",
+    "start_time": 6685.0,
+    "end_time": 6730.0,
+    "text": "okay so without the policy connection then then the action is just kind of it's a related variable so you have to optimize with respect to the latent variable to find the to find its optimal value so you have this this kind of uh diagram now where the actions are not produced by a neural net they there are latent variables that you have to figure out for every new every every time you run your model you you have to figure out what's the best sequence of action to minimize my cost and so you have to basically uh do do this for example by grading descent figuring out the sequence of a that will minimize the sum of the c's over the trajectory that's that's called model predictive control and then um the one with the policy"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_192",
+    "video_id": "nyu_dl_week9",
+    "start_time": 6720.0,
+    "end_time": 6765.0,
+    "text": "out the sequence of a that will minimize the sum of the c's over the trajectory that's that's called model predictive control and then um the one with the policy network um is is called uh you know direct uh control essentially um professor uh you say that during insurance we need to uh minimize the energy to get the final value but uh okay there are two questions one won't it take too much time during inference and would be useful for real-time systems and the second one is since it's unrolled and you have to back propagate"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_193",
+    "video_id": "nyu_dl_week9",
+    "start_time": 6755.0,
+    "end_time": 6800.0,
+    "text": "inference and would be useful for real-time systems and the second one is since it's unrolled and you have to back propagate all the way through the beginning yeah have all the problems that we face in uh recurrent neural networks exactly so presumably you're not going to get the same problems as you have with current nets because your forward model you know presumably implements the dynamics of some real systems so it might not have the issues of sort of non-invertibility that you have if it's a physical system it's probably going to be reversible so you may not have the same issue as with regular recurrent nets but uh but yeah you're facing this in the same problems now"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_194",
+    "video_id": "nyu_dl_week9",
+    "start_time": 6790.0,
+    "end_time": 6835.0,
+    "text": "probably going to be reversible so you may not have the same issue as with regular recurrent nets but uh but yeah you're facing this in the same problems now uh in real time situations you you use a form of this called okay so receding horizon planning uh is when you are in a it's a real time situation uh your your system will run its forward model for a few steps in the future i don't know let's say a few seconds okay sufficiently many steps to predict"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_195",
+    "video_id": "nyu_dl_week9",
+    "start_time": 6825.0,
+    "end_time": 6870.0,
+    "text": "it's a real time situation uh your your system will run its forward model for a few steps in the future i don't know let's say a few seconds okay sufficiently many steps to predict for a few seconds that's your horizon uh then you do this uh model predictive control you know by optimizing finding the optimal air that minimizes your cost your estimated cost according to your model okay you know you haven't taken an action yet okay you've just run your internal model to make that prediction um so through optimization with respect to a you find the sequence of a that optimizes your cost and then you take the first action in that a and then you do it again okay so with the a you talk observe the state"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_196",
+    "video_id": "nyu_dl_week9",
+    "start_time": 6860.0,
+    "end_time": 6905.0,
+    "text": "optimizes your cost and then you take the first action in that a and then you do it again okay so with the a you talk observe the state of the world now you have a new state okay which you observe from your your sensors and now repeat the process run your forward model a number of steps in the future optimize the sequence of actions to minimize your cost take the first action and do it again so it can be expensive if your horizon is long if your forward model is complicated um and so that's when you need a forward model the the for a policy network so the policy network basically compiles this whole process into a neural net that directly produces"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_197",
+    "video_id": "nyu_dl_week9",
+    "start_time": 6895.0,
+    "end_time": 6940.0,
+    "text": "um and so that's when you need a forward model the the for a policy network so the policy network basically compiles this whole process into a neural net that directly produces the best action from the state okay which may or may not be possible but it gives you a good guess now to give you a concrete example this is an interesting series of books by a nobel prize-winning economist that lives in new york called danny kahneman and he talks about two systems in the human mind called system one and system two so system one is the process by which you take an action without thinking okay um you're a very experienced driver and you can drive your car without even"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_198",
+    "video_id": "nyu_dl_week9",
+    "start_time": 6930.0,
+    "end_time": 6975.0,
+    "text": "so system one is the process by which you take an action without thinking okay um you're a very experienced driver and you can drive your car without even paying attention by you know talking to someone next to you you don't actually need to think about it okay system two is more sort of deliberate planning so system two is when you use your internal model of the world to kind of predict in advance what's gonna happen ahead sort of foresee what's gonna happen and then take a deliberate uh action that you think is gonna be the right one according to your model so it's more like reasoning okay you can think of this you know optimization with respect to actions to minimize an objective as a form of reasoning and we talked about this before"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_199",
+    "video_id": "nyu_dl_week9",
+    "start_time": 6965.0,
+    "end_time": 7010.0,
+    "text": "it's more like reasoning okay you can think of this you know optimization with respect to actions to minimize an objective as a form of reasoning and we talked about this before so uh basically model predictive control is when you don't have a policy you haven't learned the skill you know what your cost function is you have a pretty good model of the world but you don't know how to react okay so a beginner chess player would be like that you you look at the the chase game and you have to think about all possibilities before you play because you know you don't know where to play so you have to kind of imagine all the possibilities if you are an expert player and you play against a a beginner you know immediately what to"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_200",
+    "video_id": "nyu_dl_week9",
+    "start_time": 7000.0,
+    "end_time": 7045.0,
+    "text": "play so you have to kind of imagine all the possibilities if you are an expert player and you play against a a beginner you know immediately what to play you don't have to think about it i don't know if you've played simultaneous games against a master or grandmaster at chess grandmaster can play against 50 people and beat them in a few minutes because the player can go from just you know one opponent to another and just immediately play just it's completely reactive um you actually doesn't need to to think because you know they've kind of compiled that if you if you want in their in their knowledge of chess that they don't need to think when you see this"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_201",
+    "video_id": "nyu_dl_week9",
+    "start_time": 7035.0,
+    "end_time": 7080.0,
+    "text": "because you know they've kind of compiled that if you if you want in their in their knowledge of chess that they don't need to think when you see this kind of type of easy situation so that's going from system two to system one and uh when you learn the skill at first you're hesitant and you have to think about it you know you're heads-up when you drive you drive slowly and you look at everything and you pay attention and then when you are uh experimented you you can just react really quickly basically you've gone from model predictive control to basically training your own policy network if you will okay and in the process of doing this your uh your skill has gone from a sort of deliberate"
+  },
+  {
+    "chunk_id": "nyu_dl_week9_chunk_202",
+    "video_id": "nyu_dl_week9",
+    "start_time": 7070.0,
+    "end_time": 7115.0,
+    "text": "okay and in the process of doing this your uh your skill has gone from a sort of deliberate planned conscious uh decision mechanism to a sort of subconscious automatic uh decision mechanism that's and that's that's how you go from this diagram to that diagram where you have a policy that directly predicts the action without having to plan"
+  }
+]

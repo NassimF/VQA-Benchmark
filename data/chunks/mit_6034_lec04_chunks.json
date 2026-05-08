@@ -1,0 +1,590 @@
+[
+  {
+    "chunk_id": "mit_6034_lec04_chunk_000",
+    "video_id": "mit_6034_lec04",
+    "start_time": 0.0,
+    "end_time": 45.0,
+    "text": "today we're going to talking about search I know you're going to turn blue uh with they had another lecture on search those of you who are taking computer science subjects um You probably seen it in 601 you'll see it again at Theory course but we're going to do something we're going to do it for a little different purpose I want you to develop uh some intuition about how various kinds of search work work and I want to talk a little bit about uh search as a model of what goes on in our heads and toward the end if there's time I'd like to do a demonstration for you of something never"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_001",
+    "video_id": "mit_6034_lec04",
+    "start_time": 35.0,
+    "end_time": 80.0,
+    "text": "about uh search as a model of what goes on in our heads and toward the end if there's time I'd like to do a demonstration for you of something never before demonstrated to a 6034 class because it was um only completed uh last spring and some finishing touches were um added by me this morning always dangerous but we'll see what happens so there's course you might want to get from some starting position s to some goal position G so you'll hire a cab and hope for the"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_002",
+    "video_id": "mit_6034_lec04",
+    "start_time": 70.0,
+    "end_time": 115.0,
+    "text": "starting position s to some goal position G so you'll hire a cab and hope for the happen not too hot let's move the search here I've had cab drivers like this in York but it's not a very good path it's a it's the path of a thief let's change the uh way that the search is"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_003",
+    "video_id": "mit_6034_lec04",
+    "start_time": 105.0,
+    "end_time": 150.0,
+    "text": "York but it's not a very good path it's a it's the path of a thief let's change the uh way that the search is done to that of a beginner an honest not too bad now uh let's have a look at how the search would uh would happen if the cab driver was a uh PhD in physics now uh postto these are not actually traversed these are just things that the um that"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_004",
+    "video_id": "mit_6034_lec04",
+    "start_time": 140.0,
+    "end_time": 185.0,
+    "text": "postto these are not actually traversed these are just things that the um that the uh where I was thinking about and that is the very best of all possible paths so the thief does a horrible job the beginner does a pretty good job but not an optimal job this is the optimal job as produced by the PhD in physics after his third post do so would you like to understand how those all work the answer of course is yes so um I want to talk to you about proceed procedures that are different from the way that you solve"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_005",
+    "video_id": "mit_6034_lec04",
+    "start_time": 175.0,
+    "end_time": 220.0,
+    "text": "yes so um I want to talk to you about proceed procedures that are different from the way that you solve this just solve this problem I imagine that if I said can you please find a path from s to G you would within a few seconds find a pretty good path not the optimal one but a pretty good one using your eyes and we're not going to tell you about how that works because we don't know how that works but we do know that uh problem solving with our eyes is an important part of our total intelligence and we'll never have have a complete theory of human intelligence until we can understand the contributions of the human visual system to solving everyday"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_006",
+    "video_id": "mit_6034_lec04",
+    "start_time": 210.0,
+    "end_time": 255.0,
+    "text": "and we'll never have have a complete theory of human intelligence until we can understand the contributions of the human visual system to solving everyday problems like finding a pretty good path in that map but alas we can't talk about that because we don't know how to do it we're working on it but we don't know how to do it so I'm not going to use Cambridge in my illustrations there too much uh too much there to work through in a in an hour so we're going to use this U map over here which has been Des designed to illustrate a few important points so you too can uh you find a path through that graph pretty easily with your eyes but uh our programs don't have eyes and they don't have visually grounded algorithms so they're going to have to do something"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_007",
+    "video_id": "mit_6034_lec04",
+    "start_time": 245.0,
+    "end_time": 290.0,
+    "text": "too can uh you find a path through that graph pretty easily with your eyes but uh our programs don't have eyes and they don't have visually grounded algorithms so they're going to have to do something else and the very first kind of search we want to talk about is called the British museum approach this is a slur against uh at least the British museum if not the entire nation because uh the way you do a British museum search is you find every possible path so it'll be helpful to have a diagram of all possible paths on the board uh so we're going to start with a British museum search and from the starting position from the starting position from the starting position it's clear that you can go from uh s uh to"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_008",
+    "video_id": "mit_6034_lec04",
+    "start_time": 280.0,
+    "end_time": 325.0,
+    "text": "position from the starting position from the starting position it's clear that you can go from uh s uh to B and already there's an important quiz Point whenever we have these kinds of problems on a quiz we ask you to develop the tree associated with the search in lexical order so the the nodes there under s are listed alphabetically just just to have have an orderly way of doing it so from a we can go d and another convention uh of the"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_009",
+    "video_id": "mit_6034_lec04",
+    "start_time": 315.0,
+    "end_time": 360.0,
+    "text": "orderly way of doing it so from a we can go d and another convention uh of the subject another thing you have to keep in mind in quizzes is that we don't have these searches bite their own tail so I could have said that if I'm at a I can also go back to S but no path is ever allowed to to bite itself uh uh to to bite itself to go around and enter and and and and and get back to a place that's already on the path now if i' gone to B first that means that I could go here from from B I can go to either a or C this is getting fat pretty fast but let's see"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_010",
+    "video_id": "mit_6034_lec04",
+    "start_time": 350.0,
+    "end_time": 395.0,
+    "text": "means that I could go here from from B I can go to either a or C this is getting fat pretty fast but let's see Sab the only place I can go is C and then to e sad D without biting my own tail and going going back to a the only place I can go is G SBA I can only go to D and then to G and finally SB C I can only go to E so that is the complete set of paths as produced by any program that you want feel uh you like to ride that finds all possible paths I haven't been very precise about"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_011",
+    "video_id": "mit_6034_lec04",
+    "start_time": 385.0,
+    "end_time": 430.0,
+    "text": "as produced by any program that you want feel uh you like to ride that finds all possible paths I haven't been very precise about how to do that because you don't have to be can't save much work by being clever because you have to find everything so that's the British museum tree so what have I done I've been playing around with a map I showed you an example of a map and pretty soon you're going to think that um search is about Maps so before going"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_012",
+    "video_id": "mit_6034_lec04",
+    "start_time": 420.0,
+    "end_time": 465.0,
+    "text": "playing around with a map I showed you an example of a map and pretty soon you're going to think that um search is about Maps so before going step I want to emphasize that search is not equal to Maps search is about choice and I happen to illustrate these searches with maps because they are particularly cogent but search is not about Maps it's about the choices you make when you're trying to make decisions so these are Choice the these things I'm going to be talking with you about today are choices you make when you explore the map but you can make other kinds of choices when you're exploring other kinds of things and in fact at the end if there's time I'll"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_013",
+    "video_id": "mit_6034_lec04",
+    "start_time": 455.0,
+    "end_time": 500.0,
+    "text": "are choices you make when you explore the map but you can make other kinds of choices when you're exploring other kinds of things and in fact at the end if there's time I'll show you how how you do searches when you're solving problems in a Humanities class all right so that's the British museum algorithm search is not about Maps our first gold star idea search is about choice but for our illustration search is about Maps so the first kind of search we want to talk about that's search and the idea of depth first search is uh that you um Barrel ahead in"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_014",
+    "video_id": "mit_6034_lec04",
+    "start_time": 490.0,
+    "end_time": 535.0,
+    "text": "search and the idea of depth first search is uh that you um Barrel ahead in way so from s your choices are A or B and you always go down the left Branch by convention so from s we go to a from a we have two choices we can go to either B oh you can go to either yes b or d following our electrical convention after that we can go to C and"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_015",
+    "video_id": "mit_6034_lec04",
+    "start_time": 525.0,
+    "end_time": 570.0,
+    "text": "d following our electrical convention after that we can go to C and after that we can go to E and too bad for us we're stuck what we going to do uh we've got into a dead end All Is Lost but of course all isn't lost because we have the we have the choice of backing up to the place where we last made a decision and choosing another Branch so that process is called variously backup or backtracking so at this point we would say ah dead end the first place we find"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_016",
+    "video_id": "mit_6034_lec04",
+    "start_time": 560.0,
+    "end_time": 605.0,
+    "text": "variously backup or backtracking so at this point we would say ah dead end the first place we find when we back up the tree where we made a choice is when we chose B in instead of D so we go back up there and take the other root SB uh s Saad D now goes to G and we're done so we're going to make a little table here of things that we can embellish uh our basic searches with and one of the things we can embellish our basic searches with is this backtracking now backtracking is not relevant for the"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_017",
+    "video_id": "mit_6034_lec04",
+    "start_time": 595.0,
+    "end_time": 640.0,
+    "text": "basic searches with is this backtracking now backtracking is not relevant for the British museum algorithm because you got to find everything and you can't quit when you found one path but you'd always want to use backtracking with depth first search because you may plunge on down and miss the miss the path that gets to the goal now you might ask me is backtracking therefore always part of depth first search and you can read textbooks that do it either way count on it if if we give you a search problem on a quiz we'll tell you whether or not your search is supposed to use backtracking we consider it to be an optional thing it'd be pretty stupid not"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_018",
+    "video_id": "mit_6034_lec04",
+    "start_time": 630.0,
+    "end_time": 675.0,
+    "text": "it if if we give you a search problem on a quiz we'll tell you whether or not your search is supposed to use backtracking we consider it to be an optional thing it'd be pretty stupid not to use this optional thing when you're doing depth first search but we'll separate these ideas out and call it an optional add-on so that's stth first search very simple now the companion I mean the natural companion to depth first search first and the way it works is you build up this tree level by"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_019",
+    "video_id": "mit_6034_lec04",
+    "start_time": 665.0,
+    "end_time": 710.0,
+    "text": "first and the way it works is you build up this tree level by level and at some point when you scan across a level you'll find you've completed the path that goes to the goal so level by level s can go to either A or B A can go either to B or D and B can go to either a or C so you see what we're doing we're going level by level and we haven't hit a level with a goal in it yet so we've got to keep going note that we're building up quite a bit of stuff here quite quite a lot of there's quite a lot of growth in the size of the path"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_020",
+    "video_id": "mit_6034_lec04",
+    "start_time": 700.0,
+    "end_time": 745.0,
+    "text": "yet so we've got to keep going note that we're building up quite a bit of stuff here quite quite a lot of there's quite a lot of growth in the size of the path set that we're keeping in mind at the next level we have B going to C D going to G A going to D and C going to e and now when we scan across we do hit G so we found a path with bread first search just as we found a path with depth first search now you might say well why don't you just quit when you hit G implementation detail we'll talk about how a sample implementation you can write it any way you want but now that we know what these"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_021",
+    "video_id": "mit_6034_lec04",
+    "start_time": 735.0,
+    "end_time": 780.0,
+    "text": "you just quit when you hit G implementation detail we'll talk about how a sample implementation you can write it any way you want but now that we know what these searches are uh let's speed things up a little bit here and uh do a couple of searches that now have names so the type the first type will be depth first boom that's the one that produc the produces the the the thief uh path and then we could also do a breath first search which we haven't tried yet what are you suppose going to happen is it going to be fast slow produce a good path produce a bad path I don't know let's try it I had to speed it up you see because it's doing an awful lot of search"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_022",
+    "video_id": "mit_6034_lec04",
+    "start_time": 770.0,
+    "end_time": 815.0,
+    "text": "going to be fast slow produce a good path produce a bad path I don't know let's try it I had to speed it up you see because it's doing an awful lot of search paths finally I got a path is it the best path I don't think so but we're not going to talk about optimal paths today we're just going to talk about pretty good paths euristic paths oh well let's move the starting position here in in the middle do you think breath first search is going to be stupid I think it's going to be pretty stupid let's see what happens it searches a lot to the left which you would never do with your eye let me slow that down just to"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_023",
+    "video_id": "mit_6034_lec04",
+    "start_time": 805.0,
+    "end_time": 850.0,
+    "text": "stupid I think it's going to be pretty stupid let's see what happens it searches a lot to the left which you would never do with your eye let me slow that down just to demonstrate it finds a shorter path because it's right there in the middle but it spends a lot of its time looking off to the left it's pretty stupid but that's how it works so now that we've got two examples of searches uh on on the table uh I'd like to just write a little flowchart for how the search might work because uh if I do that then it'll be easier for us to see how how what kind of small difference there are between the implementations of these various searches so what we're going to do is we're going to going to develop a"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_024",
+    "video_id": "mit_6034_lec04",
+    "start_time": 840.0,
+    "end_time": 885.0,
+    "text": "kind of small difference there are between the implementations of these various searches so what we're going to do is we're going to going to develop a waiting list a q a line whatever you like to call it let's call it a q we going to develop a q of paths that are under consideration so the uh first step in and I think what I'll do is I'll simulate depth first search on this problem like up there on the left using this algorithm so I need to have some way of representing my"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_025",
+    "video_id": "mit_6034_lec04",
+    "start_time": 875.0,
+    "end_time": 920.0,
+    "text": "search on this problem like up there on the left using this algorithm so I need to have some way of representing my paths and what I'm going to do is I'm going to betray uh my Heritage as a list programmers because I'm just going to put these up uh as if they were list s Expressions so to begin with I just have one path and it has only one node in it s that's the whole whole path so the next thing I I do after I initialize the Q is extend"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_026",
+    "video_id": "mit_6034_lec04",
+    "start_time": 910.0,
+    "end_time": 955.0,
+    "text": "extend Q okay so the when I extend S I get two paths a and I get S goes to B so I take the first one off the front of the Q and I put back the two that are produced by extending that path now after I've extended the first path on the Q I have to put those extended"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_027",
+    "video_id": "mit_6034_lec04",
+    "start_time": 945.0,
+    "end_time": 990.0,
+    "text": "extending that path now after I've extended the first path on the Q I have to put those extended paths onto the Q i' I I've in here there's an explicit step where I've checked to see if I if that first path is a winner if it's not I extend it and I have to put those paths onto the q now I've done one step in this let me do another step I'm going to take this first path off I'm going to extend that path and where do I put these New Paths"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_028",
+    "video_id": "mit_6034_lec04",
+    "start_time": 980.0,
+    "end_time": 1025.0,
+    "text": "q now I've done one step in this let me do another step I'm going to take this first path off I'm going to extend that path and where do I put these New Paths on the Queue if I'm doing depth first search well I I want to work with the paths that I've just generated I'm taking this plunge down deep into the into the search tree so since I want to I want to keep going down into the stuff that I've just generated where then do I want to put these New Paths at the end of the queue don't think so because there going to be a long time getting there I'm going to put them on the front of the queue so"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_029",
+    "video_id": "mit_6034_lec04",
+    "start_time": 1015.0,
+    "end_time": 1060.0,
+    "text": "a long time getting there I'm going to put them on the front of the queue so search I want to put them on the front of the Q and that's why s a b goes here then sad so SB is still there that's still a valid possibility but now I've stuck two paths in front of it both of the ones I generated by taking a path off the front"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_030",
+    "video_id": "mit_6034_lec04",
+    "start_time": 1050.0,
+    "end_time": 1095.0,
+    "text": "so SB is still there that's still a valid possibility but now I've stuck two paths in front of it both of the ones I generated by taking a path off the front of the queue discovering that it doesn't go to the goal extending it and putting those back on the Queue so I might as well complete this uh illustration here while I'm at it I take the Sab off sa a b and I can go only there to see but of course I keep sad and Q so now I take the front off the Q"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_031",
+    "video_id": "mit_6034_lec04",
+    "start_time": 1085.0,
+    "end_time": 1130.0,
+    "text": "Q so now I take the front off the Q again and I get s a b c e and not to forget sad SB I take the first one off the que doesn't go to the goal I try to extend it but there's nothing there I've got reached a dead end so in this operation all I'm doing is taking the front one Q we're almost home now I take sad off"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_032",
+    "video_id": "mit_6034_lec04",
+    "start_time": 1120.0,
+    "end_time": 1165.0,
+    "text": "Q we're almost home now I take sad off the Q and I get s a d g and of course I still have SB but now the next time I visit the situation I discover vared in step here in the in in that first step I discover a path that actually does get to the goal and I'm done so each time around I initialize the queue I check to see if I'm done if not I extend I take the extensions and put them somewhere on then I go back"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_033",
+    "video_id": "mit_6034_lec04",
+    "start_time": 1155.0,
+    "end_time": 1200.0,
+    "text": "the extensions and put them somewhere on then I go back in and in here there's a buried test which checks to to see if we're done so that's how uh the depth first search algorithm works and now would we have to start all over again if we did breath first search NOP same algorithm all the code we've got needs one line replaced one line changed what do I have to do different in order to get a breath first search out of this instead of a depth first search Tanya change put it on the que and where do I put it on the que she says to change"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_034",
+    "video_id": "mit_6034_lec04",
+    "start_time": 1190.0,
+    "end_time": 1235.0,
+    "text": "do I have to do different in order to get a breath first search out of this instead of a depth first search Tanya change put it on the que and where do I put it on the que she says to change the back put it on the search all I have to do is put it on the go now if we were content uh with a inefficient search and didn't care much about how good our path was would be done and we could go home but we uh are"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_035",
+    "video_id": "mit_6034_lec04",
+    "start_time": 1225.0,
+    "end_time": 1270.0,
+    "text": "now if we were content uh with a inefficient search and didn't care much about how good our path was would be done and we could go home but we uh are a little concerned about uh the efficiency of our search and we would like a pretty good path so we're going while now you may have noticed up there in that um development of the breath first search that the stupid Kai what do you think you can't tell whether it's getting closer or further away from the goal it certainly"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_036",
+    "video_id": "mit_6034_lec04",
+    "start_time": 1260.0,
+    "end_time": 1305.0,
+    "text": "stupid Kai what do you think you can't tell whether it's getting closer or further away from the goal it certainly can't tell whether it's getting closer or further away from the goal and uh we're going to deal with that a minute that why is it stupid put your in yeah the same no Twice Dyan said it's extending paths that go to the same node more than once let's see what Dylan's about down here it extends a but it's"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_037",
+    "video_id": "mit_6034_lec04",
+    "start_time": 1295.0,
+    "end_time": 1340.0,
+    "text": "about down here it extends a but it's already extended a up there down here it extends a path that goes to B and it's already extended the path that goes to B over here it extends a it looks at a path it could extend a path that went through C but it's already got a path that goes through C so all of these paths are duplicated and we're still going through them so that's incredibly stupid so what we're going to do is we're going to amend our algorithm just"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_038",
+    "video_id": "mit_6034_lec04",
+    "start_time": 1330.0,
+    "end_time": 1375.0,
+    "text": "and we're still going through them so that's incredibly stupid so what we're going to do is we're going to amend our algorithm just bit and we're not going to extend the first path on the Q or rather yeah we're not going to extend the first path on unless node"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_039",
+    "video_id": "mit_6034_lec04",
+    "start_time": 1365.0,
+    "end_time": 1410.0,
+    "text": "extended so what we're going to do is we're going to look to see if there we've got this path and we're going to extend it and it's got a final node if we've ever extended a path that goes to that final node and it was a final node on that path and we're not going to do it again so we got to keep a list of places that have already been that have already been the last piece of a path that was extended we got that it's a little awkward to say it because it's it's the last node we care about if a path terminates in a note"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_040",
+    "video_id": "mit_6034_lec04",
+    "start_time": 1400.0,
+    "end_time": 1445.0,
+    "text": "extended we got that it's a little awkward to say it because it's it's the last node we care about if a path terminates in a note and if some other path previously terminated in that note and got extended then we're not going to do it again because it's a waste of time all helps yeah I use extended list let's see we got that uh plac in the center there"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_041",
+    "video_id": "mit_6034_lec04",
+    "start_time": 1435.0,
+    "end_time": 1480.0,
+    "text": "we got that uh plac in the center there search wow taking a long time but notice that uh it did uh it put 103 paths back on the Queue now let's add the"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_042",
+    "video_id": "mit_6034_lec04",
+    "start_time": 1470.0,
+    "end_time": 1515.0,
+    "text": "a lot up and we'll start way over here and you remember how tedious that search was but now we'll repeat it uh with this uh this list boom there it is that's all because we didn't do that silly thing of going back through through uh the final node a final node that's already been gone through all right so you would never not want to do this and we better list this"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_043",
+    "video_id": "mit_6034_lec04",
+    "start_time": 1505.0,
+    "end_time": 1550.0,
+    "text": "through all right so you would never not want to do this and we better list this option doesn't help with the British museum algorithm because nothing helps with a British museum algorithm does it help with depth first yes does it help with breadth first yes do we do backtracking with breath first no because we're looking we we backtracking can't do us any good okay so we're almost uh we're almost home except that um that search to started in the middle still pretty stupid both the uh breadth first version"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_044",
+    "video_id": "mit_6034_lec04",
+    "start_time": 1540.0,
+    "end_time": 1585.0,
+    "text": "good okay so we're almost uh we're almost home except that um that search to started in the middle still pretty stupid both the uh breadth first version and the depth first version are going off to the left and we would never do that with our eyes in any case so the next thing we want to do is we want to have ourselves a slightly more informed search by taking into consideration whether we seem to be anywhere so in general it's a good thing to get closer to where we want to go so in general if we've got a choice of going to a node that's close to the"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_045",
+    "video_id": "mit_6034_lec04",
+    "start_time": 1575.0,
+    "end_time": 1620.0,
+    "text": "anywhere so in general it's a good thing to get closer to where we want to go so in general if we've got a choice of going to a node that's close to the goal or a node that's not so close to the goal we'll always want to go the one that's close to the goal and as soon as we add that to uh what we're climbing and it's just like death ver"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_046",
+    "video_id": "mit_6034_lec04",
+    "start_time": 1610.0,
+    "end_time": 1655.0,
+    "text": "climbing and it's just like death ver search except that instead of using lexical order to break ties we're going to break ties According to which node is closer to the goal all right now I went to some trouble to talk to you about this inced list and having gone to that trouble I'm now going to ignore it not because it isn't a good idea but because trying to keep track of everything in the example kind of get us confused and the example won't work out right and a small example and all that so put the put the ining thing aside CU list aside and think instead just about the value of going in the direction that's getting us closer to the"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_047",
+    "video_id": "mit_6034_lec04",
+    "start_time": 1645.0,
+    "end_time": 1690.0,
+    "text": "so put the put the ining thing aside CU list aside and think instead just about the value of going in the direction that's getting us closer to the goal so in hill climbing search just like a depth first search we have a and b and we're still going to list them lexically on the under underneath the parent node but now uh which one is closer to the goal well this time B is closer to the goal than a so instead of following the depth first course which would take us down through a we're going to go to the one that's closest which goes through B and B can go either go to a or"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_048",
+    "video_id": "mit_6034_lec04",
+    "start_time": 1680.0,
+    "end_time": 1725.0,
+    "text": "down through a we're going to go to the one that's closest which goes through B and B can go either go to a or right yeah sure B is uh six units away from the goal and a is about seven plus uh not drawn exactly at scale use the numbers not your eyes so now what are now where are we it's symmetric so A and C are both equally far from the goal so now we're going to use electrical order to break the tie so now from uh s ba a uh we'll go to D and now which is closest to the goal well that's the only"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_049",
+    "video_id": "mit_6034_lec04",
+    "start_time": 1715.0,
+    "end_time": 1760.0,
+    "text": "now from uh s ba a uh we'll go to D and now which is closest to the goal well that's the only choice we have so now we have no choice but to go down to the goal so that's the that's the hill climbing way of doing the search and notice at this time there's no backtracking it's a it's a little bit it's not the it's not the optimal path it's not the best path at least there's no backtracking but that's that's not always true that's just an artifact of this particular example so do you think hill climbing would produce faster search I think so so let's see what happens when the when we add these things uh one at a"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_050",
+    "video_id": "mit_6034_lec04",
+    "start_time": 1750.0,
+    "end_time": 1795.0,
+    "text": "search I think so so let's see what happens when the when we add these things uh one at a time first uh let's turn off our ined list our extended list I mean we turned off our extended list and we're going to do first again just for the sake of comparison it produces a very roundabout path with 48 and cuings now let's switch over to hill climbing and what do you think you think it produce a f a straighter path few were in boom you wouldn't not want to do that would you if you've got some kind of"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_051",
+    "video_id": "mit_6034_lec04",
+    "start_time": 1785.0,
+    "end_time": 1830.0,
+    "text": "were in boom you wouldn't not want to do that would you if you've got some kind of urtic that tells you that you're getting close to the goal you should use it now it's easy to modify my samp my example over there so that so that getting close to the goal gets you trapped in in a blind alley on e that's easy to do but that's just an artifact of the example in general you want to go along the path that gets you closer to the goal so that's 23 I don't know let's see if using the extended list filter does any good yeah still 23 so in that particular case the in Qing"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_052",
+    "video_id": "mit_6034_lec04",
+    "start_time": 1820.0,
+    "end_time": 1865.0,
+    "text": "using the extended list filter does any good yeah still 23 so in that particular case the in Qing list the uh the uh expansion extension list didn't actually do us any good because we're kind of driving so so so goal okay so that's that now let's see is there any analog to well we might say that this is a yet another choice or yet another way of distinguishing these searches and that is it making use of any kind of euristic information certainly British museum is"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_053",
+    "video_id": "mit_6034_lec04",
+    "start_time": 1855.0,
+    "end_time": 1900.0,
+    "text": "is it making use of any kind of euristic information certainly British museum is not depth is not breath is not and now let's consider what we got for for hill climbing would we want to use backtracking sure would we want to use an inced list sure and it is informed because it's taking advantage of this extra information may not be in your problem it's it's often case you got this information in a map your problem may not have any urised measurement distance to the goal which case you can't do it but if you got it you should use it oh yeah now there's one more uh and I've already kind of given it the way by having it on my"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_054",
+    "video_id": "mit_6034_lec04",
+    "start_time": 1890.0,
+    "end_time": 1935.0,
+    "text": "which case you can't do it but if you got it you should use it oh yeah now there's one more uh and I've already kind of given it the way by having it on my chart it's called beam search and just as hill climbing is a analog of um death first search Beam Beam search is is a complement or addition of U and an informing Ur ristic to breath first search so what you do is you start off but you say I'm going to limit the number of paths I'm going to consider at any level to some small fixed number like in this case how about two so I'm going to say that I have a"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_055",
+    "video_id": "mit_6034_lec04",
+    "start_time": 1925.0,
+    "end_time": 1970.0,
+    "text": "limit the number of paths I'm going to consider at any level to some small fixed number like in this case how about two so I'm going to say that I have a search otherwise I proceed just like a and now I've got that stupid thing where I'm duplicating my nose because I'm forgetting about the ined list but to illustrate beam search what I'm going to do now is I'm going to take all these paths I've got at the second level and I'm only going to keep the"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_056",
+    "video_id": "mit_6034_lec04",
+    "start_time": 1960.0,
+    "end_time": 2005.0,
+    "text": "I'm forgetting about the ined list but to illustrate beam search what I'm going to do now is I'm going to take all these paths I've got at the second level and I'm only going to keep the best two that's my beam width and the best two are the two that get closest to the goal so of those four B C A and D which two get closest to the goal I'll B and D so these guys are trimmed off I'm only keeping two at every level so now uh going down from B and D I have at the next level C and G and now I found the"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_057",
+    "video_id": "mit_6034_lec04",
+    "start_time": 1995.0,
+    "end_time": 2040.0,
+    "text": "next level C and G and now I found the not bad oh but it really let's see let's try this thing from the middle let's slow my speed down a little bit now we going to see anything going off to the left like we did with ordinary breath search no because it's smart it doesn't say I want to go to a place that's further away from my goal all right so now let's see uh maybe we can go back to our algorithm now and talk"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_058",
+    "video_id": "mit_6034_lec04",
+    "start_time": 2030.0,
+    "end_time": 2075.0,
+    "text": "further away from my goal all right so now let's see uh maybe we can go back to our algorithm now and talk climbing can I use the B same basic search mechanism just change that one line again yes how do I add the New Paths to the Q this time well it's very much like hill climbing right so I want to add them to the front but with one little flourish"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_059",
+    "video_id": "mit_6034_lec04",
+    "start_time": 2065.0,
+    "end_time": 2110.0,
+    "text": "Paths to the Q this time well it's very much like hill climbing right so I want to add them to the front but with one little flourish what's the flourish chrisna what do you think remember I want to I want to use my urtic information so I not only add them to the front but amongst the ones I'm adding to the front what do I do check the distance check the distance and and how do you arrange them uh the minimum first yeah so you just you can put the minimum first if you like but let's sort them we'll sort them that'll keep everything straight so hill"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_060",
+    "video_id": "mit_6034_lec04",
+    "start_time": 2100.0,
+    "end_time": 2145.0,
+    "text": "sorted and finally how about beam what do we do with beam search to uh add them to the que well doesn't matter where we add them because all we're going to do is we're going to keep the W best so with beam we'll just abbreviate that by saying best all right so now you have some of the uh"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_061",
+    "video_id": "mit_6034_lec04",
+    "start_time": 2135.0,
+    "end_time": 2180.0,
+    "text": "best all right so now you have some of the uh basic uh searches uh in your uh toolkit there's one more that's sometimes talked about say we got depth breadth best and beam one more is best best for search it's um a variant we let me go on it's a variant where you say I've got this tree it's got a bunch of uh paths that terminate in leaves let me just always work on the leaf node that's closest to the goal so it can kind of skip around a little bit from one place to another because as it pursues One path it may not do very well"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_062",
+    "video_id": "mit_6034_lec04",
+    "start_time": 2170.0,
+    "end_time": 2215.0,
+    "text": "me just always work on the leaf node that's closest to the goal so it can kind of skip around a little bit from one place to another because as it pursues One path it may not do very well and some other path quite distant in the one we've actually seen an instance of that in uh in the integration program it's capable skipping all over the place because it's always taking the easiest problem in the search tree in the Andor tree working on that so that's best for search now you can do these sorts of things in continuous spaces too and you've done the mathematics of that in something uh but in continuous spaces"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_063",
+    "video_id": "mit_6034_lec04",
+    "start_time": 2205.0,
+    "end_time": 2250.0,
+    "text": "things in continuous spaces too and you've done the mathematics of that in something uh but in continuous spaces the hill climbing uh sometimes leads to problems or doesn't do very very well uh what kind of a problem can you encounter in a continuous space uh with u with hill climbing well how would you do hill climbing in a continuous space let's let's say we're in the mountains and a big fog has come up we're trying to get to the top of the hill before we freeze to death and we take uh a few steps North a few steps east west and South using our"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_064",
+    "video_id": "mit_6034_lec04",
+    "start_time": 2240.0,
+    "end_time": 2285.0,
+    "text": "of the hill before we freeze to death and we take uh a few steps North a few steps east west and South using our compass and we check to see which direction seems to be doing the best job of getting us moving upward and that's that's our hill climbing approach right we have explored four directions we can go we pick the best one then from there we pick four try all those pick the best one and away we go we've got ourselves a hill climbing algorithm what's wrong with it or what can be wrong with it sometimes it works just fine yes you might get stuck in a local maximum yeah you might get stuck in a local maximum so problem"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_065",
+    "video_id": "mit_6034_lec04",
+    "start_time": 2275.0,
+    "end_time": 2320.0,
+    "text": "sometimes it works just fine yes you might get stuck in a local maximum yeah you might get stuck in a local maximum so problem number problem letter a is that if this space may look like that and you may get stuck on a local maximum is there any other kind of up well all depends on what the space is like here's a problem where the space has local Maxima now a lot of people have been killed on Mount Washington when the fog comes up and"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_066",
+    "video_id": "mit_6034_lec04",
+    "start_time": 2310.0,
+    "end_time": 2355.0,
+    "text": "has local Maxima now a lot of people have been killed on Mount Washington when the fog comes up and they do freeze to death why hell climbing the reason they freezes death is is hill climbing fails them and they can't get to the top to the ranger station and the reason is that there are large Lawns on the shoulders of Mount Washington come quite problem so that space looks like this oh this isn't what Mount Washington looks like but it's it's the telephone pole problem so when you're wandering around"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_067",
+    "video_id": "mit_6034_lec04",
+    "start_time": 2345.0,
+    "end_time": 2390.0,
+    "text": "space looks like this oh this isn't what Mount Washington looks like but it's it's the telephone pole problem so when you're wandering around here the idea of trying a few directions picking the one that's best doesn't help any because it's flat so that can be a problem with hill climbing now there's one more problem with hill climbing uh that uh most people don't know about this this is a particularly acute problem in high dimensional spaces I'll illustrate here just in two and I'm going to switch from a uh a regular kind of View to a contour map so my contour map is going to betray"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_068",
+    "video_id": "mit_6034_lec04",
+    "start_time": 2380.0,
+    "end_time": 2425.0,
+    "text": "going to switch from a uh a regular kind of View to a contour map so my contour map is going to betray presence of a Sharp line and now you see how you can get in trouble there you get in trouble because if you take a step in each Direction every Direction takes you downhill and you think you're at the top so suppose you're right here and you go north that takes you south over a contour line that takes you down over a"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_069",
+    "video_id": "mit_6034_lec04",
+    "start_time": 2415.0,
+    "end_time": 2460.0,
+    "text": "downhill and you think you're at the top so suppose you're right here and you go north that takes you south over a contour line that takes you down over a contour line if you go south that also takes you down down over contour lines likewise going West and East all appear to be taking you down whereas in fact you're climbing a ridge and that's that contour line is the highest that I've shown so sometimes you can get fooled not stuck but fooled into thinking not now is this um this is this is a model of something this this subject is about modeling intelligence and this is a kind"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_070",
+    "video_id": "mit_6034_lec04",
+    "start_time": 2450.0,
+    "end_time": 2495.0,
+    "text": "not now is this um this is this is a model of something this this subject is about modeling intelligence and this is a kind of algorithm you frequently need in order to build an intelligent system but do we have uh any kind of search happening in our heads or does this some is it are if we're going to model what goes on inside our heads do we have to model any kind of searching uh in order to uh do the kinds of things that we we humans do I suppose so anytime we make a plan we're actually evaluating a bunch of choices and seeing how they work let me see if I can illustrate it"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_071",
+    "video_id": "mit_6034_lec04",
+    "start_time": 2485.0,
+    "end_time": 2530.0,
+    "text": "do I suppose so anytime we make a plan we're actually evaluating a bunch of choices and seeing how they work let me see if I can illustrate it way so this is a A system that I showed you a little bit of last time and shoot I I might as well review uh one or two here I showed you a MC Beth story this is the story I showed you and if you had this in a Humanities class the simplest questions that you might might be asked is uh why did uh McDuff uh kill MC Beth down there at the"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_072",
+    "video_id": "mit_6034_lec04",
+    "start_time": 2520.0,
+    "end_time": 2565.0,
+    "text": "class the simplest questions that you might might be asked is uh why did uh McDuff uh kill MC Beth down there at the bottom did I demonstrate the answering of questions last time or just the development of the graph I can't remember but we'll do it again anyway so this is some somewhat stylized English just so you'll know it doesn't have to be stylized English this is English that's um made available to the Genesis system by way of something called a story workbench there's no free lunch either you can use your human resources to rewrite the plot in third grade English or you can use your human resources to take a more natural adult type version of the story and decorate it with annotations that make it possible to"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_073",
+    "video_id": "mit_6034_lec04",
+    "start_time": 2555.0,
+    "end_time": 2600.0,
+    "text": "rewrite the plot in third grade English or you can use your human resources to take a more natural adult type version of the story and decorate it with annotations that make it possible to absorb it so just this summer in a miracle of Summer Europe uh Brett van uh one of you uh connected these two systems together so we can now work with the stories that are expressed in pretty natural English everything in our system is expressed in English including Common Sense knowledge like if somebody kills you you're dead but more uh more importantly for today's illustration uh that reflective level knowledge that knowledge about what what revenge is so here you are in you're in"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_074",
+    "video_id": "mit_6034_lec04",
+    "start_time": 2590.0,
+    "end_time": 2635.0,
+    "text": "illustration uh that reflective level knowledge that knowledge about what what revenge is so here you are in you're in the humanities class and someone says uh what's really going on in the story not the details of who kills whom but is there a pic Victory does somebody have a success is there an act of Revenge right these are all kinds of things you might be asked about in in some kind of"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_075",
+    "video_id": "mit_6034_lec04",
+    "start_time": 2625.0,
+    "end_time": 2670.0,
+    "text": "uh launch the system uh on a read of that MC Beth story that I showed you just a moment ago at the moment it's uh absorbing information about background knowledge and about reflective level knowledge and thing it's building itself a this thing we call an elaboration graph uh not quite there yet it's still reading"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_076",
+    "video_id": "mit_6034_lec04",
+    "start_time": 2660.0,
+    "end_time": 2705.0,
+    "text": "we call an elaboration graph uh not quite there yet it's still reading now it's reading MC Beth it's building its little elaboration graph same thing you saw last time except except not quite see that stuff down at the bottom those are higher level Concepts that it's managed to find Revenge how did it do that it searched it had a description of what a Revenge is and I look to see if that pattern was exhibited in the elaboration graph so in a combination of things that"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_077",
+    "video_id": "mit_6034_lec04",
+    "start_time": 2695.0,
+    "end_time": 2740.0,
+    "text": "searched it had a description of what a Revenge is and I look to see if that pattern was exhibited in the elaboration graph so in a combination of things that were said explicitly and things that were produced by kneejerk GI then rules the elaboration graph was sufficiently instantiated that the Revenge pattern could be found well that's interesting uh peric Victory is a little harder you'd probably get an A if you said oh there's a peric victory in here yeah there it is so we'll blow that up a little bit so you can see what it is you know what a peric victory is it's something it's a situation where"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_078",
+    "video_id": "mit_6034_lec04",
+    "start_time": 2730.0,
+    "end_time": 2775.0,
+    "text": "peric victory is it's something it's a situation where first and then not so hot so MC Beth wants to be king down here and eventually that leads to becoming King but too bad for MC Beth because eventually he gets killed in consequence so it's a peric victory all that produced by search programs that are looking through this gra now once you've got the capability of doing that of course uh then um you can find all sorts of things and you can report them in English but more interestingly you can ask answer questions so why did Mac it cares not a"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_079",
+    "video_id": "mit_6034_lec04",
+    "start_time": 2765.0,
+    "end_time": 2810.0,
+    "text": "report them in English but more interestingly you can ask answer questions so why did Mac it cares not a capitalization on a common sense level it looks like Dr gent thinks McDuff kills Mac because mcde angers McDuff on a reflective level it looks like like Dr J thinks MCD kill MC death is part of X of mistake be Victory and revenge pretty courting speech output but you see the point how did they get the stuff on the common sense level same way all of those programs that build gold tre's report answers the questions it's just looking locally around in the connections in the gold"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_080",
+    "video_id": "mit_6034_lec04",
+    "start_time": 2800.0,
+    "end_time": 2845.0,
+    "text": "common sense level same way all of those programs that build gold tre's report answers the questions it's just looking locally around in the connections in the gold tree how do they get the stuff on the reflective level by reporting on the searches that produced uh um information it it does that by looking for higher level thoughts about its own thoughts and Reporting in which of those higher level thoughts the incident in ask about actually occurs so uh let's see just for fun we might be interested in why uh MC Beth murdered Duncan wouldn't this be handy if you hadn't actually read the play and here it is you got to write that"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_081",
+    "video_id": "mit_6034_lec04",
+    "start_time": 2835.0,
+    "end_time": 2880.0,
+    "text": "fun we might be interested in why uh MC Beth murdered Duncan wouldn't this be handy if you hadn't actually read the play and here it is you got to write that paper on a common sense level it looks like I'll pull the plug on that because annoying yeah pretty good MC Beth wants to be king and Duncan is the king so I oh it won't answer the question unless"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_082",
+    "video_id": "mit_6034_lec04",
+    "start_time": 2870.0,
+    "end_time": 2915.0,
+    "text": "I oh it won't answer the question unless okay that wouldn't have been I wouldn't be able to show that to you last until last spring in fact I wouldn't have been able to show you this today until last week with a tweak this morning because we've just now connected the speech output the the language output to Boris cass's parser system which is running in Reverse in order to generate that English so that's something has never before been seen by any eyes but me and so that will conclude what we"
+  },
+  {
+    "chunk_id": "mit_6034_lec04_chunk_083",
+    "video_id": "mit_6034_lec04",
+    "start_time": 2905.0,
+    "end_time": 2950.0,
+    "text": "me and so that will conclude what we"
+  }
+]

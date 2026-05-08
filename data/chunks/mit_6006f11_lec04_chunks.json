@@ -1,0 +1,632 @@
+[
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_000",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 0.0,
+    "end_time": 45.0,
+    "text": "the following content is provided under a Creative Commons license your support will help MIT open courseware continue to offer highquality educational resources for free to make a donation or view additional materials from hundreds of MIT courses visit MIT opencourseware ocw.mit.edu one of the cutest little data structures uh that was ever invented called the Heap and we're going to use uh the Heap as an example implementation of a priority q and we'll also use heaps to build a sorting algorithm called Heap Sort um"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_001",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 35.0,
+    "end_time": 80.0,
+    "text": "q and we'll also use heaps to build a sorting algorithm called Heap Sort um that is very very different from either insertion sort or merge sort and it has some nice properties that neither insertion sort nor merge sort have but what I want to do is get started with motivating the Heap data structure regardless of whether you're interested in sorting or not so the notion of priority Q I think makes intuitive sense to all of you it's essentially a structure that implements"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_002",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 70.0,
+    "end_time": 115.0,
+    "text": "intuitive sense to all of you it's essentially a structure that implements key and as you can imagine a priority Q is something where you queue up for something uh you want to buy something you want to sell something you have certain priorities assigned to"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_003",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 105.0,
+    "end_time": 150.0,
+    "text": "key and as you can imagine a priority Q is something where you queue up for something uh you want to buy something you want to sell something you have certain priorities assigned to you and uh you want to pick the maximum priority or the Min priority you want to be able to delete it from the queue you want to be able to insert things into this queue you want to be able to change priorities in the queue so all of these operations are are interesting operations that should run fast and for some definition of fast obviously we interested in the asmic complexity definition of fast in that case we'll be saying does this operation run in order end time order log end time Etc um so in"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_004",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 140.0,
+    "end_time": 185.0,
+    "text": "definition of fast in that case we'll be saying does this operation run in order end time order log end time Etc um so in general I think for the next few lectures you're going to see uh a specification of a data structure in terms of the operations that the data structure should perform and those of you who have taken 65 you'll see that it's basically an abstract data typee that's associated with this uh these operations so it's a spec for the abstract data type um in 65 you didn't really spend a lot of time on asmic complexity or the efficiency of operations on the abstract data type here in6 we'll specify this"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_005",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 175.0,
+    "end_time": 220.0,
+    "text": "really spend a lot of time on asmic complexity or the efficiency of operations on the abstract data type here in6 we'll specify this ADT and specify the set of operations or methods in the ADT and we'll talk about whether these are order n complexity or order n log n complexity and compare and contrast different adts so today's ADT is a heap and so what is the set of operations that we'd like to perform on a priority queue so we can use that to motivate the development of a heap and those are insert SX so you have a set of elements s and you want to be able to"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_006",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 210.0,
+    "end_time": 255.0,
+    "text": "use that to motivate the development of a heap and those are insert SX so you have a set of elements s and you want to be able to insert element X into set s um you want to be able to do Max of key and different from Max of x s rather"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_007",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 245.0,
+    "end_time": 290.0,
+    "text": "key and different from Max of x s rather is extract Max of s which not only Returns the element with the largest key also removes it from s so this is you have a Q and and the person in the que was serviced or the element in the que was serviced and then removed from the que um and finally you can imagine changing the priority of a particular element X in the set s and this priority"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_008",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 280.0,
+    "end_time": 325.0,
+    "text": "imagine changing the priority of a particular element X in the set s and this priority this an Associated uh key as we have up up up there with each element and that key is call it K and increase key s x value of x's K right and you know"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_009",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 315.0,
+    "end_time": 360.0,
+    "text": "K right and you know K could correspond to it's just called increase uh most of the time uh you're increasing the value in maybe a particular application you could have certainly a decrease key and you'd have to know what the previous value was and it's just a matter of exactly what operation you want to perform you could call it update and or increment whatever you like I'm going to spend most of the time here talking about how you maintain a repin variant of this data structure called the Heap that allows"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_010",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 350.0,
+    "end_time": 395.0,
+    "text": "here talking about how you maintain a repin variant of this data structure called the Heap that allows you to to do these operations in an efficient way and we'll talk about what the efficiency is and we'll try and analyze the efficiency of these algorithms that we put up all right so let's talk about a heap a heap is an implementation of a priority Cube it's amazingly an array structure except that your visualizing"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_011",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 385.0,
+    "end_time": 430.0,
+    "text": "treat and so what does that mean exactly well the best way to understand that is by looking at an 1 2 3 4 5 6 7 8 9 10 so here's my array of 10"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_012",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 420.0,
+    "end_time": 465.0,
+    "text": "1 2 3 4 5 6 7 8 9 10 so here's my array of 10 elements and the elements are 16 7 so some set of elements they're in random order clearly not sorted and I'm looking at the indices and I'm looking at the elements and I'm going to visualize this as has a nearly complete binary tree it's not a full binary tree because I only have 10 elements in it and it would have to have 16 uh 15 elements to be a a complete binary tree and we want to be able to do"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_013",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 455.0,
+    "end_time": 500.0,
+    "text": "elements in it and it would have to have 16 uh 15 elements to be a a complete binary tree and we want to be able to do the general case of an arbitrary size array and so that's why we have a nearly complete here so what does it mean to visualize this as a tree well index one is the root of the tree and that's item with the value 16 and what I have are indices two and"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_014",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 490.0,
+    "end_time": 535.0,
+    "text": "and four five six and seven are the children of two and three nine and 10 are the children of uh four and five in this case and so that's the the picture you want to keep in your head for the rest of this lecture anytime you see an array you say we're going we're looking at the Heap representation of the array the picture on the right tells you what the Heap looks like and so the"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_015",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 525.0,
+    "end_time": 570.0,
+    "text": "for the rest of this lecture anytime you see an array you say we're going we're looking at the Heap representation of the array the picture on the right tells you what the Heap looks like and so the I'm not going to fill in all of these you can but I'll do a couple so you have 10 here and 8 7 Etc so that's that's a heap structure so what's nice about this Heap structure is that uh you have a tree representation of an array and that lets you do a bunch of interesting things what do you get out of this"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_016",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 560.0,
+    "end_time": 605.0,
+    "text": "representation of an array and that lets you do a bunch of interesting things what do you get out of this the root of the element corresponding to I equal 1 the parent of I is I / 2 the left child of I is 2 I and the right child of I is 2 I +"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_017",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 595.0,
+    "end_time": 640.0,
+    "text": "2 the left child of I is 2 I and the right child of I is 2 I + 1 all right so that's essentially what this mapping corresponds to now on top of that um this is just what a heap corresponds to um we're going to have particular types of heaps that that we'll call Max heaps and Min heaps and as you can imagine Max heaps and Min heaps have additional properties on top of the basic Heap structure so this is essentially a definition of a heap now I'm going to Define what the max Heap"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_018",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 630.0,
+    "end_time": 675.0,
+    "text": "essentially a definition of a heap now I'm going to Define what the max Heap is and the max he property says key of a to the Keys children okay that's it um it's obviously recursive um in the sense that"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_019",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 665.0,
+    "end_time": 710.0,
+    "text": "children okay that's it um it's obviously recursive um in the sense that you have to have this true for every node in the tree and when you get down to the leaves of the tree uh they they're not children corresponding to the leaves so that's a trivial property but at higher levels you're going to have children and you have to check that so if you look at this example here I maybe I should fill this whole thing out so I have eight and seven here and six would be nine and I have three over"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_020",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 700.0,
+    "end_time": 745.0,
+    "text": "thing out so I have eight and seven here and six would be nine and I have three over here and then two 4 1 right so we can look at this and and check whether it has the max heat property or not um does it have the max heat property do he yeah all you have to do is look at one these nodes one two three indices index four five six and well you don't have to look at six and seven uh because they don't have any children uh but you could stop with u with five here and you you look at the children and there you go uh the"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_021",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 735.0,
+    "end_time": 780.0,
+    "text": "with u with five here and you you look at the children and there you go uh the parent is greater than or equal to either of its children or its only child in the case of node five and so you have the Maxi property right it's a fairly straightforward property and you can imagine defining the Min Heap property in an equivalent way all right just replace the greater than or equal to with less than or equal to so right off the bat um what operation is going to be trivially performed on a Max Heat this is a kind"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_022",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 770.0,
+    "end_time": 815.0,
+    "text": "bat um what operation is going to be trivially performed on a Max Heat this is a kind of a trivial question but yep just finding the biggest element exactly right um the max operation now um what about extract Max is that trivially performed on a Max Heap no because uh uh so what do I mean by that by when you say Max is trivially performed what it means is that you can return the max you can find the maximum element or a maximum element and uh you"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_023",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 805.0,
+    "end_time": 850.0,
+    "text": "by that by when you say Max is trivially performed what it means is that you can return the max you can find the maximum element or a maximum element and uh you obviously don't modify the Heap and the Heap stays the same so it stays a Max Heap in general when we talk about data structures and this goes back to repin variance which I mentioned already you typically want to maintain this repin variant and so the repin variant of our data structure in this case is a Max heat property okay so if we want to maintain the max heat property as we modify the Heap so if you go from one Heap to another you start with a Max Heap you want to end with a Max Heap okay and it makes perfect sense because"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_024",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 840.0,
+    "end_time": 885.0,
+    "text": "modify the Heap so if you go from one Heap to another you start with a Max Heap you want to end with a Max Heap okay and it makes perfect sense because um one of the simplest things that you want to do in a priority queue is you want to be able to create a priority queue and you want to be able to run extract Max on the priority queue over and over right and what that means is that you take the max element you delete it take the next Max element delete it and so on and so forth and there you go all right and it's a bit of a preview here but uh you can imagine that if you did that uh you would get a sorted list of elements in decreasing order right so you see the connection to sorting because you could imagine that once we have this Heap"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_025",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 875.0,
+    "end_time": 920.0,
+    "text": "you would get a sorted list of elements in decreasing order right so you see the connection to sorting because you could imagine that once we have this Heap structure and we can maintain the max he property that we could continually run extract Max on it and if we could build extract Max in an efficient way we might have a a fantastic sorting algorithm all so the big question that really remains is how do we maintain the max heat property as we modify the heat okay and how would you go the other question which I haven't answered"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_026",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 910.0,
+    "end_time": 955.0,
+    "text": "property as we modify the heat okay and how would you go the other question which I haven't answered um there's a there's there's um this array that turns out it was a Max heat okay but it's quite possible that I have array in fact let me make this one that is that is not a Max Heap it's not a Max Heap it's not a Min Heap it's neither right it's just a heap okay so"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_027",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 945.0,
+    "end_time": 990.0,
+    "text": "one that is that is not a Max Heap it's not a Max Heap it's not a Min Heap it's neither right it's just a heap okay so transform or visualized I should say this array as as a heap I don't have a Max Heap I don't have a Min Heap so if I were interested in sorting and I am um there's there's another thing that's sort of missing here that we have to work on which is how are we going to build a Max Heap out of an initially unsorted array right which may or may not turn into a Max seat this trivially happened to be exactly the right thing because I picked it and it turned into a Max SE just by visualizing it but it's"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_028",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 980.0,
+    "end_time": 1025.0,
+    "text": "not turn into a Max seat this trivially happened to be exactly the right thing because I picked it and it turned into a Max SE just by visualizing it but it's quite possible that you know you have arrays that are input to your sorting algorithm that look like that right yep okay so let's dive into Heap operations I'm going to have to spend some time describing to you a bunch of different methods that you would call on a heap and all of these methods are going to have to maintain our representation invariant or the Maxi property so what are the Heap"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_029",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 1015.0,
+    "end_time": 1060.0,
+    "text": "going to have to maintain our representation invariant or the Maxi property so what are the Heap operations that we have to implement and analyze the complexity for well we're going to have build max heat which array so somehow I got to turn this into for example 4 2 1 okay which is in"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_030",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 1050.0,
+    "end_time": 1095.0,
+    "text": "I got to turn this into for example 4 2 1 okay which is in effect sorting this array right or changing the order maybe not fully sorting it but changing the order so that's what I'll have to do and build max Heap is going to have to do that in order to do build max Heap um the first procedure that I'm going to describe to you is called is called Max heapify right heapify right sounds but I guess you can IFI pretty much"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_031",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 1085.0,
+    "end_time": 1130.0,
+    "text": "heapify right heapify right sounds but I guess you can IFI pretty much anything um so you correct a tree uh sub tre's root okay and I'll explain what I mean by that in just a"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_032",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 1120.0,
+    "end_time": 1165.0,
+    "text": "tree uh sub tre's root okay and I'll explain what I mean by that in just a minute so uh Max Cy is the fundamental operation that we have to understand here and we're going to use it over and over um what it does is takes some something that is not a heap not a Max Heap when I say not a heap from now on pretend that I'm saying not a Max Heap we're only going to be talking about ma Max heaps for the rest of this lecture okay uh and what Max cify does is take something that is not quite a Max heat it can't take anything arbitrary it's going to take something"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_033",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 1155.0,
+    "end_time": 1200.0,
+    "text": "lecture okay uh and what Max cify does is take something that is not quite a Max heat it can't take anything arbitrary it's going to take something where there's a single violation of the max heed property at some sub of this this Heap that is given to you and there's a single violation of that and it's got to fix that okay and we need to be able to do this recursively at different levels to go build a Max he from an unordered array um and then once you have that you can do all sorts of things like insert and extract Max and Heap Sort and so on and so forth so let's take a look at Max Cy using an example I'm not going to write pseudo code"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_034",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 1190.0,
+    "end_time": 1235.0,
+    "text": "and extract Max and Heap Sort and so on and so forth so let's take a look at Max Cy using an example I'm not going to write pseudo code for Max cpy I'll run through an example and the pseud code is in the notes the big assumption and you can think of this as a precondition for running Max C5 is that the trees rooted at left"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_035",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 1225.0,
+    "end_time": 1270.0,
+    "text": "heaps right so max hey is going to take it's going to look like a comma I a is simply the array and I is the index okay and a Max Cy is willing to you're you're you're you're allowed to crash uh uh and not do anything useful if this precondition is violated in Max cp5 but if the precondition is true then what you have to do is you have to return a Max Heap correcting this"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_036",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 1260.0,
+    "end_time": 1305.0,
+    "text": "then what you have to do is you have to return a Max Heap correcting this contract so let's take a look at an example um I think what I want to do is here I wanted you I want you to see all of the steps here so we'll take a simple and let's take a look at [Music]"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_037",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 1295.0,
+    "end_time": 1340.0,
+    "text": "and let's take a look at [Music] and I'm just going to draw the indices bother so there you go uh is this a Max"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_038",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 1330.0,
+    "end_time": 1375.0,
+    "text": "bother so there you go uh is this a Max Heap no because right here I got a problem four is less than 14 therefore I have a violation right and so I if you cify 8 comma 2 this is an index two and all you have to do is to look at this sub tree and what you want what you need to be satisfied in order to run Max cify is that the sub"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_039",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 1365.0,
+    "end_time": 1410.0,
+    "text": "want what you need to be satisfied in order to run Max cify is that the sub trees of node index two which is this four node are Max heeps and if you go look below you see that this is a Max he and that's a Max he okay most of the time by the way you'll be sort of working bottom up and that's why this is going to make sense right this will all work out because leaves are by definition Max heeps because you don't have to check anything right when you put two leaves together and you want to create a a tree like like that or a heap like that then you run Max seify and then you have when you have a couple of different Max seeps and you want to put them to together to"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_040",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 1400.0,
+    "end_time": 1445.0,
+    "text": "like like that or a heap like that then you run Max seify and then you have when you have a couple of different Max seeps and you want to put them to together to make it a bigger Max SE you'd have to run Max cify right so so that's the way it's going to work so you want to do Max cify a comma 2 and one of the things that's going to be important not in this example but when we get to sorting is that we want to know what the size of the Heap is and in this case the Heap size is 10 right so what does Max cpy do well all Max cpy does is ex ex changes elements and so if you looked at the code for Max cpy and you walk"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_041",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 1435.0,
+    "end_time": 1480.0,
+    "text": "do well all Max cpy does is ex ex changes elements and so if you looked at the code for Max cpy and you walk through it this is what it would do U you're going to look at four and 14 and it's going to say okay I'm going to look at both my children and I'm going to go ahead and exchange with the bigger bigger child so I'm going to exchange take this make this four and make this 14 and that would be step"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_042",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 1470.0,
+    "end_time": 1515.0,
+    "text": "take this make this four and make this 14 and that would be step one and then you would when you get to this point recursively uh you'd realize that there the Maxi property at this level is violated and so you would go ahead a comma 4 and when that happen or that call happens you're going"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_043",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 1505.0,
+    "end_time": 1550.0,
+    "text": "a comma 4 and when that happen or that call happens you're going to look at the two children corresponding to this little sub tree there and you're going to do the exchange you're going to have eight here A4 with and now you're done so there no more calls all right so fairly straightforward it's actually not any"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_044",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 1540.0,
+    "end_time": 1585.0,
+    "text": "and now you're done so there no more calls all right so fairly straightforward it's actually not any more complicated than this there may be many steps what might happen is that you'd have to go all the way down to the leaves and in this case you went a couple of steps and then you got to stop but obviously you could have a large Heap and it could take a bunch of time so what is the complexity of Max anybody yeah back there well"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_045",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 1575.0,
+    "end_time": 1620.0,
+    "text": "anybody yeah back there well every every node to make it order n um everybody anybody AG you have a different answer log why why is it log n"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_046",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 1610.0,
+    "end_time": 1655.0,
+    "text": "so you're you're arguing that the the solution to the recurrence gives you a logarithmic complexity all right not quite um there's there's an easier way swap for each level and go all the way from to that's right so what is the"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_047",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 1645.0,
+    "end_time": 1690.0,
+    "text": "swap for each level and go all the way from to that's right so what is the complexity L log in great good excellent definitely worth a cushion who missed you by that much all right it it was it's pretty soft by the way right okay so um if I hit somebody they get a cushion okay um um all right so uh that's exactly right uh thanks um uh for that description um so first off there's there's two important aspects to this uh argument the first thing is that we're visualizing this as a nearly complete binary tree okay it is not an unbalanced"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_048",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 1680.0,
+    "end_time": 1725.0,
+    "text": "there's two important aspects to this uh argument the first thing is that we're visualizing this as a nearly complete binary tree okay it is not an unbalanced tree all right we'll talk about unbalanced trees and balanced trees in the next couple of lectures but the visualization of a heap is a nearly complete binary tree and in fact if you had 15 elements it'd be a perfect binary tree okay so the good news is that at the height of this visualization tree is bounded by log n okay that's the good news all right and you want to exploit that good news by creating algorithms that go level by level right if you can do that you're going to have logarithmic complexity algorithms all right and so"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_049",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 1715.0,
+    "end_time": 1760.0,
+    "text": "that good news by creating algorithms that go level by level right if you can do that you're going to have logarithmic complexity algorithms all right and so that was one aspect of it the other aspect of it is the key assumption that we're making with respect to build max Heap that there was a single violation all right it is true that the the answer that was given was order n you know would be a problem I could set it up so so that's actually the right answer if if I did not have this assumption when do I have that here um assume that the trees rooted at left eye and right eye are Max seeps okay so maybe that's what you were thinking but this is a key assumption this is you know going back and I like uh making connections between"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_050",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 1750.0,
+    "end_time": 1795.0,
+    "text": "are Max seeps okay so maybe that's what you were thinking but this is a key assumption this is you know going back and I like uh making connections between classes um this is a precondition that makes the the algorithm more efficient makes the implementation easier and at this precondition essentially says that you have to just go down and do a number of steps that's the number of levels in the tree which is logarithmic all right so that's the story here with Max cpy it's order log n in terms of complexity that's the number of steps that you have and it's a uh a basic building block for all of the other algorithms that we'll look at"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_051",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 1785.0,
+    "end_time": 1830.0,
+    "text": "number of steps that you have and it's a uh a basic building block for all of the other algorithms that we'll look at for the rest of this lecture and in section tomorrow let's talk about how you would take Max heapify and use it to do build max Heap so the first step now let's say that we want to go and get a nice sorting algorithm we we don't like insertion sort we don't like merge sort we'd like to get a heap based sorting algorithm one of the things that we need to do as I said is to take an unordered array and turn it into a Max Heat"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_052",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 1820.0,
+    "end_time": 1865.0,
+    "text": "to get a heap based sorting algorithm one of the things that we need to do as I said is to take an unordered array and turn it into a Max Heat which is a non-trivial thing to do and once we do that we can do this extract max deal uh to to sort the array so the convert an array A1 through n into a Max Heat and the key word here is Max he because every array can be visualized as a heat and and I'm I'm I'm am going to write the pseudo code for build max Heap"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_053",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 1855.0,
+    "end_time": 1900.0,
+    "text": "because every array can be visualized as a heat and and I'm I'm I'm am going to write the pseudo code for build max Heap because it's two lines of code and that's about the limit of U the size of program I can really all right that's it Bill Max Heap says go from I equals n by two down to one"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_054",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 1890.0,
+    "end_time": 1935.0,
+    "text": "all right that's it Bill Max Heap says go from I equals n by two down to one okay Max heapify a ofi all right so someone explained to me and why I'm I can start with n / two and why I'm going down to one yep I saw you leaves are good ah leaves are good good so leaves are good I'll let you go on for a second in a second leaves are good because um if you look at um"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_055",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 1925.0,
+    "end_time": 1970.0,
+    "text": "for a second in a second leaves are good because um if you look at um elements a of n/ 2 + 1 through n are all leaves okay that's a good observation all right um so and this is true for any array all right doesn't matter what n is doesn't have to be a power of two or 2 rais to n minus one or anything like that so and leaves are good because they automatically satisfy uh the the max continue"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_056",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 1960.0,
+    "end_time": 2005.0,
+    "text": "continue right that's exactly right so beautiful won't hit anybody here um so so that's it the reason this works is because you're calling Max epy multiple times but every time you call it you satisfy the precondition okay and uh the leaves are automatically Max seeps when you start with"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_057",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 1995.0,
+    "end_time": 2040.0,
+    "text": "precondition okay and uh the leaves are automatically Max seeps when you start with n/2 you're going to see two leaves as your children for the n/2 number right I mean just pick an example here um n number two is a of five right um and so you're out here right and and in this case you know depending on the value of n you may have either two children or just one child and you have one child but regardless of that you know that's going to be a maxi because it's a leaf right and so you you'll have two leaves and you need to put them together and that's a fairly straightforward process of U attaching the leaves together you might have to do a a swap based on what the element is"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_058",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 2030.0,
+    "end_time": 2075.0,
+    "text": "put them together and that's a fairly straightforward process of U attaching the leaves together you might have to do a a swap based on what the element is one operation and you get a little small little tree that's a maxi um and then you do a bunch of other things that all work on leaves because n /2 uh minus one is probably also going to have leaves as is children given the large value of N and there'll be a bunch of things where you work on uh on these level one nodes if you will that all have leaves as children and then you work on the level two nodes and so so on and so forth and as I said before you're working your way up and you're only working with Max"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_059",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 2065.0,
+    "end_time": 2110.0,
+    "text": "children and then you work on the level two nodes and so so on and so forth and as I said before you're working your way up and you're only working with Max heaps as your left child and your right child all right that makes sense all right so uh if you do that uh and this is a fairly straightforward question and if you do a straightforward analysis of this uh what is the complexity of build max right so that's a order order n log n okay now this is through a simple analysis now I'm going to give you a"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_060",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 2100.0,
+    "end_time": 2145.0,
+    "text": "right so that's a order order n log n okay now this is through a simple analysis now I'm going to give you a chance to tell me if you can do better than that or not in terms of analysis okay so here's here's the it's a subtle question all right um it's a subtle question that I'm asking I'm saying this is the algorithm all right I don't want you to change the algorithm but I want you to change your analysis right the analysis that sorry you you just did was you said I got you know Theta n steps here because it's n by two"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_061",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 2135.0,
+    "end_time": 2180.0,
+    "text": "right the analysis that sorry you you just did was you said I got you know Theta n steps here because it's n by two steps um looks like each of the steps is taking log n time so that's n log n and I I was careful um I put Big O here okay because that's an upper bomb so that's a valid answer right can you do better can you do a better analysis and I'll let you go first can you do a better analysis that uh that you know somehow"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_062",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 2170.0,
+    "end_time": 2215.0,
+    "text": "um a constant number of comparisons to to Max to Maxi that all the things below it um uh yeah it's it's it's it's hard to explain you're you're on the right track you're absolutely on the right track uh um so it turns out that and I'll do this it's going to take a few minutes here"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_063",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 2205.0,
+    "end_time": 2250.0,
+    "text": "uh yeah it's it's it's it's hard to explain you're you're on the right track you're absolutely on the right track uh um so it turns out that and I'll do this it's going to take a few minutes here because I had to write some things out um we got to sum up a bunch of arithmetic series and so on so it's it's it's a bit unfair to to have to speak out the answer uh but the correct answer in fact uh is that this is uh order n complexity okay this algorithm that I put up here if you do a careful analysis of it you can get order n out of it okay and we'll do this careful analysis and I'll tell you why it's order n in terms of U sort of a handwavy argument okay the handwavy argument is that you're"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_064",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 2240.0,
+    "end_time": 2285.0,
+    "text": "I'll tell you why it's order n in terms of U sort of a handwavy argument okay the handwavy argument is that you're doing basically obviously no work for the leaves but you're not even counting that because you're starting with n /2 but when you look at the n/2 node it's uh essentially one operation or two operations in which way whichever way you count to build Maxi right and so for that first level of nodes it's exactly one operation that the first level that are above the leaves for the next level you may be doing you know two operations and so there's this uh increase in operations as you get higher and higher up but there's fewer and fewer nodes as"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_065",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 2275.0,
+    "end_time": 2320.0,
+    "text": "you may be doing you know two operations and so there's this uh increase in operations as you get higher and higher up but there's fewer and fewer nodes as you get higher and higher up right because um there's only one node that is the highest level node the root node that node has logarithmic number of operations but it's only one node right um and then the the ones down at the bottom have a constant number of operations okay so I'll put all of this down and hopefully you'll be convinced by the time we've done some math here or arithmetic here but you can quantify what I just said fairly"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_066",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 2310.0,
+    "end_time": 2355.0,
+    "text": "by the time we've done some math here or arithmetic here but you can quantify what I just said fairly easily as long as you're careful about the accounting that we have to do so this is this is really truly accounting analysis is has a lot to do with accounting and we're just being more careful with with the accounting as opposed to this straightforward argument that wasn't particularly careful with the counting so let's take a look at exactly this algorithm and I want to make an observation which is what I just did but heapify"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_067",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 2345.0,
+    "end_time": 2390.0,
+    "text": "heapify"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_068",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 2380.0,
+    "end_time": 2425.0,
+    "text": "believes okay that's observation number one observation number two is that we have n nodes with give or take one depending on you know the value of N I don't want to get uh hung up on floors and ceilings and in any case we're eventually going"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_069",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 2415.0,
+    "end_time": 2460.0,
+    "text": "nodes with give or take one depending on you know the value of N I don't want to get uh hung up on floors and ceilings and in any case we're eventually going to get an asmic result so we don't have to worry about that but we have n/4 nodes with level one n/ 8 with level two da da da da da um and one node at log with with log n at at sort of the log n level okay which is the the root node okay so there's this decrease in terms of nodes as the work that you're doing increases all right and that's the careful accounting that we have to do and so all"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_070",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 2450.0,
+    "end_time": 2495.0,
+    "text": "there's this decrease in terms of nodes as the work that you're doing increases all right and that's the careful accounting that we have to do and so all I have to do now to prove to you that this is actually an order and algorithm is to write a little summation that sums up all of the work across these"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_071",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 2485.0,
+    "end_time": 2530.0,
+    "text": "Loop can be summed as n / 4 * 1 * C so there's some um I have one level here and you know I'm going to do some constant amount of work for that one level all right so I'm just going to put C out there because eventually I can take away the C right that's the beauty of astics right so we don't need to argue about about how much work is done at that one level how many swaps etc etc but the fact is that it's these n/4 nodes are one level above the leaf right that's what's key and then I have n / 8"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_072",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 2520.0,
+    "end_time": 2565.0,
+    "text": "but the fact is that it's these n/4 nodes are one level above the leaf right that's what's key and then I have n / 8 * 2 C plus n / 16 * 3 C plus BL BL 1 * log of n c right I'm essentially written uh in an arithmetic expression exactly what I have observed on the board above all right stop me if you have questions now I'm going to set just to try and make this a little easier to look at and easier to reason about I'm going to"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_073",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 2555.0,
+    "end_time": 2600.0,
+    "text": "questions now I'm going to set just to try and make this a little easier to look at and easier to reason about I'm going to set n / 4 to 2 ra to K okay and I'm going to simplify and just pulling out certain things and this thing is going uh times 1 / 2 to 0 2 ided 2 to 1 3 / 2 to 2 Etc k + 1 ided by 2 raised to K okay"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_074",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 2590.0,
+    "end_time": 2635.0,
+    "text": "to 2 Etc k + 1 ided by 2 raised to K okay um if that was confusing raise your hand but it's uh essentially identical given the substitution instead of just applying the distributive law all right and the reason I did this is because I wanted you to see the arithmetic expression uh that's in here now we do know that you know 2 ra to K is is is n/ 4 of course uh but if you look at this expression that's inside here U what is what is this expression"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_075",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 2625.0,
+    "end_time": 2670.0,
+    "text": "expression that's inside here U what is what is this expression uh anyone uh can you can you bound this expression some question remember your arithmetic series from uh whatever it was GE uh yeah you know better than I you know I guess you you took those courses you know more recently but um so what what happens with that um I mean those of you who have calculators I mean you could plug that in and uh you know"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_076",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 2660.0,
+    "end_time": 2705.0,
+    "text": "courses you know more recently but um so what what happens with that um I mean those of you who have calculators I mean you could plug that in and uh you know ahead that's exactly what I was looking for right um essentially well it's it's not quite two because you have a one here and you have a one here but you're exactly right I mean you know two two is good is astics I mean come on you know I'm not going to complain about two versus three right um so the point is this bounded by a constant okay it's bounded by a constant all right this is a convergence series and and it's bounded by a constant all right and we can argue about what that constant is um it's uh it's less than three okay and it"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_077",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 2695.0,
+    "end_time": 2740.0,
+    "text": "bounded by a constant all right this is a convergence series and and it's bounded by a constant all right and we can argue about what that constant is um it's uh it's less than three okay and it doesn't matter even if K goes to Infinity right I mean you want K to go to Infinity but it doesn't matter if K is small or k is large this is bounded key observation so what do we have left what do we have left we have a constant there okay we have a c which is a constant and we have 2 raised to K which is really n okay so there you go there you have your Theta n complexity okay now I can say Theta n because I know"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_078",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 2730.0,
+    "end_time": 2775.0,
+    "text": "is really n okay so there you go there you have your Theta n complexity okay now I can say Theta n because I know it's Theta n right but Big O of n Theta n that's what it is right so that was a I'd say a subtle analysis clearly a little more complicated than anything we've done so far and let me see if their their questions how many people got this I did too right okay uh someone who didn't get it ask a question what didn't you get what step what step would you like me to repeat step to this thing here right here okay"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_079",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 2765.0,
+    "end_time": 2810.0,
+    "text": "step to this thing here right here okay so you're you're you're not convinced that that this expression got translated to this expression all right so let me let me try and convince you of that all right so let's take a look at each of the terms okay um n by4 is 2 ra to K I'm just looking at this term and this term okay n by4 is 2 ra to K right C is C all right and I just wrote one as uh as 1 ided 2 raed to 0 which is one okay and the reason I want you to do this is because I wanted to show you an expression where in some sense this is"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_080",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 2800.0,
+    "end_time": 2845.0,
+    "text": "as uh as 1 ided 2 raed to 0 which is one okay and the reason I want you to do this is because I wanted to show you an expression where in some sense this is the term that is the summation for your expression if you just replace this with you can write that out as I equal uh 0 through k um I + 1 / 2 to I all right that is the symbolic form of this expression which came from here all right and then the argument was made that this is a convergence series and is bounded by a constant all right that makes sense good um so that's pretty neat right I I mean"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_081",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 2835.0,
+    "end_time": 2880.0,
+    "text": "convergence series and is bounded by a constant all right that makes sense good um so that's pretty neat right I I mean you had the same algorithm and and voila it suddenly got more efficient right doesn't always happen but that tells you that you have to have some care in doing your analysis because what really happened here was you did a rudimentary analysis you said this was order log n Big O log n and you said this was Theta n and you ended up with this but in reality it's actually a faster algorithm all right so that's the good news build max Heap can be done in order end time um now in the time that I have left it turns out we're essentially"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_082",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 2870.0,
+    "end_time": 2915.0,
+    "text": "max Heap can be done in order end time um now in the time that I have left it turns out we're essentially uh all the way to Heap sword because all we have to do is uh use once we have build max Heap I'll just write out the code for Heap Sort and you can take a look at uh examples in the notes the pseudo code I should say for Heap Sort and it looks like this the first step that you do is you build max heat from the unordered array"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_083",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 2905.0,
+    "end_time": 2950.0,
+    "text": "heat from the unordered array okay um then you find the maximum element A1 all of this I've said multiple times now the key step is you could do extract Max but one nice way of handling this is to swap the elements a n with A1 okay and let me write this out and I'll explain exactly what uh that means"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_084",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 2940.0,
+    "end_time": 2985.0,
+    "text": "I'll explain exactly what uh that means array okay when you do the swap that's the one step that I'll have to spend another minute on now we discard node n from the Heap simply by decrementing Heap size so the Heap becomes n minus one in size from n in the first iteration now the new root which after the swap May"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_085",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 2975.0,
+    "end_time": 3020.0,
+    "text": "size from n in the first iteration now the new root which after the swap May violate Max he we'll call it the MHP the max he property but the because that's the one node that can possibly violate it so what that means heapify to to fix this and and that's it once you do that you go back to to that step so what's happened here exactly"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_086",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 3010.0,
+    "end_time": 3055.0,
+    "text": "heapify to to fix this and and that's it once you do that you go back to to that step so what's happened here exactly well this part you know we spent a bunch of time on you know that the top element is the maximum element so you grab that and you know that that's the max maximum element um you don't want to just one way of doing it is to use extract Max but rather than doing extract Max which I haven't explained to you um you could imagine that you go off and you swap the top element with the with the bottom element and then you discard it so here's a trivial example where let's say I had uh"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_087",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 3045.0,
+    "end_time": 3090.0,
+    "text": "element and then you discard it so here's a trivial example where let's say I had uh four two and one which is the max Heat what would happen is you'd say I'm going to take four and I'm going to swap it with one and so you have one two and four now a four is used to be A1 and that's the maximum element and I'm just going to delete it from the Heap which means I'm going to end up with a heap that looks like a heap not a Max Heap that looks like this and I write down four here four is the first element in my sorted array now I look at one and two and and one and two this is"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_088",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 3080.0,
+    "end_time": 3125.0,
+    "text": "that looks like this and I write down four here four is the first element in my sorted array now I look at one and two and and one and two this is obviously not a Max Heap but I can run Max I know that the child is a Max Heap so I can run Max heapify on this and what this turns into is two and one okay and at this point I know that the max is the root because I've run Max Cy and I take two out and at this point after this it becomes trivial but that's a general uh algorithm so this whole thing takes order n log n time because even though build max Heep is is order n um the max element is constant time uh"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec04_chunk_089",
+    "video_id": "mit_6006f11_lec04",
+    "start_time": 3115.0,
+    "end_time": 3160.0,
+    "text": "though build max Heep is is order n um the max element is constant time uh swapping the elements is constant time uh but uh running Max cp5 is order log n time and you have n steps so you have an order n log n algorithm but the first step was order n which is what we spent a bunch of time on so I'll show you um there examples in the notes and uh we'll you you'll get covered again in section I'll Stick Around for"
+  }
+]

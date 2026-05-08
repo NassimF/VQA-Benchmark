@@ -1,0 +1,625 @@
+[
+  {
+    "chunk_id": "mit_6034_lec17_chunk_000",
+    "video_id": "mit_6034_lec17",
+    "start_time": 0.0,
+    "end_time": 45.0,
+    "text": "we've uh now almost completed our journey this will be it for talking about uh several kinds of learning the venerable kind that's the nearest neighbors and decision tree or identification tree types of learning still useful still the right thing to do if there's no reason not to do the simple thing then we have the biologically inspired uh approaches neural nets all kinds of problems with local Maxima and overfitting and oscillation if you get the rate constant too big I don't"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_001",
+    "video_id": "mit_6034_lec17",
+    "start_time": 35.0,
+    "end_time": 80.0,
+    "text": "neural nets all kinds of problems with local Maxima and overfitting and oscillation if you get the rate constant too big I don't know genetic algorithms like neural Nets uh both are very naive in the in their attempt to mimic nature so maybe they work on a class of problems they surely do each have a class of problems which they're good but as a general purpose First Resort don't recommend it but now the theorists have come out and done some things that are very remarkable and in the end you have to say wow these are so such powerful ideas I wonder if I wonder if Nature has discovered them too is there good"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_002",
+    "video_id": "mit_6034_lec17",
+    "start_time": 70.0,
+    "end_time": 115.0,
+    "text": "remarkable and in the end you have to say wow these are so such powerful ideas I wonder if I wonder if Nature has discovered them too is there good Engineering in the brain based on good science or given the nature of evolution is it just random junk that uh isn't the best way for doing anything who knows but today we're going to talk about an idea I'll bet is in there somewhere because it's easy to implement it's extremely powerful in what it does and it's the um essential item in anybody's repertoire of learning mechanisms it's also a mechanism which if you understand only by formula uh you"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_003",
+    "video_id": "mit_6034_lec17",
+    "start_time": 105.0,
+    "end_time": 150.0,
+    "text": "repertoire of learning mechanisms it's also a mechanism which if you understand only by formula uh you will never be able to work the problems on the quiz that's for sure because on the surface it looks like it'd be very comp complicated to simulate this approach but once you uh understand how it works and look at a little bit of the math and let it sing songs to you it turns out to be extremely easy so it's about um it's about letting um multiple methods work in your behalf so far we've been talking about using just one method to do something and what we're going to do now is going to look look to see if a crowd can be smarter"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_004",
+    "video_id": "mit_6034_lec17",
+    "start_time": 140.0,
+    "end_time": 185.0,
+    "text": "so far we've been talking about using just one method to do something and what we're going to do now is going to look look to see if a crowd can be smarter than the participants and the than the the individuals in the crowd but before we get too far down that abstract path let me just say that the whole works has to do with classification and binary classification you know am I holding a a piece of chalk in my hand or a hand grenade uh is that a cup of coffee or tea those are binary classification problems and so we're going to be talking today strictly about binary classification we're not going to be talking about finding the right letter in the AL alphabet uh that's written on the page that's a 26 way choice we're"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_005",
+    "video_id": "mit_6034_lec17",
+    "start_time": 175.0,
+    "end_time": 220.0,
+    "text": "talking today strictly about binary classification we're not going to be talking about finding the right letter in the AL alphabet uh that's written on the page that's a 26 way choice we're talking about binary choices so we have uh we assume that there's a set of classifiers that we can draw on uh here's one H and it produces either a minus one or a plus one so that's how the classification is done if it's coffee plus one if it's T minus one if it's chalk plus one if it's a hang grenade minus one so that's how the classification works now uh too bad for us uh normally the world doesn't give us very good classifiers so if we look at the error"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_006",
+    "video_id": "mit_6034_lec17",
+    "start_time": 210.0,
+    "end_time": 255.0,
+    "text": "the classification works now uh too bad for us uh normally the world doesn't give us very good classifiers so if we look at the error rate of this classifier or any other classifier that error rate will range from zero to one in terms of the fraction of the uh fraction of the cases got wrong on a sample set so you'd like your error rate to be way down down here uh you're dead if it's over there but what about in the middle what if it's a right there just a little bit better than CLP flipping a coin if it's just a little bit better than flipping a coin"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_007",
+    "video_id": "mit_6034_lec17",
+    "start_time": 245.0,
+    "end_time": 290.0,
+    "text": "but what about in the middle what if it's a right there just a little bit better than CLP flipping a coin if it's just a little bit better than flipping a coin classifier and the question is can you make a classifier that's way over here classifier by combining several of these weak classifiers and letting them vote so how would you do that you might"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_008",
+    "video_id": "mit_6034_lec17",
+    "start_time": 280.0,
+    "end_time": 325.0,
+    "text": "by combining several of these weak classifiers and letting them vote so how would you do that you might say well let us make a big classifier and as its output produces something that depends on the sum of the outputs of the individual classifiers so we have H1 working on X we have H2 working on X and we have H3 also working on X say three of them"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_009",
+    "video_id": "mit_6034_lec17",
+    "start_time": 315.0,
+    "end_time": 360.0,
+    "text": "X we have H2 working on X and we have H3 also working on X say three of them just to start us off and now let's add those guys output so if two out of the three of those guys agree then we'll get an either plus one or minus one if all three agree we'll get plus one or minus one because we're just taking the sign outp put we're just taking the sign of the of the sum of these guys so this means that uh one guy can be wrong as long as the other two guys are right but I think it's easier to see"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_010",
+    "video_id": "mit_6034_lec17",
+    "start_time": 350.0,
+    "end_time": 395.0,
+    "text": "taking the sign of the of the sum of these guys so this means that uh one guy can be wrong as long as the other two guys are right but I think it's easier to see see how this all works if you think of samples and you say well let's let that wrong and this area over wrong and then this over area over here so if the situation is like that then"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_011",
+    "video_id": "mit_6034_lec17",
+    "start_time": 385.0,
+    "end_time": 430.0,
+    "text": "wrong and then this over area over here so if the situation is like that then this formula always gives you the right answers on the samples I'm going to stop saying that right now because I want it to be kind of a background thing on the sample set we're talking about wrapping this stuff over the sample set later on we'll ask okay given that you trained this thing on a sample set how well does it do on some new examples because we want to ask ourselves about overfitting questions but for now we just want to look and see if we believe that this Arrangement where each of these guys each of these hes is producing plus one or minus one we're adding them up and"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_012",
+    "video_id": "mit_6034_lec17",
+    "start_time": 420.0,
+    "end_time": 465.0,
+    "text": "look and see if we believe that this Arrangement where each of these guys each of these hes is producing plus one or minus one we're adding them up and taking the sign is that going to give us a better result than the than the test individually and if they if they look like this when draped over a sample set then it's clear that we're going to get the right answer every time because there's no area here where any two of those tests are giving us the wrong answer so the two that are getting the right answer in this little circle here for H1 these other two are getting the right answer so I'll vote it and you'll get the right answer every time but I don't know it couldn't"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_013",
+    "video_id": "mit_6034_lec17",
+    "start_time": 455.0,
+    "end_time": 500.0,
+    "text": "so I'll vote it and you'll get the right answer every time but I don't know it couldn't this there could be a situation where this is H1 wrong answer this is H2 wrong answer and this is H3 wrong answer and now the situation gets a little bit more murky because we have to ask ourselves uh whether that area where two out of the three or three out of the three get it"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_014",
+    "video_id": "mit_6034_lec17",
+    "start_time": 490.0,
+    "end_time": 535.0,
+    "text": "ourselves uh whether that area where two out of the three or three out of the three get it Big so as to be worse than one of the individual tests so if you look at that V diagram and stare at it long enough and try some things you can say well there is no case where this will give a worse answer or you might end up with a conclusion that there are cases of where we can arrange those circles such that the voting scheme will give an answer that's worse than an individual test but I'm not going to"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_015",
+    "video_id": "mit_6034_lec17",
+    "start_time": 525.0,
+    "end_time": 570.0,
+    "text": "conclusion that there are cases of where we can arrange those circles such that the voting scheme will give an answer that's worse than an individual test but I'm not going to tell you the answer because I think we'll make that a quiz question so good idea yeah okay so I'll question so that looks like a a a good idea and we can um we can sort of construct a little algorithm that will help us pick the pick the particular weak classifiers to plug in here we got a whole bag of classifiers we got H1 we got H2 we got h55 we got a lot of them we can choose from so what we're going to do is we're"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_016",
+    "video_id": "mit_6034_lec17",
+    "start_time": 560.0,
+    "end_time": 605.0,
+    "text": "classifiers we got H1 we got H2 we got h55 we got a lot of them we can choose from so what we're going to do is we're un Disturbed to produce H1 we're just going to try all the tests on the data and see which one gives us the smallest error rate and that's a good guy so we're going to use"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_017",
+    "video_id": "mit_6034_lec17",
+    "start_time": 595.0,
+    "end_time": 640.0,
+    "text": "errors in other words this is a this is a critical idea what we're going to do is we're going to we're we're going to run this algorithm again but instead of just looking at the number of number of samples that are got wrong what we're the we're going to look at a a a distorted a distorted set of samples where the ones we're not doing well on has an exaggerated effect on the result so we're going to weight them or multiply them or do something so"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_018",
+    "video_id": "mit_6034_lec17",
+    "start_time": 630.0,
+    "end_time": 675.0,
+    "text": "has an exaggerated effect on the result so we're going to weight them or multiply them or do something so we're going to pay more attention to the samples on which H1 produces an error H2 and then we're going to do it one more time because we got three things to go with here in this particular little uh exploratory scheme this time we're of those samples which samples are we going to exaggerate now we're going to exaggerate we're going to look for the ones where oh we might as well look for the ones where H1"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_019",
+    "video_id": "mit_6034_lec17",
+    "start_time": 665.0,
+    "end_time": 710.0,
+    "text": "of those samples which samples are we going to exaggerate now we're going to exaggerate we're going to look for the ones where oh we might as well look for the ones where H1 gives us a different answer from H2 because we want to be on the good guy side so we can say we're going to we're going to exaggerate those samples for which H1 gives us a different result from H3 all right so so we can think of this this whole works here as part one of a"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_020",
+    "video_id": "mit_6034_lec17",
+    "start_time": 700.0,
+    "end_time": 745.0,
+    "text": "this whole works here as part one of a idea so uh let's see I don't know what might be step two well this is a good idea then what we've got we can easily derive from that is a little tree look like this and we can say that h of X depends on H1 H2 and H3 uh but now if that that's a good idea and that gives us a better answer than any of the individual tests maybe we can make this idea a little bit recursive and say well maybe H1 is"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_021",
+    "video_id": "mit_6034_lec17",
+    "start_time": 735.0,
+    "end_time": 780.0,
+    "text": "than any of the individual tests maybe we can make this idea a little bit recursive and say well maybe H1 is actually not an atomic test but maybe it's the vote of three other tests so we can make a little tree structure it looks like this so this is h11 h12 h13 and three here and then this will be h31 h32 h33 and so that's a sort of get out the idea or we're we're trying to get a"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_022",
+    "video_id": "mit_6034_lec17",
+    "start_time": 770.0,
+    "end_time": 815.0,
+    "text": "h33 and so that's a sort of get out the idea or we're we're trying to get a whole bunch of of individual test into the act so the reason this I I guess the reason this wasn't discovered until about 10 years ago was because you got to get so many of these ducks all lined up before the idea uh gets through that long filter of ideas so that's uh only idea number two few well the next thing we might think uh is well we keep talking about these classifiers what kind of classifiers are we talking about uh I've got uh oh shoot I've spent my last nickel I don't have a a quaint to"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_023",
+    "video_id": "mit_6034_lec17",
+    "start_time": 805.0,
+    "end_time": 850.0,
+    "text": "uh is well we keep talking about these classifiers what kind of classifiers are we talking about uh I've got uh oh shoot I've spent my last nickel I don't have a a quaint to flip but that's that's one class fire right uh the trouble with that classifier is it's a it's a not a weak classifier because it gives me a 50/50 chance of being right I guess I guess there are conditions in which a a coin flip is better than a is a weak classifier if if the two outcomes are not equally probable then a coin flip is a perfectly good weak classifier but I don't know what we're going to do is we're going to think in terms of a different a different set of"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_024",
+    "video_id": "mit_6034_lec17",
+    "start_time": 840.0,
+    "end_time": 885.0,
+    "text": "going to do is we're going to think in terms of a different a different set of them decision tree well you remember decision trees right but we're not going to build decision trees we're going to use decision stumps so if we have a two-dimensional this then a decision tree stump is a single test it's not a complete tree that will divide up the samples into homogeneous groups it's just what you can do with one"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_025",
+    "video_id": "mit_6034_lec17",
+    "start_time": 875.0,
+    "end_time": 920.0,
+    "text": "single test it's not a complete tree that will divide up the samples into homogeneous groups it's just what you can do with one test so each each possible test is a classifier how many tests do we get out 12 right yeah it doesn't look like 12 to me either but here's how you get to 12 uh one uh decision tree test you can stick in there would be that test right there and that's that would be a complete decision tree stump but of course you could also put"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_026",
+    "video_id": "mit_6034_lec17",
+    "start_time": 910.0,
+    "end_time": 955.0,
+    "text": "stick in there would be that test right there and that's that would be a complete decision tree stump but of course you could also put one that would be another decision free stump now for this one on the right I could say everything on the right is a minus or or I could say everything on the right is a plus it happen to be wrong but it's a valid it's a valid test with a valid outcome so that's how we double the number of tests that we have lines for and you know what we can even have a kind of test out here that says that everything is Plus or everything is wrong so for each Dimension the number of decision tree"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_027",
+    "video_id": "mit_6034_lec17",
+    "start_time": 945.0,
+    "end_time": 990.0,
+    "text": "kind of test out here that says that everything is Plus or everything is wrong so for each Dimension the number of decision tree stumps is the number of lines I can put in times two then I got two Dimensions here that's how I got the 12 so there are three lines I can have the pluses on either the left or the right side so that's six and then I got two Dimensions so that gives me 12 so that's the decision tree stump idea and here are the other decision tree boundaries we obviously just like that all right so that's one way you can generate tests a batch of tests to try out"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_028",
+    "video_id": "mit_6034_lec17",
+    "start_time": 980.0,
+    "end_time": 1025.0,
+    "text": "boundaries we obviously just like that all right so that's one way you can generate tests a batch of tests to try out uh with this uh with this idea of using a lot of tests to help you get the job done can you also have a decision Tree on the right side or is that well you don't need the question is can you also have a a test on on the right side see this is this is just a stand in for saying everything's Plus or everything's minus so it doesn't matter where you put the line we on the right side or the left side the bottom or the top or you don't have to put the line anywhere it's just an extra test in addition to ones you put between the"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_029",
+    "video_id": "mit_6034_lec17",
+    "start_time": 1015.0,
+    "end_time": 1060.0,
+    "text": "left side the bottom or the top or you don't have to put the line anywhere it's just an extra test in addition to ones you put between the samples so does uh this whole idea of boosting the idea the main idea of the day does it depend on using decision tree stumps answer is no do not be confused you can use boosting with any kind of classifier so why do I use decision tree stumps today because it makes my life easy we can look at it we can see what it's doing but we could put a neural neural bunch of neural Nets in there we could put a bunch of real decision trees in there we could put a I don't know bunch of nearest neighbor things in there the boosting idea doesn't care I"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_030",
+    "video_id": "mit_6034_lec17",
+    "start_time": 1050.0,
+    "end_time": 1095.0,
+    "text": "we could put a bunch of real decision trees in there we could put a I don't know bunch of nearest neighbor things in there the boosting idea doesn't care I just use these decision tree stumps because I and everybody else use them for illustration all right so that's we're making progress now what's the error rate for any of these uh of line any of these tests and lines we drew well I guess it will be be the sum the error rate is equal to the sum of uh 1 / n that's the total number of"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_031",
+    "video_id": "mit_6034_lec17",
+    "start_time": 1085.0,
+    "end_time": 1130.0,
+    "text": "sum the error rate is equal to the sum of uh 1 / n that's the total number of samples uh summed over the cases where right so oh gee you know we're going to kind of work on combining some of these ideas and we get this notion of exaggeration at some stage in what we're doing here we're going to want to have be able to exaggerate the effect of some errors relative to other errors so one one thing we can do is we can we can assume or we can stipulate or we can assert that each of these samples has a weight associated with it that's"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_032",
+    "video_id": "mit_6034_lec17",
+    "start_time": 1120.0,
+    "end_time": 1165.0,
+    "text": "can we can assume or we can stipulate or we can assert that each of these samples has a weight associated with it that's W1 this is W2 and that's W3 and in the beginning there's no reason to suppose that any one of these is more or less important than any of the other so in the beginning W sub I at time Step 1 is equal to 1/ n so the error is just adding up the number of samples that were got wrong and that will be the fraction of samples that uh you didn't get right and that will be the error rate so what we don't"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_033",
+    "video_id": "mit_6034_lec17",
+    "start_time": 1155.0,
+    "end_time": 1200.0,
+    "text": "number of samples that were got wrong and that will be the fraction of samples that uh you didn't get right and that will be the error rate so what we don't what we want to do is we want to say instead of using this as the error rate for all time what we want to do is we want to move that over and say that the error rate is equal to the sum over the things you got wrong in the current step times the weights of those that got were got wrong so in Step One everything's got the same weight doesn't matter but if we find a way to change the weights going Downstream so as to for example highly exaggerate that third sample then W3"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_034",
+    "video_id": "mit_6034_lec17",
+    "start_time": 1190.0,
+    "end_time": 1235.0,
+    "text": "if we find a way to change the weights going Downstream so as to for example highly exaggerate that third sample then W3 will go up relative to W1 and W2 but one thing we want to be sure of is is no matter how we adjust the weights that the sum of the weights over the whole Space is equal to one so in other words we want to choose the weights so that they emphasize some of the samples but we also want to put a constraint on the weights such that all of them added together is Su to one and"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_035",
+    "video_id": "mit_6034_lec17",
+    "start_time": 1225.0,
+    "end_time": 1270.0,
+    "text": "constraint on the weights such that all of them added together is Su to one and distribution distribution is a sum is a set of Weights that sum to one well that's that's just a that's just a nice idea so we're making a little progress we we've got this idea that we can add some plus minus one classifiers together to get a better classifier uh we got some idea about how to do that occurs to us that maybe we want to get a lot of classifiers into the ACT somehow or another and maybe we want to uh just think about using decision tree stumps so as to kind of ground our thinking"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_036",
+    "video_id": "mit_6034_lec17",
+    "start_time": 1260.0,
+    "end_time": 1305.0,
+    "text": "get a lot of classifiers into the ACT somehow or another and maybe we want to uh just think about using decision tree stumps so as to kind of ground our thinking about all this stuff so next step is to say well how actually should we combine this stuff and you will find in the literature libraries full of papers that do stuff like that and that was a state-ofthe-art for quite a few years but then people began to say well maybe we can build up this classifier H ofx uh in multiple steps and get a lot of classifiers into the act so maybe we can say that the"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_037",
+    "video_id": "mit_6034_lec17",
+    "start_time": 1295.0,
+    "end_time": 1340.0,
+    "text": "ofx uh in multiple steps and get a lot of classifiers into the act so maybe we can say that the sign the sign of H you know that's the one we pick first that's the classifier we pick first that's a that's looking at samples and and then we got H2 and then we got H3 and then we got how many other other classifiers we might want or how many classifiers we might need in order to correctly classify everything in our sample set so people began to think about whether there might be a way of an"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_038",
+    "video_id": "mit_6034_lec17",
+    "start_time": 1330.0,
+    "end_time": 1375.0,
+    "text": "want or how many classifiers we might need in order to correctly classify everything in our sample set so people began to think about whether there might be a way of an algorithm that would develop a classifier that way one step at a time that's why I put that that's why I put that step step number in the exponent because we're picking this one at first then we're expanding it to have two and then we're expanding it to have three and so on and each of those individual classifiers are separately looking at the sample but of course uh it would be natural to suppose that just adding things up wouldn't be enough and it's not so it isn't too hard to invent the"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_039",
+    "video_id": "mit_6034_lec17",
+    "start_time": 1365.0,
+    "end_time": 1410.0,
+    "text": "natural to suppose that just adding things up wouldn't be enough and it's not so it isn't too hard to invent the next idea which is to modify this thing just a little bit by doing what it looks almost like a scoring polinomial doesn't it so what would we do to tart this up a what somewhere out there someone's murmuring add weights excellent good idea so what we're going to do is we're going to have Alphas this associated"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_040",
+    "video_id": "mit_6034_lec17",
+    "start_time": 1400.0,
+    "end_time": 1445.0,
+    "text": "murmuring add weights excellent good idea so what we're going to do is we're going to have Alphas this associated with each of these classifiers I'm going to determine if somebody can build that kind of formula to do the job so maybe I to modify this Goldstar idea before I get too far say we're not going to treat everybody in a crowd equally we're going to wait some of the opinions more than others and by the way they're all going to make errors in different part of the space so maybe it's not the wisdom of"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_041",
+    "video_id": "mit_6034_lec17",
+    "start_time": 1435.0,
+    "end_time": 1480.0,
+    "text": "some of the opinions more than others and by the way they're all going to make errors in different part of the space so maybe it's not the wisdom of even a weighted crowd but a experts Each of which is good at different parts of the space so anyhow we got this this formula and there are a few things that um one can say sort of sort of turn out and and but but first let's let's write down s a sort of algorithm for what this ought to look like before I run out of space I think I'll exploit the right hand board"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_042",
+    "video_id": "mit_6034_lec17",
+    "start_time": 1470.0,
+    "end_time": 1515.0,
+    "text": "sort of algorithm for what this ought to look like before I run out of space I think I'll exploit the right hand board here put the uh overall algorithm right here so we're going to start out by letting the weights at all of the weights at time one be equal to 1/ n that's just uh saying that they're all equal in the beginning and they're equal to n and n that I want to compute"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_043",
+    "video_id": "mit_6034_lec17",
+    "start_time": 1505.0,
+    "end_time": 1550.0,
+    "text": "that I want to compute Alpha somehow now let's see no I don't want to do that I want to pick a I want to pick a a test I want to pick a minimizes error at time T and that's going to be at time T and we're going to come back in here that's why we put a time or step index in"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_044",
+    "video_id": "mit_6034_lec17",
+    "start_time": 1540.0,
+    "end_time": 1585.0,
+    "text": "minimizes error at time T and that's going to be at time T and we're going to come back in here that's why we put a time or step index in picked a classifier that produces an error rate then we can use the error rate to determine the alpha so I want want here that'll be sort of a byproduct of picking that test and then with all that stuff in hand maybe that will be enough"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_045",
+    "video_id": "mit_6034_lec17",
+    "start_time": 1575.0,
+    "end_time": 1620.0,
+    "text": "stuff in hand maybe that will be enough so we're going to use that classifier that we just picked to get some revised weights and then we're going to go around that Loop until this classifier produces a perfect set of conclusions on all the sample data so that's going to be our overall strategy so maybe we've got if we're going to number these things that's the fourth big idea and this uh this Arrangement here is the fifth big idea"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_046",
+    "video_id": "mit_6034_lec17",
+    "start_time": 1610.0,
+    "end_time": 1655.0,
+    "text": "strategy so maybe we've got if we're going to number these things that's the fourth big idea and this uh this Arrangement here is the fifth big idea but then we got the sixth big idea and suppose that the weight on the I sample at time t + 1 is equal to the weight at time T of that same on that same sample divided by some normalizing Factor time"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_047",
+    "video_id": "mit_6034_lec17",
+    "start_time": 1645.0,
+    "end_time": 1690.0,
+    "text": "to the weight at time T of that same on that same sample divided by some normalizing Factor time e to the minus Alpha at time T times H uh at uh uh at uh time T times some function y which is a function of X but not a function of time and you say where did this come from and the answer is it did not spring from the heart of a mathematician in the first 10 minutes that they looked at this problem in fact"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_048",
+    "video_id": "mit_6034_lec17",
+    "start_time": 1680.0,
+    "end_time": 1725.0,
+    "text": "where did this come from and the answer is it did not spring from the heart of a mathematician in the first 10 minutes that they looked at this problem in fact when I asked Shiri how how this worked he said well he was thinking about this on the couch every Saturday for about a year and his wife was getting pretty sore but he finally found it and saved their marriage so where does stuff like this come from really it comes from a knowing a lot of mathematics and seeing a lot of situations and knowing that something like this might be mathematically convenient something like this might be mathematically convenience but we got to let it see we got to back up and let it sync to us uh"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_049",
+    "video_id": "mit_6034_lec17",
+    "start_time": 1715.0,
+    "end_time": 1760.0,
+    "text": "convenient something like this might be mathematically convenience but we got to let it see we got to back up and let it sync to us uh what's why oh we saw y last time in support Vector machines that's just a function that's plus one or minus one depending on whether the output ought to be plus one or minus one so if this guy uh is giving the correct answer and the correct answer is plus then this guy will be plus one too because it's it always gives you the correct answer so in that case where this guy is giving you the right answer these will have the same sign so that will be a plus one combination on the other hand if that guy's giving the wrong answer you're going to get a minus"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_050",
+    "video_id": "mit_6034_lec17",
+    "start_time": 1750.0,
+    "end_time": 1795.0,
+    "text": "correct answer so in that case where this guy is giving you the right answer these will have the same sign so that will be a plus one combination on the other hand if that guy's giving the wrong answer you're going to get a minus one out of that combination so it's true even if the right answer should be minus right so if the right answer should be minus and this is Plus then this will be minus one and the whole combination will give you minus one again in other words the the Y just flips the sign if you got the wrong answer no matter whether the wrong answer is plus one or minus one these Alphas shoot those are the same Alphas that are in this formula up here somehow and then that that Z what's that for well if you just look at the"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_051",
+    "video_id": "mit_6034_lec17",
+    "start_time": 1785.0,
+    "end_time": 1830.0,
+    "text": "same Alphas that are in this formula up here somehow and then that that Z what's that for well if you just look at the previous weights and this exponential function uh to produce these W's for the Next Generation that's not going to be a distribution because they won't sum up to one so what this thing here this Z is normalizer and that makes uh that makes that whole combination of of new weights add up to one so it's whatever you got"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_052",
+    "video_id": "mit_6034_lec17",
+    "start_time": 1820.0,
+    "end_time": 1865.0,
+    "text": "normalizer and that makes uh that makes that whole combination of of new weights add up to one so it's whatever you got by adding up all of those guys and and then dividing by that well I don't know uh now there's some it turns out that uh we're going to do or rather we're going to imagine that somebody's done the same sort of thing we did to support Vector machines we're going to find a way to minimize the error and we're going to minimize is the error produced by that whole thing up there in four we're going to minimize the error"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_053",
+    "video_id": "mit_6034_lec17",
+    "start_time": 1855.0,
+    "end_time": 1900.0,
+    "text": "support Vector machines we're going to find a way to minimize the error and we're going to minimize is the error produced by that whole thing up there in four we're going to minimize the error of that entire expression as we go along and what we what we discover when we do the appropriate differentiations and stuff you know that's what we do in calculus what we discover is that we get"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_054",
+    "video_id": "mit_6034_lec17",
+    "start_time": 1890.0,
+    "end_time": 1935.0,
+    "text": "Alpha is equal to 1 minus the error rate at time T divided by the error rate at time T but let's take the logarithm of that and multiply by a half and that's what Sheri was struggling to find but I haven't quite got it right and so let me add this in separate chocks so we don't get confused about bound on that expression up there it's a"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_055",
+    "video_id": "mit_6034_lec17",
+    "start_time": 1925.0,
+    "end_time": 1970.0,
+    "text": "chocks so we don't get confused about bound on that expression up there it's a bound on the error rate produced by that expression so interestingly enough this that this means that the error rate can actually go up as you move as you add terms to this formula all you know is that the error rate is going to be bounded by an exponentially decaying function so it's eventually guaranteed to uh Converge on zero so it's a minimal error bound that turns exponential well there it is we're done would you like to see a"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_056",
+    "video_id": "mit_6034_lec17",
+    "start_time": 1960.0,
+    "end_time": 2005.0,
+    "text": "exponential well there it is we're done would you like to see a demonstration yeah okay because you know you look at that and you say well how can anything like that possibly work and the answer is uh surprisingly enough here's what happens there's a simple little example so that's the first test chosen the greens are pluses and the reds are minuses so it's still like it's still got a it's still got an error still got an error boom there in uh two steps it now has we can look in the upper right hand corner we see it's used three classifiers and we see that one of those classifiers says that everybody belongs"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_057",
+    "video_id": "mit_6034_lec17",
+    "start_time": 1995.0,
+    "end_time": 2040.0,
+    "text": "the upper right hand corner we see it's used three classifiers and we see that one of those classifiers says that everybody belongs to a particular class three different weights and the error rate has converged to zero so look at let's look at a couple of other ones here's a the one I use for debugging this thing let that run see how fast it is Boom it converges to getting all the samples right very fast here's another one oh this we this is one we gave on the exam a few years back first test oh I let it run so it got everything instantaneously right let's take that through step at a time there's the first one second one still got a lot of errors"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_058",
+    "video_id": "mit_6034_lec17",
+    "start_time": 2030.0,
+    "end_time": 2075.0,
+    "text": "got everything instantaneously right let's take that through step at a time there's the first one second one still got a lot of errors the rare rate's dropping then it flattened flattened then it goes to zero cool don't you think but you say to me well who cares about that stuff let's try something more interesting there's one oh that was pretty fast too well there not too many samples here so I don't know we can try this so there's an array of pluses and minuses boom you can see how that air rate is kind of bounded by an exponential so in a in a bottom graph you've got um the um the number of classifiers involved and that goes up to a total"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_059",
+    "video_id": "mit_6034_lec17",
+    "start_time": 2065.0,
+    "end_time": 2110.0,
+    "text": "exponential so in a in a bottom graph you've got um the um the number of classifiers involved and that goes up to a total eventually of 10 you can uh sort of see how uh positive or negative each of the classifiers is added is by looking at this particular Tab and this just shows how they evolve over time but the progress thing here is the most interesting and now you say to me well uh how did the machine do that and it's all right here we um use an alpha that looks like this and that allows us to compute the new weights uh as soon as we got a"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_060",
+    "video_id": "mit_6034_lec17",
+    "start_time": 2100.0,
+    "end_time": 2145.0,
+    "text": "here we um use an alpha that looks like this and that allows us to compute the new weights uh as soon as we got a preliminary calculation we got to find a z that does the normalization and we sure better bring our calculator because uh We've Got U first of all to calculate the error rate then we got to take its logarithm divide by two plug it into that uh formula take the exponent and then that gives us the new weight and that's how the program works and if you try that I guarantee you will flunk the exam now I don't care about my my computer I really don't it it's a slave and it can calculate these logarithms and exponentials till it turns blue and I don't care because I've got four cores"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_061",
+    "video_id": "mit_6034_lec17",
+    "start_time": 2135.0,
+    "end_time": 2180.0,
+    "text": "computer I really don't it it's a slave and it can calculate these logarithms and exponentials till it turns blue and I don't care because I've got four cores or something and who cares might as well do this and sit around just burning up heat but you don't want to do that so what you want to do is you want to you want to know how to do this sort of thing um more expeditiously so we're going to have to let them the math kind of sing to us a little bit with a view toward uh finding a better ways of doing this sort of thing so let's let's do that and we're going to run out of space here before long so let me let me reclaim as much of this board as I can so what I'm going to do is I'm going"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_062",
+    "video_id": "mit_6034_lec17",
+    "start_time": 2170.0,
+    "end_time": 2215.0,
+    "text": "thing so let's let's do that and we're going to run out of space here before long so let me let me reclaim as much of this board as I can so what I'm going to do is I'm going to say well now that we've got this formula for Alpha that relates Alpha t to the error then I can plug that into uh this formula up here at number six and what I'll get is that the weight at t + 1 is equal to the weight at T divided by that normalizing factor multiplied times something that depends on whether it's"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_063",
+    "video_id": "mit_6034_lec17",
+    "start_time": 2205.0,
+    "end_time": 2250.0,
+    "text": "normalizing factor multiplied times something that depends on whether it's categorized correctly or not that's what so we got a logarithm here and we got a sign flipper up there in terms of that h of X and and Y combination so if the sign of uh that whole thing that minus Alpha uh and that y h combination turns out to be negative then we're going to have to flip the numerator and denominator"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_064",
+    "video_id": "mit_6034_lec17",
+    "start_time": 2240.0,
+    "end_time": 2285.0,
+    "text": "Alpha uh and that y h combination turns out to be negative then we're going to have to flip the numerator and denominator here logarithm right and oh by the way since we got a half out here that turns out to be the square root of that term inside the logarithm right so when we carefully do that what we discover is that it depends on whether it's the right thing or not but what it turns out to be is something like a multiplier of the square root uh better be careful well let's see but we have to be careful"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_065",
+    "video_id": "mit_6034_lec17",
+    "start_time": 2275.0,
+    "end_time": 2320.0,
+    "text": "root uh better be careful well let's see but we have to be careful so let's suppose that this is for things correct so if it's if we get it correct then we're going to get the same sign out of H of X and Y we've got a minus sign out there so we're going to flip the flip the numerator and denominator so we're going to get the square root of e of T over 1 minus Epsilon of T if it's correct if it's wrong it'll just be the flip of"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_066",
+    "video_id": "mit_6034_lec17",
+    "start_time": 2310.0,
+    "end_time": 2355.0,
+    "text": "e of T over 1 minus Epsilon of T if it's correct if it's wrong it'll just be the flip of that so it'll be the square root of 1 minus the error rate over the error rate everybody with me on that I think that's right if it's uh if it's wrong um I'll have to hang myself and wear a paper bag over my head like I did last last year but let's see if we can make this go right correctly this time so now uh we've got uh this guy here uh we've got everything plugged in"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_067",
+    "video_id": "mit_6034_lec17",
+    "start_time": 2345.0,
+    "end_time": 2390.0,
+    "text": "time so now uh we've got uh this guy here uh we've got everything plugged in all right uh and we know that uh now this Z ought to be selected so that it's equal to the sum of this guy multipli by these things as appropriate for whether it's correct or not because we want in the end for all of these W W's to add up to one so let's see what they add up to with without the Z there so what we know is that they must be it must be the case that if we add over the"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_068",
+    "video_id": "mit_6034_lec17",
+    "start_time": 2380.0,
+    "end_time": 2425.0,
+    "text": "there so what we know is that they must be it must be the case that if we add over the ones we get the square root of the eror rate over one minus the error rate of the W uh t + one uh WT sorry plus now we got the sum of 1 minus the air rate over the a rate times the"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_069",
+    "video_id": "mit_6034_lec17",
+    "start_time": 2415.0,
+    "end_time": 2460.0,
+    "text": "wrong so that's the that's the that's what we get if we added all these up without the Z so since everything has to add up to sum right that looks pretty horrible until we realize that if we add these guys up over the weights that are wrong that is"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_070",
+    "video_id": "mit_6034_lec17",
+    "start_time": 2450.0,
+    "end_time": 2495.0,
+    "text": "over the weights that are wrong that is so therefore Z is equal to uh the square root of the error rate Time 1 minus the error rate that's the contribution of this term now let's see what is the what is the sum of the weights over the ones that are correct well that that must be one minus the error rate ah so this thing gives you the same term the same the same result as this one so Z is equal to 2 *"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_071",
+    "video_id": "mit_6034_lec17",
+    "start_time": 2485.0,
+    "end_time": 2530.0,
+    "text": "be one minus the error rate ah so this thing gives you the same term the same the same result as this one so Z is equal to 2 * thing now we are getting somewhere because now it becomes a little bit easier to write some things down oh we're way past this so let's this and now we can put some things together together let me point out what I'm putting together I've got an expression for Z right here and I got an expression for the new"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_072",
+    "video_id": "mit_6034_lec17",
+    "start_time": 2520.0,
+    "end_time": 2565.0,
+    "text": "together I've got an expression for Z right here and I got an expression for the new W's here so let's put those together and say that W of t + 1 is equal to W of T I guess we're going to divide that by two and then we got this square root times that expression so if we take that correct one and and and divide by that one then"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_073",
+    "video_id": "mit_6034_lec17",
+    "start_time": 2555.0,
+    "end_time": 2600.0,
+    "text": "expression so if we take that correct one and and and divide by that one then the the E sub T cancel out and I get 1 and if it's not correct then it's WT over2 working through the math one over wrong do we feel like we're making any progress no we don't because we're not we haven't let it say to us enough yet"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_074",
+    "video_id": "mit_6034_lec17",
+    "start_time": 2590.0,
+    "end_time": 2635.0,
+    "text": "wrong do we feel like we're making any progress no we don't because we're not we haven't let it say to us enough yet so I I I I want to draw your attention to what amateur Rock what happens to amateur rock climbers when they're sort of halfway up a difficult Cliff uh they they're usually belayed sometimes they're not if they're not they're scared to death and every once in a while they're as they're just about to fall they find some little tiny hole to stick a fingernail in and that keeps them from falling that's called a thank God hole so what I'm about to introduce is the analog of those little places where"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_075",
+    "video_id": "mit_6034_lec17",
+    "start_time": 2625.0,
+    "end_time": 2670.0,
+    "text": "fingernail in and that keeps them from falling that's called a thank God hole so what I'm about to introduce is the analog of those little places where you can stick your fingernail in it's the thank God hole for dealing with right so what happens if I add all these wi up for the uh ones that the uh classifier produces a correct answer on well it'll be 1 / 2 1 1 - Epsilon times the sum of the W subt for which the answer was"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_076",
+    "video_id": "mit_6034_lec17",
+    "start_time": 2660.0,
+    "end_time": 2705.0,
+    "text": "on well it'll be 1 / 2 1 1 - Epsilon times the sum of the W subt for which the answer was correct what's this sum oh my got it's one minus Epsilon so what what I've just discovered is that if I sum the new W's over the correct those samples for which I got a correct answer is equal to2 and guess what that means that if I sum them over"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_077",
+    "video_id": "mit_6034_lec17",
+    "start_time": 2695.0,
+    "end_time": 2740.0,
+    "text": "correct answer is equal to2 and guess what that means that if I sum them over well so that means that I take all of the weights for which I got the right answer with the previous test and now and there those weights will add up to something and it get the weights for the Next Generation all I have to do is scale them so that they equal half this was not noticed by the people who develop this stuff this was noticed by Luis Ortiz who was a 6034 instructor a few years ago the sum of those weights is going to be a scaled version"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_078",
+    "video_id": "mit_6034_lec17",
+    "start_time": 2730.0,
+    "end_time": 2775.0,
+    "text": "by Luis Ortiz who was a 6034 instructor a few years ago the sum of those weights is going to be a scaled version of what they were before so you take all the weights for which this new classifier this one you selected to give you the minimum weight on the reweighted stuff you take the ones that it gives a correct answer for and you take all those weights and you just scale them so they add up to a half so do you have to compute any logarithms no do you have to compute any exponentials no do you have to calculate Z no do you have to calculate Alpha to get the new weights no all you have to do is scale them that's a pretty good thank God"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_079",
+    "video_id": "mit_6034_lec17",
+    "start_time": 2765.0,
+    "end_time": 2810.0,
+    "text": "Z no do you have to calculate Alpha to get the new weights no all you have to do is scale them that's a pretty good thank God one now for thank God hold number two we need to go back and think about the fact that we're going to give you problems and all probability that involve decision tree stumps and there are a lot of decision tree stumps that you might have to pick from so we need to thank God whole for deciding how to deal with that oh where can I find some room how"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_080",
+    "video_id": "mit_6034_lec17",
+    "start_time": 2800.0,
+    "end_time": 2845.0,
+    "text": "deciding how to deal with that oh where can I find some room how here suppose you got a space that looks I'm just making this up at random so how many let's see 1 2 3 4 5 6 7 8 9 10 11 how many tests do I have to Dimension 11 it's one plus the number of"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_081",
+    "video_id": "mit_6034_lec17",
+    "start_time": 2835.0,
+    "end_time": 2880.0,
+    "text": "Dimension 11 it's one plus the number of horrible I don't know do I have to one how could that possibly be better than that one it's got one more thing wrong so this one that one that one makes sense the other one doesn't make sense so in the end no test that lies between two correctly classified samples will ever be any good so that one's a good"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_082",
+    "video_id": "mit_6034_lec17",
+    "start_time": 2870.0,
+    "end_time": 2915.0,
+    "text": "sense so in the end no test that lies between two correctly classified samples will ever be any good so that one's a good guy and that one's a good guy and this one's a bad guy bad guy bad guy bad guy bad guy bad guy bad guy bad guy so the actual number of tests you've got is three and likewise in the other dimension well I haven't drawn it so well here but can this test be a good one no that one no cuz you actually I better look over here on the right and see what I've got before I draw too many conclusions let's leave it with this since I don't want to think too hard about what's going on in the other dimension but the idea is that very few"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_083",
+    "video_id": "mit_6034_lec17",
+    "start_time": 2905.0,
+    "end_time": 2950.0,
+    "text": "one no that one no cuz you actually I better look over here on the right and see what I've got before I draw too many conclusions let's leave it with this since I don't want to think too hard about what's going on in the other dimension but the idea is that very few of those tests actually matter now you say to me there's one last thing what about overfitting because all this does is drape a solution over the samples and like you know support Vector machines overfit neural Nets overfit decision identification trees overfit guess what this doesn't seem to overfit that's an exp experimental result uh for which the literature is confused with respect to providing an explanation so this stuff is tryed on all sorts of problems like handwriting"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_084",
+    "video_id": "mit_6034_lec17",
+    "start_time": 2940.0,
+    "end_time": 2985.0,
+    "text": "result uh for which the literature is confused with respect to providing an explanation so this stuff is tryed on all sorts of problems like handwriting recognition uh understanding speech all sorts of stuff used as boosting and unlike other methods for some reason as yet imperfectly understood it doesn't seem to overfit but in the end leaving no stone unturned at 6034 every time we do this we do some additional experiments so here's a a example that I'll leave you with here's a situation in which we have a 10-dimensional space we've uh made a fake distribution and then we put in that boxed outlier that was just put into the space at random so it can be viewed as an error"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_085",
+    "video_id": "mit_6034_lec17",
+    "start_time": 2975.0,
+    "end_time": 3020.0,
+    "text": "10-dimensional space we've uh made a fake distribution and then we put in that boxed outlier that was just put into the space at random so it can be viewed as an error point so now what we're going to do is we're going to see uh what happens when we run that guy and sure enough in 13 steps in 17 steps it finds a solution but maybe it's over fifth that little guy who's in error well one thing you can do is you can say well uh all of these classifiers are dividing this space up into chunks and we can compute the size of the space occupied by any sample so one thing we can do alas I'll have to get up a new demonstration one thing we can do now that this guy's over"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_086",
+    "video_id": "mit_6034_lec17",
+    "start_time": 3010.0,
+    "end_time": 3055.0,
+    "text": "occupied by any sample so one thing we can do alas I'll have to get up a new demonstration one thing we can do now that this guy's over here we can switch the volume Tab and watch how the volume occupied by that error point evolves as we solve the problem so look what happens this is of course randomly generated I'm counting on this working before so it originally starts out is occupying 26% of the total volume and ends up occupying 1.4 * 10us 3% of the"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_087",
+    "video_id": "mit_6034_lec17",
+    "start_time": 3045.0,
+    "end_time": 3090.0,
+    "text": "26% of the total volume and ends up occupying 1.4 * 10us 3% of the volume so what tends to happen happen is that these decision tree stumps tend to wrap themselves so tightly around the airor points there's no room for overfitting because nothing else will fit in that same volume so that's why I think that this thing tends to produce Solutions which don't overfit so in conclusion this is Magic you always want to use it it will work with any kind of speed of classifiers you want and you should understand it very thoroughly because this if anything is useful in the subject was in the in the dimension"
+  },
+  {
+    "chunk_id": "mit_6034_lec17_chunk_088",
+    "video_id": "mit_6034_lec17",
+    "start_time": 3080.0,
+    "end_time": 3125.0,
+    "text": "should understand it very thoroughly because this if anything is useful in the subject was in the in the dimension"
+  }
+]

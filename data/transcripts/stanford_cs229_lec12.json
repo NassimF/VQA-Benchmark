@@ -1,0 +1,6026 @@
+{
+  "video_id": "stanford_cs229_lec12",
+  "source": "youtube_auto_captions",
+  "segments": [
+    {
+      "start": 12.31,
+      "end": 25.589,
+      "text": "this presentation is delivered by the"
+    },
+    {
+      "start": 25.589,
+      "end": 28.429,
+      "text": "development so good morning and welcome"
+    },
+    {
+      "start": 28.429,
+      "end": 32.19,
+      "text": "back um what I want to do today is"
+    },
+    {
+      "start": 32.19,
+      "end": 34.069,
+      "text": "actually begin a new chapter in 229 in"
+    },
+    {
+      "start": 34.069,
+      "end": 37.95,
+      "text": "which um I'm going to start to talk"
+    },
+    {
+      "start": 37.95,
+      "end": 40.19,
+      "text": "about unsupervised learning so um brief"
+    },
+    {
+      "start": 40.19,
+      "end": 42.15,
+      "text": "outline for today is I'm going to just"
+    },
+    {
+      "start": 42.15,
+      "end": 44.709,
+      "text": "very briefly talk about clustering let's"
+    },
+    {
+      "start": 44.709,
+      "end": 47.75,
+      "text": "talk about C's algorithm um let's talk"
+    },
+    {
+      "start": 47.75,
+      "end": 50.11,
+      "text": "about the mixture of Gan model and the"
+    },
+    {
+      "start": 50.11,
+      "end": 52.59,
+      "text": "special case of the EM expectation"
+    },
+    {
+      "start": 52.59,
+      "end": 54.95,
+      "text": "maximization ALB for the mixture of Gans"
+    },
+    {
+      "start": 54.95,
+      "end": 57.11,
+      "text": "model um described something called"
+    },
+    {
+      "start": 57.11,
+      "end": 60.029,
+      "text": "gance inequality and then we'll use that"
+    },
+    {
+      "start": 60.029,
+      "end": 61.67,
+      "text": "to to derive um a general form of of"
+    },
+    {
+      "start": 61.67,
+      "end": 63.59,
+      "text": "something called the em or expectation"
+    },
+    {
+      "start": 63.59,
+      "end": 65.27,
+      "text": "maximization algorithm which is very"
+    },
+    {
+      "start": 65.27,
+      "end": 66.91,
+      "text": "useful algorithm that sort of turns out"
+    },
+    {
+      "start": 66.91,
+      "end": 69.07,
+      "text": "to be used all over the place in"
+    },
+    {
+      "start": 69.07,
+      "end": 70.429,
+      "text": "different um unsupervised machine"
+    },
+    {
+      "start": 70.429,
+      "end": 76.07,
+      "text": "learning"
+    },
+    {
+      "start": 76.07,
+      "end": 78.83,
+      "text": "[Applause]"
+    },
+    {
+      "start": 78.83,
+      "end": 81.63,
+      "text": "so you know the standard cartoons that I"
+    },
+    {
+      "start": 81.63,
+      "end": 85.03,
+      "text": "used to draw for supervised learning was"
+    },
+    {
+      "start": 85.03,
+      "end": 87.71000000000001,
+      "text": "um if you're given a data set like"
+    },
+    {
+      "start": 87.71000000000001,
+      "end": 89.39,
+      "text": "this right and you use you know logistic"
+    },
+    {
+      "start": 89.39,
+      "end": 90.67,
+      "text": "regression or sbm or whatever to"
+    },
+    {
+      "start": 90.67,
+      "end": 92.59,
+      "text": "classify between the positive and"
+    },
+    {
+      "start": 92.59,
+      "end": 94.19,
+      "text": "negative classes and we called this"
+    },
+    {
+      "start": 94.19,
+      "end": 95.59,
+      "text": "supervised learning because you know"
+    },
+    {
+      "start": 95.59,
+      "end": 97.59,
+      "text": "you're sort of told what the right"
+    },
+    {
+      "start": 97.59,
+      "end": 100.67,
+      "text": "Clause label is for every training"
+    },
+    {
+      "start": 100.67,
+      "end": 103.19,
+      "text": "example um and that was the"
+    },
+    {
+      "start": 103.19,
+      "end": 105.95,
+      "text": "Supervision in unsupervised learning we"
+    },
+    {
+      "start": 105.95,
+      "end": 116.469,
+      "text": "a slightly different"
+    },
+    {
+      "start": 116.469,
+      "end": 118.87,
+      "text": "set that maybe just comprises a set of"
+    },
+    {
+      "start": 118.87,
+      "end": 121.109,
+      "text": "points just given a data set with no"
+    },
+    {
+      "start": 121.109,
+      "end": 122.67,
+      "text": "labels and no indication of what the"
+    },
+    {
+      "start": 122.67,
+      "end": 126.35,
+      "text": "quote right answer is or what the"
+    },
+    {
+      "start": 126.35,
+      "end": 129.07,
+      "text": "supervision is and um is a job of the"
+    },
+    {
+      "start": 129.07,
+      "end": 132.27,
+      "text": "algorithm to discover structure in the"
+    },
+    {
+      "start": 132.27,
+      "end": 133.55,
+      "text": "data um so in this lecture in the next"
+    },
+    {
+      "start": 133.55,
+      "end": 135.15,
+      "text": "couple of weeks we'll talk about a"
+    },
+    {
+      "start": 135.15,
+      "end": 137.35,
+      "text": "variety of unsupervised learning"
+    },
+    {
+      "start": 137.35,
+      "end": 139.07,
+      "text": "algorithms they can look at data sets"
+    },
+    {
+      "start": 139.07,
+      "end": 142.03,
+      "text": "like these and discover various"
+    },
+    {
+      "start": 142.03,
+      "end": 143.79,
+      "text": "different types of structure in it um in"
+    },
+    {
+      "start": 143.79,
+      "end": 145.35,
+      "text": "this particular cartoon that I've drawn"
+    },
+    {
+      "start": 145.35,
+      "end": 148.75,
+      "text": "you one type of structure that you and I"
+    },
+    {
+      "start": 148.75,
+      "end": 150.82999999999998,
+      "text": "can probably see is that this data lives"
+    },
+    {
+      "start": 150.82999999999998,
+      "end": 153.309,
+      "text": "in two different class"
+    },
+    {
+      "start": 153.309,
+      "end": 154.309,
+      "text": "and so um the first unsupervised"
+    },
+    {
+      "start": 154.309,
+      "end": 155.67000000000002,
+      "text": "learning algorithm that I'm actually"
+    },
+    {
+      "start": 155.67000000000002,
+      "end": 157.63,
+      "text": "going to talk about will be a clustering"
+    },
+    {
+      "start": 157.63,
+      "end": 160.27,
+      "text": "algorithm it will be an algorithm that"
+    },
+    {
+      "start": 160.27,
+      "end": 162.50900000000001,
+      "text": "looks a data set like this and um"
+    },
+    {
+      "start": 162.50900000000001,
+      "end": 165.03,
+      "text": "automatically breaks the data set into"
+    },
+    {
+      "start": 165.03,
+      "end": 166.75,
+      "text": "different smaller"
+    },
+    {
+      "start": 166.75,
+      "end": 168.43,
+      "text": "clusters"
+    },
+    {
+      "start": 168.43,
+      "end": 172.43,
+      "text": "um"
+    },
+    {
+      "start": 172.43,
+      "end": 174.55,
+      "text": "so let's see my laptop comes back up"
+    },
+    {
+      "start": 174.55,
+      "end": 177.71,
+      "text": "I'll show you an example um so"
+    },
+    {
+      "start": 177.71,
+      "end": 180.43,
+      "text": "clustering algs like these have um a"
+    },
+    {
+      "start": 180.43,
+      "end": 182.39,
+      "text": "variety of applications um"
+    },
+    {
+      "start": 182.39,
+      "end": 184.35,
+      "text": "just to Rattle off a few of the better"
+    },
+    {
+      "start": 184.35,
+      "end": 186.03,
+      "text": "known ones I guess in bi biology"
+    },
+    {
+      "start": 186.03,
+      "end": 188.07,
+      "text": "application you often clust different"
+    },
+    {
+      "start": 188.07,
+      "end": 189.67,
+      "text": "things together we have data on genes"
+    },
+    {
+      "start": 189.67,
+      "end": 191.27,
+      "text": "you may cluster different genes together"
+    },
+    {
+      "start": 191.27,
+      "end": 194.39,
+      "text": "in order to examine them and understand"
+    },
+    {
+      "start": 194.39,
+      "end": 196.43,
+      "text": "the biological function better um"
+    },
+    {
+      "start": 196.43,
+      "end": 198.75,
+      "text": "another common application of clustering"
+    },
+    {
+      "start": 198.75,
+      "end": 200.67000000000002,
+      "text": "is market research so imagine you have a"
+    },
+    {
+      "start": 200.67000000000002,
+      "end": 203.949,
+      "text": "c you have a customer database of how"
+    },
+    {
+      "start": 203.949,
+      "end": 205.55,
+      "text": "your different customers behave um very"
+    },
+    {
+      "start": 205.55,
+      "end": 207.63,
+      "text": "common practice to apply clustering"
+    },
+    {
+      "start": 207.63,
+      "end": 209.39,
+      "text": "algorithms to break your database of"
+    },
+    {
+      "start": 209.39,
+      "end": 211.67000000000002,
+      "text": "customers into different market segments"
+    },
+    {
+      "start": 211.67000000000002,
+      "end": 213.11,
+      "text": "so that you can you know Target your"
+    },
+    {
+      "start": 213.11,
+      "end": 214.869,
+      "text": "products towards different market"
+    },
+    {
+      "start": 214.869,
+      "end": 216.27,
+      "text": "segments or Target your sales pictures"
+    },
+    {
+      "start": 216.27,
+      "end": 219.309,
+      "text": "specifically to different market"
+    },
+    {
+      "start": 219.309,
+      "end": 221.50900000000001,
+      "text": "segments um some you do later today I I"
+    },
+    {
+      "start": 221.50900000000001,
+      "end": 222.949,
+      "text": "don't want to I don't do this now but um"
+    },
+    {
+      "start": 222.949,
+      "end": 229.149,
+      "text": "if you actually go to a website like"
+    },
+    {
+      "start": 229.149,
+      "end": 232.91,
+      "text": "um that's an example of a website that"
+    },
+    {
+      "start": 232.91,
+      "end": 235.19,
+      "text": "uses a clustering algorithm to um"
+    },
+    {
+      "start": 235.19,
+      "end": 237.03,
+      "text": "everyday group related news articles"
+    },
+    {
+      "start": 237.03,
+      "end": 238.91,
+      "text": "together to display to you so that you"
+    },
+    {
+      "start": 238.91,
+      "end": 241.11,
+      "text": "can see you know what of the Thousand"
+    },
+    {
+      "start": 241.11,
+      "end": 242.949,
+      "text": "news articles today on whatever the top"
+    },
+    {
+      "start": 242.949,
+      "end": 244.869,
+      "text": "story of today and what are the 500 news"
+    },
+    {
+      "start": 244.869,
+      "end": 247.789,
+      "text": "articles on all the different websites"
+    },
+    {
+      "start": 247.789,
+      "end": 249.39,
+      "text": "on different story of the day um at a"
+    },
+    {
+      "start": 249.39,
+      "end": 251.67,
+      "text": "very start of class actually talks about"
+    },
+    {
+      "start": 251.67,
+      "end": 253.55,
+      "text": "image segmentation which is the example"
+    },
+    {
+      "start": 253.55,
+      "end": 256.15,
+      "text": "which is the application of when you"
+    },
+    {
+      "start": 256.15,
+      "end": 257.469,
+      "text": "might um take a picture and group"
+    },
+    {
+      "start": 257.469,
+      "end": 259.909,
+      "text": "together different subsets of the"
+    },
+    {
+      "start": 259.909,
+      "end": 262.11,
+      "text": "picture into coherent pieces of of of"
+    },
+    {
+      "start": 262.11,
+      "end": 264.189,
+      "text": "pixels um to try to understand what's"
+    },
+    {
+      "start": 264.189,
+      "end": 267.469,
+      "text": "contained in the picture so that's a yet"
+    },
+    {
+      "start": 267.469,
+      "end": 269.95,
+      "text": "another application of clustering um but"
+    },
+    {
+      "start": 269.95,
+      "end": 272.87,
+      "text": "the basic idea is given a data set like"
+    },
+    {
+      "start": 272.87,
+      "end": 277.31,
+      "text": "this given a set of points can you"
+    },
+    {
+      "start": 277.31,
+      "end": 279.07,
+      "text": "automatically group the data set into um"
+    },
+    {
+      "start": 279.07,
+      "end": 281.15,
+      "text": "into coherent"
+    },
+    {
+      "start": 281.15,
+      "end": 284.35,
+      "text": "clusters"
+    },
+    {
+      "start": 284.35,
+      "end": 286.55,
+      "text": "so let's see I'm so of waiting for the"
+    },
+    {
+      "start": 286.55,
+      "end": 289.07,
+      "text": "laptop to come back so show you an"
+    },
+    {
+      "start": 289.07,
+      "end": 291.15,
+      "text": "example you know what let me just well"
+    },
+    {
+      "start": 291.15,
+      "end": 292.95,
+      "text": "what's coming up want me just start to"
+    },
+    {
+      "start": 292.95,
+      "end": 294.43,
+      "text": "write out the specific clustering"
+    },
+    {
+      "start": 294.43,
+      "end": 300.95,
+      "text": "algorith and I'll show the animation"
+    },
+    {
+      "start": 300.95,
+      "end": 302.83,
+      "text": "um"
+    },
+    {
+      "start": 302.83,
+      "end": 304.749,
+      "text": "so this is called the K means clustering"
+    },
+    {
+      "start": 304.749,
+      "end": 308.07,
+      "text": "algorithm for finding clusters in your"
+    },
+    {
+      "start": 308.07,
+      "end": 311.07,
+      "text": "data set"
+    },
+    {
+      "start": 311.07,
+      "end": 315.51,
+      "text": "um the input to your algorithm will be"
+    },
+    {
+      "start": 315.51,
+      "end": 318.51,
+      "text": "an unlabeled data set which I write as"
+    },
+    {
+      "start": 318.51,
+      "end": 322.029,
+      "text": "X1"
+    },
+    {
+      "start": 322.029,
+      "end": 323.39,
+      "text": "X2 after XM and because we're now"
+    },
+    {
+      "start": 323.39,
+      "end": 324.749,
+      "text": "talking about UNS supervised learning"
+    },
+    {
+      "start": 324.749,
+      "end": 326.51,
+      "text": "you see a lot of data sets that look"
+    },
+    {
+      "start": 326.51,
+      "end": 329.95,
+      "text": "like these with just the x's and no"
+    },
+    {
+      "start": 329.95,
+      "end": 332.189,
+      "text": "class labels y so what a camean"
+    },
+    {
+      "start": 332.189,
+      "end": 333.87,
+      "text": "algorithm does is the following and this"
+    },
+    {
+      "start": 333.87,
+      "end": 337.27,
+      "text": "will all make a bit more sense when I"
+    },
+    {
+      "start": 337.27,
+      "end": 340.87,
+      "text": "show you the um animation on on my"
+    },
+    {
+      "start": 340.87,
+      "end": 342.95,
+      "text": "laptop um it's going to initialize a set"
+    },
+    {
+      "start": 342.95,
+      "end": 353.55,
+      "text": "of cluster initialize a set of points"
+    },
+    {
+      "start": 353.55,
+      "end": 358.029,
+      "text": "um mu1 through mu"
+    },
+    {
+      "start": 358.029,
+      "end": 359.83,
+      "text": "K randomly and so if your uh input so of"
+    },
+    {
+      "start": 359.83,
+      "end": 362.189,
+      "text": "training data are vectors in r n then"
+    },
+    {
+      "start": 362.189,
+      "end": 365.15,
+      "text": "your cluster centroids these M's will"
+    },
+    {
+      "start": 365.15,
+      "end": 398.43,
+      "text": "also be um vectors in"
+    },
+    {
+      "start": 398.43,
+      "end": 400.79,
+      "text": "excuse me so the excuse me the cluster"
+    },
+    {
+      "start": 400.79,
+      "end": 403.39,
+      "text": "centroids will be your guesses for where"
+    },
+    {
+      "start": 403.39,
+      "end": 405.95,
+      "text": "the centers of each of the Clusters are"
+    },
+    {
+      "start": 405.95,
+      "end": 408.589,
+      "text": "and so um in one of the steps you you"
+    },
+    {
+      "start": 408.589,
+      "end": 410.79,
+      "text": "know look at each point XI and you look"
+    },
+    {
+      "start": 410.79,
+      "end": 413.35,
+      "text": "at which cluster centroid muj is closest"
+    },
+    {
+      "start": 413.35,
+      "end": 417.029,
+      "text": "to it and then you this step is called"
+    },
+    {
+      "start": 417.029,
+      "end": 419.55,
+      "text": "assigning your point XI to Cluster J"
+    },
+    {
+      "start": 419.55,
+      "end": 421.11,
+      "text": "right inste of looking at each point and"
+    },
+    {
+      "start": 421.11,
+      "end": 449.83,
+      "text": "picking the cluster centroid that's"
+    },
+    {
+      "start": 449.83,
+      "end": 451.67,
+      "text": "centroids to be the mean of all the"
+    },
+    {
+      "start": 451.67,
+      "end": 453.43,
+      "text": "points that have been assigned to"
+    },
+    {
+      "start": 453.43,
+      "end": 456.07,
+      "text": "it"
+    },
+    {
+      "start": 456.07,
+      "end": 465.11,
+      "text": "um"
+    },
+    {
+      "start": 465.11,
+      "end": 467.43,
+      "text": "just"
+    },
+    {
+      "start": 467.43,
+      "end": 478.30899999999997,
+      "text": "um let's see actually can I could you"
+    },
+    {
+      "start": 478.30899999999997,
+      "end": 501.51,
+      "text": "[Music]"
+    },
+    {
+      "start": 501.51,
+      "end": 538.19,
+      "text": "oops excuse"
+    },
+    {
+      "start": 538.19,
+      "end": 543.87,
+      "text": "okay there we"
+    },
+    {
+      "start": 543.87,
+      "end": 545.949,
+      "text": "okay so here's an example of the C's"
+    },
+    {
+      "start": 545.949,
+      "end": 548.31,
+      "text": "algorithm hopefully with this animation"
+    },
+    {
+      "start": 548.31,
+      "end": 549.75,
+      "text": "this this will make more sense this is a"
+    },
+    {
+      "start": 549.75,
+      "end": 552.43,
+      "text": "the names chopped off this this"
+    },
+    {
+      "start": 552.43,
+      "end": 555.949,
+      "text": "particular example I got from Michael"
+    },
+    {
+      "start": 555.949,
+      "end": 558.15,
+      "text": "Jordan in Berkeley so these points in"
+    },
+    {
+      "start": 558.15,
+      "end": 559.069,
+      "text": "green on my uh data points and so I'm"
+    },
+    {
+      "start": 559.069,
+      "end": 561.43,
+      "text": "going to"
+    },
+    {
+      "start": 561.43,
+      "end": 565.269,
+      "text": "randomly initialize a pair of cluster C"
+    },
+    {
+      "start": 565.269,
+      "end": 567.99,
+      "text": "chice so the red and the blue crosses"
+    },
+    {
+      "start": 567.99,
+      "end": 569.87,
+      "text": "denote the positions of mu1 and mu2 say"
+    },
+    {
+      "start": 569.87,
+      "end": 572.47,
+      "text": "if I'm going to guess it two clusters in"
+    },
+    {
+      "start": 572.47,
+      "end": 576.55,
+      "text": "this data so"
+    },
+    {
+      "start": 576.55,
+      "end": 579.069,
+      "text": "um Step K means excuse me STS K means Al"
+    },
+    {
+      "start": 579.069,
+      "end": 581.47,
+      "text": "as follows I'm going to repeatedly go to"
+    },
+    {
+      "start": 581.47,
+      "end": 584.31,
+      "text": "all of the points in my data set and I'm"
+    },
+    {
+      "start": 584.31,
+      "end": 586.91,
+      "text": "going to um associate each of the green"
+    },
+    {
+      "start": 586.91,
+      "end": 589.829,
+      "text": "dots with the closer of the two closer"
+    },
+    {
+      "start": 589.829,
+      "end": 592.59,
+      "text": "centroids so um visually I'm going to"
+    },
+    {
+      "start": 592.59,
+      "end": 595.63,
+      "text": "denote that by you know painting each of"
+    },
+    {
+      "start": 595.63,
+      "end": 597.91,
+      "text": "the dots either blue or red depending on"
+    },
+    {
+      "start": 597.91,
+      "end": 599.509,
+      "text": "which is the closer closest Android okay"
+    },
+    {
+      "start": 599.509,
+      "end": 603.069,
+      "text": "so all the points closest to the blue"
+    },
+    {
+      "start": 603.069,
+      "end": 605.389,
+      "text": "Crosser Point are painted blue and so on"
+    },
+    {
+      "start": 605.389,
+      "end": 608.069,
+      "text": "um the other step is updating the"
+    },
+    {
+      "start": 608.069,
+      "end": 610.03,
+      "text": "cluster centroid and so I'm going to"
+    },
+    {
+      "start": 610.03,
+      "end": 613.31,
+      "text": "repeatedly look at all the points that"
+    },
+    {
+      "start": 613.31,
+      "end": 616.069,
+      "text": "painted blue and um compute the average"
+    },
+    {
+      "start": 616.069,
+      "end": 618.069,
+      "text": "of all of the blue dots and I'll simply"
+    },
+    {
+      "start": 618.069,
+      "end": 620.23,
+      "text": "compute look at all the red dots and"
+    },
+    {
+      "start": 620.23,
+      "end": 621.99,
+      "text": "compute the average of all the red dots"
+    },
+    {
+      "start": 621.99,
+      "end": 624.91,
+      "text": "and then I'll move the cluster croise as"
+    },
+    {
+      "start": 624.91,
+      "end": 627.03,
+      "text": "follows to the average of the respective"
+    },
+    {
+      "start": 627.03,
+      "end": 629.67,
+      "text": "locations so this is now after one"
+    },
+    {
+      "start": 629.67,
+      "end": 631.35,
+      "text": "iteration of K means um here"
+    },
+    {
+      "start": 631.35,
+      "end": 633.47,
+      "text": "and now repeat the same process I look"
+    },
+    {
+      "start": 633.47,
+      "end": 635.389,
+      "text": "at all the points and assign all the"
+    },
+    {
+      "start": 635.389,
+      "end": 637.43,
+      "text": "points closer to the Blue Cross to be"
+    },
+    {
+      "start": 637.43,
+      "end": 640.03,
+      "text": "you know the color blue and and simly"
+    },
+    {
+      "start": 640.03,
+      "end": 642.11,
+      "text": "red and so now I have thata assignments"
+    },
+    {
+      "start": 642.11,
+      "end": 645.23,
+      "text": "of points to the cluster"
+    },
+    {
+      "start": 645.23,
+      "end": 647.069,
+      "text": "centroids and um finally I'll again"
+    },
+    {
+      "start": 647.069,
+      "end": 648.389,
+      "text": "compute the average of all the blue"
+    },
+    {
+      "start": 648.389,
+      "end": 650.35,
+      "text": "points and compute the average of all"
+    },
+    {
+      "start": 650.35,
+      "end": 652.31,
+      "text": "the red points and update the cluster"
+    },
+    {
+      "start": 652.31,
+      "end": 655.47,
+      "text": "centr again as"
+    },
+    {
+      "start": 655.47,
+      "end": 657.47,
+      "text": "follows and um now K means has actually"
+    },
+    {
+      "start": 657.47,
+      "end": 659.71,
+      "text": "converge if you keep running you know"
+    },
+    {
+      "start": 659.71,
+      "end": 661.23,
+      "text": "these two steps of K means over and over"
+    },
+    {
+      "start": 661.23,
+      "end": 662.55,
+      "text": "the cluster centroids and the"
+    },
+    {
+      "start": 662.55,
+      "end": 665.069,
+      "text": "assignments of the points of the cluster"
+    },
+    {
+      "start": 665.069,
+      "end": 671.19,
+      "text": "centroids where I should remain the same"
+    },
+    {
+      "start": 671.19,
+      "end": 675.99,
+      "text": "second"
+    },
+    {
+      "start": 675.99,
+      "end": 677.41,
+      "text": "okay so um just going switch back to CH"
+    },
+    {
+      "start": 677.41,
+      "end": 689.74,
+      "text": "for"
+    },
+    {
+      "start": 689.74,
+      "end": 692.31,
+      "text": "pleas"
+    },
+    {
+      "start": 692.31,
+      "end": 694.269,
+      "text": "[Music]"
+    },
+    {
+      "start": 694.269,
+      "end": 695.87,
+      "text": "so actually let just take a take a"
+    },
+    {
+      "start": 695.87,
+      "end": 698.15,
+      "text": "second to look at this again and make"
+    },
+    {
+      "start": 698.15,
+      "end": 701.829,
+      "text": "sure you understand how this maps on to"
+    },
+    {
+      "start": 701.829,
+      "end": 703.389,
+      "text": "um uh how the how the um equ how the Alm"
+    },
+    {
+      "start": 703.389,
+      "end": 709.629,
+      "text": "I wrote How It maps onto the animation"
+    },
+    {
+      "start": 709.629,
+      "end": 710.79,
+      "text": "question I see okay let me let me also"
+    },
+    {
+      "start": 710.79,
+      "end": 714.15,
+      "text": "answer that a"
+    },
+    {
+      "start": 714.15,
+      "end": 717.269,
+      "text": "second okay so these are two steps this"
+    },
+    {
+      "start": 717.269,
+      "end": 719.509,
+      "text": "step 2.1 was assigning the points to"
+    },
+    {
+      "start": 719.509,
+      "end": 721.389,
+      "text": "close to centroid and 2 point two was"
+    },
+    {
+      "start": 721.389,
+      "end": 723.91,
+      "text": "Shifting the cluster centroids to be the"
+    },
+    {
+      "start": 723.91,
+      "end": 728.069,
+      "text": "mean of all the points assigned to that"
+    },
+    {
+      "start": 728.069,
+      "end": 729.47,
+      "text": "cluster centroid right um okay so"
+    },
+    {
+      "start": 729.47,
+      "end": 732.31,
+      "text": "briefly answer the two questions I just"
+    },
+    {
+      "start": 732.31,
+      "end": 734.35,
+      "text": "had one is does the Alum converge um the"
+    },
+    {
+      "start": 734.35,
+      "end": 736.59,
+      "text": "answer is yes C is guaranteed to"
+    },
+    {
+      "start": 736.59,
+      "end": 739.15,
+      "text": "converge in a certain sense in"
+    },
+    {
+      "start": 739.15,
+      "end": 751.389,
+      "text": "particular if you"
+    },
+    {
+      "start": 751.389,
+      "end": 767.11,
+      "text": "um if you define the Distortion function"
+    },
+    {
+      "start": 767.11,
+      "end": 768.91,
+      "text": "mu um squared excuse me if you define"
+    },
+    {
+      "start": 768.91,
+      "end": 771.35,
+      "text": "the Distortion function to be a function"
+    },
+    {
+      "start": 771.35,
+      "end": 773.389,
+      "text": "of the cluster assignments and cluster"
+    },
+    {
+      "start": 773.389,
+      "end": 775.069,
+      "text": "centroids and this is the sum of square"
+    },
+    {
+      "start": 775.069,
+      "end": 777.629,
+      "text": "distances between the points and the"
+    },
+    {
+      "start": 777.629,
+      "end": 779.389,
+      "text": "cluster CID that they're assigned to"
+    },
+    {
+      "start": 779.389,
+      "end": 782.389,
+      "text": "then um you can show I won't really"
+    },
+    {
+      "start": 782.389,
+      "end": 792.829,
+      "text": "prove this here but um you can show that"
+    },
+    {
+      "start": 792.829,
+      "end": 796.31,
+      "text": "asent on the function"
+    },
+    {
+      "start": 796.31,
+      "end": 797.509,
+      "text": "J um in particular remember we talked"
+    },
+    {
+      "start": 797.509,
+      "end": 799.31,
+      "text": "about coordinate Ascent as an"
+    },
+    {
+      "start": 799.31,
+      "end": 802.11,
+      "text": "optimization algor like I don't know"
+    },
+    {
+      "start": 802.11,
+      "end": 803.949,
+      "text": "maybe about two weeks ago um so"
+    },
+    {
+      "start": 803.949,
+      "end": 806.87,
+      "text": "coordinate Ascent is the algum that will"
+    },
+    {
+      "start": 806.87,
+      "end": 809.189,
+      "text": "repeatedly hold cix and optimize with"
+    },
+    {
+      "start": 809.189,
+      "end": 810.91,
+      "text": "respect to Mu or hold mu fix and op with"
+    },
+    {
+      "start": 810.91,
+      "end": 814.43,
+      "text": "respect to C right so that's C in the"
+    },
+    {
+      "start": 814.43,
+      "end": 816.79,
+      "text": "sense and so what you can prove is go"
+    },
+    {
+      "start": 816.79,
+      "end": 819.189,
+      "text": "home and prove this yourself um is that"
+    },
+    {
+      "start": 819.189,
+      "end": 822.03,
+      "text": "K means the two iterative steps of K"
+    },
+    {
+      "start": 822.03,
+      "end": 823.829,
+      "text": "means are exactly optimizing this"
+    },
+    {
+      "start": 823.829,
+      "end": 825.269,
+      "text": "function with respect to C and with"
+    },
+    {
+      "start": 825.269,
+      "end": 830.15,
+      "text": "respect to mu"
+    },
+    {
+      "start": 830.15,
+      "end": 832.829,
+      "text": "alternat and therefore um uh this"
+    },
+    {
+      "start": 832.829,
+      "end": 835.629,
+      "text": "function J of C comma mu must be"
+    },
+    {
+      "start": 835.629,
+      "end": 837.87,
+      "text": "decreasing monotonically on every"
+    },
+    {
+      "start": 837.87,
+      "end": 840.71,
+      "text": "iteration and so the sense that in which"
+    },
+    {
+      "start": 840.71,
+      "end": 843.069,
+      "text": "K converges is that D function JFC comma"
+    },
+    {
+      "start": 843.069,
+      "end": 844.91,
+      "text": "mu can only go down and"
+    },
+    {
+      "start": 844.91,
+      "end": 846.59,
+      "text": "therefore this function will actually"
+    },
+    {
+      "start": 846.59,
+      "end": 850.31,
+      "text": "eventually converge in the sense that it"
+    },
+    {
+      "start": 850.31,
+      "end": 851.829,
+      "text": "will not it will stop going down okay um"
+    },
+    {
+      "start": 851.829,
+      "end": 854.55,
+      "text": "is actually possible that there may be"
+    },
+    {
+      "start": 854.55,
+      "end": 856.91,
+      "text": "you know several clusterings that give"
+    },
+    {
+      "start": 856.91,
+      "end": 858.749,
+      "text": "the same value of J of C comma mu and so"
+    },
+    {
+      "start": 858.749,
+      "end": 860.31,
+      "text": "K means may actually switch back and"
+    },
+    {
+      "start": 860.31,
+      "end": 862.55,
+      "text": "forth between different clusterings if"
+    },
+    {
+      "start": 862.55,
+      "end": 863.949,
+      "text": "they if in the in the S of really in the"
+    },
+    {
+      "start": 863.949,
+      "end": 865.509,
+      "text": "extremely unlikely case that the"
+    },
+    {
+      "start": 865.509,
+      "end": 866.749,
+      "text": "multiple clusterings that give exactly"
+    },
+    {
+      "start": 866.749,
+      "end": 868.829,
+      "text": "the same value for this objective"
+    },
+    {
+      "start": 868.829,
+      "end": 870.509,
+      "text": "function K means May oscillate between"
+    },
+    {
+      "start": 870.509,
+      "end": 873.99,
+      "text": "um in practice that just about never"
+    },
+    {
+      "start": 873.99,
+      "end": 876.35,
+      "text": "happens um but but but but even if that"
+    },
+    {
+      "start": 876.35,
+      "end": 877.11,
+      "text": "happens you know dysfunction JFC comma M"
+    },
+    {
+      "start": 877.11,
+      "end": 879.99,
+      "text": "will"
+    },
+    {
+      "start": 879.99,
+      "end": 881.99,
+      "text": "converge um that question is Guess How"
+    },
+    {
+      "start": 881.99,
+      "end": 884.71,
+      "text": "do you choose the number of clusters so"
+    },
+    {
+      "start": 884.71,
+      "end": 886.43,
+      "text": "it turns out that um I think in in the"
+    },
+    {
+      "start": 886.43,
+      "end": 888.389,
+      "text": "vast majority of time when people apply"
+    },
+    {
+      "start": 888.389,
+      "end": 889.749,
+      "text": "K Mees you you sort of just manually"
+    },
+    {
+      "start": 889.749,
+      "end": 892.03,
+      "text": "pick a number of clusters or you"
+    },
+    {
+      "start": 892.03,
+      "end": 896.749,
+      "text": "manually try a few different numbers of"
+    },
+    {
+      "start": 896.749,
+      "end": 898.949,
+      "text": "clusters and um um uh you know pick the"
+    },
+    {
+      "start": 898.949,
+      "end": 900.47,
+      "text": "one that seems to work best um the"
+    },
+    {
+      "start": 900.47,
+      "end": 902.389,
+      "text": "number of clusters in this album is sort"
+    },
+    {
+      "start": 902.389,
+      "end": 903.99,
+      "text": "of just one parameter so usually I think"
+    },
+    {
+      "start": 903.99,
+      "end": 905.87,
+      "text": "it's not very hard to choose"
+    },
+    {
+      "start": 905.87,
+      "end": 907.55,
+      "text": "automatically um there are some"
+    },
+    {
+      "start": 907.55,
+      "end": 909.87,
+      "text": "automatic ways for choosing the number"
+    },
+    {
+      "start": 909.87,
+      "end": 911.79,
+      "text": "of clusters but but I I'm so I'm not"
+    },
+    {
+      "start": 911.79,
+      "end": 913.03,
+      "text": "going to talk about them when when I do"
+    },
+    {
+      "start": 913.03,
+      "end": 916.99,
+      "text": "this I usually just pick the number of"
+    },
+    {
+      "start": 916.99,
+      "end": 919.79,
+      "text": "clusters manually and the reason is um I"
+    },
+    {
+      "start": 919.79,
+      "end": 921.55,
+      "text": "think for many clustering problems the"
+    },
+    {
+      "start": 921.55,
+      "end": 924.15,
+      "text": "quote true number of clusters is"
+    },
+    {
+      "start": 924.15,
+      "end": 927.59,
+      "text": "actually ambiguous so for example if you"
+    },
+    {
+      "start": 927.59,
+      "end": 929.91,
+      "text": "have a data set that looks like"
+    },
+    {
+      "start": 929.91,
+      "end": 932.829,
+      "text": "this"
+    },
+    {
+      "start": 932.829,
+      "end": 934.91,
+      "text": "you know some of you may see four"
+    },
+    {
+      "start": 934.91,
+      "end": 938.03,
+      "text": "clusters right and some of you may see"
+    },
+    {
+      "start": 938.03,
+      "end": 939.629,
+      "text": "two clusters and so the right answer for"
+    },
+    {
+      "start": 939.629,
+      "end": 944.069,
+      "text": "the actual number of clusters is sort of"
+    },
+    {
+      "start": 944.069,
+      "end": 947.949,
+      "text": "ambiguous um so I"
+    },
+    {
+      "start": 947.949,
+      "end": 950.829,
+      "text": "yeah yeah what if you were to initialize"
+    },
+    {
+      "start": 950.829,
+      "end": 953.389,
+      "text": "your clusters way so that one of the"
+    },
+    {
+      "start": 953.389,
+      "end": 955.59,
+      "text": "Clusters is far away from the data point"
+    },
+    {
+      "start": 955.59,
+      "end": 958.309,
+      "text": "couldn't your could your algorithm"
+    },
+    {
+      "start": 958.309,
+      "end": 959.55,
+      "text": "converts to clustering all the points in"
+    },
+    {
+      "start": 959.55,
+      "end": 964.03,
+      "text": "the same same"
+    },
+    {
+      "start": 964.03,
+      "end": 966.11,
+      "text": "clust um I see right so yes K means is"
+    },
+    {
+      "start": 966.11,
+      "end": 969.509,
+      "text": "susceptible to local optim eror so"
+    },
+    {
+      "start": 969.509,
+      "end": 971.829,
+      "text": "coordinat so um this function JFC comma"
+    },
+    {
+      "start": 971.829,
+      "end": 975.509,
+      "text": "mu is a highly non-convex this is not a"
+    },
+    {
+      "start": 975.509,
+      "end": 977.71,
+      "text": "convex function and so um K means so"
+    },
+    {
+      "start": 977.71,
+      "end": 979.47,
+      "text": "coordin Sense on the non-convex function"
+    },
+    {
+      "start": 979.47,
+      "end": 983.35,
+      "text": "is not guaranteed to converge the global"
+    },
+    {
+      "start": 983.35,
+      "end": 986.629,
+      "text": "minimum so K means is susceptible to um"
+    },
+    {
+      "start": 986.629,
+      "end": 988.79,
+      "text": "uh what is susceptible to local optimer"
+    },
+    {
+      "start": 988.79,
+      "end": 990.389,
+      "text": "and um if you're an application in which"
+    },
+    {
+      "start": 990.389,
+      "end": 992.629,
+      "text": "where you think C might be running into"
+    },
+    {
+      "start": 992.629,
+      "end": 994.47,
+      "text": "local optimer one thing you can do is"
+    },
+    {
+      "start": 994.47,
+      "end": 996.67,
+      "text": "try multiple random"
+    },
+    {
+      "start": 996.67,
+      "end": 998.829,
+      "text": "initializations and then run clustering"
+    },
+    {
+      "start": 998.829,
+      "end": 1000.35,
+      "text": "a bunch of times and then and pick the"
+    },
+    {
+      "start": 1000.35,
+      "end": 1002.71,
+      "text": "solution that ended up with the lowest"
+    },
+    {
+      "start": 1002.71,
+      "end": 1004.23,
+      "text": "value for the Distortion"
+    },
+    {
+      "start": 1004.23,
+      "end": 1013.949,
+      "text": "function"
+    },
+    {
+      "start": 1013.949,
+      "end": 1015.59,
+      "text": "eliminated um yeah again there are sort"
+    },
+    {
+      "start": 1015.59,
+      "end": 1018.509,
+      "text": "of"
+    },
+    {
+      "start": 1018.509,
+      "end": 1020.509,
+      "text": "uh let's see right so what if one clust"
+    },
+    {
+      "start": 1020.509,
+      "end": 1022.03,
+      "text": "the central has no points assigned to it"
+    },
+    {
+      "start": 1022.03,
+      "end": 1024.27,
+      "text": "then one thing you could do is just"
+    },
+    {
+      "start": 1024.27,
+      "end": 1026.429,
+      "text": "eliminate it exactly the saying another"
+    },
+    {
+      "start": 1026.429,
+      "end": 1027.949,
+      "text": "thing you can do is um uh just re"
+    },
+    {
+      "start": 1027.949,
+      "end": 1033.75,
+      "text": "initialize it randomly if you really"
+    },
+    {
+      "start": 1033.75,
+      "end": 1037.23,
+      "text": "clusters L questions"
+    },
+    {
+      "start": 1037.23,
+      "end": 1039.27,
+      "text": "yeah Norm as a norm or like can you take"
+    },
+    {
+      "start": 1039.27,
+      "end": 1041.51,
+      "text": "also the one Norm or the infinity Norm"
+    },
+    {
+      "start": 1041.51,
+      "end": 1046.51,
+      "text": "or I see right is it usual is it usually"
+    },
+    {
+      "start": 1046.51,
+      "end": 1048.069,
+      "text": "take two Norms so um let's see for the"
+    },
+    {
+      "start": 1048.069,
+      "end": 1050.15,
+      "text": "vast majority of applications are seen"
+    },
+    {
+      "start": 1050.15,
+      "end": 1053.029,
+      "text": "for k me you do take two Norm when you"
+    },
+    {
+      "start": 1053.029,
+      "end": 1054.83,
+      "text": "have data and RN um I'm sure there are"
+    },
+    {
+      "start": 1054.83,
+      "end": 1056.63,
+      "text": "others who have taken Infinity norm and"
+    },
+    {
+      "start": 1056.63,
+      "end": 1058.19,
+      "text": "one Norm as well I I I personally"
+    },
+    {
+      "start": 1058.19,
+      "end": 1060.669,
+      "text": "haven't seen that very often but you can"
+    },
+    {
+      "start": 1060.669,
+      "end": 1062.27,
+      "text": "also yeah there there there other there"
+    },
+    {
+      "start": 1062.27,
+      "end": 1064.07,
+      "text": "there other variations in this ALG that"
+    },
+    {
+      "start": 1064.07,
+      "end": 1065.23,
+      "text": "use different Gomes but this is what I'm"
+    },
+    {
+      "start": 1065.23,
+      "end": 1077.029,
+      "text": "what I'm descri is probably the most"
+    },
+    {
+      "start": 1077.029,
+      "end": 1080.27,
+      "text": "okay so that was"
+    },
+    {
+      "start": 1080.27,
+      "end": 1087.51,
+      "text": "um came"
+    },
+    {
+      "start": 1087.51,
+      "end": 1089.11,
+      "text": "um what I want to do next and um this"
+    },
+    {
+      "start": 1089.11,
+      "end": 1097.35,
+      "text": "will take longer to describe is actually"
+    },
+    {
+      "start": 1097.35,
+      "end": 1099.909,
+      "text": "[Music]"
+    },
+    {
+      "start": 1099.909,
+      "end": 1110.27,
+      "text": "um in particular what I want to do is"
+    },
+    {
+      "start": 1110.27,
+      "end": 1113.669,
+      "text": "estimation so"
+    },
+    {
+      "start": 1113.669,
+      "end": 1115.87,
+      "text": "so um as Mo example this is a problem"
+    },
+    {
+      "start": 1115.87,
+      "end": 1117.51,
+      "text": "that I know some guys that works on um"
+    },
+    {
+      "start": 1117.51,
+      "end": 1119.549,
+      "text": "let's say you have aircraft engine"
+    },
+    {
+      "start": 1119.549,
+      "end": 1120.669,
+      "text": "rolling off an assembly line so you"
+    },
+    {
+      "start": 1120.669,
+      "end": 1122.149,
+      "text": "let's say you work for an aircraft"
+    },
+    {
+      "start": 1122.149,
+      "end": 1125.39,
+      "text": "company You're Building aircraft engines"
+    },
+    {
+      "start": 1125.39,
+      "end": 1126.95,
+      "text": "they roll off your assembly line and um"
+    },
+    {
+      "start": 1126.95,
+      "end": 1128.99,
+      "text": "as the aircraft engines roll off the"
+    },
+    {
+      "start": 1128.99,
+      "end": 1130.669,
+      "text": "assembly line you test these aircraft"
+    },
+    {
+      "start": 1130.669,
+      "end": 1133.19,
+      "text": "engines and measure various different"
+    },
+    {
+      "start": 1133.19,
+      "end": 1135.19,
+      "text": "properties of it and you know to use a"
+    },
+    {
+      "start": 1135.19,
+      "end": 1138.43,
+      "text": "simplii example I'm going to write these"
+    },
+    {
+      "start": 1138.43,
+      "end": 1139.83,
+      "text": "properties as heat and vibrations right"
+    },
+    {
+      "start": 1139.83,
+      "end": 1141.27,
+      "text": "in reality you measure different"
+    },
+    {
+      "start": 1141.27,
+      "end": 1142.63,
+      "text": "vibrations and different frequencies and"
+    },
+    {
+      "start": 1142.63,
+      "end": 1146.23,
+      "text": "so on we just write you know the amounts"
+    },
+    {
+      "start": 1146.23,
+      "end": 1156.35,
+      "text": "of heat produced vibrations produced"
+    },
+    {
+      "start": 1156.35,
+      "end": 1157.59,
+      "text": "that um you get us so if you have a data"
+    },
+    {
+      "start": 1157.59,
+      "end": 1159.87,
+      "text": "set like this you could run a clustering"
+    },
+    {
+      "start": 1159.87,
+      "end": 1167.029,
+      "text": "algorthm and characterizes as two"
+    },
+    {
+      "start": 1167.029,
+      "end": 1169.47,
+      "text": "that you know I don't know that maybe"
+    },
+    {
+      "start": 1169.47,
+      "end": 1173.51,
+      "text": "looks like that and what you would like"
+    },
+    {
+      "start": 1173.51,
+      "end": 1175.549,
+      "text": "to do is estimate the density of these"
+    },
+    {
+      "start": 1175.549,
+      "end": 1176.789,
+      "text": "properties of the The Joint distribution"
+    },
+    {
+      "start": 1176.789,
+      "end": 1179.75,
+      "text": "of the amount of heat produced and"
+    },
+    {
+      "start": 1179.75,
+      "end": 1182.789,
+      "text": "amount of vibrations um because you"
+    },
+    {
+      "start": 1182.789,
+      "end": 1184.71,
+      "text": "would like to say detect outliers so"
+    },
+    {
+      "start": 1184.71,
+      "end": 1186.909,
+      "text": "that as a new aircraft engine rolls off"
+    },
+    {
+      "start": 1186.909,
+      "end": 1188.43,
+      "text": "the assembly line you can then measure"
+    },
+    {
+      "start": 1188.43,
+      "end": 1191.35,
+      "text": "you know the same heat and vibration"
+    },
+    {
+      "start": 1191.35,
+      "end": 1194.549,
+      "text": "properties you ALS if you get a point"
+    },
+    {
+      "start": 1194.549,
+      "end": 1196.19,
+      "text": "there you can then ask How likely is it"
+    },
+    {
+      "start": 1196.19,
+      "end": 1198.23,
+      "text": "that there was an undetected flow in"
+    },
+    {
+      "start": 1198.23,
+      "end": 1200.909,
+      "text": "this aircraft engine and it it needs"
+    },
+    {
+      "start": 1200.909,
+      "end": 1203.59,
+      "text": "under go undergo further inspections and"
+    },
+    {
+      "start": 1203.59,
+      "end": 1206.909,
+      "text": "so um if we look at you know look at the"
+    },
+    {
+      "start": 1206.909,
+      "end": 1209.51,
+      "text": "typical distribution of features we get"
+    },
+    {
+      "start": 1209.51,
+      "end": 1214.19,
+      "text": "um can we build a model for p of"
+    },
+    {
+      "start": 1214.19,
+      "end": 1216.47,
+      "text": "X and then if um P of X is very small"
+    },
+    {
+      "start": 1216.47,
+      "end": 1217.95,
+      "text": "for some new aircraft engine then that"
+    },
+    {
+      "start": 1217.95,
+      "end": 1220.23,
+      "text": "will raise a red flag we'll say there's"
+    },
+    {
+      "start": 1220.23,
+      "end": 1222.029,
+      "text": "an anomalous aircraft engine and we"
+    },
+    {
+      "start": 1222.029,
+      "end": 1223.63,
+      "text": "should you know subject it to further"
+    },
+    {
+      "start": 1223.63,
+      "end": 1228.63,
+      "text": "inspections before we let someone fly"
+    },
+    {
+      "start": 1228.63,
+      "end": 1230.909,
+      "text": "the engine okay so um this particular so"
+    },
+    {
+      "start": 1230.909,
+      "end": 1232.789,
+      "text": "this particular problem I just described"
+    },
+    {
+      "start": 1232.789,
+      "end": 1235.11,
+      "text": "is an instance of what's called anomaly"
+    },
+    {
+      "start": 1235.11,
+      "end": 1237.23,
+      "text": "detection and so a common way of doing"
+    },
+    {
+      "start": 1237.23,
+      "end": 1239.51,
+      "text": "anomaly detection is to take your"
+    },
+    {
+      "start": 1239.51,
+      "end": 1242.39,
+      "text": "training set um again just your"
+    },
+    {
+      "start": 1242.39,
+      "end": 1246.35,
+      "text": "unlabeled examples X1 through"
+    },
+    {
+      "start": 1246.35,
+      "end": 1249.59,
+      "text": "XM and from this data set build the"
+    },
+    {
+      "start": 1249.59,
+      "end": 1252.35,
+      "text": "model P ofx of the density of um the"
+    },
+    {
+      "start": 1252.35,
+      "end": 1254.51,
+      "text": "data so the typical data you're seeing"
+    },
+    {
+      "start": 1254.51,
+      "end": 1257.47,
+      "text": "and if you ever then see an example with"
+    },
+    {
+      "start": 1257.47,
+      "end": 1259.39,
+      "text": "very low probability on the P of X then"
+    },
+    {
+      "start": 1259.39,
+      "end": 1263.47,
+      "text": "you may flag that as an anomalous"
+    },
+    {
+      "start": 1263.47,
+      "end": 1265.029,
+      "text": "example okay um so anomal detection is"
+    },
+    {
+      "start": 1265.029,
+      "end": 1266.47,
+      "text": "also used in you know security"
+    },
+    {
+      "start": 1266.47,
+      "end": 1268.51,
+      "text": "applications you know figure out"
+    },
+    {
+      "start": 1268.51,
+      "end": 1270.19,
+      "text": "something is doing something unusual at"
+    },
+    {
+      "start": 1270.19,
+      "end": 1273.47,
+      "text": "a physical plant or in your computer"
+    },
+    {
+      "start": 1273.47,
+      "end": 1275.63,
+      "text": "system um is used for detecting fraud in"
+    },
+    {
+      "start": 1275.63,
+      "end": 1278.19,
+      "text": "transactions if if you know if my if"
+    },
+    {
+      "start": 1278.19,
+      "end": 1279.99,
+      "text": "someone thought if my credit card if if"
+    },
+    {
+      "start": 1279.99,
+      "end": 1281.31,
+      "text": "many very unusual transactions St to"
+    },
+    {
+      "start": 1281.31,
+      "end": 1282.47,
+      "text": "appear on my credit card that's a sign"
+    },
+    {
+      "start": 1282.47,
+      "end": 1286.35,
+      "text": "that maybe someone stole them my credit"
+    },
+    {
+      "start": 1286.35,
+      "end": 1289.269,
+      "text": "card um and what I want to do now is"
+    },
+    {
+      "start": 1289.269,
+      "end": 1291.75,
+      "text": "talk with specific algorithm for density"
+    },
+    {
+      "start": 1291.75,
+      "end": 1293.75,
+      "text": "estimation um and in particular one they"
+    },
+    {
+      "start": 1293.75,
+      "end": 1295.11,
+      "text": "work for data sets like these two that"
+    },
+    {
+      "start": 1295.11,
+      "end": 1297.39,
+      "text": "you know this distribution this"
+    },
+    {
+      "start": 1297.39,
+      "end": 1299.75,
+      "text": "distribution like that right let's get"
+    },
+    {
+      "start": 1299.75,
+      "end": 1301.23,
+      "text": "of that distribution like this doesn't"
+    },
+    {
+      "start": 1301.23,
+      "end": 1303.19,
+      "text": "really fall into any of the standard"
+    },
+    {
+      "start": 1303.19,
+      "end": 1305.549,
+      "text": "textbook distributions this is not"
+    },
+    {
+      "start": 1305.549,
+      "end": 1308.19,
+      "text": "really like a g or a proone explanation"
+    },
+    {
+      "start": 1308.19,
+      "end": 1310.51,
+      "text": "or anything so uh can we come with a"
+    },
+    {
+      "start": 1310.51,
+      "end": 1312.789,
+      "text": "model to estimate densities that may"
+    },
+    {
+      "start": 1312.789,
+      "end": 1317.029,
+      "text": "look like these somewhat unusual"
+    },
+    {
+      "start": 1317.029,
+      "end": 1322.63,
+      "text": "shapes so"
+    },
+    {
+      "start": 1322.63,
+      "end": 1324.43,
+      "text": "to describe the a bit more I'm actually"
+    },
+    {
+      "start": 1324.43,
+      "end": 1328.95,
+      "text": "going to use a onedimensional example"
+    },
+    {
+      "start": 1328.95,
+      "end": 1330.35,
+      "text": "rather than a 2d example um and the and"
+    },
+    {
+      "start": 1330.35,
+      "end": 1332.19,
+      "text": "in the example I'm going to describe I'm"
+    },
+    {
+      "start": 1332.19,
+      "end": 1343.43,
+      "text": "going to say"
+    },
+    {
+      "start": 1343.43,
+      "end": 1345.99,
+      "text": "um maybe a data set that looks like this"
+    },
+    {
+      "start": 1345.99,
+      "end": 1348.95,
+      "text": "where the horizontal axis here is the"
+    },
+    {
+      "start": 1348.95,
+      "end": 1350.669,
+      "text": "x-axis and you know these Dot represent"
+    },
+    {
+      "start": 1350.669,
+      "end": 1353.269,
+      "text": "the the the positions of the data set"
+    },
+    {
+      "start": 1353.269,
+      "end": 1360.35,
+      "text": "that I have Okay so this data set looks"
+    },
+    {
+      "start": 1360.35,
+      "end": 1362.83,
+      "text": "density that looks like that um as if"
+    },
+    {
+      "start": 1362.83,
+      "end": 1365.39,
+      "text": "this were the sum of two Gan"
+    },
+    {
+      "start": 1365.39,
+      "end": 1367.87,
+      "text": "distributions and so the specific model"
+    },
+    {
+      "start": 1367.87,
+      "end": 1370.669,
+      "text": "I'm going to describe next is a will be"
+    },
+    {
+      "start": 1370.669,
+      "end": 1372.35,
+      "text": "what's called a mixture of gan's model"
+    },
+    {
+      "start": 1372.35,
+      "end": 1376.39,
+      "text": "um and just to be"
+    },
+    {
+      "start": 1376.39,
+      "end": 1378.75,
+      "text": "clear the picture I have is that we're"
+    },
+    {
+      "start": 1378.75,
+      "end": 1387.909,
+      "text": "envisioning that"
+    },
+    {
+      "start": 1387.909,
+      "end": 1391.07,
+      "text": "generated that maybe there were two"
+    },
+    {
+      "start": 1391.07,
+      "end": 1393.19,
+      "text": "separate Gans that generated this data"
+    },
+    {
+      "start": 1393.19,
+      "end": 1395.35,
+      "text": "set and if only I knew what the two Gans"
+    },
+    {
+      "start": 1395.35,
+      "end": 1397.83,
+      "text": "were then I could fill the g into my"
+    },
+    {
+      "start": 1397.83,
+      "end": 1399.71,
+      "text": "crosses fill the g into the O's and then"
+    },
+    {
+      "start": 1399.71,
+      "end": 1402.23,
+      "text": "you know sum them"
+    },
+    {
+      "start": 1402.23,
+      "end": 1407.59,
+      "text": "up right to get the overall density for"
+    },
+    {
+      "start": 1407.59,
+      "end": 1409.549,
+      "text": "the two but um the problem is I don't"
+    },
+    {
+      "start": 1409.549,
+      "end": 1410.99,
+      "text": "actually have access to these labels I"
+    },
+    {
+      "start": 1410.99,
+      "end": 1412.75,
+      "text": "don't actually know which of the two"
+    },
+    {
+      "start": 1412.75,
+      "end": 1416.149,
+      "text": "gaussians each of my data points came"
+    },
+    {
+      "start": 1416.149,
+      "end": 1417.269,
+      "text": "from and so um what I like to do is to"
+    },
+    {
+      "start": 1417.269,
+      "end": 1420.029,
+      "text": "come up with an"
+    },
+    {
+      "start": 1420.029,
+      "end": 1422.99,
+      "text": "algorithm to fit this mixture of gan's"
+    },
+    {
+      "start": 1422.99,
+      "end": 1425.669,
+      "text": "model um even when I don't know which of"
+    },
+    {
+      "start": 1425.669,
+      "end": 1429.11,
+      "text": "the two Gans each of my data points came"
+    },
+    {
+      "start": 1429.11,
+      "end": 1436.87,
+      "text": "from yeah have no idea what this is let"
+    },
+    {
+      "start": 1436.87,
+      "end": 1444.08,
+      "text": "it okay so here's the"
+    },
+    {
+      "start": 1444.08,
+      "end": 1445.75,
+      "text": "in this model I'm going to"
+    },
+    {
+      "start": 1445.75,
+      "end": 1448.549,
+      "text": "[Music]"
+    },
+    {
+      "start": 1448.549,
+      "end": 1461.549,
+      "text": "imagine"
+    },
+    {
+      "start": 1461.549,
+      "end": 1477.43,
+      "text": "variable um and latent just is is just"
+    },
+    {
+      "start": 1477.43,
+      "end": 1482.23,
+      "text": "okay so I'm going to imagine that is um"
+    },
+    {
+      "start": 1482.23,
+      "end": 1495.71,
+      "text": "latent random variable Z and um x i"
+    },
+    {
+      "start": 1495.71,
+      "end": 1499.19,
+      "text": "distribution that is given as follows"
+    },
+    {
+      "start": 1499.19,
+      "end": 1503.47,
+      "text": "um we have that P of x x i comma"
+    },
+    {
+      "start": 1503.47,
+      "end": 1505.95,
+      "text": "Z well by the uh Cham R of"
+    },
+    {
+      "start": 1505.95,
+      "end": 1513.11,
+      "text": "probability this is always like that"
+    },
+    {
+      "start": 1513.11,
+      "end": 1515.75,
+      "text": "true and moreover I'll assume that P of"
+    },
+    {
+      "start": 1515.75,
+      "end": 1533.87,
+      "text": "Z is given by the following Z is"
+    },
+    {
+      "start": 1533.87,
+      "end": 1536.47,
+      "text": "in the special case where I have just a"
+    },
+    {
+      "start": 1536.47,
+      "end": 1548.35,
+      "text": "mixture of two galum then Z will be"
+    },
+    {
+      "start": 1548.35,
+      "end": 1550.31,
+      "text": "know and these parameters five are the"
+    },
+    {
+      "start": 1550.31,
+      "end": 1553.47,
+      "text": "parameters of a multinomial"
+    },
+    {
+      "start": 1553.47,
+      "end": 1559.83,
+      "text": "distribution and um the distribution of"
+    },
+    {
+      "start": 1559.83,
+      "end": 1562.669,
+      "text": "XI conditioned on Z being equal to J so"
+    },
+    {
+      "start": 1562.669,
+      "end": 1565.63,
+      "text": "so P of XI given as Z is equal to J"
+    },
+    {
+      "start": 1565.63,
+      "end": 1569.669,
+      "text": "that's going to be a galaxian"
+    },
+    {
+      "start": 1569.669,
+      "end": 1573.83,
+      "text": "distribution with mean mu J"
+    },
+    {
+      "start": 1573.83,
+      "end": 1577.31,
+      "text": "and Co variant Sigma J"
+    },
+    {
+      "start": 1577.31,
+      "end": 1578.83,
+      "text": "okay um so this should actually look"
+    },
+    {
+      "start": 1578.83,
+      "end": 1581.71,
+      "text": "extremely familiar to you what I've"
+    },
+    {
+      "start": 1581.71,
+      "end": 1583.47,
+      "text": "written down are pretty much these are"
+    },
+    {
+      "start": 1583.47,
+      "end": 1585.63,
+      "text": "not not quite but almost the same"
+    },
+    {
+      "start": 1585.63,
+      "end": 1588.269,
+      "text": "equations as I wrote down for the"
+    },
+    {
+      "start": 1588.269,
+      "end": 1590.71,
+      "text": "gussian discriminant analysis algorithm"
+    },
+    {
+      "start": 1590.71,
+      "end": 1595.07,
+      "text": "that we saw way back right except that"
+    },
+    {
+      "start": 1595.07,
+      "end": 1597.389,
+      "text": "the difference is um instead of I guess"
+    },
+    {
+      "start": 1597.389,
+      "end": 1600.149,
+      "text": "supervis learning were where we were"
+    },
+    {
+      "start": 1600.149,
+      "end": 1603.63,
+      "text": "given the class labels y I've now"
+    },
+    {
+      "start": 1603.63,
+      "end": 1605.43,
+      "text": "replaced why in Gan discrimin analysis"
+    },
+    {
+      "start": 1605.43,
+      "end": 1607.269,
+      "text": "of these latent random variables or"
+    },
+    {
+      "start": 1607.269,
+      "end": 1608.669,
+      "text": "these unobserved random variables Z and"
+    },
+    {
+      "start": 1608.669,
+      "end": 1610.99,
+      "text": "we don't actually know what the values"
+    },
+    {
+      "start": 1610.99,
+      "end": 1622.99,
+      "text": "of Z are"
+    },
+    {
+      "start": 1622.99,
+      "end": 1624.95,
+      "text": "um so just to make the link to gussan"
+    },
+    {
+      "start": 1624.95,
+      "end": 1627.51,
+      "text": "discrimin analysis even even a little"
+    },
+    {
+      "start": 1627.51,
+      "end": 1634.909,
+      "text": "more explicit right um if we knew what"
+    },
+    {
+      "start": 1634.909,
+      "end": 1636.23,
+      "text": "were um which which we actually don't"
+    },
+    {
+      "start": 1636.23,
+      "end": 1639.149,
+      "text": "but you know supposed for the sake of"
+    },
+    {
+      "start": 1639.149,
+      "end": 1641.669,
+      "text": "argument that we actually knew which of"
+    },
+    {
+      "start": 1641.669,
+      "end": 1645.35,
+      "text": "say the two Gans each of our data points"
+    },
+    {
+      "start": 1645.35,
+      "end": 1646.51,
+      "text": "came from then um you can use maximum"
+    },
+    {
+      "start": 1646.51,
+      "end": 1648.99,
+      "text": "likelihood"
+    },
+    {
+      "start": 1648.99,
+      "end": 1650.47,
+      "text": "estimation"
+    },
+    {
+      "start": 1650.47,
+      "end": 1652.909,
+      "text": "right you can write down the likelihood"
+    },
+    {
+      "start": 1652.909,
+      "end": 1665.43,
+      "text": "or the log likelihood of the parameters"
+    },
+    {
+      "start": 1665.43,
+      "end": 1666.549,
+      "text": "that and um you can then use Maxim"
+    },
+    {
+      "start": 1666.549,
+      "end": 1668.95,
+      "text": "likely"
+    },
+    {
+      "start": 1668.95,
+      "end": 1672.789,
+      "text": "estimation you know and you get exactly"
+    },
+    {
+      "start": 1672.789,
+      "end": 1706.75,
+      "text": "the same formulas as in Gan discrimin"
+    },
+    {
+      "start": 1706.75,
+      "end": 1710.63,
+      "text": "okay so if you knew the values for Z you"
+    },
+    {
+      "start": 1710.63,
+      "end": 1713.149,
+      "text": "can write down the log likelihood um and"
+    },
+    {
+      "start": 1713.149,
+      "end": 1714.789,
+      "text": "do maximum likelihood this way and you"
+    },
+    {
+      "start": 1714.789,
+      "end": 1715.509,
+      "text": "can then estimate all the parameters of"
+    },
+    {
+      "start": 1715.509,
+      "end": 1719.31,
+      "text": "your"
+    },
+    {
+      "start": 1719.31,
+      "end": 1720.789,
+      "text": "model um does this make sense raise your"
+    },
+    {
+      "start": 1720.789,
+      "end": 1723.87,
+      "text": "hand if this makes"
+    },
+    {
+      "start": 1723.87,
+      "end": 1725.07,
+      "text": "sense yeah okay cool some of you did"
+    },
+    {
+      "start": 1725.07,
+      "end": 1727.71,
+      "text": "some of you have questions some of you"
+    },
+    {
+      "start": 1727.71,
+      "end": 1732.19,
+      "text": "didn't raise your hand yeah so each Z is"
+    },
+    {
+      "start": 1732.19,
+      "end": 1753.47,
+      "text": "it's just a label like an X or an o oh"
+    },
+    {
+      "start": 1753.47,
+      "end": 1755.269,
+      "text": "so right so if you knew the CLA label if"
+    },
+    {
+      "start": 1755.269,
+      "end": 1757.029,
+      "text": "if if you knew the values of Z's Z"
+    },
+    {
+      "start": 1757.029,
+      "end": 1759.509,
+      "text": "playing a similar role to the CL labels"
+    },
+    {
+      "start": 1759.509,
+      "end": 1761.269,
+      "text": "in Galan disc analysis then you could"
+    },
+    {
+      "start": 1761.269,
+      "end": 1762.63,
+      "text": "use M then you could use maximum likely"
+    },
+    {
+      "start": 1762.63,
+      "end": 1765.389,
+      "text": "estimation of the"
+    },
+    {
+      "start": 1765.389,
+      "end": 1766.909,
+      "text": "parameters um but in reality we don't"
+    },
+    {
+      "start": 1766.909,
+      "end": 1769.87,
+      "text": "actually know the values of the Z's all"
+    },
+    {
+      "start": 1769.87,
+      "end": 1772.83,
+      "text": "we're given is this unlabeled data set"
+    },
+    {
+      "start": 1772.83,
+      "end": 1776.19,
+      "text": "and so let me WR write down a specific"
+    },
+    {
+      "start": 1776.19,
+      "end": 1780.47,
+      "text": "bootstrap procedure in which the idea is"
+    },
+    {
+      "start": 1780.47,
+      "end": 1783.029,
+      "text": "that um we're going to use our model to"
+    },
+    {
+      "start": 1783.029,
+      "end": 1784.59,
+      "text": "try to guess what the values of Z is so"
+    },
+    {
+      "start": 1784.59,
+      "end": 1787.75,
+      "text": "we don't know the Val of Z but we'll"
+    },
+    {
+      "start": 1787.75,
+      "end": 1789.83,
+      "text": "just take a guess at the values of Z and"
+    },
+    {
+      "start": 1789.83,
+      "end": 1791.87,
+      "text": "um we'll then use you know so the values"
+    },
+    {
+      "start": 1791.87,
+      "end": 1794.149,
+      "text": "of Z that we guess to fit the parameters"
+    },
+    {
+      "start": 1794.149,
+      "end": 1795.35,
+      "text": "of the rest of the model and then we"
+    },
+    {
+      "start": 1795.35,
+      "end": 1796.63,
+      "text": "actually should iterate and now that we"
+    },
+    {
+      "start": 1796.63,
+      "end": 1798.19,
+      "text": "have a slightly better estimate for the"
+    },
+    {
+      "start": 1798.19,
+      "end": 1799.71,
+      "text": "parameters of the rest the model we'll"
+    },
+    {
+      "start": 1799.71,
+      "end": 1801.669,
+      "text": "then take another guess for what the"
+    },
+    {
+      "start": 1801.669,
+      "end": 1803.149,
+      "text": "values of Z are and then we'll sort of"
+    },
+    {
+      "start": 1803.149,
+      "end": 1806.11,
+      "text": "use something like the maxim lik"
+    },
+    {
+      "start": 1806.11,
+      "end": 1808.029,
+      "text": "estimation formulas to F even better"
+    },
+    {
+      "start": 1808.029,
+      "end": 1833.75,
+      "text": "setting of paramis with the"
+    },
+    {
+      "start": 1833.75,
+      "end": 1840.95,
+      "text": "so the Al I'm going to write down is um"
+    },
+    {
+      "start": 1840.95,
+      "end": 1849.789,
+      "text": "algorithm and it proceeds as"
+    },
+    {
+      "start": 1849.789,
+      "end": 1859.669,
+      "text": "convergence in the esep we're going to"
+    },
+    {
+      "start": 1859.669,
+      "end": 1881.87,
+      "text": "values of the unknown zis and in"
+    },
+    {
+      "start": 1881.87,
+      "end": 1884.83,
+      "text": "J okay so I'm going to compute the"
+    },
+    {
+      "start": 1884.83,
+      "end": 1886.669,
+      "text": "probability that Z is equal to J so I'm"
+    },
+    {
+      "start": 1886.669,
+      "end": 1888.549,
+      "text": "going to use the rest of the parameters"
+    },
+    {
+      "start": 1888.549,
+      "end": 1891.909,
+      "text": "of my model I'm going to compute the"
+    },
+    {
+      "start": 1891.909,
+      "end": 1895.629,
+      "text": "probability that um Point"
+    },
+    {
+      "start": 1895.629,
+      "end": 1899.35,
+      "text": "XI came from Gan number"
+    },
+    {
+      "start": 1899.35,
+      "end": 1901.23,
+      "text": "J um and just to be S of concrete about"
+    },
+    {
+      "start": 1901.23,
+      "end": 1916.149,
+      "text": "what I mean by this this means that I'm"
+    },
+    {
+      "start": 1916.149,
+      "end": 1938.43,
+      "text": "XI this step is um sort of by Bas zero I"
+    },
+    {
+      "start": 1938.43,
+      "end": 1940.35,
+      "text": "um and and again just be completely"
+    },
+    {
+      "start": 1940.35,
+      "end": 1944.029,
+      "text": "concrete about what I mean by this the"
+    },
+    {
+      "start": 1944.029,
+      "end": 1946.549,
+      "text": "numerator P of XI given Z equals J you"
+    },
+    {
+      "start": 1946.549,
+      "end": 1970.83,
+      "text": "know well that's the gussian density"
+    },
+    {
+      "start": 1970.83,
+      "end": 1972.87,
+      "text": "the right that's P of x i given zal J"
+    },
+    {
+      "start": 1972.87,
+      "end": 1977.509,
+      "text": "time P of Z equals"
+    },
+    {
+      "start": 1977.509,
+      "end": 1982.07,
+      "text": "J um that is just equal to f j and then"
+    },
+    {
+      "start": 1982.07,
+      "end": 1987.11,
+      "text": "divide it by you know sum from Lal"
+    },
+    {
+      "start": 1987.11,
+      "end": 1988.509,
+      "text": "1 to K of so the same thing of of of you"
+    },
+    {
+      "start": 1988.509,
+      "end": 1990.99,
+      "text": "essentially the same thing but with J"
+    },
+    {
+      "start": 1990.99,
+      "end": 1993.269,
+      "text": "replaced by L okay so you plug in the"
+    },
+    {
+      "start": 1993.269,
+      "end": 1996.549,
+      "text": "formula for the gcia in the numerator"
+    },
+    {
+      "start": 1996.549,
+      "end": 2000.31,
+      "text": "and the sum over similar terms in the"
+    },
+    {
+      "start": 2000.31,
+      "end": 2002.71,
+      "text": "denominator excuse me this is a sum"
+    },
+    {
+      "start": 2002.71,
+      "end": 2005.95,
+      "text": "from"
+    },
+    {
+      "start": 2005.95,
+      "end": 2013.789,
+      "text": "well some from Lal 1 through K in the"
+    },
+    {
+      "start": 2013.789,
+      "end": 2034.07,
+      "text": "um"
+    },
+    {
+      "start": 2034.07,
+      "end": 2036.23,
+      "text": "see so that was the first half of the"
+    },
+    {
+      "start": 2036.23,
+      "end": 2038.07,
+      "text": "algorithm um the other step is the m"
+    },
+    {
+      "start": 2038.07,
+      "end": 2040.59,
+      "text": "step"
+    },
+    {
+      "start": 2040.59,
+      "end": 2042.47,
+      "text": "um the maximization step where you would"
+    },
+    {
+      "start": 2042.47,
+      "end": 2044.35,
+      "text": "then update your estimates of the"
+    },
+    {
+      "start": 2044.35,
+      "end": 2047.83,
+      "text": "parameters so I'll just write down the"
+    },
+    {
+      "start": 2047.83,
+      "end": 2051.349,
+      "text": "formulas here um when you see these you"
+    },
+    {
+      "start": 2051.349,
+      "end": 2104.15,
+      "text": "should compare them to um the formulas"
+    },
+    {
+      "start": 2104.15,
+      "end": 2106.03,
+      "text": "like so and"
+    },
+    {
+      "start": 2106.03,
+      "end": 2107.95,
+      "text": "um"
+    },
+    {
+      "start": 2107.95,
+      "end": 2110.55,
+      "text": "so"
+    },
+    {
+      "start": 2110.55,
+      "end": 2113.03,
+      "text": "um these two formulas on top are very"
+    },
+    {
+      "start": 2113.03,
+      "end": 2115.95,
+      "text": "similar to what you saw for G discre"
+    },
+    {
+      "start": 2115.95,
+      "end": 2119.47,
+      "text": "analysis except that now um we have"
+    },
+    {
+      "start": 2119.47,
+      "end": 2122.069,
+      "text": "these soft weights so wij is you"
+    },
+    {
+      "start": 2122.069,
+      "end": 2125.31,
+      "text": "remember was the probability we computed"
+    },
+    {
+      "start": 2125.31,
+      "end": 2127.55,
+      "text": "that point I came from you know gaussian"
+    },
+    {
+      "start": 2127.55,
+      "end": 2129.63,
+      "text": "Al so of quote I don't want to call it"
+    },
+    {
+      "start": 2129.63,
+      "end": 2131.87,
+      "text": "cluster J but let's call it Point"
+    },
+    {
+      "start": 2131.87,
+      "end": 2135.55,
+      "text": "probably the point time came from"
+    },
+    {
+      "start": 2135.55,
+      "end": 2137.67,
+      "text": "gussian J um rather than an indicator"
+    },
+    {
+      "start": 2137.67,
+      "end": 2139.67,
+      "text": "for where the point I came from Gan J"
+    },
+    {
+      "start": 2139.67,
+      "end": 2142.39,
+      "text": "right and"
+    },
+    {
+      "start": 2142.39,
+      "end": 2144.95,
+      "text": "um the one slight difference between"
+    },
+    {
+      "start": 2144.95,
+      "end": 2146.23,
+      "text": "this and one one one other sort of"
+    },
+    {
+      "start": 2146.23,
+      "end": 2148.39,
+      "text": "difference between this and the forms we"
+    },
+    {
+      "start": 2148.39,
+      "end": 2150.99,
+      "text": "have Gan disc analysis is that in the"
+    },
+    {
+      "start": 2150.99,
+      "end": 2153.109,
+      "text": "mixture of Gans we often we more"
+    },
+    {
+      "start": 2153.109,
+      "end": 2156.109,
+      "text": "commonly use different coari matrices"
+    },
+    {
+      "start": 2156.109,
+      "end": 2158.79,
+      "text": "for the different Gins so in Gin discre"
+    },
+    {
+      "start": 2158.79,
+      "end": 2161.309,
+      "text": "analysis so by convention you usually"
+    },
+    {
+      "start": 2161.309,
+      "end": 2164.23,
+      "text": "model all all of the classes of the same"
+    },
+    {
+      "start": 2164.23,
+      "end": 2167.79,
+      "text": "covariance Matrix Sigma um when you fing"
+    },
+    {
+      "start": 2167.79,
+      "end": 2170.63,
+      "text": "mixes of Gans models is is sort of uh"
+    },
+    {
+      "start": 2170.63,
+      "end": 2172.15,
+      "text": "not always but sometimes you allow the"
+    },
+    {
+      "start": 2172.15,
+      "end": 2174.63,
+      "text": "covariance Matrix for your different"
+    },
+    {
+      "start": 2174.63,
+      "end": 2176.47,
+      "text": "Gans to vary and so represent on the"
+    },
+    {
+      "start": 2176.47,
+      "end": 2178.95,
+      "text": "formulation we have a different ciance"
+    },
+    {
+      "start": 2178.95,
+      "end": 2180.55,
+      "text": "Matrix Sigma J for every calcium and"
+    },
+    {
+      "start": 2180.55,
+      "end": 2184.15,
+      "text": "that's the corresponding way of"
+    },
+    {
+      "start": 2184.15,
+      "end": 2185.55,
+      "text": "estimating it okay so I just wrote down"
+    },
+    {
+      "start": 2185.55,
+      "end": 2187.03,
+      "text": "a lot of equations let just take a"
+    },
+    {
+      "start": 2187.03,
+      "end": 2218.54,
+      "text": "second to look at this and make sure it"
+    },
+    {
+      "start": 2218.54,
+      "end": 2219.95,
+      "text": "this"
+    },
+    {
+      "start": 2219.95,
+      "end": 2221.71,
+      "text": "[Applause]"
+    },
+    {
+      "start": 2221.71,
+      "end": 2223.95,
+      "text": "raise your hand if this makes intuitive"
+    },
+    {
+      "start": 2223.95,
+      "end": 2229.03,
+      "text": "sense why this seems reasonable by"
+    },
+    {
+      "start": 2229.03,
+      "end": 2231.19,
+      "text": "analogy to GDA yeah okay only some of"
+    },
+    {
+      "start": 2231.19,
+      "end": 2233.39,
+      "text": "you"
+    },
+    {
+      "start": 2233.39,
+      "end": 2235.99,
+      "text": "um let's"
+    },
+    {
+      "start": 2235.99,
+      "end": 2245.589,
+      "text": "see so let try to explain that a little"
+    },
+    {
+      "start": 2245.589,
+      "end": 2248.19,
+      "text": "analysis right if we knew if well or"
+    },
+    {
+      "start": 2248.19,
+      "end": 2250.43,
+      "text": "rather if we knew the values for the zis"
+    },
+    {
+      "start": 2250.43,
+      "end": 2252.23,
+      "text": "so"
+    },
+    {
+      "start": 2252.23,
+      "end": 2254.95,
+      "text": "um let's"
+    },
+    {
+      "start": 2254.95,
+      "end": 2256.91,
+      "text": "see suppose I was to give you a label"
+    },
+    {
+      "start": 2256.91,
+      "end": 2259.87,
+      "text": "data set supposed I were to tell you the"
+    },
+    {
+      "start": 2259.87,
+      "end": 2262.75,
+      "text": "values of the zis for each example then"
+    },
+    {
+      "start": 2262.75,
+      "end": 2265.19,
+      "text": "not be giving you a data set that looks"
+    },
+    {
+      "start": 2265.19,
+      "end": 2268.43,
+      "text": "like this"
+    },
+    {
+      "start": 2268.43,
+      "end": 2271.03,
+      "text": "right right so here's my 1D data set"
+    },
+    {
+      "start": 2271.03,
+      "end": 2275.39,
+      "text": "that's sort of a typical 1D G discre"
+    },
+    {
+      "start": 2275.39,
+      "end": 2277.71,
+      "text": "analysis problem and so um for G discre"
+    },
+    {
+      "start": 2277.71,
+      "end": 2279.63,
+      "text": "analysis we we figured out the maximum"
+    },
+    {
+      "start": 2279.63,
+      "end": 2280.95,
+      "text": "likelihood estimation the maximum"
+    },
+    {
+      "start": 2280.95,
+      "end": 2281.75,
+      "text": "likelihood estimate for the parameters"
+    },
+    {
+      "start": 2281.75,
+      "end": 2284.91,
+      "text": "of"
+    },
+    {
+      "start": 2284.91,
+      "end": 2289.91,
+      "text": "GDA and um you know one of the estimates"
+    },
+    {
+      "start": 2289.91,
+      "end": 2291.91,
+      "text": "for the parameters for GDA was um FJ"
+    },
+    {
+      "start": 2291.91,
+      "end": 2294.47,
+      "text": "which is the"
+    },
+    {
+      "start": 2294.47,
+      "end": 2297.75,
+      "text": "probability right that"
+    },
+    {
+      "start": 2297.75,
+      "end": 2302.15,
+      "text": "um I guess Z equals"
+    },
+    {
+      "start": 2302.15,
+      "end": 2305.75,
+      "text": "J you know you would estimate that as"
+    },
+    {
+      "start": 2305.75,
+      "end": 2309.91,
+      "text": "sum over IAL sum over I from 1 to M"
+    },
+    {
+      "start": 2309.91,
+      "end": 2313.79,
+      "text": "zal"
+    },
+    {
+      "start": 2313.79,
+      "end": 2315.87,
+      "text": "J divide by n okay um when we when we"
+    },
+    {
+      "start": 2315.87,
+      "end": 2318.23,
+      "text": "have when we're deriving GDA we wrote y"
+    },
+    {
+      "start": 2318.23,
+      "end": 2320.23,
+      "text": "instead of Z right but if you knew the"
+    },
+    {
+      "start": 2320.23,
+      "end": 2322.75,
+      "text": "class labels for every example in your"
+    },
+    {
+      "start": 2322.75,
+      "end": 2325.87,
+      "text": "class then this was your maximum likely"
+    },
+    {
+      "start": 2325.87,
+      "end": 2327.91,
+      "text": "estimate for the chance that um your"
+    },
+    {
+      "start": 2327.91,
+      "end": 2329.589,
+      "text": "labels came from the positive CLA versus"
+    },
+    {
+      "start": 2329.589,
+      "end": 2331.309,
+      "text": "the negative CLA it's just the fraction"
+    },
+    {
+      "start": 2331.309,
+      "end": 2333.63,
+      "text": "of example you maximum like could"
+    },
+    {
+      "start": 2333.63,
+      "end": 2336.589,
+      "text": "estimate for the you know probability of"
+    },
+    {
+      "start": 2336.589,
+      "end": 2338.87,
+      "text": "getting an example from class J is just"
+    },
+    {
+      "start": 2338.87,
+      "end": 2340.43,
+      "text": "just the fraction of examples in your"
+    },
+    {
+      "start": 2340.43,
+      "end": 2342.55,
+      "text": "trading set that actually came from"
+    },
+    {
+      "start": 2342.55,
+      "end": 2349.27,
+      "text": "class J so this is a maxim likely"
+    },
+    {
+      "start": 2349.27,
+      "end": 2351.71,
+      "text": "analysis now in the mixture of"
+    },
+    {
+      "start": 2351.71,
+      "end": 2353.589,
+      "text": "gaussian's model in in the EM problem we"
+    },
+    {
+      "start": 2353.589,
+      "end": 2356.03,
+      "text": "don't actually have these class labels"
+    },
+    {
+      "start": 2356.03,
+      "end": 2358.95,
+      "text": "right we just have an unlabeled data set"
+    },
+    {
+      "start": 2358.95,
+      "end": 2361.39,
+      "text": "like this you just have a set of"
+    },
+    {
+      "start": 2361.39,
+      "end": 2363.069,
+      "text": "dots just I'm trying to draw the same"
+    },
+    {
+      "start": 2363.069,
+      "end": 2364.43,
+      "text": "data set as I had above but just with"
+    },
+    {
+      "start": 2364.43,
+      "end": 2367.23,
+      "text": "the Clause labels"
+    },
+    {
+      "start": 2367.23,
+      "end": 2370.87,
+      "text": "removed so now is as"
+    },
+    {
+      "start": 2370.87,
+      "end": 2384.349,
+      "text": "if you only get to observe the X"
+    },
+    {
+      "start": 2384.349,
+      "end": 2387.99,
+      "text": "right so the class labels"
+    },
+    {
+      "start": 2387.99,
+      "end": 2391.19,
+      "text": "unknown so in the EM"
+    },
+    {
+      "start": 2391.19,
+      "end": 2394.71,
+      "text": "algorithm we're going to try to take a"
+    },
+    {
+      "start": 2394.71,
+      "end": 2398.63,
+      "text": "guess for the values of the"
+    },
+    {
+      "start": 2398.63,
+      "end": 2400.51,
+      "text": "zis and specifically typically um in the"
+    },
+    {
+      "start": 2400.51,
+      "end": 2403.589,
+      "text": "Eep we"
+    },
+    {
+      "start": 2403.589,
+      "end": 2405.99,
+      "text": "computed you know wij was our current"
+    },
+    {
+      "start": 2405.99,
+      "end": 2407.829,
+      "text": "best guess for the probability that Z"
+    },
+    {
+      "start": 2407.829,
+      "end": 2411.15,
+      "text": "equals"
+    },
+    {
+      "start": 2411.15,
+      "end": 2414.03,
+      "text": "J given that data point okay so this"
+    },
+    {
+      "start": 2414.03,
+      "end": 2415.63,
+      "text": "just means given my current hypothesis"
+    },
+    {
+      "start": 2415.63,
+      "end": 2417.87,
+      "text": "so where the gaussians are and given"
+    },
+    {
+      "start": 2417.87,
+      "end": 2419.39,
+      "text": "everything else um can I compute the"
+    },
+    {
+      "start": 2419.39,
+      "end": 2422.47,
+      "text": "posterior probability what is the"
+    },
+    {
+      "start": 2422.47,
+      "end": 2425.109,
+      "text": "posterior probability that the point XI"
+    },
+    {
+      "start": 2425.109,
+      "end": 2427.19,
+      "text": "actually came from class J what what"
+    },
+    {
+      "start": 2427.19,
+      "end": 2429.109,
+      "text": "what is the probability that this point"
+    },
+    {
+      "start": 2429.109,
+      "end": 2430.63,
+      "text": "was a cross versus o what's the probity"
+    },
+    {
+      "start": 2430.63,
+      "end": 2432.79,
+      "text": "that this point was a cross versus of O"
+    },
+    {
+      "start": 2432.79,
+      "end": 2436.349,
+      "text": "and so"
+    },
+    {
+      "start": 2436.349,
+      "end": 2439.55,
+      "text": "on and now in the M"
+    },
+    {
+      "start": 2439.55,
+      "end": 2441.589,
+      "text": "step my formula for estimating the you"
+    },
+    {
+      "start": 2441.589,
+      "end": 2445.19,
+      "text": "know for for for trying to estimate my"
+    },
+    {
+      "start": 2445.19,
+      "end": 2448.47,
+      "text": "parameters 5j will be given by 1 / M sum"
+    },
+    {
+      "start": 2448.47,
+      "end": 2453.109,
+      "text": "from I = 1 through M sum of w i"
+    },
+    {
+      "start": 2453.109,
+      "end": 2456.91,
+      "text": "j okay and so the WIS here you know play"
+    },
+    {
+      "start": 2456.91,
+      "end": 2460.55,
+      "text": "the role of um soft versions I guess of"
+    },
+    {
+      "start": 2460.55,
+      "end": 2462.51,
+      "text": "of these indicated functions so wi J is"
+    },
+    {
+      "start": 2462.51,
+      "end": 2464.95,
+      "text": "right the probability is my best guess"
+    },
+    {
+      "start": 2464.95,
+      "end": 2470.47,
+      "text": "for the probability that point I belongs"
+    },
+    {
+      "start": 2470.47,
+      "end": 2473.43,
+      "text": "to um Gan or belongs to CL J and um so"
+    },
+    {
+      "start": 2473.43,
+      "end": 2476.47,
+      "text": "so I'll estimate my 5j using this"
+    },
+    {
+      "start": 2476.47,
+      "end": 2480.589,
+      "text": "formula instead of this"
+    },
+    {
+      "start": 2480.589,
+      "end": 2482.95,
+      "text": "one okay and um similarly this is my"
+    },
+    {
+      "start": 2482.95,
+      "end": 2487.55,
+      "text": "formula for the estimate for muj and if"
+    },
+    {
+      "start": 2487.55,
+      "end": 2490.47,
+      "text": "you replace the WIS with these indicator"
+    },
+    {
+      "start": 2490.47,
+      "end": 2493.79,
+      "text": "functions you get back to the formula"
+    },
+    {
+      "start": 2493.79,
+      "end": 2496.109,
+      "text": "that you had in G Indus"
+    },
+    {
+      "start": 2496.109,
+      "end": 2497.47,
+      "text": "analysis does this make some more sense"
+    },
+    {
+      "start": 2497.47,
+      "end": 2499.109,
+      "text": "just I'm trying to just convey an"
+    },
+    {
+      "start": 2499.109,
+      "end": 2500.67,
+      "text": "intuitive sense of why this algor would"
+    },
+    {
+      "start": 2500.67,
+      "end": 2502.99,
+      "text": "make sense can you raise your hand if"
+    },
+    {
+      "start": 2502.99,
+      "end": 2504.79,
+      "text": "this makes sense"
+    },
+    {
+      "start": 2504.79,
+      "end": 2508.39,
+      "text": "now"
+    },
+    {
+      "start": 2508.39,
+      "end": 2510.79,
+      "text": "okay um okay"
+    },
+    {
+      "start": 2510.79,
+      "end": 2514.99,
+      "text": "so that's the intuition of the EM"
+    },
+    {
+      "start": 2514.99,
+      "end": 2516.99,
+      "text": "algorithm um it turns out that the way I"
+    },
+    {
+      "start": 2516.99,
+      "end": 2519.71,
+      "text": "came up with these formulas is actually"
+    },
+    {
+      "start": 2519.71,
+      "end": 2521.39,
+      "text": "via slightly more General principle V"
+    },
+    {
+      "start": 2521.39,
+      "end": 2523.069,
+      "text": "via more General version of the EM"
+    },
+    {
+      "start": 2523.069,
+      "end": 2526.63,
+      "text": "algorithm which is what I'm going to"
+    },
+    {
+      "start": 2526.63,
+      "end": 2528.27,
+      "text": "talk about next so sort of I hope so so"
+    },
+    {
+      "start": 2528.27,
+      "end": 2529.87,
+      "text": "hope so I guess hopefully these"
+    },
+    {
+      "start": 2529.87,
+      "end": 2531.79,
+      "text": "equations making two to sense but"
+    },
+    {
+      "start": 2531.79,
+      "end": 2533.67,
+      "text": "exactly where they came from is an"
+    },
+    {
+      "start": 2533.67,
+      "end": 2536.109,
+      "text": "answer is a question I have answer a"
+    },
+    {
+      "start": 2536.109,
+      "end": 2560.99,
+      "text": "little bit later"
+    },
+    {
+      "start": 2560.99,
+      "end": 2564.19,
+      "text": "so what I want to do now is actually"
+    },
+    {
+      "start": 2564.19,
+      "end": 2566.95,
+      "text": "um present a broader view of the EM"
+    },
+    {
+      "start": 2566.95,
+      "end": 2569.99,
+      "text": "algorithm um what you just saw was a"
+    },
+    {
+      "start": 2569.99,
+      "end": 2573.069,
+      "text": "special case of the EM algorithm for"
+    },
+    {
+      "start": 2573.069,
+      "end": 2574.75,
+      "text": "specifically the mixture of gan's model"
+    },
+    {
+      "start": 2574.75,
+      "end": 2576.39,
+      "text": "um in the remaining half hour I have"
+    },
+    {
+      "start": 2576.39,
+      "end": 2577.349,
+      "text": "today I'm going to describe a General"
+    },
+    {
+      "start": 2577.349,
+      "end": 2580.27,
+      "text": "view of"
+    },
+    {
+      "start": 2580.27,
+      "end": 2582.51,
+      "text": "the the what the general description of"
+    },
+    {
+      "start": 2582.51,
+      "end": 2584.47,
+      "text": "the EM algorithm and everything you just"
+    },
+    {
+      "start": 2584.47,
+      "end": 2585.95,
+      "text": "saw will be derived s of as a special"
+    },
+    {
+      "start": 2585.95,
+      "end": 2596.829,
+      "text": "case of this more General view that I'll"
+    },
+    {
+      "start": 2596.829,
+      "end": 2599.15,
+      "text": "and as a precursor to actually"
+    },
+    {
+      "start": 2599.15,
+      "end": 2601.87,
+      "text": "presenting this to to deriving this more"
+    },
+    {
+      "start": 2601.87,
+      "end": 2603.67,
+      "text": "General view of the EM algorithm um we"
+    },
+    {
+      "start": 2603.67,
+      "end": 2605.79,
+      "text": "going to have to describe something"
+    },
+    {
+      "start": 2605.79,
+      "end": 2606.79,
+      "text": "called Jensen's inequality which we used"
+    },
+    {
+      "start": 2606.79,
+      "end": 2610.75,
+      "text": "in the"
+    },
+    {
+      "start": 2610.75,
+      "end": 2627.23,
+      "text": "derivation um so here's Jensen's"
+    },
+    {
+      "start": 2627.23,
+      "end": 2629.95,
+      "text": "um so a function is convex of a second"
+    },
+    {
+      "start": 2629.95,
+      "end": 2632.27,
+      "text": "derivative which I've written F prime or"
+    },
+    {
+      "start": 2632.27,
+      "end": 2633.43,
+      "text": "F prime prime is greater than zero right"
+    },
+    {
+      "start": 2633.43,
+      "end": 2635.15,
+      "text": "functions don't don't have to be"
+    },
+    {
+      "start": 2635.15,
+      "end": 2636.67,
+      "text": "differentiable to be convex but if it"
+    },
+    {
+      "start": 2636.67,
+      "end": 2638.829,
+      "text": "have has a secondary Conservative then"
+    },
+    {
+      "start": 2638.829,
+      "end": 2652.71,
+      "text": "frime Prime should be greater than"
+    },
+    {
+      "start": 2652.71,
+      "end": 2663.23,
+      "text": "variable"
+    },
+    {
+      "start": 2663.23,
+      "end": 2665.51,
+      "text": "then um the F applied to the expectation"
+    },
+    {
+      "start": 2665.51,
+      "end": 2669.79,
+      "text": "of X is less than or equal to the"
+    },
+    {
+      "start": 2669.79,
+      "end": 2671.349,
+      "text": "expectation of f ofx okay um and I hope"
+    },
+    {
+      "start": 2671.349,
+      "end": 2673.589,
+      "text": "you remember I often I'll drop the"
+    },
+    {
+      "start": 2673.589,
+      "end": 2675.069,
+      "text": "square brackets so F of e of X is you"
+    },
+    {
+      "start": 2675.069,
+      "end": 2677.829,
+      "text": "know this is the same as F of the"
+    },
+    {
+      "start": 2677.829,
+      "end": 2680.67,
+      "text": "expected value of x but when I'm writing"
+    },
+    {
+      "start": 2680.67,
+      "end": 2682.23,
+      "text": "expectations I often drop the square"
+    },
+    {
+      "start": 2682.23,
+      "end": 2684.549,
+      "text": "brackets"
+    },
+    {
+      "start": 2684.549,
+      "end": 2686.91,
+      "text": "um so let me draw a picture that will"
+    },
+    {
+      "start": 2686.91,
+      "end": 2689.91,
+      "text": "explain"
+    },
+    {
+      "start": 2689.91,
+      "end": 2691.75,
+      "text": "this and I think so many many many of my"
+    },
+    {
+      "start": 2691.75,
+      "end": 2694.23,
+      "text": "friends and I often you know don't"
+    },
+    {
+      "start": 2694.23,
+      "end": 2695.71,
+      "text": "remember so is this less than or greater"
+    },
+    {
+      "start": 2695.71,
+      "end": 2697.87,
+      "text": "than or whatever and and the way to"
+    },
+    {
+      "start": 2697.87,
+      "end": 2700.829,
+      "text": "remember remember this is is the way"
+    },
+    {
+      "start": 2700.829,
+      "end": 2703.95,
+      "text": "many of us remember the sign um of that"
+    },
+    {
+      "start": 2703.95,
+      "end": 2716.51,
+      "text": "inequality is by drawing exact the"
+    },
+    {
+      "start": 2716.51,
+      "end": 2724.87,
+      "text": "function here's a function f"
+    },
+    {
+      "start": 2724.87,
+      "end": 2733.23,
+      "text": "um"
+    },
+    {
+      "start": 2733.23,
+      "end": 2737.67,
+      "text": "okay um for this example let's say x is"
+    },
+    {
+      "start": 2737.67,
+      "end": 2741.47,
+      "text": "equal to 1 with probability 12 and X is"
+    },
+    {
+      "start": 2741.47,
+      "end": 2743.91,
+      "text": "equal to 6 with probability 12 okay so"
+    },
+    {
+      "start": 2743.91,
+      "end": 2744.87,
+      "text": "this a illustrate this inequality with"
+    },
+    {
+      "start": 2744.87,
+      "end": 2746.43,
+      "text": "an"
+    },
+    {
+      "start": 2746.43,
+      "end": 2754.15,
+      "text": "example"
+    },
+    {
+      "start": 2754.15,
+      "end": 2756.95,
+      "text": "so let's see so X is 1 with probability"
+    },
+    {
+      "start": 2756.95,
+      "end": 2759.91,
+      "text": "1/2 and X is 6 with probably 1"
+    },
+    {
+      "start": 2759.91,
+      "end": 2761.63,
+      "text": "and so the expected value of x is 3.5"
+    },
+    {
+      "start": 2761.63,
+      "end": 2764.43,
+      "text": "right it'll be in the middle"
+    },
+    {
+      "start": 2764.43,
+      "end": 2766.15,
+      "text": "here so that's the expected value of x"
+    },
+    {
+      "start": 2766.15,
+      "end": 2767.75,
+      "text": "right the the the horizontal axis here"
+    },
+    {
+      "start": 2767.75,
+      "end": 2772.47,
+      "text": "is the x"
+    },
+    {
+      "start": 2772.47,
+      "end": 2773.309,
+      "text": "axis and so um f of the expected value"
+    },
+    {
+      "start": 2773.309,
+      "end": 2776.309,
+      "text": "of"
+    },
+    {
+      "start": 2776.309,
+      "end": 2781.39,
+      "text": "x you can read off as this point here so"
+    },
+    {
+      "start": 2781.39,
+      "end": 2785.87,
+      "text": "this is f of the expected value of"
+    },
+    {
+      "start": 2785.87,
+      "end": 2787.109,
+      "text": "x whereas in contrast let's see if x is"
+    },
+    {
+      "start": 2787.109,
+      "end": 2789.79,
+      "text": "equal to"
+    },
+    {
+      "start": 2789.79,
+      "end": 2792.95,
+      "text": "1"
+    },
+    {
+      "start": 2792.95,
+      "end": 2796.71,
+      "text": "then well you know here's F of"
+    },
+    {
+      "start": 2796.71,
+      "end": 2800.15,
+      "text": "one and if x equal to"
+    },
+    {
+      "start": 2800.15,
+      "end": 2803.15,
+      "text": "6 then here's F of"
+    },
+    {
+      "start": 2803.15,
+      "end": 2806.39,
+      "text": "6"
+    },
+    {
+      "start": 2806.39,
+      "end": 2812.87,
+      "text": "and the expected value of f"
+    },
+    {
+      "start": 2812.87,
+      "end": 2830.95,
+      "text": "out is now averaging on the vertical"
+    },
+    {
+      "start": 2830.95,
+      "end": 2833.71,
+      "text": "with 50% chance um you get F of one with"
+    },
+    {
+      "start": 2833.71,
+      "end": 2835.71,
+      "text": "50% chance you get F of six and so the"
+    },
+    {
+      "start": 2835.71,
+      "end": 2837.67,
+      "text": "expected value of f ofx is the average"
+    },
+    {
+      "start": 2837.67,
+      "end": 2840.069,
+      "text": "of f of one and F of 6 which is going to"
+    },
+    {
+      "start": 2840.069,
+      "end": 2843.549,
+      "text": "be you know the value in the middle"
+    },
+    {
+      "start": 2843.549,
+      "end": 2846.03,
+      "text": "here and so in this example you see that"
+    },
+    {
+      "start": 2846.03,
+      "end": 2848.95,
+      "text": "you know the expected value of f ofx is"
+    },
+    {
+      "start": 2848.95,
+      "end": 2854.349,
+      "text": "greater than or equal to F of the"
+    },
+    {
+      "start": 2854.349,
+      "end": 2856.19,
+      "text": "expected value of x okay and um so an"
+    },
+    {
+      "start": 2856.19,
+      "end": 2877.589,
+      "text": "illustration of why G in equality holds"
+    },
+    {
+      "start": 2877.589,
+      "end": 2885.03,
+      "text": "um um and it turns out that"
+    },
+    {
+      "start": 2885.03,
+      "end": 2887.51,
+      "text": "further if um f Prime of X exists and is"
+    },
+    {
+      "start": 2887.51,
+      "end": 2900.069,
+      "text": "strictly greater than zero um if this"
+    },
+    {
+      "start": 2900.069,
+      "end": 2903.71,
+      "text": "convex then the inequality holds of"
+    },
+    {
+      "start": 2903.71,
+      "end": 2918.95,
+      "text": "equality or in other words e of f"
+    },
+    {
+      "start": 2918.95,
+      "end": 2921.109,
+      "text": "constant right with probability one well"
+    },
+    {
+      "start": 2921.109,
+      "end": 2923.95,
+      "text": "I guess I should write"
+    },
+    {
+      "start": 2923.95,
+      "end": 2935.829,
+      "text": "well another way of writing this is xals"
+    },
+    {
+      "start": 2935.829,
+      "end": 2939.15,
+      "text": "x okay so in other words if f is a"
+    },
+    {
+      "start": 2939.15,
+      "end": 2941.349,
+      "text": "strictly convex function then the only"
+    },
+    {
+      "start": 2941.349,
+      "end": 2944.19,
+      "text": "way for this inequality to hold with"
+    },
+    {
+      "start": 2944.19,
+      "end": 2946.43,
+      "text": "equality is if the random variable X you"
+    },
+    {
+      "start": 2946.43,
+      "end": 2948.39,
+      "text": "know always takes on the same value if x"
+    },
+    {
+      "start": 2948.39,
+      "end": 2955.99,
+      "text": "is equal to expect the value of probably"
+    },
+    {
+      "start": 2955.99,
+      "end": 2960.03,
+      "text": "it um"
+    },
+    {
+      "start": 2960.03,
+      "end": 2963.51,
+      "text": "further um s State everything for convex"
+    },
+    {
+      "start": 2963.51,
+      "end": 2965.67,
+      "text": "functions um turns out that if F Prime"
+    },
+    {
+      "start": 2965.67,
+      "end": 2968.03,
+      "text": "is less than equal to zero so if f is"
+    },
+    {
+      "start": 2968.03,
+      "end": 2969.589,
+      "text": "concave"
+    },
+    {
+      "start": 2969.589,
+      "end": 2972.99,
+      "text": "say"
+    },
+    {
+      "start": 2972.99,
+      "end": 2975.95,
+      "text": "um then everything holds but with the"
+    },
+    {
+      "start": 2975.95,
+      "end": 2979.99,
+      "text": "direction of the inequality reverse so F"
+    },
+    {
+      "start": 2979.99,
+      "end": 2986.91,
+      "text": "of e x is greater than equal to"
+    },
+    {
+      "start": 2986.91,
+      "end": 2989.39,
+      "text": "FX Etc okay so just if you have a"
+    },
+    {
+      "start": 2989.39,
+      "end": 2991.309,
+      "text": "concave function then um all the"
+    },
+    {
+      "start": 2991.309,
+      "end": 2992.87,
+      "text": "inequalities held the same way but just"
+    },
+    {
+      "start": 2992.87,
+      "end": 2995.91,
+      "text": "with the direction of the inequality of"
+    },
+    {
+      "start": 2995.91,
+      "end": 2997.63,
+      "text": "reverse um and it turns out later on"
+    },
+    {
+      "start": 2997.63,
+      "end": 2999.63,
+      "text": "when we derive the EM algorithm we"
+    },
+    {
+      "start": 2999.63,
+      "end": 3019.67,
+      "text": "actually use the concave version with"
+    },
+    {
+      "start": 3019.67,
+      "end": 3024.549,
+      "text": "this"
+    },
+    {
+      "start": 3024.549,
+      "end": 3026.75,
+      "text": "yeah oh other what is the strictly this"
+    },
+    {
+      "start": 3026.75,
+      "end": 3028.589,
+      "text": "oh I couldn't hear that what is what oh"
+    },
+    {
+      "start": 3028.589,
+      "end": 3032.19,
+      "text": "what is the strictly"
+    },
+    {
+      "start": 3032.19,
+      "end": 3033.789,
+      "text": "convex oh oh I see if F Prime of X is"
+    },
+    {
+      "start": 3033.789,
+      "end": 3038.03,
+      "text": "strictly greater than zero that's my"
+    },
+    {
+      "start": 3038.03,
+      "end": 3039.789,
+      "text": "definition for strictly convex um if if"
+    },
+    {
+      "start": 3039.789,
+      "end": 3041.67,
+      "text": "the second derivative of x is strictly"
+    },
+    {
+      "start": 3041.67,
+      "end": 3044.109,
+      "text": "greater than zero that's what it means"
+    },
+    {
+      "start": 3044.109,
+      "end": 3049.03,
+      "text": "for f to be strictly"
+    },
+    {
+      "start": 3049.03,
+      "end": 3052.109,
+      "text": "convex I see sure so um for example"
+    },
+    {
+      "start": 3052.109,
+      "end": 3053.95,
+      "text": "um this is an example of a convex"
+    },
+    {
+      "start": 3053.95,
+      "end": 3056.069,
+      "text": "function that's not strictly convex"
+    },
+    {
+      "start": 3056.069,
+      "end": 3059.95,
+      "text": "because there's po function is a"
+    },
+    {
+      "start": 3059.95,
+      "end": 3063.75,
+      "text": "straight line and so um f Prime will be"
+    },
+    {
+      "start": 3063.75,
+      "end": 3065.27,
+      "text": "zero in this portion so um so for"
+    },
+    {
+      "start": 3065.27,
+      "end": 3067.47,
+      "text": "example a quadratic function would be"
+    },
+    {
+      "start": 3067.47,
+      "end": 3071.829,
+      "text": "strictly convex"
+    },
+    {
+      "start": 3071.829,
+      "end": 3073.589,
+      "text": "um uh let's see yeah just a less form we"
+    },
+    {
+      "start": 3073.589,
+      "end": 3075.91,
+      "text": "saying strictly convex just means that"
+    },
+    {
+      "start": 3075.91,
+      "end": 3077.71,
+      "text": "you can't have a convex function within"
+    },
+    {
+      "start": 3077.71,
+      "end": 3080.43,
+      "text": "a straight line portion and then another"
+    },
+    {
+      "start": 3080.43,
+      "end": 3081.51,
+      "text": "straight it's speaking very informly and"
+    },
+    {
+      "start": 3081.51,
+      "end": 3112.47,
+      "text": "think of this as meaning that there"
+    },
+    {
+      "start": 3112.47,
+      "end": 3114.349,
+      "text": "so here's the derivation for um you the"
+    },
+    {
+      "start": 3114.349,
+      "end": 3120.51,
+      "text": "general version of"
+    },
+    {
+      "start": 3120.51,
+      "end": 3134.67,
+      "text": "um the problem we face is as follows we"
+    },
+    {
+      "start": 3134.67,
+      "end": 3137.349,
+      "text": "model right we have some model for the"
+    },
+    {
+      "start": 3137.349,
+      "end": 3145.95,
+      "text": "joint distribution of x and"
+    },
+    {
+      "start": 3145.95,
+      "end": 3149.03,
+      "text": "observe only X"
+    },
+    {
+      "start": 3149.03,
+      "end": 3163.109,
+      "text": "and our goal is"
+    },
+    {
+      "start": 3163.109,
+      "end": 3174.549,
+      "text": "um the log likelihood of the parametes"
+    },
+    {
+      "start": 3174.549,
+      "end": 3177.789,
+      "text": "model right so um we have a model for"
+    },
+    {
+      "start": 3177.789,
+      "end": 3179.75,
+      "text": "the joint distribu ution for x and z and"
+    },
+    {
+      "start": 3179.75,
+      "end": 3182.589,
+      "text": "our goal is to find the maximum likel"
+    },
+    {
+      "start": 3182.589,
+      "end": 3184.99,
+      "text": "estimate of the parameters Theta where"
+    },
+    {
+      "start": 3184.99,
+      "end": 3187.829,
+      "text": "um the likelihood is defined as you know"
+    },
+    {
+      "start": 3187.829,
+      "end": 3188.87,
+      "text": "Su from 1 to M log of the probity of a"
+    },
+    {
+      "start": 3188.87,
+      "end": 3196.47,
+      "text": "data as"
+    },
+    {
+      "start": 3196.47,
+      "end": 3200.71,
+      "text": "um and P of X parameterized by Theta is"
+    },
+    {
+      "start": 3200.71,
+      "end": 3202.63,
+      "text": "now given by um a sum over all the"
+    },
+    {
+      "start": 3202.63,
+      "end": 3211.15,
+      "text": "values of"
+    },
+    {
+      "start": 3211.15,
+      "end": 3213.87,
+      "text": "T parameterized by Theta okay so this is"
+    },
+    {
+      "start": 3213.87,
+      "end": 3216.19,
+      "text": "by it's by taking out model of the joint"
+    },
+    {
+      "start": 3216.19,
+      "end": 3220.51,
+      "text": "distribution of x and z and"
+    },
+    {
+      "start": 3220.51,
+      "end": 3238.27,
+      "text": "marginalizing out Z that we get p of x i"
+    },
+    {
+      "start": 3238.27,
+      "end": 3240.47,
+      "text": "um the EM algorithm will be a way of"
+    },
+    {
+      "start": 3240.47,
+      "end": 3242.829,
+      "text": "Performing this maximum likelihood"
+    },
+    {
+      "start": 3242.829,
+      "end": 3244.349,
+      "text": "estimation problem okay which is"
+    },
+    {
+      "start": 3244.349,
+      "end": 3247.03,
+      "text": "Complicated by the fact that we have"
+    },
+    {
+      "start": 3247.03,
+      "end": 3265.95,
+      "text": "these zis in our model that are"
+    },
+    {
+      "start": 3265.95,
+      "end": 3273.309,
+      "text": "so before I do the math um here's a"
+    },
+    {
+      "start": 3273.309,
+      "end": 3276.15,
+      "text": "mind so the horizontal axis in this"
+    },
+    {
+      "start": 3276.15,
+      "end": 3277.789,
+      "text": "Caron is the Theta axis and there some"
+    },
+    {
+      "start": 3277.789,
+      "end": 3289.549,
+      "text": "function you know the log likelihood of"
+    },
+    {
+      "start": 3289.549,
+      "end": 3291.43,
+      "text": "maximize okay and um usually maximizing"
+    },
+    {
+      "start": 3291.43,
+      "end": 3292.829,
+      "text": "L of theta you know by taking"
+    },
+    {
+      "start": 3292.829,
+      "end": 3295.87,
+      "text": "derivatives and saying the zero that"
+    },
+    {
+      "start": 3295.87,
+      "end": 3298.549,
+      "text": "would be very hard to do what the EM Alm"
+    },
+    {
+      "start": 3298.549,
+      "end": 3301.91,
+      "text": "will do is the following um let's you"
+    },
+    {
+      "start": 3301.91,
+      "end": 3305.23,
+      "text": "initialize the some value Theta 0 what"
+    },
+    {
+      "start": 3305.23,
+      "end": 3308.349,
+      "text": "the EM alv will end up doing is it will"
+    },
+    {
+      "start": 3308.349,
+      "end": 3309.51,
+      "text": "construct a lower Bound for this log"
+    },
+    {
+      "start": 3309.51,
+      "end": 3312.91,
+      "text": "likelihood"
+    },
+    {
+      "start": 3312.91,
+      "end": 3315.309,
+      "text": "function and this lower bound will be"
+    },
+    {
+      "start": 3315.309,
+      "end": 3318.349,
+      "text": "tight when other there a hold of"
+    },
+    {
+      "start": 3318.349,
+      "end": 3320.67,
+      "text": "equality um at your current guess of the"
+    },
+    {
+      "start": 3320.67,
+      "end": 3322.549,
+      "text": "parameters and we then maximize this"
+    },
+    {
+      "start": 3322.549,
+      "end": 3325.15,
+      "text": "lower bound with respect to Theta so"
+    },
+    {
+      "start": 3325.15,
+      "end": 3329.549,
+      "text": "we'll end up with say that value so so"
+    },
+    {
+      "start": 3329.549,
+      "end": 3330.71,
+      "text": "that will be Theta 1 okay and then em Al"
+    },
+    {
+      "start": 3330.71,
+      "end": 3337.47,
+      "text": "look at Theta 1 and they'll then"
+    },
+    {
+      "start": 3337.47,
+      "end": 3340.029,
+      "text": "bound um on L of theta and it'll"
+    },
+    {
+      "start": 3340.029,
+      "end": 3344.109,
+      "text": "maximize that say you jump here so"
+    },
+    {
+      "start": 3344.109,
+      "end": 3347.029,
+      "text": "that's index Thea 2 and we'll do that"
+    },
+    {
+      "start": 3347.029,
+      "end": 3350.829,
+      "text": "again to get to Thea"
+    },
+    {
+      "start": 3350.829,
+      "end": 3353.27,
+      "text": "3 the 4 and so on until you converge to"
+    },
+    {
+      "start": 3353.27,
+      "end": 3356.27,
+      "text": "to a local Optimum On The Log likelihood"
+    },
+    {
+      "start": 3356.27,
+      "end": 3358.43,
+      "text": "function Okay so so this is a cartoon"
+    },
+    {
+      "start": 3358.43,
+      "end": 3360.63,
+      "text": "that you know describes what the EM"
+    },
+    {
+      "start": 3360.63,
+      "end": 3384.71,
+      "text": "album would do so let's actually make"
+    },
+    {
+      "start": 3384.71,
+      "end": 3386.829,
+      "text": "so we want to maximize with respect to"
+    },
+    {
+      "start": 3386.829,
+      "end": 3398.51,
+      "text": "the"
+    },
+    {
+      "start": 3398.51,
+      "end": 3409.23,
+      "text": "log Theta um so this is sum over I"
+    },
+    {
+      "start": 3409.23,
+      "end": 3417.589,
+      "text": "Z"
+    },
+    {
+      "start": 3417.589,
+      "end": 3419.23,
+      "text": "so well I'm going to do is um multiply"
+    },
+    {
+      "start": 3419.23,
+      "end": 3437.47,
+      "text": "and divide by the same thing I'm going"
+    },
+    {
+      "start": 3437.47,
+      "end": 3440.549,
+      "text": "Q okay so um I'm going to construct the"
+    },
+    {
+      "start": 3440.549,
+      "end": 3443.15,
+      "text": "probability distribution"
+    },
+    {
+      "start": 3443.15,
+      "end": 3446.19,
+      "text": "Qi that'll be over these lat and random"
+    },
+    {
+      "start": 3446.19,
+      "end": 3448.71,
+      "text": "variables Z and and so you know these Qi"
+    },
+    {
+      "start": 3448.71,
+      "end": 3451.95,
+      "text": "would be a distribution so right each of"
+    },
+    {
+      "start": 3451.95,
+      "end": 3452.95,
+      "text": "the QI greater zero and sum over all the"
+    },
+    {
+      "start": 3452.95,
+      "end": 3455.63,
+      "text": "values of"
+    },
+    {
+      "start": 3455.63,
+      "end": 3458.87,
+      "text": "Z of"
+    },
+    {
+      "start": 3458.87,
+      "end": 3460.67,
+      "text": "Qi will be one so these Q's will be a"
+    },
+    {
+      "start": 3460.67,
+      "end": 3463.43,
+      "text": "prior distribution that I get to"
+    },
+    {
+      "start": 3463.43,
+      "end": 3466.27,
+      "text": "construct okay and I'll and I'll later"
+    },
+    {
+      "start": 3466.27,
+      "end": 3468.27,
+      "text": "go and I I'll later describe my the"
+    },
+    {
+      "start": 3468.27,
+      "end": 3469.109,
+      "text": "specific choice of this distribution Qi"
+    },
+    {
+      "start": 3469.109,
+      "end": 3475.71,
+      "text": "that I'll"
+    },
+    {
+      "start": 3475.71,
+      "end": 3477.51,
+      "text": "um so now"
+    },
+    {
+      "start": 3477.51,
+      "end": 3481.27,
+      "text": "you know this Qi is a probability"
+    },
+    {
+      "start": 3481.27,
+      "end": 3484.63,
+      "text": "distribution over the random variable"
+    },
+    {
+      "start": 3484.63,
+      "end": 3487.109,
+      "text": "Z so this in summation is sort of sum"
+    },
+    {
+      "start": 3487.109,
+      "end": 3490.15,
+      "text": "over Z of the probability of Z times"
+    },
+    {
+      "start": 3490.15,
+      "end": 3492.19,
+      "text": "some function of Z and so this in"
+    },
+    {
+      "start": 3492.19,
+      "end": 3496.549,
+      "text": "summation is really an"
+    },
+    {
+      "start": 3496.549,
+      "end": 3499.029,
+      "text": "expectation well is really the expected"
+    },
+    {
+      "start": 3499.029,
+      "end": 3503.71,
+      "text": "value"
+    },
+    {
+      "start": 3503.71,
+      "end": 3516.109,
+      "text": "of that of the thing"
+    },
+    {
+      "start": 3516.109,
+      "end": 3518.27,
+      "text": "right where the expectation is with"
+    },
+    {
+      "start": 3518.27,
+      "end": 3521.069,
+      "text": "respect to the distribution of the"
+    },
+    {
+      "start": 3521.069,
+      "end": 3525.029,
+      "text": "random variable Z drawn from the"
+    },
+    {
+      "start": 3525.029,
+      "end": 3526.51,
+      "text": "distribution Qi right so if so you think"
+    },
+    {
+      "start": 3526.51,
+      "end": 3529.15,
+      "text": "what does it mean to take the expected"
+    },
+    {
+      "start": 3529.15,
+      "end": 3531.71,
+      "text": "value of this formula respect to Z drawn"
+    },
+    {
+      "start": 3531.71,
+      "end": 3534.67,
+      "text": "from a distribution Qi well it's just"
+    },
+    {
+      "start": 3534.67,
+      "end": 3537.71,
+      "text": "sum over all the values of Z of the prob"
+    },
+    {
+      "start": 3537.71,
+      "end": 3540.43,
+      "text": "probility of Z times that function of"
+    },
+    {
+      "start": 3540.43,
+      "end": 3541.91,
+      "text": "Z right I'm seeing some frowning I'm"
+    },
+    {
+      "start": 3541.91,
+      "end": 3582.15,
+      "text": "seeing some frowns you have questions"
+    },
+    {
+      "start": 3582.15,
+      "end": 3584.67,
+      "text": "so right this is the um so the log"
+    },
+    {
+      "start": 3584.67,
+      "end": 3586.19,
+      "text": "function looks like that and it's a"
+    },
+    {
+      "start": 3586.19,
+      "end": 3588.99,
+      "text": "concave"
+    },
+    {
+      "start": 3588.99,
+      "end": 3593.63,
+      "text": "function so that tells us that the log"
+    },
+    {
+      "start": 3593.63,
+      "end": 3596.069,
+      "text": "of e e of X is greater than or equal"
+    },
+    {
+      "start": 3596.069,
+      "end": 3598.75,
+      "text": "to"
+    },
+    {
+      "start": 3598.75,
+      "end": 3600.27,
+      "text": "the expected value of log X by S of the"
+    },
+    {
+      "start": 3600.27,
+      "end": 3602.71,
+      "text": "you know the concave function form of"
+    },
+    {
+      "start": 3602.71,
+      "end": 3605.309,
+      "text": "Jensen's"
+    },
+    {
+      "start": 3605.309,
+      "end": 3609.87,
+      "text": "inequality and so continuing from the"
+    },
+    {
+      "start": 3609.87,
+      "end": 3613.39,
+      "text": "previous expression um we have um what's"
+    },
+    {
+      "start": 3613.39,
+      "end": 3616.029,
+      "text": "this right log of an expectation well"
+    },
+    {
+      "start": 3616.029,
+      "end": 3618.19,
+      "text": "this is Sumari of log of an expectation"
+    },
+    {
+      "start": 3618.19,
+      "end": 3619.67,
+      "text": "that must therefore be greater than or"
+    },
+    {
+      "start": 3619.67,
+      "end": 3626.029,
+      "text": "equal"
+    },
+    {
+      "start": 3626.029,
+      "end": 3627.39,
+      "text": "value"
+    },
+    {
+      "start": 3627.39,
+      "end": 3653.39,
+      "text": "of the"
+    },
+    {
+      "start": 3653.39,
+      "end": 3680.75,
+      "text": "inquality and lastly just to expand out"
+    },
+    {
+      "start": 3680.75,
+      "end": 3683.43,
+      "text": "that"
+    },
+    {
+      "start": 3683.43,
+      "end": 3691.87,
+      "text": "okay"
+    },
+    {
+      "start": 3691.87,
+      "end": 3694.67,
+      "text": "oh how I got from this set to this set"
+    },
+    {
+      "start": 3694.67,
+      "end": 3696.87,
+      "text": "yeah okay so how"
+    },
+    {
+      "start": 3696.87,
+      "end": 3698.789,
+      "text": "this we'll"
+    },
+    {
+      "start": 3698.789,
+      "end": 3700.87,
+      "text": "see"
+    },
+    {
+      "start": 3700.87,
+      "end": 3703.069,
+      "text": "so"
+    },
+    {
+      "start": 3703.069,
+      "end": 3706.27,
+      "text": "well"
+    },
+    {
+      "start": 3706.27,
+      "end": 3709.51,
+      "text": "um here's well let's say let's say I"
+    },
+    {
+      "start": 3709.51,
+      "end": 3711.71,
+      "text": "have some random variable Z right and"
+    },
+    {
+      "start": 3711.71,
+      "end": 3713.43,
+      "text": "you know Z has some distribution written"
+    },
+    {
+      "start": 3713.43,
+      "end": 3716.23,
+      "text": "by denoted"
+    },
+    {
+      "start": 3716.23,
+      "end": 3717.269,
+      "text": "p and let's say it has some function G"
+    },
+    {
+      "start": 3717.269,
+      "end": 3721.95,
+      "text": "of"
+    },
+    {
+      "start": 3721.95,
+      "end": 3725.269,
+      "text": "Z okay then by definition the"
+    },
+    {
+      "start": 3725.269,
+      "end": 3727.87,
+      "text": "expectation the expected value of G of Z"
+    },
+    {
+      "start": 3727.87,
+      "end": 3730.67,
+      "text": "right by definition that's equal to sum"
+    },
+    {
+      "start": 3730.67,
+      "end": 3732.47,
+      "text": "over all the values of Z the probability"
+    },
+    {
+      "start": 3732.47,
+      "end": 3735.47,
+      "text": "of that value of"
+    },
+    {
+      "start": 3735.47,
+      "end": 3739.51,
+      "text": "Z times G of Z right that's that's the"
+    },
+    {
+      "start": 3739.51,
+      "end": 3743.99,
+      "text": "definition of an expectation of a random"
+    },
+    {
+      "start": 3743.99,
+      "end": 3745.109,
+      "text": "variable and so the way I got from this"
+    },
+    {
+      "start": 3745.109,
+      "end": 3748.95,
+      "text": "step"
+    },
+    {
+      "start": 3748.95,
+      "end": 3751.63,
+      "text": "to this step is by using that um so in"
+    },
+    {
+      "start": 3751.63,
+      "end": 3754.39,
+      "text": "particular now"
+    },
+    {
+      "start": 3754.39,
+      "end": 3757.71,
+      "text": "um I'm I've been using the distribution"
+    },
+    {
+      "start": 3757.71,
+      "end": 3761.23,
+      "text": "Qi to denote the distribution of Z so"
+    },
+    {
+      "start": 3761.23,
+      "end": 3764.19,
+      "text": "this is like sum over Z of P of Z * G of"
+    },
+    {
+      "start": 3764.19,
+      "end": 3767.71,
+      "text": "Z right so this thing is you know this"
+    },
+    {
+      "start": 3767.71,
+      "end": 3773.71,
+      "text": "thing plays a row of P of Z and this"
+    },
+    {
+      "start": 3773.71,
+      "end": 3778.63,
+      "text": "here plays a role of G of Z in that in"
+    },
+    {
+      "start": 3778.63,
+      "end": 3782.029,
+      "text": "what I wrote above right and so um this"
+    },
+    {
+      "start": 3782.029,
+      "end": 3783.91,
+      "text": "is just you know the expected value we"
+    },
+    {
+      "start": 3783.91,
+      "end": 3788.549,
+      "text": "respect to a random variable Z drawn"
+    },
+    {
+      "start": 3788.549,
+      "end": 3793.47,
+      "text": "from the distribution Q of G of Z does"
+    },
+    {
+      "start": 3793.47,
+      "end": 3796.309,
+      "text": "that make sense yeah are there other"
+    },
+    {
+      "start": 3796.309,
+      "end": 3798.51,
+      "text": "questions yeah so so in general when"
+    },
+    {
+      "start": 3798.51,
+      "end": 3801.99,
+      "text": "you're doing um maximum likelihood"
+    },
+    {
+      "start": 3801.99,
+      "end": 3804.91,
+      "text": "estimation choose the probability of or"
+    },
+    {
+      "start": 3804.91,
+      "end": 3806.23,
+      "text": "the likelihood of the data um"
+    },
+    {
+      "start": 3806.23,
+      "end": 3808.47,
+      "text": "but in this case you only say"
+    },
+    {
+      "start": 3808.47,
+      "end": 3810.829,
+      "text": "probability of X because you only have"
+    },
+    {
+      "start": 3810.829,
+      "end": 3812.829,
+      "text": "observed X whereas previously we say"
+    },
+    {
+      "start": 3812.829,
+      "end": 3814.589,
+      "text": "probability of x given the labels yeah"
+    },
+    {
+      "start": 3814.589,
+      "end": 3815.75,
+      "text": "right exactly right so right normally in"
+    },
+    {
+      "start": 3815.75,
+      "end": 3818.19,
+      "text": "Maxim"
+    },
+    {
+      "start": 3818.19,
+      "end": 3819.63,
+      "text": "estimation uh we want to choose the"
+    },
+    {
+      "start": 3819.63,
+      "end": 3821.789,
+      "text": "parameters that maximizes the"
+    },
+    {
+      "start": 3821.789,
+      "end": 3824.47,
+      "text": "probability of the data so right and in"
+    },
+    {
+      "start": 3824.47,
+      "end": 3827.069,
+      "text": "this case our data comprises only the"
+    },
+    {
+      "start": 3827.069,
+      "end": 3829.43,
+      "text": "X's so because we don't observe the Z's"
+    },
+    {
+      "start": 3829.43,
+      "end": 3832.069,
+      "text": "and therefore um you know the log"
+    },
+    {
+      "start": 3832.069,
+      "end": 3834.39,
+      "text": "likelihood of our data excuse me the the"
+    },
+    {
+      "start": 3834.39,
+      "end": 3836.549,
+      "text": "log likelihood of parameters is given by"
+    },
+    {
+      "start": 3836.549,
+      "end": 3837.63,
+      "text": "the probability of the data which is log"
+    },
+    {
+      "start": 3837.63,
+      "end": 3841.109,
+      "text": "P of"
+    },
+    {
+      "start": 3841.109,
+      "end": 3842.91,
+      "text": "X right"
+    },
+    {
+      "start": 3842.91,
+      "end": 3844.63,
+      "text": "exactly"
+    },
+    {
+      "start": 3844.63,
+      "end": 3848.829,
+      "text": "okay"
+    },
+    {
+      "start": 3848.829,
+      "end": 3850.95,
+      "text": "um so notice what we've done right we've"
+    },
+    {
+      "start": 3850.95,
+      "end": 3852.19,
+      "text": "um we wanted to maximize the log"
+    },
+    {
+      "start": 3852.19,
+      "end": 3855.069,
+      "text": "likelihood of"
+    },
+    {
+      "start": 3855.069,
+      "end": 3856.39,
+      "text": "theta and what we've done is through"
+    },
+    {
+      "start": 3856.39,
+      "end": 3858.23,
+      "text": "these manipulations we've now"
+    },
+    {
+      "start": 3858.23,
+      "end": 3859.63,
+      "text": "constructed a lower bound on the log"
+    },
+    {
+      "start": 3859.63,
+      "end": 3861.99,
+      "text": "likelihood of"
+    },
+    {
+      "start": 3861.99,
+      "end": 3863.829,
+      "text": "theta and in particular this formula"
+    },
+    {
+      "start": 3863.829,
+      "end": 3865.43,
+      "text": "they came up with we you think of this"
+    },
+    {
+      "start": 3865.43,
+      "end": 3867.309,
+      "text": "as a fun if if you think of this formula"
+    },
+    {
+      "start": 3867.309,
+      "end": 3869.99,
+      "text": "as a function for"
+    },
+    {
+      "start": 3869.99,
+      "end": 3871.269,
+      "text": "Theta then your Theta are the parameters"
+    },
+    {
+      "start": 3871.269,
+      "end": 3874.51,
+      "text": "of your model right if you think of this"
+    },
+    {
+      "start": 3874.51,
+      "end": 3877.549,
+      "text": "as a function of your parameters Theta"
+    },
+    {
+      "start": 3877.549,
+      "end": 3881.589,
+      "text": "what we've just shown is that the log"
+    },
+    {
+      "start": 3881.589,
+      "end": 3883.91,
+      "text": "likelihood of your parameters Theta"
+    },
+    {
+      "start": 3883.91,
+      "end": 3906.87,
+      "text": "is um lower"
+    },
+    {
+      "start": 3906.87,
+      "end": 3908.549,
+      "text": "Okay so we've just um r that cartoon of"
+    },
+    {
+      "start": 3908.549,
+      "end": 3911.15,
+      "text": "repeatedly constructing a lower bound"
+    },
+    {
+      "start": 3911.15,
+      "end": 3913.51,
+      "text": "and optimizing a lower bound so what"
+    },
+    {
+      "start": 3913.51,
+      "end": 3917.39,
+      "text": "we've just done is construct a lower"
+    },
+    {
+      "start": 3917.39,
+      "end": 3921.269,
+      "text": "Bound for the log likelihood for"
+    },
+    {
+      "start": 3921.269,
+      "end": 3924.19,
+      "text": "Theta now the last piece we want for"
+    },
+    {
+      "start": 3924.19,
+      "end": 3927.309,
+      "text": "this lower bound is um we actually want"
+    },
+    {
+      "start": 3927.309,
+      "end": 3930.069,
+      "text": "just inequality to hold with equality"
+    },
+    {
+      "start": 3930.069,
+      "end": 3931.71,
+      "text": "for the current value for Theta right so"
+    },
+    {
+      "start": 3931.71,
+      "end": 3935.309,
+      "text": "just referring back to the previous"
+    },
+    {
+      "start": 3935.309,
+      "end": 3938.109,
+      "text": "cartoon um you know if this was the log"
+    },
+    {
+      "start": 3938.109,
+      "end": 3939.71,
+      "text": "l for Theta we then construct some lower"
+    },
+    {
+      "start": 3939.71,
+      "end": 3943.309,
+      "text": "bound of it that's some function of"
+    },
+    {
+      "start": 3943.309,
+      "end": 3945.269,
+      "text": "theta and if you know and if this is my"
+    },
+    {
+      "start": 3945.269,
+      "end": 3947.43,
+      "text": "current value for Theta then I want my"
+    },
+    {
+      "start": 3947.43,
+      "end": 3949.549,
+      "text": "lower bound to be tight or I want my"
+    },
+    {
+      "start": 3949.549,
+      "end": 3951.589,
+      "text": "lower bound to be equal to the log l of"
+    },
+    {
+      "start": 3951.589,
+      "end": 3953.549,
+      "text": "theta because that's what I need to"
+    },
+    {
+      "start": 3953.549,
+      "end": 3956.269,
+      "text": "guarantee that when I optimize my lower"
+    },
+    {
+      "start": 3956.269,
+      "end": 3958.51,
+      "text": "bound then actually do even better on"
+    },
+    {
+      "start": 3958.51,
+      "end": 3961.43,
+      "text": "the true objective"
+    },
+    {
+      "start": 3961.43,
+      "end": 3964.63,
+      "text": "function"
+    },
+    {
+      "start": 3964.63,
+      "end": 3967.19,
+      "text": "um and so to do that to ensure that this"
+    },
+    {
+      "start": 3967.19,
+      "end": 3970.109,
+      "text": "inequality actually holds true of"
+    },
+    {
+      "start": 3970.109,
+      "end": 3972.39,
+      "text": "equality what I need is going back"
+    },
+    {
+      "start": 3972.39,
+      "end": 3974.67,
+      "text": "through the derivation what I need is in"
+    },
+    {
+      "start": 3974.67,
+      "end": 3977.15,
+      "text": "the step that I use Jensen's"
+    },
+    {
+      "start": 3977.15,
+      "end": 3979.589,
+      "text": "inequality right I need this inequality"
+    },
+    {
+      "start": 3979.589,
+      "end": 3982.789,
+      "text": "to hold with"
+    },
+    {
+      "start": 3982.789,
+      "end": 3985.069,
+      "text": "equality and in particular I'm going to"
+    },
+    {
+      "start": 3985.069,
+      "end": 3987.349,
+      "text": "choose my distrib so this bound holds"
+    },
+    {
+      "start": 3987.349,
+      "end": 3990.109,
+      "text": "true of any probability distribution CU"
+    },
+    {
+      "start": 3990.109,
+      "end": 3992.349,
+      "text": "that I might choose and so what I'm"
+    },
+    {
+      "start": 3992.349,
+      "end": 3995.67,
+      "text": "going to do is I choose my probability"
+    },
+    {
+      "start": 3995.67,
+      "end": 3999.47,
+      "text": "distribution Q to ensure that this"
+    },
+    {
+      "start": 3999.47,
+      "end": 4007.829,
+      "text": "inequality holds true with equality for"
+    },
+    {
+      "start": 4007.829,
+      "end": 4010.75,
+      "text": "is excuse me um yeah great question how"
+    },
+    {
+      "start": 4010.75,
+      "end": 4012.91,
+      "text": "do I know that function is concave"
+    },
+    {
+      "start": 4012.91,
+      "end": 4014.029,
+      "text": "um yeah I don't think I've shown it it"
+    },
+    {
+      "start": 4014.029,
+      "end": 4016.95,
+      "text": "actually turns out to be true from for"
+    },
+    {
+      "start": 4016.95,
+      "end": 4019.549,
+      "text": "all the models will work with uh but I"
+    },
+    {
+      "start": 4019.549,
+      "end": 4021.589,
+      "text": "don't um do I know that the lower Bal is"
+    },
+    {
+      "start": 4021.589,
+      "end": 4023.069,
+      "text": "a concave function of theta I think"
+    },
+    {
+      "start": 4023.069,
+      "end": 4024.71,
+      "text": "you're right in general this may not be"
+    },
+    {
+      "start": 4024.71,
+      "end": 4025.99,
+      "text": "a concave function of theta for many of"
+    },
+    {
+      "start": 4025.99,
+      "end": 4027.39,
+      "text": "the models we work with this will turn"
+    },
+    {
+      "start": 4027.39,
+      "end": 4035.029,
+      "text": "out to be a concave function but that's"
+    },
+    {
+      "start": 4035.029,
+      "end": 4037.95,
+      "text": "true um okay so let me go and now choose"
+    },
+    {
+      "start": 4037.95,
+      "end": 4040.71,
+      "text": "the value for Q and um if refer back to"
+    },
+    {
+      "start": 4040.71,
+      "end": 4042.67,
+      "text": "Jon inequality we said that this"
+    },
+    {
+      "start": 4042.67,
+      "end": 4045.349,
+      "text": "inequality will become an"
+    },
+    {
+      "start": 4045.349,
+      "end": 4047.87,
+      "text": "equality if you know if the random"
+    },
+    {
+      "start": 4047.87,
+      "end": 4049.67,
+      "text": "variable inside is a constant right if"
+    },
+    {
+      "start": 4049.67,
+      "end": 4052.63,
+      "text": "you're taking an expectation with"
+    },
+    {
+      "start": 4052.63,
+      "end": 4079.71,
+      "text": "respect to a constant valued random"
+    },
+    {
+      "start": 4079.71,
+      "end": 4097.95,
+      "text": "what we want is to choose the"
+    },
+    {
+      "start": 4097.95,
+      "end": 4100.47,
+      "text": "that is equal to constant um and by"
+    },
+    {
+      "start": 4100.47,
+      "end": 4102.829,
+      "text": "constants I mean this is a this takes on"
+    },
+    {
+      "start": 4102.829,
+      "end": 4108.349,
+      "text": "the same"
+    },
+    {
+      "start": 4108.349,
+      "end": 4110.789,
+      "text": "for all values of Z okay that no matter"
+    },
+    {
+      "start": 4110.789,
+      "end": 4113.07,
+      "text": "what value of zi you plug in you end up"
+    },
+    {
+      "start": 4113.07,
+      "end": 4119.149,
+      "text": "with the same value for this"
+    },
+    {
+      "start": 4119.149,
+      "end": 4128.789,
+      "text": "ratio um and so you would set Qi of"
+    },
+    {
+      "start": 4128.789,
+      "end": 4129.91,
+      "text": "to that right to ensure that this ratio"
+    },
+    {
+      "start": 4129.91,
+      "end": 4131.829,
+      "text": "remains"
+    },
+    {
+      "start": 4131.829,
+      "end": 4135.829,
+      "text": "constant"
+    },
+    {
+      "start": 4135.829,
+      "end": 4139.43,
+      "text": "um but you also know that these zis must"
+    },
+    {
+      "start": 4139.43,
+      "end": 4150.269,
+      "text": "be um uh excuse me this Qi must be a"
+    },
+    {
+      "start": 4150.269,
+      "end": 4151.59,
+      "text": "so um that sum is equal to one and um I"
+    },
+    {
+      "start": 4151.59,
+      "end": 4153.269,
+      "text": "don't know there's a step or two that I"
+    },
+    {
+      "start": 4153.269,
+      "end": 4156.03,
+      "text": "might be skipping here but you convince"
+    },
+    {
+      "start": 4156.03,
+      "end": 4221.59,
+      "text": "yourself that the choice you should"
+    },
+    {
+      "start": 4221.59,
+      "end": 4224.55,
+      "text": "um so the uh Qi of zis must sum must sum"
+    },
+    {
+      "start": 4224.55,
+      "end": 4228.189,
+      "text": "to one and so you know to Compu you I"
+    },
+    {
+      "start": 4228.189,
+      "end": 4230.43,
+      "text": "just take P of x i z par by Theta and"
+    },
+    {
+      "start": 4230.43,
+      "end": 4231.99,
+      "text": "just normalize the sum to one there is a"
+    },
+    {
+      "start": 4231.99,
+      "end": 4233.95,
+      "text": "step that I'm skipping here to show that"
+    },
+    {
+      "start": 4233.95,
+      "end": 4235.39,
+      "text": "this is always is really the right thing"
+    },
+    {
+      "start": 4235.39,
+      "end": 4238.39,
+      "text": "to do hopefully you just be convinced"
+    },
+    {
+      "start": 4238.39,
+      "end": 4240.11,
+      "text": "it's true um for the actual so two extra"
+    },
+    {
+      "start": 4240.11,
+      "end": 4242.709,
+      "text": "steps I ski is actually written know the"
+    },
+    {
+      "start": 4242.709,
+      "end": 4252.87,
+      "text": "lecture notes"
+    },
+    {
+      "start": 4252.87,
+      "end": 4266.87,
+      "text": "have um the denominator by definition is"
+    },
+    {
+      "start": 4266.87,
+      "end": 4270.83,
+      "text": "of conditional probability Qi of Z is"
+    },
+    {
+      "start": 4270.83,
+      "end": 4272.11,
+      "text": "just equal to P of Z given x i and"
+    },
+    {
+      "start": 4272.11,
+      "end": 4274.51,
+      "text": "parameterized by"
+    },
+    {
+      "start": 4274.51,
+      "end": 4314.59,
+      "text": "Theta"
+    },
+    {
+      "start": 4314.59,
+      "end": 4318.95,
+      "text": "Eep we set"
+    },
+    {
+      "start": 4318.95,
+      "end": 4332.35,
+      "text": "we choose the distributions Qi so Qi of"
+    },
+    {
+      "start": 4332.35,
+      "end": 4338.629,
+      "text": "to um P of Z given X par by Theta that's"
+    },
+    {
+      "start": 4338.629,
+      "end": 4340.39,
+      "text": "out and so by this step we've now"
+    },
+    {
+      "start": 4340.39,
+      "end": 4342.79,
+      "text": "created a lower bound on the log"
+    },
+    {
+      "start": 4342.79,
+      "end": 4344.629,
+      "text": "likelihood function that is now tight at"
+    },
+    {
+      "start": 4344.629,
+      "end": 4346.91,
+      "text": "the current value of"
+    },
+    {
+      "start": 4346.91,
+      "end": 4349.87,
+      "text": "theta and in the M"
+    },
+    {
+      "start": 4349.87,
+      "end": 4352.149,
+      "text": "step we then optimize that lower bound"
+    },
+    {
+      "start": 4352.149,
+      "end": 4355.87,
+      "text": "with respect to our parameters"
+    },
+    {
+      "start": 4355.87,
+      "end": 4380.55,
+      "text": "Theta and specifically take the Alat"
+    },
+    {
+      "start": 4380.55,
+      "end": 4384.11,
+      "text": "okay and so that's the"
+    },
+    {
+      "start": 4384.11,
+      "end": 4386.709,
+      "text": "um that's the EM algorithm um I won't"
+    },
+    {
+      "start": 4386.709,
+      "end": 4388.149,
+      "text": "have time to do it today but excuse me"
+    },
+    {
+      "start": 4388.149,
+      "end": 4390.51,
+      "text": "probably show this in the next lecture"
+    },
+    {
+      "start": 4390.51,
+      "end": 4393.55,
+      "text": "but the uh em algorithm that I wrote"
+    },
+    {
+      "start": 4393.55,
+      "end": 4395.55,
+      "text": "down for the mixtures of gan's algorithm"
+    },
+    {
+      "start": 4395.55,
+      "end": 4398.629,
+      "text": "is actually a special case of this more"
+    },
+    {
+      "start": 4398.629,
+      "end": 4400.709,
+      "text": "General template where um the Eep and"
+    },
+    {
+      "start": 4400.709,
+      "end": 4402.99,
+      "text": "the M step corresponded so pretty much"
+    },
+    {
+      "start": 4402.99,
+      "end": 4404.31,
+      "text": "exactly to this Eep and this m step I"
+    },
+    {
+      "start": 4404.31,
+      "end": 4407.629,
+      "text": "wrote down"
+    },
+    {
+      "start": 4407.629,
+      "end": 4410.229,
+      "text": "and so right just in pictures"
+    },
+    {
+      "start": 4410.229,
+      "end": 4414.03,
+      "text": "again there's my log likelihood function"
+    },
+    {
+      "start": 4414.03,
+      "end": 4416.35,
+      "text": "it's function of theta um the Eep con"
+    },
+    {
+      "start": 4416.35,
+      "end": 4418.03,
+      "text": "constructs this lower bound and make"
+    },
+    {
+      "start": 4418.03,
+      "end": 4422.03,
+      "text": "sure that it is tight to the current"
+    },
+    {
+      "start": 4422.03,
+      "end": 4423.27,
+      "text": "value of theta that's in my choice of Q"
+    },
+    {
+      "start": 4423.27,
+      "end": 4425.79,
+      "text": "and then the M"
+    },
+    {
+      "start": 4425.79,
+      "end": 4430.31,
+      "text": "step optimizes the lower bound with"
+    },
+    {
+      "start": 4430.31,
+      "end": 4431.83,
+      "text": "respective pars sta okay so um have lot"
+    },
+    {
+      "start": 4431.83,
+      "end": 4433.03,
+      "text": "lotss more to say about this in the next"
+    },
+    {
+      "start": 4433.03,
+      "end": 4444.87,
+      "text": "lecture let's check if there any"
+    },
+    {
+      "start": 4444.87,
+      "end": 4446.149,
+      "text": "close Okay cool so let's wrap up for"
+    },
+    {
+      "start": 4446.149,
+      "end": 4449.149,
+      "text": "today and we'll continue talking about"
+    }
+  ]
+}

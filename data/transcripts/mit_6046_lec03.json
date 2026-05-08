@@ -1,0 +1,7396 @@
+{
+  "video_id": "mit_6046_lec03",
+  "source": "youtube_auto_captions",
+  "segments": [
+    {
+      "start": 1.99,
+      "end": 4.63,
+      "text": "The following content is provided under"
+    },
+    {
+      "start": 4.63,
+      "end": 6.869,
+      "text": "a Creative Common License. Your support"
+    },
+    {
+      "start": 6.869,
+      "end": 8.79,
+      "text": "will help MIT Open Courseware continue"
+    },
+    {
+      "start": 8.79,
+      "end": 11.669,
+      "text": "to offer high-quality educational"
+    },
+    {
+      "start": 11.669,
+      "end": 13.509,
+      "text": "resources for free. To make a donation"
+    },
+    {
+      "start": 13.509,
+      "end": 16.55,
+      "text": "or view additional materials from"
+    },
+    {
+      "start": 16.55,
+      "end": 23.39,
+      "text": "hundreds of MIT courses, visit MIT Open"
+    },
+    {
+      "start": 23.39,
+      "end": 25.99,
+      "text": "ocw.mmit.edu. All right, let's get"
+    },
+    {
+      "start": 25.99,
+      "end": 28.23,
+      "text": "started. I'm Eric Demain. You can call"
+    },
+    {
+      "start": 28.23,
+      "end": 29.91,
+      "text": "me Eric. And today we're going to do"
+    },
+    {
+      "start": 29.91,
+      "end": 32.31,
+      "text": "another divide and conquer algorithm"
+    },
+    {
+      "start": 32.31,
+      "end": 35.43,
+      "text": "called the fastforier transform. It's"
+    },
+    {
+      "start": 35.43,
+      "end": 38.389,
+      "text": "probably the most taught algorithm at"
+    },
+    {
+      "start": 38.389,
+      "end": 41.43,
+      "text": "MIT. It's used in all sorts of contexts"
+    },
+    {
+      "start": 41.43,
+      "end": 44.069,
+      "text": "uh especially digital signal processing"
+    },
+    {
+      "start": 44.069,
+      "end": 45.75,
+      "text": "like MP3 compression all sorts of"
+    },
+    {
+      "start": 45.75,
+      "end": 48.15,
+      "text": "things. Uh but we're going to think"
+    },
+    {
+      "start": 48.15,
+      "end": 51.59,
+      "text": "about it today in the context of divide"
+    },
+    {
+      "start": 51.59,
+      "end": 55.189,
+      "text": "and conquer and polomials."
+    },
+    {
+      "start": 55.189,
+      "end": 58.15,
+      "text": "So let me remind you I mean this class"
+    },
+    {
+      "start": 58.15,
+      "end": 59.83,
+      "text": "is all about polinomial time but usually"
+    },
+    {
+      "start": 59.83,
+      "end": 63.51,
+      "text": "with polinomial time we only care about"
+    },
+    {
+      "start": 63.51,
+      "end": 65.109,
+      "text": "the lead term. Today and today only"
+    },
+    {
+      "start": 65.109,
+      "end": 70.149,
+      "text": "pretty much we're going to be thinking"
+    },
+    {
+      "start": 70.149,
+      "end": 72.469,
+      "text": "about all the terms in a polomial. So my"
+    },
+    {
+      "start": 72.469,
+      "end": 75.51,
+      "text": "I'll talk about polomials mostly a and"
+    },
+    {
+      "start": 75.51,
+      "end": 79.91,
+      "text": "b. You have a constant term and then a"
+    },
+    {
+      "start": 79.91,
+      "end": 81.19,
+      "text": "linear term and a quadratic term and so"
+    },
+    {
+      "start": 81.19,
+      "end": 83.27,
+      "text": "on."
+    },
+    {
+      "start": 83.27,
+      "end": 85.35,
+      "text": "uh up to I will say that there are n"
+    },
+    {
+      "start": 85.35,
+      "end": 86.91,
+      "text": "terms which means the last one is a n"
+    },
+    {
+      "start": 86.91,
+      "end": 89.35,
+      "text": "minus"
+    },
+    {
+      "start": 89.35,
+      "end": 92.63,
+      "text": "one. So normally the degree of the"
+    },
+    {
+      "start": 92.63,
+      "end": 94.95,
+      "text": "polinomial here is n minus one. Uh I"
+    },
+    {
+      "start": 94.95,
+      "end": 97.429,
+      "text": "wish the degree was defined to be n here"
+    },
+    {
+      "start": 97.429,
+      "end": 100.63,
+      "text": "but whatever that's I I can't change the"
+    },
+    {
+      "start": 100.63,
+      "end": 102.31,
+      "text": "definitions in algebra. So uh this is"
+    },
+    {
+      "start": 102.31,
+      "end": 105.03,
+      "text": "the traditional algebraic way of"
+    },
+    {
+      "start": 105.03,
+      "end": 107.149,
+      "text": "thinking about a polomial. Uh, of course"
+    },
+    {
+      "start": 107.149,
+      "end": 110.67,
+      "text": "you can write it with summation"
+    },
+    {
+      "start": 110.67,
+      "end": 113.749,
+      "text": "notation. Uh, a kx to the"
+    },
+    {
+      "start": 113.749,
+      "end": 115.67,
+      "text": "k= 0 to n minus one. We'll jump back and"
+    },
+    {
+      "start": 115.67,
+      "end": 118.19,
+      "text": "forth between them. I'm also going to"
+    },
+    {
+      "start": 118.19,
+      "end": 126.389,
+      "text": "introduce a vector notation for"
+    },
+    {
+      "start": 126.389,
+      "end": 128.63,
+      "text": "uh so the ais are real numbers typically"
+    },
+    {
+      "start": 128.63,
+      "end": 131.91,
+      "text": "uh we might change that at some point."
+    },
+    {
+      "start": 131.91,
+      "end": 133.35,
+      "text": "Um but usually a a common reason maybe"
+    },
+    {
+      "start": 133.35,
+      "end": 135.27,
+      "text": "you don't care much about polinomials"
+    },
+    {
+      "start": 135.27,
+      "end": 137.43,
+      "text": "but you definitely care about vectors"
+    },
+    {
+      "start": 137.43,
+      "end": 140.71,
+      "text": "any kind of one-dimensional data set is"
+    },
+    {
+      "start": 140.71,
+      "end": 142.39,
+      "text": "a string of real numbers like uh if"
+    },
+    {
+      "start": 142.39,
+      "end": 145.03,
+      "text": "you're sampling audio like right now"
+    },
+    {
+      "start": 145.03,
+      "end": 148.39,
+      "text": "we're recording this uh microphone"
+    },
+    {
+      "start": 148.39,
+      "end": 150.15,
+      "text": "you're seeing lots of different uh the"
+    },
+    {
+      "start": 150.15,
+      "end": 153.43,
+      "text": "movement of the membrane in this"
+    },
+    {
+      "start": 153.43,
+      "end": 156.47,
+      "text": "microphone over time you're sampling"
+    },
+    {
+      "start": 156.47,
+      "end": 157.75,
+      "text": "whatever uh 40,000 times a second each"
+    },
+    {
+      "start": 157.75,
+      "end": 159.589,
+      "text": "one you're measuring real number about"
+    },
+    {
+      "start": 159.589,
+      "end": 161.75,
+      "text": "where that thing is that is a sequence"
+    },
+    {
+      "start": 161.75,
+      "end": 164.07,
+      "text": "of real numbers. Now you can convert it"
+    },
+    {
+      "start": 164.07,
+      "end": 166.07,
+      "text": "into a polomial if you want. They're the"
+    },
+    {
+      "start": 166.07,
+      "end": 167.75,
+      "text": "same thing. X is not necessarily"
+    },
+    {
+      "start": 167.75,
+      "end": 170.39,
+      "text": "meaningful here. We really care about"
+    },
+    {
+      "start": 170.39,
+      "end": 173.03,
+      "text": "are the coefficients. Okay. Now given"
+    },
+    {
+      "start": 173.03,
+      "end": 177.43,
+      "text": "such a polomial there are three typical"
+    },
+    {
+      "start": 177.43,
+      "end": 185.91,
+      "text": "things we want to do. So these are the"
+    },
+    {
+      "start": 185.91,
+      "end": 188.869,
+      "text": "polomials. I'll say why we want to do"
+    },
+    {
+      "start": 188.869,
+      "end": 190.71,
+      "text": "them in a second."
+    },
+    {
+      "start": 190.71,
+      "end": 193.71,
+      "text": "So the obvious one if you do care about"
+    },
+    {
+      "start": 193.71,
+      "end": 196.91,
+      "text": "X is some kind of"
+    },
+    {
+      "start": 196.91,
+      "end": 201.27,
+      "text": "evaluation. So maybe I give you a"
+    },
+    {
+      "start": 201.27,
+      "end": 202.35,
+      "text": "polomial a of X and I give you a number"
+    },
+    {
+      "start": 202.35,
+      "end": 205.63,
+      "text": "let's call it"
+    },
+    {
+      "start": 205.63,
+      "end": 208.79,
+      "text": "X0 and I want to compute what is A of"
+    },
+    {
+      "start": 208.79,
+      "end": 210.869,
+      "text": "X0. So if I plug in X here is a general"
+    },
+    {
+      "start": 210.869,
+      "end": 214.589,
+      "text": "variable but if I give you an actual"
+    },
+    {
+      "start": 214.589,
+      "end": 217.75,
+      "text": "real number say for the X's what does"
+    },
+    {
+      "start": 217.75,
+      "end": 220.71,
+      "text": "that add up to?"
+    },
+    {
+      "start": 220.71,
+      "end": 228.869,
+      "text": "Okay. Uh so how how would you solve"
+    },
+    {
+      "start": 228.869,
+      "end": 232.39,
+      "text": "operations? I mean there's an obvious"
+    },
+    {
+      "start": 232.39,
+      "end": 235.35,
+      "text": "way uh we you know you compute all the"
+    },
+    {
+      "start": 235.35,
+      "end": 238.27,
+      "text": "terms and add them up. But uh if you do"
+    },
+    {
+      "start": 238.27,
+      "end": 242.149,
+      "text": "that naively computing"
+    },
+    {
+      "start": 242.149,
+      "end": 244.99,
+      "text": "uh x to the k well it's in this form"
+    },
+    {
+      "start": 244.99,
+      "end": 247.27,
+      "text": "maybe computing x to the k maybe takes k"
+    },
+    {
+      "start": 247.27,
+      "end": 248.869,
+      "text": "multiplications and so the total running"
+    },
+    {
+      "start": 248.869,
+      "end": 256.87,
+      "text": "time will be quadratic but we can do"
+    },
+    {
+      "start": 256.87,
+      "end": 268.15,
+      "text": "that. I know it's 11 o'clock too early"
+    },
+    {
+      "start": 268.15,
+      "end": 270.469,
+      "text": "yeah, when you've already calculated x"
+    },
+    {
+      "start": 270.469,
+      "end": 272.23,
+      "text": "to the i, you can calculate x i + 1 by"
+    },
+    {
+      "start": 272.23,
+      "end": 275.03,
+      "text": "multiplying. Good. Once you've computed"
+    },
+    {
+      "start": 275.03,
+      "end": 277.51,
+      "text": "x to the k, you can comput x the k + one"
+    },
+    {
+      "start": 277.51,
+      "end": 280.87,
+      "text": "in with one multiplication. And so you"
+    },
+    {
+      "start": 280.87,
+      "end": 284.55,
+      "text": "can uh compute all x to the n's in"
+    },
+    {
+      "start": 284.55,
+      "end": 287.11,
+      "text": "linear time and then do the all the then"
+    },
+    {
+      "start": 287.11,
+      "end": 290.27,
+      "text": "you're basically doing a dotproduct"
+    },
+    {
+      "start": 290.27,
+      "end": 297.31,
+      "text": "between the x to the k's and the a"
+    },
+    {
+      "start": 297.31,
+      "end": 300.07,
+      "text": "frisbee. Uh"
+    },
+    {
+      "start": 300.07,
+      "end": 301.909,
+      "text": "so that's one way to do it. Uh there's a"
+    },
+    {
+      "start": 301.909,
+      "end": 303.67,
+      "text": "slightly slicker way to write it called"
+    },
+    {
+      "start": 303.67,
+      "end": 310.469,
+      "text": "her rule, but it's doing exactly the"
+    },
+    {
+      "start": 310.469,
+      "end": 313.909,
+      "text": "Uh it's a this is just a nice algebraic"
+    },
+    {
+      "start": 313.909,
+      "end": 322.189,
+      "text": "way of writing it. A of x is the same as"
+    },
+    {
+      "start": 322.189,
+      "end": 326.59,
+      "text": "a 0 + x * a1 + x * a2 + and so on. Uh x"
+    },
+    {
+      "start": 326.59,
+      "end": 329.43,
+      "text": "* a n minus one and then lots of closed"
+    },
+    {
+      "start": 329.43,
+      "end": 332.95,
+      "text": "parenthesis. Um so this is of course"
+    },
+    {
+      "start": 332.95,
+      "end": 335.749,
+      "text": "equivalent to that expression by the law"
+    },
+    {
+      "start": 335.749,
+      "end": 338.07,
+      "text": "of distribution and uh this is"
+    },
+    {
+      "start": 338.07,
+      "end": 340.55,
+      "text": "essentially doing the x's x products one"
+    },
+    {
+      "start": 340.55,
+      "end": 343.909,
+      "text": "at a time. So this is clearly order n"
+    },
+    {
+      "start": 343.909,
+      "end": 347.909,
+      "text": "additions and multiplication. So we get"
+    },
+    {
+      "start": 347.909,
+      "end": 350.31,
+      "text": "order n time in this lecture time is the"
+    },
+    {
+      "start": 350.31,
+      "end": 352.15,
+      "text": "number of arithmetic operations. It's"
+    },
+    {
+      "start": 352.15,
+      "end": 363.71,
+      "text": "our model assume it takes constant time"
+    },
+    {
+      "start": 363.71,
+      "end": 367.749,
+      "text": "Okay."
+    },
+    {
+      "start": 367.749,
+      "end": 370.95,
+      "text": "Um, cool. So, evaluation that's easy."
+    },
+    {
+      "start": 370.95,
+      "end": 374.469,
+      "text": "Linear time for today is good. Quadratic"
+    },
+    {
+      "start": 374.469,
+      "end": 376.07,
+      "text": "is bad. We want to be quadratic. Okay."
+    },
+    {
+      "start": 376.07,
+      "end": 378.95,
+      "text": "Second thing you might want to do with"
+    },
+    {
+      "start": 378.95,
+      "end": 380.35,
+      "text": "polinomials is add them. The third thing"
+    },
+    {
+      "start": 380.35,
+      "end": 384.15,
+      "text": "is multiply"
+    },
+    {
+      "start": 384.15,
+      "end": 386.55,
+      "text": "them. So, we're given two polinomials a"
+    },
+    {
+      "start": 386.55,
+      "end": 388.629,
+      "text": "of x and b of x."
+    },
+    {
+      "start": 388.629,
+      "end": 392.07,
+      "text": "and we want to compute a new polomial C"
+    },
+    {
+      "start": 392.07,
+      "end": 394.30899999999997,
+      "text": "of X that is the summation. Now how do"
+    },
+    {
+      "start": 394.30899999999997,
+      "end": 396.95,
+      "text": "you define the summation? Well, you"
+    },
+    {
+      "start": 396.95,
+      "end": 398.35,
+      "text": "would like C of X to equal A of X plus B"
+    },
+    {
+      "start": 398.35,
+      "end": 401.51,
+      "text": "of X for all"
+    },
+    {
+      "start": 401.51,
+      "end": 403.59000000000003,
+      "text": "X. That's the definition. Uh, of course,"
+    },
+    {
+      "start": 403.59000000000003,
+      "end": 407.029,
+      "text": "we can do it algebraically as well"
+    },
+    {
+      "start": 407.029,
+      "end": 409.59000000000003,
+      "text": "because uh these are numbers in the end"
+    },
+    {
+      "start": 409.59000000000003,
+      "end": 411.59000000000003,
+      "text": "for any x this evaluates to a number. Uh"
+    },
+    {
+      "start": 411.59000000000003,
+      "end": 414.15,
+      "text": "so if we add two polinomials of this"
+    },
+    {
+      "start": 414.15,
+      "end": 417.83,
+      "text": "form, one with a eyes, one with the bis,"
+    },
+    {
+      "start": 417.83,
+      "end": 422.39,
+      "text": "all we're doing is adding corresponding"
+    },
+    {
+      "start": 422.39,
+      "end": 427.15,
+      "text": "a i's and b i. So this is easy. Uh we"
+    },
+    {
+      "start": 427.15,
+      "end": 432.15,
+      "text": "just need ck to equal a k plus"
+    },
+    {
+      "start": 432.15,
+      "end": 433.749,
+      "text": "bk for all k. So again, linear time, no"
+    },
+    {
+      "start": 433.749,
+      "end": 435.309,
+      "text": "problem."
+    },
+    {
+      "start": 435.309,
+      "end": 438.23,
+      "text": "Okay, third"
+    },
+    {
+      "start": 438.23,
+      "end": 443.67,
+      "text": "operation is the exciting one, the hard"
+    },
+    {
+      "start": 443.67,
+      "end": 445.79,
+      "text": "good. Otherwise, this lecture would be"
+    },
+    {
+      "start": 445.79,
+      "end": 448.79,
+      "text": "over in a couple more"
+    },
+    {
+      "start": 448.79,
+      "end": 451.83,
+      "text": "minutes. So, multiplication, same deal."
+    },
+    {
+      "start": 451.83,
+      "end": 455.67,
+      "text": "We're given a of x and b of x and we"
+    },
+    {
+      "start": 455.67,
+      "end": 459.029,
+      "text": "want to convert that into some c of x uh"
+    },
+    {
+      "start": 459.029,
+      "end": 463.79,
+      "text": "that for all x evaluates to the product"
+    },
+    {
+      "start": 463.79,
+      "end": 466.67,
+      "text": "of those two polinomials."
+    },
+    {
+      "start": 466.67,
+      "end": 470.30899999999997,
+      "text": "Okay, how do we do this?"
+    },
+    {
+      "start": 470.30899999999997,
+      "end": 474.07,
+      "text": "Uh, we can't just multiply corresponding"
+    },
+    {
+      "start": 474.07,
+      "end": 475.83,
+      "text": "AKs and bks. Uh, in fact, if you take a"
+    },
+    {
+      "start": 475.83,
+      "end": 477.909,
+      "text": "big thing like this, you multiply it by"
+    },
+    {
+      "start": 477.909,
+      "end": 499.83,
+      "text": "corresponding big thing. Uh, let's do"
+    },
+    {
+      "start": 499.83,
+      "end": 502.55,
+      "text": "fun. Uh we get let's see so the constant"
+    },
+    {
+      "start": 502.55,
+      "end": 505.11,
+      "text": "term is just the product that's easy of"
+    },
+    {
+      "start": 505.11,
+      "end": 507.51,
+      "text": "the constant terms. Uh but then if I"
+    },
+    {
+      "start": 507.51,
+      "end": 510.469,
+      "text": "take this product or this product I get"
+    },
+    {
+      "start": 510.469,
+      "end": 512.23,
+      "text": "linear terms. So that's going to be a1 b"
+    },
+    {
+      "start": 512.23,
+      "end": 517.029,
+      "text": "0"
+    },
+    {
+      "start": 517.029,
+      "end": 521.469,
+      "text": "uh + a 0 b1 * x and then there's a"
+    },
+    {
+      "start": 521.469,
+      "end": 526.31,
+      "text": "quadratic term which I get from switch"
+    },
+    {
+      "start": 526.31,
+      "end": 529.509,
+      "text": "colors. Uh this and this and this. So"
+    },
+    {
+      "start": 529.509,
+      "end": 531.75,
+      "text": "there's three things times x^2. And"
+    },
+    {
+      "start": 531.75,
+      "end": 536.389,
+      "text": "that's where I get tired. I'm going to"
+    },
+    {
+      "start": 536.389,
+      "end": 537.67,
+      "text": "switch to the summation notation. you uh"
+    },
+    {
+      "start": 537.67,
+      "end": 539.87,
+      "text": "I didn't go to high school, but I assume"
+    },
+    {
+      "start": 539.87,
+      "end": 541.87,
+      "text": "in high school algebra you learned this."
+    },
+    {
+      "start": 541.87,
+      "end": 546.75,
+      "text": "Uh"
+    },
+    {
+      "start": 546.75,
+      "end": 549.23,
+      "text": "CK is the sum of J="
+    },
+    {
+      "start": 549.23,
+      "end": 554.47,
+      "text": "0 to"
+    },
+    {
+      "start": 554.47,
+      "end": 557.509,
+      "text": "K A J B K minus J. That's the general"
+    },
+    {
+      "start": 557.509,
+      "end": 560.07,
+      "text": "form because uh AJ came from an X to the"
+    },
+    {
+      "start": 560.07,
+      "end": 562.23,
+      "text": "J term. BK minus J came from an X to the"
+    },
+    {
+      "start": 562.23,
+      "end": 564.63,
+      "text": "K minus J term. When you multiply those"
+    },
+    {
+      "start": 564.63,
+      "end": 567.71,
+      "text": "together, you get X to the K. So this is"
+    },
+    {
+      "start": 567.71,
+      "end": 569.949,
+      "text": "the coefficient of x to the k."
+    },
+    {
+      "start": 569.949,
+      "end": 572.47,
+      "text": "Cool. So that's what we'd like to"
+    },
+    {
+      "start": 572.47,
+      "end": 574.949,
+      "text": "compute given a and b. We want to"
+    },
+    {
+      "start": 574.949,
+      "end": 580.67,
+      "text": "compute this polinomial c. How long does"
+    },
+    {
+      "start": 580.67,
+      "end": 583.509,
+      "text": "take? We have to do this for all"
+    },
+    {
+      "start": 583.509,
+      "end": 594.63,
+      "text": "k. So to compute the kith term takes"
+    },
+    {
+      "start": 594.63,
+      "end": 597.43,
+      "text": "squ. So that's not good for this"
+    },
+    {
+      "start": 597.43,
+      "end": 608.79,
+      "text": "lecture. Uh we want to do better. Uh in"
+    },
+    {
+      "start": 608.79,
+      "end": 611.75,
+      "text": "login that's our goal polomial"
+    },
+    {
+      "start": 611.75,
+      "end": 614.31,
+      "text": "multiplication in n login. Why do we"
+    },
+    {
+      "start": 614.31,
+      "end": 616.069,
+      "text": "care about polomial multiplication?"
+    },
+    {
+      "start": 616.069,
+      "end": 618.87,
+      "text": "uh because it's equivalent to another"
+    },
+    {
+      "start": 618.87,
+      "end": 621.269,
+      "text": "operation which we use all the time in"
+    },
+    {
+      "start": 621.269,
+      "end": 623.59,
+      "text": "digital signal processing, image"
+    },
+    {
+      "start": 623.59,
+      "end": 633.99,
+      "text": "editing, all sorts of different things"
+    },
+    {
+      "start": 633.99,
+      "end": 645.55,
+      "text": "convolution. Uh convolution is usually"
+    },
+    {
+      "start": 645.55,
+      "end": 648.71,
+      "text": "Uh"
+    },
+    {
+      "start": 648.71,
+      "end": 649.509,
+      "text": "so remember this vector notation where"
+    },
+    {
+      "start": 649.509,
+      "end": 650.87,
+      "text": "we're just thinking about the"
+    },
+    {
+      "start": 650.87,
+      "end": 652.31,
+      "text": "coefficients. X's are kind of"
+    },
+    {
+      "start": 652.31,
+      "end": 654.71,
+      "text": "irrelevant. Just thinking about a"
+    },
+    {
+      "start": 654.71,
+      "end": 656.87,
+      "text": "sequence of real numbers. Uh so maybe"
+    },
+    {
+      "start": 656.87,
+      "end": 659.91,
+      "text": "that sequence of real numbers for a"
+    },
+    {
+      "start": 659.91,
+      "end": 662.03,
+      "text": "represents some I don't know waveform."
+    },
+    {
+      "start": 662.03,
+      "end": 665.91,
+      "text": "Maybe this is the audio I'm speaking"
+    },
+    {
+      "start": 665.91,
+      "end": 670.03,
+      "text": "now. And then I take some other waveform"
+    },
+    {
+      "start": 670.03,
+      "end": 673.99,
+      "text": "here. I have uh Gaussian function eus"
+    },
+    {
+      "start": 673.99,
+      "end": 676.87,
+      "text": "x^2. And I want to take uh for all"
+    },
+    {
+      "start": 676.87,
+      "end": 679.03,
+      "text": "possible shifts of this Gaussian, I want"
+    },
+    {
+      "start": 679.03,
+      "end": 681.43,
+      "text": "to compute the dotproduct between the"
+    },
+    {
+      "start": 681.43,
+      "end": 682.949,
+      "text": "blackboard and the piece of paper. Okay,"
+    },
+    {
+      "start": 682.949,
+      "end": 685.59,
+      "text": "that's some kind of smoothing function."
+    },
+    {
+      "start": 685.59,
+      "end": 687.03,
+      "text": "If I wanted to clean up noise or"
+    },
+    {
+      "start": 687.03,
+      "end": 688.949,
+      "text": "something like that, you can do the same"
+    },
+    {
+      "start": 688.949,
+      "end": 690.23,
+      "text": "thing on a two-dimensional image. It's a"
+    },
+    {
+      "start": 690.23,
+      "end": 691.59,
+      "text": "little harder to think about, but you"
+    },
+    {
+      "start": 691.59,
+      "end": 693.19,
+      "text": "can map a two dimensional image to a"
+    },
+    {
+      "start": 693.19,
+      "end": 694.71,
+      "text": "one-dimensional vector and you have a"
+    },
+    {
+      "start": 694.71,
+      "end": 697.19,
+      "text": "two-dimensional Gaussian. If you ever do"
+    },
+    {
+      "start": 697.19,
+      "end": 699.67,
+      "text": "Gaussian blur in Photoshop, uh this is"
+    },
+    {
+      "start": 699.67,
+      "end": 702.31,
+      "text": "what you're doing, a convolution. uh and"
+    },
+    {
+      "start": 702.31,
+      "end": 704.63,
+      "text": "it's used to like as if you're pretend"
+    },
+    {
+      "start": 704.63,
+      "end": 707.75,
+      "text": "that your lens was out of focus when you"
+    },
+    {
+      "start": 707.75,
+      "end": 710.15,
+      "text": "do that. Uh it's done in in audio"
+    },
+    {
+      "start": 710.15,
+      "end": 714.55,
+      "text": "processing and all sorts of things. Uh"
+    },
+    {
+      "start": 714.55,
+      "end": 716.55,
+      "text": "so formally you're given two vectors and"
+    },
+    {
+      "start": 716.55,
+      "end": 718.79,
+      "text": "you want to take all possible shifts of"
+    },
+    {
+      "start": 718.79,
+      "end": 721.99,
+      "text": "one vector and take the dotproduct with"
+    },
+    {
+      "start": 721.99,
+      "end": 725.67,
+      "text": "the other one. I have that written down."
+    },
+    {
+      "start": 725.67,
+      "end": 728.389,
+      "text": "uh just uh dotproduct same thing as"
+    },
+    {
+      "start": 728.389,
+      "end": 744.629,
+      "text": "inner product which just means multiply"
+    },
+    {
+      "start": 744.629,
+      "end": 746.15,
+      "text": "up. And if you ignore this minus sign"
+    },
+    {
+      "start": 746.15,
+      "end": 749.829,
+      "text": "that's exactly what this is doing. This"
+    },
+    {
+      "start": 749.829,
+      "end": 753.509,
+      "text": "is taking a j versus b k pretend it's"
+    },
+    {
+      "start": 753.509,
+      "end": 755.35,
+      "text": "plus j. So that's the BJ vector but with"
+    },
+    {
+      "start": 755.35,
+      "end": 757.069,
+      "text": "all possible shifts K. We compute this"
+    },
+    {
+      "start": 757.069,
+      "end": 760.15,
+      "text": "for all"
+    },
+    {
+      "start": 760.15,
+      "end": 762.389,
+      "text": "K. That's really cool. We're going to"
+    },
+    {
+      "start": 762.389,
+      "end": 764.55,
+      "text": "compute it in n login time. All"
+    },
+    {
+      "start": 764.55,
+      "end": 766.389,
+      "text": "different n shifts of b will take the"
+    },
+    {
+      "start": 766.389,
+      "end": 767.75,
+      "text": "dotproduct with a. It's kind of magical"
+    },
+    {
+      "start": 767.75,
+      "end": 772.11,
+      "text": "because it looks like you're doing n squ"
+    },
+    {
+      "start": 772.11,
+      "end": 775.11,
+      "text": "work but we will do it in n login time."
+    },
+    {
+      "start": 775.11,
+      "end": 777.59,
+      "text": "Uh the only issue is we have to reverse"
+    },
+    {
+      "start": 777.59,
+      "end": 779.43,
+      "text": "b. Uh then the minus signs turn into"
+    },
+    {
+      "start": 779.43,
+      "end": 781.19,
+      "text": "plus signs. Okay. And there's some"
+    },
+    {
+      "start": 781.19,
+      "end": 782.79,
+      "text": "boundary conditions, but it's basically"
+    },
+    {
+      "start": 782.79,
+      "end": 784.43,
+      "text": "the same. If we can solve polomial"
+    },
+    {
+      "start": 784.43,
+      "end": 786.03,
+      "text": "multiplication, we can solve"
+    },
+    {
+      "start": 786.03,
+      "end": 790.35,
+      "text": "convolution."
+    },
+    {
+      "start": 790.35,
+      "end": 792.79,
+      "text": "Cool. So that's why we care about"
+    },
+    {
+      "start": 792.79,
+      "end": 794.269,
+      "text": "multiplication. Uh so how are we going"
+    },
+    {
+      "start": 794.269,
+      "end": 797.509,
+      "text": "to solve"
+    },
+    {
+      "start": 797.509,
+      "end": 799.91,
+      "text": "this? What I'd like to do is talk about"
+    },
+    {
+      "start": 799.91,
+      "end": 801.829,
+      "text": "alternate representations of polomials."
+    },
+    {
+      "start": 801.829,
+      "end": 804.11,
+      "text": "That's next thing here. We just did"
+    },
+    {
+      "start": 804.11,
+      "end": 806.23,
+      "text": "operations. Let's talk about different"
+    },
+    {
+      "start": 806.23,
+      "end": 808.389,
+      "text": "representations. So we talked about this"
+    },
+    {
+      "start": 808.389,
+      "end": 810.87,
+      "text": "one representation. It's one way to"
+    },
+    {
+      "start": 810.87,
+      "end": 832.31,
+      "text": "represent a polomial but it's not the"
+    },
+    {
+      "start": 832.31,
+      "end": 835.269,
+      "text": "vector. So we can write down the ais."
+    },
+    {
+      "start": 835.269,
+      "end": 838.069,
+      "text": "That was just one way to represent"
+    },
+    {
+      "start": 838.069,
+      "end": 840.15,
+      "text": "uh a polomial. Can anyone give me"
+    },
+    {
+      "start": 840.15,
+      "end": 842.15,
+      "text": "another way to represent polinomial? I"
+    },
+    {
+      "start": 842.15,
+      "end": 843.91,
+      "text": "have two ways in mind. So yeah,"
+    },
+    {
+      "start": 843.91,
+      "end": 846.389,
+      "text": "generating function. Generating"
+    },
+    {
+      "start": 846.389,
+      "end": 848.03,
+      "text": "function. Isn't that the same? Oh, I"
+    },
+    {
+      "start": 848.03,
+      "end": 851.43,
+      "text": "guess"
+    },
+    {
+      "start": 851.43,
+      "end": 853.03,
+      "text": "uh in principle you could imagine like"
+    },
+    {
+      "start": 853.03,
+      "end": 854.949,
+      "text": "writing a recurrence on the generating"
+    },
+    {
+      "start": 854.949,
+      "end": 856.47,
+      "text": "function or something. It's plausible."
+    },
+    {
+      "start": 856.47,
+      "end": 857.99,
+      "text": "In general, generating functions are"
+    },
+    {
+      "start": 857.99,
+      "end": 860.55,
+      "text": "polinomials. If you know what that if"
+    },
+    {
+      "start": 860.55,
+      "end": 863.189,
+      "text": "they are, cool. Um so it doesn't quite"
+    },
+    {
+      "start": 863.189,
+      "end": 866.79,
+      "text": "answer the question yet."
+    },
+    {
+      "start": 866.79,
+      "end": 869.55,
+      "text": "Sure. Representation. Sorry. point point"
+    },
+    {
+      "start": 869.55,
+      "end": 877.269,
+      "text": "representation. Yeah, I call them"
+    },
+    {
+      "start": 877.269,
+      "end": 882.15,
+      "text": "C. A bunch of samples, a bunch of points"
+    },
+    {
+      "start": 882.15,
+      "end": 891.75,
+      "text": "on the polomial. Uh so like X K"
+    },
+    {
+      "start": 891.75,
+      "end": 895.829,
+      "text": "for how many do we need? I think N minus"
+    },
+    {
+      "start": 895.829,
+      "end": 899.35,
+      "text": "one should do it. Double check. Yep. Uh"
+    },
+    {
+      "start": 899.35,
+      "end": 909.509,
+      "text": "and if we are told that a of x k equals"
+    },
+    {
+      "start": 909.509,
+      "end": 912.389,
+      "text": "distinct, then this uniquely determines"
+    },
+    {
+      "start": 912.389,
+      "end": 914.59,
+      "text": "the polomial. If you have a degree n"
+    },
+    {
+      "start": 914.59,
+      "end": 916.87,
+      "text": "minus one polinomial and you have n"
+    },
+    {
+      "start": 916.87,
+      "end": 919.59,
+      "text": "samples, there's only one polinomial"
+    },
+    {
+      "start": 919.59,
+      "end": 921.67,
+      "text": "that passes through all those points."
+    },
+    {
+      "start": 921.67,
+      "end": 925.03,
+      "text": "That's uh it's a consequence of the"
+    },
+    {
+      "start": 925.03,
+      "end": 927.43,
+      "text": "fundamental theorem of of algebra that"
+    },
+    {
+      "start": 927.43,
+      "end": 931.509,
+      "text": "gives you uniqueness. Existence I think"
+    },
+    {
+      "start": 931.509,
+      "end": 934.069,
+      "text": "was proved by Lejandra in 17 1800s long"
+    },
+    {
+      "start": 934.069,
+      "end": 935.829,
+      "text": "time ago. This is good. This is what"
+    },
+    {
+      "start": 935.829,
+      "end": 939.31,
+      "text": "we're going to use. There's another"
+    },
+    {
+      "start": 939.31,
+      "end": 941.31,
+      "text": "answer. I should give you a frisbee"
+    },
+    {
+      "start": 941.31,
+      "end": 943.43,
+      "text": "first. You're so"
+    },
+    {
+      "start": 943.43,
+      "end": 948.47,
+      "text": "excited. Just wait till I hit you and"
+    },
+    {
+      "start": 948.47,
+      "end": 952.15,
+      "text": "then be less excited. Okay. So, samples,"
+    },
+    {
+      "start": 952.15,
+      "end": 958.31,
+      "text": "coefficients, anything else? Yeah,"
+    },
+    {
+      "start": 958.31,
+      "end": 960.069,
+      "text": "Yeah, roots is the other answer I was"
+    },
+    {
+      "start": 960.069,
+      "end": 962.829,
+      "text": "looking for, but it's not going to be so"
+    },
+    {
+      "start": 962.829,
+      "end": 966.069,
+      "text": "good algorithmically as we'll see."
+    },
+    {
+      "start": 966.069,
+      "end": 967.189,
+      "text": "Sorry. Um, so I could give you a"
+    },
+    {
+      "start": 967.189,
+      "end": 968.71,
+      "text": "sequence of roots. This is the"
+    },
+    {
+      "start": 968.71,
+      "end": 971.59,
+      "text": "fundamental theorem of algebra that"
+    },
+    {
+      "start": 971.59,
+      "end": 973.99,
+      "text": "every polinomial is uniquely determined"
+    },
+    {
+      "start": 973.99,
+      "end": 975.99,
+      "text": "by its set of roots. If you allow roots"
+    },
+    {
+      "start": 975.99,
+      "end": 978.509,
+      "text": "with multiplicity uh then every"
+    },
+    {
+      "start": 978.509,
+      "end": 982.31,
+      "text": "polinomial of degree n has exactly n"
+    },
+    {
+      "start": 982.31,
+      "end": 983.629,
+      "text": "roots. So this would be some sequence of"
+    },
+    {
+      "start": 983.629,
+      "end": 987.269,
+      "text": "r1 up"
+    },
+    {
+      "start": 987.269,
+      "end": 989.509,
+      "text": "to r n -1"
+    },
+    {
+      "start": 989.509,
+      "end": 991.99,
+      "text": "um and the polomial would be given as"
+    },
+    {
+      "start": 991.99,
+      "end": 995.949,
+      "text": "you actually need a constant multiplier"
+    },
+    {
+      "start": 995.949,
+      "end": 1000.23,
+      "text": "but x - r0 x -"
+    },
+    {
+      "start": 1000.23,
+      "end": 1002.15,
+      "text": "r1 that would be polomial. The trouble"
+    },
+    {
+      "start": 1002.15,
+      "end": 1004.069,
+      "text": "with roots is that if I give you a"
+    },
+    {
+      "start": 1004.069,
+      "end": 1006.47,
+      "text": "coefficient vector and I want to compute"
+    },
+    {
+      "start": 1006.47,
+      "end": 1008.79,
+      "text": "the roots, not only is it hard to do,"
+    },
+    {
+      "start": 1008.79,
+      "end": 1010.629,
+      "text": "it's impossible to do in our model if"
+    },
+    {
+      "start": 1010.629,
+      "end": 1012.389,
+      "text": "you're only allowed to add, subtract,"
+    },
+    {
+      "start": 1012.389,
+      "end": 1015.43,
+      "text": "multiply, divide, take square roots,"
+    },
+    {
+      "start": 1015.43,
+      "end": 1018.31,
+      "text": "take kith roots. Uh there is no way to"
+    },
+    {
+      "start": 1018.31,
+      "end": 1019.749,
+      "text": "solve a polomial of degree five or"
+    },
+    {
+      "start": 1019.749,
+      "end": 1021.829,
+      "text": "larger. You know, there's quadratic"
+    },
+    {
+      "start": 1021.829,
+      "end": 1023.829,
+      "text": "formula, cubic formula, cortic formula."
+    },
+    {
+      "start": 1023.829,
+      "end": 1026.87,
+      "text": "There is no quintic formula. It's an old"
+    },
+    {
+      "start": 1026.87,
+      "end": 1028.71,
+      "text": "result 1800s. So uh going from"
+    },
+    {
+      "start": 1028.71,
+      "end": 1031.669,
+      "text": "coefficient vector to roots takes"
+    },
+    {
+      "start": 1031.669,
+      "end": 1033.27,
+      "text": "infinite time. It's not so good. Uh and"
+    },
+    {
+      "start": 1033.27,
+      "end": 1036.669,
+      "text": "in particular if we think about our"
+    },
+    {
+      "start": 1036.669,
+      "end": 1039.35,
+      "text": "operations uh addition becomes really"
+    },
+    {
+      "start": 1039.35,
+      "end": 1042.949,
+      "text": "difficult. Uh multiplication is easy. If"
+    },
+    {
+      "start": 1042.949,
+      "end": 1044.309,
+      "text": "I have two uh polomials represented as a"
+    },
+    {
+      "start": 1044.309,
+      "end": 1045.99,
+      "text": "sequence of roots I want to multiply"
+    },
+    {
+      "start": 1045.99,
+      "end": 1048.789,
+      "text": "them. That's just concatenating the"
+    },
+    {
+      "start": 1048.789,
+      "end": 1051.83,
+      "text": "vectors uh taking the union of the"
+    },
+    {
+      "start": 1051.83,
+      "end": 1054.07,
+      "text": "vectors of the of the root lists. So"
+    },
+    {
+      "start": 1054.07,
+      "end": 1055.75,
+      "text": "that's cool. multiplying the C's I guess"
+    },
+    {
+      "start": 1055.75,
+      "end": 1057.75,
+      "text": "but addition is really hard because"
+    },
+    {
+      "start": 1057.75,
+      "end": 1061.75,
+      "text": "addition is sort of fundamentally about"
+    },
+    {
+      "start": 1061.75,
+      "end": 1063.43,
+      "text": "coefficient vectors uh and then once you"
+    },
+    {
+      "start": 1063.43,
+      "end": 1065.029,
+      "text": "go there you can go from roots to"
+    },
+    {
+      "start": 1065.029,
+      "end": 1066.39,
+      "text": "coefficient vectors and add them up but"
+    },
+    {
+      "start": 1066.39,
+      "end": 1068.63,
+      "text": "then there's no relation between the"
+    },
+    {
+      "start": 1068.63,
+      "end": 1072.39,
+      "text": "roots of the sum of the polinomials"
+    },
+    {
+      "start": 1072.39,
+      "end": 1073.35,
+      "text": "versus the roots of the original so uh I"
+    },
+    {
+      "start": 1073.35,
+      "end": 1074.87,
+      "text": "don't know for sure that that's"
+    },
+    {
+      "start": 1074.87,
+      "end": 1076.909,
+      "text": "impossible it's definitely very very"
+    },
+    {
+      "start": 1076.909,
+      "end": 1081.15,
+      "text": "hard probably"
+    },
+    {
+      "start": 1081.15,
+      "end": 1083.87,
+      "text": "impossible so"
+    },
+    {
+      "start": 1083.87,
+      "end": 1087.27,
+      "text": "Uh let me draw a little"
+    },
+    {
+      "start": 1087.27,
+      "end": 1089.23,
+      "text": "table. Each of these representations has"
+    },
+    {
+      "start": 1089.23,
+      "end": 1091.43,
+      "text": "some advantages and a"
+    },
+    {
+      "start": 1091.43,
+      "end": 1096.789,
+      "text": "disadvantage in terms of these three"
+    },
+    {
+      "start": 1096.789,
+      "end": 1101.39,
+      "text": "operations. So on the one hand we have"
+    },
+    {
+      "start": 1101.39,
+      "end": 1108.43,
+      "text": "uh the sort of algorithms we care about"
+    },
+    {
+      "start": 1108.43,
+      "end": 1120.549,
+      "text": "evaluation"
+    },
+    {
+      "start": 1120.549,
+      "end": 1123.43,
+      "text": "multiplication. And on the other axis we"
+    },
+    {
+      "start": 1123.43,
+      "end": 1126.99,
+      "text": "have our representations which are"
+    },
+    {
+      "start": 1126.99,
+      "end": 1132.87,
+      "text": "coefficient vectors"
+    },
+    {
+      "start": 1132.87,
+      "end": 1134.31,
+      "text": "roots and samples. You'll see why I"
+    },
+    {
+      "start": 1134.31,
+      "end": 1145.59,
+      "text": "chose this order in a moment. It makes"
+    },
+    {
+      "start": 1145.59,
+      "end": 1147.83,
+      "text": "so we've talked about almost every cell"
+    },
+    {
+      "start": 1147.83,
+      "end": 1149.83,
+      "text": "in this matrix. Uh but let me just"
+    },
+    {
+      "start": 1149.83,
+      "end": 1152.71,
+      "text": "summarize. So we started out just"
+    },
+    {
+      "start": 1152.71,
+      "end": 1155.39,
+      "text": "thinking about uh coefficient vector and"
+    },
+    {
+      "start": 1155.39,
+      "end": 1158.549,
+      "text": "evaluation was linear"
+    },
+    {
+      "start": 1158.549,
+      "end": 1160.87,
+      "text": "time, addition was linear time,"
+    },
+    {
+      "start": 1160.87,
+      "end": 1164.43,
+      "text": "multiplication so far is quadratic."
+    },
+    {
+      "start": 1164.43,
+      "end": 1165.95,
+      "text": "Although our goal is to make n login n"
+    },
+    {
+      "start": 1165.95,
+      "end": 1168.23,
+      "text": "for"
+    },
+    {
+      "start": 1168.23,
+      "end": 1170.63,
+      "text": "roots I just said multiplication is"
+    },
+    {
+      "start": 1170.63,
+      "end": 1179.11,
+      "text": "easy. That's linear time. addition is"
+    },
+    {
+      "start": 1179.11,
+      "end": 1182.549,
+      "text": "hard like infinite time and evaluation I"
+    },
+    {
+      "start": 1182.549,
+      "end": 1184.23,
+      "text": "guess that's linear time in fact the way"
+    },
+    {
+      "start": 1184.23,
+      "end": 1185.27,
+      "text": "it's written you only have a linear"
+    },
+    {
+      "start": 1185.27,
+      "end": 1187.19,
+      "text": "number of subtractions and"
+    },
+    {
+      "start": 1187.19,
+      "end": 1188.87,
+      "text": "multiplications so it's really easy to"
+    },
+    {
+      "start": 1188.87,
+      "end": 1191.27,
+      "text": "evaluate"
+    },
+    {
+      "start": 1191.27,
+      "end": 1195.669,
+      "text": "uh and then sample vectors we haven't"
+    },
+    {
+      "start": 1195.669,
+      "end": 1198.23,
+      "text": "talked much about that um so the idea is"
+    },
+    {
+      "start": 1198.23,
+      "end": 1200.71,
+      "text": "suppose you're given two polomials with"
+    },
+    {
+      "start": 1200.71,
+      "end": 1201.83,
+      "text": "the same x K's. We're going to fix X"
+    },
+    {
+      "start": 1201.83,
+      "end": 1203.75,
+      "text": "K's. All we need is that they're"
+    },
+    {
+      "start": 1203.75,
+      "end": 1206.39,
+      "text": "distinct. So X K could equal K, for"
+    },
+    {
+      "start": 1206.39,
+      "end": 1209.669,
+      "text": "example, just a bunch of integers. And"
+    },
+    {
+      "start": 1209.669,
+      "end": 1211.59,
+      "text": "then we are told what polinomial A"
+    },
+    {
+      "start": 1211.59,
+      "end": 1213.83,
+      "text": "evaluates to at every X K. And we're"
+    },
+    {
+      "start": 1213.83,
+      "end": 1216.31,
+      "text": "told what polinomial B evaluates to at"
+    },
+    {
+      "start": 1216.31,
+      "end": 1217.23,
+      "text": "every X K. So we're given some YKS and"
+    },
+    {
+      "start": 1217.23,
+      "end": 1219.99,
+      "text": "some"
+    },
+    {
+      "start": 1219.99,
+      "end": 1224.07,
+      "text": "ZK's. And then we want to compute say"
+    },
+    {
+      "start": 1224.07,
+      "end": 1226.549,
+      "text": "the the sum or the product of those two"
+    },
+    {
+      "start": 1226.549,
+      "end": 1229.669,
+      "text": "vectors. What do we do?"
+    },
+    {
+      "start": 1229.669,
+      "end": 1233.11,
+      "text": "just add or multiply the corresponding"
+    },
+    {
+      "start": 1233.11,
+      "end": 1236.789,
+      "text": "uh yk and z case, right? Because if"
+    },
+    {
+      "start": 1236.789,
+      "end": 1239.43,
+      "text": "we're told we want uh c of x to equal a"
+    },
+    {
+      "start": 1239.43,
+      "end": 1241.75,
+      "text": "of x * b of x or c of x to equal a of x"
+    },
+    {
+      "start": 1241.75,
+      "end": 1243.43,
+      "text": "plus b of x for all x, well, now we know"
+    },
+    {
+      "start": 1243.43,
+      "end": 1245.669,
+      "text": "what x's we care about. We just do it at"
+    },
+    {
+      "start": 1245.669,
+      "end": 1249.35,
+      "text": "the x ks. That's what we're told for a"
+    },
+    {
+      "start": 1249.35,
+      "end": 1251.51,
+      "text": "and for b. And so to compute c of x k,"
+    },
+    {
+      "start": 1251.51,
+      "end": 1254.31,
+      "text": "it's just the sum or the product of yk"
+    },
+    {
+      "start": 1254.31,
+      "end": 1256.549,
+      "text": "and zk. Okay, so multiplication is"
+    },
+    {
+      "start": 1256.549,
+      "end": 1259.43,
+      "text": "really easy in the sample view and this"
+    },
+    {
+      "start": 1259.43,
+      "end": 1261.35,
+      "text": "is why we are going to use this view."
+    },
+    {
+      "start": 1261.35,
+      "end": 1263.909,
+      "text": "We're also going to use this view"
+    },
+    {
+      "start": 1263.909,
+      "end": 1267.789,
+      "text": "because as we'll see there's a problem."
+    },
+    {
+      "start": 1267.789,
+      "end": 1269.47,
+      "text": "Uh addition is easy, multiplication is"
+    },
+    {
+      "start": 1269.47,
+      "end": 1273.029,
+      "text": "easy,"
+    },
+    {
+      "start": 1273.029,
+      "end": 1276.549,
+      "text": "evaluation is annoying."
+    },
+    {
+      "start": 1276.549,
+      "end": 1280.149,
+      "text": "uh I can evaluate a of x k at or a of x"
+    },
+    {
+      "start": 1280.149,
+      "end": 1283.51,
+      "text": "at x k for any k but I can't evaluate it"
+    },
+    {
+      "start": 1283.51,
+      "end": 1286.39,
+      "text": "at some at some arbitrary value of x"
+    },
+    {
+      "start": 1286.39,
+      "end": 1287.83,
+      "text": "okay that's annoying I'm told at these"
+    },
+    {
+      "start": 1287.83,
+      "end": 1289.43,
+      "text": "finite sample points but now I have to"
+    },
+    {
+      "start": 1289.43,
+      "end": 1291.909,
+      "text": "somehow interpolate this is called"
+    },
+    {
+      "start": 1291.909,
+      "end": 1294.43,
+      "text": "polinomial interpolation well studied in"
+    },
+    {
+      "start": 1294.43,
+      "end": 1298.31,
+      "text": "numerical analysis and so on you can do"
+    },
+    {
+      "start": 1298.31,
+      "end": 1300.47,
+      "text": "it but uh it takes quadratic time in"
+    },
+    {
+      "start": 1300.47,
+      "end": 1307.07,
+      "text": "general best known algorithms are"
+    },
+    {
+      "start": 1307.07,
+      "end": 1311.149,
+      "text": "So this is"
+    },
+    {
+      "start": 1311.149,
+      "end": 1315.39,
+      "text": "bad, this is bad, and this is"
+    },
+    {
+      "start": 1315.39,
+      "end": 1317.23,
+      "text": "bad. So no representation is"
+    },
+    {
+      "start": 1317.23,
+      "end": 1320.39,
+      "text": "perfect. Life"
+    },
+    {
+      "start": 1320.39,
+      "end": 1321.99,
+      "text": "sucks. Uh what we'd like is to get the"
+    },
+    {
+      "start": 1321.99,
+      "end": 1323.59,
+      "text": "best. Now this one is really hard to"
+    },
+    {
+      "start": 1323.59,
+      "end": 1326.549,
+      "text": "work with because converting into roots"
+    },
+    {
+      "start": 1326.549,
+      "end": 1328.87,
+      "text": "is sort of impossible is impossible in"
+    },
+    {
+      "start": 1328.87,
+      "end": 1332.23,
+      "text": "our in an arithmetic model. So we're"
+    },
+    {
+      "start": 1332.23,
+      "end": 1334.63,
+      "text": "going to focus on column A and column C."
+    },
+    {
+      "start": 1334.63,
+      "end": 1337.51,
+      "text": "We kind of like to take the min of those"
+    },
+    {
+      "start": 1337.51,
+      "end": 1340.149,
+      "text": "two columns. We won't quite get that."
+    },
+    {
+      "start": 1340.149,
+      "end": 1341.87,
+      "text": "What we will get is an algorithm for"
+    },
+    {
+      "start": 1341.87,
+      "end": 1344.59,
+      "text": "converting between these two"
+    },
+    {
+      "start": 1344.59,
+      "end": 1348.47,
+      "text": "representations in n login"
+    },
+    {
+      "start": 1348.47,
+      "end": 1349.99,
+      "text": "time. So not quite linear but close. And"
+    },
+    {
+      "start": 1349.99,
+      "end": 1352.23,
+      "text": "once we can do that if we want to"
+    },
+    {
+      "start": 1352.23,
+      "end": 1355.27,
+      "text": "multiply two things in the coefficient"
+    },
+    {
+      "start": 1355.27,
+      "end": 1357.149,
+      "text": "land we can convert to sample land do it"
+    },
+    {
+      "start": 1357.149,
+      "end": 1360.63,
+      "text": "in linear time and then convert"
+    },
+    {
+      "start": 1360.63,
+      "end": 1362.71,
+      "text": "back. So uh that's the magical"
+    },
+    {
+      "start": 1362.71,
+      "end": 1364.39,
+      "text": "transformation we're going to cover and"
+    },
+    {
+      "start": 1364.39,
+      "end": 1366.31,
+      "text": "it is called the fastforier transform."
+    },
+    {
+      "start": 1366.31,
+      "end": 1368.149,
+      "text": "Fastfor transform is the algorithm"
+    },
+    {
+      "start": 1368.149,
+      "end": 1369.669,
+      "text": "discrete 4A transform is that"
+    },
+    {
+      "start": 1369.669,
+      "end": 1375.11,
+      "text": "transformation"
+    },
+    {
+      "start": 1375.11,
+      "end": 1377.27,
+      "text": "mathematically. Cool. So the whole name"
+    },
+    {
+      "start": 1377.27,
+      "end": 1380.07,
+      "text": "of the game is converting uh from"
+    },
+    {
+      "start": 1380.07,
+      "end": 1381.83,
+      "text": "coefficient representation to samples or"
+    },
+    {
+      "start": 1381.83,
+      "end": 1383.59,
+      "text": "vice versa. Turns out they're almost the"
+    },
+    {
+      "start": 1383.59,
+      "end": 1386.149,
+      "text": "same though that won't be obvious for a"
+    },
+    {
+      "start": 1386.149,
+      "end": 1394.909,
+      "text": "long time till the end of the class. Any"
+    },
+    {
+      "start": 1394.909,
+      "end": 1400.31,
+      "text": "Why don't we evaluate a"
+    },
+    {
+      "start": 1400.31,
+      "end": 1402.63,
+      "text": "bip? Ah uh so okay the question is uh if"
+    },
+    {
+      "start": 1402.63,
+      "end": 1405.27,
+      "text": "I want to we'll get there in a second"
+    },
+    {
+      "start": 1405.27,
+      "end": 1406.87,
+      "text": "but if I want to multiply uh and it's so"
+    },
+    {
+      "start": 1406.87,
+      "end": 1409.27,
+      "text": "easy to do in sample land why don't I"
+    },
+    {
+      "start": 1409.27,
+      "end": 1411.35,
+      "text": "just sample A and B and then multiply"
+    },
+    {
+      "start": 1411.35,
+      "end": 1413.029,
+      "text": "them that's right uh but in fact"
+    },
+    {
+      "start": 1413.029,
+      "end": 1424.87,
+      "text": "sampling is not so easy it takes"
+    },
+    {
+      "start": 1424.87,
+      "end": 1428.149,
+      "text": "now because we have n samples to do each"
+    },
+    {
+      "start": 1428.149,
+      "end": 1430.23,
+      "text": "one will cost linear time. Uh remember"
+    },
+    {
+      "start": 1430.23,
+      "end": 1432.87,
+      "text": "to evaluate a polinomial takes linear"
+    },
+    {
+      "start": 1432.87,
+      "end": 1436.19,
+      "text": "time. If you want to think of it in a"
+    },
+    {
+      "start": 1436.19,
+      "end": 1456.549,
+      "text": "matrix that's entered the matrix"
+    },
+    {
+      "start": 1456.549,
+      "end": 1459.19,
+      "text": "So we're given the x i's and we just"
+    },
+    {
+      "start": 1459.19,
+      "end": 1464.59,
+      "text": "want to evaluate a given polomial uh"
+    },
+    {
+      "start": 1464.59,
+      "end": 1468.149,
+      "text": "whose coefficients are given by a 0 a1"
+    },
+    {
+      "start": 1468.149,
+      "end": 1472.59,
+      "text": "a2 n minus one. Our goal is to compute"
+    },
+    {
+      "start": 1472.59,
+      "end": 1474.99,
+      "text": "the y i's y 0 y1 y"
+    },
+    {
+      "start": 1474.99,
+      "end": 1477.43,
+      "text": "2 to yn minus"
+    },
+    {
+      "start": 1477.43,
+      "end": 1480.149,
+      "text": "one. Uh and so you can if you know a"
+    },
+    {
+      "start": 1480.149,
+      "end": 1481.909,
+      "text": "matrix vector product you take this row"
+    },
+    {
+      "start": 1481.909,
+      "end": 1484.07,
+      "text": "with that column you take the dotproduct"
+    },
+    {
+      "start": 1484.07,
+      "end": 1486.39,
+      "text": "that multiplies corresponding entries"
+    },
+    {
+      "start": 1486.39,
+      "end": 1488.47,
+      "text": "you get y0 that is the definition of the"
+    },
+    {
+      "start": 1488.47,
+      "end": 1490.51,
+      "text": "polinomial evaluation I'm just going to"
+    },
+    {
+      "start": 1490.51,
+      "end": 1499.789,
+      "text": "write a bunch of these"
+    },
+    {
+      "start": 1499.789,
+      "end": 1522.11,
+      "text": "pattern"
+    },
+    {
+      "start": 1522.11,
+      "end": 1526.47,
+      "text": "matrix. I'll call it"
+    },
+    {
+      "start": 1526.47,
+      "end": 1543.07,
+      "text": "V. And in general, uh I have room for"
+    },
+    {
+      "start": 1543.07,
+      "end": 1548.07,
+      "text": "In general, if we look at uh"
+    },
+    {
+      "start": 1548.07,
+      "end": 1550.07,
+      "text": "VIG, it's just um sorry there you may"
+    },
+    {
+      "start": 1550.07,
+      "end": 1554.31,
+      "text": "notice I'm not using the letter I. We"
+    },
+    {
+      "start": 1554.31,
+      "end": 1557.99,
+      "text": "will get to why in a moment. VJ K uh row"
+    },
+    {
+      "start": 1557.99,
+      "end": 1561.63,
+      "text": "J column K. That's going to be x subj to"
+    },
+    {
+      "start": 1561.63,
+      "end": 1564.549,
+      "text": "the power k. That's the vendor matrix."
+    },
+    {
+      "start": 1564.549,
+      "end": 1566.23,
+      "text": "Um, we can compute it in quadratic time."
+    },
+    {
+      "start": 1566.23,
+      "end": 1568.31,
+      "text": "It has quadratic entries. We can use the"
+    },
+    {
+      "start": 1568.31,
+      "end": 1570.87,
+      "text": "trick suggested earlier. Compute each"
+    },
+    {
+      "start": 1570.87,
+      "end": 1572.75,
+      "text": "term from the previous one uh by"
+    },
+    {
+      "start": 1572.75,
+      "end": 1575.51,
+      "text": "multiplying by"
+    },
+    {
+      "start": 1575.51,
+      "end": 1578.39,
+      "text": "xj. Uh, and then we want to compute this"
+    },
+    {
+      "start": 1578.39,
+      "end": 1581.43,
+      "text": "matrix vector product. And you can"
+    },
+    {
+      "start": 1581.43,
+      "end": 1583.83,
+      "text": "clearly do it in quadratic time uh just"
+    },
+    {
+      "start": 1583.83,
+      "end": 1585.51,
+      "text": "computing each thing correspondingly."
+    },
+    {
+      "start": 1585.51,
+      "end": 1587.19,
+      "text": "And that's sort of the best you can do"
+    },
+    {
+      "start": 1587.19,
+      "end": 1590.39,
+      "text": "without any further assumptions. So this"
+    },
+    {
+      "start": 1590.39,
+      "end": 1592.99,
+      "text": "takes uh so if I I want to compute this"
+    },
+    {
+      "start": 1592.99,
+      "end": 1597.07,
+      "text": "product that's the uh"
+    },
+    {
+      "start": 1597.07,
+      "end": 1600.909,
+      "text": "coefficients to samples"
+    },
+    {
+      "start": 1600.909,
+      "end": 1606.149,
+      "text": "problem. Uh this is the same thing as"
+    },
+    {
+      "start": 1606.149,
+      "end": 1608.63,
+      "text": "computing v times the a vector. So this"
+    },
+    {
+      "start": 1608.63,
+      "end": 1617.35,
+      "text": "is a matrix vector multiplication which"
+    },
+    {
+      "start": 1617.35,
+      "end": 1619.269,
+      "text": "time. Okay. On the other hand, so that's"
+    },
+    {
+      "start": 1619.269,
+      "end": 1621.35,
+      "text": "a problem because we're trying to beat"
+    },
+    {
+      "start": 1621.35,
+      "end": 1623.029,
+      "text": "quadratic multiplication. So if we spend"
+    },
+    {
+      "start": 1623.029,
+      "end": 1624.63,
+      "text": "quadratic time to convert over here, it"
+    },
+    {
+      "start": 1624.63,
+      "end": 1625.909,
+      "text": "doesn't matter if this is linear time."
+    },
+    {
+      "start": 1625.909,
+      "end": 1627.43,
+      "text": "There are two problems. One is that"
+    },
+    {
+      "start": 1627.43,
+      "end": 1628.75,
+      "text": "conversion costs too much. The other is"
+    },
+    {
+      "start": 1628.75,
+      "end": 1631.43,
+      "text": "we don't yet know how to convert"
+    },
+    {
+      "start": 1631.43,
+      "end": 1633.909,
+      "text": "backwards. Uh but this matrix view gives"
+    },
+    {
+      "start": 1633.909,
+      "end": 1635.63,
+      "text": "us also the reverse transformation. If"
+    },
+    {
+      "start": 1635.63,
+      "end": 1642.51,
+      "text": "we want to convert"
+    },
+    {
+      "start": 1642.51,
+      "end": 1645.909,
+      "text": "uh this"
+    },
+    {
+      "start": 1645.909,
+      "end": 1648.549,
+      "text": "is uh the best notation I know is from"
+    },
+    {
+      "start": 1648.549,
+      "end": 1651.59,
+      "text": "mat lab. How many people know mat lab? A"
+    },
+    {
+      "start": 1651.59,
+      "end": 1653.909,
+      "text": "bunch. So for you it's v back slash a"
+    },
+    {
+      "start": 1653.909,
+      "end": 1657.269,
+      "text": "but uh usually in linear algebra like"
+    },
+    {
+      "start": 1657.269,
+      "end": 1660.549,
+      "text": "1806 you see you have you have uh some"
+    },
+    {
+      "start": 1660.549,
+      "end": 1662.149,
+      "text": "matrix v times some unknown vector."
+    },
+    {
+      "start": 1662.149,
+      "end": 1664.39,
+      "text": "Usually it's called x. Here it's called"
+    },
+    {
+      "start": 1664.39,
+      "end": 1666.149,
+      "text": "a. And you know the right hand side and"
+    },
+    {
+      "start": 1666.149,
+      "end": 1673.909,
+      "text": "you want to solve for this. How do you"
+    },
+    {
+      "start": 1673.909,
+      "end": 1675.669,
+      "text": "Sorry."
+    },
+    {
+      "start": 1675.669,
+      "end": 1677.75,
+      "text": "Multiply by the inverse. Yeah. How do"
+    },
+    {
+      "start": 1677.75,
+      "end": 1679.51,
+      "text": "you do it in computer science?"
+    },
+    {
+      "start": 1679.51,
+      "end": 1681.35,
+      "text": "Elimination. Gaussian elimination. Turns"
+    },
+    {
+      "start": 1681.35,
+      "end": 1683.43,
+      "text": "out inverse is the right answer here."
+    },
+    {
+      "start": 1683.43,
+      "end": 1685.669,
+      "text": "But uh Gaussian elimination would be the"
+    },
+    {
+      "start": 1685.669,
+      "end": 1688.19,
+      "text": "standard way to solve a linear system"
+    },
+    {
+      "start": 1688.19,
+      "end": 1691.149,
+      "text": "like that. trouble with galsian"
+    },
+    {
+      "start": 1691.149,
+      "end": 1694.11,
+      "text": "elimination is it takes cubic"
+    },
+    {
+      "start": 1694.11,
+      "end": 1697.43,
+      "text": "time and it's in its normal"
+    },
+    {
+      "start": 1697.43,
+      "end": 1699.029,
+      "text": "form. Uh in this case it's a little bit"
+    },
+    {
+      "start": 1699.029,
+      "end": 1701.51,
+      "text": "special because this matrix is"
+    },
+    {
+      "start": 1701.51,
+      "end": 1705.269,
+      "text": "essentially fixed. The x i's don't need"
+    },
+    {
+      "start": 1705.269,
+      "end": 1707.269,
+      "text": "to change. It could be x i is just i or"
+    },
+    {
+      "start": 1707.269,
+      "end": 1708.71,
+      "text": "something. Uh so we can in this case"
+    },
+    {
+      "start": 1708.71,
+      "end": 1711.269,
+      "text": "it's a little better to compute the"
+    },
+    {
+      "start": 1711.269,
+      "end": 1715.83,
+      "text": "inverse first. Uh so we could also just"
+    },
+    {
+      "start": 1715.83,
+      "end": 1717.269,
+      "text": "do V inverse times A. Uh from a"
+    },
+    {
+      "start": 1717.269,
+      "end": 1718.789,
+      "text": "numerical analysis standpoint this is"
+    },
+    {
+      "start": 1718.789,
+      "end": 1719.909,
+      "text": "very bad but don't worry about it for"
+    },
+    {
+      "start": 1719.909,
+      "end": 1721.95,
+      "text": "now. We're going to get a better"
+    },
+    {
+      "start": 1721.95,
+      "end": 1724.63,
+      "text": "algorithm today anyway. It doesn't"
+    },
+    {
+      "start": 1724.63,
+      "end": 1726.789,
+      "text": "involve matrices at all. But the nice"
+    },
+    {
+      "start": 1726.789,
+      "end": 1728.31,
+      "text": "thing is if uh computing V inverse that"
+    },
+    {
+      "start": 1728.31,
+      "end": 1729.83,
+      "text": "takes n cubed time but you only have to"
+    },
+    {
+      "start": 1729.83,
+      "end": 1732.95,
+      "text": "do it once. So if you have to do this"
+    },
+    {
+      "start": 1732.95,
+      "end": 1735.19,
+      "text": "many times uh you can do this product in"
+    },
+    {
+      "start": 1735.19,
+      "end": 1739.269,
+      "text": "n squ time. You just have to maintain"
+    },
+    {
+      "start": 1739.269,
+      "end": 1741.19,
+      "text": "that v inverse for once and for all."
+    },
+    {
+      "start": 1741.19,
+      "end": 1743.029,
+      "text": "Okay. Uh, great. So, we got quadratic"
+    },
+    {
+      "start": 1743.029,
+      "end": 1744.389,
+      "text": "algorithms to go back and forth between"
+    },
+    {
+      "start": 1744.389,
+      "end": 1748.95,
+      "text": "these representations. That at least"
+    },
+    {
+      "start": 1748.95,
+      "end": 1750.31,
+      "text": "tells us it's doable. But, uh, we we of"
+    },
+    {
+      "start": 1750.31,
+      "end": 1753.71,
+      "text": "course need better than quadratic to"
+    },
+    {
+      "start": 1753.71,
+      "end": 1755.51,
+      "text": "improve on the naive uh, multiplication"
+    },
+    {
+      "start": 1755.51,
+      "end": 1756.51,
+      "text": "algorithm. So, that's what we're going"
+    },
+    {
+      "start": 1756.51,
+      "end": 1759.909,
+      "text": "to"
+    },
+    {
+      "start": 1759.909,
+      "end": 1763.669,
+      "text": "do. Uh, in general, we can't do any"
+    },
+    {
+      "start": 1763.669,
+      "end": 1766.31,
+      "text": "better. But we have one freedom which is"
+    },
+    {
+      "start": 1766.31,
+      "end": 1767.99,
+      "text": "we have said nothing about the x case."
+    },
+    {
+      "start": 1767.99,
+      "end": 1770.789,
+      "text": "We can choose them to be whatever they"
+    },
+    {
+      "start": 1770.789,
+      "end": 1773.43,
+      "text": "we want them to be. I keep saying x k"
+    },
+    {
+      "start": 1773.43,
+      "end": 1775.269,
+      "text": "equals k. That seems fine. It's actually"
+    },
+    {
+      "start": 1775.269,
+      "end": 1777.83,
+      "text": "a really bad choice for a reason we will"
+    },
+    {
+      "start": 1777.83,
+      "end": 1779.71,
+      "text": "get to. Uh but there is a choice where"
+    },
+    {
+      "start": 1779.71,
+      "end": 1782.99,
+      "text": "magically this transformation becomes"
+    },
+    {
+      "start": 1782.99,
+      "end": 1786.51,
+      "text": "easy and you can do it in n login"
+    },
+    {
+      "start": 1786.51,
+      "end": 1788.909,
+      "text": "time. Before we get there"
+    },
+    {
+      "start": 1788.909,
+      "end": 1791.389,
+      "text": "uh I want to give you"
+    },
+    {
+      "start": 1791.389,
+      "end": 1816.789,
+      "text": "some motivation"
+    },
+    {
+      "start": 1816.789,
+      "end": 1819.19,
+      "text": "And as you might expect even just from"
+    },
+    {
+      "start": 1819.19,
+      "end": 1825.19,
+      "text": "the n login running time we're going to"
+    },
+    {
+      "start": 1825.19,
+      "end": 1828.71,
+      "text": "conquer. So let's just think about how"
+    },
+    {
+      "start": 1828.71,
+      "end": 1831.19,
+      "text": "divide and conquer could work. Uh and"
+    },
+    {
+      "start": 1831.19,
+      "end": 1832.63,
+      "text": "I'm going to show you an idea and then"
+    },
+    {
+      "start": 1832.63,
+      "end": 1834.63,
+      "text": "we'll figure out how that idea could"
+    },
+    {
+      "start": 1834.63,
+      "end": 1836.789,
+      "text": "possibly work. At the mo it doesn't work"
+    },
+    {
+      "start": 1836.789,
+      "end": 1838.99,
+      "text": "at the moment but we we'll be able to"
+    },
+    {
+      "start": 1838.99,
+      "end": 1842.83,
+      "text": "choose the x case so that it"
+    },
+    {
+      "start": 1842.83,
+      "end": 1845.11,
+      "text": "works. So let's say uh the"
+    },
+    {
+      "start": 1845.11,
+      "end": 1848.31,
+      "text": "goal I mean what we want to do is"
+    },
+    {
+      "start": 1848.31,
+      "end": 1851.75,
+      "text": "compute this uh v * a I'm going to"
+    },
+    {
+      "start": 1851.75,
+      "end": 1855.11,
+      "text": "convert think of that back into mat into"
+    },
+    {
+      "start": 1855.11,
+      "end": 1868.51,
+      "text": "polomial uh land. So our goal is to"
+    },
+    {
+      "start": 1868.51,
+      "end": 1871.35,
+      "text": "x. Okay, this is uh taking a bunch of"
+    },
+    {
+      "start": 1871.35,
+      "end": 1874.07,
+      "text": "samples. Those uh the set X is just a"
+    },
+    {
+      "start": 1874.07,
+      "end": 1877.83,
+      "text": "set of the XKS, but I'm going to change"
+    },
+    {
+      "start": 1877.83,
+      "end": 1880.31,
+      "text": "that set in a moment uh using recursion."
+    },
+    {
+      "start": 1880.31,
+      "end": 1882.63,
+      "text": "So I want to think so the input to this"
+    },
+    {
+      "start": 1882.63,
+      "end": 1886.549,
+      "text": "algorithm is a polinomial A of X and"
+    },
+    {
+      "start": 1886.549,
+      "end": 1888.47,
+      "text": "it's a set capital X of positions that"
+    },
+    {
+      "start": 1888.47,
+      "end": 1889.909,
+      "text": "I'd like to evaluate that polomial at."
+    },
+    {
+      "start": 1889.909,
+      "end": 1892.47,
+      "text": "This is clearly more general than the"
+    },
+    {
+      "start": 1892.47,
+      "end": 1893.59,
+      "text": "problem we're trying to solve and I'm"
+    },
+    {
+      "start": 1893.59,
+      "end": 1894.95,
+      "text": "going to solve it with divide and"
+    },
+    {
+      "start": 1894.95,
+      "end": 1897.389,
+      "text": "conquer. So in divide and conquer there"
+    },
+    {
+      "start": 1897.389,
+      "end": 1907.07,
+      "text": "are three steps. Divide, conquer, and"
+    },
+    {
+      "start": 1907.07,
+      "end": 1909.35,
+      "text": "divide here's the big idea."
+    },
+    {
+      "start": 1909.35,
+      "end": 1911.35,
+      "text": "Uh I would say there are two natural"
+    },
+    {
+      "start": 1911.35,
+      "end": 1912.71,
+      "text": "ways to divide a vector. One is in the"
+    },
+    {
+      "start": 1912.71,
+      "end": 1914.47,
+      "text": "middle. That's what we've always seen"
+    },
+    {
+      "start": 1914.47,
+      "end": 1918.549,
+      "text": "with merge sort and divide and conquer"
+    },
+    {
+      "start": 1918.549,
+      "end": 1920.149,
+      "text": "uh and u convex hull from last time. But"
+    },
+    {
+      "start": 1920.149,
+      "end": 1923.029,
+      "text": "there's another way which will work"
+    },
+    {
+      "start": 1923.029,
+      "end": 1924.35,
+      "text": "better here which is the even entries"
+    },
+    {
+      "start": 1924.35,
+      "end": 1926.789,
+      "text": "and the odd"
+    },
+    {
+      "start": 1926.789,
+      "end": 1937.35,
+      "text": "entries. So I'm going to divide into"
+    },
+    {
+      "start": 1937.35,
+      "end": 1940.23,
+      "text": "coefficients. So let me write that down."
+    },
+    {
+      "start": 1940.23,
+      "end": 1942.389,
+      "text": "Uh one of them is called a sub even of"
+    },
+    {
+      "start": 1942.389,
+      "end": 1945.75,
+      "text": "x. That's a polomial. It's going to have"
+    },
+    {
+      "start": 1945.75,
+      "end": 1949.789,
+      "text": "half the degree. So it's going to be sum"
+    },
+    {
+      "start": 1949.789,
+      "end": 1952.47,
+      "text": "from k= 0"
+    },
+    {
+      "start": 1952.47,
+      "end": 1954.11,
+      "text": "to I wrote n here but I think I want"
+    },
+    {
+      "start": 1954.11,
+      "end": 1960.509,
+      "text": "something like n /"
+    },
+    {
+      "start": 1960.509,
+      "end": 1962.35,
+      "text": "2 -1 n - 1 /2 one of those things uh of"
+    },
+    {
+      "start": 1962.35,
+      "end": 1964.83,
+      "text": "a"
+    },
+    {
+      "start": 1964.83,
+      "end": 1968.47,
+      "text": "2k x to the"
+    },
+    {
+      "start": 1968.47,
+      "end": 1971.269,
+      "text": "k. So really really what I want which is"
+    },
+    {
+      "start": 1971.269,
+      "end": 1973.789,
+      "text": "easier to write in the vector notation."
+    },
+    {
+      "start": 1973.789,
+      "end": 1975.909,
+      "text": "I want all the even"
+    },
+    {
+      "start": 1975.909,
+      "end": 1979.549,
+      "text": "entries. Okay, I won't try to figure out"
+    },
+    {
+      "start": 1979.549,
+      "end": 1982.47,
+      "text": "what the last one is but it's roughly n"
+    },
+    {
+      "start": 1982.47,
+      "end": 1983.75,
+      "text": "/2ish. I'll just write that. Uh you"
+    },
+    {
+      "start": 1983.75,
+      "end": 1986.23,
+      "text": "could go a little bit extra. That's"
+    },
+    {
+      "start": 1986.23,
+      "end": 1987.99,
+      "text": "fine. Uh if you define a subn to be zero"
+    },
+    {
+      "start": 1987.99,
+      "end": 1989.59,
+      "text": "and a sub n plus one to be zero and all"
+    },
+    {
+      "start": 1989.59,
+      "end": 1991.99,
+      "text": "those to be zero those terms will"
+    },
+    {
+      "start": 1991.99,
+      "end": 1994.389,
+      "text": "disappear. So uh the key thing here is"
+    },
+    {
+      "start": 1994.389,
+      "end": 1997.43,
+      "text": "I'm taking the even entries but I'm I'm"
+    },
+    {
+      "start": 1997.43,
+      "end": 2000.71,
+      "text": "I'm not I don't have 2k up here right?"
+    },
+    {
+      "start": 2000.71,
+      "end": 2002.549,
+      "text": "So this is the x to the zero term. This"
+    },
+    {
+      "start": 2002.549,
+      "end": 2004.87,
+      "text": "is the x to the one term. This is the x"
+    },
+    {
+      "start": 2004.87,
+      "end": 2008.23,
+      "text": "to the 2 term. So there's a difference"
+    },
+    {
+      "start": 2008.23,
+      "end": 2010.87,
+      "text": "between x to the k's and the the a uh"
+    },
+    {
+      "start": 2010.87,
+      "end": 2012.63,
+      "text": "sub 2k. But I mean just think about it"
+    },
+    {
+      "start": 2012.63,
+      "end": 2014.07,
+      "text": "in vector form. Don't worry about the"
+    },
+    {
+      "start": 2014.07,
+      "end": 2016.07,
+      "text": "algebra for now. We're going to have to"
+    },
+    {
+      "start": 2016.07,
+      "end": 2019.11,
+      "text": "worry about it in a second. But"
+    },
+    {
+      "start": 2019.11,
+      "end": 2022.47,
+      "text": "intuitively what I want to do is extract"
+    },
+    {
+      "start": 2022.47,
+      "end": 2024.83,
+      "text": "from the vector of all the ais uh these"
+    },
+    {
+      "start": 2024.83,
+      "end": 2028.47,
+      "text": "two vectors"
+    },
+    {
+      "start": 2028.47,
+      "end": 2031.029,
+      "text": "the odd coefficients in order and the"
+    },
+    {
+      "start": 2031.029,
+      "end": 2033.11,
+      "text": "even coefficients in order. But I'm"
+    },
+    {
+      "start": 2033.11,
+      "end": 2041.669,
+      "text": "going to need the algebraic form in a"
+    },
+    {
+      "start": 2041.669,
+      "end": 2052.27,
+      "text": "step. So this should be 2k + 1 x to the"
+    },
+    {
+      "start": 2052.27,
+      "end": 2055.829,
+      "text": "one. Easy to do. Linear time, of"
+    },
+    {
+      "start": 2055.829,
+      "end": 2064.31,
+      "text": "course. Um, let's jump ahead to step"
+    },
+    {
+      "start": 2064.31,
+      "end": 2065.829,
+      "text": "combine. In order to compute a of x from"
+    },
+    {
+      "start": 2065.829,
+      "end": 2068.149,
+      "text": "what I'd like to do is recursively"
+    },
+    {
+      "start": 2068.149,
+      "end": 2069.909,
+      "text": "compute a even of x and a odd of x for"
+    },
+    {
+      "start": 2069.909,
+      "end": 2072.31,
+      "text": "some values x. It's not going to be x"
+    },
+    {
+      "start": 2072.31,
+      "end": 2074.389,
+      "text": "and x. It's going to be some other set."
+    },
+    {
+      "start": 2074.389,
+      "end": 2077.669,
+      "text": "And let's think about how I could"
+    },
+    {
+      "start": 2077.669,
+      "end": 2082.669,
+      "text": "compute a of x given some solutions to a"
+    },
+    {
+      "start": 2082.669,
+      "end": 2103.99,
+      "text": "even of x and a odd of x. So this is"
+    },
+    {
+      "start": 2103.99,
+      "end": 2105.23,
+      "text": "like a of x over here and I want a even"
+    },
+    {
+      "start": 2105.23,
+      "end": 2111.19,
+      "text": "of"
+    },
+    {
+      "start": 2111.19,
+      "end": 2139.109,
+      "text": "something and a odd of something and"
+    },
+    {
+      "start": 2139.109,
+      "end": 2141.91,
+      "text": "one. Getting better. Uh why X squ?"
+    },
+    {
+      "start": 2141.91,
+      "end": 2145.67,
+      "text": "Because we have this mismatch here. We"
+    },
+    {
+      "start": 2145.67,
+      "end": 2147.91,
+      "text": "have a sub 2K. We want x to the 2k. How"
+    },
+    {
+      "start": 2147.91,
+      "end": 2151.23,
+      "text": "could we do that? Well, we could put x^2"
+    },
+    {
+      "start": 2151.23,
+      "end": 2154.71,
+      "text": "to the 2k. uh and you know"
+    },
+    {
+      "start": 2154.71,
+      "end": 2157.15,
+      "text": "x^2 oh sorry x^2 to the k is the same"
+    },
+    {
+      "start": 2157.15,
+      "end": 2160.95,
+      "text": "thing as x^ the"
+    },
+    {
+      "start": 2160.95,
+      "end": 2164.95,
+      "text": "2k okay and so magically this transforms"
+    },
+    {
+      "start": 2164.95,
+      "end": 2167.109,
+      "text": "into the even entries of a of x that's"
+    },
+    {
+      "start": 2167.109,
+      "end": 2170.03,
+      "text": "half of them we do the same thing for"
+    },
+    {
+      "start": 2170.03,
+      "end": 2175.109,
+      "text": "the odd ones and we're almost"
+    },
+    {
+      "start": 2175.109,
+      "end": 2179.43,
+      "text": "there now we have a sub 2k + 1 * x to"
+    },
+    {
+      "start": 2179.43,
+      "end": 2180.91,
+      "text": "the 2k no + one so how can I turn it add"
+    },
+    {
+      "start": 2180.91,
+      "end": 2185.67,
+      "text": "a plus"
+    },
+    {
+      "start": 2185.67,
+      "end": 2188.47,
+      "text": "one multiply by x out here take the"
+    },
+    {
+      "start": 2188.47,
+      "end": 2191.63,
+      "text": "whole thing multiply by x then I get all"
+    },
+    {
+      "start": 2191.63,
+      "end": 2195.91,
+      "text": "of the odd terms of a of x I add these"
+    },
+    {
+      "start": 2195.91,
+      "end": 2197.51,
+      "text": "together I get a of x okay it's uh I"
+    },
+    {
+      "start": 2197.51,
+      "end": 2201.349,
+      "text": "mean you could prove this more carefully"
+    },
+    {
+      "start": 2201.349,
+      "end": 2203.51,
+      "text": "but uh sort of that's just algebra to"
+    },
+    {
+      "start": 2203.51,
+      "end": 2205.91,
+      "text": "see that this is correct once you have"
+    },
+    {
+      "start": 2205.91,
+      "end": 2210.95,
+      "text": "this it tells you what I need to do is"
+    },
+    {
+      "start": 2210.95,
+      "end": 2214.55,
+      "text": "compute a even of x^2 for all x and x."
+    },
+    {
+      "start": 2214.55,
+      "end": 2216.47,
+      "text": "So this is uh for x and x. There's a for"
+    },
+    {
+      "start": 2216.47,
+      "end": 2218.23,
+      "text": "loop for you. So that's going to take"
+    },
+    {
+      "start": 2218.23,
+      "end": 2220.55,
+      "text": "linear time. If I already know this"
+    },
+    {
+      "start": 2220.55,
+      "end": 2222.79,
+      "text": "value and I already know this value, I"
+    },
+    {
+      "start": 2222.79,
+      "end": 2224.91,
+      "text": "do one multiplication, one addition, and"
+    },
+    {
+      "start": 2224.91,
+      "end": 2244.43,
+      "text": "boom, I get a of"
+    },
+    {
+      "start": 2244.43,
+      "end": 2247.47,
+      "text": "uh I'll call it a even of"
+    },
+    {
+      "start": 2247.47,
+      "end": 2258.069,
+      "text": "y and a"
+    },
+    {
+      "start": 2258.069,
+      "end": 2264.87,
+      "text": "y for y in x squared. x^2 is the set of"
+    },
+    {
+      "start": 2264.87,
+      "end": 2268.23,
+      "text": "x. Okay, so I'm changing my set x. I"
+    },
+    {
+      "start": 2268.23,
+      "end": 2270.31,
+      "text": "started with a polinomial A and a set X."
+    },
+    {
+      "start": 2270.31,
+      "end": 2272.67,
+      "text": "Recursively I'm doing a different"
+    },
+    {
+      "start": 2272.67,
+      "end": 2276.39,
+      "text": "polomial of half the"
+    },
+    {
+      "start": 2276.39,
+      "end": 2279.31,
+      "text": "degree, half the number of terms"
+    },
+    {
+      "start": 2279.31,
+      "end": 2283.19,
+      "text": "uh but with a different"
+    },
+    {
+      "start": 2283.19,
+      "end": 2287.39,
+      "text": "set of the same size. Okay, I started"
+    },
+    {
+      "start": 2287.39,
+      "end": 2290.95,
+      "text": "with X. X squar has the same size as X,"
+    },
+    {
+      "start": 2290.95,
+      "end": 2295.67,
+      "text": "right? So let's try to figure out how"
+    },
+    {
+      "start": 2295.67,
+      "end": 2297.27,
+      "text": "fast or slow this algorithm is."
+    },
+    {
+      "start": 2297.27,
+      "end": 2300.39,
+      "text": "But that is a divide and conquer. That"
+    },
+    {
+      "start": 2300.39,
+      "end": 2305.43,
+      "text": "is going to be our golden ticket. It's"
+    },
+    {
+      "start": 2305.43,
+      "end": 2308.71,
+      "text": "simple. Uh but we're going to need"
+    },
+    {
+      "start": 2308.71,
+      "end": 2311.349,
+      "text": "another trick. So um I'm going to write"
+    },
+    {
+      "start": 2311.349,
+      "end": 2313.51,
+      "text": "a recurrence. Now this this recurrence"
+    },
+    {
+      "start": 2313.51,
+      "end": 2316.069,
+      "text": "depends kind of on two things. One is"
+    },
+    {
+      "start": 2316.069,
+      "end": 2318.55,
+      "text": "how many terms are there in a that we've"
+    },
+    {
+      "start": 2318.55,
+      "end": 2320.55,
+      "text": "been calling n. And the other is how"
+    },
+    {
+      "start": 2320.55,
+      "end": 2321.91,
+      "text": "many numbers are there in x? How many"
+    },
+    {
+      "start": 2321.91,
+      "end": 2326.069,
+      "text": "different places do I have to evaluate"
+    },
+    {
+      "start": 2326.069,
+      "end": 2333.75,
+      "text": "my polomial? So we've got t of n and"
+    },
+    {
+      "start": 2333.75,
+      "end": 2336.069,
+      "text": "x. Okay. Uh so divide and conquer goes"
+    },
+    {
+      "start": 2336.069,
+      "end": 2338.71,
+      "text": "handinhand with recurrences. Generally"
+    },
+    {
+      "start": 2338.71,
+      "end": 2340.63,
+      "text": "you've got the recursive part. So that's"
+    },
+    {
+      "start": 2340.63,
+      "end": 2343.03,
+      "text": "just how big are the sub problems? How"
+    },
+    {
+      "start": 2343.03,
+      "end": 2345.829,
+      "text": "many are there? There are two subpros."
+    },
+    {
+      "start": 2345.829,
+      "end": 2347.67,
+      "text": "They have half the size in terms of n"
+    },
+    {
+      "start": 2347.67,
+      "end": 2354.67,
+      "text": "but they have the same size in terms of"
+    },
+    {
+      "start": 2354.67,
+      "end": 2358.15,
+      "text": "So, all right. 2 * because there's two"
+    },
+    {
+      "start": 2358.15,
+      "end": 2361.23,
+      "text": "subpros each of size n /2"
+    },
+    {
+      "start": 2361.23,
+      "end": 2363.79,
+      "text": "uh and size"
+    },
+    {
+      "start": 2363.79,
+      "end": 2366.71,
+      "text": "x. Okay."
+    },
+    {
+      "start": 2366.71,
+      "end": 2369.03,
+      "text": "Plus what goes here is however much it"
+    },
+    {
+      "start": 2369.03,
+      "end": 2370.63,
+      "text": "costs to do the divide step plus however"
+    },
+    {
+      "start": 2370.63,
+      "end": 2372.95,
+      "text": "much it costs to do the combined step."
+    },
+    {
+      "start": 2372.95,
+      "end": 2374.87,
+      "text": "All the non-recursive parts. Well, this"
+    },
+    {
+      "start": 2374.87,
+      "end": 2378.95,
+      "text": "is just partitioning the vectors. Linear"
+    },
+    {
+      "start": 2378.95,
+      "end": 2380.87,
+      "text": "scan linear time. uh this is we we"
+    },
+    {
+      "start": 2380.87,
+      "end": 2383.67,
+      "text": "talked about it's a constant number of"
+    },
+    {
+      "start": 2383.67,
+      "end": 2386.15,
+      "text": "arithmetic operations for each x. So"
+    },
+    {
+      "start": 2386.15,
+      "end": 2387.15,
+      "text": "this costs order x time this cost order"
+    },
+    {
+      "start": 2387.15,
+      "end": 2391.15,
+      "text": "n"
+    },
+    {
+      "start": 2391.15,
+      "end": 2394.43,
+      "text": "time right? So in general we"
+    },
+    {
+      "start": 2394.43,
+      "end": 2397.75,
+      "text": "get n +"
+    },
+    {
+      "start": 2397.75,
+      "end": 2399.75,
+      "text": "x. Now this is not again not a recurrent"
+    },
+    {
+      "start": 2399.75,
+      "end": 2403.91,
+      "text": "solvable by the master method because it"
+    },
+    {
+      "start": 2403.91,
+      "end": 2405.27,
+      "text": "has two variables and uh so probably the"
+    },
+    {
+      "start": 2405.27,
+      "end": 2406.71,
+      "text": "usually when you're faced with this sort"
+    },
+    {
+      "start": 2406.71,
+      "end": 2409.51,
+      "text": "of thing you want to do kind of back of"
+    },
+    {
+      "start": 2409.51,
+      "end": 2413.51,
+      "text": "the envelope picture uh draw a recursion"
+    },
+    {
+      "start": 2413.51,
+      "end": 2416.71,
+      "text": "tree good way to go. So at the root now"
+    },
+    {
+      "start": 2416.71,
+      "end": 2418.79,
+      "text": "I know that initially x equals n right"
+    },
+    {
+      "start": 2418.79,
+      "end": 2420.31,
+      "text": "when I start out I have n coefficients I"
+    },
+    {
+      "start": 2420.31,
+      "end": 2422.71,
+      "text": "have n different positions I want to"
+    },
+    {
+      "start": 2422.71,
+      "end": 2424.39,
+      "text": "evaluate at them at because that's what"
+    },
+    {
+      "start": 2424.39,
+      "end": 2427.43,
+      "text": "I want to do to do this conversion from"
+    },
+    {
+      "start": 2427.43,
+      "end": 2428.63,
+      "text": "coefficients to samples. So at the root"
+    },
+    {
+      "start": 2428.63,
+      "end": 2431.589,
+      "text": "of the recursion tree, I'm just going to"
+    },
+    {
+      "start": 2431.589,
+      "end": 2433.91,
+      "text": "write n order n work to get started and"
+    },
+    {
+      "start": 2433.91,
+      "end": 2437.349,
+      "text": "to the do the recursions. There are two"
+    },
+    {
+      "start": 2437.349,
+      "end": 2440.47,
+      "text": "recursive calls. One has both have size"
+    },
+    {
+      "start": 2440.47,
+      "end": 2444.47,
+      "text": "n /2 in terms of a and they have size"
+    },
+    {
+      "start": 2444.47,
+      "end": 2446.31,
+      "text": "the same x which is also known as n in"
+    },
+    {
+      "start": 2446.31,
+      "end": 2448.95,
+      "text": "those two recursions. So in fact the"
+    },
+    {
+      "start": 2448.95,
+      "end": 2451.51,
+      "text": "linear work here will be n and n and"
+    },
+    {
+      "start": 2451.51,
+      "end": 2454.95,
+      "text": "then we'll get n and n. x never goes"
+    },
+    {
+      "start": 2454.95,
+      "end": 2459.27,
+      "text": "down. So x always remains n the original"
+    },
+    {
+      "start": 2459.27,
+      "end": 2461.03,
+      "text": "value of n. This is a bad recurrence. Uh"
+    },
+    {
+      "start": 2461.03,
+      "end": 2463.19,
+      "text": "there are n sorry there are login"
+    },
+    {
+      "start": 2463.19,
+      "end": 2465.75,
+      "text": "levels. That's the good news. Once we"
+    },
+    {
+      "start": 2465.75,
+      "end": 2467.91,
+      "text": "get down to constant size we can kind of"
+    },
+    {
+      "start": 2467.91,
+      "end": 2469.99,
+      "text": "stop when there's only one coefficient."
+    },
+    {
+      "start": 2469.99,
+      "end": 2473.109,
+      "text": "I know how to evaluate the polinomial"
+    },
+    {
+      "start": 2473.109,
+      "end": 2475.87,
+      "text": "with with just a zero. That's easy. Uh"
+    },
+    {
+      "start": 2475.87,
+      "end": 2479.43,
+      "text": "so down at the bottom here at the last"
+    },
+    {
+      "start": 2479.43,
+      "end": 2481.03,
+      "text": "level so this is height log n. The last"
+    },
+    {
+      "start": 2481.03,
+      "end": 2483.75,
+      "text": "level is just it's again going to be a"
+    },
+    {
+      "start": 2483.75,
+      "end": 2485.829,
+      "text": "whole bunch of n's all the same n here."
+    },
+    {
+      "start": 2485.829,
+      "end": 2488.069,
+      "text": "n is the original value of x because we"
+    },
+    {
+      "start": 2488.069,
+      "end": 2503.349,
+      "text": "haven't changed that. How many n's are"
+    },
+    {
+      "start": 2503.349,
+      "end": 2505.91,
+      "text": "Yeah, good. So we had uh because we had"
+    },
+    {
+      "start": 2505.91,
+      "end": 2507.99,
+      "text": "login levels we had binary branching so"
+    },
+    {
+      "start": 2507.99,
+      "end": 2510.67,
+      "text": "it's two to the number of levels which"
+    },
+    {
+      "start": 2510.67,
+      "end": 2513.069,
+      "text": "is just n. So this"
+    },
+    {
+      "start": 2513.069,
+      "end": 2524.309,
+      "text": "is"
+    },
+    {
+      "start": 2524.309,
+      "end": 2528.87,
+      "text": "n^2. Clearly what we need is for x to"
+    },
+    {
+      "start": 2528.87,
+      "end": 2531.19,
+      "text": "get smaller too. Right? If x if in this"
+    },
+    {
+      "start": 2531.19,
+      "end": 2538.79,
+      "text": "recursion let me uh in red draw the"
+    },
+    {
+      "start": 2538.79,
+      "end": 2542.309,
+      "text": "If x became x over two here, that's the"
+    },
+    {
+      "start": 2542.309,
+      "end": 2544.79,
+      "text": "only change we'd need. Then n and x"
+    },
+    {
+      "start": 2544.79,
+      "end": 2546.95,
+      "text": "change in exactly the same way. And so"
+    },
+    {
+      "start": 2546.95,
+      "end": 2549.589,
+      "text": "then we can just forget about x. It's"
+    },
+    {
+      "start": 2549.589,
+      "end": 2550.67,
+      "text": "going to be the same as n. Then we get 2"
+    },
+    {
+      "start": 2550.67,
+      "end": 2554.79,
+      "text": "* n"
+    },
+    {
+      "start": 2554.79,
+      "end": 2556.39,
+      "text": "/2 plus order n. Look familiar? It is"
+    },
+    {
+      "start": 2556.39,
+      "end": 2558.43,
+      "text": "our breadand butter recurrence. Merge"
+    },
+    {
+      "start": 2558.43,
+      "end": 2561.23,
+      "text": "sort recurrence. That's n"
+    },
+    {
+      "start": 2561.23,
+      "end": 2565.309,
+      "text": "login. That's what we need to do."
+    },
+    {
+      "start": 2565.309,
+      "end": 2573.91,
+      "text": "Somehow when we convert our set"
+    },
+    {
+      "start": 2573.91,
+      "end": 2587.03,
+      "text": "smaller. Is that at all plausible? Let's"
+    },
+    {
+      "start": 2587.03,
+      "end": 2590.829,
+      "text": "it. What's the base case? Um keep things"
+    },
+    {
+      "start": 2590.829,
+      "end": 2595.829,
+      "text": "simple. Let's say the base case when"
+    },
+    {
+      "start": 2595.829,
+      "end": 2600.19,
+      "text": "uh x= 1 I'll just let x be let's say I"
+    },
+    {
+      "start": 2600.19,
+      "end": 2604.069,
+      "text": "want to compute uh my a at one keep it"
+    },
+    {
+      "start": 2604.069,
+      "end": 2606.95,
+      "text": "simple. Okay. What if I what if I want"
+    },
+    {
+      "start": 2606.95,
+      "end": 2608.63,
+      "text": "two values in x? I'd like to have the"
+    },
+    {
+      "start": 2608.63,
+      "end": 2612.309,
+      "text": "feature that when I square all the"
+    },
+    {
+      "start": 2612.309,
+      "end": 2634.67,
+      "text": "values in x, so I want two values, but"
+    },
+    {
+      "start": 2634.67,
+      "end": 2637.23,
+      "text": "one. Not bad. Good"
+    },
+    {
+      "start": 2637.23,
+      "end": 2639.91,
+      "text": "catch. Negative 1 and one. That could"
+    },
+    {
+      "start": 2639.91,
+      "end": 2642.23,
+      "text": "work, right? What are negative 1 and"
+    },
+    {
+      "start": 2642.23,
+      "end": 2646.23,
+      "text": "one? They are the square roots of one,"
+    },
+    {
+      "start": 2646.23,
+      "end": 2648.309,
+      "text": "right? - 1^2 is 1. 1^2 is 1. There's two"
+    },
+    {
+      "start": 2648.309,
+      "end": 2650.349,
+      "text": "square roots for every number. Two"
+    },
+    {
+      "start": 2650.349,
+      "end": 2652.79,
+      "text": "square roots for every number."
+    },
+    {
+      "start": 2652.79,
+      "end": 2654.95,
+      "text": "Interesting. So that means if I just"
+    },
+    {
+      "start": 2654.95,
+      "end": 2658.47,
+      "text": "keep taking square roots, when I square"
+    },
+    {
+      "start": 2658.47,
+      "end": 2661.23,
+      "text": "them, it collapses by a factor of two."
+    },
+    {
+      "start": 2661.23,
+      "end": 2676.069,
+      "text": "Uh let"
+    },
+    {
+      "start": 2676.069,
+      "end": 2678.91,
+      "text": "something. you're all anticipating"
+    },
+    {
+      "start": 2678.91,
+      "end": 2680.91,
+      "text": "what's going to happen, but I'm going to"
+    },
+    {
+      "start": 2680.91,
+      "end": 2685.109,
+      "text": "say a"
+    },
+    {
+      "start": 2685.109,
+      "end": 2689.71,
+      "text": "collapsing set x"
+    },
+    {
+      "start": 2689.71,
+      "end": 2697.27,
+      "text": "uh or a set is collapsing if either"
+    },
+    {
+      "start": 2697.27,
+      "end": 2706.15,
+      "text": "um the size of x² is the size of x / 2"
+    },
+    {
+      "start": 2706.15,
+      "end": 2709.03,
+      "text": "because I need this to work all the way"
+    },
+    {
+      "start": 2709.03,
+      "end": 2711.589,
+      "text": "down the recursion or I need a base case"
+    },
+    {
+      "start": 2711.589,
+      "end": 2714.23,
+      "text": "which is just x= 1. There's a single"
+    },
+    {
+      "start": 2714.23,
+      "end": 2716.23,
+      "text": "item in x. So I happen to start with x"
+    },
+    {
+      "start": 2716.23,
+      "end": 2719.19,
+      "text": "equals the item one. It didn't have to"
+    },
+    {
+      "start": 2719.19,
+      "end": 2722.23,
+      "text": "be one. Could have been seven. It"
+    },
+    {
+      "start": 2722.23,
+      "end": 2724.15,
+      "text": "couldn't be zero cuz zero uh you won't"
+    },
+    {
+      "start": 2724.15,
+      "end": 2725.91,
+      "text": "get two numbers. There's only one square"
+    },
+    {
+      "start": 2725.91,
+      "end": 2728.47,
+      "text": "root of zero. Okay, so I lied a little"
+    },
+    {
+      "start": 2728.47,
+      "end": 2730.03,
+      "text": "bit. Other than zero, every number has"
+    },
+    {
+      "start": 2730.03,
+      "end": 2733.43,
+      "text": "exactly two square"
+    },
+    {
+      "start": 2733.43,
+      "end": 2736.589,
+      "text": "roots. So what's the square root of"
+    },
+    {
+      "start": 2736.589,
+      "end": 2738.349,
+      "text": "negative one? I"
+    },
+    {
+      "start": 2738.349,
+      "end": 2741.829,
+      "text": "I"
+    },
+    {
+      "start": 2741.829,
+      "end": 2745.67,
+      "text": "so complex numbers. So if I take square"
+    },
+    {
+      "start": 2745.67,
+      "end": 2750.349,
+      "text": "roots of these guys, I get I and"
+    },
+    {
+      "start": 2750.349,
+      "end": 2754.71,
+      "text": "negative I and again I get minus1 and"
+    },
+    {
+      "start": 2754.71,
+      "end": 2756.23,
+      "text": "1. Okay, that's when x= 4. Turns out"
+    },
+    {
+      "start": 2756.23,
+      "end": 2758.15,
+      "text": "this is only going to work for powers of"
+    },
+    {
+      "start": 2758.15,
+      "end": 2759.75,
+      "text": "two. But hey, if n isn't a power of two,"
+    },
+    {
+      "start": 2759.75,
+      "end": 2762.63,
+      "text": "just round up to the next power of two."
+    },
+    {
+      "start": 2762.63,
+      "end": 2765.589,
+      "text": "That only hurts me by a factor of two."
+    },
+    {
+      "start": 2765.589,
+      "end": 2768.069,
+      "text": "Okay, complex numbers. Okay, every time"
+    },
+    {
+      "start": 2768.069,
+      "end": 2770.39,
+      "text": "I said real number in the past, pretend"
+    },
+    {
+      "start": 2770.39,
+      "end": 2772.71,
+      "text": "I said complex number. Everything I said"
+    },
+    {
+      "start": 2772.71,
+      "end": 2774.47,
+      "text": "is still true. Actually, the root thing"
+    },
+    {
+      "start": 2774.47,
+      "end": 2776.47,
+      "text": "is only true when you allow complex"
+    },
+    {
+      "start": 2776.47,
+      "end": 2779.99,
+      "text": "numbers. Some polinomials have complex"
+    },
+    {
+      "start": 2779.99,
+      "end": 2781.349,
+      "text": "roots. Okay, so pretend I said complex."
+    },
+    {
+      "start": 2781.349,
+      "end": 2783.349,
+      "text": "We're going to need complex numbers."
+    },
+    {
+      "start": 2783.349,
+      "end": 2786.95,
+      "text": "This is why because when we start taking"
+    },
+    {
+      "start": 2786.95,
+      "end": 2796.27,
+      "text": "square roots we immediately get uh"
+    },
+    {
+      "start": 2796.27,
+      "end": 2798.55,
+      "text": "8 ah yeah square of"
+    },
+    {
+      "start": 2798.55,
+      "end": 2804.19,
+      "text": "i. Square of i. Let's see if I can do"
+    },
+    {
+      "start": 2804.19,
+      "end": 2811.99,
+      "text": "it. Should be &lt;unk&gt;2 / 2 * 1 +"
+    },
+    {
+      "start": 2811.99,
+      "end": 2815.87,
+      "text": "the square&lt;unk&gt; of i is going to be"
+    },
+    {
+      "start": 2815.87,
+      "end": 2818.99,
+      "text": "&lt;unk&gt;2 over two * 1 minus"
+    },
+    {
+      "start": 2818.99,
+      "end": 2824.95,
+      "text": "i. And then we have all our old"
+    },
+    {
+      "start": 2824.95,
+      "end": 2826.55,
+      "text": "Uh oh. And then I can write plus or"
+    },
+    {
+      "start": 2826.55,
+      "end": 2827.91,
+      "text": "minus in front of each of these. It's"
+    },
+    {
+      "start": 2827.91,
+      "end": 2829.75,
+      "text": "like there weren't enough terms there."
+    },
+    {
+      "start": 2829.75,
+      "end": 2831.75,
+      "text": "Okay. Now I've got eight. Sorry, I've"
+    },
+    {
+      "start": 2831.75,
+      "end": 2834.39,
+      "text": "got four numbers here and I've got four"
+    },
+    {
+      "start": 2834.39,
+      "end": 2836.71,
+      "text": "numbers there. How in the world could I"
+    },
+    {
+      "start": 2836.71,
+      "end": 2838.069,
+      "text": "remember this? Maybe I memorized it. No,"
+    },
+    {
+      "start": 2838.069,
+      "end": 2841.589,
+      "text": "I didn't memorize it. It's actually"
+    },
+    {
+      "start": 2841.589,
+      "end": 2843.069,
+      "text": "really easy to figure this out if you"
+    },
+    {
+      "start": 2843.069,
+      "end": 2846.95,
+      "text": "know"
+    },
+    {
+      "start": 2846.95,
+      "end": 2857.589,
+      "text": "geometry. Geometry. Let's do geometry"
+    },
+    {
+      "start": 2857.589,
+      "end": 2859.069,
+      "text": "here. It's convenient. I'm actually a"
+    },
+    {
+      "start": 2859.069,
+      "end": 2864.87,
+      "text": "geometer."
+    },
+    {
+      "start": 2864.87,
+      "end": 2866.39,
+      "text": "so you know complex numbers have two"
+    },
+    {
+      "start": 2866.39,
+      "end": 2868.63,
+      "text": "parts right the real part and the"
+    },
+    {
+      "start": 2868.63,
+      "end": 2870.79,
+      "text": "complex part. I'm going to draw that in"
+    },
+    {
+      "start": 2870.79,
+      "end": 2873.99,
+      "text": "what's called the complex plane where we"
+    },
+    {
+      "start": 2873.99,
+      "end": 2876.069,
+      "text": "draw the real part here and I guess it's"
+    },
+    {
+      "start": 2876.069,
+      "end": 2879.19,
+      "text": "usually called the imaginary part on the"
+    },
+    {
+      "start": 2879.19,
+      "end": 2880.71,
+      "text": "y- ais. Every point in this plane is a"
+    },
+    {
+      "start": 2880.71,
+      "end": 2883.39,
+      "text": "complex number and vice versa. They're"
+    },
+    {
+      "start": 2883.39,
+      "end": 2886.069,
+      "text": "the same thing."
+    },
+    {
+      "start": 2886.069,
+      "end": 2889.79,
+      "text": "Okay. So what did we start with? We"
+    },
+    {
+      "start": 2889.79,
+      "end": 2893.03,
+      "text": "started with the number one. number"
+    },
+    {
+      "start": 2893.03,
+      "end": 2895.19,
+      "text": "one uh would be here. It has no"
+    },
+    {
+      "start": 2895.19,
+      "end": 2897.19,
+      "text": "imaginary part. So it's on the x- axis."
+    },
+    {
+      "start": 2897.19,
+      "end": 2898.79,
+      "text": "That's this is the real line down here."
+    },
+    {
+      "start": 2898.79,
+      "end": 2901.51,
+      "text": "And it's at position one, which I'm"
+    },
+    {
+      "start": 2901.51,
+      "end": 2903.19,
+      "text": "going to just define to be right there."
+    },
+    {
+      "start": 2903.19,
+      "end": 2908.069,
+      "text": "Okay. Then we got negative 1. That's"
+    },
+    {
+      "start": 2908.069,
+      "end": 2911.47,
+      "text": "over here. Then we got i. That's here. 1"
+    },
+    {
+      "start": 2911.47,
+      "end": 2915.829,
+      "text": "* i. Then we got negative i. That's"
+    },
+    {
+      "start": 2915.829,
+      "end": 2919.39,
+      "text": "here. H. Then we got &lt;unk&gt;2 over 2 * i +"
+    },
+    {
+      "start": 2919.39,
+      "end": 2923.349,
+      "text": "1. That's"
+    },
+    {
+      "start": 2923.349,
+      "end": 2926.069,
+      "text": "here &lt;unk&gt;2 over2 by&lt;unk&gt;2 over2 what is"
+    },
+    {
+      "start": 2926.069,
+      "end": 2928.63,
+      "text": "the property of &lt;unk&gt;2 over2 comma"
+    },
+    {
+      "start": 2928.63,
+      "end": 2931.829,
+      "text": "roo&lt;unk&gt;2 over2 it has distance exactly"
+    },
+    {
+      "start": 2931.829,
+      "end": 2934.27,
+      "text": "one to the origin right if I draw this"
+    },
+    {
+      "start": 2934.27,
+      "end": 2938.71,
+      "text": "triangle &lt;unk&gt;2 /"
+    },
+    {
+      "start": 2938.71,
+      "end": 2941.03,
+      "text": "2 &lt;unk&gt;2 /2 uh I square this I get a"
+    },
+    {
+      "start": 2941.03,
+      "end": 2943.349,
+      "text": "half I square this I get a half I add"
+    },
+    {
+      "start": 2943.349,
+      "end": 2946.47,
+      "text": "them together I get one take the square"
+    },
+    {
+      "start": 2946.47,
+      "end": 2949.19,
+      "text": "root I still get one so this distance is"
+    },
+    {
+      "start": 2949.19,
+      "end": 2951.349,
+      "text": "H interesting. Uh and then I got the"
+    },
+    {
+      "start": 2951.349,
+      "end": 2953.91,
+      "text": "negative of that which is over here and"
+    },
+    {
+      "start": 2953.91,
+      "end": 2957.95,
+      "text": "negative of that. And then this is the"
+    },
+    {
+      "start": 2957.95,
+      "end": 2961.43,
+      "text": "with a negative I get it wrong. Yep."
+    },
+    {
+      "start": 2961.43,
+      "end": 2964.03,
+      "text": "Sorry. Doesn't matter. But I'll think of"
+    },
+    {
+      "start": 2964.03,
+      "end": 2968.589,
+      "text": "it as I"
+    },
+    {
+      "start": 2968.589,
+      "end": 2971.589,
+      "text": "minus killer shock. I"
+    },
+    {
+      "start": 2971.589,
+      "end": 2974.23,
+      "text": "minus one. It's the same cuz I had the"
+    },
+    {
+      "start": 2974.23,
+      "end": 2976.91,
+      "text": "plus and minus, but I like the geometry."
+    },
+    {
+      "start": 2976.91,
+      "end": 2980.63,
+      "text": "So this point is"
+    },
+    {
+      "start": 2980.63,
+      "end": 2982.99,
+      "text": "uh &lt;unk&gt;2 /2 by &lt;unk&gt;2 over2 and then"
+    },
+    {
+      "start": 2982.99,
+      "end": 3000.99,
+      "text": "there's a negative over"
+    },
+    {
+      "start": 3000.99,
+      "end": 3004.23,
+      "text": "circle. Good. Who said unit circle?"
+    },
+    {
+      "start": 3004.23,
+      "end": 3007.069,
+      "text": "Nice. It's a unit circle, right? Clearly"
+    },
+    {
+      "start": 3007.069,
+      "end": 3008.99,
+      "text": "that deserves a frisbee"
+    },
+    {
+      "start": 3008.99,
+      "end": 3012.27,
+      "text": "end."
+    },
+    {
+      "start": 3012.27,
+      "end": 3013.95,
+      "text": "Okay. Unit circle."
+    },
+    {
+      "start": 3013.95,
+      "end": 3017.67,
+      "text": "H"
+    },
+    {
+      "start": 3017.67,
+      "end": 3024.87,
+      "text": "circle. It seems good. Uh what's going"
+    },
+    {
+      "start": 3024.87,
+      "end": 3028.63,
+      "text": "is I took this number. I claimed it was"
+    },
+    {
+      "start": 3028.63,
+      "end": 3030.069,
+      "text": "the square root of I because it turns"
+    },
+    {
+      "start": 3030.069,
+      "end": 3031.99,
+      "text": "out if you take points on the unit"
+    },
+    {
+      "start": 3031.99,
+      "end": 3034.47,
+      "text": "circle in the complex plane when you"
+    },
+    {
+      "start": 3034.47,
+      "end": 3036.549,
+      "text": "square a number it's like doubling the"
+    },
+    {
+      "start": 3036.549,
+      "end": 3039.109,
+      "text": "angle relative to the x ais. This is"
+    },
+    {
+      "start": 3039.109,
+      "end": 3043.109,
+      "text": "angle 0. This is angle what do you call"
+    },
+    {
+      "start": 3043.109,
+      "end": 3045.829,
+      "text": "it? 45°. Uh this is angle 90°. So when I"
+    },
+    {
+      "start": 3045.829,
+      "end": 3048.23,
+      "text": "square this number I get 90°. That's why"
+    },
+    {
+      "start": 3048.23,
+      "end": 3050.39,
+      "text": "this number is a square sorry is a"
+    },
+    {
+      "start": 3050.39,
+      "end": 3053.27,
+      "text": "square root of I. I probably should have"
+    },
+    {
+      "start": 3053.27,
+      "end": 3056.43,
+      "text": "labeled some of these. This is I."
+    },
+    {
+      "start": 3056.43,
+      "end": 3059.309,
+      "text": "This is minus I. This is minus"
+    },
+    {
+      "start": 3059.309,
+      "end": 3061.23,
+      "text": "one. And this is"
+    },
+    {
+      "start": 3061.23,
+      "end": 3064.589,
+      "text": "one. In"
+    },
+    {
+      "start": 3064.589,
+      "end": 3067.79,
+      "text": "general, we get"
+    },
+    {
+      "start": 3067.79,
+      "end": 3070.349,
+      "text": "something called"
+    },
+    {
+      "start": 3070.349,
+      "end": 3074.15,
+      "text": "uh"
+    },
+    {
+      "start": 3074.15,
+      "end": 3081.03,
+      "text": "yeah. So let's these are called the nth"
+    },
+    {
+      "start": 3081.03,
+      "end": 3082.79,
+      "text": "unity. Unity is just a fancy word for"
+    },
+    {
+      "start": 3082.79,
+      "end": 3086.47,
+      "text": "one."
+    },
+    {
+      "start": 3086.47,
+      "end": 3088.15,
+      "text": "uh one is here and first we computed the"
+    },
+    {
+      "start": 3088.15,
+      "end": 3090.71,
+      "text": "square roots of one they were minus one"
+    },
+    {
+      "start": 3090.71,
+      "end": 3094.23,
+      "text": "and one then we compute computed the"
+    },
+    {
+      "start": 3094.23,
+      "end": 3096.47,
+      "text": "fourth roots of one all of these numbers"
+    },
+    {
+      "start": 3096.47,
+      "end": 3099.51,
+      "text": "if you take the fourth roots or sorry if"
+    },
+    {
+      "start": 3099.51,
+      "end": 3102.15,
+      "text": "you take the fourth power you get one"
+    },
+    {
+      "start": 3102.15,
+      "end": 3104.39,
+      "text": "then we computed the eighth roots of one"
+    },
+    {
+      "start": 3104.39,
+      "end": 3106.95,
+      "text": "all of these numbers if you take the eth"
+    },
+    {
+      "start": 3106.95,
+      "end": 3108.19,
+      "text": "power you get one again so in general"
+    },
+    {
+      "start": 3108.19,
+      "end": 3110.39,
+      "text": "nth roots of"
+    },
+    {
+      "start": 3110.39,
+      "end": 3111.91,
+      "text": "unity we're going to assume n is a power"
+    },
+    {
+      "start": 3111.91,
+      "end": 3114.47,
+      "text": "of two but this notion actually makes"
+    },
+    {
+      "start": 3114.47,
+      "end": 3116.15,
+      "text": "sense for any n and they're just"
+    },
+    {
+      "start": 3116.15,
+      "end": 3118.549,
+      "text": "uniformly spaced around the circle. And"
+    },
+    {
+      "start": 3118.549,
+      "end": 3120.47,
+      "text": "if you know some geometry and how it"
+    },
+    {
+      "start": 3120.47,
+      "end": 3123.99,
+      "text": "relates to trig, you know that a general"
+    },
+    {
+      "start": 3123.99,
+      "end": 3126.71,
+      "text": "point on the circle is cos theta comma"
+    },
+    {
+      "start": 3126.71,
+      "end": 3128.309,
+      "text": "sin theta. x coordinate is cos theta, y"
+    },
+    {
+      "start": 3128.309,
+      "end": 3130.15,
+      "text": "coordinate is sin theta. This is also a"
+    },
+    {
+      "start": 3130.15,
+      "end": 3132.15,
+      "text": "funny notation for complex numbers. Not"
+    },
+    {
+      "start": 3132.15,
+      "end": 3138.71,
+      "text": "so funny. This is the geometric"
+    },
+    {
+      "start": 3138.71,
+      "end": 3140.349,
+      "text": "interpretation of uh cos theta uh plus i"
+    },
+    {
+      "start": 3140.349,
+      "end": 3142.309,
+      "text": "sin"
+    },
+    {
+      "start": 3142.309,
+      "end": 3144.15,
+      "text": "theta. Okay. Okay. And if I want them"
+    },
+    {
+      "start": 3144.15,
+      "end": 3147.349,
+      "text": "uniformly spaced around the circle and I"
+    },
+    {
+      "start": 3147.349,
+      "end": 3150.79,
+      "text": "want to include this point also known as"
+    },
+    {
+      "start": 3150.79,
+      "end": 3154.95,
+      "text": "theta= 0 because when theta equals 0 cos"
+    },
+    {
+      "start": 3154.95,
+      "end": 3158.79,
+      "text": "theta is 1 sin theta is 0 right uh then"
+    },
+    {
+      "start": 3158.79,
+      "end": 3162.19,
+      "text": "so I want to say for theta"
+    },
+    {
+      "start": 3162.19,
+      "end": 3165.63,
+      "text": "= to 0 and then"
+    },
+    {
+      "start": 3165.63,
+      "end": 3169.39,
+      "text": "uh here I'm going to get fancy tow over"
+    },
+    {
+      "start": 3169.39,
+      "end": 3175.309,
+      "text": "n 2 to"
+    },
+    {
+      "start": 3175.309,
+      "end": 3183.27,
+      "text": "n up to uh n -1 / n * t to what's"
+    },
+    {
+      "start": 3183.27,
+      "end": 3185.349,
+      "text": "you. This is modern notation just over"
+    },
+    {
+      "start": 3185.349,
+      "end": 3188.109,
+      "text": "the last couple years. I believe in tao"
+    },
+    {
+      "start": 3188.109,
+      "end": 3191.589,
+      "text": "so much I got it tattooed on my"
+    },
+    {
+      "start": 3191.589,
+      "end": 3194.87,
+      "text": "arm. Okay, towel is is the fundamental"
+    },
+    {
+      "start": 3194.87,
+      "end": 3197.109,
+      "text": "constant. Screw pi. Uh none of that"
+    },
+    {
+      "start": 3197.109,
+      "end": 3201.75,
+      "text": "three and change. Six and change is"
+    },
+    {
+      "start": 3201.75,
+      "end": 3204.79,
+      "text": "where it's at. Uh so toao clearly this"
+    },
+    {
+      "start": 3204.79,
+      "end": 3206.829,
+      "text": "is much nicer tao over n not 2 pi / n."
+    },
+    {
+      "start": 3206.829,
+      "end": 3210.71,
+      "text": "Tao is a whole"
+    },
+    {
+      "start": 3210.71,
+      "end": 3212.87,
+      "text": "circle. Okay this is 1 nth of a circle 2"
+    },
+    {
+      "start": 3212.87,
+      "end": 3214.549,
+      "text": "of a circle n minus one over n of a"
+    },
+    {
+      "start": 3214.549,
+      "end": 3216.67,
+      "text": "circle. I didn't do n of a circle"
+    },
+    {
+      "start": 3216.67,
+      "end": 3223.87,
+      "text": "because that's also the same as"
+    },
+    {
+      "start": 3223.87,
+      "end": 3227.27,
+      "text": "Now why"
+    },
+    {
+      "start": 3227.27,
+      "end": 3229.589,
+      "text": "uh why did I introduce this notation?"
+    },
+    {
+      "start": 3229.589,
+      "end": 3233.109,
+      "text": "Because there's this other great thing"
+    },
+    {
+      "start": 3233.109,
+      "end": 3238.23,
+      "text": "called Orther's formula"
+    },
+    {
+      "start": 3238.23,
+      "end": 3248.51,
+      "text": "uh which is that this this equals e to"
+    },
+    {
+      "start": 3248.51,
+      "end": 3252.23,
+      "text": "theta right double"
+    },
+    {
+      "start": 3252.23,
+      "end": 3255.589,
+      "text": "check it's so rare that I get to do real"
+    },
+    {
+      "start": 3255.589,
+      "end": 3258.63,
+      "text": "uh calculus this is oiler's formula e e"
+    },
+    {
+      "start": 3258.63,
+      "end": 3261.03,
+      "text": "for oiler another number two and change"
+    },
+    {
+      "start": 3261.03,
+      "end": 3263.51,
+      "text": "uh e to the i this is funny because it's"
+    },
+    {
+      "start": 3263.51,
+      "end": 3265.589,
+      "text": "complex time theta is equal to cos theta"
+    },
+    {
+      "start": 3265.589,
+      "end": 3268.95,
+      "text": "plus i sin theta this is the relation"
+    },
+    {
+      "start": 3268.95,
+      "end": 3273.349,
+      "text": "between exponentials and trigonometry"
+    },
+    {
+      "start": 3273.349,
+      "end": 3276.15,
+      "text": "that's big thing oiler did cool uh so"
+    },
+    {
+      "start": 3276.15,
+      "end": 3277.549,
+      "text": "what because this lets us understand how"
+    },
+    {
+      "start": 3277.549,
+      "end": 3280.589,
+      "text": "squares"
+    },
+    {
+      "start": 3280.589,
+      "end": 3298.63,
+      "text": "work not squares the shape"
+    },
+    {
+      "start": 3298.63,
+      "end": 3300.549,
+      "text": "uh so if I take e to the i theta this is"
+    },
+    {
+      "start": 3300.549,
+      "end": 3304.069,
+      "text": "uh one of my roots of unity let me let"
+    },
+    {
+      "start": 3304.069,
+      "end": 3309.349,
+      "text": "me expand out what theta is so theta is"
+    },
+    {
+      "start": 3309.349,
+      "end": 3314.27,
+      "text": "some k * n let's do it this way first so"
+    },
+    {
+      "start": 3314.27,
+      "end": 3317.67,
+      "text": "in reality we have uh k power /"
+    },
+    {
+      "start": 3317.67,
+      "end": 3319.829,
+      "text": "n. When I square it, that's the same"
+    },
+    {
+      "start": 3319.829,
+      "end": 3323.47,
+      "text": "thing as putting the two right here."
+    },
+    {
+      "start": 3323.47,
+      "end": 3325.99,
+      "text": "This is the same thing as e to the i * 2"
+    },
+    {
+      "start": 3325.99,
+      "end": 3328.23,
+      "text": "thet. Bingo. I get what I was claiming"
+    },
+    {
+      "start": 3328.23,
+      "end": 3330.95,
+      "text": "that if I start at some angle theta"
+    },
+    {
+      "start": 3330.95,
+      "end": 3334.19,
+      "text": "relative to the xaxis, when I square the"
+    },
+    {
+      "start": 3334.19,
+      "end": 3337.829,
+      "text": "number, I just double the angle. This is"
+    },
+    {
+      "start": 3337.829,
+      "end": 3340.549,
+      "text": "why. Okay, this is obvious. uh and just"
+    },
+    {
+      "start": 3340.549,
+      "end": 3342.47,
+      "text": "from regular algebra and then this thing"
+    },
+    {
+      "start": 3342.47,
+      "end": 3345.19,
+      "text": "oilers's formula tells me that"
+    },
+    {
+      "start": 3345.19,
+      "end": 3346.79,
+      "text": "corresponds to doubling the angle on a"
+    },
+    {
+      "start": 3346.79,
+      "end": 3349.829,
+      "text": "circle. So only works for points in a"
+    },
+    {
+      "start": 3349.829,
+      "end": 3353.67,
+      "text": "circle but uh so when I go here I get"
+    },
+    {
+      "start": 3353.67,
+      "end": 3356.789,
+      "text": "you know e to the i k"
+    },
+    {
+      "start": 3356.789,
+      "end": 3360.99,
+      "text": "uh I guess 2 k"
+    },
+    {
+      "start": 3360.99,
+      "end": 3365.47,
+      "text": "* n twice as far around the"
+    },
+    {
+      "start": 3365.47,
+      "end": 3368.71,
+      "text": "circle. All right. Uh"
+    },
+    {
+      "start": 3368.71,
+      "end": 3371.43,
+      "text": "fine. What happens if I take this number"
+    },
+    {
+      "start": 3371.43,
+      "end": 3375.829,
+      "text": "and I square it? So this has a really"
+    },
+    {
+      "start": 3375.829,
+      "end": 3379.549,
+      "text": "big angle. This is uh it's 1/2 + 1/8"
+    },
+    {
+      "start": 3379.549,
+      "end": 3384.51,
+      "text": "whatever that is 5/8"
+    },
+    {
+      "start": 3384.51,
+      "end": 3387.23,
+      "text": "* when I double that angle I"
+    },
+    {
+      "start": 3387.23,
+      "end": 3391.27,
+      "text": "go to here."
+    },
+    {
+      "start": 3391.27,
+      "end": 3394.23,
+      "text": "Right? Now, this you might call it 10/8"
+    },
+    {
+      "start": 3394.23,
+      "end": 3396.15,
+      "text": "or you might also call it one quarter."
+    },
+    {
+      "start": 3396.15,
+      "end": 3397.99,
+      "text": "So, there's a because when you go around"
+    },
+    {
+      "start": 3397.99,
+      "end": 3399.51,
+      "text": "the circle, you stay on the circle. So,"
+    },
+    {
+      "start": 3399.51,
+      "end": 3404.67,
+      "text": "there's another thing going on which is"
+    },
+    {
+      "start": 3404.67,
+      "end": 3408.71,
+      "text": "really um this is e to the i * 2"
+    },
+    {
+      "start": 3408.71,
+      "end": 3411.99,
+      "text": "theta mod to usually we think of mods"
+    },
+    {
+      "start": 3411.99,
+      "end": 3413.51,
+      "text": "relative to integers. But, uh the what I"
+    },
+    {
+      "start": 3413.51,
+      "end": 3415.03,
+      "text": "mean is every time I add a multiple of"
+    },
+    {
+      "start": 3415.03,
+      "end": 3416.549,
+      "text": "town, nothing changes. If I go around"
+    },
+    {
+      "start": 3416.549,
+      "end": 3417.829,
+      "text": "the circle five times and then do"
+    },
+    {
+      "start": 3417.829,
+      "end": 3420.27,
+      "text": "something, it's the same as just doing"
+    },
+    {
+      "start": 3420.27,
+      "end": 3424.71,
+      "text": "the something. Okay, so I kind of need"
+    },
+    {
+      "start": 3424.71,
+      "end": 3426.589,
+      "text": "that. Um, and this is true because uh e"
+    },
+    {
+      "start": 3426.589,
+      "end": 3431.43,
+      "text": "to the i"
+    },
+    {
+      "start": 3431.43,
+      "end": 3433.829,
+      "text": "tow= 1. You may know it as e to the i pi"
+    },
+    {
+      "start": 3433.829,
+      "end": 3436.47,
+      "text": "= 1, but clearly this is the superior"
+    },
+    {
+      "start": 3436.47,
+      "end": 3439.63,
+      "text": "formula. So superior I got it tattooed"
+    },
+    {
+      "start": 3439.63,
+      "end": 3441.99,
+      "text": "on my other arm."
+    },
+    {
+      "start": 3441.99,
+      "end": 3443.67,
+      "text": "Uh, it's amazing what you can do with a"
+    },
+    {
+      "start": 3443.67,
+      "end": 3446.99,
+      "text": "laser printer and a temporary tattoo"
+    },
+    {
+      "start": 3446.99,
+      "end": 3450.43,
+      "text": "kit. Sadly, these won't last,"
+    },
+    {
+      "start": 3450.43,
+      "end": 3455.109,
+      "text": "but definitely try it at home."
+    },
+    {
+      "start": 3455.109,
+      "end": 3457.43,
+      "text": "Um, cool. So, e to the i to equals 1."
+    },
+    {
+      "start": 3457.43,
+      "end": 3461.03,
+      "text": "So, going around the circle, same thing"
+    },
+    {
+      "start": 3461.03,
+      "end": 3462.71,
+      "text": "is not. All right. So, uh you can draw"
+    },
+    {
+      "start": 3462.71,
+      "end": 3466.069,
+      "text": "on this picture for every number what is"
+    },
+    {
+      "start": 3466.069,
+      "end": 3468.63,
+      "text": "its square. Um, and in general, if you"
+    },
+    {
+      "start": 3468.63,
+      "end": 3470.23,
+      "text": "look at these four guys, their squares"
+    },
+    {
+      "start": 3470.23,
+      "end": 3472.069,
+      "text": "are just going to be these two guys. If"
+    },
+    {
+      "start": 3472.069,
+      "end": 3474.069,
+      "text": "you look at these four guys, their"
+    },
+    {
+      "start": 3474.069,
+      "end": 3476.549,
+      "text": "squares are going to be among these four"
+    },
+    {
+      "start": 3476.549,
+      "end": 3477.99,
+      "text": "guys. So, I started with eight guys. I"
+    },
+    {
+      "start": 3477.99,
+      "end": 3479.589,
+      "text": "square them, I get four. I square them,"
+    },
+    {
+      "start": 3479.589,
+      "end": 3481.589,
+      "text": "I get two. I square them, I get one."
+    },
+    {
+      "start": 3481.589,
+      "end": 3484.47,
+      "text": "That's how we constructed it. Uh, but"
+    },
+    {
+      "start": 3484.47,
+      "end": 3486.069,
+      "text": "you can see it works not only for this"
+    },
+    {
+      "start": 3486.069,
+      "end": 3489.109,
+      "text": "eight point set that we constructed sort"
+    },
+    {
+      "start": 3489.109,
+      "end": 3491.19,
+      "text": "of by hand. Uh, but it works for the nth"
+    },
+    {
+      "start": 3491.19,
+      "end": 3492.19,
+      "text": "roots of unity. As long as n is a power"
+    },
+    {
+      "start": 3492.19,
+      "end": 3496.349,
+      "text": "of"
+    },
+    {
+      "start": 3496.349,
+      "end": 3500.789,
+      "text": "two, this set of points will be"
+    },
+    {
+      "start": 3500.789,
+      "end": 3505.43,
+      "text": "collapsing. Okay. So, uh if n is a power"
+    },
+    {
+      "start": 3505.43,
+      "end": 3523.63,
+      "text": "of two for some integer k, then uh nth"
+    },
+    {
+      "start": 3523.63,
+      "end": 3526.789,
+      "text": "according to this"
+    },
+    {
+      "start": 3526.789,
+      "end": 3528.71,
+      "text": "definition and that's what we want. Then"
+    },
+    {
+      "start": 3528.71,
+      "end": 3531.27,
+      "text": "this divide and conquer algorithm runs"
+    },
+    {
+      "start": 3531.27,
+      "end": 3534.15,
+      "text": "in n log n time because every time we"
+    },
+    {
+      "start": 3534.15,
+      "end": 3537.03,
+      "text": "square the set x we reduce its size by a"
+    },
+    {
+      "start": 3537.03,
+      "end": 3539.829,
+      "text": "factor of two. So we get t of n= 2 * t"
+    },
+    {
+      "start": 3539.829,
+      "end": 3543.75,
+      "text": "of n /2 + n plus order n and that's"
+    },
+    {
+      "start": 3543.75,
+      "end": 3547.349,
+      "text": "order n log n. And so this whole thing"
+    },
+    {
+      "start": 3547.349,
+      "end": 3554.549,
+      "text": "we compute in other words we set x k to"
+    },
+    {
+      "start": 3554.549,
+      "end": 3556.23,
+      "text": "be um e to the i k to / n. Now guess I"
+    },
+    {
+      "start": 3556.23,
+      "end": 3558.47,
+      "text": "should say how to compute that but let's"
+    },
+    {
+      "start": 3558.47,
+      "end": 3560.71,
+      "text": "just say that's given to you for free."
+    },
+    {
+      "start": 3560.71,
+      "end": 3562.789,
+      "text": "It takes constant time to compute each"
+    },
+    {
+      "start": 3562.789,
+      "end": 3565.589,
+      "text": "root of unity. In fact we again we only"
+    },
+    {
+      "start": 3565.589,
+      "end": 3567.75,
+      "text": "need to do this once and for all uh for"
+    },
+    {
+      "start": 3567.75,
+      "end": 3569.589,
+      "text": "each value of n. So you can think of it"
+    },
+    {
+      "start": 3569.589,
+      "end": 3571.99,
+      "text": "as just being part of the algorithm."
+    },
+    {
+      "start": 3571.99,
+      "end": 3573.349,
+      "text": "These are the xks we use. I said x k"
+    },
+    {
+      "start": 3573.349,
+      "end": 3574.87,
+      "text": "could be anything we want as long as"
+    },
+    {
+      "start": 3574.87,
+      "end": 3577.349,
+      "text": "they're all different. So I'm going to"
+    },
+    {
+      "start": 3577.349,
+      "end": 3581.829,
+      "text": "choose them to be n uniformly spaced"
+    },
+    {
+      "start": 3581.829,
+      "end": 3584.789,
+      "text": "points around the complex unit circle."
+    },
+    {
+      "start": 3584.789,
+      "end": 3589.109,
+      "text": "And then magically this algorithm runs"
+    },
+    {
+      "start": 3589.109,
+      "end": 3590.87,
+      "text": "in n log n time. It's pretty cool. Uh"
+    },
+    {
+      "start": 3590.87,
+      "end": 3594.39,
+      "text": "intuitively you think of real numbers x"
+    },
+    {
+      "start": 3594.39,
+      "end": 3596.549,
+      "text": "squ of course it has the same size as x."
+    },
+    {
+      "start": 3596.549,
+      "end": 3598.63,
+      "text": "But once you go to complex numbers,"
+    },
+    {
+      "start": 3598.63,
+      "end": 3601.99,
+      "text": "there's this nifty trick where you start"
+    },
+    {
+      "start": 3601.99,
+      "end": 3603.51,
+      "text": "with one nth of the circle and uniformly"
+    },
+    {
+      "start": 3603.51,
+      "end": 3605.19,
+      "text": "spaced points after the first level of"
+    },
+    {
+      "start": 3605.19,
+      "end": 3607.03,
+      "text": "recursion, you'll only have to be"
+    },
+    {
+      "start": 3607.03,
+      "end": 3609.27,
+      "text": "dealing with n over two of those points,"
+    },
+    {
+      "start": 3609.27,
+      "end": 3612.069,
+      "text": "namely the even ones, also known as the"
+    },
+    {
+      "start": 3612.069,
+      "end": 3613.27,
+      "text": "n /2 roots of unity. And after the next"
+    },
+    {
+      "start": 3613.27,
+      "end": 3614.95,
+      "text": "level of recursion, it's the n over"
+    },
+    {
+      "start": 3614.95,
+      "end": 3617.19,
+      "text": "fourth roots of unity, and so on. So"
+    },
+    {
+      "start": 3617.19,
+      "end": 3619.19,
+      "text": "this recursion is well defined. When you"
+    },
+    {
+      "start": 3619.19,
+      "end": 3621.19,
+      "text": "have a vector of size n, you just have"
+    },
+    {
+      "start": 3621.19,
+      "end": 3628.47,
+      "text": "to deal with the nth roots of unity, and"
+    },
+    {
+      "start": 3628.47,
+      "end": 3632.75,
+      "text": "That is fast for a transform. That"
+    },
+    {
+      "start": 3632.75,
+      "end": 3646.069,
+      "text": "algorithm with these xis is"
+    },
+    {
+      "start": 3646.069,
+      "end": 3648.549,
+      "text": "somewhere. It kind of snuck up on us."
+    },
+    {
+      "start": 3648.549,
+      "end": 3649.71,
+      "text": "This is the algorithm we were aiming to"
+    },
+    {
+      "start": 3649.71,
+      "end": 3663.23,
+      "text": "to"
+    },
+    {
+      "start": 3663.23,
+      "end": 3665.829,
+      "text": "uh"
+    },
+    {
+      "start": 3665.829,
+      "end": 3675.109,
+      "text": "is that divide and conquer algorithm on"
+    },
+    {
+      "start": 3675.109,
+      "end": 3677.349,
+      "text": "right. I'll write it abstractly. uh for"
+    },
+    {
+      "start": 3677.349,
+      "end": 3686.47,
+      "text": "something called the DFT. It's the"
+    },
+    {
+      "start": 3686.47,
+      "end": 3688.51,
+      "text": "transform is the corresponding"
+    },
+    {
+      "start": 3688.51,
+      "end": 3690.39,
+      "text": "mathematical"
+    },
+    {
+      "start": 3690.39,
+      "end": 3693.589,
+      "text": "transformation. Fast is about an"
+    },
+    {
+      "start": 3693.589,
+      "end": 3696.19,
+      "text": "algorithm. Discreet is about discrete"
+    },
+    {
+      "start": 3696.19,
+      "end": 3699.75,
+      "text": "math. Uh so"
+    },
+    {
+      "start": 3699.75,
+      "end": 3702.309,
+      "text": "DFT is uh this thing that we wanted to"
+    },
+    {
+      "start": 3702.309,
+      "end": 3704.91,
+      "text": "compute which was basically the product"
+    },
+    {
+      "start": 3704.91,
+      "end": 3707.99,
+      "text": "V * A"
+    },
+    {
+      "start": 3707.99,
+      "end": 3709.829,
+      "text": "Remember V was the Vanderbond matrix. Uh"
+    },
+    {
+      "start": 3709.829,
+      "end": 3714.47,
+      "text": "but and it was a it depended on all"
+    },
+    {
+      "start": 3714.47,
+      "end": 3729.99,
+      "text": "these X Ks. Uh and we're going to set X"
+    },
+    {
+      "start": 3729.99,
+      "end": 3735.27,
+      "text": "N. So uh if you remember the uh v k vj k"
+    },
+    {
+      "start": 3735.27,
+      "end": 3742.349,
+      "text": "here was uh xj to the kth power. So this"
+    },
+    {
+      "start": 3742.349,
+      "end": 3745.589,
+      "text": "just becomes uh e to the i j k to over"
+    },
+    {
+      "start": 3745.589,
+      "end": 3747.27,
+      "text": "n. Uh it's a little funny these are all"
+    },
+    {
+      "start": 3747.27,
+      "end": 3749.27,
+      "text": "consecutive because this is totally"
+    },
+    {
+      "start": 3749.27,
+      "end": 3753.39,
+      "text": "different. But"
+    },
+    {
+      "start": 3753.39,
+      "end": 3755.91,
+      "text": "uh that's the matrix. If you take that"
+    },
+    {
+      "start": 3755.91,
+      "end": 3758.95,
+      "text": "matrix times a vector that is called the"
+    },
+    {
+      "start": 3758.95,
+      "end": 3761.51,
+      "text": "discrete 4a transform of that vector and"
+    },
+    {
+      "start": 3761.51,
+      "end": 3763.67,
+      "text": "fft is a way to comput it in n log n"
+    },
+    {
+      "start": 3763.67,
+      "end": 3771.75,
+      "text": "time you just run this algorithm and for"
+    },
+    {
+      "start": 3771.75,
+      "end": 3774.15,
+      "text": "time. Cool. But if you remember way back"
+    },
+    {
+      "start": 3774.15,
+      "end": 3776.47,
+      "text": "to the beginning what we needed is a way"
+    },
+    {
+      "start": 3776.47,
+      "end": 3780.069,
+      "text": "this converts a coefficient vector into"
+    },
+    {
+      "start": 3780.069,
+      "end": 3782.71,
+      "text": "a sample vector. Then we can multiply"
+    },
+    {
+      "start": 3782.71,
+      "end": 3785.19,
+      "text": "the matrices. But we then need to trans"
+    },
+    {
+      "start": 3785.19,
+      "end": 3787.03,
+      "text": "sorry multiply the polomials. Then we"
+    },
+    {
+      "start": 3787.03,
+      "end": 3789.829,
+      "text": "need to transform the sample vector that"
+    },
+    {
+      "start": 3789.829,
+      "end": 3793.27,
+      "text": "results back into a coefficient vector."
+    },
+    {
+      "start": 3793.27,
+      "end": 3795.27,
+      "text": "So we're only half done. I only have 15"
+    },
+    {
+      "start": 3795.27,
+      "end": 3798.069,
+      "text": "minutes. Luckily the other half is"
+    },
+    {
+      "start": 3798.069,
+      "end": 3809.67,
+      "text": "almost identical to this half. So let's"
+    },
+    {
+      "start": 3809.67,
+      "end": 3812.95,
+      "text": "here. So we've got our great divide and"
+    },
+    {
+      "start": 3812.95,
+      "end": 3819.789,
+      "text": "conquer algorithm. What we need now, let"
+    },
+    {
+      "start": 3819.789,
+      "end": 3823.309,
+      "text": "algorithm. All right, let's call"
+    },
+    {
+      "start": 3823.309,
+      "end": 3831.549,
+      "text": "this more exotic fast polomial"
+    },
+    {
+      "start": 3831.549,
+      "end": 3835.589,
+      "text": "login. Let's say that we're given two"
+    },
+    {
+      "start": 3835.589,
+      "end": 3844.67,
+      "text": "uh polomials a and b represented in"
+    },
+    {
+      "start": 3844.67,
+      "end": 3847.99,
+      "text": "form. What we need uh is I'll call a"
+    },
+    {
+      "start": 3847.99,
+      "end": 3851.349,
+      "text": "star which is the result of running fft"
+    },
+    {
+      "start": 3851.349,
+      "end": 3855.27,
+      "text": "on a or it's the it's the discrete 4a"
+    },
+    {
+      "start": 3855.27,
+      "end": 3858.39,
+      "text": "transform of a b star"
+    },
+    {
+      "start": 3858.39,
+      "end": 3861.109,
+      "text": "uh do the same thing. So we know what"
+    },
+    {
+      "start": 3861.109,
+      "end": 3863.109,
+      "text": "this means is convert A from a"
+    },
+    {
+      "start": 3863.109,
+      "end": 3865.43,
+      "text": "coefficient vector into a sample vector."
+    },
+    {
+      "start": 3865.43,
+      "end": 3867.029,
+      "text": "Convert B from a coefficient vector into"
+    },
+    {
+      "start": 3867.029,
+      "end": 3871.829,
+      "text": "a sample vector. Now I have the samples"
+    },
+    {
+      "start": 3871.829,
+      "end": 3874.109,
+      "text": "of A star at the nth roots of unity,"
+    },
+    {
+      "start": 3874.109,
+      "end": 3877.19,
+      "text": "these"
+    },
+    {
+      "start": 3877.19,
+      "end": 3879.349,
+      "text": "guys. And I have the the samples of B at"
+    },
+    {
+      "start": 3879.349,
+      "end": 3883.91,
+      "text": "the exact same points, the nth roots of"
+    },
+    {
+      "start": 3883.91,
+      "end": 3887.51,
+      "text": "unity. So I can compute C star the the"
+    },
+    {
+      "start": 3887.51,
+      "end": 3893.87,
+      "text": "transformed version the the DFT of C is"
+    },
+    {
+      "start": 3893.87,
+      "end": 3896.47,
+      "text": "just the uh I mean C star K equals A*"
+    },
+    {
+      "start": 3896.47,
+      "end": 3898.91,
+      "text": "K time B star K this is the"
+    },
+    {
+      "start": 3898.91,
+      "end": 3901.589,
+      "text": "multiplication algorithm"
+    },
+    {
+      "start": 3901.589,
+      "end": 3903.99,
+      "text": "uh for sample vectors right we started"
+    },
+    {
+      "start": 3903.99,
+      "end": 3906.63,
+      "text": "with that that has that's linear time"
+    },
+    {
+      "start": 3906.63,
+      "end": 3909.43,
+      "text": "and then the missing piece is I need to"
+    },
+    {
+      "start": 3909.43,
+      "end": 3920.789,
+      "text": "recmp compute C which is the inverse"
+    },
+    {
+      "start": 3920.789,
+      "end": 3921.91,
+      "text": "star. So this is the missing link so to"
+    },
+    {
+      "start": 3921.91,
+      "end": 3934.63,
+      "text": "speak. We need to be able to go"
+    },
+    {
+      "start": 3934.63,
+      "end": 3936.87,
+      "text": "transformation. Good news is the"
+    },
+    {
+      "start": 3936.87,
+      "end": 3939.47,
+      "text": "algorithm is not going to change. What"
+    },
+    {
+      "start": 3939.47,
+      "end": 3945.789,
+      "text": "we're computing isn't going to change."
+    },
+    {
+      "start": 3945.789,
+      "end": 3948.549,
+      "text": "ks."
+    },
+    {
+      "start": 3948.549,
+      "end": 3951.19,
+      "text": "Why? Because"
+    },
+    {
+      "start": 3951.19,
+      "end": 3953.67,
+      "text": "uh remember uh from the top what right"
+    },
+    {
+      "start": 3953.67,
+      "end": 3956.19,
+      "text": "now we know how to compute v * a. What"
+    },
+    {
+      "start": 3956.19,
+      "end": 3959.47,
+      "text": "we now need to compute is v inverse time"
+    },
+    {
+      "start": 3959.47,
+      "end": 3962.71,
+      "text": "a. So the only question is what is v"
+    },
+    {
+      "start": 3962.71,
+      "end": 3964.95,
+      "text": "inverse? This matrix has a super special"
+    },
+    {
+      "start": 3964.95,
+      "end": 3967.75,
+      "text": "structure. It's symmetric looks lots of"
+    },
+    {
+      "start": 3967.75,
+      "end": 3971.95,
+      "text": "crazy lots of points on a circle. Maybe"
+    },
+    {
+      "start": 3971.95,
+      "end": 3975.069,
+      "text": "V inverse has a nice structure and it"
+    },
+    {
+      "start": 3975.069,
+      "end": 3982.39,
+      "text": "does. The claim"
+    },
+    {
+      "start": 3982.39,
+      "end": 3983.789,
+      "text": "is V inverse is V complex conjugate"
+    },
+    {
+      "start": 3983.789,
+      "end": 3987.67,
+      "text": "divided by"
+    },
+    {
+      "start": 3987.67,
+      "end": 3989.19,
+      "text": "N. Uh what's complex conjugate? Uh for a"
+    },
+    {
+      "start": 3989.19,
+      "end": 3992.589,
+      "text": "geometer it's reflection through the"
+    },
+    {
+      "start": 3992.589,
+      "end": 3997.349,
+      "text": "X-axis. for an algebraic"
+    },
+    {
+      "start": 3997.349,
+      "end": 3998.75,
+      "text": "person a + i. The complex conjugate is a"
+    },
+    {
+      "start": 3998.75,
+      "end": 4001.67,
+      "text": "minus"
+    },
+    {
+      "start": 4001.67,
+      "end": 4004.309,
+      "text": "i. Okay, so just apply that to every"
+    },
+    {
+      "start": 4004.309,
+      "end": 4013.75,
+      "text": "entry in the matrix and then divide all"
+    },
+    {
+      "start": 4013.75,
+      "end": 4016.63,
+      "text": "inverse. Cool. Very cool. because uh"
+    },
+    {
+      "start": 4016.63,
+      "end": 4020.27,
+      "text": "what this tells us is we run exactly the"
+    },
+    {
+      "start": 4020.27,
+      "end": 4022.789,
+      "text": "same algorithm and do exactly the same"
+    },
+    {
+      "start": 4022.789,
+      "end": 4025.91,
+      "text": "transformation. If we want to do V"
+    },
+    {
+      "start": 4025.91,
+      "end": 4029.95,
+      "text": "inverse, we can actually just use V but"
+    },
+    {
+      "start": 4029.95,
+      "end": 4035.23,
+      "text": "with a different choice of X K. Namely,"
+    },
+    {
+      "start": 4035.23,
+      "end": 4039.43,
+      "text": "um for the inverse, call it XK inverse."
+    },
+    {
+      "start": 4039.43,
+      "end": 4045.87,
+      "text": "uh we just take the complex conjugate of"
+    },
+    {
+      "start": 4045.87,
+      "end": 4047.39,
+      "text": "this thing which turns out to be um e to"
+    },
+    {
+      "start": 4047.39,
+      "end": 4053.029,
+      "text": "the"
+    },
+    {
+      "start": 4053.029,
+      "end": 4055.23,
+      "text": "minus i j k to / n and then divide the"
+    },
+    {
+      "start": 4055.23,
+      "end": 4058.15,
+      "text": "whole thing by"
+    },
+    {
+      "start": 4058.15,
+      "end": 4060.589,
+      "text": "n. Okay, I'm using a fact here which is"
+    },
+    {
+      "start": 4060.589,
+      "end": 4063.67,
+      "text": "that the complex conjugate of this"
+    },
+    {
+      "start": 4063.67,
+      "end": 4066.51,
+      "text": "number is actually just you put a minus"
+    },
+    {
+      "start": 4066.51,
+      "end": 4069.99,
+      "text": "sign here. Why does that hold? Because"
+    },
+    {
+      "start": 4069.99,
+      "end": 4072.109,
+      "text": "geometry, right? If you uh theta is"
+    },
+    {
+      "start": 4072.109,
+      "end": 4075.51,
+      "text": "usually measuring the counterclockwise"
+    },
+    {
+      "start": 4075.51,
+      "end": 4077.829,
+      "text": "angle from the x-axis. If you take the"
+    },
+    {
+      "start": 4077.829,
+      "end": 4080.15,
+      "text": "complex conjugate, you go from up here"
+    },
+    {
+      "start": 4080.15,
+      "end": 4081.67,
+      "text": "to down here, the reflection through the"
+    },
+    {
+      "start": 4081.67,
+      "end": 4084.549,
+      "text": "x-axis. That's the same thing as if you"
+    },
+    {
+      "start": 4084.549,
+      "end": 4086.069,
+      "text": "measure theta as a clockwise angle from"
+    },
+    {
+      "start": 4086.069,
+      "end": 4088.309,
+      "text": "the x-axis. So that's the same thing as"
+    },
+    {
+      "start": 4088.309,
+      "end": 4090.069,
+      "text": "negating the angle. Okay, so that's just"
+    },
+    {
+      "start": 4090.069,
+      "end": 4092.39,
+      "text": "a little geometry. You can prove it"
+    },
+    {
+      "start": 4092.39,
+      "end": 4096.39,
+      "text": "algebraically, although I don't know how"
+    },
+    {
+      "start": 4096.39,
+      "end": 4098.63,
+      "text": "uh off hand. It's not not hard. Uh so if"
+    },
+    {
+      "start": 4098.63,
+      "end": 4100.63,
+      "text": "I want to take some angle and then flip"
+    },
+    {
+      "start": 4100.63,
+      "end": 4102.47,
+      "text": "it through the x-axis, it's the same as"
+    },
+    {
+      "start": 4102.47,
+      "end": 4105.669,
+      "text": "the negative of the angle. So complex"
+    },
+    {
+      "start": 4105.669,
+      "end": 4107.43,
+      "text": "conjugate of this number is same thing"
+    },
+    {
+      "start": 4107.43,
+      "end": 4110.11,
+      "text": "with a minus sign. And then we have to"
+    },
+    {
+      "start": 4110.11,
+      "end": 4117.43,
+      "text": "divide by n. If I just"
+    },
+    {
+      "start": 4117.43,
+      "end": 4120.269,
+      "text": "uh I can't divide by n. Sorry, it's in"
+    },
+    {
+      "start": 4120.269,
+      "end": 4123.91,
+      "text": "the wrong spot. I use these x"
+    },
+    {
+      "start": 4123.91,
+      "end": 4127.349,
+      "text": "ks and then uh I apply the transform. I"
+    },
+    {
+      "start": 4127.349,
+      "end": 4129.11,
+      "text": "take this uh thing. I get not quite v"
+    },
+    {
+      "start": 4129.11,
+      "end": 4132.669,
+      "text": "inverse, but I end up getting nv"
+    },
+    {
+      "start": 4132.669,
+      "end": 4136.349,
+      "text": "inverse. I multiply that by my"
+    },
+    {
+      "start": 4136.349,
+      "end": 4144.55,
+      "text": "aar. That's going to give me n *"
+    },
+    {
+      "start": 4144.55,
+      "end": 4146.39,
+      "text": "Uh so uh then I just take that vector I"
+    },
+    {
+      "start": 4146.39,
+      "end": 4149.309,
+      "text": "divide by n boom I've got the inverse"
+    },
+    {
+      "start": 4149.309,
+      "end": 4152.189,
+      "text": "transform. So this is how you do uh"
+    },
+    {
+      "start": 4152.189,
+      "end": 4154.55,
+      "text": "inverse fast forier"
+    },
+    {
+      "start": 4154.55,
+      "end": 4157.749,
+      "text": "transform. You just flip the sign in the"
+    },
+    {
+      "start": 4157.749,
+      "end": 4160.47,
+      "text": "exponent in the x ks. Then you do the"
+    },
+    {
+      "start": 4160.47,
+      "end": 4162.309,
+      "text": "same uh matrix vector product and then"
+    },
+    {
+      "start": 4162.309,
+      "end": 4164.87,
+      "text": "you divide by n and then you've done the"
+    },
+    {
+      "start": 4164.87,
+      "end": 4166.149,
+      "text": "inverse. So that's how you do uh if you"
+    },
+    {
+      "start": 4166.149,
+      "end": 4168.39,
+      "text": "believe this claim that's how you do"
+    },
+    {
+      "start": 4168.39,
+      "end": 4172.03,
+      "text": "this last step. Question. What's the J"
+    },
+    {
+      "start": 4172.03,
+      "end": 4175.789,
+      "text": "and the X K? Oops. No J."
+    },
+    {
+      "start": 4175.789,
+      "end": 4179.63,
+      "text": "Sorry. Uh, I was imagining the these"
+    },
+    {
+      "start": 4179.63,
+      "end": 4182.349,
+      "text": "guys. Yeah, it's just K. Thank"
+    },
+    {
+      "start": 4182.349,
+      "end": 4185.43,
+      "text": "you. Other"
+    },
+    {
+      "start": 4185.43,
+      "end": 4187.229,
+      "text": "questions? Okay. So, what remains is to"
+    },
+    {
+      "start": 4187.229,
+      "end": 4191.749,
+      "text": "prove this"
+    },
+    {
+      "start": 4191.749,
+      "end": 4194.91,
+      "text": "claim. Okay. Are you happy if I uh I"
+    },
+    {
+      "start": 4194.91,
+      "end": 4197.75,
+      "text": "should probably have better Well,"
+    },
+    {
+      "start": 4197.75,
+      "end": 4201.75,
+      "text": "anyway, it's not the best. I'm going to"
+    },
+    {
+      "start": 4201.75,
+      "end": 4203.43,
+      "text": "call this uh VK prime X K prime. Then"
+    },
+    {
+      "start": 4203.43,
+      "end": 4207.03,
+      "text": "when I do that, when I plug that in, I"
+    },
+    {
+      "start": 4207.03,
+      "end": 4209.83,
+      "text": "get a different matrix V prime. And what"
+    },
+    {
+      "start": 4209.83,
+      "end": 4216.07,
+      "text": "I'm claiming, what this claim says is"
+    },
+    {
+      "start": 4216.07,
+      "end": 4218.07,
+      "text": "that V prime is equal to N * V inverse."
+    },
+    {
+      "start": 4218.07,
+      "end": 4221.27,
+      "text": "Okay, so I apply the same f of t"
+    },
+    {
+      "start": 4221.27,
+      "end": 4223.27,
+      "text": "algorithm but with v prime instead of v."
+    },
+    {
+      "start": 4223.27,
+      "end": 4225.189,
+      "text": "Then I get not quite the product I want"
+    },
+    {
+      "start": 4225.189,
+      "end": 4228.35,
+      "text": "but just n times the product I want."
+    },
+    {
+      "start": 4228.35,
+      "end": 4230.709,
+      "text": "Divide every term by n and we get the"
+    },
+    {
+      "start": 4230.709,
+      "end": 4233.59,
+      "text": "inverse. This cool thing about complex"
+    },
+    {
+      "start": 4233.59,
+      "end": 4235.43,
+      "text": "numbers here we get another cool thing."
+    },
+    {
+      "start": 4235.43,
+      "end": 4237.35,
+      "text": "All right. Uh but we have to prove this"
+    },
+    {
+      "start": 4237.35,
+      "end": 4241.07,
+      "text": "claim. So let's do a little bit of"
+    },
+    {
+      "start": 4241.07,
+      "end": 4251.55,
+      "text": "algebra. No pain no gain, right?"
+    },
+    {
+      "start": 4251.55,
+      "end": 4254.11,
+      "text": "So, uh, let's look at VJ K"
+    },
+    {
+      "start": 4254.11,
+      "end": 4256.71,
+      "text": "prime."
+    },
+    {
+      "start": 4256.71,
+      "end": 4266.11,
+      "text": "So, oh,"
+    },
+    {
+      "start": 4266.11,
+      "end": 4268.669,
+      "text": "sorry. So, let's"
+    },
+    {
+      "start": 4268.669,
+      "end": 4272.47,
+      "text": "uh"
+    },
+    {
+      "start": 4272.47,
+      "end": 4275.91,
+      "text": "fine. Let's look at P the product of V"
+    },
+    {
+      "start": 4275.91,
+      "end": 4278.79,
+      "text": "and V complex conjugate. Okay, what I"
+    },
+    {
+      "start": 4278.79,
+      "end": 4282.149,
+      "text": "was calling V prime up there. Uh, I"
+    },
+    {
+      "start": 4282.149,
+      "end": 4284.149,
+      "text": "claim that this thing is N times the"
+    },
+    {
+      "start": 4284.149,
+      "end": 4286.55,
+      "text": "identity matrix with ones down the"
+    },
+    {
+      "start": 4286.55,
+      "end": 4289.189,
+      "text": "diagonal and zeros everywhere else."
+    },
+    {
+      "start": 4289.189,
+      "end": 4292.59,
+      "text": "Okay, so let's look at this product in"
+    },
+    {
+      "start": 4292.59,
+      "end": 4296.07,
+      "text": "general. Let's look at the uh say the j"
+    },
+    {
+      "start": 4296.07,
+      "end": 4302.75,
+      "text": "kith item in the product that's going to"
+    },
+    {
+      "start": 4302.75,
+      "end": 4308.149,
+      "text": "come from row j of v uh dotproduct with"
+    },
+    {
+      "start": 4308.149,
+      "end": 4309.59,
+      "text": "column k of the complex conjugate. Now"
+    },
+    {
+      "start": 4309.59,
+      "end": 4310.87,
+      "text": "the matrices here are symmetric so"
+    },
+    {
+      "start": 4310.87,
+      "end": 4313.11,
+      "text": "actually rows and columns are the same"
+    },
+    {
+      "start": 4313.11,
+      "end": 4316.63,
+      "text": "but that's the general definition of the"
+    },
+    {
+      "start": 4316.63,
+      "end": 4320.189,
+      "text": "cell in the product of two matrices."
+    },
+    {
+      "start": 4320.189,
+      "end": 4322.59,
+      "text": "Uh so let's write it out as a"
+    },
+    {
+      "start": 4322.59,
+      "end": 4325.59,
+      "text": "summation. We"
+    },
+    {
+      "start": 4325.59,
+      "end": 4328.149,
+      "text": "have from m equals z. It's so hard not"
+    },
+    {
+      "start": 4328.149,
+      "end": 4329.669,
+      "text": "to use i for my summations. It's the"
+    },
+    {
+      "start": 4329.669,
+      "end": 4331.51,
+      "text": "only class I have to do it because I is"
+    },
+    {
+      "start": 4331.51,
+      "end": 4336.149,
+      "text": "already taken but I guess I still use"
+    },
+    {
+      "start": 4336.149,
+      "end": 4340.229,
+      "text": "capital i. But uh we'll use m i is"
+    },
+    {
+      "start": 4340.229,
+      "end": 4356.149,
+      "text": "complex number today. Uh so we have um e"
+    },
+    {
+      "start": 4356.149,
+      "end": 4358.07,
+      "text": "n time e to the minus i to m k / n. I"
+    },
+    {
+      "start": 4358.07,
+      "end": 4359.669,
+      "text": "don't know why I changed the order. I"
+    },
+    {
+      "start": 4359.669,
+      "end": 4362.39,
+      "text": "put the towel here instead of there, but"
+    },
+    {
+      "start": 4362.39,
+      "end": 4365.669,
+      "text": "same thing."
+    },
+    {
+      "start": 4365.669,
+      "end": 4367.669,
+      "text": "Okay, this is just the for every uh"
+    },
+    {
+      "start": 4367.669,
+      "end": 4370.229,
+      "text": "position m in the cell and corresponding"
+    },
+    {
+      "start": 4370.229,
+      "end": 4372.55,
+      "text": "position m in sorry m in the row"
+    },
+    {
+      "start": 4372.55,
+      "end": 4376.55,
+      "text": "corresponding position m in the column I"
+    },
+    {
+      "start": 4376.55,
+      "end": 4378.31,
+      "text": "have j m and I have m k again the order"
+    },
+    {
+      "start": 4378.31,
+      "end": 4380.709,
+      "text": "doesn't matter it's symmetric but I'm"
+    },
+    {
+      "start": 4380.709,
+      "end": 4382.189,
+      "text": "getting it right here this is we're"
+    },
+    {
+      "start": 4382.189,
+      "end": 4385.27,
+      "text": "using this"
+    },
+    {
+      "start": 4385.27,
+      "end": 4388.27,
+      "text": "formula okay I put a minus sign here"
+    },
+    {
+      "start": 4388.27,
+      "end": 4390.55,
+      "text": "because this is the comp the complex"
+    },
+    {
+      "start": 4390.55,
+      "end": 4393.43,
+      "text": "conjugate okay so now I just do some"
+    },
+    {
+      "start": 4393.43,
+      "end": 4395.55,
+      "text": "algebra these share a lot they share I"
+    },
+    {
+      "start": 4395.55,
+      "end": 4399.149,
+      "text": "they share"
+    },
+    {
+      "start": 4399.149,
+      "end": 4407.75,
+      "text": "M and they share the divided by"
+    },
+    {
+      "start": 4407.75,
+      "end": 4411.63,
+      "text": "N. Okay so this is sum M = 0 N -1 E to"
+    },
+    {
+      "start": 4411.63,
+      "end": 4414.03,
+      "text": "the I oh they also share tow uh"
+    },
+    {
+      "start": 4414.03,
+      "end": 4415.95,
+      "text": "to M /"
+    },
+    {
+      "start": 4415.95,
+      "end": 4420.07,
+      "text": "N"
+    },
+    {
+      "start": 4420.07,
+      "end": 4421.39,
+      "text": "times J minus K."
+    },
+    {
+      "start": 4421.39,
+      "end": 4425.27,
+      "text": "Please correct me if I make any"
+    },
+    {
+      "start": 4425.27,
+      "end": 4429.59,
+      "text": "mistakes. Uh, cool. So, it depends how J"
+    },
+    {
+      "start": 4429.59,
+      "end": 4432.55,
+      "text": "and K relate, of course. Um, if J equals"
+    },
+    {
+      "start": 4432.55,
+      "end": 4434.55,
+      "text": "K, that's also that's also known as"
+    },
+    {
+      "start": 4434.55,
+      "end": 4436.11,
+      "text": "something on the diagonal. I want this I"
+    },
+    {
+      "start": 4436.11,
+      "end": 4441.11,
+      "text": "want the matrix"
+    },
+    {
+      "start": 4441.11,
+      "end": 4442.55,
+      "text": "N 0 0, right? So, J equals K. That's the"
+    },
+    {
+      "start": 4442.55,
+      "end": 4444.79,
+      "text": "diagonal. That's where I want to get N."
+    },
+    {
+      "start": 4444.79,
+      "end": 4446.87,
+      "text": "And indeed, if J equals K, this becomes"
+    },
+    {
+      "start": 4446.87,
+      "end": 4451.35,
+      "text": "zero. So, all this becomes zero. E to"
+    },
+    {
+      "start": 4451.35,
+      "end": 4452.91,
+      "text": "the 0 is 1. And so I'm summing up one n"
+    },
+    {
+      "start": 4452.91,
+      "end": 4457.03,
+      "text": "times I get"
+    },
+    {
+      "start": 4457.03,
+      "end": 4460.79,
+      "text": "n. Okay, cool. It's one case. This is n"
+    },
+    {
+      "start": 4460.79,
+      "end": 4462.51,
+      "text": "if j equals k. And somehow I claim that"
+    },
+    {
+      "start": 4462.51,
+      "end": 4486.189,
+      "text": "everywhere else I get"
+    },
+    {
+      "start": 4486.189,
+      "end": 4489.709,
+      "text": "So"
+    },
+    {
+      "start": 4489.709,
+      "end": 4493.31,
+      "text": "if J does not equal"
+    },
+    {
+      "start": 4493.31,
+      "end": 4495.63,
+      "text": "K, I'm going to rewrite this a little"
+    },
+    {
+      "start": 4495.63,
+      "end": 4500.229,
+      "text": "bit. J and K are"
+    },
+    {
+      "start": 4500.229,
+      "end": 4505.35,
+      "text": "fixed. Okay, m is changing in the sum."
+    },
+    {
+      "start": 4505.35,
+      "end": 4507.63,
+      "text": "So I want to write this as sum m = 0 to"
+    },
+    {
+      "start": 4507.63,
+      "end": 4516.91,
+      "text": "n minus"
+    },
+    {
+      "start": 4516.91,
+      "end": 4521.07,
+      "text": "uh j minus"
+    },
+    {
+      "start": 4521.07,
+      "end": 4524.87,
+      "text": "k over n *"
+    },
+    {
+      "start": 4524.87,
+      "end": 4526.43,
+      "text": "m. Okay, in other words, this thing"
+    },
+    {
+      "start": 4526.43,
+      "end": 4536.07,
+      "text": "raised to the m"
+    },
+    {
+      "start": 4536.07,
+      "end": 4542.99,
+      "text": "one word."
+    },
+    {
+      "start": 4542.99,
+      "end": 4545.43,
+      "text": "you. This is a geometric"
+    },
+    {
+      "start": 4545.43,
+      "end": 4547.83,
+      "text": "series and uh I guess I should have"
+    },
+    {
+      "start": 4547.83,
+      "end": 4549.59,
+      "text": "waited uh to give you the Frisbee until"
+    },
+    {
+      "start": 4549.59,
+      "end": 4551.99,
+      "text": "you tell me how do you solve a geometric"
+    },
+    {
+      "start": 4551.99,
+      "end": 4554.27,
+      "text": "series of with a finite term. So think"
+    },
+    {
+      "start": 4554.27,
+      "end": 4557.669,
+      "text": "of this as Z to the"
+    },
+    {
+      "start": 4557.669,
+      "end": 4561.31,
+      "text": "M. Do you know the formula?"
+    },
+    {
+      "start": 4561.31,
+      "end": 4566.31,
+      "text": "the i, just"
+    },
+    {
+      "start": 4566.31,
+      "end": 4569.27,
+      "text": "zus one. Z to the n minus one almost zus"
+    },
+    {
+      "start": 4569.27,
+      "end": 4573.51,
+      "text": "one over z minus one. Yep. That's if you"
+    },
+    {
+      "start": 4573.51,
+      "end": 4576.149,
+      "text": "have sum of z to the k k= 0 to n minus"
+    },
+    {
+      "start": 4576.149,
+      "end": 4578.149,
+      "text": "one. That's that. It's in the appendix"
+    },
+    {
+      "start": 4578.149,
+      "end": 4584.59,
+      "text": "of your textbook. So we just plug that"
+    },
+    {
+      "start": 4584.59,
+      "end": 4590.79,
+      "text": "in uh and we get uh oh boy e to"
+    },
+    {
+      "start": 4590.79,
+      "end": 4593.07,
+      "text": "the better chalk e to the i tow j minus"
+    },
+    {
+      "start": 4593.07,
+      "end": 4599.189,
+      "text": "k over"
+    },
+    {
+      "start": 4599.189,
+      "end": 4600.79,
+      "text": "n to the n power minus one over e to the"
+    },
+    {
+      "start": 4600.79,
+      "end": 4602.95,
+      "text": "i. Actually the denominator doesn't"
+    },
+    {
+      "start": 4602.95,
+      "end": 4605.11,
+      "text": "really matter because this is supposed"
+    },
+    {
+      "start": 4605.11,
+      "end": 4607.43,
+      "text": "to be zero. So it's all about the"
+    },
+    {
+      "start": 4607.43,
+      "end": 4615.39,
+      "text": "numerator. Uh, so but it's the same"
+    },
+    {
+      "start": 4615.39,
+      "end": 4619.31,
+      "text": "Okay. Where's my red?"
+    },
+    {
+      "start": 4619.31,
+      "end": 4624.149,
+      "text": "Red. The n cancels with the"
+    },
+    {
+      "start": 4624.149,
+      "end": 4628.03,
+      "text": "n. This is an integer not equal to zero."
+    },
+    {
+      "start": 4628.03,
+      "end": 4631.55,
+      "text": "So we have e to the i tow to an integer"
+    },
+    {
+      "start": 4631.55,
+      "end": 4635.669,
+      "text": "power. What's e to the i"
+    },
+    {
+      "start": 4635.669,
+      "end": 4638.07,
+      "text": "towel? One. Okay."
+    },
+    {
+      "start": 4638.07,
+      "end": 4642.27,
+      "text": "convenient that I had that there. 1 - 1"
+    },
+    {
+      "start": 4642.27,
+      "end": 4645.83,
+      "text": "is zero. So we get zero. Ah"
+    },
+    {
+      "start": 4645.83,
+      "end": 4648.149,
+      "text": "satisfying. Okay. So that proves this"
+    },
+    {
+      "start": 4648.149,
+      "end": 4650.39,
+      "text": "claim. We prove that on the diagonal we"
+    },
+    {
+      "start": 4650.39,
+      "end": 4652.27,
+      "text": "get n because we had n copies of one."
+    },
+    {
+      "start": 4652.27,
+      "end": 4656.149,
+      "text": "Off the diagonal we get"
+    },
+    {
+      "start": 4656.149,
+      "end": 4659.669,
+      "text": "zero like this. Therefore v complement"
+    },
+    {
+      "start": 4659.669,
+      "end": 4661.99,
+      "text": "or sorry v complex conjugate time n is v"
+    },
+    {
+      "start": 4661.99,
+      "end": 4663.83,
+      "text": "inverse. Therefore this algorithm"
+    },
+    {
+      "start": 4663.83,
+      "end": 4666.47,
+      "text": "actually computes the inverse fastfora"
+    },
+    {
+      "start": 4666.47,
+      "end": 4669.35,
+      "text": "transform."
+    },
+    {
+      "start": 4669.35,
+      "end": 4671.39,
+      "text": "So that's it for algorithms today. Um"
+    },
+    {
+      "start": 4671.39,
+      "end": 4673.99,
+      "text": "but let me quickly tell you about some"
+    },
+    {
+      "start": 4673.99,
+      "end": 4675.669,
+      "text": "applications. Uh you've probably taken"
+    },
+    {
+      "start": 4675.669,
+      "end": 4677.229,
+      "text": "other classes that use applications of"
+    },
+    {
+      "start": 4677.229,
+      "end": 4680.59,
+      "text": "fast for transform. So I will just"
+    },
+    {
+      "start": 4680.59,
+      "end": 4685.11,
+      "text": "summarize. Uh if you've ever edited"
+    },
+    {
+      "start": 4685.11,
+      "end": 4687.31,
+      "text": "audio, you probably did it in uh unless"
+    },
+    {
+      "start": 4687.31,
+      "end": 4689.35,
+      "text": "you're just like pasting audio clips"
+    },
+    {
+      "start": 4689.35,
+      "end": 4691.669,
+      "text": "together. Uh you probably did it in"
+    },
+    {
+      "start": 4691.669,
+      "end": 4693.189,
+      "text": "what's called frequency space. So you"
+    },
+    {
+      "start": 4693.189,
+      "end": 4695.43,
+      "text": "know that as I talked about in the"
+    },
+    {
+      "start": 4695.43,
+      "end": 4697.11,
+      "text": "beginning when we're measuring where the"
+    },
+    {
+      "start": 4697.11,
+      "end": 4700.63,
+      "text": "membrane on this microphone goes over"
+    },
+    {
+      "start": 4700.63,
+      "end": 4702.87,
+      "text": "time that is in in the time domain for"
+    },
+    {
+      "start": 4702.87,
+      "end": 4705.669,
+      "text": "every time we sample where physically"
+    },
+    {
+      "start": 4705.669,
+      "end": 4706.87,
+      "text": "this thing is if you apply I think the"
+    },
+    {
+      "start": 4706.87,
+      "end": 4708.47,
+      "text": "way I define it here it's the inverse"
+    },
+    {
+      "start": 4708.47,
+      "end": 4712.39,
+      "text": "fastfora transform usually it's called"
+    },
+    {
+      "start": 4712.39,
+      "end": 4716.229,
+      "text": "fora transform uh to that uh time domain"
+    },
+    {
+      "start": 4716.229,
+      "end": 4718.07,
+      "text": "vector you get a new vector now it's a"
+    },
+    {
+      "start": 4718.07,
+      "end": 4720.79,
+      "text": "complex vector so you start with real"
+    },
+    {
+      "start": 4720.79,
+      "end": 4723.83,
+      "text": "numbers you get complex numbers so uh"
+    },
+    {
+      "start": 4723.83,
+      "end": 4726.07,
+      "text": "For every uh position in the vector,"
+    },
+    {
+      "start": 4726.07,
+      "end": 4728.55,
+      "text": "what it corresponds to the the x-axis is"
+    },
+    {
+      "start": 4728.55,
+      "end": 4731.51,
+      "text": "no longer time. Now it's frequency. For"
+    },
+    {
+      "start": 4731.51,
+      "end": 4733.11,
+      "text": "every frequency, you're measuring uh"
+    },
+    {
+      "start": 4733.11,
+      "end": 4735.99,
+      "text": "essentially you're viewing this this"
+    },
+    {
+      "start": 4735.99,
+      "end": 4739.11,
+      "text": "vector the waveform as a bunch of"
+    },
+    {
+      "start": 4739.11,
+      "end": 4740.35,
+      "text": "trigonometric functions. Say s of"
+    },
+    {
+      "start": 4740.35,
+      "end": 4742.709,
+      "text": "something time"
+    },
+    {
+      "start": 4742.709,
+      "end": 4744.39,
+      "text": "theta. If you look at one of the entries"
+    },
+    {
+      "start": 4744.39,
+      "end": 4745.75,
+      "text": "in the vector and it's a complex number,"
+    },
+    {
+      "start": 4745.75,
+      "end": 4748.07,
+      "text": "if you compute the magnitude of the"
+    },
+    {
+      "start": 4748.07,
+      "end": 4749.75,
+      "text": "complex number, the length of the vector"
+    },
+    {
+      "start": 4749.75,
+      "end": 4753.189,
+      "text": "uh of the length of that two coordinate"
+    },
+    {
+      "start": 4753.189,
+      "end": 4756.07,
+      "text": "vector that is how much"
+    },
+    {
+      "start": 4756.07,
+      "end": 4759.35,
+      "text": "uh stuff of that frequency you have and"
+    },
+    {
+      "start": 4759.35,
+      "end": 4761.669,
+      "text": "then the angle of the vector in 2D is uh"
+    },
+    {
+      "start": 4761.669,
+      "end": 4765.11,
+      "text": "how that uh trigonometric function"
+    },
+    {
+      "start": 4765.11,
+      "end": 4767.99,
+      "text": "shifted in time. So if you take a pure"
+    },
+    {
+      "start": 4767.99,
+      "end": 4771.51,
+      "text": "note like if I was uh playing a bell and"
+    },
+    {
+      "start": 4771.51,
+      "end": 4773.27,
+      "text": "it's exactly C major you uh you know it"
+    },
+    {
+      "start": 4773.27,
+      "end": 4776.55,
+      "text": "looks it looks really wavy. It's"
+    },
+    {
+      "start": 4776.55,
+      "end": 4778.229,
+      "text": "actually a nice perfect uh sign curve"
+    },
+    {
+      "start": 4778.229,
+      "end": 4780.87,
+      "text": "with some offset depending on when I hit"
+    },
+    {
+      "start": 4780.87,
+      "end": 4782.07,
+      "text": "it. Um and then if you apply the for"
+    },
+    {
+      "start": 4782.07,
+      "end": 4783.91,
+      "text": "transform what you get is zeros"
+    },
+    {
+      "start": 4783.91,
+      "end": 4786.47,
+      "text": "everywhere except for the one frequency"
+    },
+    {
+      "start": 4786.47,
+      "end": 4788.87,
+      "text": "that's appearing and there you get one"
+    },
+    {
+      "start": 4788.87,
+      "end": 4791.63,
+      "text": "and everywhere else you get zero. Well,"
+    },
+    {
+      "start": 4791.63,
+      "end": 4794.87,
+      "text": "one possibly rotate it depending on the"
+    },
+    {
+      "start": 4794.87,
+      "end": 4797.51,
+      "text": "phase. And you can take any audio"
+    },
+    {
+      "start": 4797.51,
+      "end": 4799.27,
+      "text": "stream, convert it via 4A transform, do"
+    },
+    {
+      "start": 4799.27,
+      "end": 4800.87,
+      "text": "manipulations there. For example, you've"
+    },
+    {
+      "start": 4800.87,
+      "end": 4802.55,
+      "text": "probably heard of highp pass filters"
+    },
+    {
+      "start": 4802.55,
+      "end": 4803.91,
+      "text": "that removes all the high frequencies or"
+    },
+    {
+      "start": 4803.91,
+      "end": 4805.43,
+      "text": "low pass filters remove all the low"
+    },
+    {
+      "start": 4805.43,
+      "end": 4807.189,
+      "text": "frequencies. You just convert to the"
+    },
+    {
+      "start": 4807.189,
+      "end": 4808.63,
+      "text": "space, you zero out the parts you want,"
+    },
+    {
+      "start": 4808.63,
+      "end": 4810.63,
+      "text": "and then you convert back with inverse"
+    },
+    {
+      "start": 4810.63,
+      "end": 4812.47,
+      "text": "foraier transform. Uh if you've used"
+    },
+    {
+      "start": 4812.47,
+      "end": 4814.87,
+      "text": "Adobe Audition or Audacity, they can all"
+    },
+    {
+      "start": 4814.87,
+      "end": 4816.63,
+      "text": "do these things. Uh and there are tons"
+    },
+    {
+      "start": 4816.63,
+      "end": 4818.47,
+      "text": "of contexts where converting to for"
+    },
+    {
+      "start": 4818.47,
+      "end": 4819.75,
+      "text": "space makes life easy."
+    },
+    {
+      "start": 4819.75,
+      "end": 4821.35,
+      "text": "And in general, if you have any"
+    },
+    {
+      "start": 4821.35,
+      "end": 4823.43,
+      "text": "timebased signal, you should always"
+    },
+    {
+      "start": 4823.43,
+      "end": 4826.31,
+      "text": "think about what do you get with FFT"
+    },
+    {
+      "start": 4826.31,
+      "end": 4827.99,
+      "text": "when you transform to uh frequency based"
+    },
+    {
+      "start": 4827.99,
+      "end": 4829.35,
+      "text": "signal. And you can do lots of cool"
+    },
+    {
+      "start": 4829.35,
+      "end": 4831.189,
+      "text": "things you couldn't do otherwise. And it"
+    },
+    {
+      "start": 4831.189,
+      "end": 4833.03,
+      "text": "only takes an log and time plus people"
+    },
+    {
+      "start": 4833.03,
+      "end": 4835.43,
+      "text": "do it in hardware. There's a fast"
+    },
+    {
+      "start": 4835.43,
+      "end": 4837.91,
+      "text": "implementation called FFTW, the fastest"
+    },
+    {
+      "start": 4837.91,
+      "end": 4840.709,
+      "text": "4A transform in the west, which was made"
+    },
+    {
+      "start": 4840.709,
+      "end": 4842.31,
+      "text": "here at MIT a bunch of years ago and is"
+    },
+    {
+      "start": 4842.31,
+      "end": 4844.229,
+      "text": "still the best uh software"
+    },
+    {
+      "start": 4844.229,
+      "end": 4846.709,
+      "text": "implementation of FFT. So people use it"
+    },
+    {
+      "start": 4846.709,
+      "end": 4849.11,
+      "text": "everywhere. Uh, your head your noise"
+    },
+    {
+      "start": 4849.11,
+      "end": 4852.11,
+      "text": "cancelling headsets probably use it. MP3"
+    }
+  ]
+}

@@ -1,0 +1,646 @@
+[
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_000",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 0.0,
+    "end_time": 45.0,
+    "text": "the following content is provided under a Creative Commons license your support will help MIT OpenCourseWare continue to offer high quality educational resources for free to make a donation or view additional materials from hundreds of MIT courses hi I'm Sweeney davidís I'm a professor of election engineering and computer science I'm gonna be Co lecturing six double-o six introduction to algorithms this term with Professor Erik Demaine Erik say hi and we hope you're gonna have a fun time in 6006 learning a"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_001",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 35.0,
+    "end_time": 80.0,
+    "text": "Erik say hi and we hope you're gonna have a fun time in 6006 learning a variety of algorithms what I want to do today is spend literally a minute or so on administrative details maybe even less what I'd like to do is to tell you to go to the website that's listed up there and read it and you'll get all the information you need about what this class is about from a standpoint of syllabus what's expected of you the problem set schedule the quiz schedule and so on and so forth I want to dive right in and tell you about interesting"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_002",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 70.0,
+    "end_time": 115.0,
+    "text": "syllabus what's expected of you the problem set schedule the quiz schedule and so on and so forth I want to dive right in and tell you about interesting things like algorithms and complexity of algorithms I want to spend some time giving you an overview of the course content and then we're going to dive right in and look at a particular problem of peak finding both the one dimensional version and a two dimensional version and talk about algorithms to solve the speak finding problem both varieties of it and you'll find that there's really a difference between these various algorithms that we'll look at in terms of their"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_003",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 105.0,
+    "end_time": 150.0,
+    "text": "problem both varieties of it and you'll find that there's really a difference between these various algorithms that we'll look at in terms of their complexity and what I mean by that is you're going to have different runtimes of these algorithms depending on input size based on how efficient these algorithms are and prerequisite for this class is 604 two and in 604 2 you learned about asymptotic complexity and you'll see that in this lecture we'll analyze relatively simple algorithms today in terms of their asymptotic complexity and you'll be able to compare"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_004",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 140.0,
+    "end_time": 185.0,
+    "text": "you'll see that in this lecture we'll analyze relatively simple algorithms today in terms of their asymptotic complexity and you'll be able to compare and say that this algorithm is faster than this other one assuming that you have large inputs because it's hasn't totally less complex so let's dive right in and talk about the class so the one sentence summary of this class is that this is about efficient procedures for solving"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_005",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 175.0,
+    "end_time": 220.0,
+    "text": "this class is that this is about efficient procedures for solving problems on large inputs and when I say large inputs I mean things like the US highway system a map of all of the highways in the United States the human genome which has a billion letters in its alphabet a social network corresponding to Facebook that I guess has 500 million nodes or so so these are large inputs now our definition of large has really changed with the times and so really the 21st century definition of large is I guess a trillion right back"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_006",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 210.0,
+    "end_time": 255.0,
+    "text": "has really changed with the times and so really the 21st century definition of large is I guess a trillion right back when I was your age large was like a thousand right I guess I'm dating myself here back when Eric was your age it was a million right but what's happening I really the world is moving faster things are getting bigger we have the capability of computing on large inputs but that doesn't mean that efficiency isn't of paramount concern the fact of the matter is that you can maybe scan a billion elements in a matter of seconds"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_007",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 245.0,
+    "end_time": 290.0,
+    "text": "isn't of paramount concern the fact of the matter is that you can maybe scan a billion elements in a matter of seconds but if you had an algorithm that required cubic complexity suddenly you're not talking about 10 raise to 9 you're talking about 10 raise to 27 and even current computers can't really handle that kind of those kinds of numbers so efficiency is a concern and as inputs get larger it becomes more of efficient procedures for solving"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_008",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 280.0,
+    "end_time": 325.0,
+    "text": "efficient procedures for solving large-scale problems in this class and we're concerned about scalability because just as you know 1,000 was a big number a couple of decades ago and and now it's it's kind of a small number it's quite possible that by the time you guys are professors teaching this class in some university that a trillion is going to be a small number and we're going to be talking about at no 10 raise"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_009",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 315.0,
+    "end_time": 360.0,
+    "text": "it's quite possible that by the time you guys are professors teaching this class in some university that a trillion is going to be a small number and we're going to be talking about at no 10 raise to 18 as being something that we're concerned with from a standpoint of a common case input for an algorithm so scalability is important and we want to be able to track how our algorithms are going to do as inputs get larger and larger you're going to learn a bunch of different data structures we'll call them classic data structures like binary"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_010",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 350.0,
+    "end_time": 395.0,
+    "text": "different data structures we'll call them classic data structures like binary search trees hash tables that are called dictionaries in Python and data structures such as balanced binary search trees that are more efficient than just the regular binary search trees and these are all data structures that were invented many decades ago but they've stood the test of time and they continue to be useful we're going to augment these data structures in various ways to make them more efficient for certain kinds of problems and while you're not going to be doing a whole lot"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_011",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 385.0,
+    "end_time": 430.0,
+    "text": "augment these data structures in various ways to make them more efficient for certain kinds of problems and while you're not going to be doing a whole lot of algorithm design in this class you will be doing some design and a whole lot of analysis the class following this one 604 six design analysis of algorithms is a class that you should take if you like this one and you can do a whole lot more design of in six oh four six but you will look at classic data structures and classical algorithms for these data structures including things like sorting and"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_012",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 420.0,
+    "end_time": 465.0,
+    "text": "classic data structures and classical algorithms for these data structures including things like sorting and matching and so on and one of the nice things about this class is that you'll be doing real implementations of these data structures and algorithms in Python and in particular each of the problem sets in this class are going to have both a theory part to them and a programming part to them so hopefully it'll all tie together the kinds of things we're going to be talking about"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_013",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 455.0,
+    "end_time": 500.0,
+    "text": "sets in this class are going to have both a theory part to them and a programming part to them so hopefully it'll all tie together the kinds of things we're going to be talking about in lectures and recitations are going to be directly connected to the theory parts of the problem sets and you'll be programming the algorithms that we talked about in lecture or augmenting them running them figuring out whether and they work well on large inputs or not so let me talk a little bit about the modules in this class and the problem sets and we hope that these problem sets are going to be fun for you and by fun I don't mean easy"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_014",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 490.0,
+    "end_time": 535.0,
+    "text": "the modules in this class and the problem sets and we hope that these problem sets are going to be fun for you and by fun I don't mean easy I mean challenging and worthwhile so at the end of it you feel like you've learned something and you've had some fun along the way right so content wise we have eight modules in the class each of which roughly speaking has a problem set associated with it are the first of these is what we call algorithmic"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_015",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 525.0,
+    "end_time": 570.0,
+    "text": "roughly speaking has a problem set associated with it are the first of these is what we call algorithmic thinking and with kickstart that one today I will look at a particular problem as I mentioned of peak finding and as part of this you're going to have a plumb set that's going to go out today as well and you that in this problem said some of these algorithms I've talked about today will be coded in Python and given to you a couple of them are gonna have bugs in them you have to analyze the complexity of these algorithms figure out which ones are correct inefficient and write a"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_016",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 560.0,
+    "end_time": 605.0,
+    "text": "them you have to analyze the complexity of these algorithms figure out which ones are correct inefficient and write a proof for one of them all right so that's sort of an example problem set and you can expect that most of the problem sets are going to follow that sort of template right so you'll get a better sense of this in in by the end of the day today for sure or a concrete sense of this because we'll be done with lecture and you'll see your first problem set you're gonna be doing a module on sorting in trees sorting you know about sorting a bunch of numbers imagine if you had a trillion numbers and you wanted to sort them what kind of"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_017",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 595.0,
+    "end_time": 640.0,
+    "text": "module on sorting in trees sorting you know about sorting a bunch of numbers imagine if you had a trillion numbers and you wanted to sort them what kind of algorithm could you use for that trees are a wonderful data structure there's different varieties the most common being binary trees and these ways of doing all sorts of things like scheduling and sorting using various kinds of trees including binary trees and we have a problem set on simulating a logic network using a particular kind of sorting algorithm and a data structure and that is going to be your"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_018",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 630.0,
+    "end_time": 675.0,
+    "text": "a logic network using a particular kind of sorting algorithm and a data structure and that is going to be your second problem set and more quickly we're going to have modules on hashing where we do things like genome comparison in pass terms have you compared a human genome to a rat genome and discovered they were pretty similar 99% similar which is kind of amazing but again these things are so large that you have to have efficiency in the comparison methods that you use and you'll find that if you don't get the complexity low enough you just won't be"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_019",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 665.0,
+    "end_time": 710.0,
+    "text": "have to have efficiency in the comparison methods that you use and you'll find that if you don't get the complexity low enough you just won't be able to complete the your program won't be able to finish running bitten you know the time that you're problem set is due right which is a bit a problem so so that's something to keep in mind as you test your code the fact is that you will get large inputs to run your code and I you want to keep complexity in mind as you're coding and thinking about the the pseudo code if you will of your algorithm itself I've people to talk about numerix a lot of the time you talk about such large"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_020",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 700.0,
+    "end_time": 745.0,
+    "text": "thinking about the the pseudo code if you will of your algorithm itself I've people to talk about numerix a lot of the time you talk about such large numbers that 32 bits isn't enough um and or 64 bits isn't enough to represent these numbers these numbers have thousands of bits a good example this RSA encryption that is used in SSL for example and when you go use HTTPS on websites RSA is used at the back end and typically you work with prime numbers there are thousands of bits long in RSA so how do you handle that how does Python handle that how do you write algorithms that can deal with what"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_021",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 735.0,
+    "end_time": 780.0,
+    "text": "there are thousands of bits long in RSA so how do you handle that how does Python handle that how do you write algorithms that can deal with what are called infinite precision numbers so we have a module on numerix in the middle of the term that talks about that graphs really fundamental data structure in all of computer science you might have heard of the famous Rubik's Cube assignment from double O six at two by two by two rubik's cube what's the minimum number of moves necessary to go from a given starting configuration to the final end configuration where all of the faces each of the faces has uniform"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_022",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 770.0,
+    "end_time": 815.0,
+    "text": "minimum number of moves necessary to go from a given starting configuration to the final end configuration where all of the faces each of the faces has uniform color and that can be posed as a graph problem I will probably do that one this term in previous terms we've done other things like the 15 puzzle and so some of these are tentative we definitely know what the first problem set is like but the rest of them are at this moment tentative um and to finish up by shortest paths again in terms past we've asked you to write code using a particular algorithm that finds the shortest path from Caltech to MIT this time we may do things a little bit differently we we're thinking maybe"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_023",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 805.0,
+    "end_time": 850.0,
+    "text": "asked you to write code using a particular algorithm that finds the shortest path from Caltech to MIT this time we may do things a little bit differently we we're thinking maybe we'll give you a street Boston and and you know go figure out if Paul Revere used to shot a spat to get to where he was going or things like that we will try and make it fun dynamic programming is an important algorithm design technique that's used in many many problems and it can be used to do a variety of things including image compression how do you compress an image"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_024",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 840.0,
+    "end_time": 885.0,
+    "text": "many problems and it can be used to do a variety of things including image compression how do you compress an image so the number of pixels reduces but it still looks like the image that you started out with that had many more pixels actually could use dynamic programming for that and finally advanced topics complexity theory research in algorithms hopefully by now by this time in the in the course you have been sold on algorithms and most if not all of you would want to pursue a career in algorithms and we'll give you a sense of what else is there we're just scratching the surface in this class and there's many many classes that you can"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_025",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 875.0,
+    "end_time": 920.0,
+    "text": "career in algorithms and we'll give you a sense of what else is there we're just scratching the surface in this class and there's many many classes that you can possibly take if you want to continue I in to learn about algorithms or to pursue a career in algorithms alright so that's the story of the class of the synopsis of the class and I encourage you to go spend a few minutes on the website in particular please read the collaboration policy and get a sense of what is expected of you what the rules are in terms of doing the problem sets and the course grading breakdown and the grading policies are all listed on the"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_026",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 910.0,
+    "end_time": 955.0,
+    "text": "what is expected of you what the rules are in terms of doing the problem sets and the course grading breakdown and the grading policies are all listed on the website as well right ok so let's get started I want to talk about a specific problem and talk about algorithms for a specific problem we picked this problem because it's so easy to understand and they're fairly straightforward algorithms that are not particularly efficient to solve this problem and so this is a kind of a toy problem but like a lot of toy problems it's it's very evocative in that it points out the issues involved in"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_027",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 945.0,
+    "end_time": 990.0,
+    "text": "this is a kind of a toy problem but like a lot of toy problems it's it's very evocative in that it points out the issues involved in designing efficient algorithms so if we start with a one dimensional version of what we call peak finding and a peak finder is something in the one dimensional case runs on an array of numbers and I'm just putting symbols for each of these numbers here and the"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_028",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 980.0,
+    "end_time": 1025.0,
+    "text": "numbers and I'm just putting symbols for each of these numbers here and the numbers are positive negative we'll just assume they're all positive it doesn't really matter the algorithms we describe will work and so we have this one dimensional array that has nine different positions and a through I are numbers and we want to find a peak and so we have to define what we mean by a peak and so in particular as an example"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_029",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 1015.0,
+    "end_time": 1060.0,
+    "text": "peak and so in particular as an example position two is a peak if and only if B greater than or equal to a and B greater than or equal to C so it's really a very local property corresponding to a peak in the one dimensional case it's trivial look to your left look to your right if your equal or greater than both of the elements that you see on the left and the right you're a peak okay and in the case of the edges you only have to look to one"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_030",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 1050.0,
+    "end_time": 1095.0,
+    "text": "your equal or greater than both of the elements that you see on the left and the right you're a peak okay and in the case of the edges you only have to look to one side so position 9 is a peak if I greater than equal to H so you just have to look to your left there because you're all the way on the right-hand side all right so so that's it and the statement of the problem the one dimensional version is find the"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_031",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 1085.0,
+    "end_time": 1130.0,
+    "text": "the one dimensional version is find the peak if it exists all right that's all there is to it I'm gonna give you a straightforward algorithm and then you'll see if you can improve it all right you can imagine that the straightforward algorithm is something that just we know walks across the array but we need that as a starting point for building something more"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_032",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 1120.0,
+    "end_time": 1165.0,
+    "text": "the array but we need that as a starting point for building something more sophisticated so let's say we start from left and all we have is one traversal really so let's say we have 1 2 and then we have n over 2 over here corresponding to the middle of this n element array and then we have n minus 1 and n what I'm interested in doing is not only coming up with a straightforward"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_033",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 1155.0,
+    "end_time": 1200.0,
+    "text": "and then we have n minus 1 and n what I'm interested in doing is not only coming up with a straightforward algorithm but also precisely characterizing what its complexity is in relation to M which is the number of that's exactly right I was going to get to that so if you look at the definition of the peak then what I have here is a greater than or equal to okay and so there's a that's a great question that was asked why is"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_034",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 1190.0,
+    "end_time": 1235.0,
+    "text": "look at the definition of the peak then what I have here is a greater than or equal to okay and so there's a that's a great question that was asked why is there if it exists in this problem now in the case where I have greater than or equal to then I this is a homework question for for you and for the rest of you argue that any array will always have a peak okay now if you didn't have the greater than or equal to and you had a greater than then can you make that argument no you can right so a great"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_035",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 1225.0,
+    "end_time": 1270.0,
+    "text": "a greater than then can you make that argument no you can right so a great question in this case it's just the question is you would want to modify this problem statement to find a peak but if I if I had a different definition of a peak and this is part of algorithmic thinking you want to be able to create algorithms that are general so if the problem definition changes on you you still have a starting point to go attack the second version of the problem okay so you could eliminate this in the case of the greater than or equal to definition the if it exists because the peak will always exist but you probably want to argue that when you want to show"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_036",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 1260.0,
+    "end_time": 1305.0,
+    "text": "so you could eliminate this in the case of the greater than or equal to definition the if it exists because the peak will always exist but you probably want to argue that when you want to show the correctness of your algorithm and if in fact you had a different definition well you would have to create a algorithm that tells you for sure that a peak doesn't exist or find a peak if it exists right so that's really the general case many a time it's possible that you're you're asked to do something and you can't actually give an answer to the to the to the question or find something that satisfies all the constraints required and in that case you want to be able to put up your hand and say you know what"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_037",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 1295.0,
+    "end_time": 1340.0,
+    "text": "the to the to the question or find something that satisfies all the constraints required and in that case you want to be able to put up your hand and say you know what I searched long and hard I searched exhaustively here's my argument that I searched exhaustively and I couldn't find it right if you do that you get to keep your job right otherwise there's there's always the the case that you didn't search hard enough so it's nice to have that argument all right great thanks for the question now feel free to interrupt raise your hand and and I'm watching you guys and I'm happy to answer questions at any time so let's talk about the straightforward algorithm the straightforward algorithm is something that starts from the left and just walks"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_038",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 1330.0,
+    "end_time": 1375.0,
+    "text": "time so let's talk about the straightforward algorithm the straightforward algorithm is something that starts from the left and just walks across and you might have something that looks like that all right by that by this I mean the numbers are increasing as you start from the left the peak is somewhere in the middle and then things start decreasing right so I'm in this case you know this might be the peak it you also may have a situation where the peak is all the way on the right you'll start it from the left and it's one two"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_039",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 1365.0,
+    "end_time": 1410.0,
+    "text": "case you know this might be the peak it you also may have a situation where the peak is all the way on the right you'll start it from the left and it's one two three four five six literally in terms of the numbers and you're going to look at n elements going all the way to the right in in order to find the peak so in the case of the middle you'd look at n over two elements if it was right in the middle and the complexity worst case complexity is what we call theta N and"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_040",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 1400.0,
+    "end_time": 1445.0,
+    "text": "complexity is what we call theta N and it's theta n because in the worst case you may have to look at all n elements and that would be the case where you started from the left and you had to go all the way to the right now remember theta M is essentially something that says of the order of M so it gives you both the lower bound and an upper bound Big O of N is just the upper bound and what we're saying here is we're saying this algorithm that starts from the left is going to essentially require in the"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_041",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 1435.0,
+    "end_time": 1480.0,
+    "text": "this algorithm that starts from the left is going to essentially require in the worst case something that's a constant times a okay and you know that constant could be could be one eye you could certainly set things up that way or if you had a different kind of algorithm maybe you could work on the on the on the constant but bottom line we are only concerned at this moment about asymptotic complexity and the asymptotic complexity of this algorithm is linear all right that makes sense okay so someone help me do better"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_042",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 1470.0,
+    "end_time": 1515.0,
+    "text": "sense okay so someone help me do better how can we do better how can we lower the asymptotic complexity of a one dimensional peak finder anybody want to excellent excellent that's exactly right so you can you can do something"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_043",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 1505.0,
+    "end_time": 1550.0,
+    "text": "excellent excellent that's exactly right so you can you can do something different which is essentially try and break up this problem use a divide and conquer strategy and recursively break up this one-dimensional array into smaller arrays and and try and get this nobody not if it's fine a peak if it exists and in this case it's fine Oh P because of the definition we don't really need this as it was discussed all right okay so so that was a great answer"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_044",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 1540.0,
+    "end_time": 1585.0,
+    "text": "exists and in this case it's fine Oh P because of the definition we don't really need this as it was discussed all right okay so so that was a great answer and you know this class after a while it's gonna get boring right every class gets boring so if you you know try and break the monotony here a bit and so and the other thing that we realized was that these seats you're sitting on this is a nice classroom but the seats you're sitting on are kind of hard right so what Eric and I did was we decided we'll help you guys out especially the ones who are Minh tracting with us and we have these cushions that are six double O six cushions and you know that's a two by two by two Rubik's Cube here and"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_045",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 1575.0,
+    "end_time": 1620.0,
+    "text": "who are Minh tracting with us and we have these cushions that are six double O six cushions and you know that's a two by two by two Rubik's Cube here and since you answered the first question you get a cushion this is kind of like a frisbee but not really yeah so I'm not sure I'm not sure I'm gonna get it to you but I don't thing I want to say is this is not a baseball game right where you just grab the balls that come by this is meant for him my friend and there in the red shirt so here you go ah too bad alright it is soft so you know it won't it won't hurt you if it hits you alright so if you got a bunch of these and I raise your hands you know when I ask"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_046",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 1610.0,
+    "end_time": 1655.0,
+    "text": "it won't hurt you if it hits you alright so if you got a bunch of these and I raise your hands you know when I ask there's going to be yeah I think there's some trivial questions that we're going to ask just to make sure you wait so an answer to that doesn't get you a cushion but you know an answer like what's the name Jase answer like Jase just gave is a that's a good answer to non-trivial shouldn't that gets you a cushion okay all right great so let's put up Jace's algorithm up here I'm gonna write it out"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_047",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 1645.0,
+    "end_time": 1690.0,
+    "text": "for the 1d version so what we have here is a recursive algorithm so the picture you want to keep in your head is this picture that I've put up there and this"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_048",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 1680.0,
+    "end_time": 1725.0,
+    "text": "is a recursive algorithm so the picture you want to keep in your head is this picture that I've put up there and this is a divide-and-conquer algorithm you're gonna see this over and over this paradigm over and over in six double oh six we're gonna look at the N over two position and we're going to look to the left and we're gonna look to the right and we're gonna do that in sequence so if a and over two is less than a and"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_049",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 1715.0,
+    "end_time": 1760.0,
+    "text": "and we're gonna do that in sequence so if a and over two is less than a and over two minus one then only look at left half one through n over two minus one to look for pink or a peak all right so that's step one and you're not gonna be on the right-hand side or the left hand side doesn't really matter I chose to do the left-hand side first the left"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_050",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 1750.0,
+    "end_time": 1795.0,
+    "text": "so that's step one and you're not gonna be on the right-hand side or the left hand side doesn't really matter I chose to do the left-hand side first the left half and so what I've done is through that one step if in fact you have that condition a and over two is less than a number two - one then you moved your left and you work on one half of the problem but if that's not the case then if and over and over two is less than a over and over n by 2 plus 1 then only"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_051",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 1785.0,
+    "end_time": 1830.0,
+    "text": "over and over n by 2 plus 1 then only look at n over 2 plus 1 through n for a peak so I haven't bothered writing out all the words they're exactly the same as the left-hand side you just look to the right-hand side otherwise if both of these conditions don't fire you're actually done ok that's actually the best case in terms of finishing early at least in this recursive step because now the n over 2 position is a peak because what you"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_052",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 1820.0,
+    "end_time": 1865.0,
+    "text": "position is a peak because what you found is that the in over 2 position is greater than or equal to both of its adjacent positions and that's exactly the definition of a peak so you're done okay so all of this is good you want to write an argument that this algorithm is correct and I'm not going to bother with that I just waved my hands a bit and you all nodded so we're done with that but"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_053",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 1855.0,
+    "end_time": 1900.0,
+    "text": "that I just waved my hands a bit and you all nodded so we're done with that but the point being you will see I in your problem set a precise argument for a more complicated algorithm the 2d version of this and that should be a template for you to go write a proof or an argument a formal argument that a particular algorithm is correct that it does what it claims to do and in this case it's to three lines of of careful reasoning that essentially say given the definition of the peak that this is going to find a peak in the array that"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_054",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 1890.0,
+    "end_time": 1935.0,
+    "text": "reasoning that essentially say given the definition of the peak that this is going to find a peak in the array that you're given all right so we all believe that this algorithm is correct let's talk now about the complexity of this algorithm because the whole point of this algorithm was because we didn't like this data and complexity corresponding to the straightforward algorithm so I'd like to do better so what I'd like to do is ask one of you to give me a recurrence relation of the"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_055",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 1925.0,
+    "end_time": 1970.0,
+    "text": "algorithm so I'd like to do better so what I'd like to do is ask one of you to give me a recurrence relation of the kind you know T of n equals blah blah blah that would correspond to this recursive algorithm this divide and conquer algorithm and then using that I'd like to get to the actual complexity in terms of what the theta of complexity"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_056",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 1960.0,
+    "end_time": 2005.0,
+    "text": "great exactly right that's exactly right so if you look at this algorithm and you you say from a computation standpoint can I write an equation corresponding to the execution of this algorithm and you say T of n is the work that this algorithm does on as input of size n"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_057",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 1995.0,
+    "end_time": 2040.0,
+    "text": "then I can write this equation and this theta one corresponds to the two comparisons that you do looking at potentially the two comparisons that you do looking at the left hand side and the right hand side so that's the two is a constant so that's why we put theta 1 all right so you get a cushion to watch out guys whoa Oh actually that one's a bad veers left Erik yours left so if you"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_058",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 2030.0,
+    "end_time": 2075.0,
+    "text": "out guys whoa Oh actually that one's a bad veers left Erik yours left so if you take this and you start expanding it eventually you're going to get to the base case which is T of 1 is Theta 1 right because you have a 1 element array you just for that array is just gonna return that as a peak and so if you do that and you expand it all the way out but then you can write T of N equals theta 1 plus theta 1 and you're going to"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_059",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 2065.0,
+    "end_time": 2110.0,
+    "text": "but then you can write T of N equals theta 1 plus theta 1 and you're going to do this log to the base 2 of n times and adding these all up gives you a complexity theta log 2 of n right so now you compare this with that and there's really a huge difference there's an exponential difference if you coded up this algorithm in Python and I did both these algorithms for the"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_060",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 2100.0,
+    "end_time": 2145.0,
+    "text": "this algorithm in Python and I did both these algorithms for the 1d version and if you run it on n being 10 million or so then this algorithm takes 13 seconds okay the or theta n algorithm takes 13 seconds and this one takes point zero zero one seconds okay huge difference so there is a big difference between theta N and theta log N and it's literally the difference between 2 raised to n and n it makes sense to try and reduce complexity as you can see especially if you're talking"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_061",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 2135.0,
+    "end_time": 2180.0,
+    "text": "between 2 raised to n and n it makes sense to try and reduce complexity as you can see especially if you're talking about large inputs right and you'll see that more clearly as we go to a 2d version of this problem alright so you can't really do better for the 1d the 1d is a straight forward problem it gets a little more interesting the problems get a little excuse me the algorithms get a little more sophisticated when we look at a 2d version of peak finding so let's talk about the 2d version so as you can imagine in the 2d version you have a"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_062",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 2170.0,
+    "end_time": 2215.0,
+    "text": "talk about the 2d version so as you can imagine in the 2d version you have a matrix or a two-dimensional array and we'll say this thing has n rows and M columns and now we have to define what a peak is and it's a hill it's the obvious definition of a peak so if you had a in here C B D e then as you can guess a is"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_063",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 2205.0,
+    "end_time": 2250.0,
+    "text": "here C B D e then as you can guess a is a 2d peak if and only if a greater than or equal to B a greater than or equal to D C and E all right so it's a little hill up there alright and again I've used the greater than or equal to here so that's similar to the 1d and in the case that you'll always find a peak in any 2d matrix now again I'll give you the straightforward algorithm alright"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_064",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 2240.0,
+    "end_time": 2285.0,
+    "text": "case that you'll always find a peak in any 2d matrix now again I'll give you the straightforward algorithm alright and we'll call it the greedy ascent algorithm and the greedy ascent algorithm essentially picks the direction and you know tries to follow that direction in order to find the peak"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_065",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 2275.0,
+    "end_time": 2320.0,
+    "text": "matrix 14 13 12 15 9 then what might happen is if I started at some arbitrary midpoint so the greedy ascent algorithm has to make choices as to where to start just like we had different cases here you have to make a choice as to where to start you might want to start in the middle and you might want to work your way left first or you can all you just keep going left"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_066",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 2310.0,
+    "end_time": 2355.0,
+    "text": "you have to make a choice as to where to start you might want to start in the middle and you might want to work your way left first or you can all you just keep going left like I'll keep going right and if you hit an edge you go down so you make some choices as to what the default traversal directions are and so if you say you want to start with 12 you're going to go look for something to your left and if it's greater then you're going to follow that direction if it's not if it's less then you're going to go to in the in the other direction in this case for example so in this case you'll you'll go 12 13"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_067",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 2345.0,
+    "end_time": 2390.0,
+    "text": "so in this case you'll you'll go 12 13 14 15 16 17 19 and 20 and you'd find you'd find this peak now I haven't given you those specific details of a greedy ascent algorithm but I think um if you look at the worst-case possibilities here with respect to a given matrix and for any given starting point and for any given strategy in terms of choosing left first versus right first or down first versus up first you will have a"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_068",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 2380.0,
+    "end_time": 2425.0,
+    "text": "given strategy in terms of choosing left first versus right first or down first versus up first you will have a situation where I'm just like we had in the 1d case you may end up touching a large fraction of the elements in this 2d array okay so in this case we ended up you know touching a bunch of different elements and it's quite possible that um you you could end up touching starting from the midpoint you could end up touching half the elements and in some cases touching all of the elements so um if you do a worst case analysis of this algorithm a particular"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_069",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 2415.0,
+    "end_time": 2460.0,
+    "text": "and in some cases touching all of the elements so um if you do a worst case analysis of this algorithm a particular algorithm with particular choices in terms of the starting point and the direction of search a greedy ascent algorithm would have theta n m complexity alright and in the case where N equals M or M equals and you'd have theta N squared complexity okay I won't spend very much time on this because I want to talk to you about the divide and conquer versions of this algorithm for the 2d peak but hopefully you're all"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_070",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 2450.0,
+    "end_time": 2495.0,
+    "text": "want to talk to you about the divide and conquer versions of this algorithm for the 2d peak but hopefully you're all with me with respect to what the worst case complexity is all right people buy so if there are specific greedy ascent algorithms and specific matrices where if I give you the code for the algorithm and I give you a specific matrix that I could make you touch all of these elements that's correct so if you're talking about worst case that's you're being very paranoid when you talk about"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_071",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 2485.0,
+    "end_time": 2530.0,
+    "text": "and I give you a specific matrix that I could make you touch all of these elements that's correct so if you're talking about worst case that's you're being very paranoid when you talk about worst case complexity and so I'm hand waving a bit here simply because I haven't given you the specifics of the algorithm yet right this is really a on a set of algorithms because I haven't given you the code I haven't told you where it starts and which direction it goes but you go do that fix it and you know I would be the person who tries to find the worst case complexity certainly it's very easy to get to theta n m in terms of having some constant multiplying n times M but you can definitely get to that constant"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_072",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 2520.0,
+    "end_time": 2565.0,
+    "text": "constant multiplying n times M but you can definitely get to that constant being very close to one okay if not one all right so let's talk about divide and conquer I'm let's say that I did something like this where I just tried to jam the binary search algorithm I so what I'm going to do is I'm going to"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_073",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 2555.0,
+    "end_time": 2600.0,
+    "text": "so what I'm going to do is I'm going to pick the middle column J equals M over 2 and I'm gonna find a 1d peak using whatever algorithm I want and I'll probably end up using the more efficient algorithm the binary search version that's gone all the way to the left of the board there and let's say I find a binary peak at I J because I've picked a"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_074",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 2590.0,
+    "end_time": 2635.0,
+    "text": "the board there and let's say I find a binary peak at I J because I've picked a column and I'm just finding a 1d peak so this is J equals M over 2 that's I now I to find a 1d peak on row I and I stand up here I'm really happy okay because I"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_075",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 2625.0,
+    "end_time": 2670.0,
+    "text": "to find a 1d peak on row I and I stand up here I'm really happy okay because I say wow I picked a middle column I found a 1d peak that is Theta and complexity to find a 1d peak as we argued and once I'd let theta M oh I'm sorry you're right the log n complexity that's what this was very we have that here yeah log n complexity thanks Eric and and then once I do that I can find a 1d peak on row I I in this case the row I would be"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_076",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 2660.0,
+    "end_time": 2705.0,
+    "text": "once I do that I can find a 1d peak on row I I in this case the row I would be a m wide so it'd be log m complexity if N equals M then I have a couple of steps of log N and I'm done right am I done no can someone tell someone that's exactly correct so this algorithm is incorrect okay it doesn't work it's"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_077",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 2695.0,
+    "end_time": 2740.0,
+    "text": "that's exactly correct so this algorithm is incorrect okay it doesn't work it's efficient but incorrect okay it's you want to be correct you know being correct and inefficient is is definitely better than being inefficient I'm sorry being incorrect and efficient so this is an efficient algorithm in the sense that it will only take log n time but it doesn't work and I'll I'll give you a simple example here where it doesn't"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_078",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 2730.0,
+    "end_time": 2775.0,
+    "text": "work the problem is a 2d peak may not exist on row I and here's an example of that actually this is a this is exactly the example of that let's say that I started with with this row since it's I'm starting with the middle row and I could start with this one or that one let's say I started with with that one I"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_079",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 2765.0,
+    "end_time": 2810.0,
+    "text": "I'm starting with the middle row and I could start with this one or that one let's say I started with with that one I end up finding a peak and if this were 10 up here I choose 12 as a peak and it's quite possible that I've returned 12 as a peak even though 19 is bigger because 12 is a peak given 10 and 11 up here and then when I choose this particular row and I find a peak on this row it would be 14 that is a 1d peak on this row but 14 is not a 2d peak okay so this particular example 14 would"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_080",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 2800.0,
+    "end_time": 2845.0,
+    "text": "not a 2d peak okay so this particular example 14 would return 14 and 14 is not a2dp all right you can collect your cushion after the class so not so good look like an efficient algorithm but doesn't work all right so how can we get to something that actually works so the last algorithm that I'm going to show you and you'll see of four different algorithms in your problem set that you'll have to analyze the complexity for and decide if they're"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_081",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 2835.0,
+    "end_time": 2880.0,
+    "text": "see of four different algorithms in your problem set that you'll have to analyze the complexity for and decide if they're efficient and if they're correct but here's a recursive version that is better than in terms of complexity then the greedy ascent algorithm and this one works so what I'm going to do is pick a middle column J equals M over 2 as"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_082",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 2870.0,
+    "end_time": 2915.0,
+    "text": "middle column J equals M over 2 as on column J and that's going to be at IJ I'm going to compare I comma J minus 1 I comma J and I J plus 1 which means that once I've found the maximum in this row all I'm going to I'm going to look to the left and the right and compare I'm"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_083",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 2905.0,
+    "end_time": 2950.0,
+    "text": "the left and the right and compare I'm gonna pick the left columns if I comma J minus 1 is greater than I comma J and similarly for the right and if in fact I I either of these two conditions don't fire that and what I have is I comma J is greater than or equal to I comma J minus 1 and I comma J plus 1 then I'm"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_084",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 2940.0,
+    "end_time": 2985.0,
+    "text": "is greater than or equal to I comma J minus 1 and I comma J plus 1 then I'm done just like I had for the 1d version if I comma J is greater than or equal to I comma J minus 1 and I comma J plus 1 that implies IJ is a 2d peak ok and the reason that's the case is because I comma J was the maximum element in that column so you know that you've compared it to all of the adjacent elements looking up and looking down that's the maximum element now you've looked at the left in the"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_085",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 2975.0,
+    "end_time": 3020.0,
+    "text": "maximum element in that column so you know that you've compared it to all of the adjacent elements looking up and looking down that's the maximum element now you've looked at the left in the right and in fact it's greater than or equal to the elements on the left and the right and so therefore it's a 2d peak okay so in this case when you pick the left are the right columns you'll pick one of them you're going to solve the new problem with half the number of columns all right and again you have to"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_086",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 3010.0,
+    "end_time": 3055.0,
+    "text": "columns all right and again you have to go through an analysis or an argument to make sure that this algorithm is correct but it's intuitively correct simply because it matches the 1d version much more closely and you also have your condition where you break away right here where you have a 2d peak just like the 1d version and what you've done is break this matrix up into half the size and that's essentially why this algorithm works when you have a single"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_087",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 3045.0,
+    "end_time": 3090.0,
+    "text": "break this matrix up into half the size and that's essentially why this algorithm works when you have a single column coin the global maximum and you're done all right so that's the the base case so let me end with just writing out what the recurrence relation for the complexity of this is and argue what the overall complexity of this algorithm is"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_088",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 3080.0,
+    "end_time": 3125.0,
+    "text": "complexity of this is and argue what the overall complexity of this algorithm is all right so overall what you have is you have something like T of n M equals T of M M over 2 plus theta M why is that well n is the number of rows M is the number of columns in one case you will be breaking things down into half the number of columns which is M over 2 and in order to find the global maximum you'll be doing theta and work because you're finding the global maximum right you just have to scan it there's I"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_089",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 3115.0,
+    "end_time": 3160.0,
+    "text": "in order to find the global maximum you'll be doing theta and work because you're finding the global maximum right you just have to scan it there's I that's the way that's what it's going to take and so if you do that and you go running through you and you know that T of N 1 is Theta n which is this last part over here that's your base case you get T of n M is Theta of F n added to theta of n log of M times log 2 of M"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_090",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 3150.0,
+    "end_time": 3195.0,
+    "text": "theta of n log of M times log 2 of M times which is Theta of n log 2 of M all right so you're not done with deke finding what you'll see is at for algorithms coded in Python I'm not going to give away what those algorithms are but you'll have to recognize them you will have seen versions of those algorithms already in lecture and your job is going to be to analyze the algorithms as I said before prove that one of them is correct and find counter examples for the ones that aren't correct the course staff will stick"
+  },
+  {
+    "chunk_id": "mit_6006f11_lec01_chunk_091",
+    "video_id": "mit_6006f11_lec01",
+    "start_time": 3185.0,
+    "end_time": 3230.0,
+    "text": "job is going to be to analyze the algorithms as I said before prove that one of them is correct and find counter examples for the ones that aren't correct the course staff will stick around here to answer questions logistical questions or questions about lecture and I owe that gentleman the"
+  }
+]

@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-04-26
+
+- docs: add Overleaf sync rule to CLAUDE.md and roadmap (453903b)
+- docs: reframe as conference paper; remove Phase 8 cross-validation (06fe49a)
+- docs: add per-phase paper writing reminders to roadmap (c567527)
+- docs: sync Overleaf fixes, update roadmap and changelog (206ce17)
+- docs: update CHANGELOG.md for Overleaf submodule (a770067)
+
 ## 2026-04-26 (latest)
 
 - fix: BMVC compliance (ack, tables) + bib missing entries (a95ebc8)

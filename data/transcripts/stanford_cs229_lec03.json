@@ -1,0 +1,7261 @@
+{
+  "video_id": "stanford_cs229_lec03",
+  "source": "youtube_auto_captions",
+  "segments": [
+    {
+      "start": 11.91,
+      "end": 24.71,
+      "text": "this presentation is delivered by the"
+    },
+    {
+      "start": 24.71,
+      "end": 27.589,
+      "text": "development okay good morning welcome"
+    },
+    {
+      "start": 27.589,
+      "end": 28.31,
+      "text": "back to um third to the third lecture of"
+    },
+    {
+      "start": 28.31,
+      "end": 32.069,
+      "text": "this"
+    },
+    {
+      "start": 32.069,
+      "end": 35.31,
+      "text": "class so here's what I want to do today"
+    },
+    {
+      "start": 35.31,
+      "end": 37.15,
+      "text": "um and some of the topics I'll do today"
+    },
+    {
+      "start": 37.15,
+      "end": 39.35,
+      "text": "may seem a little bit like I'm jumping"
+    },
+    {
+      "start": 39.35,
+      "end": 41.709,
+      "text": "so from topic to topic but here's sort"
+    },
+    {
+      "start": 41.709,
+      "end": 44.869,
+      "text": "of the outline for today and The Logical"
+    },
+    {
+      "start": 44.869,
+      "end": 46.709,
+      "text": "flow of ideas um in the last lecture we"
+    },
+    {
+      "start": 46.709,
+      "end": 48.43,
+      "text": "talked about linear regression and today"
+    },
+    {
+      "start": 48.43,
+      "end": 50.15,
+      "text": "I want to talk about sort of an"
+    },
+    {
+      "start": 50.15,
+      "end": 51.83,
+      "text": "adaptation of that called locally weight"
+    },
+    {
+      "start": 51.83,
+      "end": 53.51,
+      "text": "of regression um it's actually a very"
+    },
+    {
+      "start": 53.51,
+      "end": 56.549,
+      "text": "powerful algorithm that's actually one"
+    },
+    {
+      "start": 56.549,
+      "end": 59.349,
+      "text": "of my uh former Mentor probably favorite"
+    },
+    {
+      "start": 59.349,
+      "end": 60.349,
+      "text": "machine learning algorithm um we'll then"
+    },
+    {
+      "start": 60.349,
+      "end": 62.75,
+      "text": "talk about the probalistic"
+    },
+    {
+      "start": 62.75,
+      "end": 66.109,
+      "text": "interpretation of linear regression and"
+    },
+    {
+      "start": 66.109,
+      "end": 67.55,
+      "text": "use that to um move on to our first"
+    },
+    {
+      "start": 67.55,
+      "end": 69.95,
+      "text": "classification algorithm which is"
+    },
+    {
+      "start": 69.95,
+      "end": 71.19,
+      "text": "logistic regression um take a brief"
+    },
+    {
+      "start": 71.19,
+      "end": 72.67,
+      "text": "digression to tell you about something"
+    },
+    {
+      "start": 72.67,
+      "end": 74.469,
+      "text": "called the perceptron alvim which is"
+    },
+    {
+      "start": 74.469,
+      "end": 77.87,
+      "text": "something we'll come back to again later"
+    },
+    {
+      "start": 77.87,
+      "end": 79.789,
+      "text": "this quarter and um time allowing I hope"
+    },
+    {
+      "start": 79.789,
+      "end": 81.429,
+      "text": "to get to Newton's method which is which"
+    },
+    {
+      "start": 81.429,
+      "end": 82.469,
+      "text": "is an Alm for fitting logistic"
+    },
+    {
+      "start": 82.469,
+      "end": 85.87,
+      "text": "regression"
+    },
+    {
+      "start": 85.87,
+      "end": 90.03,
+      "text": "models um so let's just recap what we're"
+    },
+    {
+      "start": 90.03,
+      "end": 93.63,
+      "text": "talking about in the previous lecture um"
+    },
+    {
+      "start": 93.63,
+      "end": 96.31,
+      "text": "remember the notation I defined was that"
+    },
+    {
+      "start": 96.31,
+      "end": 108.31,
+      "text": "I used this x superscript"
+    },
+    {
+      "start": 108.31,
+      "end": 110.59,
+      "text": "example and"
+    },
+    {
+      "start": 110.59,
+      "end": 114.429,
+      "text": "um when we're talking about linear"
+    },
+    {
+      "start": 114.429,
+      "end": 118.029,
+      "text": "regression or ordinary Le squares we use"
+    },
+    {
+      "start": 118.029,
+      "end": 120.55,
+      "text": "this to denote the predicted value"
+    },
+    {
+      "start": 120.55,
+      "end": 124.069,
+      "text": "output by my hypothesis h"
+    },
+    {
+      "start": 124.069,
+      "end": 126.149,
+      "text": "um on the input XI and my hypothesis was"
+    },
+    {
+      "start": 126.149,
+      "end": 129.19,
+      "text": "parameterized by um the vector"
+    },
+    {
+      "start": 129.19,
+      "end": 131.79,
+      "text": "parameters Theta and so we said that"
+    },
+    {
+      "start": 131.79,
+      "end": 134.15,
+      "text": "this was equal to sum"
+    },
+    {
+      "start": 134.15,
+      "end": 142.19,
+      "text": "from right th"
+    },
+    {
+      "start": 142.19,
+      "end": 144.99,
+      "text": "j written most simply as the transvers X"
+    },
+    {
+      "start": 144.99,
+      "end": 147.11,
+      "text": "and um we had the convention that X"
+    },
+    {
+      "start": 147.11,
+      "end": 148.869,
+      "text": "subscript 0 is equal to one so this"
+    },
+    {
+      "start": 148.869,
+      "end": 150.589,
+      "text": "accounts for The Intercept term in a"
+    },
+    {
+      "start": 150.589,
+      "end": 153.82999999999998,
+      "text": "linear regression model"
+    },
+    {
+      "start": 153.82999999999998,
+      "end": 156.82999999999998,
+      "text": "um and lowercase n here was the notation"
+    },
+    {
+      "start": 156.82999999999998,
+      "end": 158.91,
+      "text": "I was using for the uh for the number of"
+    },
+    {
+      "start": 158.91,
+      "end": 160.91,
+      "text": "features in my training set okay so in"
+    },
+    {
+      "start": 160.91,
+      "end": 163.11,
+      "text": "the example we're trying to predict"
+    },
+    {
+      "start": 163.11,
+      "end": 164.63,
+      "text": "housing prices if we had two features"
+    },
+    {
+      "start": 164.63,
+      "end": 166.99,
+      "text": "the size of the house and number of"
+    },
+    {
+      "start": 166.99,
+      "end": 169.43,
+      "text": "bedrooms um we had two features in and"
+    },
+    {
+      "start": 169.43,
+      "end": 172.91,
+      "text": "was little n was equal to"
+    },
+    {
+      "start": 172.91,
+      "end": 175.71,
+      "text": "two um"
+    },
+    {
+      "start": 175.71,
+      "end": 178.11,
+      "text": "so just to finish recapping the previous"
+    },
+    {
+      "start": 178.11,
+      "end": 181.229,
+      "text": "lecture we defined this quadratic cost"
+    },
+    {
+      "start": 181.229,
+      "end": 184.43,
+      "text": "function J of theta equals 12 sum from I"
+    },
+    {
+      "start": 184.43,
+      "end": 186.309,
+      "text": "= 1 to M"
+    },
+    {
+      "start": 186.309,
+      "end": 188.949,
+      "text": "of x"
+    },
+    {
+      "start": 188.949,
+      "end": 193.55,
+      "text": "i- y"
+    },
+    {
+      "start": 193.55,
+      "end": 195.789,
+      "text": "i squared um where this is a sum over"
+    },
+    {
+      "start": 195.789,
+      "end": 198.39,
+      "text": "our M training examples in my training"
+    },
+    {
+      "start": 198.39,
+      "end": 199.75,
+      "text": "set so lowercase M was the notation I've"
+    },
+    {
+      "start": 199.75,
+      "end": 201.22899999999998,
+      "text": "been using to denote the number of"
+    },
+    {
+      "start": 201.22899999999998,
+      "end": 204.149,
+      "text": "training examples I have for the size of"
+    },
+    {
+      "start": 204.149,
+      "end": 207.22899999999998,
+      "text": "my training set and um at the end of the"
+    },
+    {
+      "start": 207.22899999999998,
+      "end": 209.35,
+      "text": "last lecture we derive the value of"
+    },
+    {
+      "start": 209.35,
+      "end": 213.63,
+      "text": "theta that minimizes this in close form"
+    },
+    {
+      "start": 213.63,
+      "end": 217.75,
+      "text": "um which Xpose X"
+    },
+    {
+      "start": 217.75,
+      "end": 221.149,
+      "text": "inverse X transpose y"
+    },
+    {
+      "start": 221.149,
+      "end": 223.47,
+      "text": "okay so"
+    },
+    {
+      "start": 223.47,
+      "end": 226.03,
+      "text": "um as I move forward in today's lecture"
+    },
+    {
+      "start": 226.03,
+      "end": 227.789,
+      "text": "I'll continue to use this notation and"
+    },
+    {
+      "start": 227.789,
+      "end": 231.07,
+      "text": "again I realize this a fair amount of"
+    },
+    {
+      "start": 231.07,
+      "end": 232.91,
+      "text": "notation to all remember um so if"
+    },
+    {
+      "start": 232.91,
+      "end": 234.55,
+      "text": "partway through this lecture you forgot"
+    },
+    {
+      "start": 234.55,
+      "end": 236.39,
+      "text": "you know if if you're having trouble"
+    },
+    {
+      "start": 236.39,
+      "end": 238.06900000000002,
+      "text": "remembering what lowercase m is or what"
+    },
+    {
+      "start": 238.06900000000002,
+      "end": 245.55,
+      "text": "lowercase n is or something please raise"
+    },
+    {
+      "start": 245.55,
+      "end": 248.11,
+      "text": "um when we talked about linear"
+    },
+    {
+      "start": 248.11,
+      "end": 250.47,
+      "text": "regression last time um we used two"
+    },
+    {
+      "start": 250.47,
+      "end": 252.39,
+      "text": "features one of the features was the"
+    },
+    {
+      "start": 252.39,
+      "end": 254.50900000000001,
+      "text": "size of the house in square feet so the"
+    },
+    {
+      "start": 254.50900000000001,
+      "end": 256.27,
+      "text": "living area of the house and the other"
+    },
+    {
+      "start": 256.27,
+      "end": 259.15,
+      "text": "feature was the number of bedrooms in"
+    },
+    {
+      "start": 259.15,
+      "end": 260.15,
+      "text": "the house um in general when you're out"
+    },
+    {
+      "start": 260.15,
+      "end": 262.03,
+      "text": "there applying machine learning"
+    },
+    {
+      "start": 262.03,
+      "end": 264.27,
+      "text": "algorithms to some problem that you care"
+    },
+    {
+      "start": 264.27,
+      "end": 267.03,
+      "text": "about the choice of the features will"
+    },
+    {
+      "start": 267.03,
+      "end": 269.749,
+      "text": "very much be up to you right and"
+    },
+    {
+      "start": 269.749,
+      "end": 271.35,
+      "text": "um the way you choose your features to"
+    },
+    {
+      "start": 271.35,
+      "end": 274.67,
+      "text": "give the learning Al will often have a"
+    },
+    {
+      "start": 274.67,
+      "end": 281.39,
+      "text": "large impact on how actually does um so"
+    },
+    {
+      "start": 281.39,
+      "end": 283.35,
+      "text": "example the choice we made last time was"
+    },
+    {
+      "start": 283.35,
+      "end": 284.469,
+      "text": "X1 equals to the size and and let's"
+    },
+    {
+      "start": 284.469,
+      "end": 285.749,
+      "text": "let's let's leave aside the other"
+    },
+    {
+      "start": 285.749,
+      "end": 287.43,
+      "text": "feature of the number of bedrooms for"
+    },
+    {
+      "start": 287.43,
+      "end": 289.51,
+      "text": "now unless we don't have data that tells"
+    },
+    {
+      "start": 289.51,
+      "end": 292.31,
+      "text": "us how many bedrooms around these"
+    },
+    {
+      "start": 292.31,
+      "end": 295.11,
+      "text": "houses um one thing you could do is"
+    },
+    {
+      "start": 295.11,
+      "end": 305.31,
+      "text": "actually Define oh draw this"
+    },
+    {
+      "start": 305.31,
+      "end": 306.51,
+      "text": "right so let's say that was the size of"
+    },
+    {
+      "start": 306.51,
+      "end": 309.11,
+      "text": "the holes and that's the price of the"
+    },
+    {
+      "start": 309.11,
+      "end": 311.99,
+      "text": "Hol so if you"
+    },
+    {
+      "start": 311.99,
+      "end": 315.39,
+      "text": "use this as a feature maybe you get you"
+    },
+    {
+      "start": 315.39,
+      "end": 316.469,
+      "text": "know Theta 0 plus Theta 1 X1 this is the"
+    },
+    {
+      "start": 316.469,
+      "end": 318.67,
+      "text": "linear"
+    },
+    {
+      "start": 318.67,
+      "end": 322.15,
+      "text": "model"
+    },
+    {
+      "start": 322.15,
+      "end": 327.59,
+      "text": "um if you choose just copy the same data"
+    },
+    {
+      "start": 327.59,
+      "end": 329.309,
+      "text": "over right you can define a set of"
+    },
+    {
+      "start": 329.309,
+      "end": 330.15,
+      "text": "features where X1 is equal to the size"
+    },
+    {
+      "start": 330.15,
+      "end": 337.909,
+      "text": "of the"
+    },
+    {
+      "start": 337.909,
+      "end": 340.30899999999997,
+      "text": "is the square of the size of the Hol"
+    },
+    {
+      "start": 340.30899999999997,
+      "end": 343.23,
+      "text": "okay so X1 is the size of the house and"
+    },
+    {
+      "start": 343.23,
+      "end": 344.79,
+      "text": "say square footage and X2 is just take"
+    },
+    {
+      "start": 344.79,
+      "end": 346.87,
+      "text": "whatever the square footage of the house"
+    },
+    {
+      "start": 346.87,
+      "end": 347.95,
+      "text": "is and just square that number and this"
+    },
+    {
+      "start": 347.95,
+      "end": 351.23,
+      "text": "would be another way to come with a"
+    },
+    {
+      "start": 351.23,
+      "end": 358.87,
+      "text": "feature and if you do that then the same"
+    },
+    {
+      "start": 358.87,
+      "end": 364.71,
+      "text": "fitting a quadratic function for you um"
+    },
+    {
+      "start": 364.71,
+      "end": 367.11,
+      "text": "the the 2 X1 2 okay because uh"
+    },
+    {
+      "start": 367.11,
+      "end": 370.43,
+      "text": "this is actually"
+    },
+    {
+      "start": 370.43,
+      "end": 372.07,
+      "text": "X2 and you know depending on what the"
+    },
+    {
+      "start": 372.07,
+      "end": 373.469,
+      "text": "data looks like maybe this is a slightly"
+    },
+    {
+      "start": 373.469,
+      "end": 375.029,
+      "text": "better fit to the"
+    },
+    {
+      "start": 375.029,
+      "end": 387.27,
+      "text": "data"
+    },
+    {
+      "start": 387.27,
+      "end": 389.23,
+      "text": "further right which is let's see I have"
+    },
+    {
+      "start": 389.23,
+      "end": 390.07,
+      "text": "seven training examples here so you can"
+    },
+    {
+      "start": 390.07,
+      "end": 391.469,
+      "text": "actually"
+    },
+    {
+      "start": 391.469,
+      "end": 393.27,
+      "text": "maybe fit up to a six order the"
+    },
+    {
+      "start": 393.27,
+      "end": 399.87,
+      "text": "polinomial you can actually fit a model"
+    },
+    {
+      "start": 399.87,
+      "end": 411.749,
+      "text": "Theta 0 plus Theta 1 X1 + Theta 2 x² +"
+    },
+    {
+      "start": 411.749,
+      "end": 415.23,
+      "text": "6 x the^ of six and F the six4 the"
+    },
+    {
+      "start": 415.23,
+      "end": 417.95,
+      "text": "polinomial um to these seven data points"
+    },
+    {
+      "start": 417.95,
+      "end": 419.71,
+      "text": "and if you do that you you find that you"
+    },
+    {
+      "start": 419.71,
+      "end": 421.909,
+      "text": "come with a model that fits your data"
+    },
+    {
+      "start": 421.909,
+      "end": 423.51,
+      "text": "exactly because we have I guess in this"
+    },
+    {
+      "start": 423.51,
+      "end": 425.749,
+      "text": "in this example I drew you know we have"
+    },
+    {
+      "start": 425.749,
+      "end": 428.51,
+      "text": "seven data points and so if you fit a"
+    },
+    {
+      "start": 428.51,
+      "end": 430.189,
+      "text": "six voled polinomial you can to fit a"
+    },
+    {
+      "start": 430.189,
+      "end": 432.469,
+      "text": "line that passes through these seven"
+    },
+    {
+      "start": 432.469,
+      "end": 435.71,
+      "text": "points perfectly um and you probably"
+    },
+    {
+      "start": 435.71,
+      "end": 439.869,
+      "text": "find that the curve you get"
+    },
+    {
+      "start": 439.869,
+      "end": 441.869,
+      "text": "is look maybe something like that um and"
+    },
+    {
+      "start": 441.869,
+      "end": 443.67,
+      "text": "on the one hand this is a great model in"
+    },
+    {
+      "start": 443.67,
+      "end": 445.869,
+      "text": "the sense that it fits your training"
+    },
+    {
+      "start": 445.869,
+      "end": 447.55,
+      "text": "data perfectly um and on the other hand"
+    },
+    {
+      "start": 447.55,
+      "end": 449.27,
+      "text": "this is probably not a very good model"
+    },
+    {
+      "start": 449.27,
+      "end": 450.869,
+      "text": "in the sense that you know none of us"
+    },
+    {
+      "start": 450.869,
+      "end": 452.35,
+      "text": "ser JY think that this is a very good"
+    },
+    {
+      "start": 452.35,
+      "end": 454.909,
+      "text": "predictor of housing prices as a"
+    },
+    {
+      "start": 454.909,
+      "end": 458.67,
+      "text": "function of the size of the house right"
+    },
+    {
+      "start": 458.67,
+      "end": 461.95,
+      "text": "so we should come back to this later um"
+    },
+    {
+      "start": 461.95,
+      "end": 463.749,
+      "text": "turns out of the models we have here I"
+    },
+    {
+      "start": 463.749,
+      "end": 466.43,
+      "text": "feel like maybe the quadratic model fits"
+    },
+    {
+      "start": 466.43,
+      "end": 468.749,
+      "text": "the data best um whereas the linear"
+    },
+    {
+      "start": 468.749,
+      "end": 470.11,
+      "text": "model it looks like you know looks like"
+    },
+    {
+      "start": 470.11,
+      "end": 471.79,
+      "text": "there's some looks like there's actually"
+    },
+    {
+      "start": 471.79,
+      "end": 473.95,
+      "text": "a bit of a quadratic component in this"
+    },
+    {
+      "start": 473.95,
+      "end": 476.95,
+      "text": "data that the linear function is not is"
+    },
+    {
+      "start": 476.95,
+      "end": 478.67,
+      "text": "not capturing um so we actually come"
+    },
+    {
+      "start": 478.67,
+      "end": 480.469,
+      "text": "back to this a little bit later and and"
+    },
+    {
+      "start": 480.469,
+      "end": 482.07,
+      "text": "and talk about the problems associated"
+    },
+    {
+      "start": 482.07,
+      "end": 484.309,
+      "text": "with fitting models that either too"
+    },
+    {
+      "start": 484.309,
+      "end": 486.11,
+      "text": "simple or use two small set of features"
+    },
+    {
+      "start": 486.11,
+      "end": 490.27,
+      "text": "all the models that are too complex and"
+    },
+    {
+      "start": 490.27,
+      "end": 493.79,
+      "text": "maybe um use to large a set of features"
+    },
+    {
+      "start": 493.79,
+      "end": 501.27,
+      "text": "um just to give these a name we call"
+    },
+    {
+      "start": 501.27,
+      "end": 503.39,
+      "text": "underfitting and very informally this"
+    },
+    {
+      "start": 503.39,
+      "end": 505.11,
+      "text": "refers to setting where there are"
+    },
+    {
+      "start": 505.11,
+      "end": 506.71,
+      "text": "obvious patterns or where there are"
+    },
+    {
+      "start": 506.71,
+      "end": 509.23,
+      "text": "patterns in the data that the algorithm"
+    },
+    {
+      "start": 509.23,
+      "end": 510.909,
+      "text": "is just failing to fit and this problem"
+    },
+    {
+      "start": 510.909,
+      "end": 513.31,
+      "text": "here we refer"
+    },
+    {
+      "start": 513.31,
+      "end": 516.149,
+      "text": "to as"
+    },
+    {
+      "start": 516.149,
+      "end": 518.469,
+      "text": "overfitting and again very informally"
+    },
+    {
+      "start": 518.469,
+      "end": 520.99,
+      "text": "this is when the algum is fitting the"
+    },
+    {
+      "start": 520.99,
+      "end": 523.43,
+      "text": "idiosyncrasies of this specific data set"
+    },
+    {
+      "start": 523.43,
+      "end": 525.829,
+      "text": "right that it just so happens that of"
+    },
+    {
+      "start": 525.829,
+      "end": 527.19,
+      "text": "the seven houses we sampled in you know"
+    },
+    {
+      "start": 527.19,
+      "end": 529.31,
+      "text": "Portland or wherever you collect data"
+    },
+    {
+      "start": 529.31,
+      "end": 530.59,
+      "text": "from um that house happen to be a bit"
+    },
+    {
+      "start": 530.59,
+      "end": 534.11,
+      "text": "more expensive that house happen a"
+    },
+    {
+      "start": 534.11,
+      "end": 536.07,
+      "text": "little less expensive and by fitting s"
+    },
+    {
+      "start": 536.07,
+      "end": 537.91,
+      "text": "water polinomial was are fitting the ID"
+    },
+    {
+      "start": 537.91,
+      "end": 540.03,
+      "text": "idiosyncratic properties of this data"
+    },
+    {
+      "start": 540.03,
+      "end": 542.87,
+      "text": "set rather than the true underline"
+    },
+    {
+      "start": 542.87,
+      "end": 545.15,
+      "text": "trends of how housing prices VAR as a"
+    },
+    {
+      "start": 545.15,
+      "end": 546.67,
+      "text": "functional size of house okay so these"
+    },
+    {
+      "start": 546.67,
+      "end": 548.87,
+      "text": "two very different problems we'll Define"
+    },
+    {
+      "start": 548.87,
+      "end": 552.069,
+      "text": "them more formally later and talk about"
+    },
+    {
+      "start": 552.069,
+      "end": 554.47,
+      "text": "how to address each of these problems um"
+    },
+    {
+      "start": 554.47,
+      "end": 556.19,
+      "text": "but for now I hope you appreciate that"
+    },
+    {
+      "start": 556.19,
+      "end": 557.99,
+      "text": "there is this issue of selecting"
+    },
+    {
+      "start": 557.99,
+      "end": 560.91,
+      "text": "features"
+    },
+    {
+      "start": 560.91,
+      "end": 563.71,
+      "text": "um"
+    },
+    {
+      "start": 563.71,
+      "end": 565.19,
+      "text": "so if you want to choose features for"
+    },
+    {
+      "start": 565.19,
+      "end": 567.63,
+      "text": "learning problems there there there are"
+    },
+    {
+      "start": 567.63,
+      "end": 570.35,
+      "text": "few ways to do so um and we'll talk"
+    },
+    {
+      "start": 570.35,
+      "end": 572.15,
+      "text": "about feature selection algorithms later"
+    },
+    {
+      "start": 572.15,
+      "end": 574.23,
+      "text": "this quarter as well so automatic"
+    },
+    {
+      "start": 574.23,
+      "end": 576.75,
+      "text": "algorithms are choosing what features to"
+    },
+    {
+      "start": 576.75,
+      "end": 579.509,
+      "text": "use in a in a regression problem like"
+    },
+    {
+      "start": 579.509,
+      "end": 581.509,
+      "text": "this um what I want to do today is talk"
+    },
+    {
+      "start": 581.509,
+      "end": 583.67,
+      "text": "about the class of algorithms called"
+    },
+    {
+      "start": 583.67,
+      "end": 586.19,
+      "text": "non-parametric learning algorithms that"
+    },
+    {
+      "start": 586.19,
+      "end": 588.03,
+      "text": "will help to alleviate the need somewhat"
+    },
+    {
+      "start": 588.03,
+      "end": 590.15,
+      "text": "for you to choose features very"
+    },
+    {
+      "start": 590.15,
+      "end": 592.269,
+      "text": "carefully okay and this will lead us"
+    },
+    {
+      "start": 592.269,
+      "end": 593.15,
+      "text": "into our discussion of um locally weight"
+    },
+    {
+      "start": 593.15,
+      "end": 595.55,
+      "text": "to"
+    },
+    {
+      "start": 595.55,
+      "end": 613.509,
+      "text": "regression"
+    },
+    {
+      "start": 613.509,
+      "end": 615.79,
+      "text": "um linear regression as we've defined it"
+    },
+    {
+      "start": 615.79,
+      "end": 619.19,
+      "text": "so far is an example of a parametric"
+    },
+    {
+      "start": 619.19,
+      "end": 620.79,
+      "text": "learning algorithm and um parametric"
+    },
+    {
+      "start": 620.79,
+      "end": 623.15,
+      "text": "learning algorithm is one that's defined"
+    },
+    {
+      "start": 623.15,
+      "end": 626.03,
+      "text": "as an algorithm that has a fixed number"
+    },
+    {
+      "start": 626.03,
+      "end": 628.91,
+      "text": "of parameters that's fit to the data"
+    },
+    {
+      "start": 628.91,
+      "end": 631.31,
+      "text": "okay so in linear regression we have to"
+    },
+    {
+      "start": 631.31,
+      "end": 640.509,
+      "text": "fix set a parameters"
+    },
+    {
+      "start": 640.509,
+      "end": 642.509,
+      "text": "data in contrast what I'm going to talk"
+    },
+    {
+      "start": 642.509,
+      "end": 657.47,
+      "text": "about now is our first non-parametric"
+    },
+    {
+      "start": 657.47,
+      "end": 660.59,
+      "text": "algorithm"
+    },
+    {
+      "start": 660.59,
+      "end": 662.269,
+      "text": "um the formal definition which is which"
+    },
+    {
+      "start": 662.269,
+      "end": 665.15,
+      "text": "is not very intuitive so I replace this"
+    },
+    {
+      "start": 665.15,
+      "end": 667.59,
+      "text": "when a second something more intuitive"
+    },
+    {
+      "start": 667.59,
+      "end": 669.389,
+      "text": "um the the the S the formal definition"
+    },
+    {
+      "start": 669.389,
+      "end": 683.31,
+      "text": "of a non-p paramet learning algorithm is"
+    },
+    {
+      "start": 683.31,
+      "end": 685.509,
+      "text": "grows with M with the size of the"
+    },
+    {
+      "start": 685.509,
+      "end": 687.31,
+      "text": "training set and usually it's defined as"
+    },
+    {
+      "start": 687.31,
+      "end": 690.389,
+      "text": "the number of parameters grows linearly"
+    },
+    {
+      "start": 690.389,
+      "end": 693.23,
+      "text": "with the size of the training set um"
+    },
+    {
+      "start": 693.23,
+      "end": 695.55,
+      "text": "this is the formal definition a slightly"
+    },
+    {
+      "start": 695.55,
+      "end": 697.71,
+      "text": "in slightly less formal definition is"
+    },
+    {
+      "start": 697.71,
+      "end": 698.91,
+      "text": "that the amount of stuff you need the"
+    },
+    {
+      "start": 698.91,
+      "end": 701.03,
+      "text": "amount of stuff that your learning"
+    },
+    {
+      "start": 701.03,
+      "end": 703.11,
+      "text": "algori needs to keep around will grow"
+    },
+    {
+      "start": 703.11,
+      "end": 704.43,
+      "text": "linearly with the training sets um or in"
+    },
+    {
+      "start": 704.43,
+      "end": 706.629,
+      "text": "other words saying is that this is an"
+    },
+    {
+      "start": 706.629,
+      "end": 708.67,
+      "text": "algorithm that will need to keep around"
+    },
+    {
+      "start": 708.67,
+      "end": 711.99,
+      "text": "an entire training set even after"
+    },
+    {
+      "start": 711.99,
+      "end": 714.269,
+      "text": "learning okay so don't worry too much"
+    },
+    {
+      "start": 714.269,
+      "end": 716.67,
+      "text": "about this definition but what I want to"
+    },
+    {
+      "start": 716.67,
+      "end": 719.47,
+      "text": "do now is describe um a specific"
+    },
+    {
+      "start": 719.47,
+      "end": 730.79,
+      "text": "non-parametric learning algorithm called"
+    },
+    {
+      "start": 730.79,
+      "end": 739.11,
+      "text": "regression um which also goes by a"
+    },
+    {
+      "start": 739.11,
+      "end": 741.269,
+      "text": "uh which also goes by the name L for S"
+    },
+    {
+      "start": 741.269,
+      "end": 744.269,
+      "text": "historical reasons L is usually spelled"
+    },
+    {
+      "start": 744.269,
+      "end": 746.91,
+      "text": "l o SS sometimes spelled like that too I"
+    },
+    {
+      "start": 746.91,
+      "end": 756.189,
+      "text": "just call it locally weighted regression"
+    },
+    {
+      "start": 756.189,
+      "end": 758.949,
+      "text": "and um this will be an algorithm that"
+    },
+    {
+      "start": 758.949,
+      "end": 761.509,
+      "text": "allows us to worry a little bit less"
+    },
+    {
+      "start": 761.509,
+      "end": 779.629,
+      "text": "about having to choose features very"
+    },
+    {
+      "start": 779.629,
+      "end": 783.069,
+      "text": "that I have a training set that looks"
+    },
+    {
+      "start": 783.069,
+      "end": 785.509,
+      "text": "like this okay so this is X and that's y"
+    },
+    {
+      "start": 785.509,
+      "end": 788.47,
+      "text": "um if you"
+    },
+    {
+      "start": 788.47,
+      "end": 790.43,
+      "text": "run linear regression on this and you"
+    },
+    {
+      "start": 790.43,
+      "end": 792.949,
+      "text": "you know fit maybe a linear function to"
+    },
+    {
+      "start": 792.949,
+      "end": 794.43,
+      "text": "this and you end up with a more or less"
+    },
+    {
+      "start": 794.43,
+      "end": 796.79,
+      "text": "flat straight line which is not a very"
+    },
+    {
+      "start": 796.79,
+      "end": 798.23,
+      "text": "good fit to this data um you can sit"
+    },
+    {
+      "start": 798.23,
+      "end": 799.79,
+      "text": "around and stare at this and try to"
+    },
+    {
+      "start": 799.79,
+      "end": 801.43,
+      "text": "decide what other features to use right"
+    },
+    {
+      "start": 801.43,
+      "end": 803.55,
+      "text": "so maybe you want to toss a quadratic"
+    },
+    {
+      "start": 803.55,
+      "end": 806.389,
+      "text": "function but this isn't really quadratic"
+    },
+    {
+      "start": 806.389,
+      "end": 809.67,
+      "text": "e so maybe you want to model this as a"
+    },
+    {
+      "start": 809.67,
+      "end": 811.35,
+      "text": "you know x + X2 plus maybe some function"
+    },
+    {
+      "start": 811.35,
+      "end": 814.15,
+      "text": "of s of X or something you actually sit"
+    },
+    {
+      "start": 814.15,
+      "end": 815.87,
+      "text": "around and F features um and after a"
+    },
+    {
+      "start": 815.87,
+      "end": 817.949,
+      "text": "while you can probably come over a set"
+    },
+    {
+      "start": 817.949,
+      "end": 820.11,
+      "text": "of features the model is okay but let's"
+    },
+    {
+      "start": 820.11,
+      "end": 822.75,
+      "text": "talk about an algorithm that you can use"
+    },
+    {
+      "start": 822.75,
+      "end": 836.55,
+      "text": "without needing to do that"
+    },
+    {
+      "start": 836.55,
+      "end": 845.35,
+      "text": "if now suppose you want to evaluate your"
+    },
+    {
+      "start": 845.35,
+      "end": 848.03,
+      "text": "point at a certain query Point lowercase"
+    },
+    {
+      "start": 848.03,
+      "end": 849.269,
+      "text": "x okay and let's say you want to know"
+    },
+    {
+      "start": 849.269,
+      "end": 853.069,
+      "text": "you want to know what's the predictive"
+    },
+    {
+      "start": 853.069,
+      "end": 855.11,
+      "text": "value of y at this at this um position"
+    },
+    {
+      "start": 855.11,
+      "end": 857.509,
+      "text": "of X"
+    },
+    {
+      "start": 857.509,
+      "end": 860.069,
+      "text": "right so for linear"
+    },
+    {
+      "start": 860.069,
+      "end": 861.03,
+      "text": "regression what we were doing was we"
+    },
+    {
+      "start": 861.03,
+      "end": 863.87,
+      "text": "would"
+    },
+    {
+      "start": 863.87,
+      "end": 866.55,
+      "text": "fit"
+    },
+    {
+      "start": 866.55,
+      "end": 869.79,
+      "text": "Theta to"
+    },
+    {
+      "start": 869.79,
+      "end": 873.189,
+      "text": "minimize you sum over I"
+    },
+    {
+      "start": 873.189,
+      "end": 879.629,
+      "text": "y IUS the transpose x"
+    },
+    {
+      "start": 879.629,
+      "end": 882.47,
+      "text": "squared and"
+    },
+    {
+      "start": 882.47,
+      "end": 887.59,
+      "text": "return the trans X okay so that was"
+    },
+    {
+      "start": 887.59,
+      "end": 888.829,
+      "text": "regression in contrast in locally way to"
+    },
+    {
+      "start": 888.829,
+      "end": 891.269,
+      "text": "linear Direction I'm going to do"
+    },
+    {
+      "start": 891.269,
+      "end": 893.03,
+      "text": "something slightly different going to"
+    },
+    {
+      "start": 893.03,
+      "end": 895.47,
+      "text": "look at this point"
+    },
+    {
+      "start": 895.47,
+      "end": 897.43,
+      "text": "x and then I'm going to look at my data"
+    },
+    {
+      "start": 897.43,
+      "end": 900.23,
+      "text": "set and take into"
+    },
+    {
+      "start": 900.23,
+      "end": 903.11,
+      "text": "account only the data points that are"
+    },
+    {
+      "start": 903.11,
+      "end": 904.269,
+      "text": "sort of in a little vicinity of X okay"
+    },
+    {
+      "start": 904.269,
+      "end": 905.99,
+      "text": "so I'm going to look at you know where I"
+    },
+    {
+      "start": 905.99,
+      "end": 908.829,
+      "text": "want to valuate my hypothesis I'm going"
+    },
+    {
+      "start": 908.829,
+      "end": 911.31,
+      "text": "to look only in the in the vicinity of"
+    },
+    {
+      "start": 911.31,
+      "end": 913.949,
+      "text": "of of the point this point where I want"
+    },
+    {
+      "start": 913.949,
+      "end": 915.189,
+      "text": "to evaluate my hypothesis and then I'm"
+    },
+    {
+      "start": 915.189,
+      "end": 918.35,
+      "text": "going to"
+    },
+    {
+      "start": 918.35,
+      "end": 921.629,
+      "text": "take let's say just these few"
+    },
+    {
+      "start": 921.629,
+      "end": 923.71,
+      "text": "points and I will um apply linear"
+    },
+    {
+      "start": 923.71,
+      "end": 926.11,
+      "text": "regression to fill a straight line just"
+    },
+    {
+      "start": 926.11,
+      "end": 928.23,
+      "text": "to this subset of the data okay I'm"
+    },
+    {
+      "start": 928.23,
+      "end": 929.47,
+      "text": "using the sub term subset well let's"
+    },
+    {
+      "start": 929.47,
+      "end": 931.47,
+      "text": "come back to that later"
+    },
+    {
+      "start": 931.47,
+      "end": 933.389,
+      "text": "so I take this data set and I fit"
+    },
+    {
+      "start": 933.389,
+      "end": 935.35,
+      "text": "straight line to it maybe I get I know"
+    },
+    {
+      "start": 935.35,
+      "end": 939.11,
+      "text": "straight line like"
+    },
+    {
+      "start": 939.11,
+      "end": 941.59,
+      "text": "that and what I'll do is"
+    },
+    {
+      "start": 941.59,
+      "end": 945.35,
+      "text": "then evaluate this particular value of"
+    },
+    {
+      "start": 945.35,
+      "end": 947.069,
+      "text": "straight line and you know that would be"
+    },
+    {
+      "start": 947.069,
+      "end": 948.269,
+      "text": "the value I returned for my algorithm"
+    },
+    {
+      "start": 948.269,
+      "end": 953.11,
+      "text": "okay that this this would be the"
+    },
+    {
+      "start": 953.11,
+      "end": 955.47,
+      "text": "predicted value for um uh uh this would"
+    },
+    {
+      "start": 955.47,
+      "end": 958.59,
+      "text": "be the value that my hypothesis"
+    },
+    {
+      "start": 958.59,
+      "end": 959.01,
+      "text": "outputs in locally weight of regression"
+    },
+    {
+      "start": 959.01,
+      "end": 966.99,
+      "text": "okay"
+    },
+    {
+      "start": 966.99,
+      "end": 968.55,
+      "text": "so let me go and for let me go ahead and"
+    },
+    {
+      "start": 968.55,
+      "end": 971.11,
+      "text": "formalize"
+    },
+    {
+      "start": 971.11,
+      "end": 973.269,
+      "text": "that in locally ways of regression we're"
+    },
+    {
+      "start": 973.269,
+      "end": 994.79,
+      "text": "going to fix"
+    },
+    {
+      "start": 994.79,
+      "end": 995.79,
+      "text": "where these terms w super script I are"
+    },
+    {
+      "start": 995.79,
+      "end": 998.389,
+      "text": "called"
+    },
+    {
+      "start": 998.389,
+      "end": 999.67,
+      "text": "weights um and there are many possible"
+    },
+    {
+      "start": 999.67,
+      "end": 1004.23,
+      "text": "choic of ways I'm just going to write"
+    },
+    {
+      "start": 1004.23,
+      "end": 1007.11,
+      "text": "one down so that's e to the minus x i -"
+    },
+    {
+      "start": 1007.11,
+      "end": 1010.629,
+      "text": "x² over"
+    },
+    {
+      "start": 1010.629,
+      "end": 1013.509,
+      "text": "two um and so let's look at what these"
+    },
+    {
+      "start": 1013.509,
+      "end": 1016.55,
+      "text": "weights really are right so notice that"
+    },
+    {
+      "start": 1016.55,
+      "end": 1020.069,
+      "text": "um suppose you have a training example"
+    },
+    {
+      "start": 1020.069,
+      "end": 1021.269,
+      "text": "XI so that XI is very close to X so this"
+    },
+    {
+      "start": 1021.269,
+      "end": 1024.63,
+      "text": "is"
+    },
+    {
+      "start": 1024.63,
+      "end": 1028.99,
+      "text": "small right"
+    },
+    {
+      "start": 1028.99,
+      "end": 1031.35,
+      "text": "then um if x i - x is small so if x i- x"
+    },
+    {
+      "start": 1031.35,
+      "end": 1036.51,
+      "text": "is close to zero then this is e to the"
+    },
+    {
+      "start": 1036.51,
+      "end": 1038.429,
+      "text": "minus 0 and e to the 0 is is 1 so if x i"
+    },
+    {
+      "start": 1038.429,
+      "end": 1042.63,
+      "text": "is close to X"
+    },
+    {
+      "start": 1042.63,
+      "end": 1044.39,
+      "text": "then wi will be close to one in other"
+    },
+    {
+      "start": 1044.39,
+      "end": 1047.35,
+      "text": "words the weight Associated the I"
+    },
+    {
+      "start": 1047.35,
+      "end": 1050.75,
+      "text": "training example be close to one if x i"
+    },
+    {
+      "start": 1050.75,
+      "end": 1052.909,
+      "text": "and X are close to each other"
+    },
+    {
+      "start": 1052.909,
+      "end": 1061.11,
+      "text": "conversely if x i -"
+    },
+    {
+      "start": 1061.11,
+      "end": 1070.789,
+      "text": "large"
+    },
+    {
+      "start": 1070.789,
+      "end": 1073.23,
+      "text": "i zero right close to zero cool right so"
+    },
+    {
+      "start": 1073.23,
+      "end": 1076.35,
+      "text": "this is if XR is very far from X and"
+    },
+    {
+      "start": 1076.35,
+      "end": 1078.149,
+      "text": "this is e the minus of some large number"
+    },
+    {
+      "start": 1078.149,
+      "end": 1083.99,
+      "text": "and E the minus some large number will"
+    },
+    {
+      "start": 1083.99,
+      "end": 1090.669,
+      "text": "okay"
+    },
+    {
+      "start": 1090.669,
+      "end": 1094.87,
+      "text": "is"
+    },
+    {
+      "start": 1094.87,
+      "end": 1104.07,
+      "text": "if I'm carrying at a certain point x um"
+    },
+    {
+      "start": 1104.07,
+      "end": 1106.149,
+      "text": "set you know say looks like that then"
+    },
+    {
+      "start": 1106.149,
+      "end": 1108.31,
+      "text": "I'm going to give the points close to"
+    },
+    {
+      "start": 1108.31,
+      "end": 1114.07,
+      "text": "this a large weight and give the points"
+    },
+    {
+      "start": 1114.07,
+      "end": 1117.87,
+      "text": "far away a small weight um and"
+    },
+    {
+      "start": 1117.87,
+      "end": 1120.27,
+      "text": "so for the points that are far away wi"
+    },
+    {
+      "start": 1120.27,
+      "end": 1124.11,
+      "text": "will be close to zero and so it's as if"
+    },
+    {
+      "start": 1124.11,
+      "end": 1125.909,
+      "text": "for the points that are far away um you"
+    },
+    {
+      "start": 1125.909,
+      "end": 1127.549,
+      "text": "they will not contribute much at all to"
+    },
+    {
+      "start": 1127.549,
+      "end": 1130.31,
+      "text": "this summation right so think this this"
+    },
+    {
+      "start": 1130.31,
+      "end": 1132.87,
+      "text": "sum over I of 1 times this quadratic"
+    },
+    {
+      "start": 1132.87,
+      "end": 1135.51,
+      "text": "term for close by points plus 0o times"
+    },
+    {
+      "start": 1135.51,
+      "end": 1137.51,
+      "text": "this quadratic term for farway points"
+    },
+    {
+      "start": 1137.51,
+      "end": 1139.71,
+      "text": "and so the effect of using this waiting"
+    },
+    {
+      "start": 1139.71,
+      "end": 1142.87,
+      "text": "is that locally weight the regression"
+    },
+    {
+      "start": 1142.87,
+      "end": 1144.63,
+      "text": "fits a set of parameters data paying"
+    },
+    {
+      "start": 1144.63,
+      "end": 1147.909,
+      "text": "much more attention to fitting the"
+    },
+    {
+      "start": 1147.909,
+      "end": 1150.83,
+      "text": "points close by accurately whereas of"
+    },
+    {
+      "start": 1150.83,
+      "end": 1156.43,
+      "text": "ignoring the contribution um from from"
+    },
+    {
+      "start": 1156.43,
+      "end": 1158.909,
+      "text": "far away points okay yeah yeah why is an"
+    },
+    {
+      "start": 1158.909,
+      "end": 1160.51,
+      "text": "exponentially yeah let's see so turns"
+    },
+    {
+      "start": 1160.51,
+      "end": 1162.99,
+      "text": "out there are many other waiting"
+    },
+    {
+      "start": 1162.99,
+      "end": 1164.549,
+      "text": "functions you can use um it turns out"
+    },
+    {
+      "start": 1164.549,
+      "end": 1166.51,
+      "text": "that there are different re different"
+    },
+    {
+      "start": 1166.51,
+      "end": 1169.19,
+      "text": "communities of researchers that tend to"
+    },
+    {
+      "start": 1169.19,
+      "end": 1171.19,
+      "text": "choose different choices by default um"
+    },
+    {
+      "start": 1171.19,
+      "end": 1173.63,
+      "text": "there is a there is a somewhat of a"
+    },
+    {
+      "start": 1173.63,
+      "end": 1175.83,
+      "text": "literature on debating what what exactly"
+    },
+    {
+      "start": 1175.83,
+      "end": 1177.909,
+      "text": "what function to use um this of"
+    },
+    {
+      "start": 1177.909,
+      "end": 1179.51,
+      "text": "exponential decay function is is just"
+    },
+    {
+      "start": 1179.51,
+      "end": 1180.789,
+      "text": "happens to be a reasonably common one"
+    },
+    {
+      "start": 1180.789,
+      "end": 1182.549,
+      "text": "that seems to a reasonable choice of"
+    },
+    {
+      "start": 1182.549,
+      "end": 1185.47,
+      "text": "many problems but you can actually plug"
+    },
+    {
+      "start": 1185.47,
+      "end": 1187.47,
+      "text": "in other functions as well um just"
+    },
+    {
+      "start": 1187.47,
+      "end": 1189.31,
+      "text": "mention one side comment to that for"
+    },
+    {
+      "start": 1189.31,
+      "end": 1191.51,
+      "text": "those of you that are familiar with you"
+    },
+    {
+      "start": 1191.51,
+      "end": 1193.71,
+      "text": "know the the the M the um normal"
+    },
+    {
+      "start": 1193.71,
+      "end": 1196.11,
+      "text": "distribution of the Gan distribution I'm"
+    },
+    {
+      "start": 1196.11,
+      "end": 1197.669,
+      "text": "going say this what this formula that"
+    },
+    {
+      "start": 1197.669,
+      "end": 1200.23,
+      "text": "written out here you know it"
+    },
+    {
+      "start": 1200.23,
+      "end": 1202.35,
+      "text": "cosmetically looks a bit like a gan"
+    },
+    {
+      "start": 1202.35,
+      "end": 1203.669,
+      "text": "distribution okay but this has actually"
+    },
+    {
+      "start": 1203.669,
+      "end": 1206.75,
+      "text": "this actually has absolutely nothing to"
+    },
+    {
+      "start": 1206.75,
+      "end": 1209.029,
+      "text": "do with Gan distributions so um this is"
+    },
+    {
+      "start": 1209.029,
+      "end": 1211.789,
+      "text": "not it's not that you know probably if"
+    },
+    {
+      "start": 1211.789,
+      "end": 1213.99,
+      "text": "XI is Gan or whatever this is no no such"
+    },
+    {
+      "start": 1213.99,
+      "end": 1215.07,
+      "text": "interpretation this is just a convenient"
+    },
+    {
+      "start": 1215.07,
+      "end": 1217.47,
+      "text": "function that happens to be a"
+    },
+    {
+      "start": 1217.47,
+      "end": 1221.75,
+      "text": "bell-shaped function that don't endow us"
+    },
+    {
+      "start": 1221.75,
+      "end": 1224.23,
+      "text": "with any gum semantics okay um and so in"
+    },
+    {
+      "start": 1224.23,
+      "end": 1228.43,
+      "text": "fact well if you remember the familiar"
+    },
+    {
+      "start": 1228.43,
+      "end": 1230.07,
+      "text": "bell-shaped Gan um again it's just the"
+    },
+    {
+      "start": 1230.07,
+      "end": 1233.75,
+      "text": "way you end up associating with these"
+    },
+    {
+      "start": 1233.75,
+      "end": 1236.029,
+      "text": "points is that um if you imagine putting"
+    },
+    {
+      "start": 1236.029,
+      "end": 1237.669,
+      "text": "the sort of bell-shaped bump centered"
+    },
+    {
+      "start": 1237.669,
+      "end": 1239.87,
+      "text": "around the position of where you want to"
+    },
+    {
+      "start": 1239.87,
+      "end": 1242.59,
+      "text": "evaluate your hypothesis H then this is"
+    },
+    {
+      "start": 1242.59,
+      "end": 1244.789,
+      "text": "saying this point here I'll give a"
+    },
+    {
+      "start": 1244.789,
+      "end": 1246.59,
+      "text": "weight that's proportional to the height"
+    },
+    {
+      "start": 1246.59,
+      "end": 1249.07,
+      "text": "of the Gan excuse me to the height of"
+    },
+    {
+      "start": 1249.07,
+      "end": 1251.47,
+      "text": "the Bell shape function evaluated at"
+    },
+    {
+      "start": 1251.47,
+      "end": 1253.43,
+      "text": "this point and the weight to give to"
+    },
+    {
+      "start": 1253.43,
+      "end": 1255.669,
+      "text": "this point will be to this training"
+    },
+    {
+      "start": 1255.669,
+      "end": 1258.95,
+      "text": "example will be proportional to that"
+    },
+    {
+      "start": 1258.95,
+      "end": 1261.75,
+      "text": "height and so on okay and so chiny"
+    },
+    {
+      "start": 1261.75,
+      "end": 1263.669,
+      "text": "examples are really far away get a very"
+    },
+    {
+      "start": 1263.669,
+      "end": 1266.11,
+      "text": "small"
+    },
+    {
+      "start": 1266.11,
+      "end": 1269.31,
+      "text": "weight"
+    },
+    {
+      "start": 1269.31,
+      "end": 1270.669,
+      "text": "um one last small generalization to this"
+    },
+    {
+      "start": 1270.669,
+      "end": 1272.99,
+      "text": "is that"
+    },
+    {
+      "start": 1272.99,
+      "end": 1276.669,
+      "text": "normally there's one other parameter to"
+    },
+    {
+      "start": 1276.669,
+      "end": 1279.39,
+      "text": "this algorithm um which I'll denote as"
+    },
+    {
+      "start": 1279.39,
+      "end": 1281.269,
+      "text": "to um again this looks suspiciously like"
+    },
+    {
+      "start": 1281.269,
+      "end": 1283.43,
+      "text": "the variance of a gan but this is not a"
+    },
+    {
+      "start": 1283.43,
+      "end": 1285.909,
+      "text": "gan this is a convenient form of"
+    },
+    {
+      "start": 1285.909,
+      "end": 1303.83,
+      "text": "function this parameter"
+    },
+    {
+      "start": 1303.83,
+      "end": 1306.149,
+      "text": "um um informally it controls how fast"
+    },
+    {
+      "start": 1306.149,
+      "end": 1308.99,
+      "text": "the weights fall off with distance okay"
+    },
+    {
+      "start": 1308.99,
+      "end": 1314.51,
+      "text": "so just copy my diagram from the other"
+    },
+    {
+      "start": 1314.51,
+      "end": 1319.51,
+      "text": "guess so if"
+    },
+    {
+      "start": 1319.51,
+      "end": 1321.269,
+      "text": "um Tower is very small that's a qu X"
+    },
+    {
+      "start": 1321.269,
+      "end": 1324.31,
+      "text": "then you end up choosing a fairly narrow"
+    },
+    {
+      "start": 1324.31,
+      "end": 1326.149,
+      "text": "G excuse me a fairly narrow Bell shape"
+    },
+    {
+      "start": 1326.149,
+      "end": 1329.43,
+      "text": "so that um the weight points the far"
+    },
+    {
+      "start": 1329.43,
+      "end": 1331.07,
+      "text": "away far off rapidly whereas if um Tower"
+    },
+    {
+      "start": 1331.07,
+      "end": 1338.47,
+      "text": "is"
+    },
+    {
+      "start": 1338.47,
+      "end": 1339.75,
+      "text": "actually if Tower is large then you end"
+    },
+    {
+      "start": 1339.75,
+      "end": 1342.549,
+      "text": "up"
+    },
+    {
+      "start": 1342.549,
+      "end": 1344.35,
+      "text": "choosing um a waiting function that"
+    },
+    {
+      "start": 1344.35,
+      "end": 1346.39,
+      "text": "falls off relatively slowly with"
+    },
+    {
+      "start": 1346.39,
+      "end": 1349.43,
+      "text": "distance from your"
+    },
+    {
+      "start": 1349.43,
+      "end": 1351.83,
+      "text": "query um"
+    },
+    {
+      "start": 1351.83,
+      "end": 1362.43,
+      "text": "okay"
+    },
+    {
+      "start": 1362.43,
+      "end": 1363.909,
+      "text": "that if you apply locally weight to"
+    },
+    {
+      "start": 1363.909,
+      "end": 1367.029,
+      "text": "linear regression to a data set that"
+    },
+    {
+      "start": 1367.029,
+      "end": 1368.83,
+      "text": "looks like this then to ask what your"
+    },
+    {
+      "start": 1368.83,
+      "end": 1370.83,
+      "text": "hypothesis's output is at a point like"
+    },
+    {
+      "start": 1370.83,
+      "end": 1373.269,
+      "text": "this you end up fitting a straight line"
+    },
+    {
+      "start": 1373.269,
+      "end": 1376.11,
+      "text": "making that prediction um to ask swi"
+    },
+    {
+      "start": 1376.11,
+      "end": 1379.029,
+      "text": "hypothesis output is at that value you"
+    },
+    {
+      "start": 1379.029,
+      "end": 1381.51,
+      "text": "put a straight line there and predict"
+    },
+    {
+      "start": 1381.51,
+      "end": 1383.549,
+      "text": "that value and turns out that every time"
+    },
+    {
+      "start": 1383.549,
+      "end": 1384.59,
+      "text": "you you try to evaluate your hypothesis"
+    },
+    {
+      "start": 1384.59,
+      "end": 1386.39,
+      "text": "every time you ask your learning"
+    },
+    {
+      "start": 1386.39,
+      "end": 1387.789,
+      "text": "algorithm to make a prediction for you"
+    },
+    {
+      "start": 1387.789,
+      "end": 1390.43,
+      "text": "know how much a new houseal cost or"
+    },
+    {
+      "start": 1390.43,
+      "end": 1392.51,
+      "text": "whatever you need to fit you need to run"
+    },
+    {
+      "start": 1392.51,
+      "end": 1395.669,
+      "text": "a new fitting procedure and then"
+    },
+    {
+      "start": 1395.669,
+      "end": 1398.83,
+      "text": "evaluate um this line that you fit just"
+    },
+    {
+      "start": 1398.83,
+      "end": 1400.11,
+      "text": "at the position of um the value of x or"
+    },
+    {
+      "start": 1400.11,
+      "end": 1402.47,
+      "text": "the position of the query where you're"
+    },
+    {
+      "start": 1402.47,
+      "end": 1403.75,
+      "text": "trying to make a prediction okay but if"
+    },
+    {
+      "start": 1403.75,
+      "end": 1406.59,
+      "text": "you do this you know for every point"
+    },
+    {
+      "start": 1406.59,
+      "end": 1408.669,
+      "text": "along the x-axis then you find that"
+    },
+    {
+      "start": 1408.669,
+      "end": 1411.39,
+      "text": "locally weight of regression is able to"
+    },
+    {
+      "start": 1411.39,
+      "end": 1413.99,
+      "text": "out is sort a very nonlinear curve for a"
+    },
+    {
+      "start": 1413.99,
+      "end": 1415.75,
+      "text": "data set like this"
+    },
+    {
+      "start": 1415.75,
+      "end": 1418.71,
+      "text": "okay"
+    },
+    {
+      "start": 1418.71,
+      "end": 1420.549,
+      "text": "um so in the problem set we're actually"
+    },
+    {
+      "start": 1420.549,
+      "end": 1422.31,
+      "text": "going to let you play around more with"
+    },
+    {
+      "start": 1422.31,
+      "end": 1424.75,
+      "text": "this algorithm so I won't say too much"
+    },
+    {
+      "start": 1424.75,
+      "end": 1426.549,
+      "text": "more about it here but um before I move"
+    },
+    {
+      "start": 1426.549,
+      "end": 1428.83,
+      "text": "on to the next topic let me let me check"
+    },
+    {
+      "start": 1428.83,
+      "end": 1430.549,
+      "text": "what questions you have yeah it seems"
+    },
+    {
+      "start": 1430.549,
+      "end": 1432.83,
+      "text": "like you still have the same problem"
+    },
+    {
+      "start": 1432.83,
+      "end": 1435.669,
+      "text": "with overfitting and underfitting like"
+    },
+    {
+      "start": 1435.669,
+      "end": 1439.11,
+      "text": "you have to choose tow like if you make"
+    },
+    {
+      "start": 1439.11,
+      "end": 1441.63,
+      "text": "it too small y then you're yes"
+    },
+    {
+      "start": 1441.63,
+      "end": 1444.99,
+      "text": "absolutely yes so um local weight to"
+    },
+    {
+      "start": 1444.99,
+      "end": 1446.71,
+      "text": "regression can run into local weight to"
+    },
+    {
+      "start": 1446.71,
+      "end": 1448.669,
+      "text": "regression is not a pen here for the"
+    },
+    {
+      "start": 1448.669,
+      "end": 1451.789,
+      "text": "problem of overfitting or underfitting"
+    },
+    {
+      "start": 1451.789,
+      "end": 1453.789,
+      "text": "um uh it you can still run into the same"
+    },
+    {
+      "start": 1453.789,
+      "end": 1457.11,
+      "text": "problems with local weight of regression"
+    },
+    {
+      "start": 1457.11,
+      "end": 1458.51,
+      "text": "um what you just said um about and and"
+    },
+    {
+      "start": 1458.51,
+      "end": 1459.71,
+      "text": "so some some of these things are leave"
+    },
+    {
+      "start": 1459.71,
+      "end": 1461.269,
+      "text": "you to discover for yourself in the"
+    },
+    {
+      "start": 1461.269,
+      "end": 1462.39,
+      "text": "homework problem you you actually see"
+    },
+    {
+      "start": 1462.39,
+      "end": 1464.789,
+      "text": "what she just"
+    },
+    {
+      "start": 1464.789,
+      "end": 1466.87,
+      "text": "mentioned yeah it almost seems like"
+    },
+    {
+      "start": 1466.87,
+      "end": 1469.47,
+      "text": "you're not even building a model with"
+    },
+    {
+      "start": 1469.47,
+      "end": 1477.59,
+      "text": "this locally Rel all the data that you"
+    },
+    {
+      "start": 1477.59,
+      "end": 1481.269,
+      "text": "think the original data points right so"
+    },
+    {
+      "start": 1481.269,
+      "end": 1482.43,
+      "text": "the question is just uh what it's almost"
+    },
+    {
+      "start": 1482.43,
+      "end": 1484.789,
+      "text": "as if you're not building a model"
+    },
+    {
+      "start": 1484.789,
+      "end": 1486.35,
+      "text": "because you need the entire data set and"
+    },
+    {
+      "start": 1486.35,
+      "end": 1487.71,
+      "text": "uh the other way of saying that is that"
+    },
+    {
+      "start": 1487.71,
+      "end": 1491.95,
+      "text": "this is a non-parametric learning"
+    },
+    {
+      "start": 1491.95,
+      "end": 1494.47,
+      "text": "algorithm um and and so this is and um I"
+    },
+    {
+      "start": 1494.47,
+      "end": 1495.83,
+      "text": "don't know I won't I I I won't debate"
+    },
+    {
+      "start": 1495.83,
+      "end": 1499.35,
+      "text": "whether you know are we really building"
+    },
+    {
+      "start": 1499.35,
+      "end": 1502.31,
+      "text": "a model or not but um this is perfectly"
+    },
+    {
+      "start": 1502.31,
+      "end": 1504.31,
+      "text": "fine so if I think when you write code"
+    },
+    {
+      "start": 1504.31,
+      "end": 1507.549,
+      "text": "implementing locally weighted linear"
+    },
+    {
+      "start": 1507.549,
+      "end": 1510.389,
+      "text": "regression on um on the data set I think"
+    },
+    {
+      "start": 1510.389,
+      "end": 1514.549,
+      "text": "of that code as a whole as building your"
+    },
+    {
+      "start": 1514.549,
+      "end": 1515.99,
+      "text": "model um so we actually use this we've"
+    },
+    {
+      "start": 1515.99,
+      "end": 1518.029,
+      "text": "actually used this quite successfully to"
+    },
+    {
+      "start": 1518.029,
+      "end": 1519.63,
+      "text": "model the Dynamics or autonomous"
+    },
+    {
+      "start": 1519.63,
+      "end": 1522.63,
+      "text": "helicopter for"
+    },
+    {
+      "start": 1522.63,
+      "end": 1524.87,
+      "text": "instance yeah yeah the variance of this"
+    },
+    {
+      "start": 1524.87,
+      "end": 1528.909,
+      "text": "algorithm that uh learn the weight based"
+    },
+    {
+      "start": 1528.909,
+      "end": 1533.43,
+      "text": "on the data um learn what weight oh the"
+    },
+    {
+      "start": 1533.43,
+      "end": 1535.029,
+      "text": "waist wi using exp I see yes so it turns"
+    },
+    {
+      "start": 1535.029,
+      "end": 1537.35,
+      "text": "out there are a few things you can do"
+    },
+    {
+      "start": 1537.35,
+      "end": 1539.83,
+      "text": "one thing that's quite common is um how"
+    },
+    {
+      "start": 1539.83,
+      "end": 1541.95,
+      "text": "to choose this bandwidth parameter towel"
+    },
+    {
+      "start": 1541.95,
+      "end": 1543.11,
+      "text": "right as as using a data we should talk"
+    },
+    {
+      "start": 1543.11,
+      "end": 1544.43,
+      "text": "about that a bit later when we talk"
+    },
+    {
+      "start": 1544.43,
+      "end": 1553.909,
+      "text": "about model"
+    },
+    {
+      "start": 1553.909,
+      "end": 1558.71,
+      "text": "question you add the constants then you"
+    },
+    {
+      "start": 1558.71,
+      "end": 1562.51,
+      "text": "can make it then oh I guess um let's see"
+    },
+    {
+      "start": 1562.51,
+      "end": 1564.07,
+      "text": "boy the weights are not random variables"
+    },
+    {
+      "start": 1564.07,
+      "end": 1566.789,
+      "text": "and is not for the purpose of this"
+    },
+    {
+      "start": 1566.789,
+      "end": 1568.909,
+      "text": "algorithm is not useful to endow with"
+    },
+    {
+      "start": 1568.909,
+      "end": 1570.789,
+      "text": "probabilistic semantics so if you could"
+    },
+    {
+      "start": 1570.789,
+      "end": 1573.83,
+      "text": "choose to Define things as Galan but it"
+    },
+    {
+      "start": 1573.83,
+      "end": 1577.87,
+      "text": "so doesn't lead anywhere um in"
+    },
+    {
+      "start": 1577.87,
+      "end": 1581.63,
+      "text": "fact uh it turns out that um I happen to"
+    },
+    {
+      "start": 1581.63,
+      "end": 1583.83,
+      "text": "choose this bell-shaped function um for"
+    },
+    {
+      "start": 1583.83,
+      "end": 1585.269,
+      "text": "to Define my ways is actually fine to"
+    },
+    {
+      "start": 1585.269,
+      "end": 1586.669,
+      "text": "choose a function that doesn't even"
+    },
+    {
+      "start": 1586.669,
+      "end": 1588.83,
+      "text": "integrate to one that integrates to"
+    },
+    {
+      "start": 1588.83,
+      "end": 1591.669,
+      "text": "Infinity say as your waiting function"
+    },
+    {
+      "start": 1591.669,
+      "end": 1593.11,
+      "text": "um and so in that sense you know I mean"
+    },
+    {
+      "start": 1593.11,
+      "end": 1594.75,
+      "text": "you could you could force in the"
+    },
+    {
+      "start": 1594.75,
+      "end": 1597.31,
+      "text": "definition of Gan but it's s of not"
+    },
+    {
+      "start": 1597.31,
+      "end": 1598.789,
+      "text": "useful especially since you use other"
+    },
+    {
+      "start": 1598.789,
+      "end": 1601.63,
+      "text": "functions that that integrate to"
+    },
+    {
+      "start": 1601.63,
+      "end": 1603.59,
+      "text": "Infinity don't integrate to one okay"
+    },
+    {
+      "start": 1603.59,
+      "end": 1606.149,
+      "text": "it's last question I should move on"
+    },
+    {
+      "start": 1606.149,
+      "end": 1609.149,
+      "text": "assume that the we have a very huge set"
+    },
+    {
+      "start": 1609.149,
+      "end": 1611.99,
+      "text": "of data for example very huge set of"
+    },
+    {
+      "start": 1611.99,
+      "end": 1614.71,
+      "text": "houses and we want to predict the label"
+    },
+    {
+      "start": 1614.71,
+      "end": 1617.549,
+      "text": "for each house so we should run the"
+    },
+    {
+      "start": 1617.549,
+      "end": 1619.23,
+      "text": "algorithm for each input and I think it"
+    },
+    {
+      "start": 1619.23,
+      "end": 1621.669,
+      "text": "is very"
+    },
+    {
+      "start": 1621.669,
+      "end": 1625.11,
+      "text": "yeah yeah you're actually right so um"
+    },
+    {
+      "start": 1625.11,
+      "end": 1627.149,
+      "text": "because lowly weight to regression is um"
+    },
+    {
+      "start": 1627.149,
+      "end": 1628.51,
+      "text": "this non-parametric algor them every"
+    },
+    {
+      "start": 1628.51,
+      "end": 1630.389,
+      "text": "time you make a prediction you need to"
+    },
+    {
+      "start": 1630.389,
+      "end": 1632.95,
+      "text": "fit Theta to your entire training set"
+    },
+    {
+      "start": 1632.95,
+      "end": 1634.99,
+      "text": "again um so you're absolutely right for"
+    },
+    {
+      "start": 1634.99,
+      "end": 1637.269,
+      "text": "if you have a very large training set"
+    },
+    {
+      "start": 1637.269,
+      "end": 1638.59,
+      "text": "then this is a somewhat expensive algor"
+    },
+    {
+      "start": 1638.59,
+      "end": 1640.87,
+      "text": "to use because every time you want to"
+    },
+    {
+      "start": 1640.87,
+      "end": 1643.549,
+      "text": "make a prediction you need to fit you"
+    },
+    {
+      "start": 1643.549,
+      "end": 1645.95,
+      "text": "know a straight line to to to a huge"
+    },
+    {
+      "start": 1645.95,
+      "end": 1649.19,
+      "text": "data set to gain um turns out there are"
+    },
+    {
+      "start": 1649.19,
+      "end": 1650.43,
+      "text": "algorithms that uh turns out their ways"
+    },
+    {
+      "start": 1650.43,
+      "end": 1652.47,
+      "text": "to make this much more efficient for"
+    },
+    {
+      "start": 1652.47,
+      "end": 1653.549,
+      "text": "launch data sets as well um so they want"
+    },
+    {
+      "start": 1653.549,
+      "end": 1655.59,
+      "text": "to talk about that if if you're"
+    },
+    {
+      "start": 1655.59,
+      "end": 1659.47,
+      "text": "interested look up the work of Andrew"
+    },
+    {
+      "start": 1659.47,
+      "end": 1660.71,
+      "text": "Moore on KD trees um so figured out ways"
+    },
+    {
+      "start": 1660.71,
+      "end": 1661.95,
+      "text": "to fit these models much more"
+    },
+    {
+      "start": 1661.95,
+      "end": 1665.23,
+      "text": "efficiently that's not something I want"
+    },
+    {
+      "start": 1665.23,
+      "end": 1668.07,
+      "text": "to go into today okay let me let me move"
+    },
+    {
+      "start": 1668.07,
+      "end": 1669.63,
+      "text": "on let's take more questions later"
+    },
+    {
+      "start": 1669.63,
+      "end": 1681.59,
+      "text": "um"
+    },
+    {
+      "start": 1681.59,
+      "end": 1684.23,
+      "text": "so those was locally weight of"
+    },
+    {
+      "start": 1684.23,
+      "end": 1687.909,
+      "text": "regression"
+    },
+    {
+      "start": 1687.909,
+      "end": 1689.23,
+      "text": "um remember the outline I had I guess at"
+    },
+    {
+      "start": 1689.23,
+      "end": 1691.83,
+      "text": "the beginning of this lecture what I"
+    },
+    {
+      "start": 1691.83,
+      "end": 1693.789,
+      "text": "want to do now is um talk about a"
+    },
+    {
+      "start": 1693.789,
+      "end": 1696.63,
+      "text": "probabilistic interpretation of linear"
+    },
+    {
+      "start": 1696.63,
+      "end": 1697.95,
+      "text": "regression right and in particular it it"
+    },
+    {
+      "start": 1697.95,
+      "end": 1700.789,
+      "text": "will be this probabilistic"
+    },
+    {
+      "start": 1700.789,
+      "end": 1703.269,
+      "text": "interpretation that lets us move on to"
+    },
+    {
+      "start": 1703.269,
+      "end": 1705.07,
+      "text": "um talk about logistic regression which"
+    },
+    {
+      "start": 1705.07,
+      "end": 1706.99,
+      "text": "would be our first classification"
+    },
+    {
+      "start": 1706.99,
+      "end": 1720.789,
+      "text": "algorithm"
+    },
+    {
+      "start": 1720.789,
+      "end": 1722.71,
+      "text": "let's put aside locally weight to"
+    },
+    {
+      "start": 1722.71,
+      "end": 1725.269,
+      "text": "regression for now we just talk about"
+    },
+    {
+      "start": 1725.269,
+      "end": 1728.07,
+      "text": "ordinary you know unweighted linear"
+    },
+    {
+      "start": 1728.07,
+      "end": 1730.19,
+      "text": "regression and let's ask the question of"
+    },
+    {
+      "start": 1730.19,
+      "end": 1731.23,
+      "text": "um why these squares right of of all the"
+    },
+    {
+      "start": 1731.23,
+      "end": 1733.509,
+      "text": "things we could"
+    },
+    {
+      "start": 1733.509,
+      "end": 1735.63,
+      "text": "optimize how do we come up with this"
+    },
+    {
+      "start": 1735.63,
+      "end": 1737.63,
+      "text": "criteria for minimizing the square of"
+    },
+    {
+      "start": 1737.63,
+      "end": 1740.149,
+      "text": "the error between uh the predictions of"
+    },
+    {
+      "start": 1740.149,
+      "end": 1742.269,
+      "text": "the hypoth proces and and the values why"
+    },
+    {
+      "start": 1742.269,
+      "end": 1744.269,
+      "text": "predicted so why not minimize you know"
+    },
+    {
+      "start": 1744.269,
+      "end": 1746.23,
+      "text": "the absolute value of the errors or or"
+    },
+    {
+      "start": 1746.23,
+      "end": 1749.19,
+      "text": "the errors to the power of four or"
+    },
+    {
+      "start": 1749.19,
+      "end": 1752.23,
+      "text": "something um what I'm going to do now is"
+    },
+    {
+      "start": 1752.23,
+      "end": 1754.669,
+      "text": "present one set of assumptions that will"
+    },
+    {
+      "start": 1754.669,
+      "end": 1757.87,
+      "text": "serve to quote justify why we're"
+    },
+    {
+      "start": 1757.87,
+      "end": 1759.63,
+      "text": "minimizing the sum of squares eror okay"
+    },
+    {
+      "start": 1759.63,
+      "end": 1761.669,
+      "text": "um it turns out that there are many"
+    },
+    {
+      "start": 1761.669,
+      "end": 1763.59,
+      "text": "assumptions that are sufficient to"
+    },
+    {
+      "start": 1763.59,
+      "end": 1767.23,
+      "text": "justify why we do these squares and this"
+    },
+    {
+      "start": 1767.23,
+      "end": 1768.75,
+      "text": "is just one of them um so so you know"
+    },
+    {
+      "start": 1768.75,
+      "end": 1770.269,
+      "text": "just just be clear present one set of"
+    },
+    {
+      "start": 1770.269,
+      "end": 1772.549,
+      "text": "assumptions under which these squares"
+    },
+    {
+      "start": 1772.549,
+      "end": 1774.31,
+      "text": "regression makes sense um but this is"
+    },
+    {
+      "start": 1774.31,
+      "end": 1776.35,
+      "text": "not the only set of assumptions so even"
+    },
+    {
+      "start": 1776.35,
+      "end": 1778.029,
+      "text": "in the assumptions I I described don't"
+    },
+    {
+      "start": 1778.029,
+      "end": 1779.99,
+      "text": "hold these squares actually still make"
+    },
+    {
+      "start": 1779.99,
+      "end": 1781.75,
+      "text": "sense in many circumstances but this"
+    },
+    {
+      "start": 1781.75,
+      "end": 1783.269,
+      "text": "will may help you give one"
+    },
+    {
+      "start": 1783.269,
+      "end": 1784.75,
+      "text": "rationalization like one reason for"
+    },
+    {
+      "start": 1784.75,
+      "end": 1787.07,
+      "text": "doing these squares"
+    },
+    {
+      "start": 1787.07,
+      "end": 1789.31,
+      "text": "regression"
+    },
+    {
+      "start": 1789.31,
+      "end": 1793.31,
+      "text": "um and in particular what I'm going to"
+    },
+    {
+      "start": 1793.31,
+      "end": 1796.269,
+      "text": "do is um endow the Le squares model with"
+    },
+    {
+      "start": 1796.269,
+      "end": 1799.31,
+      "text": "probable six semantics and"
+    },
+    {
+      "start": 1799.31,
+      "end": 1803.389,
+      "text": "so let's assume in our example"
+    },
+    {
+      "start": 1803.389,
+      "end": 1806.31,
+      "text": "predicting housing prices that the the"
+    },
+    {
+      "start": 1806.31,
+      "end": 1808.83,
+      "text": "price of the house is sold"
+    },
+    {
+      "start": 1808.83,
+      "end": 1815.23,
+      "text": "for is going to be some linear function"
+    },
+    {
+      "start": 1815.23,
+      "end": 1819.909,
+      "text": "features plus um some term Epsilon"
+    },
+    {
+      "start": 1819.909,
+      "end": 1823.549,
+      "text": "I okay and Epsilon I will be you know"
+    },
+    {
+      "start": 1823.549,
+      "end": 1826.63,
+      "text": "our error term um you think of the error"
+    },
+    {
+      "start": 1826.63,
+      "end": 1828.549,
+      "text": "term as capturing unmodeled effects like"
+    },
+    {
+      "start": 1828.549,
+      "end": 1830.029,
+      "text": "that maybe there's some other features"
+    },
+    {
+      "start": 1830.029,
+      "end": 1832.07,
+      "text": "of a house like maybe how many"
+    },
+    {
+      "start": 1832.07,
+      "end": 1835.029,
+      "text": "fireplaces it has or whether is a garden"
+    },
+    {
+      "start": 1835.029,
+      "end": 1836.789,
+      "text": "or whatever that there are uh additional"
+    },
+    {
+      "start": 1836.789,
+      "end": 1838.47,
+      "text": "features that we just failed to capture"
+    },
+    {
+      "start": 1838.47,
+      "end": 1840.59,
+      "text": "or you can think of Epsilon as random"
+    },
+    {
+      "start": 1840.59,
+      "end": 1842.549,
+      "text": "noise okay so Epsilon is our error term"
+    },
+    {
+      "start": 1842.549,
+      "end": 1844.43,
+      "text": "that captures both these unmodeled"
+    },
+    {
+      "start": 1844.43,
+      "end": 1845.87,
+      "text": "effects um just things we forgot to"
+    },
+    {
+      "start": 1845.87,
+      "end": 1850.31,
+      "text": "model maybe the function isn't quite"
+    },
+    {
+      "start": 1850.31,
+      "end": 1852.909,
+      "text": "linear or something um as well as um as"
+    },
+    {
+      "start": 1852.909,
+      "end": 1854.669,
+      "text": "well as random noise like maybe that day"
+    },
+    {
+      "start": 1854.669,
+      "end": 1856.47,
+      "text": "the seller was in a really bad mood and"
+    },
+    {
+      "start": 1856.47,
+      "end": 1859.19,
+      "text": "so you know he sold it he just refused"
+    },
+    {
+      "start": 1859.19,
+      "end": 1861.549,
+      "text": "to go for reasonable price I think"
+    },
+    {
+      "start": 1861.549,
+      "end": 1867.23,
+      "text": "um and"
+    },
+    {
+      "start": 1867.23,
+      "end": 1868.029,
+      "text": "now I'll assume that the errors have um"
+    },
+    {
+      "start": 1868.029,
+      "end": 1869.75,
+      "text": "a"
+    },
+    {
+      "start": 1869.75,
+      "end": 1871.389,
+      "text": "probabilistic have a probability"
+    },
+    {
+      "start": 1871.389,
+      "end": 1875.83,
+      "text": "distribution I'll assume that the errors"
+    },
+    {
+      "start": 1875.83,
+      "end": 1879.509,
+      "text": "Epsilon I are distributed this totally"
+    },
+    {
+      "start": 1879.509,
+      "end": 1882.19,
+      "text": "uh Den notes Epsilon I is distributed"
+    },
+    {
+      "start": 1882.19,
+      "end": 1884.909,
+      "text": "according to a probability"
+    },
+    {
+      "start": 1884.909,
+      "end": 1888.19,
+      "text": "distribution that's a gan distribution"
+    },
+    {
+      "start": 1888.19,
+      "end": 1890.87,
+      "text": "with mean z and variant Sigma squ okay"
+    },
+    {
+      "start": 1890.87,
+      "end": 1892.71,
+      "text": "so I'm going to use script n here um n"
+    },
+    {
+      "start": 1892.71,
+      "end": 1894.43,
+      "text": "stands for normal right to denote the"
+    },
+    {
+      "start": 1894.43,
+      "end": 1897.669,
+      "text": "normal distribution also known as the"
+    },
+    {
+      "start": 1897.669,
+      "end": 1898.59,
+      "text": "Gan distribution with me Z and coant"
+    },
+    {
+      "start": 1898.59,
+      "end": 1902.11,
+      "text": "sigma"
+    },
+    {
+      "start": 1902.11,
+      "end": 1904.23,
+      "text": "squ um actually just quickly raise your"
+    },
+    {
+      "start": 1904.23,
+      "end": 1907.35,
+      "text": "hand if you see a gan distributions of"
+    },
+    {
+      "start": 1907.35,
+      "end": 1910.07,
+      "text": "all okay cool most of you great almost"
+    },
+    {
+      "start": 1910.07,
+      "end": 1913.95,
+      "text": "everyone"
+    },
+    {
+      "start": 1913.95,
+      "end": 1915.59,
+      "text": "so in other words um the density for Gan"
+    },
+    {
+      "start": 1915.59,
+      "end": 1918.71,
+      "text": "most you seen this before the density"
+    },
+    {
+      "start": 1918.71,
+      "end": 1920.43,
+      "text": "for Epsilon I will be one of"
+    },
+    {
+      "start": 1920.43,
+      "end": 1927.35,
+      "text": "2 pi"
+    },
+    {
+      "start": 1927.35,
+      "end": 1936.75,
+      "text": "Theon s over 2"
+    },
+    {
+      "start": 1936.75,
+      "end": 1939.629,
+      "text": "uh the density for Epsilon I will be"
+    },
+    {
+      "start": 1939.629,
+      "end": 1943.789,
+      "text": "this bell-shaped curve"
+    },
+    {
+      "start": 1943.789,
+      "end": 1949.269,
+      "text": "with you know the um with one standard"
+    },
+    {
+      "start": 1949.269,
+      "end": 1953.07,
+      "text": "deviation um being of Sigma"
+    },
+    {
+      "start": 1953.07,
+      "end": 1978.87,
+      "text": "okay um this is form for that Bell shape"
+    },
+    {
+      "start": 1978.87,
+      "end": 1981.509,
+      "text": "board okay"
+    },
+    {
+      "start": 1981.509,
+      "end": 1983.19,
+      "text": "so this implies"
+    },
+    {
+      "start": 1983.19,
+      "end": 1986.31,
+      "text": "that"
+    },
+    {
+      "start": 1986.31,
+      "end": 1988.789,
+      "text": "um the probability distribution of a"
+    },
+    {
+      "start": 1988.789,
+      "end": 1993.43,
+      "text": "price of"
+    },
+    {
+      "start": 1993.43,
+      "end": 2011.87,
+      "text": "house given XI and the parameters steta"
+    },
+    {
+      "start": 2011.87,
+      "end": 2015.389,
+      "text": "with that"
+    },
+    {
+      "start": 2015.389,
+      "end": 2023.07,
+      "text": "density okay um another way of saying"
+    },
+    {
+      "start": 2023.07,
+      "end": 2025.35,
+      "text": "house you know given um the features of"
+    },
+    {
+      "start": 2025.35,
+      "end": 2029.269,
+      "text": "the house and a parameters"
+    },
+    {
+      "start": 2029.269,
+      "end": 2031.909,
+      "text": "sta this is going to be a random"
+    },
+    {
+      "start": 2031.909,
+      "end": 2035.389,
+      "text": "variable that's distributed"
+    },
+    {
+      "start": 2035.389,
+      "end": 2038.35,
+      "text": "Gan with mean the transpose X"
+    },
+    {
+      "start": 2038.35,
+      "end": 2041.31,
+      "text": "only and Varan Sigma squ right because"
+    },
+    {
+      "start": 2041.31,
+      "end": 2043.149,
+      "text": "we we we imagine that um the way the"
+    },
+    {
+      "start": 2043.149,
+      "end": 2045.75,
+      "text": "housing price is generated is that you"
+    },
+    {
+      "start": 2045.75,
+      "end": 2047.83,
+      "text": "know the price of a house um is equal to"
+    },
+    {
+      "start": 2047.83,
+      "end": 2049.79,
+      "text": "Theta transpose XI and then plus some"
+    },
+    {
+      "start": 2049.79,
+      "end": 2052.79,
+      "text": "random Galaxy noise with variance Sigma"
+    },
+    {
+      "start": 2052.79,
+      "end": 2056.03,
+      "text": "squ and so the price of a house is going"
+    },
+    {
+      "start": 2056.03,
+      "end": 2056.869,
+      "text": "to be have mean say the transal 6 I in"
+    },
+    {
+      "start": 2056.869,
+      "end": 2060.19,
+      "text": "Sigma"
+    },
+    {
+      "start": 2060.19,
+      "end": 2062.23,
+      "text": "squ right does this make sense can you"
+    },
+    {
+      "start": 2062.23,
+      "end": 2065.55,
+      "text": "raise your hand if this make"
+    },
+    {
+      "start": 2065.55,
+      "end": 2081.389,
+      "text": "sense um yeah okay most of"
+    },
+    {
+      "start": 2081.389,
+      "end": 2083.869,
+      "text": "um in point of notation oh yes we don't"
+    },
+    {
+      "start": 2083.869,
+      "end": 2089.19,
+      "text": "know anything about the arrow why do you"
+    },
+    {
+      "start": 2089.19,
+      "end": 2092.829,
+      "text": "assume here error is a go right so um"
+    },
+    {
+      "start": 2092.829,
+      "end": 2096.43,
+      "text": "boy yeah so part of the uh what is"
+    },
+    {
+      "start": 2096.43,
+      "end": 2098.43,
+      "text": "it why does seem the eror is Gan um two"
+    },
+    {
+      "start": 2098.43,
+      "end": 2101.069,
+      "text": "reasons right one is turns out to be"
+    },
+    {
+      "start": 2101.069,
+      "end": 2103.47,
+      "text": "mathematically convenient to do so um"
+    },
+    {
+      "start": 2103.47,
+      "end": 2105.79,
+      "text": "and the other is um I don't know I could"
+    },
+    {
+      "start": 2105.79,
+      "end": 2107.109,
+      "text": "also Mumble about justification such as"
+    },
+    {
+      "start": 2107.109,
+      "end": 2108.99,
+      "text": "things of the central limit theorem it"
+    },
+    {
+      "start": 2108.99,
+      "end": 2110.71,
+      "text": "turns out that if you for the vast"
+    },
+    {
+      "start": 2110.71,
+      "end": 2112.39,
+      "text": "majority of problems if you apply a"
+    },
+    {
+      "start": 2112.39,
+      "end": 2114.349,
+      "text": "linear regression model like this and"
+    },
+    {
+      "start": 2114.349,
+      "end": 2116.87,
+      "text": "try to measure the distribution of the"
+    },
+    {
+      "start": 2116.87,
+      "end": 2119.109,
+      "text": "errors not all the time but very often"
+    },
+    {
+      "start": 2119.109,
+      "end": 2121.23,
+      "text": "you find that the errors really are Gan"
+    },
+    {
+      "start": 2121.23,
+      "end": 2123.91,
+      "text": "that that just of Gan model is a good"
+    },
+    {
+      "start": 2123.91,
+      "end": 2125.99,
+      "text": "assumption for the error of um in in"
+    },
+    {
+      "start": 2125.99,
+      "end": 2127.069,
+      "text": "regression problems like these um some"
+    },
+    {
+      "start": 2127.069,
+      "end": 2129.51,
+      "text": "of you may have heard of the central"
+    },
+    {
+      "start": 2129.51,
+      "end": 2131.349,
+      "text": "limit theorem which says that the sum of"
+    },
+    {
+      "start": 2131.349,
+      "end": 2134.43,
+      "text": "many independent random variables would"
+    },
+    {
+      "start": 2134.43,
+      "end": 2135.99,
+      "text": "tend towards the gum so if the error is"
+    },
+    {
+      "start": 2135.99,
+      "end": 2138.75,
+      "text": "caused by many effects like you know the"
+    },
+    {
+      "start": 2138.75,
+      "end": 2140.67,
+      "text": "mood of the seller the mood of the buyer"
+    },
+    {
+      "start": 2140.67,
+      "end": 2142.75,
+      "text": "some other features that we miss whether"
+    },
+    {
+      "start": 2142.75,
+      "end": 2145.63,
+      "text": "the place has a garden or not and if all"
+    },
+    {
+      "start": 2145.63,
+      "end": 2147.47,
+      "text": "of these effects are independent then by"
+    },
+    {
+      "start": 2147.47,
+      "end": 2149.309,
+      "text": "the central limit theorem you might be"
+    },
+    {
+      "start": 2149.309,
+      "end": 2150.71,
+      "text": "inclined to believe that you know the"
+    },
+    {
+      "start": 2150.71,
+      "end": 2152.99,
+      "text": "sum of all of these effects will be"
+    },
+    {
+      "start": 2152.99,
+      "end": 2154.99,
+      "text": "approximately Gan but in practice I"
+    },
+    {
+      "start": 2154.99,
+      "end": 2156.43,
+      "text": "guess the two real answers are that one"
+    },
+    {
+      "start": 2156.43,
+      "end": 2158.39,
+      "text": "in practice this is actually a"
+    },
+    {
+      "start": 2158.39,
+      "end": 2161.03,
+      "text": "reasonably accurate assumption"
+    },
+    {
+      "start": 2161.03,
+      "end": 2164.309,
+      "text": "um and two is it turns out to be"
+    },
+    {
+      "start": 2164.309,
+      "end": 2167.79,
+      "text": "mathematically convenient to do so okay"
+    },
+    {
+      "start": 2167.79,
+      "end": 2170.39,
+      "text": "um yeah seems like we're saying if we"
+    },
+    {
+      "start": 2170.39,
+      "end": 2173.39,
+      "text": "assume the error around our model has"
+    },
+    {
+      "start": 2173.39,
+      "end": 2176.71,
+      "text": "zero mean then the error is centered"
+    },
+    {
+      "start": 2176.71,
+      "end": 2177.95,
+      "text": "around our model which it seems almost"
+    },
+    {
+      "start": 2177.95,
+      "end": 2180.91,
+      "text": "like we're trying to assume what we're"
+    },
+    {
+      "start": 2180.91,
+      "end": 2182.27,
+      "text": "trying to prove um let's let's let's"
+    },
+    {
+      "start": 2182.27,
+      "end": 2184.03,
+      "text": "delate to what I'm trying to prove but"
+    },
+    {
+      "start": 2184.03,
+      "end": 2188.27,
+      "text": "yes we are assuming that the error has"
+    },
+    {
+      "start": 2188.27,
+      "end": 2189.87,
+      "text": "zero mean which is yeah right um"
+    },
+    {
+      "start": 2189.87,
+      "end": 2191.069,
+      "text": "I think maybe I suspect later this qu"
+    },
+    {
+      "start": 2191.069,
+      "end": 2193.27,
+      "text": "we'll get to some of the other things"
+    },
+    {
+      "start": 2193.27,
+      "end": 2195.03,
+      "text": "but so for now think of this as a"
+    },
+    {
+      "start": 2195.03,
+      "end": 2198.349,
+      "text": "mathematic is actually not an"
+    },
+    {
+      "start": 2198.349,
+      "end": 2201.15,
+      "text": "unreasonable assumption um I guess you"
+    },
+    {
+      "start": 2201.15,
+      "end": 2202.589,
+      "text": "know in in in in machine learning all"
+    },
+    {
+      "start": 2202.589,
+      "end": 2205.87,
+      "text": "the all the assumptions we make are"
+    },
+    {
+      "start": 2205.87,
+      "end": 2208.109,
+      "text": "almost never true in in in the absolute"
+    },
+    {
+      "start": 2208.109,
+      "end": 2210.43,
+      "text": "sense right because for instance um"
+    },
+    {
+      "start": 2210.43,
+      "end": 2214.03,
+      "text": "housing prices are priced to Dollars and"
+    },
+    {
+      "start": 2214.03,
+      "end": 2216.39,
+      "text": "cents and so the error will be you know"
+    },
+    {
+      "start": 2216.39,
+      "end": 2219.27,
+      "text": "errors in prices are not continuous"
+    },
+    {
+      "start": 2219.27,
+      "end": 2220.91,
+      "text": "value random variables because um houses"
+    },
+    {
+      "start": 2220.91,
+      "end": 2222.63,
+      "text": "can only be priced at a certain number"
+    },
+    {
+      "start": 2222.63,
+      "end": 2224.51,
+      "text": "of dollars a certain number of cents and"
+    },
+    {
+      "start": 2224.51,
+      "end": 2226.589,
+      "text": "you never have fractions of cents in in"
+    },
+    {
+      "start": 2226.589,
+      "end": 2228.39,
+      "text": "housing prices whereas a ging random"
+    },
+    {
+      "start": 2228.39,
+      "end": 2230.99,
+      "text": "variable W so in that sense assumptions"
+    },
+    {
+      "start": 2230.99,
+      "end": 2233.27,
+      "text": "we make are never quote absolutely true"
+    },
+    {
+      "start": 2233.27,
+      "end": 2235.99,
+      "text": "but for practical purposes this is"
+    },
+    {
+      "start": 2235.99,
+      "end": 2239.15,
+      "text": "a accurate enough assumption that it'll"
+    },
+    {
+      "start": 2239.15,
+      "end": 2240.63,
+      "text": "be it'll be useful to make it okay um"
+    },
+    {
+      "start": 2240.63,
+      "end": 2243.63,
+      "text": "maybe I think in yeah I think in a week"
+    },
+    {
+      "start": 2243.63,
+      "end": 2245.19,
+      "text": "or two we actually come back to say a"
+    },
+    {
+      "start": 2245.19,
+      "end": 2246.75,
+      "text": "bit more about the source of assumptions"
+    },
+    {
+      "start": 2246.75,
+      "end": 2247.99,
+      "text": "we make and when they help our loading"
+    },
+    {
+      "start": 2247.99,
+      "end": 2249.27,
+      "text": "algorithms and when when they hurt our"
+    },
+    {
+      "start": 2249.27,
+      "end": 2251.19,
+      "text": "learning algorithm we'll do that we'll"
+    },
+    {
+      "start": 2251.19,
+      "end": 2252.71,
+      "text": "say a bit more about when we talk about"
+    },
+    {
+      "start": 2252.71,
+      "end": 2255.95,
+      "text": "generative and discriminative learning"
+    },
+    {
+      "start": 2255.95,
+      "end": 2258.23,
+      "text": "algorithms like in a in a week or"
+    },
+    {
+      "start": 2258.23,
+      "end": 2261.67,
+      "text": "two"
+    },
+    {
+      "start": 2261.67,
+      "end": 2264.43,
+      "text": "um okay so let just point out one one"
+    },
+    {
+      "start": 2264.43,
+      "end": 2265.71,
+      "text": "one bit of notation which is that um"
+    },
+    {
+      "start": 2265.71,
+      "end": 2268.47,
+      "text": "when I wrote this down I actually wrote"
+    },
+    {
+      "start": 2268.47,
+      "end": 2271.829,
+      "text": "P of Yi given XI and then semicolon"
+    },
+    {
+      "start": 2271.829,
+      "end": 2274.51,
+      "text": "Theta and I'm going to use this notation"
+    },
+    {
+      "start": 2274.51,
+      "end": 2277.67,
+      "text": "when we are not thinking of theta as a"
+    },
+    {
+      "start": 2277.67,
+      "end": 2279.19,
+      "text": "random variable so in statistics this"
+    },
+    {
+      "start": 2279.19,
+      "end": 2281.589,
+      "text": "sometimes called the frequences point of"
+    },
+    {
+      "start": 2281.589,
+      "end": 2284.03,
+      "text": "view where we think of there as being"
+    },
+    {
+      "start": 2284.03,
+      "end": 2286.75,
+      "text": "some s of true value of theta that's out"
+    },
+    {
+      "start": 2286.75,
+      "end": 2288.91,
+      "text": "there that's generating the data say but"
+    },
+    {
+      "start": 2288.91,
+      "end": 2291.349,
+      "text": "um you know we don't know what Theta is"
+    },
+    {
+      "start": 2291.349,
+      "end": 2292.99,
+      "text": "but Theta is not a random variable right"
+    },
+    {
+      "start": 2292.99,
+      "end": 2295.19,
+      "text": "so it's not it's not like there's some"
+    },
+    {
+      "start": 2295.19,
+      "end": 2297.43,
+      "text": "random value of theta out there is that"
+    },
+    {
+      "start": 2297.43,
+      "end": 2299.109,
+      "text": "Theta is the some true value of theta"
+    },
+    {
+      "start": 2299.109,
+      "end": 2302.71,
+      "text": "out there it's just that we don't know"
+    },
+    {
+      "start": 2302.71,
+      "end": 2305.63,
+      "text": "what the value of theta is so if Theta"
+    },
+    {
+      "start": 2305.63,
+      "end": 2309.349,
+      "text": "is not a random variable then I'm going"
+    },
+    {
+      "start": 2309.349,
+      "end": 2311.309,
+      "text": "to avoid writing p y i given x i comma"
+    },
+    {
+      "start": 2311.309,
+      "end": 2313.67,
+      "text": "Theta because this would mean the"
+    },
+    {
+      "start": 2313.67,
+      "end": 2315.95,
+      "text": "probability of Yi conditioned on X and"
+    },
+    {
+      "start": 2315.95,
+      "end": 2320.109,
+      "text": "Theta and you can only you know"
+    },
+    {
+      "start": 2320.109,
+      "end": 2321.91,
+      "text": "condition on random variables um so at"
+    },
+    {
+      "start": 2321.91,
+      "end": 2323.589,
+      "text": "least for this part of the class where"
+    },
+    {
+      "start": 2323.589,
+      "end": 2325.589,
+      "text": "we're taking so the frequencies"
+    },
+    {
+      "start": 2325.589,
+      "end": 2326.91,
+      "text": "Viewpoint rather than a basian Viewpoint"
+    },
+    {
+      "start": 2326.91,
+      "end": 2328.75,
+      "text": "in this point class we're thinking of"
+    },
+    {
+      "start": 2328.75,
+      "end": 2330.43,
+      "text": "theta not as a random variable but just"
+    },
+    {
+      "start": 2330.43,
+      "end": 2333.27,
+      "text": "as something we're trying to estimate I"
+    },
+    {
+      "start": 2333.27,
+      "end": 2334.71,
+      "text": "use the semicolon notation and so the"
+    },
+    {
+      "start": 2334.71,
+      "end": 2337.63,
+      "text": "way to read this is this is the"
+    },
+    {
+      "start": 2337.63,
+      "end": 2340.71,
+      "text": "probability of Yi given XI and and"
+    },
+    {
+      "start": 2340.71,
+      "end": 2343.67,
+      "text": "parameterized by Theta okay so you read"
+    },
+    {
+      "start": 2343.67,
+      "end": 2346.23,
+      "text": "the semicolon as parameterized by and"
+    },
+    {
+      "start": 2346.23,
+      "end": 2349.109,
+      "text": "the same way here I'll say y i given XI"
+    },
+    {
+      "start": 2349.109,
+      "end": 2351.47,
+      "text": "parameterized by Theta is distributed"
+    },
+    {
+      "start": 2351.47,
+      "end": 2355.35,
+      "text": "galum with"
+    },
+    {
+      "start": 2355.35,
+      "end": 2355.36,
+      "text": "that um all"
+    },
+    {
+      "start": 2355.37,
+      "end": 2377.15,
+      "text": "[Applause]"
+    },
+    {
+      "start": 2377.15,
+      "end": 2379.95,
+      "text": "um let me going and make one more"
+    },
+    {
+      "start": 2379.95,
+      "end": 2382.91,
+      "text": "assumption going to"
+    },
+    {
+      "start": 2382.91,
+      "end": 2389.19,
+      "text": "assume that the error terms"
+    },
+    {
+      "start": 2389.19,
+      "end": 2391.79,
+      "text": "um"
+    },
+    {
+      "start": 2391.79,
+      "end": 2394.15,
+      "text": "IID okay which stands for independently"
+    },
+    {
+      "start": 2394.15,
+      "end": 2396.43,
+      "text": "and identically distributed so just"
+    },
+    {
+      "start": 2396.43,
+      "end": 2412.75,
+      "text": "going to assume that the error terms are"
+    },
+    {
+      "start": 2412.75,
+      "end": 2414.109,
+      "text": "right the identically distributed part"
+    },
+    {
+      "start": 2414.109,
+      "end": 2415.95,
+      "text": "just means that I'm assuming they all"
+    },
+    {
+      "start": 2415.95,
+      "end": 2416.87,
+      "text": "come from the same Gan distribution with"
+    },
+    {
+      "start": 2416.87,
+      "end": 2419.15,
+      "text": "the same"
+    },
+    {
+      "start": 2419.15,
+      "end": 2420.43,
+      "text": "variance um but but the more important"
+    },
+    {
+      "start": 2420.43,
+      "end": 2423.309,
+      "text": "part of this is I'm assuming that the"
+    },
+    {
+      "start": 2423.309,
+      "end": 2426.27,
+      "text": "Epsilon I are independent of each"
+    },
+    {
+      "start": 2426.27,
+      "end": 2428.71,
+      "text": "other now let talk about how to fit a"
+    },
+    {
+      "start": 2428.71,
+      "end": 2431.91,
+      "text": "model"
+    },
+    {
+      "start": 2431.91,
+      "end": 2433.829,
+      "text": "the probability of Y given X"
+    },
+    {
+      "start": 2433.829,
+      "end": 2437.03,
+      "text": "parameterized by"
+    },
+    {
+      "start": 2437.03,
+      "end": 2439.109,
+      "text": "Theta um I'm actually going to give this"
+    },
+    {
+      "start": 2439.109,
+      "end": 2440.43,
+      "text": "another name I'm going to write this"
+    },
+    {
+      "start": 2440.43,
+      "end": 2443.069,
+      "text": "down I'm going to call this the"
+    },
+    {
+      "start": 2443.069,
+      "end": 2445.23,
+      "text": "likelihood of theta as the probability"
+    },
+    {
+      "start": 2445.23,
+      "end": 2449.109,
+      "text": "of Y given xeriz by"
+    },
+    {
+      "start": 2449.109,
+      "end": 2458.71,
+      "text": "Theta and so this is going to be the"
+    },
+    {
+      "start": 2458.71,
+      "end": 2462.43,
+      "text": "set that"
+    },
+    {
+      "start": 2462.43,
+      "end": 2465.47,
+      "text": "um which is in turn going to"
+    },
+    {
+      "start": 2465.47,
+      "end": 2467.15,
+      "text": "be a product of those gussian densities"
+    },
+    {
+      "start": 2467.15,
+      "end": 2478.03,
+      "text": "I wrote down just"
+    },
+    {
+      "start": 2478.03,
+      "end": 2482.309,
+      "text": "right"
+    },
+    {
+      "start": 2482.309,
+      "end": 2484.27,
+      "text": "okay um again in in point of notation I"
+    },
+    {
+      "start": 2484.27,
+      "end": 2486.55,
+      "text": "guess I defined this term here to be the"
+    },
+    {
+      "start": 2486.55,
+      "end": 2487.71,
+      "text": "likelihood of theta and the likelihood"
+    },
+    {
+      "start": 2487.71,
+      "end": 2489.79,
+      "text": "of theta is just you know the"
+    },
+    {
+      "start": 2489.79,
+      "end": 2493.109,
+      "text": "probability of the data y right given x"
+    },
+    {
+      "start": 2493.109,
+      "end": 2495.23,
+      "text": "and parze by Theta um the terms"
+    },
+    {
+      "start": 2495.23,
+      "end": 2498.67,
+      "text": "likelihood and probability are often"
+    },
+    {
+      "start": 2498.67,
+      "end": 2500.23,
+      "text": "confused and um so the likelihood of the"
+    },
+    {
+      "start": 2500.23,
+      "end": 2502.829,
+      "text": "of theta is the same thing as the"
+    },
+    {
+      "start": 2502.829,
+      "end": 2504.39,
+      "text": "probability of the data you saw and so"
+    },
+    {
+      "start": 2504.39,
+      "end": 2506.589,
+      "text": "likelihood and probably I Sol the same"
+    },
+    {
+      "start": 2506.589,
+      "end": 2509.23,
+      "text": "thing except that when I use the term"
+    },
+    {
+      "start": 2509.23,
+      "end": 2511.71,
+      "text": "likelihood I'm trying to emphasize that"
+    },
+    {
+      "start": 2511.71,
+      "end": 2515.27,
+      "text": "you know I'm taking this thing and"
+    },
+    {
+      "start": 2515.27,
+      "end": 2518.51,
+      "text": "viewing it as a function of theta okay"
+    },
+    {
+      "start": 2518.51,
+      "end": 2520.069,
+      "text": "so um so like likelihood and probability"
+    },
+    {
+      "start": 2520.069,
+      "end": 2522.39,
+      "text": "they're really the same thing except"
+    },
+    {
+      "start": 2522.39,
+      "end": 2525.349,
+      "text": "that when I want to view this thing as a"
+    },
+    {
+      "start": 2525.349,
+      "end": 2529.79,
+      "text": "function of theta holding X and Y fixed"
+    },
+    {
+      "start": 2529.79,
+      "end": 2531.39,
+      "text": "I'll then call the likelihood okay um so"
+    },
+    {
+      "start": 2531.39,
+      "end": 2533.309,
+      "text": "hopefully you hear me say the likelihood"
+    },
+    {
+      "start": 2533.309,
+      "end": 2536.15,
+      "text": "of the parameters and the probability of"
+    },
+    {
+      "start": 2536.15,
+      "end": 2538.23,
+      "text": "the data right rather than likelihood of"
+    },
+    {
+      "start": 2538.23,
+      "end": 2541.63,
+      "text": "the data or probity parameters so so try"
+    },
+    {
+      "start": 2541.63,
+      "end": 2552.03,
+      "text": "use try to be consistent in that"
+    },
+    {
+      "start": 2552.03,
+      "end": 2553.91,
+      "text": "so given that the probability of the"
+    },
+    {
+      "start": 2553.91,
+      "end": 2556.71,
+      "text": "data is this and this is also the"
+    },
+    {
+      "start": 2556.71,
+      "end": 2558.95,
+      "text": "likelihood of the parameters um how do"
+    },
+    {
+      "start": 2558.95,
+      "end": 2561.15,
+      "text": "you estimate the parameters data so"
+    },
+    {
+      "start": 2561.15,
+      "end": 2562.75,
+      "text": "given a training set what parameters"
+    },
+    {
+      "start": 2562.75,
+      "end": 2565.23,
+      "text": "data do you want to choose for your"
+    },
+    {
+      "start": 2565.23,
+      "end": 2581.23,
+      "text": "model"
+    },
+    {
+      "start": 2581.23,
+      "end": 2590.75,
+      "text": "the uh principle of Maximum likelihood"
+    },
+    {
+      "start": 2590.75,
+      "end": 2593.79,
+      "text": "that right um you can choose the value"
+    },
+    {
+      "start": 2593.79,
+      "end": 2598.79,
+      "text": "of theta that makes the data as like as"
+    },
+    {
+      "start": 2598.79,
+      "end": 2605.63,
+      "text": "probable as possible right so choose"
+    },
+    {
+      "start": 2605.63,
+      "end": 2608.069,
+      "text": "maximize the"
+    },
+    {
+      "start": 2608.069,
+      "end": 2610.51,
+      "text": "likelihood or another words choose the"
+    },
+    {
+      "start": 2610.51,
+      "end": 2612.75,
+      "text": "parameters that make the data as as"
+    },
+    {
+      "start": 2612.75,
+      "end": 2614.95,
+      "text": "probable as possible right so this is"
+    },
+    {
+      "start": 2614.95,
+      "end": 2616.51,
+      "text": "maximum likely estimation from s six"
+    },
+    {
+      "start": 2616.51,
+      "end": 2618.51,
+      "text": "says choose the parameters that you know"
+    },
+    {
+      "start": 2618.51,
+      "end": 2620.71,
+      "text": "makes it as likely as probable as"
+    },
+    {
+      "start": 2620.71,
+      "end": 2621.43,
+      "text": "possible for me to have seen the data I"
+    },
+    {
+      "start": 2621.43,
+      "end": 2628.349,
+      "text": "just"
+    },
+    {
+      "start": 2628.349,
+      "end": 2631.39,
+      "text": "so for mathematical convenience let me"
+    },
+    {
+      "start": 2631.39,
+      "end": 2633.95,
+      "text": "Define lowercase L of"
+    },
+    {
+      "start": 2633.95,
+      "end": 2636.51,
+      "text": "theta um this is called the log"
+    },
+    {
+      "start": 2636.51,
+      "end": 2637.589,
+      "text": "likelihood function and it's just log of"
+    },
+    {
+      "start": 2637.589,
+      "end": 2640.23,
+      "text": "you know"
+    },
+    {
+      "start": 2640.23,
+      "end": 2644.349,
+      "text": "L of of capital L of"
+    },
+    {
+      "start": 2644.349,
+      "end": 2650.829,
+      "text": "theta so this is log of product over"
+    },
+    {
+      "start": 2650.829,
+      "end": 2652.069,
+      "text": "Sigma e to the that and I won't I won't"
+    },
+    {
+      "start": 2652.069,
+      "end": 2654.39,
+      "text": "bother to write out what's in the"
+    },
+    {
+      "start": 2654.39,
+      "end": 2655.47,
+      "text": "exponent for now it's just same as from"
+    },
+    {
+      "start": 2655.47,
+      "end": 2658.069,
+      "text": "the previous"
+    },
+    {
+      "start": 2658.069,
+      "end": 2677.109,
+      "text": "board um log of the product is the same"
+    },
+    {
+      "start": 2677.109,
+      "end": 2680.27,
+      "text": "um which simplifies to M"
+    },
+    {
+      "start": 2680.27,
+      "end": 2682.27,
+      "text": "* 1 / &lt; TK 2"
+    },
+    {
+      "start": 2682.27,
+      "end": 2689.43,
+      "text": "piun"
+    },
+    {
+      "start": 2689.43,
+      "end": 2692.109,
+      "text": "plus and then log of exponentiation"
+    },
+    {
+      "start": 2692.109,
+      "end": 2695.069,
+      "text": "cancel each other log of e of something"
+    },
+    {
+      "start": 2695.069,
+      "end": 2698.95,
+      "text": "is just whatever is inside the exponent"
+    },
+    {
+      "start": 2698.95,
+      "end": 2744.829,
+      "text": "so um"
+    },
+    {
+      "start": 2744.829,
+      "end": 2751.27,
+      "text": "minus okay"
+    },
+    {
+      "start": 2751.27,
+      "end": 2753.51,
+      "text": "maximizing maximizing the likelihood I'm"
+    },
+    {
+      "start": 2753.51,
+      "end": 2782.069,
+      "text": "maximizing the log likelihood is the"
+    },
+    {
+      "start": 2782.069,
+      "end": 2784.069,
+      "text": "um well you get it right um because it's"
+    },
+    {
+      "start": 2784.069,
+      "end": 2785.589,
+      "text": "a minus sign so maximizing this because"
+    },
+    {
+      "start": 2785.589,
+      "end": 2788.349,
+      "text": "of the minus sign is the same as"
+    },
+    {
+      "start": 2788.349,
+      "end": 2794.549,
+      "text": "minimizing this as a function of"
+    },
+    {
+      "start": 2794.549,
+      "end": 2796.99,
+      "text": "and this is of course"
+    },
+    {
+      "start": 2796.99,
+      "end": 2799.39,
+      "text": "just the same quadratic cost function"
+    },
+    {
+      "start": 2799.39,
+      "end": 2801.15,
+      "text": "that we had last time J of"
+    },
+    {
+      "start": 2801.15,
+      "end": 2805.47,
+      "text": "theta"
+    },
+    {
+      "start": 2805.47,
+      "end": 2807.589,
+      "text": "right um and so what we've just shown is"
+    },
+    {
+      "start": 2807.589,
+      "end": 2809.51,
+      "text": "that the ordinary Le squares algorithm"
+    },
+    {
+      "start": 2809.51,
+      "end": 2817.03,
+      "text": "that that we worked on in the previous"
+    },
+    {
+      "start": 2817.03,
+      "end": 2820.309,
+      "text": "likelihood assuming this probabilistic"
+    },
+    {
+      "start": 2820.309,
+      "end": 2821.87,
+      "text": "model um assuming this assuming IID Gan"
+    },
+    {
+      "start": 2821.87,
+      "end": 2831.829,
+      "text": "errors on our"
+    },
+    {
+      "start": 2831.829,
+      "end": 2834.51,
+      "text": "um one thing that we'll actually revisit"
+    },
+    {
+      "start": 2834.51,
+      "end": 2836.829,
+      "text": "um in the next lecture notice that the"
+    },
+    {
+      "start": 2836.829,
+      "end": 2838.47,
+      "text": "value of Sigma squar doesn't matter"
+    },
+    {
+      "start": 2838.47,
+      "end": 2840.349,
+      "text": "right that somehow no matter what the"
+    },
+    {
+      "start": 2840.349,
+      "end": 2842.15,
+      "text": "value of Sigma square is Sigma square"
+    },
+    {
+      "start": 2842.15,
+      "end": 2843.99,
+      "text": "has to be a positive number it's the"
+    },
+    {
+      "start": 2843.99,
+      "end": 2846.47,
+      "text": "variance of Galan so but no matter what"
+    },
+    {
+      "start": 2846.47,
+      "end": 2848.75,
+      "text": "Sigma squ is you know so long as it's"
+    },
+    {
+      "start": 2848.75,
+      "end": 2851.589,
+      "text": "positive number the value of theta we"
+    },
+    {
+      "start": 2851.589,
+      "end": 2854.95,
+      "text": "end up with um will be the same right so"
+    },
+    {
+      "start": 2854.95,
+      "end": 2856.99,
+      "text": "because yeah minimizing this you get the"
+    },
+    {
+      "start": 2856.99,
+      "end": 2859.95,
+      "text": "same value of theta no matter what Sigma"
+    },
+    {
+      "start": 2859.95,
+      "end": 2861.63,
+      "text": "square is so it's as if in this model"
+    },
+    {
+      "start": 2861.63,
+      "end": 2864.39,
+      "text": "the value of Sigma Square doesn't really"
+    },
+    {
+      "start": 2864.39,
+      "end": 2865.51,
+      "text": "matter um and we we just just remember"
+    },
+    {
+      "start": 2865.51,
+      "end": 2868.109,
+      "text": "that for the next lecture we'll come"
+    },
+    {
+      "start": 2868.109,
+      "end": 2870.03,
+      "text": "back to this again um the questions"
+    },
+    {
+      "start": 2870.03,
+      "end": 2872.309,
+      "text": "about"
+    },
+    {
+      "start": 2872.309,
+      "end": 2873.71,
+      "text": "this actually let me let me clean"
+    },
+    {
+      "start": 2873.71,
+      "end": 2923.15,
+      "text": "another couple of boards and I'll see"
+    },
+    {
+      "start": 2923.15,
+      "end": 2927.349,
+      "text": "too okay there questions yeah here uh I"
+    },
+    {
+      "start": 2927.349,
+      "end": 2929.71,
+      "text": "think here you try to measure the uh the"
+    },
+    {
+      "start": 2929.71,
+      "end": 2934.15,
+      "text": "lik ni"
+    },
+    {
+      "start": 2934.15,
+      "end": 2935.829,
+      "text": "OFA uh by by a function of error but but"
+    },
+    {
+      "start": 2935.829,
+      "end": 2938.069,
+      "text": "I think but I think it's not a good"
+    },
+    {
+      "start": 2938.069,
+      "end": 2940.19,
+      "text": "measure because because it depends on"
+    },
+    {
+      "start": 2940.19,
+      "end": 2942.549,
+      "text": "the family of SATA too for example if we"
+    },
+    {
+      "start": 2942.549,
+      "end": 2943.75,
+      "text": "have a lot of parameters we have problem"
+    },
+    {
+      "start": 2943.75,
+      "end": 2945.87,
+      "text": "with"
+    },
+    {
+      "start": 2945.87,
+      "end": 2947.309,
+      "text": "overfitting uh yeah yeah I think you're"
+    },
+    {
+      "start": 2947.309,
+      "end": 2950.19,
+      "text": "asking about overfitting whether this is"
+    },
+    {
+      "start": 2950.19,
+      "end": 2952.51,
+      "text": "good model I think let's the things the"
+    },
+    {
+      "start": 2952.51,
+      "end": 2954.47,
+      "text": "things you're mentioning are um maybe"
+    },
+    {
+      "start": 2954.47,
+      "end": 2956.99,
+      "text": "deeper questions about learning"
+    },
+    {
+      "start": 2956.99,
+      "end": 2959.349,
+      "text": "algorithms that that come back to this"
+    },
+    {
+      "start": 2959.349,
+      "end": 2961.109,
+      "text": "that will come back to later so don't"
+    },
+    {
+      "start": 2961.109,
+      "end": 2975.67,
+      "text": "really want to get into that right"
+    },
+    {
+      "start": 2975.67,
+      "end": 2977.309,
+      "text": "so um this endows um linear regression"
+    },
+    {
+      "start": 2977.309,
+      "end": 2979.309,
+      "text": "with a probabilistic"
+    },
+    {
+      "start": 2979.309,
+      "end": 2981.829,
+      "text": "interpretation and I'm actually going to"
+    },
+    {
+      "start": 2981.829,
+      "end": 2984.27,
+      "text": "use this probab use a this sort of"
+    },
+    {
+      "start": 2984.27,
+      "end": 2986.15,
+      "text": "probabilistic interpretation in order to"
+    },
+    {
+      "start": 2986.15,
+      "end": 2988.069,
+      "text": "derive our next learning algorithm which"
+    },
+    {
+      "start": 2988.069,
+      "end": 2992.349,
+      "text": "will be our first classification"
+    },
+    {
+      "start": 2992.349,
+      "end": 2995.47,
+      "text": "algorithm okay so"
+    },
+    {
+      "start": 2995.47,
+      "end": 2997.15,
+      "text": "um you recall that I said that you"
+    },
+    {
+      "start": 2997.15,
+      "end": 2998.95,
+      "text": "regression problems are where the"
+    },
+    {
+      "start": 2998.95,
+      "end": 3001.549,
+      "text": "variable y you're trying to predict is"
+    },
+    {
+      "start": 3001.549,
+      "end": 3002.39,
+      "text": "continuous values um now I'm actually"
+    },
+    {
+      "start": 3002.39,
+      "end": 3005.069,
+      "text": "going to talk about our first"
+    },
+    {
+      "start": 3005.069,
+      "end": 3007.789,
+      "text": "classification problem where um the"
+    },
+    {
+      "start": 3007.789,
+      "end": 3009.63,
+      "text": "value why you're trying to predict will"
+    },
+    {
+      "start": 3009.63,
+      "end": 3011.27,
+      "text": "be discrete value you can take on only a"
+    },
+    {
+      "start": 3011.27,
+      "end": 3013.15,
+      "text": "small number of discrete values and in"
+    },
+    {
+      "start": 3013.15,
+      "end": 3016.67,
+      "text": "this case I'll talk about binary"
+    },
+    {
+      "start": 3016.67,
+      "end": 3019.51,
+      "text": "classification where um y takes on only"
+    },
+    {
+      "start": 3019.51,
+      "end": 3021.069,
+      "text": "two values right so you come up with"
+    },
+    {
+      "start": 3021.069,
+      "end": 3023.47,
+      "text": "classification problems if you're trying"
+    },
+    {
+      "start": 3023.47,
+      "end": 3025.71,
+      "text": "to do say medical diagnosis and try to"
+    },
+    {
+      "start": 3025.71,
+      "end": 3027.309,
+      "text": "decide you know based on some features"
+    },
+    {
+      "start": 3027.309,
+      "end": 3030.549,
+      "text": "um if a patient has has a disease or"
+    },
+    {
+      "start": 3030.549,
+      "end": 3032.67,
+      "text": "does not have a disease um or if in"
+    },
+    {
+      "start": 3032.67,
+      "end": 3034.43,
+      "text": "housing example maybe trying to decide"
+    },
+    {
+      "start": 3034.43,
+      "end": 3035.95,
+      "text": "will this house sell in the next 6"
+    },
+    {
+      "start": 3035.95,
+      "end": 3037.43,
+      "text": "months or not and the answer is either"
+    },
+    {
+      "start": 3037.43,
+      "end": 3040.67,
+      "text": "yes or no it'll either be soell in the"
+    },
+    {
+      "start": 3040.67,
+      "end": 3042.309,
+      "text": "next six months or it won't be um other"
+    },
+    {
+      "start": 3042.309,
+      "end": 3044.43,
+      "text": "standard examples you if you want to"
+    },
+    {
+      "start": 3044.43,
+      "end": 3047.67,
+      "text": "build a spam filter is this email spam"
+    },
+    {
+      "start": 3047.67,
+      "end": 3048.95,
+      "text": "or not is yes or no or um if you you"
+    },
+    {
+      "start": 3048.95,
+      "end": 3050.99,
+      "text": "know some of my colleagues are"
+    },
+    {
+      "start": 3050.99,
+      "end": 3052.95,
+      "text": "interested in um predicting whether a"
+    },
+    {
+      "start": 3052.95,
+      "end": 3055.27,
+      "text": "computer system will crash so you know"
+    },
+    {
+      "start": 3055.27,
+      "end": 3057.15,
+      "text": "it's have learning a to predict will"
+    },
+    {
+      "start": 3057.15,
+      "end": 3060.19,
+      "text": "this Computing cluster crash within the"
+    },
+    {
+      "start": 3060.19,
+      "end": 3068.349,
+      "text": "next 24 hours and again there yes or no"
+    },
+    {
+      "start": 3068.349,
+      "end": 3076.03,
+      "text": "so that's X that's Y and so in the"
+    },
+    {
+      "start": 3076.03,
+      "end": 3077.67,
+      "text": "problem y takes on two values zero and"
+    },
+    {
+      "start": 3077.67,
+      "end": 3079.71,
+      "text": "one let's say in binary"
+    },
+    {
+      "start": 3079.71,
+      "end": 3081.63,
+      "text": "classification um so what can you do"
+    },
+    {
+      "start": 3081.63,
+      "end": 3083.309,
+      "text": "well one thing you could do is take"
+    },
+    {
+      "start": 3083.309,
+      "end": 3085.309,
+      "text": "linear regression as we've described it"
+    },
+    {
+      "start": 3085.309,
+      "end": 3087.19,
+      "text": "so far and apply it to this problem"
+    },
+    {
+      "start": 3087.19,
+      "end": 3089.95,
+      "text": "right so you you know given this data"
+    },
+    {
+      "start": 3089.95,
+      "end": 3091.47,
+      "text": "set you can fit a straight line to it"
+    },
+    {
+      "start": 3091.47,
+      "end": 3093.589,
+      "text": "maybe you get that straight line right"
+    },
+    {
+      "start": 3093.589,
+      "end": 3095.349,
+      "text": "and but this and this this data set I've"
+    },
+    {
+      "start": 3095.349,
+      "end": 3096.87,
+      "text": "drawn right is an amazingly easy"
+    },
+    {
+      "start": 3096.87,
+      "end": 3099.15,
+      "text": "classification problem it's pretty"
+    },
+    {
+      "start": 3099.15,
+      "end": 3101.27,
+      "text": "obvious you know to all of us that right"
+    },
+    {
+      "start": 3101.27,
+      "end": 3102.789,
+      "text": "the relationship between X and Y is well"
+    },
+    {
+      "start": 3102.789,
+      "end": 3104.349,
+      "text": "you just look at a value around here and"
+    },
+    {
+      "start": 3104.349,
+      "end": 3108.109,
+      "text": "if it's to the right Y is one it's to"
+    },
+    {
+      "start": 3108.109,
+      "end": 3109.47,
+      "text": "the left and Y is zero so apply linear"
+    },
+    {
+      "start": 3109.47,
+      "end": 3111.47,
+      "text": "regression to this data set and you get"
+    },
+    {
+      "start": 3111.47,
+      "end": 3114.03,
+      "text": "a Reas more fit and you can then maybe"
+    },
+    {
+      "start": 3114.03,
+      "end": 3116.23,
+      "text": "take your linear regression hypothesis"
+    },
+    {
+      "start": 3116.23,
+      "end": 3119.03,
+      "text": "the straight line and you know fresh"
+    },
+    {
+      "start": 3119.03,
+      "end": 3120.75,
+      "text": "holding at 0.5 and if you do that you"
+    },
+    {
+      "start": 3120.75,
+      "end": 3123.51,
+      "text": "still get the right answer you predict"
+    },
+    {
+      "start": 3123.51,
+      "end": 3126.549,
+      "text": "that you know if Y is if if x is to the"
+    },
+    {
+      "start": 3126.549,
+      "end": 3127.91,
+      "text": "right of of s a midpoint here then Y is"
+    },
+    {
+      "start": 3127.91,
+      "end": 3129.39,
+      "text": "one and if x to the left of that"
+    },
+    {
+      "start": 3129.39,
+      "end": 3133.069,
+      "text": "midpoint then Y is"
+    },
+    {
+      "start": 3133.069,
+      "end": 3134.27,
+      "text": "zero um so some people actually do this"
+    },
+    {
+      "start": 3134.27,
+      "end": 3137.19,
+      "text": "apply linear regression to"
+    },
+    {
+      "start": 3137.19,
+      "end": 3140.109,
+      "text": "classification problems and sometimes"
+    },
+    {
+      "start": 3140.109,
+      "end": 3142.51,
+      "text": "it'll work okay but in general it's"
+    },
+    {
+      "start": 3142.51,
+      "end": 3146.75,
+      "text": "actually pretty bad idea to apply linear"
+    },
+    {
+      "start": 3146.75,
+      "end": 3149.75,
+      "text": "regression to um classification problem"
+    },
+    {
+      "start": 3149.75,
+      "end": 3153.349,
+      "text": "like these and and here's"
+    },
+    {
+      "start": 3153.349,
+      "end": 3154.87,
+      "text": "why let's say I change my training set"
+    },
+    {
+      "start": 3154.87,
+      "end": 3158.75,
+      "text": "by giving you just one more training"
+    },
+    {
+      "start": 3158.75,
+      "end": 3160.589,
+      "text": "example all the way out there right um"
+    },
+    {
+      "start": 3160.589,
+      "end": 3162.47,
+      "text": "imagine if given this training set is"
+    },
+    {
+      "start": 3162.47,
+      "end": 3164.27,
+      "text": "actually still entirely obvious what the"
+    },
+    {
+      "start": 3164.27,
+      "end": 3166.789,
+      "text": "relationship between X and Y is right"
+    },
+    {
+      "start": 3166.789,
+      "end": 3169.67,
+      "text": "it's just take this value it's greater"
+    },
+    {
+      "start": 3169.67,
+      "end": 3172.63,
+      "text": "than y is one if it's less than y is"
+    },
+    {
+      "start": 3172.63,
+      "end": 3173.91,
+      "text": "zero by telling you you know that by"
+    },
+    {
+      "start": 3173.91,
+      "end": 3175.309,
+      "text": "giving you this additional training"
+    },
+    {
+      "start": 3175.309,
+      "end": 3176.91,
+      "text": "example it really shouldn't change"
+    },
+    {
+      "start": 3176.91,
+      "end": 3178.43,
+      "text": "anything I mean like I didn't really"
+    },
+    {
+      "start": 3178.43,
+      "end": 3179.91,
+      "text": "convey much new information there's no"
+    },
+    {
+      "start": 3179.91,
+      "end": 3182.71,
+      "text": "surprise that this corresponds to y"
+    },
+    {
+      "start": 3182.71,
+      "end": 3185.03,
+      "text": "equal 1 but if you now fit linear"
+    },
+    {
+      "start": 3185.03,
+      "end": 3187.109,
+      "text": "regression to this data set you end up"
+    },
+    {
+      "start": 3187.109,
+      "end": 3188.51,
+      "text": "with I don't know maybe a line that"
+    },
+    {
+      "start": 3188.51,
+      "end": 3191.589,
+      "text": "looks like"
+    },
+    {
+      "start": 3191.589,
+      "end": 3193.75,
+      "text": "that right and now the"
+    },
+    {
+      "start": 3193.75,
+      "end": 3196.829,
+      "text": "predictions of your hypothesis have"
+    },
+    {
+      "start": 3196.829,
+      "end": 3198.829,
+      "text": "changed completely if you threshold your"
+    },
+    {
+      "start": 3198.829,
+      "end": 3203.47,
+      "text": "hypothesis at yal"
+    },
+    {
+      "start": 3203.47,
+      "end": 3206.91,
+      "text": "0.5 okay so in between there might be an"
+    },
+    {
+      "start": 3206.91,
+      "end": 3210.47,
+      "text": "interval where it's zero right"
+    },
+    {
+      "start": 3210.47,
+      "end": 3214.19,
+      "text": "Point Oh you mean like that yeah yeah"
+    },
+    {
+      "start": 3214.19,
+      "end": 3218.91,
+      "text": "yeah yeah sure give data set like that"
+    },
+    {
+      "start": 3218.91,
+      "end": 3220.39,
+      "text": "same thing so I guess this this is just"
+    },
+    {
+      "start": 3220.39,
+      "end": 3224.03,
+      "text": "yes you're right but this is this is"
+    },
+    {
+      "start": 3224.03,
+      "end": 3228.03,
+      "text": "this this is an example and this example"
+    },
+    {
+      "start": 3228.03,
+      "end": 3230.27,
+      "text": "works that would change even more oh you"
+    },
+    {
+      "start": 3230.27,
+      "end": 3231.549,
+      "text": "gave it all yeah then I think this"
+    },
+    {
+      "start": 3231.549,
+      "end": 3233.47,
+      "text": "actually make it even worse we actually"
+    },
+    {
+      "start": 3233.47,
+      "end": 3235.43,
+      "text": "get a line that pulls down even further"
+    },
+    {
+      "start": 3235.43,
+      "end": 3237.589,
+      "text": "right so this is my example I get to"
+    },
+    {
+      "start": 3237.589,
+      "end": 3239.23,
+      "text": "make it whatever I want right"
+    },
+    {
+      "start": 3239.23,
+      "end": 3240.67,
+      "text": "but but the point of this is is there's"
+    },
+    {
+      "start": 3240.67,
+      "end": 3242.51,
+      "text": "no deep meaning to this the point of"
+    },
+    {
+      "start": 3242.51,
+      "end": 3243.95,
+      "text": "this is just that you know it could be a"
+    },
+    {
+      "start": 3243.95,
+      "end": 3245.95,
+      "text": "really bad idea to apply linear"
+    },
+    {
+      "start": 3245.95,
+      "end": 3247.789,
+      "text": "regression to classification problem and"
+    },
+    {
+      "start": 3247.789,
+      "end": 3249.03,
+      "text": "sometimes it work fine but but usually I"
+    },
+    {
+      "start": 3249.03,
+      "end": 3252.87,
+      "text": "wouldn't do"
+    },
+    {
+      "start": 3252.87,
+      "end": 3255.03,
+      "text": "it um so a couple problems with this one"
+    },
+    {
+      "start": 3255.03,
+      "end": 3257.789,
+      "text": "is that well so so what do we want to do"
+    },
+    {
+      "start": 3257.789,
+      "end": 3259.47,
+      "text": "for classification um you know if you"
+    },
+    {
+      "start": 3259.47,
+      "end": 3262.71,
+      "text": "know the value of"
+    },
+    {
+      "start": 3262.71,
+      "end": 3265.39,
+      "text": "y lies between zero and one then um to"
+    },
+    {
+      "start": 3265.39,
+      "end": 3267.95,
+      "text": "try to fix this problem let's just start"
+    },
+    {
+      "start": 3267.95,
+      "end": 3270.829,
+      "text": "by"
+    },
+    {
+      "start": 3270.829,
+      "end": 3272.47,
+      "text": "changing the form of a hypothesis so"
+    },
+    {
+      "start": 3272.47,
+      "end": 3274.67,
+      "text": "that my"
+    },
+    {
+      "start": 3274.67,
+      "end": 3279.549,
+      "text": "hypothesis always lies in the unit"
+    },
+    {
+      "start": 3279.549,
+      "end": 3282.67,
+      "text": "interval between zero and one okay um so"
+    },
+    {
+      "start": 3282.67,
+      "end": 3284.67,
+      "text": "if if I know why is either zero or one"
+    },
+    {
+      "start": 3284.67,
+      "end": 3286.549,
+      "text": "then let's at least not have my"
+    },
+    {
+      "start": 3286.549,
+      "end": 3293.069,
+      "text": "hypothesis predict values much larger"
+    },
+    {
+      "start": 3293.069,
+      "end": 3294.63,
+      "text": "zero and so I'm going to instead of"
+    },
+    {
+      "start": 3294.63,
+      "end": 3296.349,
+      "text": "choosing a linear function for my"
+    },
+    {
+      "start": 3296.349,
+      "end": 3297.23,
+      "text": "hypothesis I'm going to choose something"
+    },
+    {
+      "start": 3297.23,
+      "end": 3302.03,
+      "text": "slly"
+    },
+    {
+      "start": 3302.03,
+      "end": 3304.789,
+      "text": "different and in particular I'm going to"
+    },
+    {
+      "start": 3304.789,
+      "end": 3307.75,
+      "text": "choose this function H subscrip Theta of"
+    },
+    {
+      "start": 3307.75,
+      "end": 3309.67,
+      "text": "X is going to be equal to G of theta"
+    },
+    {
+      "start": 3309.67,
+      "end": 3316.109,
+      "text": "transpose"
+    },
+    {
+      "start": 3316.109,
+      "end": 3321.51,
+      "text": "X where um G is going to be this"
+    },
+    {
+      "start": 3321.51,
+      "end": 3326.63,
+      "text": "function um and so this becomes 1/ 1 + e"
+    },
+    {
+      "start": 3326.63,
+      "end": 3328.24,
+      "text": "to th transv X okay and um G of Z Z is"
+    },
+    {
+      "start": 3328.24,
+      "end": 3331.27,
+      "text": "called the sigmoid"
+    },
+    {
+      "start": 3331.27,
+      "end": 3333.87,
+      "text": "[Music]"
+    },
+    {
+      "start": 3333.87,
+      "end": 3340.15,
+      "text": "function and is often also called the"
+    },
+    {
+      "start": 3340.15,
+      "end": 3343.51,
+      "text": "function it goes by either of these"
+    },
+    {
+      "start": 3343.51,
+      "end": 3346.549,
+      "text": "names um and what G of Z looks like is"
+    },
+    {
+      "start": 3346.549,
+      "end": 3349.27,
+      "text": "the following"
+    },
+    {
+      "start": 3349.27,
+      "end": 3358.91,
+      "text": "so on the horizontal axis I'm going to"
+    },
+    {
+      "start": 3358.91,
+      "end": 3367.549,
+      "text": "Z will look like this okay I didn't draw"
+    },
+    {
+      "start": 3367.549,
+      "end": 3370.71,
+      "text": "well okay so G of Z tends towards zero"
+    },
+    {
+      "start": 3370.71,
+      "end": 3374.95,
+      "text": "as Z becomes very small and G of Z will"
+    },
+    {
+      "start": 3374.95,
+      "end": 3379.029,
+      "text": "ASM toote towards one as Z becomes large"
+    },
+    {
+      "start": 3379.029,
+      "end": 3380.789,
+      "text": "and it crosses the vertical axis at 0.5"
+    },
+    {
+      "start": 3380.789,
+      "end": 3383.47,
+      "text": "so this is what the sigo function also"
+    },
+    {
+      "start": 3383.47,
+      "end": 3386.51,
+      "text": "called the logistic function of s yeah"
+    },
+    {
+      "start": 3386.51,
+      "end": 3388.789,
+      "text": "sigo another step five say that again"
+    },
+    {
+      "start": 3388.789,
+      "end": 3391.47,
+      "text": "why we cannot choose a step faction"
+    },
+    {
+      "start": 3391.47,
+      "end": 3392.95,
+      "text": "isn't like that's better the binary yeah"
+    },
+    {
+      "start": 3392.95,
+      "end": 3395.23,
+      "text": "let me come back to later so it turns"
+    },
+    {
+      "start": 3395.23,
+      "end": 3397.309,
+      "text": "out why where did I get this function"
+    },
+    {
+      "start": 3397.309,
+      "end": 3398.87,
+      "text": "from right where how did I I mean I just"
+    },
+    {
+      "start": 3398.87,
+      "end": 3400.71,
+      "text": "wrote down this function it actually"
+    },
+    {
+      "start": 3400.71,
+      "end": 3402.349,
+      "text": "turns out that there are two reasons for"
+    },
+    {
+      "start": 3402.349,
+      "end": 3404.349,
+      "text": "using this function that will come to"
+    },
+    {
+      "start": 3404.349,
+      "end": 3405.87,
+      "text": "one is um when we talk about generalized"
+    },
+    {
+      "start": 3405.87,
+      "end": 3407.99,
+      "text": "line models we'll see that this falls"
+    },
+    {
+      "start": 3407.99,
+      "end": 3410.99,
+      "text": "out naturally as as part of a broader CL"
+    },
+    {
+      "start": 3410.99,
+      "end": 3413.95,
+      "text": "of models um and another reason that"
+    },
+    {
+      "start": 3413.95,
+      "end": 3415.43,
+      "text": "we'll talk about uh next week is it"
+    },
+    {
+      "start": 3415.43,
+      "end": 3417.19,
+      "text": "turns out there are a couple of I think"
+    },
+    {
+      "start": 3417.19,
+      "end": 3418.829,
+      "text": "very beautiful reason reasons for why we"
+    },
+    {
+      "start": 3418.829,
+      "end": 3420.87,
+      "text": "choose the logistic function so we'll"
+    },
+    {
+      "start": 3420.87,
+      "end": 3423.27,
+      "text": "see that in a little bit but for now let"
+    },
+    {
+      "start": 3423.27,
+      "end": 3424.67,
+      "text": "me just you know Define it and and just"
+    },
+    {
+      "start": 3424.67,
+      "end": 3427.829,
+      "text": "take my word for it for now that this is"
+    },
+    {
+      "start": 3427.829,
+      "end": 3430.51,
+      "text": "a reasonable Choice okay um but notice"
+    },
+    {
+      "start": 3430.51,
+      "end": 3432.39,
+      "text": "now that my the the the values output by"
+    },
+    {
+      "start": 3432.39,
+      "end": 3433.39,
+      "text": "my hypothesis will always be between"
+    },
+    {
+      "start": 3433.39,
+      "end": 3437.67,
+      "text": "zero and"
+    },
+    {
+      "start": 3437.67,
+      "end": 3440.51,
+      "text": "one um and further all just like we did"
+    },
+    {
+      "start": 3440.51,
+      "end": 3442.349,
+      "text": "for linear regression I'm going to endow"
+    },
+    {
+      "start": 3442.349,
+      "end": 3445.349,
+      "text": "the outputs of my hypothesis with a"
+    },
+    {
+      "start": 3445.349,
+      "end": 3447.75,
+      "text": "probabilistic interpretation right so"
+    },
+    {
+      "start": 3447.75,
+      "end": 3450.99,
+      "text": "I'm going to assume that the probability"
+    },
+    {
+      "start": 3450.99,
+      "end": 3452.67,
+      "text": "that Y is equal to 1 given x and"
+    },
+    {
+      "start": 3452.67,
+      "end": 3456.43,
+      "text": "parameterized by"
+    },
+    {
+      "start": 3456.43,
+      "end": 3459.71,
+      "text": "Theta that's equal to H subscript Theta"
+    },
+    {
+      "start": 3459.71,
+      "end": 3461.75,
+      "text": "of X right so in other words I'm going"
+    },
+    {
+      "start": 3461.75,
+      "end": 3463.349,
+      "text": "to imagine that you know my hypothesis"
+    },
+    {
+      "start": 3463.349,
+      "end": 3466.029,
+      "text": "is outputting all these numbers that lie"
+    },
+    {
+      "start": 3466.029,
+      "end": 3469.069,
+      "text": "between 0o and one I'm going to think of"
+    },
+    {
+      "start": 3469.069,
+      "end": 3471.99,
+      "text": "my hypothesis as trying to estimate the"
+    },
+    {
+      "start": 3471.99,
+      "end": 3473.75,
+      "text": "probability that Y is equal to"
+    },
+    {
+      "start": 3473.75,
+      "end": 3480.87,
+      "text": "one"
+    },
+    {
+      "start": 3480.87,
+      "end": 3482.87,
+      "text": "because and because y has to be either"
+    },
+    {
+      "start": 3482.87,
+      "end": 3490.549,
+      "text": "zero or one then the probability of Y is"
+    },
+    {
+      "start": 3490.549,
+      "end": 3493.349,
+      "text": "that all right"
+    },
+    {
+      "start": 3493.349,
+      "end": 3495.67,
+      "text": "um so more simply it turns out actually"
+    },
+    {
+      "start": 3495.67,
+      "end": 3497.549,
+      "text": "take these two equations and write them"
+    },
+    {
+      "start": 3497.549,
+      "end": 3499.67,
+      "text": "more"
+    },
+    {
+      "start": 3499.67,
+      "end": 3500.47,
+      "text": "compactly I'm going to write P of Y"
+    },
+    {
+      "start": 3500.47,
+      "end": 3503.029,
+      "text": "given"
+    },
+    {
+      "start": 3503.029,
+      "end": 3506.15,
+      "text": "X parameterized by"
+    },
+    {
+      "start": 3506.15,
+      "end": 3509.91,
+      "text": "Theta this is going to be each subscript"
+    },
+    {
+      "start": 3509.91,
+      "end": 3517.51,
+      "text": "Theta of x to the power of"
+    },
+    {
+      "start": 3517.51,
+      "end": 3518.99,
+      "text": "y * 1 - h of X to^ of 1 minus y okay so"
+    },
+    {
+      "start": 3518.99,
+      "end": 3520.51,
+      "text": "I know this looks somewhat bizarre but"
+    },
+    {
+      "start": 3520.51,
+      "end": 3524.39,
+      "text": "this this actually makes the derivation"
+    },
+    {
+      "start": 3524.39,
+      "end": 3526.51,
+      "text": "much much nicer so Y is equal to 1 then"
+    },
+    {
+      "start": 3526.51,
+      "end": 3530.069,
+      "text": "this equation is you know h of x to the^"
+    },
+    {
+      "start": 3530.069,
+      "end": 3533.15,
+      "text": "of 1 times something to the power of"
+    },
+    {
+      "start": 3533.15,
+      "end": 3535.829,
+      "text": "zero so anything to the power of zero is"
+    },
+    {
+      "start": 3535.829,
+      "end": 3537.549,
+      "text": "just one right so y equals 1 then this"
+    },
+    {
+      "start": 3537.549,
+      "end": 3540.829,
+      "text": "is something to the power of zero and so"
+    },
+    {
+      "start": 3540.829,
+      "end": 3542.87,
+      "text": "this is just one and so if y = 1 this is"
+    },
+    {
+      "start": 3542.87,
+      "end": 3544.67,
+      "text": "just saying P of Y = 1 is equal to H"
+    },
+    {
+      "start": 3544.67,
+      "end": 3547.309,
+      "text": "subscript Theta of"
+    },
+    {
+      "start": 3547.309,
+      "end": 3550.349,
+      "text": "X and in the same way if Y is equal to"
+    },
+    {
+      "start": 3550.349,
+      "end": 3552.99,
+      "text": "zero then you know this is p of y equal"
+    },
+    {
+      "start": 3552.99,
+      "end": 3555.63,
+      "text": "0 equals this thing to the^ zero and so"
+    },
+    {
+      "start": 3555.63,
+      "end": 3557.309,
+      "text": "this disappears this is just one times"
+    },
+    {
+      "start": 3557.309,
+      "end": 3560.39,
+      "text": "this thing to the power of one okay so"
+    },
+    {
+      "start": 3560.39,
+      "end": 3563.27,
+      "text": "this is a compact way of writing both of"
+    },
+    {
+      "start": 3563.27,
+      "end": 3572.71,
+      "text": "these equations um you know together"
+    },
+    {
+      "start": 3572.71,
+      "end": 3575.91,
+      "text": "um so let's talk about parameter fitting"
+    },
+    {
+      "start": 3575.91,
+      "end": 3578.39,
+      "text": "right and again we can ask um well given"
+    },
+    {
+      "start": 3578.39,
+      "end": 3582.069,
+      "text": "this model of my data how do I fit the"
+    },
+    {
+      "start": 3582.069,
+      "end": 3584.63,
+      "text": "parameters theeta of my model um so the"
+    },
+    {
+      "start": 3584.63,
+      "end": 3587.069,
+      "text": "likelihood of the parameters is as"
+    },
+    {
+      "start": 3587.069,
+      "end": 3589.23,
+      "text": "before it's just the probability of"
+    },
+    {
+      "start": 3589.23,
+      "end": 3592.63,
+      "text": "data right which"
+    },
+    {
+      "start": 3592.63,
+      "end": 3595.029,
+      "text": "is product over i p ofy"
+    },
+    {
+      "start": 3595.029,
+      "end": 3597.95,
+      "text": "i given x"
+    },
+    {
+      "start": 3597.95,
+      "end": 3610.27,
+      "text": "i parameterized by"
+    },
+    {
+      "start": 3610.27,
+      "end": 3611.63,
+      "text": "in okay and I Dr I dropped this Theta"
+    },
+    {
+      "start": 3611.63,
+      "end": 3620.27,
+      "text": "subscript just so you can write a little"
+    },
+    {
+      "start": 3620.27,
+      "end": 3652.15,
+      "text": "less oh excuse me you should be x i and"
+    },
+    {
+      "start": 3652.15,
+      "end": 3654.75,
+      "text": "okay so"
+    },
+    {
+      "start": 3654.75,
+      "end": 3656.39,
+      "text": "um as before let's say we want to find"
+    },
+    {
+      "start": 3656.39,
+      "end": 3658.95,
+      "text": "the maximum likelihood at estimate of"
+    },
+    {
+      "start": 3658.95,
+      "end": 3661.15,
+      "text": "the parameters Theta so we want to find"
+    },
+    {
+      "start": 3661.15,
+      "end": 3664.789,
+      "text": "the set of the parameters Theta that"
+    },
+    {
+      "start": 3664.789,
+      "end": 3666.67,
+      "text": "maximizes the likelihood um L of"
+    },
+    {
+      "start": 3666.67,
+      "end": 3671.71,
+      "text": "theta"
+    },
+    {
+      "start": 3671.71,
+      "end": 3673.39,
+      "text": "um it turns out that very often you know"
+    },
+    {
+      "start": 3673.39,
+      "end": 3675.029,
+      "text": "just when you work out the derivations"
+    },
+    {
+      "start": 3675.029,
+      "end": 3676.67,
+      "text": "it turns out it's often much easier to"
+    },
+    {
+      "start": 3676.67,
+      "end": 3679.39,
+      "text": "maximize the log of the likelihood"
+    },
+    {
+      "start": 3679.39,
+      "end": 3682.43,
+      "text": "rather than maximize the likelihood um"
+    },
+    {
+      "start": 3682.43,
+      "end": 3684.789,
+      "text": "and so the log likelihood L of theta"
+    },
+    {
+      "start": 3684.789,
+      "end": 3687.39,
+      "text": "just log of capital L this will"
+    },
+    {
+      "start": 3687.39,
+      "end": 3720.309,
+      "text": "therefore be sum"
+    },
+    {
+      "start": 3720.309,
+      "end": 3724.47,
+      "text": "okay and so to fit the parameters sta of"
+    },
+    {
+      "start": 3724.47,
+      "end": 3727.67,
+      "text": "our model we'll um find some find the"
+    },
+    {
+      "start": 3727.67,
+      "end": 3730.069,
+      "text": "value of theta that maximizes this log"
+    },
+    {
+      "start": 3730.069,
+      "end": 3732.47,
+      "text": "likelihood"
+    },
+    {
+      "start": 3732.47,
+      "end": 3742.589,
+      "text": "yeah say that"
+    },
+    {
+      "start": 3742.589,
+      "end": 3744.99,
+      "text": "thanks so how do you maximize this"
+    },
+    {
+      "start": 3744.99,
+      "end": 3746.43,
+      "text": "function well it turns out we can"
+    },
+    {
+      "start": 3746.43,
+      "end": 3749.67,
+      "text": "actually apply"
+    },
+    {
+      "start": 3749.67,
+      "end": 3751.069,
+      "text": "um the same gradient descent algorithm"
+    },
+    {
+      "start": 3751.069,
+      "end": 3753.269,
+      "text": "that we learned that was the first"
+    },
+    {
+      "start": 3753.269,
+      "end": 3755.47,
+      "text": "algorithm we we we used to minimize the"
+    },
+    {
+      "start": 3755.47,
+      "end": 3757.549,
+      "text": "quadratic function remember when we"
+    },
+    {
+      "start": 3757.549,
+      "end": 3759.789,
+      "text": "talked about Le squares um the first"
+    },
+    {
+      "start": 3759.789,
+      "end": 3762.549,
+      "text": "algor we used to minimize the quadratic"
+    },
+    {
+      "start": 3762.549,
+      "end": 3764.269,
+      "text": "error function was grade in descent and"
+    },
+    {
+      "start": 3764.269,
+      "end": 3766.91,
+      "text": "so we can actually use exactly the same"
+    },
+    {
+      "start": 3766.91,
+      "end": 3769.47,
+      "text": "algorithm to maximize the log"
+    },
+    {
+      "start": 3769.47,
+      "end": 3771.87,
+      "text": "likelihood um and you remember that"
+    },
+    {
+      "start": 3771.87,
+      "end": 3773.43,
+      "text": "algorithm was just you repeatedly take"
+    },
+    {
+      "start": 3773.43,
+      "end": 3776.47,
+      "text": "the value of"
+    },
+    {
+      "start": 3776.47,
+      "end": 3779.63,
+      "text": "theta and you replace it with the"
+    },
+    {
+      "start": 3779.63,
+      "end": 3782.789,
+      "text": "previous value of theta plus um a"
+    },
+    {
+      "start": 3782.789,
+      "end": 3785.63,
+      "text": "learning rate Alpha"
+    },
+    {
+      "start": 3785.63,
+      "end": 3787.789,
+      "text": "times the gradient of you know the cost"
+    },
+    {
+      "start": 3787.789,
+      "end": 3790.67,
+      "text": "function the log likelihood with respect"
+    },
+    {
+      "start": 3790.67,
+      "end": 3792.87,
+      "text": "to Theta okay one small change is that"
+    },
+    {
+      "start": 3792.87,
+      "end": 3795.309,
+      "text": "because um previously we were trying to"
+    },
+    {
+      "start": 3795.309,
+      "end": 3797.269,
+      "text": "minimize the quadratic sum of the"
+    },
+    {
+      "start": 3797.269,
+      "end": 3799.23,
+      "text": "quadratic error term today we're trying"
+    },
+    {
+      "start": 3799.23,
+      "end": 3800.75,
+      "text": "to maximize rather than minimize so"
+    },
+    {
+      "start": 3800.75,
+      "end": 3803.23,
+      "text": "rather than having a minus sign we have"
+    },
+    {
+      "start": 3803.23,
+      "end": 3806.19,
+      "text": "a plus sign so this is just you great in"
+    },
+    {
+      "start": 3806.19,
+      "end": 3807.789,
+      "text": "great in descents but for maximum a"
+    },
+    {
+      "start": 3807.789,
+      "end": 3809.63,
+      "text": "rather than a minimization and so we"
+    },
+    {
+      "start": 3809.63,
+      "end": 3811.63,
+      "text": "actually call this gradient Ascent it's"
+    },
+    {
+      "start": 3811.63,
+      "end": 3814.069,
+      "text": "really the same"
+    },
+    {
+      "start": 3814.069,
+      "end": 3817.95,
+      "text": "algorithm"
+    },
+    {
+      "start": 3817.95,
+      "end": 3820.99,
+      "text": "um so to figure out what thises gradient"
+    },
+    {
+      "start": 3820.99,
+      "end": 3823.829,
+      "text": "so in order to derive gradient descent"
+    },
+    {
+      "start": 3823.829,
+      "end": 3826.029,
+      "text": "um what you need to do is you know"
+    },
+    {
+      "start": 3826.029,
+      "end": 3828.069,
+      "text": "compute the partial derivatives of your"
+    },
+    {
+      "start": 3828.069,
+      "end": 3832.589,
+      "text": "objective function with respect to each"
+    },
+    {
+      "start": 3832.589,
+      "end": 3840.75,
+      "text": "of your parameters Thea right so um and"
+    },
+    {
+      "start": 3840.75,
+      "end": 3843.109,
+      "text": "if you actually compute this partial"
+    },
+    {
+      "start": 3843.109,
+      "end": 3847.99,
+      "text": "derivative um so if you take this"
+    },
+    {
+      "start": 3847.99,
+      "end": 3850.15,
+      "text": "formula this L of theta which is oh got"
+    },
+    {
+      "start": 3850.15,
+      "end": 3851.91,
+      "text": "that wrong too if you take this"
+    },
+    {
+      "start": 3851.91,
+      "end": 3854.39,
+      "text": "lowercase L of theta if you take the log"
+    },
+    {
+      "start": 3854.39,
+      "end": 3856.549,
+      "text": "likelihood of theta and if you take his"
+    },
+    {
+      "start": 3856.549,
+      "end": 3861.39,
+      "text": "derivative take his partial derivative"
+    },
+    {
+      "start": 3861.39,
+      "end": 3887.51,
+      "text": "with respect to Theta I um you find that"
+    },
+    {
+      "start": 3887.51,
+      "end": 3890.15,
+      "text": "see okay and um I don't know the"
+    },
+    {
+      "start": 3890.15,
+      "end": 3892.109,
+      "text": "derivation isn't tery complicated but"
+    },
+    {
+      "start": 3892.109,
+      "end": 3893.75,
+      "text": "but in the interest of so of saving you"
+    },
+    {
+      "start": 3893.75,
+      "end": 3896.43,
+      "text": "watch me write down the cover of black"
+    },
+    {
+      "start": 3896.43,
+      "end": 3898.91,
+      "text": "bols W math I just right down the final"
+    },
+    {
+      "start": 3898.91,
+      "end": 3901.069,
+      "text": "answer but the way you get this is just"
+    },
+    {
+      "start": 3901.069,
+      "end": 3903.51,
+      "text": "take this plug in the definition for X"
+    },
+    {
+      "start": 3903.51,
+      "end": 3905.15,
+      "text": "subscript Theta as a function of XI and"
+    },
+    {
+      "start": 3905.15,
+      "end": 3908.15,
+      "text": "and take derivatives and work for the"
+    },
+    {
+      "start": 3908.15,
+      "end": 3909.549,
+      "text": "algebra and it turns out it'll simplify"
+    },
+    {
+      "start": 3909.549,
+      "end": 3911.39,
+      "text": "down to this"
+    },
+    {
+      "start": 3911.39,
+      "end": 3913.829,
+      "text": "formula"
+    },
+    {
+      "start": 3913.829,
+      "end": 3917.87,
+      "text": "okay um and"
+    },
+    {
+      "start": 3917.87,
+      "end": 3921.39,
+      "text": "so what that gives you is that gradient"
+    },
+    {
+      "start": 3921.39,
+      "end": 3926.309,
+      "text": "Ascent is the following rule Theta J"
+    },
+    {
+      "start": 3926.309,
+      "end": 3945.75,
+      "text": "gets updated as Theta J Plus"
+    },
+    {
+      "start": 3945.75,
+      "end": 3948.67,
+      "text": "this"
+    },
+    {
+      "start": 3948.67,
+      "end": 3950.63,
+      "text": "okay does this look familiar to"
+    },
+    {
+      "start": 3950.63,
+      "end": 3953.51,
+      "text": "anyone do you remember seeing this"
+    },
+    {
+      "start": 3953.51,
+      "end": 3956.109,
+      "text": "formula at the last"
+    },
+    {
+      "start": 3956.109,
+      "end": 3958.789,
+      "text": "lecture right"
+    },
+    {
+      "start": 3958.789,
+      "end": 3960.269,
+      "text": "so when I worked out bash Graden descent"
+    },
+    {
+      "start": 3960.269,
+      "end": 3962.87,
+      "text": "for Le squares"
+    },
+    {
+      "start": 3962.87,
+      "end": 3964.67,
+      "text": "regression um I actually wrote down"
+    },
+    {
+      "start": 3964.67,
+      "end": 3966.349,
+      "text": "exactly the same I actually wrote down"
+    },
+    {
+      "start": 3966.349,
+      "end": 3967.99,
+      "text": "you know I actually wrote down exactly"
+    },
+    {
+      "start": 3967.99,
+      "end": 3969.43,
+      "text": "the same thing or maybe there was a"
+    },
+    {
+      "start": 3969.43,
+      "end": 3971.43,
+      "text": "minus sign and and those was also"
+    },
+    {
+      "start": 3971.43,
+      "end": 3974.029,
+      "text": "flipped but I actually had exactly the"
+    },
+    {
+      "start": 3974.029,
+      "end": 3975.63,
+      "text": "same learning rule last time for Le"
+    },
+    {
+      "start": 3975.63,
+      "end": 3977.67,
+      "text": "squares"
+    },
+    {
+      "start": 3977.67,
+      "end": 3980.51,
+      "text": "regression"
+    },
+    {
+      "start": 3980.51,
+      "end": 3981.95,
+      "text": "right so I don't know is this the same"
+    },
+    {
+      "start": 3981.95,
+      "end": 3983.63,
+      "text": "learning algorithm then so what's"
+    },
+    {
+      "start": 3983.63,
+      "end": 3986.43,
+      "text": "different how come I was making all that"
+    },
+    {
+      "start": 3986.43,
+      "end": 3988.23,
+      "text": "noise earlier about these regression"
+    },
+    {
+      "start": 3988.23,
+      "end": 3990.109,
+      "text": "being a bad idea for classification"
+    },
+    {
+      "start": 3990.109,
+      "end": 3991.91,
+      "text": "problems and then you know I did a bunch"
+    },
+    {
+      "start": 3991.91,
+      "end": 3993.069,
+      "text": "of math and I skipped some steps but but"
+    },
+    {
+      "start": 3993.069,
+      "end": 4003.109,
+      "text": "I'm sort of claiming that you end up"
+    },
+    {
+      "start": 4003.109,
+      "end": 4006.789,
+      "text": "algorithm right"
+    },
+    {
+      "start": 4006.789,
+      "end": 4009.15,
+      "text": "okay exactly right so is saying this is"
+    },
+    {
+      "start": 4009.15,
+      "end": 4010.47,
+      "text": "not the same right and the reason is in"
+    },
+    {
+      "start": 4010.47,
+      "end": 4013.15,
+      "text": "logistic"
+    },
+    {
+      "start": 4013.15,
+      "end": 4016.589,
+      "text": "regression this is different from before"
+    },
+    {
+      "start": 4016.589,
+      "end": 4019.789,
+      "text": "right the definition of this H subscript"
+    },
+    {
+      "start": 4019.789,
+      "end": 4022.029,
+      "text": "Theta of XI is not the same as the"
+    },
+    {
+      "start": 4022.029,
+      "end": 4024.349,
+      "text": "definition I was using in the previous"
+    },
+    {
+      "start": 4024.349,
+      "end": 4026.39,
+      "text": "lecture and in particular this is no"
+    },
+    {
+      "start": 4026.39,
+      "end": 4029.789,
+      "text": "longer Theta transvers this is not the"
+    },
+    {
+      "start": 4029.789,
+      "end": 4032.349,
+      "text": "linear function anymore this is um this"
+    },
+    {
+      "start": 4032.349,
+      "end": 4035.39,
+      "text": "is a logistic function of theta trans"
+    },
+    {
+      "start": 4035.39,
+      "end": 4037.99,
+      "text": "sign okay so even though this looks you"
+    },
+    {
+      "start": 4037.99,
+      "end": 4040.789,
+      "text": "know cosmetically similar even though"
+    },
+    {
+      "start": 4040.789,
+      "end": 4042.99,
+      "text": "this looks similar on the surface to um"
+    },
+    {
+      "start": 4042.99,
+      "end": 4045.15,
+      "text": "The bashra Descent r i derived last time"
+    },
+    {
+      "start": 4045.15,
+      "end": 4047.39,
+      "text": "for the squares regression this is"
+    },
+    {
+      "start": 4047.39,
+      "end": 4050.15,
+      "text": "actually a totally different learning"
+    },
+    {
+      "start": 4050.15,
+      "end": 4051.71,
+      "text": "algorithm okay and it turns out that"
+    },
+    {
+      "start": 4051.71,
+      "end": 4053.23,
+      "text": "there's actually no coincidence that you"
+    },
+    {
+      "start": 4053.23,
+      "end": 4055.349,
+      "text": "ended up with the same learning rule"
+    },
+    {
+      "start": 4055.349,
+      "end": 4056.71,
+      "text": "well and and we'll actually talk talk a"
+    },
+    {
+      "start": 4056.71,
+      "end": 4059.51,
+      "text": "bit more about this later when we talk"
+    },
+    {
+      "start": 4059.51,
+      "end": 4060.829,
+      "text": "about generalized linear models um but"
+    },
+    {
+      "start": 4060.829,
+      "end": 4062.23,
+      "text": "this is one of the this is one of the"
+    },
+    {
+      "start": 4062.23,
+      "end": 4063.67,
+      "text": "most elegant results of generalized"
+    },
+    {
+      "start": 4063.67,
+      "end": 4065.47,
+      "text": "learning models that we'll see later"
+    },
+    {
+      "start": 4065.47,
+      "end": 4068.109,
+      "text": "that even though we're using a different"
+    },
+    {
+      "start": 4068.109,
+      "end": 4069.589,
+      "text": "model you actually ended up with you"
+    },
+    {
+      "start": 4069.589,
+      "end": 4072.71,
+      "text": "know what looks like the same learning"
+    },
+    {
+      "start": 4072.71,
+      "end": 4076.19,
+      "text": "algorithm and there's actually no"
+    },
+    {
+      "start": 4076.19,
+      "end": 4079.15,
+      "text": "coincidence um"
+    },
+    {
+      "start": 4079.15,
+      "end": 4082.589,
+      "text": "one last comment as as part of a a"
+    },
+    {
+      "start": 4082.589,
+      "end": 4084.75,
+      "text": "learning process um over here you know I"
+    },
+    {
+      "start": 4084.75,
+      "end": 4087.269,
+      "text": "said I take the derivatives and I end up"
+    },
+    {
+      "start": 4087.269,
+      "end": 4090.39,
+      "text": "ended up with this line um I didn't want"
+    },
+    {
+      "start": 4090.39,
+      "end": 4093.43,
+      "text": "to um you make you sit through a long"
+    },
+    {
+      "start": 4093.43,
+      "end": 4095.71,
+      "text": "algebraic derivation but later today or"
+    },
+    {
+      "start": 4095.71,
+      "end": 4097.99,
+      "text": "later this week please do go home and"
+    },
+    {
+      "start": 4097.99,
+      "end": 4099.269,
+      "text": "look at the lecture notes uh where you I"
+    },
+    {
+      "start": 4099.269,
+      "end": 4101.39,
+      "text": "wrote out the entirety of this"
+    },
+    {
+      "start": 4101.39,
+      "end": 4103.749,
+      "text": "derivation in full and make sure you can"
+    },
+    {
+      "start": 4103.749,
+      "end": 4106.51,
+      "text": "follow every single step of how we take"
+    },
+    {
+      "start": 4106.51,
+      "end": 4110.829,
+      "text": "partial derivatives of this likelihood"
+    },
+    {
+      "start": 4110.829,
+      "end": 4113.47,
+      "text": "to get this formul over here okay um by"
+    },
+    {
+      "start": 4113.47,
+      "end": 4114.829,
+      "text": "the way for those you interested in you"
+    },
+    {
+      "start": 4114.829,
+      "end": 4116.99,
+      "text": "seriously monstering machine learning"
+    },
+    {
+      "start": 4116.99,
+      "end": 4118.47,
+      "text": "material um when we go home and look for"
+    },
+    {
+      "start": 4118.47,
+      "end": 4119.87,
+      "text": "the Leon Nails it it will actually be"
+    },
+    {
+      "start": 4119.87,
+      "end": 4121.95,
+      "text": "very easy for most of you to look for"
+    },
+    {
+      "start": 4121.95,
+      "end": 4123.43,
+      "text": "the Leon nails and read through every"
+    },
+    {
+      "start": 4123.43,
+      "end": 4124.669,
+      "text": "line and go yep that makes sense that"
+    },
+    {
+      "start": 4124.669,
+      "end": 4126.59,
+      "text": "makes sense that makes sense that makes"
+    },
+    {
+      "start": 4126.59,
+      "end": 4130.349,
+      "text": "sense and so say okay cool I see how you"
+    },
+    {
+      "start": 4130.349,
+      "end": 4132.309,
+      "text": "get this line um you want to make sure"
+    },
+    {
+      "start": 4132.309,
+      "end": 4134.03,
+      "text": "you really understand the material my"
+    },
+    {
+      "start": 4134.03,
+      "end": 4136.229,
+      "text": "concrete suggestion to you will be to go"
+    },
+    {
+      "start": 4136.229,
+      "end": 4138.99,
+      "text": "home refill the lecture knows and check"
+    },
+    {
+      "start": 4138.99,
+      "end": 4140.789,
+      "text": "every line and then to cover up the"
+    },
+    {
+      "start": 4140.789,
+      "end": 4143.47,
+      "text": "derivation and see if you can derive"
+    },
+    {
+      "start": 4143.47,
+      "end": 4144.91,
+      "text": "this yourself right so in general that's"
+    },
+    {
+      "start": 4144.91,
+      "end": 4146.91,
+      "text": "that's a usually good advice for"
+    },
+    {
+      "start": 4146.91,
+      "end": 4148.11,
+      "text": "studying technical material like machine"
+    },
+    {
+      "start": 4148.11,
+      "end": 4150.07,
+      "text": "learning which is if you work for a"
+    },
+    {
+      "start": 4150.07,
+      "end": 4152.349,
+      "text": "proof If you think you understood every"
+    },
+    {
+      "start": 4152.349,
+      "end": 4154.03,
+      "text": "line um the way to make sure you really"
+    },
+    {
+      "start": 4154.03,
+      "end": 4155.51,
+      "text": "understood it is to cover it up and see"
+    },
+    {
+      "start": 4155.51,
+      "end": 4156.709,
+      "text": "if you can rederive the entire thing"
+    },
+    {
+      "start": 4156.709,
+      "end": 4158.47,
+      "text": "yourself this is actually a great way"
+    },
+    {
+      "start": 4158.47,
+      "end": 4161.03,
+      "text": "for I did this a lot when I was trying"
+    },
+    {
+      "start": 4161.03,
+      "end": 4162.669,
+      "text": "to study very various pieces of machine"
+    },
+    {
+      "start": 4162.669,
+      "end": 4163.789,
+      "text": "learning you know Theory and various"
+    },
+    {
+      "start": 4163.789,
+      "end": 4166.03,
+      "text": "proofs and this is actually a great way"
+    },
+    {
+      "start": 4166.03,
+      "end": 4167.63,
+      "text": "to study which is cover up to cover up"
+    },
+    {
+      "start": 4167.63,
+      "end": 4169.43,
+      "text": "the derivations and see if you can do it"
+    },
+    {
+      "start": 4169.43,
+      "end": 4171.43,
+      "text": "yourself without looking at the original"
+    },
+    {
+      "start": 4171.43,
+      "end": 4173.63,
+      "text": "derivation"
+    },
+    {
+      "start": 4173.63,
+      "end": 4175.43,
+      "text": "okay"
+    },
+    {
+      "start": 4175.43,
+      "end": 4177.669,
+      "text": "um all"
+    },
+    {
+      "start": 4177.669,
+      "end": 4179.99,
+      "text": "right I probably won't get to Newton's"
+    },
+    {
+      "start": 4179.99,
+      "end": 4196.27,
+      "text": "method today I just want to say take one"
+    },
+    {
+      "start": 4196.27,
+      "end": 4198.31,
+      "text": "about um want to take one quick"
+    },
+    {
+      "start": 4198.31,
+      "end": 4200.35,
+      "text": "digression to talk about one more"
+    },
+    {
+      "start": 4200.35,
+      "end": 4210.27,
+      "text": "algorithm um which was this question"
+    },
+    {
+      "start": 4210.27,
+      "end": 4213.87,
+      "text": "earlier which is the perceptron"
+    },
+    {
+      "start": 4213.87,
+      "end": 4215.75,
+      "text": "algorithm right so um I'm not going to"
+    },
+    {
+      "start": 4215.75,
+      "end": 4216.79,
+      "text": "say a whole lot about the perceptron Alm"
+    },
+    {
+      "start": 4216.79,
+      "end": 4220.07,
+      "text": "but this is something that we'll come"
+    },
+    {
+      "start": 4220.07,
+      "end": 4224.03,
+      "text": "back to later later this quarter we talk"
+    },
+    {
+      "start": 4224.03,
+      "end": 4225.709,
+      "text": "about learning theory um so you know in"
+    },
+    {
+      "start": 4225.709,
+      "end": 4229.149,
+      "text": "logistic regression we said said that g"
+    },
+    {
+      "start": 4229.149,
+      "end": 4231.35,
+      "text": "of Z output the my hypothesis output"
+    },
+    {
+      "start": 4231.35,
+      "end": 4233.669,
+      "text": "values that were real numbers between 0"
+    },
+    {
+      "start": 4233.669,
+      "end": 4236.31,
+      "text": "and one um the question is what if you"
+    },
+    {
+      "start": 4236.31,
+      "end": 4239.35,
+      "text": "want to force G of Z to output value to"
+    },
+    {
+      "start": 4239.35,
+      "end": 4243.43,
+      "text": "Output either zero either or output"
+    },
+    {
+      "start": 4243.43,
+      "end": 4246.149,
+      "text": "either zero or one right so um the"
+    },
+    {
+      "start": 4246.149,
+      "end": 4255.39,
+      "text": "perceptron algorithm defines G of Z to"
+    },
+    {
+      "start": 4255.39,
+      "end": 4263.63,
+      "text": "this so the picture is theun is rather"
+    },
+    {
+      "start": 4263.63,
+      "end": 4265.59,
+      "text": "know G of Z now looks like the step"
+    },
+    {
+      "start": 4265.59,
+      "end": 4268.95,
+      "text": "function that that you're asking about"
+    },
+    {
+      "start": 4268.95,
+      "end": 4271.87,
+      "text": "earlier um and same as before we can use"
+    },
+    {
+      "start": 4271.87,
+      "end": 4274.39,
+      "text": "H substitute th of x equals g"
+    },
+    {
+      "start": 4274.39,
+      "end": 4275.95,
+      "text": "of Thea transvers X okay so it's"
+    },
+    {
+      "start": 4275.95,
+      "end": 4278.31,
+      "text": "actually everything's ex exactly the"
+    },
+    {
+      "start": 4278.31,
+      "end": 4282.35,
+      "text": "same as before except that g of Z is now"
+    },
+    {
+      "start": 4282.35,
+      "end": 4283.669,
+      "text": "the step function um it turns out"
+    },
+    {
+      "start": 4283.669,
+      "end": 4285.43,
+      "text": "there's this learning rule called the"
+    },
+    {
+      "start": 4285.43,
+      "end": 4287.229,
+      "text": "perceptual learning rule that's actually"
+    },
+    {
+      "start": 4287.229,
+      "end": 4289.35,
+      "text": "even the same as stochastic gradient"
+    },
+    {
+      "start": 4289.35,
+      "end": 4292.229,
+      "text": "Ascent for logistic"
+    },
+    {
+      "start": 4292.229,
+      "end": 4305.709,
+      "text": "regression and the learning rule is"
+    },
+    {
+      "start": 4305.709,
+      "end": 4308.03,
+      "text": "this okay so it looks you know just like"
+    },
+    {
+      "start": 4308.03,
+      "end": 4311.629,
+      "text": "the"
+    },
+    {
+      "start": 4311.629,
+      "end": 4314.07,
+      "text": "uh GR in sense rule um or really the"
+    },
+    {
+      "start": 4314.07,
+      "end": 4316.07,
+      "text": "stochastic gr sense rule for logistic"
+    },
+    {
+      "start": 4316.07,
+      "end": 4317.87,
+      "text": "regression um"
+    },
+    {
+      "start": 4317.87,
+      "end": 4319.83,
+      "text": "so this is very different flavor of"
+    },
+    {
+      "start": 4319.83,
+      "end": 4322.51,
+      "text": "algorithm than Le squares regression"
+    },
+    {
+      "start": 4322.51,
+      "end": 4324.11,
+      "text": "logistic regression um and in particular"
+    },
+    {
+      "start": 4324.11,
+      "end": 4326.79,
+      "text": "because it outputs only values that"
+    },
+    {
+      "start": 4326.79,
+      "end": 4328.91,
+      "text": "either zero or one turns out it's very"
+    },
+    {
+      "start": 4328.91,
+      "end": 4331.79,
+      "text": "difficult to endow this algorithm with"
+    },
+    {
+      "start": 4331.79,
+      "end": 4333.669,
+      "text": "probabilistic semantics um and this is"
+    },
+    {
+      "start": 4333.669,
+      "end": 4336.43,
+      "text": "again even though"
+    },
+    {
+      "start": 4336.43,
+      "end": 4340.149,
+      "text": "ohc um excuse"
+    },
+    {
+      "start": 4340.149,
+      "end": 4341.99,
+      "text": "me right there okay and even though this"
+    },
+    {
+      "start": 4341.99,
+      "end": 4343.709,
+      "text": "learning rule looks again looks"
+    },
+    {
+      "start": 4343.709,
+      "end": 4345.43,
+      "text": "cosmetically very similar to what we"
+    },
+    {
+      "start": 4345.43,
+      "end": 4346.83,
+      "text": "have logistic regression this is"
+    },
+    {
+      "start": 4346.83,
+      "end": 4349.11,
+      "text": "actually a very different type of"
+    },
+    {
+      "start": 4349.11,
+      "end": 4353.31,
+      "text": "learning role um than than the others"
+    },
+    {
+      "start": 4353.31,
+      "end": 4354.83,
+      "text": "that we seen in this class and so um"
+    },
+    {
+      "start": 4354.83,
+      "end": 4357.11,
+      "text": "because this is you know so such a"
+    },
+    {
+      "start": 4357.11,
+      "end": 4358.709,
+      "text": "simple learning algorithm it just"
+    },
+    {
+      "start": 4358.709,
+      "end": 4361.39,
+      "text": "compute Theta transpose X and then you"
+    },
+    {
+      "start": 4361.39,
+      "end": 4363.83,
+      "text": "threshhold and you outut 0o one this is"
+    },
+    {
+      "start": 4363.83,
+      "end": 4366.27,
+      "text": "um relatively simpler algor than"
+    },
+    {
+      "start": 4366.27,
+      "end": 4367.91,
+      "text": "logistic regression I think and um when"
+    },
+    {
+      "start": 4367.91,
+      "end": 4369.91,
+      "text": "we talk about learning theory later in"
+    },
+    {
+      "start": 4369.91,
+      "end": 4371.669,
+      "text": "this class the Simplicity of this"
+    },
+    {
+      "start": 4371.669,
+      "end": 4374.79,
+      "text": "algorithm will let us come back and use"
+    },
+    {
+      "start": 4374.79,
+      "end": 4378.59,
+      "text": "it as a as a building block okay but um"
+    },
+    {
+      "start": 4378.59,
+      "end": 4381.59,
+      "text": "that's I want to say about the Z for"
+    }
+  ]
+}

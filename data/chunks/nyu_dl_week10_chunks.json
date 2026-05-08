@@ -1,0 +1,1381 @@
+[
+  {
+    "chunk_id": "nyu_dl_week10_chunk_000",
+    "video_id": "nyu_dl_week10",
+    "start_time": 0.0,
+    "end_time": 45.0,
+    "text": "the recording is running and so as you can see today we have a guest lecturer we have a shun mistre Asian misra is a research scientist at Facebook AI research fair where he works on computer vision and machine learning his research interest is in reducing the need for supervision in visual learning I finished his PhD at the robotics Institute at the Carnegie Mellon University where he worked with Martin help Hobart and Abhinav Gupta his PhD thesis was about I was titled visual learning with minimal human supervision for which he received the SCS distinguished dissertation award so in"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_001",
+    "video_id": "nyu_dl_week10",
+    "start_time": 35.0,
+    "end_time": 80.0,
+    "text": "thesis was about I was titled visual learning with minimal human supervision for which he received the SCS distinguished dissertation award so in 2018 so with less how to say with further ado I don't have to speak English let's get we cannot even have the round of applause you know can we have like in the chat round of applause for our speaker so everyone my name is Isha I'll be talking about self supervised learning in computer vision today and a lot of the focus is actually going to be sort of more on the discriminative style of approaches and it's not really going to be on generative set of approaches and I sort of go about it more and more as I go into my talk so this sort of success"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_002",
+    "video_id": "nyu_dl_week10",
+    "start_time": 70.0,
+    "end_time": 115.0,
+    "text": "discriminative style of approaches and it's not really going to be on generative set of approaches and I sort of go about it more and more as I go into my talk so this sort of success story for representation learning or like computer vision so far has been clearly this sort of pre training step or the imagenet moment of like computer vision so what has worked really well is that when we have a large label data set like image net we can learn a representation by performing an image classification task on this large data set and what is very useful is not just performing this particular task at hand but to take these representations that you learn and they're to use them for downstream tasks where you may not have enough label data and this has worked really really well and sort of them also"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_003",
+    "video_id": "nyu_dl_week10",
+    "start_time": 105.0,
+    "end_time": 150.0,
+    "text": "but to take these representations that you learn and they're to use them for downstream tasks where you may not have enough label data and this has worked really really well and sort of them also standard recipe of success now the so this really involves collecting a large dataset of supervisor images and you need to get a bunch of these large diverse images and label them with a bunch of large diverse concepts so let's try to first see whether we can sort of collect these labels and what are sort of the difficulties in doing so so the image net data set is a very sort of small data set in the grander scheme of things"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_004",
+    "video_id": "nyu_dl_week10",
+    "start_time": 140.0,
+    "end_time": 185.0,
+    "text": "difficulties in doing so so the image net data set is a very sort of small data set in the grander scheme of things for example image net just has 14 million images and it has roughly 22,000 concepts and just labeling this entire thing if you look at the amount of effort that was spent it's about 22 human years to label this entire dataset for contrast a lot of people started looking at these alternative supervision approaches where you are predicting something like not really a very sort of pristine nice label but something which is more easy to get for example predict like hashtags or to take GPS locations of images or what we're going to really focus on in this lecture is going to be"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_005",
+    "video_id": "nyu_dl_week10",
+    "start_time": 175.0,
+    "end_time": 220.0,
+    "text": "is more easy to get for example predict like hashtags or to take GPS locations of images or what we're going to really focus on in this lecture is going to be about Excel supervised learning which is going to be using the data itself so the first question that I always like to sort of start out with is why why don't you just like get labels for all your data why do you even want to invent this entire line of research why not just get all the labels so I did this small exercise where I plotted the amount of supervision that we have for vision data sets so what I did is basically I'd looked at all the images which have bounding boxes and so these are images where you know what kind of concepts are"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_006",
+    "video_id": "nyu_dl_week10",
+    "start_time": 210.0,
+    "end_time": 255.0,
+    "text": "sets so what I did is basically I'd looked at all the images which have bounding boxes and so these are images where you know what kind of concepts are in the image and you also have a box drawn around them and this is sort of the standard thing to do for something like an object detection model so if you look at all the data sets in vision that have bounding boxes you'll get roughly about a million or so images now if you relax this constraint and you say that okay I don't really care about where the object is located all I care about is what objects are located what objects are present in the image and so if you relax that constraint you immediately get an order of magnitude more data so you basically get about that yeah about 40 million images or so now if you further sort of relax this constraint and you say that I don't"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_007",
+    "video_id": "nyu_dl_week10",
+    "start_time": 245.0,
+    "end_time": 290.0,
+    "text": "get an order of magnitude more data so you basically get about that yeah about 40 million images or so now if you further sort of relax this constraint and you say that I don't really care about this image level supervision either all I care about is internet internet pictures that are present you get basically about five orders of magnitude more amount of data and so if you look at this plot now you can see immediately that the amount of data that we have which is labeled even at a bounding box or an image level is basically nothing compared to what images exist on in the internet scale and I haven't really forgotten these images like forgotten the bars on the left hand side it's just that they completely disappear and you really need"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_008",
+    "video_id": "nyu_dl_week10",
+    "start_time": 280.0,
+    "end_time": 325.0,
+    "text": "images exist on in the internet scale and I haven't really forgotten these images like forgotten the bars on the left hand side it's just that they completely disappear and you really need to make this plot something like a log plot to actually even get these bars to appear so now of course internet photos do not represent everything about the world there are things that really require motion or things that really require other physical senses to learn so in the real world there are going to be far more things that you actually experience far more sensory inputs that you can get and it's really hard to obtain labels for all this data and again to put things in perspective imagenet which is just for teens in images and with a very small number of concepts that you have required a lot of"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_009",
+    "video_id": "nyu_dl_week10",
+    "start_time": 315.0,
+    "end_time": 360.0,
+    "text": "obtain labels for all this data and again to put things in perspective imagenet which is just for teens in images and with a very small number of concepts that you have required a lot of time the label so clearly labeling is not really going to scale to either all of Internet photos or even the real world so the other sort of problem with labeling is that for complex concepts like video it's just really hard to sort of scale labeling the second problem is that rare concepts sort of are really hard to label so for example this is one of the popular image data sets called label me and over here we can see that if you look at the kinds of concepts you observe there are a lot of concepts that"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_010",
+    "video_id": "nyu_dl_week10",
+    "start_time": 350.0,
+    "end_time": 395.0,
+    "text": "hard to label so for example this is one of the popular image data sets called label me and over here we can see that if you look at the kinds of concepts you observe there are a lot of concepts that are so rare that you're going to have the label a lot of data to even get a few instances of these concepts so in this data set 10% of the classes account for more than 93% of the data which already tells you that in order to sort of scale labeling to like more and more concepts you'll need a lot and lot more data with very diminishing returns so this is sort of the standard long-tailed problem and of course pre-training is not right always the right thing to do for example if you just completely change your domain to now move it to say medical"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_011",
+    "video_id": "nyu_dl_week10",
+    "start_time": 385.0,
+    "end_time": 430.0,
+    "text": "and of course pre-training is not right always the right thing to do for example if you just completely change your domain to now move it to say medical imaging it's not clear whether a missionary training is the right sort of thing for this task or if you do not know sort of the downstream tasks a priority how do you collect a big data set and how do you do this entire free training a downstream task fine evening recipe so self supervised loading sort of comes in between and it tries to give you an alternate way to pre train your models or to learn from data or learn from experiences without requiring pristine supervision so in this case so there are sort of two simple definitions that you can come up with for self"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_012",
+    "video_id": "nyu_dl_week10",
+    "start_time": 420.0,
+    "end_time": 465.0,
+    "text": "from experiences without requiring pristine supervision so in this case so there are sort of two simple definitions that you can come up with for self supervised learning the first is more from like a discriminative or like a supervised training perspective so in imagenet for example you have an image and you can it can be classified into one of thousand levels so self to provide everything can be thought of as a way to obtain labels from the data using an automatic process so that automatic process does not really require a lot of human intervention and so once you get these automatic labels now you can sort of go ahead and train your model with these labels the other way of thinking about self"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_013",
+    "video_id": "nyu_dl_week10",
+    "start_time": 455.0,
+    "end_time": 500.0,
+    "text": "and so once you get these automatic labels now you can sort of go ahead and train your model with these labels the other way of thinking about self supervised learning is that it's really a prediction problem where you are trying to predict a part of the data from the other parts of the data so you have some observed data and you have some hidden data and you can now formulate a task where given the observed data you try to predict either the hidden data or some property of the hidden data and so pretty much a lot of sort of the cell supervised techniques can be viewed in this particular framework so the term sort of self supervisor thing I really like to give this analogy which is from Virginia Tessa"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_014",
+    "video_id": "nyu_dl_week10",
+    "start_time": 490.0,
+    "end_time": 535.0,
+    "text": "framework so the term sort of self supervisor thing I really like to give this analogy which is from Virginia Tessa so where she sort of tries to distinguish between the three terms supervised unsupervised and self supervised and so supervised learning you have say an input cow and you're given the exact target for it which is say going to be the label cow and unsupervised learning you're given this input and it's not clear what really the entire target is what exactly is the objective function or so on cell supervised learning is sort of the term which is preferred now more and more and the idea is that the label really comes from either a co-occurring mortality or"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_015",
+    "video_id": "nyu_dl_week10",
+    "start_time": 525.0,
+    "end_time": 570.0,
+    "text": "supervised learning is sort of the term which is preferred now more and more and the idea is that the label really comes from either a co-occurring mortality or co-occurring part of the data itself so really all of the power is in the data and you're really trying to predict sort of predict either parts of it are properties of the data so some very sort of standard and successful examples of this are safe either the word to that model they're given this say a sentence for example the cat sits on the mat you are given a part of the sentence that you observe so which is in this case labeled as the context or the history and then you have a part of the sentence of word in this case which is not"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_016",
+    "video_id": "nyu_dl_week10",
+    "start_time": 560.0,
+    "end_time": 605.0,
+    "text": "are given a part of the sentence that you observe so which is in this case labeled as the context or the history and then you have a part of the sentence of word in this case which is not observed which you sort of hide from this entire model and given this context you ask the model to predict this target and so you have yourself supervisor objective you can minimize it in a particular fashion and now you will learn a representation for your input data and word to back has been I mean it has actually shown a lot of promise in the riot II of applications and this entire sort of predictive model has inspired a lot of work in computer vision as well the success of Cell supervisor thing is sort of undebatable"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_017",
+    "video_id": "nyu_dl_week10",
+    "start_time": 595.0,
+    "end_time": 640.0,
+    "text": "entire sort of predictive model has inspired a lot of work in computer vision as well the success of Cell supervisor thing is sort of undebatable in natural language processing so in 2018 there was this really successful model called pert which basically is a form of a mast or two encoder and this modular sort of revolutionized the amount of things that you can do in NLP with limited amount of data and a lot of people call this the image net moment of energy so in this talk we'll sort of again to motivate why we want to use self supervised learning we are really going to focus on sort of how you can look at data and you can use observations and"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_018",
+    "video_id": "nyu_dl_week10",
+    "start_time": 630.0,
+    "end_time": 675.0,
+    "text": "motivate why we want to use self supervised learning we are really going to focus on sort of how you can look at data and you can use observations and interactions of the data to formulate self supervised tasks how you can leverage multiple modalities and I'll talk a little bit more about what this term modalities means or structure in the data to sort of learn representations so let's move on to the context of computer vision and I'll sort of now try to define things that I've been talking about in a slightly high level in more concrete fashion first question so cell supervised learning is basically just unsupervised learning right yes I mean yes yes I mean"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_019",
+    "video_id": "nyu_dl_week10",
+    "start_time": 665.0,
+    "end_time": 710.0,
+    "text": "question so cell supervised learning is basically just unsupervised learning right yes I mean yes yes I mean basically the sort of main differences like unsupervised is sort of very poorly defined term so there is supervised but what is unsupervised so for example the analogy given by Jeetendra malloc is there is a cat but there is no category called on cat so that's the reason to sort of come like refer this term more and more that it's really about using the data or the properties of the data itself to come up with supervision so that's why self"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_020",
+    "video_id": "nyu_dl_week10",
+    "start_time": 700.0,
+    "end_time": 745.0,
+    "text": "properties of the data itself to come up with supervision so that's why self super so for my so Jason is a subset yes I guess yes I mean I guess you know my reason for Konya this is that the algorithms the algorithms are essentially the same as supervised learning algorithms with some modification as because you're kind of training the system to learn part of its input from another part of the input so it's very similar to supervised many many ways except that you need to handle uncertainty better and the negative category if you want may be much larger which is kind of an issue but unsupervised running is really not very"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_021",
+    "video_id": "nyu_dl_week10",
+    "start_time": 735.0,
+    "end_time": 780.0,
+    "text": "uncertainty better and the negative category if you want may be much larger which is kind of an issue but unsupervised running is really not very well defined so surprise running is kind of a very different concept it's not entirely clear it's a subset of so moving ahead and now sort of try to talk about self supervised learning more in the context of vision so envision a lot of these sort of prediction problems have been framed as pretext tasks so lot of the vision algorithms sort of and"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_022",
+    "video_id": "nyu_dl_week10",
+    "start_time": 770.0,
+    "end_time": 815.0,
+    "text": "lot of these sort of prediction problems have been framed as pretext tasks so lot of the vision algorithms sort of and this term comes more from 2015 where from this particular paper by Carl Tosh and the idea here was that you have a text task or the sort of task that you really care about at the end like image classification but of course you don't have a lot of data for that or you so you want to solve a task before going to the real task so a pretext task so this pretext task is a prediction task that you are solving but it's not often the real task that you really care about so you solve this particular task to learn a representation and then you finally"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_023",
+    "video_id": "nyu_dl_week10",
+    "start_time": 805.0,
+    "end_time": 850.0,
+    "text": "you are solving but it's not often the real task that you really care about so you solve this particular task to learn a representation and then you finally get your downstream tasks where you want to use this representation to perform something meaningful so these pretext tasks are sort of funny they're often fairly like people got very creative with sort of coming up with these pretext asks so let's look at how you can define a bunch of three text tasks and what each of these pretext tasks is trying to do and so you can use either images video video and sound when you're trying to do these things and in each case you'll have a bunch of observe data and you'll try to either predict hidden data or you try to predict a"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_024",
+    "video_id": "nyu_dl_week10",
+    "start_time": 840.0,
+    "end_time": 885.0,
+    "text": "either images video video and sound when you're trying to do these things and in each case you'll have a bunch of observe data and you'll try to either predict hidden data or you try to predict a property of type in beta and this sort of distinguishes a bunch of approaches so let's look at how you can use images to define something like a pretext task so the paper that introduced this term pretext task came up with this a fairly sort of funny method but what you do is you take say two image patches basically take the network and you ask a network to predict what is the relative position of each patch with respect to the other"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_025",
+    "video_id": "nyu_dl_week10",
+    "start_time": 875.0,
+    "end_time": 920.0,
+    "text": "you take say two image patches basically take the network and you ask a network to predict what is the relative position of each patch with respect to the other so in this case say I first sample a blue patch and now I sample another Dutch so what I do is I basically feed forward both of these patches through a cornet and I have a classifier that is going to solve the a2 a classification problem and how do I get the label for this classification problem well I just look at where the red patch is located with respect to the blue patch and that's it so at the end of it you're just predicting you're just solving an eight-way classification task you got your labels by basically doing this sort of exploiting this property of the input data and that's it now you you"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_026",
+    "video_id": "nyu_dl_week10",
+    "start_time": 910.0,
+    "end_time": 955.0,
+    "text": "eight-way classification task you got your labels by basically doing this sort of exploiting this property of the input data and that's it now you you can use this to basically train and this entire con that sort of to sort of look at it in a different way it's only solving a very small classification problem it's just solving basically eight possible locations sort of a problem surprisingly enough doing this sort of pretext task actually learns something fairly reasonable so the one way to look at what this network has learned is to look at what it considers our nearest neighbors in its face with"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_027",
+    "video_id": "nyu_dl_week10",
+    "start_time": 945.0,
+    "end_time": 990.0,
+    "text": "fairly reasonable so the one way to look at what this network has learned is to look at what it considers our nearest neighbors in its face with representation so to explain this plot a little bit more on the left-hand side you have the input patch so you feed forward this input patch through that CNN and you basically extract a bunch of patches on the data on your data set so in this case imagine it and you compute feature representations for each of these patches now for the particular input patch that you sent through the content you compute the nearest neighbors of all the patches from the data set and you can use three different networks to compute the feature representations so the first column is the relative positioning free text task and the second column is basically a"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_028",
+    "video_id": "nyu_dl_week10",
+    "start_time": 980.0,
+    "end_time": 1025.0,
+    "text": "neighbors of all the patches from the data set and you can use three different networks to compute the feature representations so the first column is the relative positioning free text task and the second column is basically a randomly initialized Alex net and then the third case is third column is basically an image net pre-trained Alex net so if you sort of look at what this relative positioning task is capturing it's really able to find very good patches patches that are identical or very close to the input patch and you also see that it's for example like in the row of the cat so that's the fourth row you can see that it's actually able to figure out it's slightly invariant to say the colors so the input carrot was black and white but it's actually able to pick out cats which are not just"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_029",
+    "video_id": "nyu_dl_week10",
+    "start_time": 1015.0,
+    "end_time": 1060.0,
+    "text": "the row of the cat so that's the fourth row you can see that it's actually able to figure out it's slightly invariant to say the colors so the input carrot was black and white but it's actually able to pick out cats which are not just black and white so it's really doing something it's trying it's at least able to reason about patches as a whole so why should this representation do anything which is semantic so the nearest neighbor visualization technique is good at telling you what this representation space has captured so in this case what we can confidently say is that this relative patch representation has learned to sort of associate a bunch of these local patches together local patches that have roughly the same appearance"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_030",
+    "video_id": "nyu_dl_week10",
+    "start_time": 1050.0,
+    "end_time": 1095.0,
+    "text": "has learned to sort of associate a bunch of these local patches together local patches that have roughly the same appearance and so because it is able to reason about these local patches maybe it's actually able to reason about an image because image can sort of be viewed as a bunch of local patches together so it's able to sort of put these patches in one the now people have like I said people have gotten fairly creative with the kinds of pretext tasks they do so another sort of popular pretext task is predicting rotations of an image and this so this task is very straightforward you have an image you"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_031",
+    "video_id": "nyu_dl_week10",
+    "start_time": 1085.0,
+    "end_time": 1130.0,
+    "text": "another sort of popular pretext task is predicting rotations of an image and this so this task is very straightforward you have an image you can either apply a rotation of 0 degrees 90 degrees 180 degrees or 270 degrees to it and basically you send in that particular image after applying a rotation and you ask the network to predict what was the exact rotation applied to the image and it just solves a four-way classification problem so it predicts basically either if the rotation is 0 90 180 or 270 and this 3 text task is actually one of the most popular pretext tasks now because it's so easy to implement you basically just"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_032",
+    "video_id": "nyu_dl_week10",
+    "start_time": 1120.0,
+    "end_time": 1165.0,
+    "text": "rotation is 0 90 180 or 270 and this 3 text task is actually one of the most popular pretext tasks now because it's so easy to implement you basically just take an image it's very very simple you don't really need to sample too many patches or solve any sort of complicated thing it's a very standard architecture and you can solve this let's become fairly popular now so the network is going to be basically trained so the feature are trained in order to solve this problem right so the output will be somehow dependent on the specific task someone is going to be peaking somehow right yes so this is again this is a pretext task so we are not really interested in predicting the rotations of an image we are just using this task as a proxy to learn some features so that on the downstream tasks say when"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_033",
+    "video_id": "nyu_dl_week10",
+    "start_time": 1155.0,
+    "end_time": 1200.0,
+    "text": "pretext task so we are not really interested in predicting the rotations of an image we are just using this task as a proxy to learn some features so that on the downstream tasks say when someone gives us a thousand labels images of a cat we can then use this pre trained feature representation to do that particular task so these pretext tests are often really not going to make a lot of semantic sense and that's problem like that sort of the reason for calling them pretext because you have a downstream task where you actually have some semantics or some Thanks why would the predicting rotations give us any sort of useful representations yes so in fact when this"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_034",
+    "video_id": "nyu_dl_week10",
+    "start_time": 1190.0,
+    "end_time": 1235.0,
+    "text": "Thanks why would the predicting rotations give us any sort of useful representations yes so in fact when this paper came out this was the question of many many people and it was my question as well empirically this actually works really and sort of my intuition for this has basically been that in order to predict what sort of the rotation of an object is it needs to it roughly understand what the boundaries or what sort of some concepts in this image are for example to predict that this particular image is rotated by 180 degrees it needs to at least recognize a sort of segregate the sky from like the sand or the sky from"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_035",
+    "video_id": "nyu_dl_week10",
+    "start_time": 1225.0,
+    "end_time": 1270.0,
+    "text": "to predict that this particular image is rotated by 180 degrees it needs to at least recognize a sort of segregate the sky from like the sand or the sky from the water or at least understand that for a tree the leaves are generally not below sort of the bar trees don't go grow like downwards they grow upwards so it sort of needs to reason about some things implicitly it's not super clear what it really needs to do but this task empirically works very well has then only been tried or works as a task with like a discrete classification or has it has been tried on like a continuous scale of angles at which the image is rotated"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_036",
+    "video_id": "nyu_dl_week10",
+    "start_time": 1260.0,
+    "end_time": 1305.0,
+    "text": "like a discrete classification or has it has been tried on like a continuous scale of angles at which the image is rotated yes so you can do both versions so you can I mean you can sort of increase the number of Bin's you want and as you basically make it very very large approaching more of a regression problem where you have a continuous variable in practice these four sort of angles were pretty well increasing and there is a question about the previous slide how does the nearest neighborhood work in this context do you run every patch each patch through the CNN yes so this is just for visualization this is just for sort of understanding so it although it"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_037",
+    "video_id": "nyu_dl_week10",
+    "start_time": 1295.0,
+    "end_time": 1340.0,
+    "text": "this context do you run every patch each patch through the CNN yes so this is just for visualization this is just for sort of understanding so it although it is like sort of expensive to compute this it gives you a very good idea of what the representation has learned so what the authors did was basically extract a bunch of patches from each image for roughly ten to nine patches and so on a small set of images so I think in this case it was they fifty two hundred thousand images and then you basically just compute nearest neighbors on those those patches of that's good so another task which is"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_038",
+    "video_id": "nyu_dl_week10",
+    "start_time": 1330.0,
+    "end_time": 1375.0,
+    "text": "that's good so another task which is also very popular is called colorization so in this case given a grayscale image you basically try to predict the colors of that image so you can really formulate this task for any image you can take an image you can remove its color and you can ask a network to basically predict the color from this black and white or sort of grayscale image and this task by itself is not as it's actually useful in some respect so a lot of like old movies when you sort of see them colorized select movies short and say the 40s or 30s when there"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_039",
+    "video_id": "nyu_dl_week10",
+    "start_time": 1365.0,
+    "end_time": 1410.0,
+    "text": "it's actually useful in some respect so a lot of like old movies when you sort of see them colorized select movies short and say the 40s or 30s when there was not a lot of color technology you can actually have this task really sort of be applied there so in some way it actually is more useful than other pretext tasks and why does this task learn something meaningful well it needs to sort of recognize that trees are green it needs to understand what sort of object categories it is in order to color it sadly well and so in practice this has now sort of been extended to the video domain and there are a lot of follow-up works on sort of polarization itself if interesting because I think"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_040",
+    "video_id": "nyu_dl_week10",
+    "start_time": 1400.0,
+    "end_time": 1445.0,
+    "text": "this has now sort of been extended to the video domain and there are a lot of follow-up works on sort of polarization itself if interesting because I think the colour mapping is not that it's not deterministic right I mean not a mistake yes so several several there are several possible true solutions right yes so so the initial paper was basically sort of proposing a deterministic mapping so you were solving either a classification or the regression problem so you only could have say a blue colored umbrella and you could never sort of predict a gray color and so what ended up happening was for a lot of categories which have different kinds of colors so for example let's"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_041",
+    "video_id": "nyu_dl_week10",
+    "start_time": 1435.0,
+    "end_time": 1480.0,
+    "text": "and so what ended up happening was for a lot of categories which have different kinds of colors so for example let's assume say you have a ball and that ball can appear either in the red blue or green colors the netbook would sort of predict that to be great because I mean that sort of the mean of all of these things so that's the best it can do there was follow-up work from David Foresight's group in UIUC which tried to sort of come up with variational auto-encoders so you actually had a latent variable would have diverse colorization so in practice you can basically do approaches like that so you can actually have now a green colored ball and because you're doing that for the entire scene you can actually have consistent colorings of the entire scene yeah yeah that's what I"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_042",
+    "video_id": "nyu_dl_week10",
+    "start_time": 1470.0,
+    "end_time": 1515.0,
+    "text": "practice you can basically do approaches like that so you can actually have now a green colored ball and because you're doing that for the entire scene you can actually have consistent colorings of the entire scene yeah yeah that's what I think we will be we've been talking with yarn or whenever we have like some mapping that goes from one to many and then we should choose like a little variable model which allow us to choose a multiple solution given that we have the same input so if I think the reason why like people did not really focus on a lot on that particular aspect in this case was at least back in the day one it was not here what was working and what was not and second this was still a pretext task and people were not really"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_043",
+    "video_id": "nyu_dl_week10",
+    "start_time": 1505.0,
+    "end_time": 1550.0,
+    "text": "case was at least back in the day one it was not here what was working and what was not and second this was still a pretext task and people were not really concerned about the colorization quality people were more concerned about representation quality but I think now a lot of us understand that both of them are fairly sort of tied to one another that you really need to have this sort of non-deterministic mapping to get something more out of the data scene thanks and finally so this is an apologize for this picture it's from the paper I think it was the resolution but so this is another task which is like context auto-encoders so the idea is basically borrowed pretty much from say board to back so you hide a particular"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_044",
+    "video_id": "nyu_dl_week10",
+    "start_time": 1540.0,
+    "end_time": 1585.0,
+    "text": "paper I think it was the resolution but so this is another task which is like context auto-encoders so the idea is basically borrowed pretty much from say board to back so you hide a particular part of the image and now given the surrounding part of the image you need to predict what was hidden so it's really sort of the fill in the blanks task and why should this work well it's at least trying to reason about what objects are present so cars can run on roads or like buildings are basically consist consists of like windows and closer to the ground they're supposed to have doors and so on so it needs to learn something more about like the implicit structure of the data by performing this task so this was just"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_045",
+    "video_id": "nyu_dl_week10",
+    "start_time": 1575.0,
+    "end_time": 1620.0,
+    "text": "have doors and so on so it needs to learn something more about like the implicit structure of the data by performing this task so this was just about images and now I'll sort of talk about what are the other tasks that you can do in video so in video the sort of main source of supervision is this notion of sequential 'ti of frames so frames basically have an inherent order in them and you want to sort of use that order to get something for example say predict the order of frames or fill in the blanks and a bunch of sort of other pretext tasks that are all dependent on sequential nature so here I'll sort of talk about one of"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_046",
+    "video_id": "nyu_dl_week10",
+    "start_time": 1610.0,
+    "end_time": 1655.0,
+    "text": "the blanks and a bunch of sort of other pretext tasks that are all dependent on sequential nature so here I'll sort of talk about one of the works that I did in 2016 which was about predicting the temporally correct or incorrect order of frames this is very much inspired from earlier that yawn and basically others stayed on sort of sequential ordering of frames through contrast of the thing and I'll talk about those towards the end when I actually talk about contrast observing so in this particular work we were very much inspired by like the pretext asks again and we saw the binary classification problem so given a bunch of frames we extract three frames and if we extract them in the right order we"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_047",
+    "video_id": "nyu_dl_week10",
+    "start_time": 1645.0,
+    "end_time": 1690.0,
+    "text": "again and we saw the binary classification problem so given a bunch of frames we extract three frames and if we extract them in the right order we label them plus one and if we shuffle them basically we label them as zero and so now we need to solve a binary classification problem to predict whether something is shuffled or not and the reason this sort of works is because so given three frames or let's think of them as basically start middle and end this network really tries to learn given a start and end point is this point of valid sort of interpolation of the start and end points so it really tries to sort of interpolate smoothly these features"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_048",
+    "video_id": "nyu_dl_week10",
+    "start_time": 1680.0,
+    "end_time": 1725.0,
+    "text": "learn given a start and end point is this point of valid sort of interpolation of the start and end points so it really tries to sort of interpolate smoothly these features given these given this visual input so the network is fairly straightforward it's a sort of triplets Iommi's network you have three frames you feed forward each one of them independently you concatenate the features that you obtain from these three frames and the new perform a binary classification problem so you predict whether this thing is correct or incorrect whether it's basically a shuffle does not shuffled you get up you can basically minimize this with cross-entropy loss and you can train"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_049",
+    "video_id": "nyu_dl_week10",
+    "start_time": 1715.0,
+    "end_time": 1760.0,
+    "text": "not shuffled you get up you can basically minimize this with cross-entropy loss and you can train so again like I had mentioned earlier nearest neighbor is sort of a good way to visualize what these networks are learning so we further player work can be basically looked at the nearest neighbors of frames so on the left hand side you have a query frame and you feed forward that frame you get a feature and then you basically look at the nearest neighbors in that feature representation so we will do that for image net shuffle and learn and then random features so what you observe is there's sort of sort of very stark difference between what image net shuffle and random give you so"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_050",
+    "video_id": "nyu_dl_week10",
+    "start_time": 1750.0,
+    "end_time": 1795.0,
+    "text": "and learn and then random features so what you observe is there's sort of sort of very stark difference between what image net shuffle and random give you so the first row if you look at the sort of gym scene emission it is really good at figuring out that it's a gym scene it's the nearest neighbor it retrieves looks is very different from the initial scene that we like the initial image that we've given so like the floor is much better late in the query the floor was actually black and the exact exercise being performed is not really the same but imagenet is sort of really good at collapsing this entire semantic category and really sort of bringing in various different gem scenes together close by"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_051",
+    "video_id": "nyu_dl_week10",
+    "start_time": 1785.0,
+    "end_time": 1830.0,
+    "text": "but imagenet is sort of really good at collapsing this entire semantic category and really sort of bringing in various different gem scenes together close by in the representation space the same thing sort of goes for the row below so can you have an outdoor scene and emission it is immediately able to sort of pick up on that outdoor part of it it's able to figure out there is grass and so on and it sort of brings these two points together in the feature space if you look at say the sort of rightmost the nearest neighbors retrieve by the random network you see that it really focuses on the color so in the top row it's a sort of focusing on the black floor it's really looking at maybe it's sort of the black color in this image"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_052",
+    "video_id": "nyu_dl_week10",
+    "start_time": 1820.0,
+    "end_time": 1865.0,
+    "text": "focuses on the color so in the top row it's a sort of focusing on the black floor it's really looking at maybe it's sort of the black color in this image and that's how it's written against nearest neighbor now if you look at the shuffle and learn the nearest neighbors they're fairly odd it's not immediately clear whether it's focusing on the color or whether it's focusing on that entire semantic concept and so on sort of further inspection and after looking at a lot of these examples we figured out that it was really looking at the pose of the person so if you look at in the top row the person is doing sort of an upset is upside down and that's sort of the nearest neighbor retrieved as well and in the second row also the person is sort of has their foot and of like has a"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_053",
+    "video_id": "nyu_dl_week10",
+    "start_time": 1855.0,
+    "end_time": 1900.0,
+    "text": "upset is upside down and that's sort of the nearest neighbor retrieved as well and in the second row also the person is sort of has their foot and of like has a feet in the particular way and it's really trying to sort of get there with its nearest neighbor and it's sort of ignoring the entire stream it's not really focused on the background and when we were thinking about this why would a netbook even try to do something of this sort well we looked we thought back to our pretext asked so the pretext asked was predicting the order or basically predicting whether things are in the right order or not and to do this you really need to focus on what is moving in the same or sort of the in this case the people so if you focus on the background you will never be able to"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_054",
+    "video_id": "nyu_dl_week10",
+    "start_time": 1890.0,
+    "end_time": 1935.0,
+    "text": "in the right order or not and to do this you really need to focus on what is moving in the same or sort of the in this case the people so if you focus on the background you will never be able to answer this question fare thee well because well the background doesn't change a lot between three frames that had taken sort of close by in a video the only thing that sort of changes is the person or the sort of things that are moving in that video so sort of accidentally we basically trained a network that was really trying to sort of look at things that are moving and then ended up focusing on the pose of this pose of people now of course this is my interpretation we wanted to verify this quantitatively so what we did is we took"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_055",
+    "video_id": "nyu_dl_week10",
+    "start_time": 1925.0,
+    "end_time": 1970.0,
+    "text": "people now of course this is my interpretation we wanted to verify this quantitatively so what we did is we took our representation and we fine-tuned it on this task of human key point estimation so this task is basically given up human you need to sort of predict where certain key points are so the key points are going to keep they're defined as basically say the nose the neck the left shoulder right shoulder right elbow left elbow wrist and so on so you basically have these bunch of predefined key points and you train the network to sort of predict this so this is really useful for something like tracking or pose estimation of a person"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_056",
+    "video_id": "nyu_dl_week10",
+    "start_time": 1960.0,
+    "end_time": 2005.0,
+    "text": "predefined key points and you train the network to sort of predict this so this is really useful for something like tracking or pose estimation of a person so we took our shuffle and learn self supervised method and we fine-tuned it on these two data sets called flick and n PII and we did the same thing for a mission and supervised network and this is back in the days of Alex Nets so Alex net was the architecture that we used and in sort of fairly surprisingly what we found is that the self supervised representation was very competitive or even slightly better than imagining supervised representation at this task of key point estimation so in this case what I'm measuring is a you see which is"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_057",
+    "video_id": "nyu_dl_week10",
+    "start_time": 1995.0,
+    "end_time": 2040.0,
+    "text": "even slightly better than imagining supervised representation at this task of key point estimation so in this case what I'm measuring is a you see which is area under the curve so higher is better and you can see that it's performing fairly which was very surprising to us because we hadn't any thought about this task when we were designing a pretext RSP really thought that I think this pretext task will help us understand actions better but it turns out that if like you you can have sort of surprising outcomes depending on what you ended up or what you end up creating as a pretext task so in this case that was both estimation so for this example you said you fine-tuned it on human key point estimation so is that kind of like"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_058",
+    "video_id": "nyu_dl_week10",
+    "start_time": 2030.0,
+    "end_time": 2075.0,
+    "text": "in this case that was both estimation so for this example you said you fine-tuned it on human key point estimation so is that kind of like a supervised step like once you have your yes pretext representations yes so so the pipeline basically generally goes like you have you do a pre training step so that can basically be say supervision which is predicting one of thousand classes and then you have a downstream task where you have a few amount of labels so you basically just so in this case that's predicting the human key points so the this way of evaluation what it does is it basically has it takes a bunch of three trained networks and then it fine gives them using the"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_059",
+    "video_id": "nyu_dl_week10",
+    "start_time": 2065.0,
+    "end_time": 2110.0,
+    "text": "points so the this way of evaluation what it does is it basically has it takes a bunch of three trained networks and then it fine gives them using the same supervised data at the end and so what you're evaluating is how good was it if I started from say a mission and supervised network or a shuffle and learn network to perform this task of key point estimation okay thank you change that this well since shuffle and all focuses on the background so it actually focuses a lot on the four count so that's what I was trying to sort of come up with this talk about in this example if you look at like what the nearest neighbor that is really looking at the person to come up with this right"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_060",
+    "video_id": "nyu_dl_week10",
+    "start_time": 2100.0,
+    "end_time": 2145.0,
+    "text": "so that's what I was trying to sort of come up with this talk about in this example if you look at like what the nearest neighbor that is really looking at the person to come up with this right it's looking at the upside-down person to sort of come up with its nearest neighborhood and the reason is if you want to talk about ordering of frames actually need to focus on things that move and in these videos people are the things that move so if it focuses on the background it actually will not be able to solve the shuffle and learn tasks you all right so this was sort of surprising and it sort of goes to show that if you design your pretext ask well it will work well for a certain sort of set of"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_061",
+    "video_id": "nyu_dl_week10",
+    "start_time": 2135.0,
+    "end_time": 2180.0,
+    "text": "all right so this was sort of surprising and it sort of goes to show that if you design your pretext ask well it will work well for a certain sort of set of downstream tasks and there have been sort of fairly nice methods since then which have been basically about predicting this sort of using sequentiality and sort of predicting whether things are in the correct order or not so this is odd without networks which basically rather than solving a binary classification problem it actually tries to predict which which of the frames is the unlike sort of the one that is odd one out the one that is sort of a shuffled and this because you're sort of increasing the amount of information that you're predicting at"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_062",
+    "video_id": "nyu_dl_week10",
+    "start_time": 2170.0,
+    "end_time": 2215.0,
+    "text": "the frames is the unlike sort of the one that is odd one out the one that is sort of a shuffled and this because you're sort of increasing the amount of information that you're predicting at the output this sort of network ends up doing better and better and it also sort so now you've seen sort of images and video there's been a lot of creative work at the sort of multimodal so where you have to sip modalities video and sound or to sensory inputs and these two have been sort of very popular and very nice sort of work coming out of this regime so the key sort of signaling in these works is predicting whether an"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_063",
+    "video_id": "nyu_dl_week10",
+    "start_time": 2205.0,
+    "end_time": 2250.0,
+    "text": "nice sort of work coming out of this regime so the key sort of signaling in these works is predicting whether an image or say a video clip corresponds to an audio clip so the way you can sort of construct these tasks is to take a video and you can basically just sample any frame from it and this similarly take an audio track and sample any part of that and now the problem is basically to predict whether these things are corresponding or not so essentially in this entire sort of video surfer drum you can sample the frame and the corresponding audio and call that the"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_064",
+    "video_id": "nyu_dl_week10",
+    "start_time": 2240.0,
+    "end_time": 2285.0,
+    "text": "corresponding or not so essentially in this entire sort of video surfer drum you can sample the frame and the corresponding audio and call that the positive and in this case you basically take a different video and you take the audio from the drum video and that becomes your negative and so again you can solve a binary classification problem by taking these bunch of so the architecture for this is fairly straightforward you take in an image you pass it through a vision sub Network now you have your audio you pass it through an audio sub Network and get 128 dimensional features for them so also embeddings then you sort of fuse them together and have a"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_065",
+    "video_id": "nyu_dl_week10",
+    "start_time": 2275.0,
+    "end_time": 2320.0,
+    "text": "Network and get 128 dimensional features for them so also embeddings then you sort of fuse them together and have a binary classification problem saying whether these things correspond or not so at the end of it is just solving a single binary problem what it sort of shows is that it you can actually do a bunch of sort of nice things when you train that works this way so you can answer the question what is making a sound because the network really needs to focus on say to predict whether the sound is coming from this video it also needs to identify what in the video might be making the sound so if it's the sound of a guitar it needs to sort of understand what our guitars roughly"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_066",
+    "video_id": "nyu_dl_week10",
+    "start_time": 2310.0,
+    "end_time": 2355.0,
+    "text": "sound is coming from this video it also needs to identify what in the video might be making the sound so if it's the sound of a guitar it needs to sort of understand what our guitars roughly looks like or if it's a drum it sort of things to roughly identify were two drummers so in this particular case the author sort of looked at visualizations for in this case two instruments so you have a piano and a flute and you look at just the radio information and nothing else the network autumn already sort of puts a very high sort of visual importance on the piano and on the flute and this is because it autumn when you sort of feed forward this image it knows"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_067",
+    "video_id": "nyu_dl_week10",
+    "start_time": 2345.0,
+    "end_time": 2390.0,
+    "text": "puts a very high sort of visual importance on the piano and on the flute and this is because it autumn when you sort of feed forward this image it knows that there are going to be these two kinds of things that can produce sounds so it really sort of learns to identify you know about the the slide before whenever you had the convolutional net over the space program do you know what is the kernel size for that audio content just I'm interested to know like whether it makes sense to have like rectangular or a square kernel size I mean now there are sort of modem proof models so this is basically operating on"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_068",
+    "video_id": "nyu_dl_week10",
+    "start_time": 2380.0,
+    "end_time": 2425.0,
+    "text": "rectangular or a square kernel size I mean now there are sort of modem proof models so this is basically operating on the log spec program so yeah it is still handcraft you need to decide how your computing that spectrogram exactly people have now figured out that you can actually use the raw audio and you can actually apply cons directly on the audio signal yeah yeah sure sure and for that it's generally a small window it really depends on what the corresponding video that you're using so roughly about a seconds worth of audio in a second worth of video so now that I've sort of shown you how there are like multiple"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_069",
+    "video_id": "nyu_dl_week10",
+    "start_time": 2415.0,
+    "end_time": 2460.0,
+    "text": "worth of video so now that I've sort of shown you how there are like multiple different creative ways of defining what a pretext ask is let's try to see what a pretext ask learns and how can you sort of if the if I give you 25 different pretext asks how can you a priori decide which one is the one that you want to use and what are they going to sort of learn so the first thing is pretext asks are actually complementary so there was this really nice paper in 2017 that looked at two of these sort of tasks so relative position was the first pretext"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_070",
+    "video_id": "nyu_dl_week10",
+    "start_time": 2450.0,
+    "end_time": 2495.0,
+    "text": "this really nice paper in 2017 that looked at two of these sort of tasks so relative position was the first pretext asked I talked about where you take two patches and you try to predict what their relative position with respect to one another is and colorization is basically taking a grayscale image and trying to predict its colors and so what these authors showed is basically that if you train a single network to do both of these tasks to predict both the colorize colorize output as well as relative position you can actually get gains in performance so again this is evaluated the same way I was talking about earlier you have a pre area network then you're basically evaluating it on an end task in this case imagenet classification and detection benchmark"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_071",
+    "video_id": "nyu_dl_week10",
+    "start_time": 2485.0,
+    "end_time": 2530.0,
+    "text": "about earlier you have a pre area network then you're basically evaluating it on an end task in this case imagenet classification and detection benchmark and in both cases you sort of can get gains by performing both of these tasks so you get best of both words so in some way what this also shows you is that a single pretext task may not be the right answer so predicting just coloured or predicting just relative position may not be the right answer to learn cell supervised representations in fact if you sort of reason about what information is being predicted it really varies a lot across tasks so starting with the relative position task you're predicting a fairly low level"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_072",
+    "video_id": "nyu_dl_week10",
+    "start_time": 2520.0,
+    "end_time": 2565.0,
+    "text": "information is being predicted it really varies a lot across tasks so starting with the relative position task you're predicting a fairly low level information you're predicting just sort of eight possible locations so just to a to a classification problem or for that shuffle unknown problem you're predicting whether things are shuffled or not so it's just a simple binary problem so it's very sort of less amount of information that's being predicted whereas if you look at on the extreme right if you are trying to predict what is missing in an image and you're trying to reconstruct the pixels you're predicting all sort of information because that entire box contains I mean it can have a very you can have a very different appearance space right so if you have in pixels then you can basically have a lot of different values"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_073",
+    "video_id": "nyu_dl_week10",
+    "start_time": 2555.0,
+    "end_time": 2600.0,
+    "text": "because that entire box contains I mean it can have a very you can have a very different appearance space right so if you have in pixels then you can basically have a lot of different values for that entire predictive region so you're predicting a lot of information there so essentially this is one simple way of thinking about pretext asks how much information are you predicting and that can give you already a good idea of you know whether you're actually predicting a lot of information so probably that representation is actually going to be better so in general this is sort of going to guide the next part of my talk you can think of this sort of predicting more information part as on an axis and I'll talk about three different sort of categories and this"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_074",
+    "video_id": "nyu_dl_week10",
+    "start_time": 2590.0,
+    "end_time": 2635.0,
+    "text": "my talk you can think of this sort of predicting more information part as on an axis and I'll talk about three different sort of categories and this actually two different categories so pretext asks is what I've been talking about till now which is just predicting simple classification problems like different degrees of rotation or so on I sort of move to contrastive methods which are which actually predict say more information than these pretext tasks and in this particular talk I'm actually not going to talk about generative models but interactive models predict more information than say a typical contrastive method and so this is basically one way of thinking about these classes of methods question how do"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_075",
+    "video_id": "nyu_dl_week10",
+    "start_time": 2625.0,
+    "end_time": 2670.0,
+    "text": "predict more information than say a typical contrastive method and so this is basically one way of thinking about these classes of methods question how do we train multiple training pre training tasks do we shuffle data for both tasks it's training dividual you want it lead to catastrophic forget in right so the simple way of doing that is basically that you have so you can basically alternate batches so you can have the same network and in one batch you basically feed it black-and-white images and you ask it to predict the colored part of it and in the second now in the second batch you basically feed it patches and you ask it to do the relative position tasks you basically"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_076",
+    "video_id": "nyu_dl_week10",
+    "start_time": 2660.0,
+    "end_time": 2705.0,
+    "text": "part of it and in the second now in the second batch you basically feed it patches and you ask it to do the relative position tasks you basically have two different like head like fully connected layers at the top so you can basically alternate between these tasks what the authors of the paper did was actually slightly more sophisticated they had they basically had sort of multi task network which was three or four depending on the number of pretext tasks you have and you actually solve all of them at once but they there was sort of more involved weight sharing across these four three four different"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_077",
+    "video_id": "nyu_dl_week10",
+    "start_time": 2695.0,
+    "end_time": 2740.0,
+    "text": "sort of more involved weight sharing across these four three four different task networks hi so about the pretest asks what performance should be aimed for in a pretext ask when do we know that this is enough or when can we stop and because ultimately we care about the performance on the downstream that's question one and question two is you were speaking about low information and more information for example in the case where you mentioned where you were predicting whether it's in the correct sequence or not you could have also predicted the actual permutation of the images right so how do you decide"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_078",
+    "video_id": "nyu_dl_week10",
+    "start_time": 2730.0,
+    "end_time": 2775.0,
+    "text": "predicting whether it's in the correct sequence or not you could have also predicted the actual permutation of the images right so how do you decide between which task to follow and based on work so both parts the second part of the question actually that's going to be in a couple of slides I'll sort of defer to that question or that one later but the first part how much do you train this model on a texts asked so a sort of good sign of a pretext asked is that as your accuracy on the pretext asked improves so as you get better at predicting whether things are shuffled or not or as you get better at predicting rotations the sort of accuracy on the downstream semantic tasks will also improve so a good rule"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_079",
+    "video_id": "nyu_dl_week10",
+    "start_time": 2765.0,
+    "end_time": 2810.0,
+    "text": "are shuffled or not or as you get better at predicting rotations the sort of accuracy on the downstream semantic tasks will also improve so a good rule of thumb for is basically using these pretext tasks is we sort of have a very difficult pretext ask or try to make it as difficult as possible and then sort of optimize or like reduce the loss on that pretext task so so that your final downstream accuracy improves so it's right so in practice you'll actually drain the entire pipeline each line each time like the pretext and the downstream and measure the performance and rise so it's not like you stop the pretext at a certain point and then switch over to only like downstream or something so that's um generally how these methods"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_080",
+    "video_id": "nyu_dl_week10",
+    "start_time": 2800.0,
+    "end_time": 2845.0,
+    "text": "time like the pretext and the downstream and measure the performance and rise so it's not like you stop the pretext at a certain point and then switch over to only like downstream or something so that's um generally how these methods are evaluated but I guess when you're developing you probably do this pipeline multiple times so these methods are sort of trained like you do you're pretext ask then you stop and then you perform your downstream evolution task and that gives you the final sort of measurement of how good your pretext asked was and that's it you do do this entire thing once the second part of your question the mode information part I'll sort of come"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_081",
+    "video_id": "nyu_dl_week10",
+    "start_time": 2835.0,
+    "end_time": 2880.0,
+    "text": "the second part of your question the mode information part I'll sort of come good so these are sort of the three main buckets and the first two were what are going to be covered basically now so this was another word peep did which was basically about scaling self supervised learning so in this particular work we focused on two problems one was the colorization problem that I had talked about earlier and the second is this more sort of in film or information variant of the relative position task so this task is called jigsaw puzzles the"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_082",
+    "video_id": "nyu_dl_week10",
+    "start_time": 2870.0,
+    "end_time": 2915.0,
+    "text": "more sort of in film or information variant of the relative position task so this task is called jigsaw puzzles the idea is that you take an image and you split it into multiple different patches and you try to predict exactly and even if shuffle these patches basically by a permutation and then you predict which permutation was applied to the input so that's very similar to what Chris was alright so the way you solve this problem is you take say in this case three patches you feed forward each one of these patches independently you concatenate their feature and then you classify which permutation was basically used to permute these input patches now"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_083",
+    "video_id": "nyu_dl_week10",
+    "start_time": 2905.0,
+    "end_time": 2950.0,
+    "text": "of these patches independently you concatenate their feature and then you classify which permutation was basically used to permute these input patches now the authors used nine patches to solve this problem and that's basically going to be nine factorial which is like 360 thousand number of permutations of course when you're trying to perform this classification at the end this means that you're fully connected layer should have 360 thousand output neurons which is a very large number so in practice what the authors did was basically have a sort of a subset of permutations that they use so say they sample one hundred permutations from the nine factorial permutations and then"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_084",
+    "video_id": "nyu_dl_week10",
+    "start_time": 2940.0,
+    "end_time": 2985.0,
+    "text": "basically have a sort of a subset of permutations that they use so say they sample one hundred permutations from the nine factorial permutations and then just have this perform this hundred weight classification right so in some way you can look at this the size of this subset as the problem complexity or the amount of information that you're predicting if you predict the full nine factorial thing you're actually solving that you'd basically predicting a lot of information at the output if you only subsample say two or three permutations and you're basically not predicting a lot of information so the problem basically gets harder and harder as the size of the subset increases so in this paper we basically wanted to study this the entire role of how much information"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_085",
+    "video_id": "nyu_dl_week10",
+    "start_time": 2975.0,
+    "end_time": 3020.0,
+    "text": "size of the subset increases so in this paper we basically wanted to study this the entire role of how much information that you predict and how good is the final representation that you learn so in terms of evaluation there are two ways to sort of evaluate once you have a self supervised pretend network and this is a lot of debate on which one is exactly the right method to evaluate networks so the first way is to basically fine-tune all the layers of a network so that you have a downstream tasks a pose estimation or say image classification you train this network can you update all the parameters of this network for the downstream tasks the second way is to just use your"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_086",
+    "video_id": "nyu_dl_week10",
+    "start_time": 3010.0,
+    "end_time": 3055.0,
+    "text": "classification you train this network can you update all the parameters of this network for the downstream tasks the second way is to just use your network as a feature extractor so you basically run your images through it you get your feature representation and now you only train a linear classifier on top of that fixed feature representation so in this but we said that a good representation should transfer with little amount of training so we opted basically for the second part which is just to train a linear classifier on top of a network treated as a feature extractor so there are of course different pros and cons of using both methods so the first method that is fine tuning all the layers is treating the cell supervised network as"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_087",
+    "video_id": "nyu_dl_week10",
+    "start_time": 3045.0,
+    "end_time": 3090.0,
+    "text": "are of course different pros and cons of using both methods so the first method that is fine tuning all the layers is treating the cell supervised network as an initialization because you're basically updating the entire network so if your downstream tasks basically has say 1 million images your base updating your entire network for that 1 million images whereas in the second case you're just training very limited number of parameters on the feeds fixed feature extractor so in some way basically the second one is measuring how good of a feature is that that you've done all right so the other thing that is sort of critical in evaluating self supervised methods is to evaluate them on a bunch of different tasks so earlier"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_088",
+    "video_id": "nyu_dl_week10",
+    "start_time": 3080.0,
+    "end_time": 3125.0,
+    "text": "all right so the other thing that is sort of critical in evaluating self supervised methods is to evaluate them on a bunch of different tasks so earlier when I talked about that shuffle and learn work I just showed you results in pose estimation so on pose estimation it was doing really there but I actually did not do really well on other tasks like say action recognition so in this particular evaluation we sort of wanted to correct that mistake and we wanted to focus on multiple different tasks so a variety of different tasks like say image classification you short learning object detection 3d understanding navigation and so on so we defined basically like a set of nine different tasks so the way to evaluate the"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_089",
+    "video_id": "nyu_dl_week10",
+    "start_time": 3115.0,
+    "end_time": 3160.0,
+    "text": "navigation and so on so we defined basically like a set of nine different tasks so the way to evaluate the representations is basically to extract fixed features and you can extract these fixed features from different parts of the network so they can come basically from a layer which is very close to the input or from a very high-level layer which is very close to the output so in this way you sort of measuring the semantic Ness of each of these different and the sort of standard thing we did floor a lot of these experiments was to use an image classification task to sort of understand what is going on so the image classification task is on this data set called the EOC which is fairly standard for detection and"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_090",
+    "video_id": "nyu_dl_week10",
+    "start_time": 3150.0,
+    "end_time": 3195.0,
+    "text": "of understand what is going on so the image classification task is on this data set called the EOC which is fairly standard for detection and classification and the idea is to predict whether an image has one of twenty classes so and an image can actually have more than one class for example like that picture of a person with a dog that has both person and dog so this network now needs to recognize both the objects in it so it's not slightly harder than image net where you basically need to only certified n25 one so so the first thing we did was basically to verify the hypothesis whether increasing the amount of"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_091",
+    "video_id": "nyu_dl_week10",
+    "start_time": 3185.0,
+    "end_time": 3230.0,
+    "text": "so so the first thing we did was basically to verify the hypothesis whether increasing the amount of information predicted actually results in better representations so on the x-axis and we are increasing the number of permutations that we are using to basically train our network so that's going from 100 to 10,000 and on the y-axis we are basically measuring the downstream transferred performance of these pre-trained representations and it's measured using a metric called map which is mean average precision so essentially because this is a fairly this is a sort of multi-label classification problem you're going to measure average precision for each of the different 20 classes and then you're"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_092",
+    "video_id": "nyu_dl_week10",
+    "start_time": 3220.0,
+    "end_time": 3265.0,
+    "text": "essentially because this is a fairly this is a sort of multi-label classification problem you're going to measure average precision for each of the different 20 classes and then you're going to compute the mean of that of this precision so higher is better in this case so we do that for two different architectures Aleks net what was originally used in the jigsaw paper and then the resonate 50 and what you observe is for Alex net increasing the amount of permutations is useful up to a certain point but the gain is overall limited whereas for ResNet if you increase the amount of permutations the representation quality gets better and better and our hypothesis was basically that the resonant model has enough capacity that it can actually solve a"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_093",
+    "video_id": "nyu_dl_week10",
+    "start_time": 3255.0,
+    "end_time": 3300.0,
+    "text": "representation quality gets better and better and our hypothesis was basically that the resonant model has enough capacity that it can actually solve a very difficult permutation problem and when it solves a difficult permutation problem it's able to sort of learn much better representations that generalize to different downstream tasks so the next thing we did was to evaluate our method on the object detection task so object detection is basically where you try to identify what objects are present in an image we try to draw a box around them and your measured basically based on how sort of good the boxes around the object and whether you were able to identify all the objects in an image and"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_094",
+    "video_id": "nyu_dl_week10",
+    "start_time": 3290.0,
+    "end_time": 3335.0,
+    "text": "them and your measured basically based on how sort of good the boxes around the object and whether you were able to identify all the objects in an image and again for this one we use the same vo C beta set so this was the setting where we basically fine-tuned all the layers of a network because that's what standard in detection and what we observed was basically on two different splits of this video see data set the jigsaw method was actually fairly comparable within the margin of error to basically training a emission supervised method so you have a emission supervised Network you find you in that on the task of detection and you get a mean average"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_095",
+    "video_id": "nyu_dl_week10",
+    "start_time": 3325.0,
+    "end_time": 3370.0,
+    "text": "training a emission supervised method so you have a emission supervised Network you find you in that on the task of detection and you get a mean average precision of 70 point five or seventy six point two and the jigsaw method is basically within the margin of error of these methods which in itself sort of shows that it actually had some sort of nice semantic property and it was able to localize objects a level and to put this sort of in context for semantic feature learning on like in computer vision especially object detection is sort of considered the benchmark data set to to reach something like really belong and this result basically when"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_096",
+    "video_id": "nyu_dl_week10",
+    "start_time": 3360.0,
+    "end_time": 3405.0,
+    "text": "vision especially object detection is sort of considered the benchmark data set to to reach something like really belong and this result basically when we've sort of published it was the closest anyone had ever come to supervise free training in terms of right it's some question um so is TechStars similar to what we could try achieving with transfer learning is it like a subset of that or yes so I mean the way you evaluate these pretext tasks is by transfer learning so you perform your original pretext tasks and then you find unit on a data set for a particular task like detection so the evaluation is"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_097",
+    "video_id": "nyu_dl_week10",
+    "start_time": 3395.0,
+    "end_time": 3440.0,
+    "text": "transfer learning so you perform your original pretext tasks and then you find unit on a data set for a particular task like detection so the evaluation is so the next task we looked at was surface normal evaluation so this is basically given input you try to estimate what are the 3d properties of the like basically at each pixel location in the input you try to predict what is the surface orientation so in 3d basically the XY &amp; z vectors at each particular surface so it's a sort of dense prediction problem where you need to assign that XYZ vector to each location in the input and for that to"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_098",
+    "video_id": "nyu_dl_week10",
+    "start_time": 3430.0,
+    "end_time": 3475.0,
+    "text": "basically the XY &amp; z vectors at each particular surface so it's a sort of dense prediction problem where you need to assign that XYZ vector to each location in the input and for that to use this nice dataset created by N by U and we basically measured the prediction properties of our method with risk and compared it to an image net supervised method and so in this case we measured the median error and the percentage correct predictions so the median error basically means that lower is better and percentage correct means higher is better so it turned out that the jigsaw pre-training task was actually really good in this case and it provided like significant improvements over a missionary training so it was basically"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_099",
+    "video_id": "nyu_dl_week10",
+    "start_time": 3465.0,
+    "end_time": 3510.0,
+    "text": "better so it turned out that the jigsaw pre-training task was actually really good in this case and it provided like significant improvements over a missionary training so it was basically across some multiple different sets multiple different splits it was able to really easily outperform the image net supervised Praetorian method so again it sort of goes on to show that evaluating a pretext task on multiple different tasks and multiple different data sets is really important to understand what is really going on in a pretext task so somehow jigsaw is really incorporating something about like geometry and something about like pixel level information much better than image net"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_100",
+    "video_id": "nyu_dl_week10",
+    "start_time": 3500.0,
+    "end_time": 3545.0,
+    "text": "something about like geometry and something about like pixel level information much better than image net so finally we found sort of the Achilles heel of this method like the tics of returning tasks so to do this we evaluated on like the setting called few short loading so in few short loading you have very sort of limited number of training examples and you are training your classifier just on these very limited number of training examples so on the x-axis I have the number of training examples that were used to train a method so that goes from say 1 to 96 and I'm sort of showing you curves for for like ourselves like 2 different cell supervised methods so jigsaw methods trained on two different data"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_101",
+    "video_id": "nyu_dl_week10",
+    "start_time": 3535.0,
+    "end_time": 3580.0,
+    "text": "train a method so that goes from say 1 to 96 and I'm sort of showing you curves for for like ourselves like 2 different cell supervised methods so jigsaw methods trained on two different data sets imagenet which is on the top and a random has next 50 so what you can observe is that there is a significant gap in performance between a Cell supervised method and a supervised method and that gap basically just does not seem to reduce as you increase the number of labeled examples which point which sort of shows that cell supervised representations although they may be good at tasks like say pose estimation or particular tasks like surface normal estimation there is still a lot of difference between what sort of semantic aspect of the data they captured because"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_102",
+    "video_id": "nyu_dl_week10",
+    "start_time": 3570.0,
+    "end_time": 3615.0,
+    "text": "or particular tasks like surface normal estimation there is still a lot of difference between what sort of semantic aspect of the data they captured because this in this sort of few short learning tasks if I give you one image and if you're able to say something about it your feature representation needs to be the other lady evaluated this method was to basically look at what it learns at each different layer so we basically trained linear classifiers on different like different clear representations in a ResNet 50 so from the con one which is going to be the layer closest to the input to the output say of there is two"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_103",
+    "video_id": "nyu_dl_week10",
+    "start_time": 3605.0,
+    "end_time": 3650.0,
+    "text": "like different clear representations in a ResNet 50 so from the con one which is going to be the layer closest to the input to the output say of there is two block there is three block and there is five block so this five is basically the sort of highest level representation that you get out from resonate 50 and after that representation is where you perform this entire jigsaw like predicting the permutation task and so you look at in this case the x-axis represents the sort of where the feature is coming from con 1 or s 5 and on the y-axis we are looking at the again mean after position of image classification on GOC and funnily enough what you see is basically that the representation quality improves when you go from corn 1"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_104",
+    "video_id": "nyu_dl_week10",
+    "start_time": 3640.0,
+    "end_time": 3685.0,
+    "text": "after position of image classification on GOC and funnily enough what you see is basically that the representation quality improves when you go from corn 1 to s 4 so it steadily in sort of increases in the mean average precision but towards the end there's a sharp drop so restful to res 5 is a sharp drop in performance which is that due to the finally specializes to the specific task yes exactly so this was very worrying because if you were to sort of plot this thing for a supervised Network you observe that from convent to rs5 the representation quality always improves and this is true for like pretty much any good supervised network whereas for a lot of the self supervised networks we"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_105",
+    "video_id": "nyu_dl_week10",
+    "start_time": 3675.0,
+    "end_time": 3720.0,
+    "text": "observe that from convent to rs5 the representation quality always improves and this is true for like pretty much any good supervised network whereas for a lot of the self supervised networks we sort of repeated this experiment for the rotation network but colorization for relative position he would always observe this very sharp gap in from Brest fortress 5 and so this says that the end task that we are solving the pretext asked is probably not very nice because it's not very well aligned to the downstream semantic tasks that we really want to solve which basically brings me to the next part which is to understand what is missing from these pretext are these"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_106",
+    "video_id": "nyu_dl_week10",
+    "start_time": 3710.0,
+    "end_time": 3755.0,
+    "text": "really want to solve which basically brings me to the next part which is to understand what is missing from these pretext are these so recap pretext tasks are basically something like predicting rotation or to predict say jigsaw puzzles and it's very sort of if you look at it in the bigger picture of things they're very surprising and the fact that they even work is super surprising so for pretext tasks we have this pre-training step where which is supervised and then we have our transfer tasks which are imaged classification or detection and it's really a lot of wishful thinking and a lot of hope that the pre-training task and the transfer"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_107",
+    "video_id": "nyu_dl_week10",
+    "start_time": 3745.0,
+    "end_time": 3790.0,
+    "text": "supervised and then we have our transfer tasks which are imaged classification or detection and it's really a lot of wishful thinking and a lot of hope that the pre-training task and the transfer task are super aligned and there is no evidence really it's a lot of just like wishing really really hard that whatever pretext ask we've come up with this really better line with our transfer task and solving that p-tex task will do really well in transfer tasks so what of research basically goes into designing these pretext tasks and implementing them really well but it's not clear why solving something like jigsaw puzzles should teach us anything about semantics or for example even the case of say beat supervisor thing where you are trying to"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_108",
+    "video_id": "nyu_dl_week10",
+    "start_time": 3780.0,
+    "end_time": 3825.0,
+    "text": "solving something like jigsaw puzzles should teach us anything about semantics or for example even the case of say beat supervisor thing where you are trying to predict hashtags from an image it's not clear by predicting hashtags of an image is actually going to do something well for learning some like a good classifier on transfer tasks so this question remains that how do you design good pre training tasks which are well aligned with your transfer tasks so this hope of generalization is basically you can and the way we can sort of evaluate this is basically by looking at the representation that each layer and if the last clear we do not see"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_109",
+    "video_id": "nyu_dl_week10",
+    "start_time": 3815.0,
+    "end_time": 3860.0,
+    "text": "generalization is basically you can and the way we can sort of evaluate this is basically by looking at the representation that each layer and if the last clear we do not see representations that are well aligned with the transfer task then that is a red flag in that sort of telling us that maybe this retaining task is not really the right task to solve so like I mentioned earlier this basically is the sort of pattern that we get for jigsaw and this shows us that probably the last layers are very much right so in general what we really want from pre-trained features is that they should represent how images are related to one another so feature representation"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_110",
+    "video_id": "nyu_dl_week10",
+    "start_time": 3850.0,
+    "end_time": 3895.0,
+    "text": "right so in general what we really want from pre-trained features is that they should represent how images are related to one another so feature representation stood and this basically goes back to say the nearest neighbor visualizations that I had it should really be able to group together images that are semantically related in some way and the second property is basically a property that has been the backbone of designing vision features so even before sale the deep learning features were popular the handcrafted features were always all about invariance about sort of being invariant to things like lighting or things like exact color or exact location so these are the two properties that we really want in that retain"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_111",
+    "video_id": "nyu_dl_week10",
+    "start_time": 3885.0,
+    "end_time": 3930.0,
+    "text": "invariant to things like lighting or things like exact color or exact location so these are the two properties that we really want in that retain features and there are sort of two ways of achieving these things one is clustering and the other is contrast observing and both these methods have promised because they are really solving that basically trying to get these properties when they're sort of trying to learn representations and I believe that's why they've actually now started performing so much better than whatever pretext asks that were hand designed for so far so now I sort of focus on two recent works that we have which are which fall into this pocket of"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_112",
+    "video_id": "nyu_dl_week10",
+    "start_time": 3920.0,
+    "end_time": 3965.0,
+    "text": "so far so now I sort of focus on two recent works that we have which are which fall into this pocket of clustering and invariances so one is called plus surfeit the other is called purl and both of them will be presented at CVG artists yeah so the first work is classified it's a method which we think is very good to improve generalization of visual representations so the clustering is basically a good way to understand what images are grouped together what images go together and whatever it is do not go together and it's sort of dip you by basically performing clustering on the feature"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_113",
+    "video_id": "nyu_dl_week10",
+    "start_time": 3955.0,
+    "end_time": 4000.0,
+    "text": "together what images go together and whatever it is do not go together and it's sort of dip you by basically performing clustering on the feature space you can get these nice buckets of images that are related and images that are not related so the main idea of this paper is extremely simple there are just two steps one is the cost of step the other is the predict step so what we do is we take any up network and this can be any preacher a net worth it it does not really have to be just a self supervised network it can either be a imaginary train network or a network pre-trained say using hashtags or a cell supervised network like one train to predict jigs or permutations and you take this free trade network"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_114",
+    "video_id": "nyu_dl_week10",
+    "start_time": 3990.0,
+    "end_time": 4035.0,
+    "text": "either be a imaginary train network or a network pre-trained say using hashtags or a cell supervised network like one train to predict jigs or permutations and you take this free trade network when you extract a bunch of features from it on a set of images and of course these images have no labels you extract these features when you perform k-means clustering and what you now get is basically for each label for each image you know which cluster it belongs to and that becomes its label so in the second fit step what you do is you train a network from scratch so like from random bits and you train this network to predict just these pseudo labels so if pseudo because they were basically"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_115",
+    "video_id": "nyu_dl_week10",
+    "start_time": 4025.0,
+    "end_time": 4070.0,
+    "text": "network from scratch so like from random bits and you train this network to predict just these pseudo labels so if pseudo because they were basically obtained using clustering so they're not really hard labels which were given by say a human annotator and so now this second network is just trying to predict these cluster assignments so it takes our image and it tries to predict which one of the K clusters that you got from your k-means does this image belong to so a standard pre train and transfer task is to basically perform your pre training so that's the top row is to perform your pre training on an objective like predicting hashtags or predicting GPS locations and then to evaluate this"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_116",
+    "video_id": "nyu_dl_week10",
+    "start_time": 4060.0,
+    "end_time": 4105.0,
+    "text": "that's the top row is to perform your pre training on an objective like predicting hashtags or predicting GPS locations and then to evaluate this feature based by learning linear probe in the cluster fit world we basically do not touch the pre-training so you perform your free training as you were you just insert a step in between which is the cluster fit step where you take a dataset D and you take your praetor Network and you learn a new network from scratch on this data and finally you basically use this like green network for all your downstream tasks so the reason we believe that this method works is because the clustering step and then you are sort of clustering just these"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_117",
+    "video_id": "nyu_dl_week10",
+    "start_time": 4095.0,
+    "end_time": 4140.0,
+    "text": "for all your downstream tasks so the reason we believe that this method works is because the clustering step and then you are sort of clustering just these images you are only capturing the essential information which is basically what images go together and what images do not go together so you read through away all the other information that is present in the original Network just capturing the sort of entered image relationships that were captured and let that were modeled by the initial network and to sort of understand this we performed a fairly simple experiment we added label noise so synthetic label noise to imagenet and we trained a network basically on this noisy image"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_118",
+    "video_id": "nyu_dl_week10",
+    "start_time": 4130.0,
+    "end_time": 4175.0,
+    "text": "and to sort of understand this we performed a fairly simple experiment we added label noise so synthetic label noise to imagenet and we trained a network basically on this noisy image net so just flip a bunch of image labels and train a network and now you evaluate the feature representation from this network on a downstream task which is again a mesh net but it's a much larger version of image net so it's 9,000 weight classification so we basically on the x-axis have the amount of label noise added to the images so that's going from 0% to 75% and on the y-axis we are looking at the transfer performance on the larger image net the"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_119",
+    "video_id": "nyu_dl_week10",
+    "start_time": 4165.0,
+    "end_time": 4210.0,
+    "text": "going from 0% to 75% and on the y-axis we are looking at the transfer performance on the larger image net the emission at 9,000 dataset so the pink line is showing you the pre-trained network which is of it and basically as the amount of label noise increases the pre-trained networks performance on the downstream tasks decreases and well this is not surprising because as your labels become less and less reliable of course your representation quality is going to suffer so that sort of goes down very quickly in the sort of blue line of the experiment with this technique called module desolations where you take your initial network and you use that to"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_120",
+    "video_id": "nyu_dl_week10",
+    "start_time": 4200.0,
+    "end_time": 4245.0,
+    "text": "quickly in the sort of blue line of the experiment with this technique called module desolations where you take your initial network and you use that to generate labels so you look at the output of that network and you look at the sort of confidence in the outputs generate labels for a second network and that's called modelled isolation so model resolution generally performs better than the pre trained network and you can see that all across so as they'll amount of label noise increases the distillation model actually is much better than the original and finally towards the end we have classified so that's the green line and you can see that the classified model is consistently better than basically any of these methods either distillation or pre-training and consistently gives"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_121",
+    "video_id": "nyu_dl_week10",
+    "start_time": 4235.0,
+    "end_time": 4280.0,
+    "text": "that's the green line and you can see that the classified model is consistently better than basically any of these methods either distillation or pre-training and consistently gives better results including when you have zero level noise which is basically when you have a pre-trained imagenet network so we applied elaborate on the difference between distillation and clustered fit once more yes so in yes so in distillation what you would do is you would basically so in this first step you would take the pre-trained Network and you would use the labels this"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_122",
+    "video_id": "nyu_dl_week10",
+    "start_time": 4270.0,
+    "end_time": 4315.0,
+    "text": "distillation what you would do is you would basically so in this first step you would take the pre-trained Network and you would use the labels this network is predicting so say the the network basically predicts 1,000 classes so you basically use those labels in a software fashion to generate generate labels for your images so say the network was trained to predict 100 different types of dogs so you take your images and you get a distribution over 100 different types of dogs and use that distribution to train your second network whereas in cluster fit you don't really care about the label space or the sort of output output space of the pre trained network you only look at the features you don't even look at the last"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_123",
+    "video_id": "nyu_dl_week10",
+    "start_time": 4305.0,
+    "end_time": 4350.0,
+    "text": "network whereas in cluster fit you don't really care about the label space or the sort of output output space of the pre trained network you only look at the features you don't even look at the last fully connected you just look at the previous features got it all so why would the software distribution help with training like why we're training on this be helped what's like the intuition behind this solution relations mean intuition is basically that if your network was trained really well so suppose you had no label noise this because a lot of things are not really a lot of images really don't belong in the in this sort of same classes so suppose your data set actually had hundred two"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_124",
+    "video_id": "nyu_dl_week10",
+    "start_time": 4340.0,
+    "end_time": 4385.0,
+    "text": "because a lot of things are not really a lot of images really don't belong in the in this sort of same classes so suppose your data set actually had hundred two hundred different types of dogs but you had only hundred of them labeled and so for a lot of these images say you actually had to assign you had to pick basically which one of the dogs it was a software distribution is basically going to help you discover hidden categories so it's basically 0.5 kind this guide type of dog in point 5 this kind of dog so basically having these sort of software labels helps you enhance sort of the initial class distribution that"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_125",
+    "video_id": "nyu_dl_week10",
+    "start_time": 4375.0,
+    "end_time": 4420.0,
+    "text": "software labels helps you enhance sort of the initial class distribution that okay thank you so we applied this method to the cell supervised learning so the jigsaw task that me I talked about earlier and we were able to see surprising amounts of gains across a bunch of data sets so the jigsaw method is in the top row which and I'm in each of those sort of columns you're looking at the transfer performance of basically this jigsaw method on a bunch of different data sets if you apply cluster fit to district saw method you actually"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_126",
+    "video_id": "nyu_dl_week10",
+    "start_time": 4410.0,
+    "end_time": 4455.0,
+    "text": "this jigsaw method on a bunch of different data sets if you apply cluster fit to district saw method you actually can see gains across all of these data sets and they're fairly consistent and we perform this test on a bunch of different three training methods like coordinate so predicting rotations and again we could see fairly nice gains across these four different data sets and surprisingly enough cluster fit really works on any pre-trained Network so it can be either a fully supervised Network or a weekly supervised Network so say a network that was trained to predict hashtags or a weekly supervised video network or basically any cell"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_127",
+    "video_id": "nyu_dl_week10",
+    "start_time": 4445.0,
+    "end_time": 4490.0,
+    "text": "so say a network that was trained to predict hashtags or a weekly supervised video network or basically any cell supervised network and in each of these cases we can observe fairly consistent and large gains when you have like specific so it's actually able to improve the generalization of most of these methods I think you're dragging your microphone around it's very noisy yeah so the second thing is basically these gains were possible without extra data labels or changes in the architecture so in some ways you can think of this as being self supervised"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_128",
+    "video_id": "nyu_dl_week10",
+    "start_time": 4480.0,
+    "end_time": 4525.0,
+    "text": "these gains were possible without extra data labels or changes in the architecture so in some ways you can think of this as being self supervised find you next step so you have your pre trained network and then you basically perform this cluster step which is classified step which is completely supervised or unsupervised and then you can observe that the representation quality improves I had a question in the in the slide that you showed the improvement with jigsaw and and by using classified so in this cluster for it is it's everything right it is not using jigsaw at all so it is applied on top of the jigsaw method right so there was a pretend network"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_129",
+    "video_id": "nyu_dl_week10",
+    "start_time": 4515.0,
+    "end_time": 4560.0,
+    "text": "cluster for it is it's everything right it is not using jigsaw at all so it is applied on top of the jigsaw method right so there was a pretend network from which you exact features right so in this case that pretend network is the tricks or pretend network oh okay participate and network and then you basically perform yourself it on top of it okay I think the main sort of intuition is that when you say perform the jigsaw task the last layer becomes very much fine-tuned for that particular jigsaw task right so we saw that accuracy go down now when you take those"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_130",
+    "video_id": "nyu_dl_week10",
+    "start_time": 4550.0,
+    "end_time": 4595.0,
+    "text": "the jigsaw task the last layer becomes very much fine-tuned for that particular jigsaw task right so we saw that accuracy go down now when you take those features and you perform clustering on it you can think of this as basically you're reducing the amount of information right here if I drain the second network to directly regress the features of the first network I would basically get the same exact network but if I drain the second network only to predict what images are grouped together in the first one I'm actually predicting lesser information and I thinking is basically that clustering is some kind of a noise removal technique so it's really removing all the artifacts that are specific to jigsaw from that like feature space and so the second network"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_131",
+    "video_id": "nyu_dl_week10",
+    "start_time": 4585.0,
+    "end_time": 4630.0,
+    "text": "basically that clustering is some kind of a noise removal technique so it's really removing all the artifacts that are specific to jigsaw from that like feature space and so the second network is actually learning something slightly more generic all right that's sort of the reason for like this experiment as well so in this case we sort of empirically validate that hypothesis by actually ingesting amount of label noise so the last layer basically is going to get more and more than oisi and when you do cluster fit on top of this you actually again see improvement so that's sort of our validation of this hypothesis I had another question so did you measure the performance of class defect on object detection like did it perform as well or it was it just"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_132",
+    "video_id": "nyu_dl_week10",
+    "start_time": 4620.0,
+    "end_time": 4665.0,
+    "text": "hypothesis I had another question so did you measure the performance of class defect on object detection like did it perform as well or it was it just great in classification so it performs well in detection as well so it actually performs well indeed yes so there were initial experimental detection where it actually does perform the we did not really push a lot of the detection aspect of it in this particular paper people sort of more interested in the retrieval or like linear classification kind of experiments okay because either thinking is feels like making these pseudo labels we were basically making it I'm able to classification tasks instead of"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_133",
+    "video_id": "nyu_dl_week10",
+    "start_time": 4655.0,
+    "end_time": 4700.0,
+    "text": "experiments okay because either thinking is feels like making these pseudo labels we were basically making it I'm able to classification tasks instead of detection task maybe we could lose one of some of those features that jigsaw got right that is possible at least the initial experiments that I had run did not seem to suggest this there was improvement in detection it was minor but detection improvements overall like the gap in performance is already so small that the improvements actually they're generally very small in general okay in the same cluster fit algorithm so we'll the final layer of cluster fit"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_134",
+    "video_id": "nyu_dl_week10",
+    "start_time": 4690.0,
+    "end_time": 4735.0,
+    "text": "okay in the same cluster fit algorithm so we'll the final layer of cluster fit algorithm not get again covariant to the to the labels that were used for training it on that task it becomes less covariant so what we found was if you were to sort of the paper has this plot I don't have it at the slide unfortunately the paper has the plot where okay this particular plot where we were looking at con one to res 5 plus if it is much better so there s files through as for gap for cluster fit is much smaller than it is for say chicks or rotten egg but was it better than rs4"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_135",
+    "video_id": "nyu_dl_week10",
+    "start_time": 4725.0,
+    "end_time": 4770.0,
+    "text": "through as for gap for cluster fit is much smaller than it is for say chicks or rotten egg but was it better than rs4 it was slightly worse so it was on on GOC on classification it was better but for other tasks like imagine it was slightly worse so it did not completely fix the problem okay which was sort of the motivation for poll so basically I'll not talk about well so soul was sort of born from the hypothesis again that you need to be invariant to please free text tasks so before I get into the details of poll I will talk really a little bit about Angelica contrast of learning how many minutes do I have by"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_136",
+    "video_id": "nyu_dl_week10",
+    "start_time": 4760.0,
+    "end_time": 4805.0,
+    "text": "free text tasks so before I get into the details of poll I will talk really a little bit about Angelica contrast of learning how many minutes do I have by the way 15 minutes more or less okay so contrasted learning is basically a sort of general framework that tries to learn a feature space that can combine together or sort of put together points that are related and push apart points that are not related so in this case imagine like the blue boxes are the related points the greens are the related and the purple are the related points you will extract features for each of these or like each of these data points through a shared network so which"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_137",
+    "video_id": "nyu_dl_week10",
+    "start_time": 4795.0,
+    "end_time": 4840.0,
+    "text": "related points the greens are the related and the purple are the related points you will extract features for each of these or like each of these data points through a shared network so which is called a signees network you get a bunch of image features for these each of these data points and then you apply a loss function which is a contrastive loss function which is going to try to like sort of minimize the distance between the blue points as opposed to say the distance between the dew point and the green point but the distance basically between the blue points should be less than the distance between the blue point and the green point or the view point and the virtual point so embeddings me from the related samples"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_138",
+    "video_id": "nyu_dl_week10",
+    "start_time": 4830.0,
+    "end_time": 4875.0,
+    "text": "basically between the blue points should be less than the distance between the blue point and the green point or the view point and the virtual point so embeddings me from the related samples should be much closer than embeddings from the undulated samples so that's sort of the general idea or fortress of learning and of course yon was one of the first teacher to sort of propose this method and his earlier people that I also teach is called dr. Lim and so contrastive learning has now made a resurgence in self supervise I think pretty much a lord of the self supervised state-of-the-art methods are really based on contrasted learning and the main question is how do you define what is related and unrelated so in the case of supervised learning that's"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_139",
+    "video_id": "nyu_dl_week10",
+    "start_time": 4865.0,
+    "end_time": 4910.0,
+    "text": "really based on contrasted learning and the main question is how do you define what is related and unrelated so in the case of supervised learning that's fairly clear all of the dog images are related images all and any image that is not a dog image is basically an unrelated image but it's not so clear how to define this elated and unlimitedness in this case of self supervised learning the other sort of main difference from something like a free text ask is that contrasted birthing really reasons about the entire or like a lot of data at once so so go back to my previous slide this if you look at the loss function it always involves multiple images right it involves"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_140",
+    "video_id": "nyu_dl_week10",
+    "start_time": 4900.0,
+    "end_time": 4945.0,
+    "text": "so so go back to my previous slide this if you look at the loss function it always involves multiple images right it involves so in the first two it involves basically the blue images and the green images in the second row it involves the blue images and the political images whereas if you look at a task like say jigsaw or a task like rotation you're always reasoning about a single image independently so that's sort of another difference with contrast of learning contrasted learning always reason support for multiple data points at once so now coming to the questions how do you define related or unrelated images you can actually use similar techniques to what I was talking about"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_141",
+    "video_id": "nyu_dl_week10",
+    "start_time": 4935.0,
+    "end_time": 4980.0,
+    "text": "at once so now coming to the questions how do you define related or unrelated images you can actually use similar techniques to what I was talking about earlier you can use frames of a video so you can use the sort of sequential nature of data so to sort of understand that frames that are nearby in a video are related and range say from a different video or which are further away in time or unrelated and that sort of has formed the basis of a lot of supervised learning methods in this area so if you know of this popular method called CPC which is contrastive predictive coding that really relies on the sequential nature of a signal and it basically says that samples that are"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_142",
+    "video_id": "nyu_dl_week10",
+    "start_time": 4970.0,
+    "end_time": 5015.0,
+    "text": "called CPC which is contrastive predictive coding that really relies on the sequential nature of a signal and it basically says that samples that are closed by in like the time space are related and samples that are further apart in the time space are unrelated and it's a fairly large amount of work basically exploiting this it can either be in the speech the domain it can either be in video it can be in text or it can be in particular images and recently we've also been working on video and audio so basically saying this is that a video and it's corresponding audio are relate examples like video and audio from a different image video are"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_143",
+    "video_id": "nyu_dl_week10",
+    "start_time": 5005.0,
+    "end_time": 5050.0,
+    "text": "video and audio so basically saying this is that a video and it's corresponding audio are relate examples like video and audio from a different image video are basically underrated samples and some of the early work in like sort of supervised everything also use this quadratic learning method and really define to later examples was fairly interesting so you run a tracker an object tracker over a video and that sort of gives you a point like a sort of moving patch and what you say is that any patch that was tracked by cracker is related to my original patch whereas any patch from a different video is based is not related patch and so"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_144",
+    "video_id": "nyu_dl_week10",
+    "start_time": 5040.0,
+    "end_time": 5085.0,
+    "text": "any patch that was tracked by cracker is related to my original patch whereas any patch from a different video is based is not related patch and so that basically gives you these bunch of related and unselected samples so if you look at in this case Figure see where you have this like distance notation what this network tries to learn is basically that patches that are coming from the same video are related and patches that are coming from words from different videos are not related and so in some bait automatically learns about different poses of a object so a cycle viewed from like different viewing angles on or like different poses of a dog and it tries to sort of group them"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_145",
+    "video_id": "nyu_dl_week10",
+    "start_time": 5075.0,
+    "end_time": 5120.0,
+    "text": "different poses of a object so a cycle viewed from like different viewing angles on or like different poses of a dog and it tries to sort of group them together so in general if you just talk about images a lot of work is done on looking at nearby image patches versus distant patches so most of the sort of CPC version one and CPC version two methods are really a sort of exploiting this property of images so what you do is you have image patches that are close by you call them as positives and image patches that are further apart like far farther away in the image are considered as negatives and then you basically just"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_146",
+    "video_id": "nyu_dl_week10",
+    "start_time": 5110.0,
+    "end_time": 5155.0,
+    "text": "by you call them as positives and image patches that are further apart like far farther away in the image are considered as negatives and then you basically just minimize a contrast if loss using this sort of definition of positives and negatives the more sort of popular or like performant way of doing this is to look at patches coming from an image and contrast them with patches coming from a different image so this sort of forms the basis of a lot of popular methods like instance discrimination moco pearl sims here the idea is basically what's shown in the image you sort of get into more detail what these methods do is to"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_147",
+    "video_id": "nyu_dl_week10",
+    "start_time": 5145.0,
+    "end_time": 5190.0,
+    "text": "sims here the idea is basically what's shown in the image you sort of get into more detail what these methods do is to extract two completely random patches from an image so these patches can be overlapping they can actually become two contained within one another or they can be completely far apart and it then applies some sort of data augmentation so in this case say a color chittering or removing the color or so on and then you define these two patches to be your sort of positive examples you extract another patch from a different image and this is again a random patch and that basically becomes just negative and a lot of these methods will extract a lot of negative patches"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_148",
+    "video_id": "nyu_dl_week10",
+    "start_time": 5180.0,
+    "end_time": 5225.0,
+    "text": "random patch and that basically becomes just negative and a lot of these methods will extract a lot of negative patches and then they will basically perform contrastive learning so you are relating to positive samples but you have a sort of negative sample that you are so the now moving to Pearl a little bit let's sort of try to understand what the main difference of three text tasks is and what contrast is everything is sort of very different from ptex tasks so the one thing i already mentioned was pretext tasks always reason about a single limit at once so the idea is that given an image you apply a transform to that image so in this case they are"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_149",
+    "video_id": "nyu_dl_week10",
+    "start_time": 5215.0,
+    "end_time": 5260.0,
+    "text": "pretext tasks always reason about a single limit at once so the idea is that given an image you apply a transform to that image so in this case they are jigsaw transform and then you give basically input this transformed image into a contact and you try to predict the property of the transform that you applied so the permutation that you applied or the rotation that you applied or the kind of color that you removed and so on so the pretext asks always reason about a single image and the second thing is that the task that you're performing in this case really has to capture some property of the transform so it really needs to capture the exact permutation that you applied or the kind of rotation that you applied"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_150",
+    "video_id": "nyu_dl_week10",
+    "start_time": 5250.0,
+    "end_time": 5295.0,
+    "text": "you're performing in this case really has to capture some property of the transform so it really needs to capture the exact permutation that you applied or the kind of rotation that you applied which means that the last layer representations are actually going to Co vary or sort of vary a lot as the transform C changes and that is by design because you are really trying to solve that pretext task but unfortunately what this means is that the last layer representations capture a very low-level property of the signal so they capture like things like rotation or so on whereas what is sort of designed or what is expected of these representations is that they are sort of in Burien to these things which you"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_151",
+    "video_id": "nyu_dl_week10",
+    "start_time": 5285.0,
+    "end_time": 5330.0,
+    "text": "or so on whereas what is sort of designed or what is expected of these representations is that they are sort of in Burien to these things which you should be able to recognize a cat no matter whether the cat is upright or that the cat has say you know tend towards liking by 90 degrees whereas when you're solving that particular pretext ask you're imposing the exact opposite thing you're saying that I should be able to recognize whether this picture is upright or whether this picture is basically tilted sideways so there are many exceptions in which you really want these low level representations to be covariant and I thought if it really has to do on the tasks that you're performing and quite a few tasks in 3d really wants to be"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_152",
+    "video_id": "nyu_dl_week10",
+    "start_time": 5320.0,
+    "end_time": 5365.0,
+    "text": "representations to be covariant and I thought if it really has to do on the tasks that you're performing and quite a few tasks in 3d really wants to be predictive so you want to sort of predict what camera transforms you have you're looking at two views of the same object or so on but unless you have that kind of a specific application for a lot of semantic tasks you really want to be invariant to the transform the reduced as a to use that input so invariance has sort of been the workhorse for feature learning so something makes it which is a fairly popular handcrafted feature the eye in SIPP really stands for invariant and supervised networks for example"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_153",
+    "video_id": "nyu_dl_week10",
+    "start_time": 5355.0,
+    "end_time": 5400.0,
+    "text": "a fairly popular handcrafted feature the eye in SIPP really stands for invariant and supervised networks for example supervised dialects nets or supervisors next they are trained to be invariant potato augmentation you want it one this network to classify different crops for different rotations of this image as a three rather than ask it to predict what exactly was the transformation apply for the input so this is what inspired both so foil stands for pretext invariant representation learning where the idea is that you want the representation to be invariant or capture as little information as possible of the input transform so you have the image you have"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_154",
+    "video_id": "nyu_dl_week10",
+    "start_time": 5390.0,
+    "end_time": 5435.0,
+    "text": "is that you want the representation to be invariant or capture as little information as possible of the input transform so you have the image you have the transform version of the image you feed forward both of these images through a cornet you have get a representation and then you basically encourage these representations to be similar so in terms of the notation I was talking about earlier you basically say that the image I and any pretext transformed version of this image I are related samples and any other image is an unrated sample so in this way when you train the network this representation hopefully it contains very little information about this"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_155",
+    "video_id": "nyu_dl_week10",
+    "start_time": 5425.0,
+    "end_time": 5470.0,
+    "text": "an unrated sample so in this way when you train the network this representation hopefully it contains very little information about this transform T and the SU training is in contrast if learning so contrast a learning part is to basically you have save feature V I coming from the original image I and you have the feature V IT coming from the transform version and you want both of these representations to be the same and the paper we looked at two different state-of-the-art complete x transforms so that is the jigsaw and the rotation method that I talked about over here and we also explored combinations of these transforms so apply Pacific rotation at the same time so in some way"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_156",
+    "video_id": "nyu_dl_week10",
+    "start_time": 5460.0,
+    "end_time": 5505.0,
+    "text": "jigsaw and the rotation method that I talked about over here and we also explored combinations of these transforms so apply Pacific rotation at the same time so in some way this is like multitask learning but they're not really trying to predict both disjoint rotation you're trying to be invariant to Botha conservation so the key thing that has sort of made contrastive learning work well in the past take sort of successful attempts is really using a large number of negatives and one of the good sort of paper that introduced this was this instance discrimination paper from 2018 which introduced this concept of a memory bank"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_157",
+    "video_id": "nyu_dl_week10",
+    "start_time": 5495.0,
+    "end_time": 5540.0,
+    "text": "and one of the good sort of paper that introduced this was this instance discrimination paper from 2018 which introduced this concept of a memory bank and this is powered I would say most of the sort of recent methods which are state of the art including more copper and they're all sort of page I sort of hinge on this idea of of empty part I asked you to employ your headphones from the computer because it's very noisy because it's the microphone is picked maybe I don't know it's right okay next an so the memory bank is a sort of nice day to get a large number of negatives without really increasing the sort of"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_158",
+    "video_id": "nyu_dl_week10",
+    "start_time": 5530.0,
+    "end_time": 5575.0,
+    "text": "an so the memory bank is a sort of nice day to get a large number of negatives without really increasing the sort of compute requirement so what you do is you store a feature vector per image in sort of memory and then you use that feature vector in your contrast if done so okay let's sort of first talk about how you would do this entire pearl setup without using a memory bank so you have an image I you have an image i T you feed forward both of these images you get a feature vector F of VI from the original image I you get a feature G of"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_159",
+    "video_id": "nyu_dl_week10",
+    "start_time": 5565.0,
+    "end_time": 5610.0,
+    "text": "feed forward both of these images you get a feature vector F of VI from the original image I you get a feature G of VI T from the transformed versions the patches in this case and what you want is the features F and G to be similar and you want features from any other image so an unrelated image to basically be this simpler so in this case what we now can do is rather then if we want a lot of negatives we would really want a lot of these negative images to be feed-forward at the same time which really means that you need a large bat size to be able to do this and of course a large bat size means is not really sort of good is not possible on"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_160",
+    "video_id": "nyu_dl_week10",
+    "start_time": 5600.0,
+    "end_time": 5645.0,
+    "text": "really means that you need a large bat size to be able to do this and of course a large bat size means is not really sort of good is not possible on say unlimited amount of GPU memory so the way to sort of do that is to use something called a memory bank so what this memory bank does is that it stores a feature vector for each of the images in your dataset and when you're doing contrasts of learning rather than using feature vectors say from a different a negative image a sort of a different image in your batch you can just retrieve these features from a memory so you can just retrieve features of any other unrelated image from the memory and you can just substitute that to perform contrast of them so in Perl we divided the objective into two parts"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_161",
+    "video_id": "nyu_dl_week10",
+    "start_time": 5635.0,
+    "end_time": 5680.0,
+    "text": "memory so you can just retrieve features of any other unrelated image from the memory and you can just substitute that to perform contrast of them so in Perl we divided the objective into two parts there was a in like a contrast ship term to bring the feature vector from the transformed image so G of VI similar to the representation that we have in the memory so M of I and similarly we have a second contrast septum that tries to bring the feature at for VI close to the feature representation that we have in memory so essentially G is being pulled close to MI and F is being pulled close to MI so by transitivity F and G are being pulled close to one another and the reason for separating"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_162",
+    "video_id": "nyu_dl_week10",
+    "start_time": 5670.0,
+    "end_time": 5715.0,
+    "text": "close to MI and F is being pulled close to MI so by transitivity F and G are being pulled close to one another and the reason for separating this out was it sort of stabilized training and we were able to train without doing this basically the training would not really converge and so by separating this out into two forms rather than doing like direct contrast if nothing between F and G we were able to stabilize training and actually get it working so the way to evaluate this is basically like by standard sort of pre training evaluation setup so transfer learning where we can pre train on images without labels so the standard way of doing this is to take a mesh net"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_163",
+    "video_id": "nyu_dl_week10",
+    "start_time": 5705.0,
+    "end_time": 5750.0,
+    "text": "pre training evaluation setup so transfer learning where we can pre train on images without labels so the standard way of doing this is to take a mesh net throw away the labels and pretend it is unsupervised and then evaluate using saiful fine-tuning or using on training a linear classifier the second thing we did was also a test purl and its robustness to images image distributions by training it on in the wild images so we just took one randomly from Flickr so this is the why FCC data set and then we basically perform transfer learning episode free training on these images and then perform transfer learning on different data sets so I had a question about the"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_164",
+    "video_id": "nyu_dl_week10",
+    "start_time": 5740.0,
+    "end_time": 5785.0,
+    "text": "training on these images and then perform transfer learning on different data sets so I had a question about the pole method about the memory bank where the m wouldnt those like feature representation stored in the memory bank be like out of date yeah so they do go a little bit out of date but in practice it really does not make that much of a difference so that this sort of particular way of updating them using so M of I is a moving average of the representation F and that sort of moving average although it's still it actually does not matter a lot in practice you"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_165",
+    "video_id": "nyu_dl_week10",
+    "start_time": 5775.0,
+    "end_time": 5820.0,
+    "text": "representation F and that sort of moving average although it's still it actually does not matter a lot in practice you can still continue to use them so assuming like I I recently read the paper simpler which you huge bad size like 8,000 or something so using like the memory bank approach and and getting these 8,000 examples and one loss function is that possible like yes sort of Cynthia B of doing it really requires a large pad size because you're getting negatives from different images in the same batch whereas if you use something like the memory bank you really do not need a large batch size so you can train this with like 32 images in a batch"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_166",
+    "video_id": "nyu_dl_week10",
+    "start_time": 5810.0,
+    "end_time": 5855.0,
+    "text": "same batch whereas if you use something like the memory bank you really do not need a large batch size so you can train this with like 32 images in a batch because all the negatives are really coming from the memory bank which does not really require you to do multiple key forwards okay thank you very using memory bank till you can't back propagate to the negative example so is that not the problem all right in it does not create that much of a problem really so that was one thing I was worried about as well so in the initial versions we did tie something which was like using a larger bad size but it when we switch to something like the memory bank it did not really reduce"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_167",
+    "video_id": "nyu_dl_week10",
+    "start_time": 5845.0,
+    "end_time": 5890.0,
+    "text": "worried about as well so in the initial versions we did tie something which was like using a larger bad size but it when we switch to something like the memory bank it did not really reduce performance very very little very much in the reduction in performance yeah any intuition why that's the case so I think overall contrastive learning is fairly slow to converge so all like all markets NCR index the latest version of moko and so on all of them train for very large number of epochs in even so the number of bad props that you're getting or the number of memory sort of parameter objects that you're doing a very large in general so the fact that you miss out on one of them in this particular case probably does not"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_168",
+    "video_id": "nyu_dl_week10",
+    "start_time": 5880.0,
+    "end_time": 5925.0,
+    "text": "you're getting or the number of memory sort of parameter objects that you're doing a very large in general so the fact that you miss out on one of them in this particular case probably does not have that much of an effect Thanks that's five minutes good almost there so yeah we basically I evaluate those on a bunch of different tasks so the first thing was object detection again sort of standard tasks in vision and in this case who was able to outperform image net supervised training on detection for both the VLC or seven and seven plus twelve data sets and it outperforms on this sort of most strict evaluation criterion which is 80 all which is now introduced by cocoa which was already"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_169",
+    "video_id": "nyu_dl_week10",
+    "start_time": 5915.0,
+    "end_time": 5960.0,
+    "text": "twelve data sets and it outperforms on this sort of most strict evaluation criterion which is 80 all which is now introduced by cocoa which was already sort of a positive sign and then it was able to do this the second thing we looked at was basically evaluating pearl on semi-supervised learning and once again pearl was performing fairly well it was actually better than say the pretext task of jigsaw so the only difference between the top row and the bottom row is the fact that pearl is an invariant version whereas jigsaw is a covariant version and in terms of linear classification when Pearl came out it was basically at par with CPC is latest version and was performing fairly well on a bunch of"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_170",
+    "video_id": "nyu_dl_week10",
+    "start_time": 5950.0,
+    "end_time": 5995.0,
+    "text": "and in terms of linear classification when Pearl came out it was basically at par with CPC is latest version and was performing fairly well on a bunch of different like parameter settings and a bunch of different architectures of course now you can have like fairly good performance by methods like synth here so that number for simply responding would basically be about 69 or 70 the other thing we looked at was basically how sort of generalizes across data distributions so for this we looked at just Flickr images from the biopsy see data set and who was able to sort of outperform methods that were trained using hundred times more data so the"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_171",
+    "video_id": "nyu_dl_week10",
+    "start_time": 5985.0,
+    "end_time": 6030.0,
+    "text": "at just Flickr images from the biopsy see data set and who was able to sort of outperform methods that were trained using hundred times more data so the jigsaw row in the second set like a jigsaw Oh which is the second row was chained on 100 million images whereas Pearl was restrained and 1 million images and despite that it's actually able to sort of outperform the jigsaw method fairly easily this again shows you the power of in like sort of breaking invariance into your representation rather than sort of predicting pretext asks and finally the sort of thing I started out with which is that whether this thing is actually semantic so if you look at different layers of representations so convent - rs.5 jigsaw"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_172",
+    "video_id": "nyu_dl_week10",
+    "start_time": 6020.0,
+    "end_time": 6065.0,
+    "text": "and finally the sort of thing I started out with which is that whether this thing is actually semantic so if you look at different layers of representations so convent - rs.5 jigsaw basically shows a drop in performance from restful to rs5 but as for pearl you it's all see a sort of nicely increasing graph whereas for and rs5 get increasingly more and more semantic in terms of problem complexity pearl was very good at handling that because you're never predicting the number of permutations you're just using them at input as like sort of data augmentation so pearl can sort of scale very well to all the 360,000 possible permutations in the nine patches but as for jigsaw because you're predicting that you're very limited by the size of your output"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_173",
+    "video_id": "nyu_dl_week10",
+    "start_time": 6055.0,
+    "end_time": 6100.0,
+    "text": "so pearl can sort of scale very well to all the 360,000 possible permutations in the nine patches but as for jigsaw because you're predicting that you're very limited by the size of your output space and the paper also shows that we can extend pearl to not just like it's not limited jigsaw you can do that on rotation if you can inside do it in a combination of jigsaw and rotation and you can get more and more gains but you basically start doing this so basically if you look at these methods starting from pretext asks to clustering to pull as you go from the left to the right you basically get more and more invariants and in some way you also see an increase in performance which sort of"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_174",
+    "video_id": "nyu_dl_week10",
+    "start_time": 6090.0,
+    "end_time": 6135.0,
+    "text": "to pull as you go from the left to the right you basically get more and more invariants and in some way you also see an increase in performance which sort of suggests that baking in more and more in various your methods is actually going to be more helpful in the long term there are some shortcomings which is basically that we really do not understand what is the set of data transforms that matter so jigsaw works really well but it's not very clear why this is happening so some sort of future work or if you want to spend your spare cycles thinking about something is really understanding what imbalances really matter when you are trying to solve a supervised task what in there is really matter for something like image net and that's it"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_175",
+    "video_id": "nyu_dl_week10",
+    "start_time": 6125.0,
+    "end_time": 6170.0,
+    "text": "really matter when you are trying to solve a supervised task what in there is really matter for something like image net and that's it so basically predict more and more information and try to be as invariant as possible thank you so I had a question yes these contrastive networks they can't use the batch norm layer right because then information would pass from one sample to the other and then network might learn a very trivial way of separating the negatives from the positive like so it like for Pearl for example we really did not observe that phenomenon at all so we did not really have to do any special tricks with Bachner we were able to use batch no"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_176",
+    "video_id": "nyu_dl_week10",
+    "start_time": 6160.0,
+    "end_time": 6205.0,
+    "text": "positive like so it like for Pearl for example we really did not observe that phenomenon at all so we did not really have to do any special tricks with Bachner we were able to use batch no masses okay and it's not necessary for all the contrast if networks to not be using batch norm it's okay to have the batch norm here it's yeah it's ten I mean for example for Cynthia and so on they try and move the sink batch norm because if want to emulate a large batch size so you might have to do some tweaks in batch norm but basically if you you cannot avoid it clearly because if you completely remove batch norm then training these like very deep networks is generally very hard anyway okay do"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_177",
+    "video_id": "nyu_dl_week10",
+    "start_time": 6195.0,
+    "end_time": 6240.0,
+    "text": "completely remove batch norm then training these like very deep networks is generally very hard anyway okay do you think that Paul paper works with the Bashan omnious because it uses a memory bank and all the representations are not taken at the same time whereas I think moco they specifically mentioned not to use the batch norm layer or use it spread across multiple GPUs so that that I think is one difference for sure because basically the negative side you're contrasting against and the positive from different time steps which makes it harder for batch norm this sort of cheating but as for the other methods like moco and same fear they very correlated to the particular batch that"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_178",
+    "video_id": "nyu_dl_week10",
+    "start_time": 6230.0,
+    "end_time": 6275.0,
+    "text": "makes it harder for batch norm this sort of cheating but as for the other methods like moco and same fear they very correlated to the particular batch that you're evaluating right now okay so is there any suggestion if we are using a n pair loss rather than a memory bank is there any suggestion how to go about this whether we should just stick to Alex Ned and me Gigi which don't use a batch norm layer or is there any way to turn it off or so what so can you describe the setting a little bit more so basically what I'm trying to do is train on a frames of videos and I'm using a n pair setting where I'm trying"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_179",
+    "video_id": "nyu_dl_week10",
+    "start_time": 6265.0,
+    "end_time": 6310.0,
+    "text": "so basically what I'm trying to do is train on a frames of videos and I'm using a n pair setting where I'm trying to contrast between n samples rather than two or three samples okay and what I'm worried about is whether I should be using batch norm or not and if I am not using batch norm at all then which pre brained let's Ricky so the one problem with video frames is basically that fairly correlated so in general bache norm a sickly the performance of Bashan on B grades and you have fairly correlated samples so video that becomes more and more a problem"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_180",
+    "video_id": "nyu_dl_week10",
+    "start_time": 6300.0,
+    "end_time": 6345.0,
+    "text": "sickly the performance of Bashan on B grades and you have fairly correlated samples so video that becomes more and more a problem the unfortunate sort of like the sad news is basically that even like if you look at a typical implementation of Alex nineties days it will include batch now it's just because it's much more stable to train with that you can train with a higher learning rate and a lot you can basically use it for a bunch of different downstream tasks so I think you may still have to use batch no it's not you can give other variants like group norm try which basically do not really depend on the batch size ok makes sense thank you okay thank you so much he Shan"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_181",
+    "video_id": "nyu_dl_week10",
+    "start_time": 6335.0,
+    "end_time": 6380.0,
+    "text": "really depend on the batch size ok makes sense thank you okay thank you so much he Shan there's a lot of no interesting details I think we still have like eight minutes if people are I think they're like still many left in class any questions yep I had been question which I had also put forward in my lecture when we were discussing Perl so this question is about the lowest function can I answer right now okay so when I read the paper so there was a probability term that we were computing after computing the VI"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_182",
+    "video_id": "nyu_dl_week10",
+    "start_time": 6370.0,
+    "end_time": 6415.0,
+    "text": "right now okay so when I read the paper so there was a probability term that we were computing after computing the VI and the vit representation for image and the transformed version and after getting those probabilities then we were using a noise contrastive estimation loss so I was kind of confused that want it had been better if just a negative log of that probability had been minimized so you can use both really so the reason to use and C was basically more to do with how the memory bank paper was set up so and C you would if you have K negatives you are basically solving k plus 1 problems so the one"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_183",
+    "video_id": "nyu_dl_week10",
+    "start_time": 6405.0,
+    "end_time": 6450.0,
+    "text": "more to do with how the memory bank paper was set up so and C you would if you have K negatives you are basically solving k plus 1 problems so the one problem is based you basically have K plus 1 different binary problems that you so that's one way of doing it the other way of doing it is basically what is now called info NC which is really the softmax so you just supplier softmax and you minimize the negative slope likelihood for that it's because that edge the probability function looked like Softbank so yes in so at the time and I had tied it out it actually gave me slightly worse results and so that's basically why you can see and this was"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_184",
+    "video_id": "nyu_dl_week10",
+    "start_time": 6440.0,
+    "end_time": 6485.0,
+    "text": "like Softbank so yes in so at the time and I had tied it out it actually gave me slightly worse results and so that's basically why you can see and this was just initial experiments now when I'm trying it out it actually gives me save the results so I guess in the end it yam this is more related to the course but we are gonna have a project on sell soup was Lonnie stern warning can you give us information on how to get it get us sell soup wise Lonnie model walking as in the implementation details like the simpler the John the high overall"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_185",
+    "video_id": "nyu_dl_week10",
+    "start_time": 6475.0,
+    "end_time": 6520.0,
+    "text": "us sell soup wise Lonnie model walking as in the implementation details like the simpler the John the high overall high level ideas so try to get it working quickly so I think I mean there are certain class of techniques that are going to be much easier to get working from the get-go right so for example if you were looking at just three text tasks then you would basically look at something like rotation because okay it's a very easy task to implement you really cannot go wrong with it but I mean there are just very few things I mean so just the number of moving pieces a good indicator the other thing to remain remember is basically if you're"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_186",
+    "video_id": "nyu_dl_week10",
+    "start_time": 6510.0,
+    "end_time": 6555.0,
+    "text": "mean so just the number of moving pieces a good indicator the other thing to remain remember is basically if you're sort of implementing a existing method then there are going to be lots of tiny details the authors talk about so for example the exactly learning rate that they used or the way they used bash norm and so on if there are lots of these things then basically it's going to be harder and harder for you to sort of reproduce more and more things for you to get wrong the second thing to remember is data augmentations rate augmentations are really critical so if you get anything working you would try to sort of add molded augmentations to it"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_187",
+    "video_id": "nyu_dl_week10",
+    "start_time": 6545.0,
+    "end_time": 6590.0,
+    "text": "really critical so if you get anything working you would try to sort of add molded augmentations to it I think and do you recommend us trying Oh Lord you cannot be too difficult to do in one month I'm not sure what the setting is really some notch okay thanks when it is one more ting of did you try using momentum contrast on coal instead of MD Bank I happened so we basically move to the end-to-end version which is like similar to what Cynthia is so the thing is I mean you can may see me gather a bunch of negatives wrong on different GPO so in case your pad size that actually generally helps a lot I would suspect"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_188",
+    "video_id": "nyu_dl_week10",
+    "start_time": 6580.0,
+    "end_time": 6625.0,
+    "text": "Cynthia is so the thing is I mean you can may see me gather a bunch of negatives wrong on different GPO so in case your pad size that actually generally helps a lot I would suspect more covert helped a lot as well I think no Co but improved performance over Sinclair by replacing end-to-end training with moco but I think numbers are still fairly similar and there are small differences in evaluation protocol that you would sort of see across these papers so yeah I think so we're learning to sort of release a more standardized evaluation benchmark so we did that last year unfortunately that was in cafe - so we're trying to sort of crazy something in five dots now we provide a lot of standardized implementations so like further and a bunch of these and a"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_189",
+    "video_id": "nyu_dl_week10",
+    "start_time": 6615.0,
+    "end_time": 6660.0,
+    "text": "evaluation benchmark so we did that last year unfortunately that was in cafe - so we're trying to sort of crazy something in five dots now we provide a lot of standardized implementations so like further and a bunch of these and a standardized evaluation protocol I found I had a question about above this cell supervised learning so what do you think is the state of like generative methods and did you think about combining like contrasting methods with generative methods like simpler actually like has a different space so they have like a linear layer on top of the feature representation where they compute the actual reach the representation where they did the contrast loss the NCE stuff"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_190",
+    "video_id": "nyu_dl_week10",
+    "start_time": 6650.0,
+    "end_time": 6695.0,
+    "text": "different space so they have like a linear layer on top of the feature representation where they compute the actual reach the representation where they did the contrast loss the NCE stuff so like do you think like having another head like that basically given like a crop of image you just try to scale out that crop of image and you have that information because you crop that image right and use them again or something so I mean it is definitely a good idea I think it says the tricky part is getting these things just non-trivial so initially like I haven't really tried any relative approaches in my experience that's slightly worse when you can harder to get to work"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_191",
+    "video_id": "nyu_dl_week10",
+    "start_time": 6685.0,
+    "end_time": 6730.0,
+    "text": "just non-trivial so initially like I haven't really tried any relative approaches in my experience that's slightly worse when you can harder to get to work but I do agree I think sort of in the longer term they are like they are sort of the things to focus on thank you gasps question no that's it I guess oh I can actually ask the question well yeah so this is regarding distillation actually so you were telling me how predicting software distributions gives gives a richer target right so can you elaborate on"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_192",
+    "video_id": "nyu_dl_week10",
+    "start_time": 6720.0,
+    "end_time": 6765.0,
+    "text": "distillation actually so you were telling me how predicting software distributions gives gives a richer target right so can you elaborate on that because it sort of increases the uncertainty of our model right we are predicting from one hot distribution and then making it software and then we are predicting on that so more uncertainty and more over like why do they call it distillation because I saw to feel like you need more parameters to account for this richer richer target right so the one thing is basically if you train on one hot labels your models tend to be very overconfident in general so if you have heard of these tricks called like label smoothing which is sort of now"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_193",
+    "video_id": "nyu_dl_week10",
+    "start_time": 6755.0,
+    "end_time": 6800.0,
+    "text": "one hot labels your models tend to be very overconfident in general so if you have heard of these tricks called like label smoothing which is sort of now being used by a bunch of methods label smoothing is like you can think of it like the sort of simplest version of distillation so you have a one hot vector that you were trying to predict but rather than trying to predict that and Taiwan not vector what you do is you take some probability mass out of that so you would predict one and a bunch of 0s so rather than doing that you predict say 0.97 and you add point one point one point one two I'll take the remainder three vapors she just start a uniform distribution to the remainder so distillation is a sort of more informed way of doing this so rather than like randomly sort of increasing the probability of a random undulated class"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_194",
+    "video_id": "nyu_dl_week10",
+    "start_time": 6790.0,
+    "end_time": 6835.0,
+    "text": "distribution to the remainder so distillation is a sort of more informed way of doing this so rather than like randomly sort of increasing the probability of a random undulated class to actually have a network which was pre trained which is pretty good to this in general software distributions are very useful for free training methods because models tend to be overconfident pre-training on like software distribution is actually slightly easier than optimization problems you converge slightly faster as well so both of these benefits are present in the solution and also also because like smooth labels allow you to have like a dog looking cat or a cat looking dog right so if you have a very big network that has been trained on very many samples it will"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_195",
+    "video_id": "nyu_dl_week10",
+    "start_time": 6825.0,
+    "end_time": 6870.0,
+    "text": "also also because like smooth labels allow you to have like a dog looking cat or a cat looking dog right so if you have a very big network that has been trained on very many samples it will actually have you no idea a proper idea of what is you know unambiguous perhaps image right and therefore if you can actually learn that soft idea you're gonna be learning more than if you just give that you know one hot label I think we are time I think we're around the time like half an hour ago but this was the question answering question and answers session if there are no you know really really urgent questions still pending I will be"
+  },
+  {
+    "chunk_id": "nyu_dl_week10_chunk_196",
+    "video_id": "nyu_dl_week10",
+    "start_time": 6860.0,
+    "end_time": 6905.0,
+    "text": "session if there are no you know really really urgent questions still pending I will be calling it called the end of the today lesson so thank you for tuning in I see you tomorrow at the practically practical session don't forget to come and it was it so thank you so much Asian and I see you around execution thank you everyone take care everyone"
+  }
+]

@@ -1,0 +1,884 @@
+[
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_000",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 0.0,
+    "end_time": 45.0,
+    "text": "this presentation is delivered by the development okay good morning welcome back to um third to the third lecture of this class so here's what I want to do today um and some of the topics I'll do today may seem a little bit like I'm jumping so from topic to topic but here's sort of the outline for today and The Logical flow of ideas um in the last lecture we"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_001",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 35.0,
+    "end_time": 80.0,
+    "text": "um and some of the topics I'll do today may seem a little bit like I'm jumping so from topic to topic but here's sort of the outline for today and The Logical flow of ideas um in the last lecture we talked about linear regression and today I want to talk about sort of an adaptation of that called locally weight of regression um it's actually a very powerful algorithm that's actually one of my uh former Mentor probably favorite machine learning algorithm um we'll then talk about the probalistic interpretation of linear regression and use that to um move on to our first classification algorithm which is logistic regression um take a brief digression to tell you about something called the perceptron alvim which is something we'll come back to again later this quarter and um time allowing I hope to get to Newton's method which is which"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_002",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 70.0,
+    "end_time": 115.0,
+    "text": "digression to tell you about something called the perceptron alvim which is something we'll come back to again later this quarter and um time allowing I hope to get to Newton's method which is which is an Alm for fitting logistic regression models um so let's just recap what we're talking about in the previous lecture um remember the notation I defined was that I used this x superscript example and um when we're talking about linear regression or ordinary Le squares we use"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_003",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 105.0,
+    "end_time": 150.0,
+    "text": "example and um when we're talking about linear regression or ordinary Le squares we use this to denote the predicted value output by my hypothesis h um on the input XI and my hypothesis was parameterized by um the vector parameters Theta and so we said that this was equal to sum from right th j written most simply as the transvers X and um we had the convention that X subscript 0 is equal to one so this accounts for The Intercept term in a"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_004",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 140.0,
+    "end_time": 185.0,
+    "text": "j written most simply as the transvers X and um we had the convention that X subscript 0 is equal to one so this accounts for The Intercept term in a linear regression model um and lowercase n here was the notation I was using for the uh for the number of features in my training set okay so in the example we're trying to predict housing prices if we had two features the size of the house and number of bedrooms um we had two features in and was little n was equal to two um so just to finish recapping the previous lecture we defined this quadratic cost function J of theta equals 12 sum from I = 1 to M"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_005",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 175.0,
+    "end_time": 220.0,
+    "text": "so just to finish recapping the previous lecture we defined this quadratic cost function J of theta equals 12 sum from I = 1 to M of x i- y i squared um where this is a sum over our M training examples in my training set so lowercase M was the notation I've been using to denote the number of training examples I have for the size of my training set and um at the end of the last lecture we derive the value of theta that minimizes this in close form um which Xpose X inverse X transpose y"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_006",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 210.0,
+    "end_time": 255.0,
+    "text": "um which Xpose X inverse X transpose y okay so um as I move forward in today's lecture I'll continue to use this notation and again I realize this a fair amount of notation to all remember um so if partway through this lecture you forgot you know if if you're having trouble remembering what lowercase m is or what lowercase n is or something please raise um when we talked about linear regression last time um we used two features one of the features was the size of the house in square feet so the living area of the house and the other"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_007",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 245.0,
+    "end_time": 290.0,
+    "text": "um when we talked about linear regression last time um we used two features one of the features was the size of the house in square feet so the living area of the house and the other feature was the number of bedrooms in the house um in general when you're out there applying machine learning algorithms to some problem that you care about the choice of the features will very much be up to you right and um the way you choose your features to give the learning Al will often have a large impact on how actually does um so example the choice we made last time was X1 equals to the size and and let's let's let's leave aside the other feature of the number of bedrooms for now unless we don't have data that tells us how many bedrooms around these"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_008",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 280.0,
+    "end_time": 325.0,
+    "text": "example the choice we made last time was X1 equals to the size and and let's let's let's leave aside the other feature of the number of bedrooms for now unless we don't have data that tells us how many bedrooms around these houses um one thing you could do is actually Define oh draw this right so let's say that was the size of the holes and that's the price of the Hol so if you use this as a feature maybe you get you know Theta 0 plus Theta 1 X1 this is the linear model um if you choose just copy the same data"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_009",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 315.0,
+    "end_time": 360.0,
+    "text": "know Theta 0 plus Theta 1 X1 this is the linear model um if you choose just copy the same data over right you can define a set of features where X1 is equal to the size of the is the square of the size of the Hol okay so X1 is the size of the house and say square footage and X2 is just take whatever the square footage of the house is and just square that number and this would be another way to come with a feature and if you do that then the same fitting a quadratic function for you um"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_010",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 350.0,
+    "end_time": 395.0,
+    "text": "feature and if you do that then the same fitting a quadratic function for you um the the 2 X1 2 okay because uh this is actually X2 and you know depending on what the data looks like maybe this is a slightly better fit to the data further right which is let's see I have seven training examples here so you can actually maybe fit up to a six order the polinomial you can actually fit a model"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_011",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 385.0,
+    "end_time": 430.0,
+    "text": "further right which is let's see I have seven training examples here so you can actually maybe fit up to a six order the polinomial you can actually fit a model Theta 0 plus Theta 1 X1 + Theta 2 x² + 6 x the^ of six and F the six4 the polinomial um to these seven data points and if you do that you you find that you come with a model that fits your data exactly because we have I guess in this in this example I drew you know we have seven data points and so if you fit a six voled polinomial you can to fit a"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_012",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 420.0,
+    "end_time": 465.0,
+    "text": "exactly because we have I guess in this in this example I drew you know we have seven data points and so if you fit a six voled polinomial you can to fit a line that passes through these seven points perfectly um and you probably find that the curve you get is look maybe something like that um and on the one hand this is a great model in the sense that it fits your training data perfectly um and on the other hand this is probably not a very good model in the sense that you know none of us ser JY think that this is a very good predictor of housing prices as a function of the size of the house right so we should come back to this later um turns out of the models we have here I feel like maybe the quadratic model fits"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_013",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 455.0,
+    "end_time": 500.0,
+    "text": "so we should come back to this later um turns out of the models we have here I feel like maybe the quadratic model fits the data best um whereas the linear model it looks like you know looks like there's some looks like there's actually a bit of a quadratic component in this data that the linear function is not is not capturing um so we actually come back to this a little bit later and and and talk about the problems associated with fitting models that either too simple or use two small set of features all the models that are too complex and maybe um use to large a set of features um just to give these a name we call"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_014",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 490.0,
+    "end_time": 535.0,
+    "text": "maybe um use to large a set of features um just to give these a name we call underfitting and very informally this refers to setting where there are obvious patterns or where there are patterns in the data that the algorithm is just failing to fit and this problem here we refer to as overfitting and again very informally this is when the algum is fitting the idiosyncrasies of this specific data set right that it just so happens that of the seven houses we sampled in you know Portland or wherever you collect data from um that house happen to be a bit more expensive that house happen a little less expensive and by fitting s"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_015",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 525.0,
+    "end_time": 570.0,
+    "text": "the seven houses we sampled in you know Portland or wherever you collect data from um that house happen to be a bit more expensive that house happen a little less expensive and by fitting s water polinomial was are fitting the ID idiosyncratic properties of this data set rather than the true underline trends of how housing prices VAR as a functional size of house okay so these two very different problems we'll Define them more formally later and talk about how to address each of these problems um but for now I hope you appreciate that there is this issue of selecting features um so if you want to choose features for learning problems there there there are few ways to do so um and we'll talk"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_016",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 560.0,
+    "end_time": 605.0,
+    "text": "um so if you want to choose features for learning problems there there there are few ways to do so um and we'll talk about feature selection algorithms later this quarter as well so automatic algorithms are choosing what features to use in a in a regression problem like this um what I want to do today is talk about the class of algorithms called non-parametric learning algorithms that will help to alleviate the need somewhat for you to choose features very carefully okay and this will lead us into our discussion of um locally weight to regression"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_017",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 595.0,
+    "end_time": 640.0,
+    "text": "regression um linear regression as we've defined it so far is an example of a parametric learning algorithm and um parametric learning algorithm is one that's defined as an algorithm that has a fixed number of parameters that's fit to the data okay so in linear regression we have to fix set a parameters"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_018",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 630.0,
+    "end_time": 675.0,
+    "text": "fix set a parameters data in contrast what I'm going to talk about now is our first non-parametric algorithm um the formal definition which is which is not very intuitive so I replace this when a second something more intuitive um the the the S the formal definition of a non-p paramet learning algorithm is"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_019",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 665.0,
+    "end_time": 710.0,
+    "text": "when a second something more intuitive um the the the S the formal definition of a non-p paramet learning algorithm is grows with M with the size of the training set and usually it's defined as the number of parameters grows linearly with the size of the training set um this is the formal definition a slightly in slightly less formal definition is that the amount of stuff you need the amount of stuff that your learning algori needs to keep around will grow linearly with the training sets um or in other words saying is that this is an algorithm that will need to keep around an entire training set even after"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_020",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 700.0,
+    "end_time": 745.0,
+    "text": "algori needs to keep around will grow linearly with the training sets um or in other words saying is that this is an algorithm that will need to keep around an entire training set even after learning okay so don't worry too much about this definition but what I want to do now is describe um a specific non-parametric learning algorithm called regression um which also goes by a uh which also goes by the name L for S historical reasons L is usually spelled l o SS sometimes spelled like that too I"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_021",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 735.0,
+    "end_time": 780.0,
+    "text": "uh which also goes by the name L for S historical reasons L is usually spelled l o SS sometimes spelled like that too I just call it locally weighted regression and um this will be an algorithm that allows us to worry a little bit less about having to choose features very that I have a training set that looks"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_022",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 770.0,
+    "end_time": 815.0,
+    "text": "that I have a training set that looks like this okay so this is X and that's y um if you run linear regression on this and you you know fit maybe a linear function to this and you end up with a more or less flat straight line which is not a very good fit to this data um you can sit around and stare at this and try to decide what other features to use right so maybe you want to toss a quadratic function but this isn't really quadratic e so maybe you want to model this as a you know x + X2 plus maybe some function of s of X or something you actually sit around and F features um and after a"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_023",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 805.0,
+    "end_time": 850.0,
+    "text": "e so maybe you want to model this as a you know x + X2 plus maybe some function of s of X or something you actually sit around and F features um and after a while you can probably come over a set of features the model is okay but let's talk about an algorithm that you can use without needing to do that if now suppose you want to evaluate your point at a certain query Point lowercase x okay and let's say you want to know you want to know what's the predictive"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_024",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 840.0,
+    "end_time": 885.0,
+    "text": "point at a certain query Point lowercase x okay and let's say you want to know you want to know what's the predictive value of y at this at this um position of X right so for linear regression what we were doing was we would fit Theta to minimize you sum over I y IUS the transpose x squared and return the trans X okay so that was"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_025",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 875.0,
+    "end_time": 920.0,
+    "text": "squared and return the trans X okay so that was regression in contrast in locally way to linear Direction I'm going to do something slightly different going to look at this point x and then I'm going to look at my data set and take into account only the data points that are sort of in a little vicinity of X okay so I'm going to look at you know where I want to valuate my hypothesis I'm going to look only in the in the vicinity of of of the point this point where I want to evaluate my hypothesis and then I'm going to take let's say just these few"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_026",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 910.0,
+    "end_time": 955.0,
+    "text": "of of the point this point where I want to evaluate my hypothesis and then I'm going to take let's say just these few points and I will um apply linear regression to fill a straight line just to this subset of the data okay I'm using the sub term subset well let's come back to that later so I take this data set and I fit straight line to it maybe I get I know straight line like that and what I'll do is then evaluate this particular value of straight line and you know that would be the value I returned for my algorithm okay that this this would be the predicted value for um uh uh this would"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_027",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 945.0,
+    "end_time": 990.0,
+    "text": "straight line and you know that would be the value I returned for my algorithm okay that this this would be the predicted value for um uh uh this would be the value that my hypothesis outputs in locally weight of regression okay so let me go and for let me go ahead and formalize that in locally ways of regression we're going to fix"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_028",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 980.0,
+    "end_time": 1025.0,
+    "text": "where these terms w super script I are called weights um and there are many possible choic of ways I'm just going to write one down so that's e to the minus x i - x² over two um and so let's look at what these weights really are right so notice that um suppose you have a training example XI so that XI is very close to X so this is small right"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_029",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 1015.0,
+    "end_time": 1060.0,
+    "text": "um suppose you have a training example XI so that XI is very close to X so this is small right then um if x i - x is small so if x i- x is close to zero then this is e to the minus 0 and e to the 0 is is 1 so if x i is close to X then wi will be close to one in other words the weight Associated the I training example be close to one if x i and X are close to each other conversely if x i -"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_030",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 1050.0,
+    "end_time": 1095.0,
+    "text": "and X are close to each other conversely if x i - large i zero right close to zero cool right so this is if XR is very far from X and this is e the minus of some large number and E the minus some large number will okay is if I'm carrying at a certain point x um"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_031",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 1085.0,
+    "end_time": 1130.0,
+    "text": "is if I'm carrying at a certain point x um set you know say looks like that then I'm going to give the points close to this a large weight and give the points far away a small weight um and so for the points that are far away wi will be close to zero and so it's as if for the points that are far away um you they will not contribute much at all to this summation right so think this this"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_032",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 1120.0,
+    "end_time": 1165.0,
+    "text": "will be close to zero and so it's as if for the points that are far away um you they will not contribute much at all to this summation right so think this this sum over I of 1 times this quadratic term for close by points plus 0o times this quadratic term for farway points and so the effect of using this waiting is that locally weight the regression fits a set of parameters data paying much more attention to fitting the points close by accurately whereas of ignoring the contribution um from from far away points okay yeah yeah why is an exponentially yeah let's see so turns out there are many other waiting functions you can use um it turns out that there are different re different"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_033",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 1155.0,
+    "end_time": 1200.0,
+    "text": "far away points okay yeah yeah why is an exponentially yeah let's see so turns out there are many other waiting functions you can use um it turns out that there are different re different communities of researchers that tend to choose different choices by default um there is a there is a somewhat of a literature on debating what what exactly what function to use um this of exponential decay function is is just happens to be a reasonably common one that seems to a reasonable choice of many problems but you can actually plug in other functions as well um just mention one side comment to that for those of you that are familiar with you know the the the M the um normal distribution of the Gan distribution I'm going say this what this formula that written out here you know it"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_034",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 1190.0,
+    "end_time": 1235.0,
+    "text": "know the the the M the um normal distribution of the Gan distribution I'm going say this what this formula that written out here you know it cosmetically looks a bit like a gan distribution okay but this has actually this actually has absolutely nothing to do with Gan distributions so um this is not it's not that you know probably if XI is Gan or whatever this is no no such interpretation this is just a convenient function that happens to be a bell-shaped function that don't endow us with any gum semantics okay um and so in fact well if you remember the familiar bell-shaped Gan um again it's just the way you end up associating with these points is that um if you imagine putting"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_035",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 1225.0,
+    "end_time": 1270.0,
+    "text": "bell-shaped Gan um again it's just the way you end up associating with these points is that um if you imagine putting the sort of bell-shaped bump centered around the position of where you want to evaluate your hypothesis H then this is saying this point here I'll give a weight that's proportional to the height of the Gan excuse me to the height of the Bell shape function evaluated at this point and the weight to give to this point will be to this training example will be proportional to that height and so on okay and so chiny examples are really far away get a very small weight um one last small generalization to this"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_036",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 1260.0,
+    "end_time": 1305.0,
+    "text": "examples are really far away get a very small weight um one last small generalization to this is that normally there's one other parameter to this algorithm um which I'll denote as to um again this looks suspiciously like the variance of a gan but this is not a gan this is a convenient form of function this parameter um um informally it controls how fast"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_037",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 1295.0,
+    "end_time": 1340.0,
+    "text": "um um informally it controls how fast the weights fall off with distance okay so just copy my diagram from the other guess so if um Tower is very small that's a qu X then you end up choosing a fairly narrow G excuse me a fairly narrow Bell shape so that um the weight points the far away far off rapidly whereas if um Tower is actually if Tower is large then you end up"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_038",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 1330.0,
+    "end_time": 1375.0,
+    "text": "is actually if Tower is large then you end up choosing um a waiting function that falls off relatively slowly with distance from your query um okay that if you apply locally weight to linear regression to a data set that looks like this then to ask what your hypothesis's output is at a point like this you end up fitting a straight line making that prediction um to ask swi"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_039",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 1365.0,
+    "end_time": 1410.0,
+    "text": "looks like this then to ask what your hypothesis's output is at a point like this you end up fitting a straight line making that prediction um to ask swi hypothesis output is at that value you put a straight line there and predict that value and turns out that every time you you try to evaluate your hypothesis every time you ask your learning algorithm to make a prediction for you know how much a new houseal cost or whatever you need to fit you need to run a new fitting procedure and then evaluate um this line that you fit just at the position of um the value of x or the position of the query where you're trying to make a prediction okay but if you do this you know for every point along the x-axis then you find that locally weight of regression is able to"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_040",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 1400.0,
+    "end_time": 1445.0,
+    "text": "the position of the query where you're trying to make a prediction okay but if you do this you know for every point along the x-axis then you find that locally weight of regression is able to out is sort a very nonlinear curve for a data set like this okay um so in the problem set we're actually going to let you play around more with this algorithm so I won't say too much more about it here but um before I move on to the next topic let me let me check what questions you have yeah it seems like you still have the same problem with overfitting and underfitting like you have to choose tow like if you make it too small y then you're yes absolutely yes so um local weight to regression can run into local weight to"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_041",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 1435.0,
+    "end_time": 1480.0,
+    "text": "you have to choose tow like if you make it too small y then you're yes absolutely yes so um local weight to regression can run into local weight to regression is not a pen here for the problem of overfitting or underfitting um uh it you can still run into the same problems with local weight of regression um what you just said um about and and so some some of these things are leave you to discover for yourself in the homework problem you you actually see what she just mentioned yeah it almost seems like you're not even building a model with this locally Rel all the data that you think the original data points right so"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_042",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 1470.0,
+    "end_time": 1515.0,
+    "text": "think the original data points right so the question is just uh what it's almost as if you're not building a model because you need the entire data set and uh the other way of saying that is that this is a non-parametric learning algorithm um and and so this is and um I don't know I won't I I I won't debate whether you know are we really building a model or not but um this is perfectly fine so if I think when you write code implementing locally weighted linear regression on um on the data set I think of that code as a whole as building your model um so we actually use this we've"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_043",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 1505.0,
+    "end_time": 1550.0,
+    "text": "regression on um on the data set I think of that code as a whole as building your model um so we actually use this we've actually used this quite successfully to model the Dynamics or autonomous helicopter for instance yeah yeah the variance of this algorithm that uh learn the weight based on the data um learn what weight oh the waist wi using exp I see yes so it turns out there are a few things you can do one thing that's quite common is um how to choose this bandwidth parameter towel right as as using a data we should talk about that a bit later when we talk about model"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_044",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 1540.0,
+    "end_time": 1585.0,
+    "text": "right as as using a data we should talk about that a bit later when we talk about model question you add the constants then you can make it then oh I guess um let's see boy the weights are not random variables and is not for the purpose of this algorithm is not useful to endow with probabilistic semantics so if you could choose to Define things as Galan but it so doesn't lead anywhere um in fact uh it turns out that um I happen to choose this bell-shaped function um for to Define my ways is actually fine to"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_045",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 1575.0,
+    "end_time": 1620.0,
+    "text": "fact uh it turns out that um I happen to choose this bell-shaped function um for to Define my ways is actually fine to choose a function that doesn't even integrate to one that integrates to Infinity say as your waiting function um and so in that sense you know I mean you could you could force in the definition of Gan but it's s of not useful especially since you use other functions that that integrate to Infinity don't integrate to one okay it's last question I should move on assume that the we have a very huge set of data for example very huge set of houses and we want to predict the label for each house so we should run the algorithm for each input and I think it is very"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_046",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 1610.0,
+    "end_time": 1655.0,
+    "text": "houses and we want to predict the label for each house so we should run the algorithm for each input and I think it is very yeah yeah you're actually right so um because lowly weight to regression is um this non-parametric algor them every time you make a prediction you need to fit Theta to your entire training set again um so you're absolutely right for if you have a very large training set then this is a somewhat expensive algor to use because every time you want to make a prediction you need to fit you know a straight line to to to a huge data set to gain um turns out there are algorithms that uh turns out their ways to make this much more efficient for launch data sets as well um so they want to talk about that if if you're"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_047",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 1645.0,
+    "end_time": 1690.0,
+    "text": "data set to gain um turns out there are algorithms that uh turns out their ways to make this much more efficient for launch data sets as well um so they want to talk about that if if you're interested look up the work of Andrew Moore on KD trees um so figured out ways to fit these models much more efficiently that's not something I want to go into today okay let me let me move on let's take more questions later um so those was locally weight of regression um remember the outline I had I guess at the beginning of this lecture what I"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_048",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 1680.0,
+    "end_time": 1725.0,
+    "text": "so those was locally weight of regression um remember the outline I had I guess at the beginning of this lecture what I want to do now is um talk about a probabilistic interpretation of linear regression right and in particular it it will be this probabilistic interpretation that lets us move on to um talk about logistic regression which would be our first classification algorithm let's put aside locally weight to regression for now we just talk about"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_049",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 1715.0,
+    "end_time": 1760.0,
+    "text": "let's put aside locally weight to regression for now we just talk about ordinary you know unweighted linear regression and let's ask the question of um why these squares right of of all the things we could optimize how do we come up with this criteria for minimizing the square of the error between uh the predictions of the hypoth proces and and the values why predicted so why not minimize you know the absolute value of the errors or or the errors to the power of four or something um what I'm going to do now is present one set of assumptions that will serve to quote justify why we're minimizing the sum of squares eror okay um it turns out that there are many"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_050",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 1750.0,
+    "end_time": 1795.0,
+    "text": "present one set of assumptions that will serve to quote justify why we're minimizing the sum of squares eror okay um it turns out that there are many assumptions that are sufficient to justify why we do these squares and this is just one of them um so so you know just just be clear present one set of assumptions under which these squares regression makes sense um but this is not the only set of assumptions so even in the assumptions I I described don't hold these squares actually still make sense in many circumstances but this will may help you give one rationalization like one reason for doing these squares regression um and in particular what I'm going to do is um endow the Le squares model with"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_051",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 1785.0,
+    "end_time": 1830.0,
+    "text": "regression um and in particular what I'm going to do is um endow the Le squares model with probable six semantics and so let's assume in our example predicting housing prices that the the price of the house is sold for is going to be some linear function features plus um some term Epsilon I okay and Epsilon I will be you know our error term um you think of the error term as capturing unmodeled effects like that maybe there's some other features"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_052",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 1820.0,
+    "end_time": 1865.0,
+    "text": "our error term um you think of the error term as capturing unmodeled effects like that maybe there's some other features of a house like maybe how many fireplaces it has or whether is a garden or whatever that there are uh additional features that we just failed to capture or you can think of Epsilon as random noise okay so Epsilon is our error term that captures both these unmodeled effects um just things we forgot to model maybe the function isn't quite linear or something um as well as um as well as random noise like maybe that day the seller was in a really bad mood and so you know he sold it he just refused to go for reasonable price I think um and"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_053",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 1855.0,
+    "end_time": 1900.0,
+    "text": "so you know he sold it he just refused to go for reasonable price I think um and now I'll assume that the errors have um a probabilistic have a probability distribution I'll assume that the errors Epsilon I are distributed this totally uh Den notes Epsilon I is distributed according to a probability distribution that's a gan distribution with mean z and variant Sigma squ okay so I'm going to use script n here um n stands for normal right to denote the normal distribution also known as the Gan distribution with me Z and coant sigma"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_054",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 1890.0,
+    "end_time": 1935.0,
+    "text": "so I'm going to use script n here um n stands for normal right to denote the normal distribution also known as the Gan distribution with me Z and coant sigma squ um actually just quickly raise your hand if you see a gan distributions of all okay cool most of you great almost everyone so in other words um the density for Gan most you seen this before the density for Epsilon I will be one of 2 pi Theon s over 2"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_055",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 1925.0,
+    "end_time": 1970.0,
+    "text": "Theon s over 2 uh the density for Epsilon I will be this bell-shaped curve with you know the um with one standard deviation um being of Sigma okay um this is form for that Bell shape"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_056",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 1960.0,
+    "end_time": 2005.0,
+    "text": "board okay so this implies that um the probability distribution of a price of house given XI and the parameters steta"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_057",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 1995.0,
+    "end_time": 2040.0,
+    "text": "with that density okay um another way of saying house you know given um the features of the house and a parameters sta this is going to be a random variable that's distributed Gan with mean the transpose X only and Varan Sigma squ right because"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_058",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 2030.0,
+    "end_time": 2075.0,
+    "text": "variable that's distributed Gan with mean the transpose X only and Varan Sigma squ right because we we we imagine that um the way the housing price is generated is that you know the price of a house um is equal to Theta transpose XI and then plus some random Galaxy noise with variance Sigma squ and so the price of a house is going to be have mean say the transal 6 I in Sigma squ right does this make sense can you raise your hand if this make sense um yeah okay most of"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_059",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 2065.0,
+    "end_time": 2110.0,
+    "text": "sense um yeah okay most of um in point of notation oh yes we don't know anything about the arrow why do you assume here error is a go right so um boy yeah so part of the uh what is it why does seem the eror is Gan um two reasons right one is turns out to be mathematically convenient to do so um and the other is um I don't know I could also Mumble about justification such as things of the central limit theorem it turns out that if you for the vast"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_060",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 2100.0,
+    "end_time": 2145.0,
+    "text": "mathematically convenient to do so um and the other is um I don't know I could also Mumble about justification such as things of the central limit theorem it turns out that if you for the vast majority of problems if you apply a linear regression model like this and try to measure the distribution of the errors not all the time but very often you find that the errors really are Gan that that just of Gan model is a good assumption for the error of um in in regression problems like these um some of you may have heard of the central limit theorem which says that the sum of many independent random variables would tend towards the gum so if the error is caused by many effects like you know the mood of the seller the mood of the buyer some other features that we miss whether the place has a garden or not and if all"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_061",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 2135.0,
+    "end_time": 2180.0,
+    "text": "caused by many effects like you know the mood of the seller the mood of the buyer some other features that we miss whether the place has a garden or not and if all of these effects are independent then by the central limit theorem you might be inclined to believe that you know the sum of all of these effects will be approximately Gan but in practice I guess the two real answers are that one in practice this is actually a reasonably accurate assumption um and two is it turns out to be mathematically convenient to do so okay um yeah seems like we're saying if we assume the error around our model has zero mean then the error is centered around our model which it seems almost like we're trying to assume what we're"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_062",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 2170.0,
+    "end_time": 2215.0,
+    "text": "assume the error around our model has zero mean then the error is centered around our model which it seems almost like we're trying to assume what we're trying to prove um let's let's let's delate to what I'm trying to prove but yes we are assuming that the error has zero mean which is yeah right um I think maybe I suspect later this qu we'll get to some of the other things but so for now think of this as a mathematic is actually not an unreasonable assumption um I guess you know in in in in machine learning all the all the assumptions we make are almost never true in in in the absolute sense right because for instance um housing prices are priced to Dollars and cents and so the error will be you know"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_063",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 2205.0,
+    "end_time": 2250.0,
+    "text": "almost never true in in in the absolute sense right because for instance um housing prices are priced to Dollars and cents and so the error will be you know errors in prices are not continuous value random variables because um houses can only be priced at a certain number of dollars a certain number of cents and you never have fractions of cents in in housing prices whereas a ging random variable W so in that sense assumptions we make are never quote absolutely true but for practical purposes this is a accurate enough assumption that it'll be it'll be useful to make it okay um maybe I think in yeah I think in a week or two we actually come back to say a bit more about the source of assumptions we make and when they help our loading algorithms and when when they hurt our learning algorithm we'll do that we'll"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_064",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 2240.0,
+    "end_time": 2285.0,
+    "text": "maybe I think in yeah I think in a week or two we actually come back to say a bit more about the source of assumptions we make and when they help our loading algorithms and when when they hurt our learning algorithm we'll do that we'll say a bit more about when we talk about generative and discriminative learning algorithms like in a in a week or two um okay so let just point out one one one bit of notation which is that um when I wrote this down I actually wrote P of Yi given XI and then semicolon Theta and I'm going to use this notation when we are not thinking of theta as a random variable so in statistics this sometimes called the frequences point of view where we think of there as being some s of true value of theta that's out"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_065",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 2275.0,
+    "end_time": 2320.0,
+    "text": "random variable so in statistics this sometimes called the frequences point of view where we think of there as being some s of true value of theta that's out there that's generating the data say but um you know we don't know what Theta is but Theta is not a random variable right so it's not it's not like there's some random value of theta out there is that Theta is the some true value of theta out there it's just that we don't know what the value of theta is so if Theta is not a random variable then I'm going to avoid writing p y i given x i comma Theta because this would mean the probability of Yi conditioned on X and Theta and you can only you know"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_066",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 2310.0,
+    "end_time": 2355.0,
+    "text": "Theta because this would mean the probability of Yi conditioned on X and Theta and you can only you know condition on random variables um so at least for this part of the class where we're taking so the frequencies Viewpoint rather than a basian Viewpoint in this point class we're thinking of theta not as a random variable but just as something we're trying to estimate I use the semicolon notation and so the way to read this is this is the probability of Yi given XI and and parameterized by Theta okay so you read the semicolon as parameterized by and the same way here I'll say y i given XI parameterized by Theta is distributed galum with"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_067",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 2345.0,
+    "end_time": 2390.0,
+    "text": "the same way here I'll say y i given XI parameterized by Theta is distributed galum with that um all [Applause] um let me going and make one more assumption going to assume that the error terms um"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_068",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 2380.0,
+    "end_time": 2425.0,
+    "text": "assume that the error terms um IID okay which stands for independently and identically distributed so just going to assume that the error terms are right the identically distributed part just means that I'm assuming they all come from the same Gan distribution with the same variance um but but the more important part of this is I'm assuming that the Epsilon I are independent of each"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_069",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 2415.0,
+    "end_time": 2460.0,
+    "text": "come from the same Gan distribution with the same variance um but but the more important part of this is I'm assuming that the Epsilon I are independent of each other now let talk about how to fit a model the probability of Y given X parameterized by Theta um I'm actually going to give this another name I'm going to write this down I'm going to call this the likelihood of theta as the probability of Y given xeriz by Theta and so this is going to be the set that"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_070",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 2450.0,
+    "end_time": 2495.0,
+    "text": "set that um which is in turn going to be a product of those gussian densities I wrote down just right okay um again in in point of notation I guess I defined this term here to be the likelihood of theta and the likelihood of theta is just you know the probability of the data y right given x and parze by Theta um the terms"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_071",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 2485.0,
+    "end_time": 2530.0,
+    "text": "likelihood of theta and the likelihood of theta is just you know the probability of the data y right given x and parze by Theta um the terms likelihood and probability are often confused and um so the likelihood of the of theta is the same thing as the probability of the data you saw and so likelihood and probably I Sol the same thing except that when I use the term likelihood I'm trying to emphasize that you know I'm taking this thing and viewing it as a function of theta okay so um so like likelihood and probability they're really the same thing except that when I want to view this thing as a function of theta holding X and Y fixed I'll then call the likelihood okay um so"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_072",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 2520.0,
+    "end_time": 2565.0,
+    "text": "they're really the same thing except that when I want to view this thing as a function of theta holding X and Y fixed I'll then call the likelihood okay um so hopefully you hear me say the likelihood of the parameters and the probability of the data right rather than likelihood of the data or probity parameters so so try use try to be consistent in that so given that the probability of the data is this and this is also the likelihood of the parameters um how do you estimate the parameters data so given a training set what parameters data do you want to choose for your"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_073",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 2555.0,
+    "end_time": 2600.0,
+    "text": "likelihood of the parameters um how do you estimate the parameters data so given a training set what parameters data do you want to choose for your model the uh principle of Maximum likelihood that right um you can choose the value of theta that makes the data as like as probable as possible right so choose"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_074",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 2590.0,
+    "end_time": 2635.0,
+    "text": "that right um you can choose the value of theta that makes the data as like as probable as possible right so choose maximize the likelihood or another words choose the parameters that make the data as as probable as possible right so this is maximum likely estimation from s six says choose the parameters that you know makes it as likely as probable as possible for me to have seen the data I just so for mathematical convenience let me Define lowercase L of theta um this is called the log"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_075",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 2625.0,
+    "end_time": 2670.0,
+    "text": "so for mathematical convenience let me Define lowercase L of theta um this is called the log likelihood function and it's just log of you know L of of capital L of theta so this is log of product over Sigma e to the that and I won't I won't bother to write out what's in the exponent for now it's just same as from the previous board um log of the product is the same"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_076",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 2660.0,
+    "end_time": 2705.0,
+    "text": "um which simplifies to M * 1 / &lt; TK 2 piun plus and then log of exponentiation cancel each other log of e of something is just whatever is inside the exponent so um"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_077",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 2695.0,
+    "end_time": 2740.0,
+    "text": "is just whatever is inside the exponent so um"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_078",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 2730.0,
+    "end_time": 2775.0,
+    "text": "minus okay maximizing maximizing the likelihood I'm maximizing the log likelihood is the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_079",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 2765.0,
+    "end_time": 2810.0,
+    "text": "um well you get it right um because it's a minus sign so maximizing this because of the minus sign is the same as minimizing this as a function of and this is of course just the same quadratic cost function that we had last time J of theta right um and so what we've just shown is that the ordinary Le squares algorithm that that we worked on in the previous"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_080",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 2800.0,
+    "end_time": 2845.0,
+    "text": "theta right um and so what we've just shown is that the ordinary Le squares algorithm that that we worked on in the previous likelihood assuming this probabilistic model um assuming this assuming IID Gan errors on our um one thing that we'll actually revisit um in the next lecture notice that the value of Sigma squar doesn't matter right that somehow no matter what the value of Sigma square is Sigma square has to be a positive number it's the variance of Galan so but no matter what"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_081",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 2835.0,
+    "end_time": 2880.0,
+    "text": "value of Sigma squar doesn't matter right that somehow no matter what the value of Sigma square is Sigma square has to be a positive number it's the variance of Galan so but no matter what Sigma squ is you know so long as it's positive number the value of theta we end up with um will be the same right so because yeah minimizing this you get the same value of theta no matter what Sigma square is so it's as if in this model the value of Sigma Square doesn't really matter um and we we just just remember that for the next lecture we'll come back to this again um the questions about this actually let me let me clean another couple of boards and I'll see"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_082",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 2870.0,
+    "end_time": 2915.0,
+    "text": "about this actually let me let me clean another couple of boards and I'll see"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_083",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 2905.0,
+    "end_time": 2950.0,
+    "text": "too okay there questions yeah here uh I think here you try to measure the uh the lik ni OFA uh by by a function of error but but I think but I think it's not a good measure because because it depends on the family of SATA too for example if we have a lot of parameters we have problem with overfitting uh yeah yeah I think you're asking about overfitting whether this is"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_084",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 2940.0,
+    "end_time": 2985.0,
+    "text": "the family of SATA too for example if we have a lot of parameters we have problem with overfitting uh yeah yeah I think you're asking about overfitting whether this is good model I think let's the things the things you're mentioning are um maybe deeper questions about learning algorithms that that come back to this that will come back to later so don't really want to get into that right so um this endows um linear regression with a probabilistic interpretation and I'm actually going to use this probab use a this sort of probabilistic interpretation in order to"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_085",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 2975.0,
+    "end_time": 3020.0,
+    "text": "so um this endows um linear regression with a probabilistic interpretation and I'm actually going to use this probab use a this sort of probabilistic interpretation in order to derive our next learning algorithm which will be our first classification algorithm okay so um you recall that I said that you regression problems are where the variable y you're trying to predict is continuous values um now I'm actually going to talk about our first classification problem where um the value why you're trying to predict will be discrete value you can take on only a small number of discrete values and in this case I'll talk about binary classification where um y takes on only two values right so you come up with"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_086",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 3010.0,
+    "end_time": 3055.0,
+    "text": "small number of discrete values and in this case I'll talk about binary classification where um y takes on only two values right so you come up with classification problems if you're trying to do say medical diagnosis and try to decide you know based on some features um if a patient has has a disease or does not have a disease um or if in housing example maybe trying to decide will this house sell in the next 6 months or not and the answer is either yes or no it'll either be soell in the next six months or it won't be um other standard examples you if you want to build a spam filter is this email spam or not is yes or no or um if you you know some of my colleagues are interested in um predicting whether a computer system will crash so you know"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_087",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 3045.0,
+    "end_time": 3090.0,
+    "text": "or not is yes or no or um if you you know some of my colleagues are interested in um predicting whether a computer system will crash so you know it's have learning a to predict will this Computing cluster crash within the next 24 hours and again there yes or no so that's X that's Y and so in the problem y takes on two values zero and one let's say in binary classification um so what can you do well one thing you could do is take linear regression as we've described it so far and apply it to this problem right so you you know given this data set you can fit a straight line to it"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_088",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 3080.0,
+    "end_time": 3125.0,
+    "text": "well one thing you could do is take linear regression as we've described it so far and apply it to this problem right so you you know given this data set you can fit a straight line to it maybe you get that straight line right and but this and this this data set I've drawn right is an amazingly easy classification problem it's pretty obvious you know to all of us that right the relationship between X and Y is well you just look at a value around here and if it's to the right Y is one it's to the left and Y is zero so apply linear regression to this data set and you get a Reas more fit and you can then maybe take your linear regression hypothesis the straight line and you know fresh holding at 0.5 and if you do that you still get the right answer you predict that you know if Y is if if x is to the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_089",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 3115.0,
+    "end_time": 3160.0,
+    "text": "the straight line and you know fresh holding at 0.5 and if you do that you still get the right answer you predict that you know if Y is if if x is to the right of of s a midpoint here then Y is one and if x to the left of that midpoint then Y is zero um so some people actually do this apply linear regression to classification problems and sometimes it'll work okay but in general it's actually pretty bad idea to apply linear regression to um classification problem like these and and here's why let's say I change my training set by giving you just one more training example all the way out there right um"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_090",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 3150.0,
+    "end_time": 3195.0,
+    "text": "why let's say I change my training set by giving you just one more training example all the way out there right um imagine if given this training set is actually still entirely obvious what the relationship between X and Y is right it's just take this value it's greater than y is one if it's less than y is zero by telling you you know that by giving you this additional training example it really shouldn't change anything I mean like I didn't really convey much new information there's no surprise that this corresponds to y equal 1 but if you now fit linear regression to this data set you end up with I don't know maybe a line that looks like that right and now the predictions of your hypothesis have"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_091",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 3185.0,
+    "end_time": 3230.0,
+    "text": "regression to this data set you end up with I don't know maybe a line that looks like that right and now the predictions of your hypothesis have changed completely if you threshold your hypothesis at yal 0.5 okay so in between there might be an interval where it's zero right Point Oh you mean like that yeah yeah yeah yeah sure give data set like that same thing so I guess this this is just yes you're right but this is this is this this is an example and this example works that would change even more oh you"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_092",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 3220.0,
+    "end_time": 3265.0,
+    "text": "yes you're right but this is this is this this is an example and this example works that would change even more oh you gave it all yeah then I think this actually make it even worse we actually get a line that pulls down even further right so this is my example I get to make it whatever I want right but but the point of this is is there's no deep meaning to this the point of this is just that you know it could be a really bad idea to apply linear regression to classification problem and sometimes it work fine but but usually I wouldn't do it um so a couple problems with this one is that well so so what do we want to do for classification um you know if you know the value of y lies between zero and one then um to"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_093",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 3255.0,
+    "end_time": 3300.0,
+    "text": "is that well so so what do we want to do for classification um you know if you know the value of y lies between zero and one then um to try to fix this problem let's just start by changing the form of a hypothesis so that my hypothesis always lies in the unit interval between zero and one okay um so if if I know why is either zero or one then let's at least not have my hypothesis predict values much larger zero and so I'm going to instead of choosing a linear function for my hypothesis I'm going to choose something slly"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_094",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 3290.0,
+    "end_time": 3335.0,
+    "text": "zero and so I'm going to instead of choosing a linear function for my hypothesis I'm going to choose something slly different and in particular I'm going to choose this function H subscrip Theta of X is going to be equal to G of theta transpose X where um G is going to be this function um and so this becomes 1/ 1 + e to th transv X okay and um G of Z Z is called the sigmoid [Music] function and is often also called the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_095",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 3325.0,
+    "end_time": 3370.0,
+    "text": "to th transv X okay and um G of Z Z is called the sigmoid [Music] function and is often also called the function it goes by either of these names um and what G of Z looks like is the following so on the horizontal axis I'm going to Z will look like this okay I didn't draw well okay so G of Z tends towards zero"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_096",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 3360.0,
+    "end_time": 3405.0,
+    "text": "well okay so G of Z tends towards zero as Z becomes very small and G of Z will ASM toote towards one as Z becomes large and it crosses the vertical axis at 0.5 so this is what the sigo function also called the logistic function of s yeah sigo another step five say that again why we cannot choose a step faction isn't like that's better the binary yeah let me come back to later so it turns out why where did I get this function from right where how did I I mean I just wrote down this function it actually turns out that there are two reasons for using this function that will come to one is um when we talk about generalized"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_097",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 3395.0,
+    "end_time": 3440.0,
+    "text": "out why where did I get this function from right where how did I I mean I just wrote down this function it actually turns out that there are two reasons for using this function that will come to one is um when we talk about generalized line models we'll see that this falls out naturally as as part of a broader CL of models um and another reason that we'll talk about uh next week is it turns out there are a couple of I think very beautiful reason reasons for why we choose the logistic function so we'll see that in a little bit but for now let me just you know Define it and and just take my word for it for now that this is a reasonable Choice okay um but notice now that my the the the values output by my hypothesis will always be between zero and one um and further all just like we did"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_098",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 3430.0,
+    "end_time": 3475.0,
+    "text": "now that my the the the values output by my hypothesis will always be between zero and one um and further all just like we did for linear regression I'm going to endow the outputs of my hypothesis with a probabilistic interpretation right so I'm going to assume that the probability that Y is equal to 1 given x and parameterized by Theta that's equal to H subscript Theta of X right so in other words I'm going to imagine that you know my hypothesis is outputting all these numbers that lie between 0o and one I'm going to think of my hypothesis as trying to estimate the probability that Y is equal to one"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_099",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 3465.0,
+    "end_time": 3510.0,
+    "text": "between 0o and one I'm going to think of my hypothesis as trying to estimate the probability that Y is equal to one because and because y has to be either zero or one then the probability of Y is that all right um so more simply it turns out actually take these two equations and write them more compactly I'm going to write P of Y given X parameterized by Theta this is going to be each subscript Theta of x to the power of"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_100",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 3500.0,
+    "end_time": 3545.0,
+    "text": "given X parameterized by Theta this is going to be each subscript Theta of x to the power of y * 1 - h of X to^ of 1 minus y okay so I know this looks somewhat bizarre but this this actually makes the derivation much much nicer so Y is equal to 1 then this equation is you know h of x to the^ of 1 times something to the power of zero so anything to the power of zero is just one right so y equals 1 then this is something to the power of zero and so this is just one and so if y = 1 this is just saying P of Y = 1 is equal to H subscript Theta of"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_101",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 3535.0,
+    "end_time": 3580.0,
+    "text": "just one right so y equals 1 then this is something to the power of zero and so this is just one and so if y = 1 this is just saying P of Y = 1 is equal to H subscript Theta of X and in the same way if Y is equal to zero then you know this is p of y equal 0 equals this thing to the^ zero and so this disappears this is just one times this thing to the power of one okay so this is a compact way of writing both of these equations um you know together um so let's talk about parameter fitting right and again we can ask um well given this model of my data how do I fit the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_102",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 3570.0,
+    "end_time": 3615.0,
+    "text": "um so let's talk about parameter fitting right and again we can ask um well given this model of my data how do I fit the parameters theeta of my model um so the likelihood of the parameters is as before it's just the probability of data right which is product over i p ofy i given x i parameterized by in okay and I Dr I dropped this Theta subscript just so you can write a little"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_103",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 3605.0,
+    "end_time": 3650.0,
+    "text": "in okay and I Dr I dropped this Theta subscript just so you can write a little less oh excuse me you should be x i and"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_104",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 3640.0,
+    "end_time": 3685.0,
+    "text": "okay so um as before let's say we want to find the maximum likelihood at estimate of the parameters Theta so we want to find the set of the parameters Theta that maximizes the likelihood um L of theta um it turns out that very often you know just when you work out the derivations it turns out it's often much easier to maximize the log of the likelihood rather than maximize the likelihood um and so the log likelihood L of theta just log of capital L this will"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_105",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 3675.0,
+    "end_time": 3720.0,
+    "text": "it turns out it's often much easier to maximize the log of the likelihood rather than maximize the likelihood um and so the log likelihood L of theta just log of capital L this will therefore be sum"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_106",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 3710.0,
+    "end_time": 3755.0,
+    "text": "okay and so to fit the parameters sta of our model we'll um find some find the value of theta that maximizes this log likelihood yeah say that thanks so how do you maximize this function well it turns out we can actually apply um the same gradient descent algorithm that we learned that was the first algorithm we we we used to minimize the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_107",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 3745.0,
+    "end_time": 3790.0,
+    "text": "actually apply um the same gradient descent algorithm that we learned that was the first algorithm we we we used to minimize the quadratic function remember when we talked about Le squares um the first algor we used to minimize the quadratic error function was grade in descent and so we can actually use exactly the same algorithm to maximize the log likelihood um and you remember that algorithm was just you repeatedly take the value of theta and you replace it with the previous value of theta plus um a learning rate Alpha times the gradient of you know the cost function the log likelihood with respect"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_108",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 3780.0,
+    "end_time": 3825.0,
+    "text": "learning rate Alpha times the gradient of you know the cost function the log likelihood with respect to Theta okay one small change is that because um previously we were trying to minimize the quadratic sum of the quadratic error term today we're trying to maximize rather than minimize so rather than having a minus sign we have a plus sign so this is just you great in great in descents but for maximum a rather than a minimization and so we actually call this gradient Ascent it's really the same algorithm um so to figure out what thises gradient so in order to derive gradient descent um what you need to do is you know"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_109",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 3815.0,
+    "end_time": 3860.0,
+    "text": "um so to figure out what thises gradient so in order to derive gradient descent um what you need to do is you know compute the partial derivatives of your objective function with respect to each of your parameters Thea right so um and if you actually compute this partial derivative um so if you take this formula this L of theta which is oh got that wrong too if you take this lowercase L of theta if you take the log likelihood of theta and if you take his derivative take his partial derivative"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_110",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 3850.0,
+    "end_time": 3895.0,
+    "text": "that wrong too if you take this lowercase L of theta if you take the log likelihood of theta and if you take his derivative take his partial derivative with respect to Theta I um you find that see okay and um I don't know the derivation isn't tery complicated but but in the interest of so of saving you watch me write down the cover of black"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_111",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 3885.0,
+    "end_time": 3930.0,
+    "text": "see okay and um I don't know the derivation isn't tery complicated but but in the interest of so of saving you watch me write down the cover of black bols W math I just right down the final answer but the way you get this is just take this plug in the definition for X subscript Theta as a function of XI and and take derivatives and work for the algebra and it turns out it'll simplify down to this formula okay um and so what that gives you is that gradient Ascent is the following rule Theta J gets updated as Theta J Plus"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_112",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 3920.0,
+    "end_time": 3965.0,
+    "text": "Ascent is the following rule Theta J gets updated as Theta J Plus this okay does this look familiar to anyone do you remember seeing this formula at the last lecture right so when I worked out bash Graden descent for Le squares regression um I actually wrote down exactly the same I actually wrote down"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_113",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 3955.0,
+    "end_time": 4000.0,
+    "text": "lecture right so when I worked out bash Graden descent for Le squares regression um I actually wrote down exactly the same I actually wrote down you know I actually wrote down exactly the same thing or maybe there was a minus sign and and those was also flipped but I actually had exactly the same learning rule last time for Le squares regression right so I don't know is this the same learning algorithm then so what's different how come I was making all that noise earlier about these regression being a bad idea for classification problems and then you know I did a bunch of math and I skipped some steps but but I'm sort of claiming that you end up"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_114",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 3990.0,
+    "end_time": 4035.0,
+    "text": "problems and then you know I did a bunch of math and I skipped some steps but but I'm sort of claiming that you end up algorithm right okay exactly right so is saying this is not the same right and the reason is in logistic regression this is different from before right the definition of this H subscript Theta of XI is not the same as the definition I was using in the previous lecture and in particular this is no longer Theta transvers this is not the linear function anymore this is um this is a logistic function of theta trans"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_115",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 4025.0,
+    "end_time": 4070.0,
+    "text": "longer Theta transvers this is not the linear function anymore this is um this is a logistic function of theta trans sign okay so even though this looks you know cosmetically similar even though this looks similar on the surface to um The bashra Descent r i derived last time for the squares regression this is actually a totally different learning algorithm okay and it turns out that there's actually no coincidence that you ended up with the same learning rule well and and we'll actually talk talk a bit more about this later when we talk about generalized linear models um but this is one of the this is one of the most elegant results of generalized learning models that we'll see later that even though we're using a different model you actually ended up with you know what looks like the same learning"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_116",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 4060.0,
+    "end_time": 4105.0,
+    "text": "this is one of the this is one of the most elegant results of generalized learning models that we'll see later that even though we're using a different model you actually ended up with you know what looks like the same learning algorithm and there's actually no coincidence um one last comment as as part of a a learning process um over here you know I said I take the derivatives and I end up ended up with this line um I didn't want to um you make you sit through a long algebraic derivation but later today or later this week please do go home and look at the lecture notes uh where you I wrote out the entirety of this derivation in full and make sure you can follow every single step of how we take"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_117",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 4095.0,
+    "end_time": 4140.0,
+    "text": "later this week please do go home and look at the lecture notes uh where you I wrote out the entirety of this derivation in full and make sure you can follow every single step of how we take partial derivatives of this likelihood to get this formul over here okay um by the way for those you interested in you seriously monstering machine learning material um when we go home and look for the Leon Nails it it will actually be very easy for most of you to look for the Leon nails and read through every line and go yep that makes sense that makes sense that makes sense that makes sense and so say okay cool I see how you get this line um you want to make sure you really understand the material my concrete suggestion to you will be to go home refill the lecture knows and check every line and then to cover up the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_118",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 4130.0,
+    "end_time": 4175.0,
+    "text": "get this line um you want to make sure you really understand the material my concrete suggestion to you will be to go home refill the lecture knows and check every line and then to cover up the derivation and see if you can derive this yourself right so in general that's that's a usually good advice for studying technical material like machine learning which is if you work for a proof If you think you understood every line um the way to make sure you really understood it is to cover it up and see if you can rederive the entire thing yourself this is actually a great way for I did this a lot when I was trying to study very various pieces of machine learning you know Theory and various proofs and this is actually a great way to study which is cover up to cover up the derivations and see if you can do it yourself without looking at the original derivation okay"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_119",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 4165.0,
+    "end_time": 4210.0,
+    "text": "to study which is cover up to cover up the derivations and see if you can do it yourself without looking at the original derivation okay um all right I probably won't get to Newton's method today I just want to say take one about um want to take one quick digression to talk about one more algorithm um which was this question"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_120",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 4200.0,
+    "end_time": 4245.0,
+    "text": "algorithm um which was this question earlier which is the perceptron algorithm right so um I'm not going to say a whole lot about the perceptron Alm but this is something that we'll come back to later later this quarter we talk about learning theory um so you know in logistic regression we said said that g of Z output the my hypothesis output values that were real numbers between 0 and one um the question is what if you want to force G of Z to output value to Output either zero either or output either zero or one right so um the"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_121",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 4235.0,
+    "end_time": 4280.0,
+    "text": "want to force G of Z to output value to Output either zero either or output either zero or one right so um the perceptron algorithm defines G of Z to this so the picture is theun is rather know G of Z now looks like the step function that that you're asking about earlier um and same as before we can use H substitute th of x equals g of Thea transvers X okay so it's actually everything's ex exactly the same as before except that g of Z is now"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_122",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 4270.0,
+    "end_time": 4315.0,
+    "text": "H substitute th of x equals g of Thea transvers X okay so it's actually everything's ex exactly the same as before except that g of Z is now the step function um it turns out there's this learning rule called the perceptual learning rule that's actually even the same as stochastic gradient Ascent for logistic regression and the learning rule is this okay so it looks you know just like the uh GR in sense rule um or really the stochastic gr sense rule for logistic"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_123",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 4305.0,
+    "end_time": 4350.0,
+    "text": "this okay so it looks you know just like the uh GR in sense rule um or really the stochastic gr sense rule for logistic regression um so this is very different flavor of algorithm than Le squares regression logistic regression um and in particular because it outputs only values that either zero or one turns out it's very difficult to endow this algorithm with probabilistic semantics um and this is again even though ohc um excuse me right there okay and even though this learning rule looks again looks cosmetically very similar to what we have logistic regression this is actually a very different type of learning role um than than the others"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_124",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 4340.0,
+    "end_time": 4385.0,
+    "text": "me right there okay and even though this learning rule looks again looks cosmetically very similar to what we have logistic regression this is actually a very different type of learning role um than than the others that we seen in this class and so um because this is you know so such a simple learning algorithm it just compute Theta transpose X and then you threshhold and you outut 0o one this is um relatively simpler algor than logistic regression I think and um when we talk about learning theory later in this class the Simplicity of this algorithm will let us come back and use it as a as a building block okay but um that's I want to say about the Z for"
+  },
+  {
+    "chunk_id": "stanford_cs229_lec03_chunk_125",
+    "video_id": "stanford_cs229_lec03",
+    "start_time": 4375.0,
+    "end_time": 4420.0,
+    "text": "that's I want to say about the Z for"
+  }
+]

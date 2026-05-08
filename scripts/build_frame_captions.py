@@ -34,16 +34,29 @@ def _get_video_path(video_id: str, cfg) -> Path:
 
 
 def assign_captions_to_chunks(chunks: list[dict], captions: list[dict]) -> list[dict]:
-    """Append the nearest frame caption to each chunk's text."""
+    """Append all in-window frame captions to each chunk's text.
+
+    Uses all frames whose timestamp falls within [start_time, end_time) rather than
+    only the nearest frame to the midpoint. At 15s intervals this gives ~3 captions
+    per 45s chunk, covering slide transitions and whiteboard build-up that a single
+    midpoint frame would miss. Frames in the 10s overlap zone are intentionally
+    included in both neighboring chunks to match the chunk overlap design.
+    Falls back to the single nearest frame if no frame falls within the window.
+    """
     augmented = []
     for chunk in chunks:
-        chunk_mid = (chunk["start_time"] + chunk["end_time"]) / 2
-        nearest = min(captions, key=lambda c: abs(c["time"] - chunk_mid))
+        in_window = [c for c in captions
+                     if chunk["start_time"] <= c["time"] < chunk["end_time"]]
+        if not in_window and captions:
+            in_window = [min(captions, key=lambda c: abs(c["time"] - (chunk["start_time"] + chunk["end_time"]) / 2))]
+        if not in_window:
+            augmented.append({**chunk, "text": chunk["text"], "frame_captions": []})
+            continue
+        caption_text = " ".join(f"[frame caption: {c['caption']}]" for c in in_window)
         augmented.append({
             **chunk,
-            "text": f"{chunk['text']} [frame caption: {nearest['caption']}]",
-            "frame_caption": nearest["caption"],
-            "frame_time": nearest["time"],
+            "text": f"{chunk['text']} {caption_text}",
+            "frame_captions": [{"time": c["time"], "caption": c["caption"]} for c in in_window],
         })
     return augmented
 
@@ -72,7 +85,7 @@ def process(video_id: str, cfg, device: str) -> None:
     ]
     out_captions = cfg.data.frame_captions_dir / f"{video_id}_frame_captions.json"
     out_captions.parent.mkdir(parents=True, exist_ok=True)
-    out_captions.write_text(json.dumps(caption_records, indent=2, ensure_ascii=False))
+    out_captions.write_text(json.dumps(caption_records, indent=2, ensure_ascii=False), encoding="utf-8")
     print(f"{video_id}: saved {len(caption_records)} frame captions → {out_captions}")
 
     # --- Build augmented chunks (transcript + nearest caption) ---
@@ -84,7 +97,7 @@ def process(video_id: str, cfg, device: str) -> None:
     chunks = json.loads(chunks_path.read_text())
     augmented = assign_captions_to_chunks(chunks, caption_records)
     out_augmented = cfg.data.chunks_dir / f"{video_id}_chunks_augmented.json"
-    out_augmented.write_text(json.dumps(augmented, indent=2, ensure_ascii=False))
+    out_augmented.write_text(json.dumps(augmented, indent=2, ensure_ascii=False), encoding="utf-8")
     print(f"{video_id}: saved augmented chunks → {out_augmented}")
 
 
@@ -101,7 +114,11 @@ def main() -> None:
     if args.all:
         metadata = json.loads(cfg.data.metadata_file.read_text())
         for entry in metadata:
-            process(entry["video_id"], cfg, args.device)
+            vid = entry["video_id"]
+            if (cfg.data.frame_captions_dir / f"{vid}_frame_captions.json").exists():
+                logging.info(f"Skipping {vid} — frame captions already exist")
+                continue
+            process(vid, cfg, args.device)
     else:
         process(args.video_id, cfg, args.device)
 

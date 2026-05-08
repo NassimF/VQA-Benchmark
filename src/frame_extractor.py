@@ -52,8 +52,8 @@ def extract_frames(video_path: Path, video_id: str, interval_seconds: float) -> 
         for index, t in enumerate(timestamps):
             out_path = tmp / f"frame_{index:04d}.jpg"
             subprocess.run(
-                ["ffmpeg", "-ss", str(t), "-i", str(video_path),
-                 "-frames:v", "1", "-q:v", "2", str(out_path)],
+                ["ffmpeg", "-threads", "1", "-ss", str(t), "-i", str(video_path),
+                 "-frames:v", "1", "-threads", "1", "-q:v", "2", str(out_path)],
                 capture_output=True,
             )
             if not out_path.exists():
