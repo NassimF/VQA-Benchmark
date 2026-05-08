@@ -49,8 +49,8 @@ a# Tech Stack
 
 | Component | Tool | Version Pin | Reason |
 |-----------|------|-------------|--------|
-| Embedding model | `sentence-transformers/all-MiniLM-L6-v2` | `≥2.7.0` | Prescribed by assignment; 384-dim, fast CPU/GPU inference, strong semantic retrieval |
-| Vector database | ChromaDB (persistent) | `≥0.5` | Prescribed by assignment; local persistent store, no server required; supports metadata filtering for `video_id` |
+| Embedding model | `sentence-transformers/all-MiniLM-L6-v2` | `5.4.1` | Prescribed by assignment; 384-dim, fast CPU/GPU inference, strong semantic retrieval |
+| Vector database | ChromaDB (persistent) | `1.5.8` | Prescribed by assignment; local persistent store, no server required; supports metadata filtering for `video_id` |
 | Distance metric | cosine | — | Standard for sentence embeddings; ChromaDB default |
 | Collections | `lecture_transcript_only`, `lecture_transcript_plus_frames` | — | Two collections required to enable side-by-side evaluation of both retrieval configs |
 
@@ -150,7 +150,7 @@ chunking:
   overlap_seconds: 10         # stride = 35s
 
 frame_extraction:
-  interval_seconds: 30
+  interval_seconds: 15
 
 frame_captioner:
   model: "Qwen/Qwen2-VL-7B-Instruct"
