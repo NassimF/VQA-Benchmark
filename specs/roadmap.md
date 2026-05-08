@@ -22,7 +22,7 @@ Status: ✅ Complete | ⚠️ Partial | ⏳ Pending
 | 4.2 | Run `scripts/build_frame_captions.py --all --device cuda` | ✅ 60/60 done |
 | 5.1 | `src/retriever.py` — two ChromaDB collections | ✅ |
 | 5.2 | `scripts/build_index.py` — ingest all chunks | ✅ |
-| 6.1 | `src/generator.py` — grounded prompt + citations | ⏳ |
+| 6.1 | `src/generator.py` — grounded prompt + citations | ✅ |
 | 7.1 | `src/qa_generator.py` — LLM draft QA | ⏳ |
 | 7.2 | `scripts/generate_qa.py` — CLI for draft generation | ⏳ |
 | 7.3 | Human review — populate `data/qa_pairs/reviewed/` | ⏳ |
@@ -227,9 +227,9 @@ Packages: chromadb 1.5.8, sentence-transformers 5.4.1
 
 ---
 
-## Phase 6 — Generator ⏳
+## Phase 6 — Generator ✅
 
-### 6.1 — Generator module
+### 6.1 — Generator module ✅
 **File:** `src/generator.py`
 
 - Accepts a question and list of retrieved chunks (with timestamps)
