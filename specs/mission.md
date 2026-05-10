@@ -9,7 +9,7 @@
 Build a benchmark at full venue quality for submission to EMNLP, ACL, or NeurIPS (datasets track):
 
 - **60 lectures** across 15 courses (MIT OCW, NYU DL, Stanford SEE) — all CC-licensed
-- **~720 QA pairs** (12 accepted × 60 lectures), human-reviewed
+- **~720 QA pairs** (12 accepted × 60 lectures), LLM-reviewed
 - **Dataset license:** CC BY-NC-SA 4.0 — required by the ShareAlike clause of the MIT OCW and Stanford SEE source material; compatible with the NYU CC BY 4.0 content
 
 ## Design Principles
@@ -30,14 +30,11 @@ The benchmark evaluates two RAG pipelines side-by-side to isolate the contributi
 
 Both collections use the identical embedding model and ChromaDB infrastructure. The only variable is document content, making the comparison clean and reproducible.
 
-### 4. Human-reviewed QA, not LLM-only
-All questions are LLM-drafted (15 per lecture), then human-verified:
-- Annotator watches the cited video span
-- Tightens ground-truth timestamps to the exact evidence window
-- Adds 2–4 visual-dependent questions the LLM missed (slide text, whiteboard equations)
-- Marks exactly one question per lecture as unanswerable
-
-Target: 12 accepted QA pairs per lecture after review.
+### 4. LLM-reviewed QA
+All questions are LLM-drafted (15 per lecture) and LLM-reviewed by a second Claude pass
+that evaluates answer correctness, span plausibility, and question type accuracy.
+Ground-truth spans are LLM-estimated from chunk boundaries (~±15–30s precision) — disclosed
+as a limitation in the paper. Target: 12 accepted QA pairs per lecture after review.
 
 ### 5. Temporal citation is the unit of evaluation
 Every generated answer cites `[video_id @ mm:ss to mm:ss]` with a YouTube deep link. Evaluation is grounded in **temporal IoU** between predicted and ground-truth spans — not just semantic similarity. This makes the benchmark measurably harder than text-only QA and directly evaluates the retrieval system's precision.
