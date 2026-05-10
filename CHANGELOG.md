@@ -2,6 +2,22 @@
 
 ## 2026-05-10
 
+- chore: sync specs to current project state (b7b22ef)
+- feat: complete QA generation for all 60 lectures (c915f7f)
+- feat: QA generation pipeline (Phase 7.1-7.2) (b5f8fd4)
+- chore: commit config.py qa model field and overleaf submodule pointer (4bb9b64)
+- docs: update qa_generation model to claude-sonnet-4-6 (a362de8)
+- Update Overleaf submodule - 2026-05-10 02:53 (ccd1c2e)
+- docs: mark Phase 6 validation complete, update changelog (eabf86a)
+- Update Overleaf submodule - 2026-05-10 02:33 (78c3d97)
+- docs: update changelog and roadmap for Phase 6 and benchmark note (58b86ec)
+
+## 2026-05-08
+
+- docs: sync tech-stack versions and frame interval (c14814f)
+
+## 2026-05-10
+
 - feat: generator module (Phase 6) (d92ccef)
 - docs: add model asymmetry justification to benchmark.tex and roadmap (a8a7f04)
 - docs: add generator model choice justification to pipeline.tex (725bce5)
