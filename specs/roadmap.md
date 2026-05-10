@@ -23,8 +23,8 @@ Status: ✅ Complete | ⚠️ Partial | ⏳ Pending
 | 5.1 | `src/retriever.py` — two ChromaDB collections | ✅ |
 | 5.2 | `scripts/build_index.py` — ingest all chunks | ✅ 60/60, both collections |
 | 6.1 | `src/generator.py` — grounded prompt + citations | ✅ |
-| 7.1 | `src/qa_generator.py` — LLM draft QA | ⏳ |
-| 7.2 | `scripts/generate_qa.py` — CLI for draft generation | ⏳ |
+| 7.1 | `src/qa_generator.py` — LLM draft QA | ✅ |
+| 7.2 | `scripts/generate_qa.py` — CLI for draft generation | ✅ 60/60 done |
 | 7.3 | LLM review — populate `data/qa_pairs/reviewed/` | ⏳ |
 | 7.4 | `scripts/build_benchmark.py` + `validate_benchmark.py` | ⏳ |
 | 8.1 | `src/evaluator.py` — temporal IoU, hit rate@k, LLM-judge | ⏳ |
@@ -264,25 +264,20 @@ Packages: chromadb 1.5.8, sentence-transformers 5.4.1
 - CLI: `python scripts/generate_qa.py --video_id <id>` or `--all`
 - Saves raw drafts to `data/qa_pairs/raw/{video_id}_qa_raw.json`
 
-### 7.3 — QA Review ⚠️ STOP — evaluation method undecided
+### 7.3 — LLM Review ⏳
 
-> **Do not implement Phase 7.3 without explicit user approval.**
->
-> The review/evaluation method is under discussion. Original plan was human review.
-> Proposed change: replace with a strong LLM (GPT-4o / Claude Opus) given access to
-> source chunks + augmented captions to evaluate QA quality automatically.
->
-> **Key open questions before proceeding:**
-> 1. How to handle `ground_truth_spans` tightening — LLMs cannot reliably produce exact timestamps; human spot-check may still be needed for spans
-> 2. Whether to use `transcript_only` chunks or `transcript_plus_frames` (augmented) as context for the evaluator LLM
-> 3. Circularity risk: same model family generating and evaluating QA pairs
-> 4. Multi-hop verification: LLMs often miss cases where a "multi-hop" question is answerable from a single span
->
-> **Resume here after the evaluation method is decided.**
+**Method decided: LLM-only review using Claude Sonnet 4.6.**
 
-~~Human review (original plan):~~
-~~For each lecture: open raw QA, watch cited spans, tighten ground_truth_spans, add visual questions, mark 1 unanswerable, save to `data/qa_pairs/reviewed/`.~~
-~~Target: 12 accepted per lecture.~~
+A second Claude pass evaluates each draft QA pair against the source chunks for:
+- Answer correctness (verifiable from cited spans)
+- Span plausibility (start/end timestamps consistent with chunk boundaries)
+- Question type accuracy (multi-hop-visual requires ≥2 spans with ≥1 visual hop)
+
+Rejection criteria: answer < 10 words, or answer is verbatim in the question.
+Target: 12 accepted QA pairs per lecture (~720 total) saved to `data/qa_pairs/reviewed/`.
+
+Ground-truth spans are LLM-estimated (~±15–30s precision) — disclosed as a limitation in
+the paper. No human tightening of spans.
 
 **Target question mix per lecture (locked):**
 
@@ -499,12 +494,12 @@ Every parameter choice (window size, overlap, k values, embedding model, frame i
     {"start": 2870.0, "end": 2940.0, "hop": 2, "description": "complexity claim relying on subproblem property"}
   ],
   "source_chunk_ids": ["mit_6046_lec10_chunk_009", "mit_6046_lec10_chunk_082"],
-  "question_type": "multi-hop|conceptual|procedural|factual|visual",
+  "question_type": "multi-hop-visual|multi-hop|visual|text|unanswerable",
   "difficulty": "easy|medium|hard",
   "answerable": true,
   "key_concepts": ["memoization", "optimal substructure"],
-  "reviewed_by": "human",
-  "review_date": "2026-04-21"
+  "reviewed_by": "llm_draft",
+  "review_date": "2026-05-10"
 }
 ```
 

@@ -49,8 +49,8 @@ Every generated answer cites `[video_id @ mm:ss to mm:ss]` with a YouTube deep l
 | `requirements.txt` | ✅ |
 | `CLAUDE.md` | ✅ |
 | `.gitignore` | ✅ |
-| `src/retriever.py` (transcript-only and transcript+frames modes) | ⏳ |
-| `src/generator.py` | ⏳ |
+| `src/retriever.py` (transcript-only and transcript+frames modes) | ✅ |
+| `src/generator.py` | ✅ |
 | `run_part1.py` — end-to-end RAG demo | ⏳ |
 | `run_part2.py` — full benchmark evaluation (both retrieval configs) | ⏳ |
 | `data/benchmark/benchmark_v1.json` (12–15 QA × 60 lectures) | ⏳ |
