@@ -1,0 +1,498 @@
+[
+  {
+    "qa_id": "stanford_cs229_lec03_q001",
+    "question": "What visual diagram is shown on the chalkboard when the lecture outline is first presented, and how does this connect to the probabilistic interpretation topic that comes later in the lecture?",
+    "answer": "When the lecture outline is first presented, the chalkboard shows a list including Linear regression, Locally weighted regression, Probabilistic interpretation, Logistic regression, Perceptron, and Newton's method, along with arrows or a small diagram showing relationships between topics. This outline connects directly to the probabilistic interpretation section later in the lecture, where the lecturer assumes errors epsilon follow a Gaussian distribution with mean zero and variance sigma squared, and derives that maximizing the likelihood under this assumption is equivalent to minimizing the ordinary least squares cost function, thereby justifying the least squares algorithm from a probabilistic standpoint.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 35.0,
+        "end": 80.0,
+        "hop": 1,
+        "description": "Chalkboard shows lecture outline including all major topics with visual diagram"
+      },
+      {
+        "start": 1745.0,
+        "end": 1830.0,
+        "hop": 2,
+        "description": "Probabilistic interpretation section where Gaussian error assumption is introduced"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec03_chunk_001",
+      "stanford_cs229_lec03_chunk_051"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "lecture outline",
+      "probabilistic interpretation",
+      "Gaussian errors",
+      "least squares justification"
+    ],
+    "video_id": "stanford_cs229_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec03_q002",
+    "question": "The lecture visually demonstrates overfitting using a housing price dataset. What polynomial degree is used to illustrate overfitting, and how does this connect to the bandwidth parameter tau introduced later in locally weighted regression?",
+    "answer": "The lecture illustrates overfitting using a sixth-order polynomial fitted to seven housing price data points, showing a curve that passes through all seven points perfectly but does not represent a realistic predictor. This connects to the bandwidth parameter tau in locally weighted regression, which controls how fast the weights fall off with distance from the query point. If tau is very small, the bell-shaped weight function becomes very narrow and the algorithm fits only nearby points very closely, which can similarly lead to overfitting by capturing idiosyncratic properties of the local data rather than underlying trends.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 375.0,
+        "end": 430.0,
+        "hop": 1,
+        "description": "Sixth-order polynomial overfitting demonstrated on seven housing price data points visually on chalkboard"
+      },
+      {
+        "start": 1260.0,
+        "end": 1345.0,
+        "hop": 2,
+        "description": "Tau parameter controls width of bell-shaped weight function in locally weighted regression"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec03_chunk_011",
+      "stanford_cs229_lec03_chunk_037"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "overfitting",
+      "sixth-order polynomial",
+      "bandwidth parameter tau",
+      "locally weighted regression"
+    ],
+    "video_id": "stanford_cs229_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec03_q003",
+    "question": "What does the chalkboard diagram of the sigmoid function look like, and how does the lecturer use the probabilistic interpretation from linear regression to motivate its use in logistic regression?",
+    "answer": "The chalkboard diagram shows the sigmoid function G of Z as an S-shaped curve: it tends toward zero as Z becomes very small, asymptotes toward one as Z becomes large, and crosses the vertical axis at 0.5. The probabilistic interpretation from linear regression motivates logistic regression by endowing the hypothesis output with probabilistic semantics \u2014 just as linear regression was given a Gaussian error model to justify least squares, logistic regression uses the sigmoid function so that the hypothesis H_theta of X can be interpreted as the probability that Y equals one given X and theta, ensuring all output values lie between zero and one and allowing maximum likelihood estimation to be applied.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3360.0,
+        "end": 3410.0,
+        "hop": 1,
+        "description": "Sigmoid function visually depicted on chalkboard with S-shaped curve crossing 0.5"
+      },
+      {
+        "start": 2900.0,
+        "end": 2960.0,
+        "hop": 2,
+        "description": "Probabilistic interpretation motivates logistic regression hypothesis design"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec03_chunk_096",
+      "stanford_cs229_lec03_chunk_049"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "sigmoid function",
+      "logistic function",
+      "probabilistic interpretation",
+      "logistic regression"
+    ],
+    "video_id": "stanford_cs229_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec03_q004",
+    "question": "What is written on the chalkboard to distinguish parametric from non-parametric learning algorithms, and how does this distinction explain why locally weighted regression must refit theta every time a prediction is made?",
+    "answer": "The chalkboard displays that a parametric learning algorithm has a fixed set of parameters theta, while a non-parametric learning algorithm has a number of parameters that grows with m, the size of the training set. This distinction explains why locally weighted regression must refit theta for every prediction: because it is a non-parametric algorithm, it needs to keep the entire training set around even after learning. Every time a new prediction is requested, the algorithm fits theta fresh to minimize the weighted cost function using all training examples, giving higher weight to points near the query and lower weight to distant points, so there is no single fixed model that can be stored and reused.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 595.0,
+        "end": 650.0,
+        "hop": 1,
+        "description": "Chalkboard distinguishes parametric (fixed parameters) from non-parametric (parameters grow with m)"
+      },
+      {
+        "start": 1610.0,
+        "end": 1650.0,
+        "hop": 2,
+        "description": "Locally weighted regression must refit theta on entire training set for each prediction"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec03_chunk_018",
+      "stanford_cs229_lec03_chunk_046"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "parametric learning",
+      "non-parametric learning",
+      "locally weighted regression",
+      "prediction cost"
+    ],
+    "video_id": "stanford_cs229_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec03_q005",
+    "question": "What visual graph on the chalkboard shows the problem with applying linear regression to a classification dataset, and how does the lecture later use the concept of maximum likelihood to derive the logistic regression learning rule?",
+    "answer": "The chalkboard shows a scatter plot where binary classification data points are plotted with Y values of zero and one. When a linear regression line is fit and then an outlier is added far to the right, the fitted line shifts dramatically, causing the threshold at 0.5 to produce completely wrong predictions \u2014 demonstrating why linear regression is inappropriate for classification. Later, using maximum likelihood estimation, the lecture assumes that P(Y=1|X;theta) equals the sigmoid function H_theta(X), forms the likelihood as a product over training examples, takes the log likelihood, and derives through gradient ascent an update rule theta_j := theta_j + alpha times the sum of (y_i minus h_theta(x_i)) times x_j, which looks like the least squares gradient descent rule but is fundamentally different because H is the logistic function.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3130.0,
+        "end": 3215.0,
+        "hop": 1,
+        "description": "Chalkboard scatter plot shows linear regression failing on classification with outlier"
+      },
+      {
+        "start": 3660.0,
+        "end": 3730.0,
+        "hop": 2,
+        "description": "Maximum likelihood derivation yields gradient ascent update rule for logistic regression"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec03_chunk_090",
+      "stanford_cs229_lec03_chunk_107"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "classification",
+      "linear regression failure",
+      "maximum likelihood",
+      "logistic regression gradient ascent"
+    ],
+    "video_id": "stanford_cs229_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec03_q006",
+    "question": "What visual representation of the LWR weight function is drawn on the chalkboard, and how does the lecturer connect this to the concept of fitting a local linear model for prediction?",
+    "answer": "The chalkboard shows a bell-shaped curve centered around the query point X, representing the weight function w^(i) = exp(-(x^(i) - x)^2 / 2). Training examples near X are positioned near the peak of the bell curve and receive a weight close to one, while examples far from X fall in the tails and receive a weight close to zero. The lecturer connects this to local linear model fitting by explaining that when evaluating the hypothesis at a query point, the algorithm effectively fits a straight line only to the nearby training examples \u2014 those with large weights \u2014 and then reads off the value of that locally fitted line at the query point as the prediction.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1145.0,
+        "end": 1210.0,
+        "hop": 1,
+        "description": "Bell-shaped weight function drawn on chalkboard centered at query point"
+      },
+      {
+        "start": 975.0,
+        "end": 1035.0,
+        "hop": 2,
+        "description": "Local linear fitting procedure: fit straight line to nearby subset and evaluate at query"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec03_chunk_032",
+      "stanford_cs229_lec03_chunk_027"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "LWR weight function",
+      "bell-shaped curve",
+      "local linear model",
+      "locally weighted regression prediction"
+    ],
+    "video_id": "stanford_cs229_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec03_q007",
+    "question": "What equation for P(y^(i) | x^(i); theta) is shown on the chalkboard during the probabilistic interpretation section, and how does maximizing the log likelihood using this equation lead to the ordinary least squares cost function?",
+    "answer": "The chalkboard shows the equation P(y^(i) | x^(i); theta) = (1 / sqrt(2*pi*sigma^2)) * exp(-(y^(i) - theta^T x^(i))^2 / (2*sigma^2)), which is the Gaussian density. Taking the log likelihood over all M training examples, the product of these densities converts to a sum, and the log of the exponential cancels the log, leaving a constant term M*log(1/sqrt(2*pi*sigma)) plus a term involving the negative sum of (y^(i) - theta^T x^(i))^2 divided by 2*sigma^2. Maximizing this log likelihood \u2014 because of the negative sign \u2014 is equivalent to minimizing the sum of squared errors, which is exactly the ordinary least squares cost function J(theta) that was derived in the previous lecture.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1995.0,
+        "end": 2060.0,
+        "hop": 1,
+        "description": "Chalkboard shows Gaussian density formula for P(y|x;theta)"
+      },
+      {
+        "start": 2765.0,
+        "end": 2830.0,
+        "hop": 2,
+        "description": "Maximizing log likelihood shown equivalent to minimizing least squares cost function"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec03_chunk_058",
+      "stanford_cs229_lec03_chunk_079"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Gaussian density",
+      "log likelihood",
+      "least squares",
+      "maximum likelihood estimation"
+    ],
+    "video_id": "stanford_cs229_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec03_q008",
+    "question": "What does the chalkboard diagram of the perceptron's G function look like, and how does it differ from the sigmoid function used in logistic regression?",
+    "answer": "According to the frame captions, the chalkboard diagram of the perceptron's G function shows a step function: G(z) equals 1 if z is greater than or equal to zero, and 0 otherwise. This is a sharp threshold function that outputs only the discrete values zero or one. In contrast, the sigmoid function used in logistic regression is a smooth S-shaped curve that outputs continuous values between zero and one, crossing the vertical axis at 0.5 and asymptoting toward zero and one at the extremes. The step function makes it very difficult to endow the perceptron with probabilistic semantics, unlike the smooth sigmoid.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 4260.0,
+        "end": 4320.0,
+        "hop": 1,
+        "description": "Chalkboard shows perceptron step function g(z)=1 if z>=0, else 0, with diagram"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec03_chunk_122"
+    ],
+    "question_type": "visual",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "perceptron",
+      "step function",
+      "sigmoid function",
+      "logistic regression"
+    ],
+    "video_id": "stanford_cs229_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec03_q009",
+    "question": "What two curves labeled by their tau values are visible on the chalkboard when the bandwidth parameter of locally weighted regression is discussed?",
+    "answer": "According to the frame captions, the chalkboard shows two bell-shaped curves: one labeled 'T small' (or tau small), which is a narrow, sharply peaked bell curve indicating that weights fall off rapidly with distance from the query point, and one labeled 'T large' (or tau large), which is a wider, more gently sloping bell curve indicating that weights fall off more slowly with distance. These two curves visually illustrate how the bandwidth parameter tau controls the effective neighborhood size used when locally fitting a linear model to make a prediction.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1350.0,
+        "end": 1420.0,
+        "hop": 1,
+        "description": "Chalkboard shows two bell curves labeled T small and T large illustrating tau effect"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec03_chunk_038"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "bandwidth parameter tau",
+      "bell-shaped weight function",
+      "locally weighted regression",
+      "neighborhood size"
+    ],
+    "video_id": "stanford_cs229_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec03_q010",
+    "question": "How does the lecture define the likelihood function L(theta), and why does the lecturer distinguish between the terms 'likelihood of the parameters' and 'probability of the data'?",
+    "answer": "The lecture defines the likelihood function L(theta) as the probability of the observed data Y given X parameterized by theta, written as L(theta) = P(Y | X; theta), which equals the product over all training examples of the individual conditional densities P(y^(i) | x^(i); theta). The lecturer carefully distinguishes the two terms by explaining that likelihood and probability refer to the same mathematical object, but the terminology emphasizes different perspectives: when viewing it as a function of Y and X while holding theta fixed, it is called a probability; when viewing it as a function of theta while holding X and Y fixed, it is called the likelihood. The lecturer also clarifies that the semicolon notation P(y|x; theta) is used rather than P(y|x, theta) because theta is treated as a fixed unknown parameter rather than a random variable, reflecting the frequentist viewpoint.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2510.0,
+        "end": 2570.0,
+        "hop": 1,
+        "description": "Likelihood function L(theta) defined as product of Gaussian densities over training examples"
+      },
+      {
+        "start": 2560.0,
+        "end": 2625.0,
+        "hop": 2,
+        "description": "Distinction between likelihood of parameters and probability of data explained, semicolon notation introduced"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec03_chunk_070",
+      "stanford_cs229_lec03_chunk_071"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "likelihood function",
+      "maximum likelihood estimation",
+      "frequentist viewpoint",
+      "semicolon notation"
+    ],
+    "video_id": "stanford_cs229_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec03_q011",
+    "question": "Why does the lecture argue that the gradient ascent update rule for logistic regression looks the same as the gradient descent rule for linear regression, and what is the key reason the two algorithms are fundamentally different?",
+    "answer": "The gradient ascent update rule for logistic regression is theta_j := theta_j + alpha * sum_i (y^(i) - h_theta(x^(i))) * x_j^(i), which looks identical to the batch gradient descent rule derived for ordinary least squares linear regression in the previous lecture. The lecturer explains that this visual similarity is not a coincidence and arises from the structure of generalized linear models, which will be discussed later in the course. However, the two algorithms are fundamentally different because the definition of the hypothesis function H_theta(X) differs: in linear regression H_theta(X) = theta^T X, a linear function, whereas in logistic regression H_theta(X) = g(theta^T X) = 1 / (1 + exp(-theta^T X)), the logistic sigmoid function. Thus despite the identical-looking update rules, the algorithms operate on entirely different model classes.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3960.0,
+        "end": 4020.0,
+        "hop": 1,
+        "description": "Gradient ascent rule for logistic regression derived and compared to linear regression rule"
+      },
+      {
+        "start": 3990.0,
+        "end": 4075.0,
+        "hop": 2,
+        "description": "Key difference identified: H_theta is logistic function in logistic regression vs linear function in linear regression"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec03_chunk_113",
+      "stanford_cs229_lec03_chunk_114"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "gradient ascent",
+      "gradient descent",
+      "logistic regression",
+      "linear regression",
+      "generalized linear models"
+    ],
+    "video_id": "stanford_cs229_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec03_q012",
+    "question": "What two justifications does the lecturer offer for assuming that the error terms in linear regression follow a Gaussian distribution, and what caveat does he add about whether this assumption is ever strictly true?",
+    "answer": "The lecturer offers two justifications for the Gaussian error assumption. First, it is mathematically convenient because it leads to the tractable maximum likelihood derivation that recovers ordinary least squares. Second, the central limit theorem provides informal support: if the error is caused by the sum of many independent small effects \u2014 such as the mood of the seller, unmodeled features like a garden, and random noise \u2014 then by the central limit theorem that sum will tend toward a Gaussian distribution. The caveat the lecturer adds is that in the absolute sense this assumption is almost never strictly true: for example, housing prices are measured in dollars and cents and therefore take on only discrete values, whereas a Gaussian random variable is continuous. However, the assumption is accurate enough for practical purposes to be a useful and justified modeling choice.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2160.0,
+        "end": 2225.0,
+        "hop": 1,
+        "description": "Two justifications for Gaussian error: mathematical convenience and central limit theorem"
+      },
+      {
+        "start": 2225.0,
+        "end": 2290.0,
+        "hop": 2,
+        "description": "Caveat: assumption never strictly true because housing prices are discrete, not continuous"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec03_chunk_061",
+      "stanford_cs229_lec03_chunk_062"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "Gaussian error assumption",
+      "central limit theorem",
+      "mathematical convenience",
+      "modeling assumptions"
+    ],
+    "video_id": "stanford_cs229_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec03_q013",
+    "question": "What is the name of the algorithm that locally weighted regression also goes by for historical reasons, and how is it typically spelled?",
+    "answer": "Locally weighted regression also goes by the name LOESS or LOWESS for historical reasons. The lecturer notes that it is usually spelled L-O-S-S or sometimes spelled like that too, and that he simply calls it locally weighted regression. The algorithm is a non-parametric learning algorithm that requires keeping the entire training set in memory even after learning, because parameters must be refit from scratch every time a new prediction is made.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 735.0,
+        "end": 795.0,
+        "hop": 1,
+        "description": "Locally weighted regression also called LOESS or LOWESS, spelled L-O-S-S historically"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec03_chunk_021"
+    ],
+    "question_type": "text",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "locally weighted regression",
+      "LOESS",
+      "LOWESS",
+      "historical name"
+    ],
+    "video_id": "stanford_cs229_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec03_q014",
+    "question": "What researcher's work on KD trees does the lecturer recommend for those interested in making locally weighted regression more efficient on large datasets?",
+    "answer": "The lecturer recommends looking up the work of Andrew Moore on KD trees for those interested in making locally weighted regression more efficient on large datasets. Andrew Moore figured out ways to fit locally weighted regression models much more efficiently for large training sets, avoiding the need to refit the entire dataset from scratch for every prediction. The lecturer mentions this as a topic he does not want to go into in detail during that lecture but points interested students toward Moore's work as a reference.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1665.0,
+        "end": 1720.0,
+        "hop": 1,
+        "description": "Andrew Moore's work on KD trees recommended for efficient locally weighted regression on large datasets"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec03_chunk_047"
+    ],
+    "question_type": "text",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "Andrew Moore",
+      "KD trees",
+      "locally weighted regression efficiency",
+      "large datasets"
+    ],
+    "video_id": "stanford_cs229_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec03_q015",
+    "question": "What is the exact numerical value of the optimal sigma squared parameter that minimizes the locally weighted regression cost function, as derived in this lecture?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "medium",
+    "answerable": false,
+    "key_concepts": [
+      "locally weighted regression",
+      "sigma squared",
+      "cost function optimization"
+    ],
+    "video_id": "stanford_cs229_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  }
+]

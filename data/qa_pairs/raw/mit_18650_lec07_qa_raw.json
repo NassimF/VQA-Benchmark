@@ -1,0 +1,530 @@
+[
+  {
+    "qa_id": "mit_18650_lec07_q001",
+    "question": "What visual evidence is shown on the Cherry Blossom run slide to justify using a Gaussian model, and how does this connect to the modeling assumptions made for the 2012 race analysis?",
+    "answer": "The Cherry Blossom run slide shows a histogram of running times for the roughly 15,000 runners in 2009, which displays a bell-shaped curve that closely matches a Gaussian probability density function with mean 103.5 and variance 373. This visual evidence justifies the Gaussian modeling assumption applied to the 2012 race analysis, where the instructor fixes the variance at 373 and models running times as Gaussian, allowing the hypothesis test to focus solely on whether the mean has changed.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 240.0,
+        "end": 325.0,
+        "hop": 1,
+        "description": "Histogram of running times shown on Cherry Blossom run slide showing bell-shaped curve matching Gaussian PDF"
+      },
+      {
+        "start": 490.0,
+        "end": 570.0,
+        "hop": 2,
+        "description": "Modeling assumptions for 2012 race analysis: variance fixed at 373, distribution assumed Gaussian"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec07_chunk_008",
+      "mit_18650_lec07_chunk_009",
+      "mit_18650_lec07_chunk_015",
+      "mit_18650_lec07_chunk_016"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Gaussian distribution",
+      "histogram",
+      "modeling assumptions",
+      "variance",
+      "Cherry Blossom run"
+    ],
+    "video_id": "mit_18650_lec07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec07_q002",
+    "question": "What does the lecture slide titled 'Cherry Blossom run (4)' show about the assumptions made, and how do those assumptions relate to the instructor's explanation of why the simple heuristic of comparing X-bar to 103.5 can go wrong?",
+    "answer": "The Cherry Blossom run (4) slide explicitly lists two modeling assumptions: variance of X1 equals 373 (same between 2009 and 2012) and X1 is Gaussian, with the only unfixed quantity being the expectation mu. The instructor explains that the simple heuristic of directly comparing X-bar to 103.5 can go wrong because with a small sample size like n=10, the sample mean is approximately one over root n away from the true mean due to the central limit theorem, meaning a true mean of 103.4 could easily yield a sample mean above 103.5 by random fluctuation.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 490.0,
+        "end": 570.0,
+        "hop": 1,
+        "description": "Cherry Blossom run (4) slide showing assumptions: var[X1]=373, X1 Gaussian, only E[X1]=mu unfixed"
+      },
+      {
+        "start": 1030.0,
+        "end": 1100.0,
+        "hop": 2,
+        "description": "Explanation of why simple heuristic fails: CLT says X-bar is 1/sqrt(n) away from mu, leading to wrong conclusions"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec07_chunk_015",
+      "mit_18650_lec07_chunk_016",
+      "mit_18650_lec07_chunk_029",
+      "mit_18650_lec07_chunk_030"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "modeling assumptions",
+      "simple heuristic",
+      "central limit theorem",
+      "sample mean fluctuation",
+      "hypothesis testing"
+    ],
+    "video_id": "mit_18650_lec07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec07_q003",
+    "question": "According to the Heuristics (1) slide shown during the lecture, what is the sample size and observed number of heads in the coin-tossing example, and how does the instructor use the central limit theorem to compute the test statistic value?",
+    "answer": "The Heuristics (1) slide shows that a coin is tossed 80 times and heads are obtained 54 times. The instructor computes X-bar as 54 divided by 80, which equals 0.68. Using the central limit theorem, the standardized test statistic is computed as square root of 80 times (0.68 minus 0.5) divided by the square root of X-bar times (1 minus X-bar), yielding approximately 3.45, which is far in the tails of a standard Gaussian distribution, providing strong evidence against the fair coin hypothesis.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1980.0,
+        "end": 2050.0,
+        "hop": 1,
+        "description": "Heuristics (1) slide showing n=80, 54 heads, X-bar=54/80=0.68"
+      },
+      {
+        "start": 2390.0,
+        "end": 2450.0,
+        "hop": 2,
+        "description": "CLT computation yielding test statistic of approximately 3.45 using the standardized formula"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec07_chunk_054",
+      "mit_18650_lec07_chunk_055",
+      "mit_18650_lec07_chunk_067",
+      "mit_18650_lec07_chunk_068"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Bernoulli distribution",
+      "central limit theorem",
+      "test statistic",
+      "standardization",
+      "Gaussian tail"
+    ],
+    "video_id": "mit_18650_lec07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec07_q004",
+    "question": "What does the Clinical trials (2) slide reveal about the distributional assumptions for the drug and control groups, and how does this connect to the instructor's explanation of needing two sources of randomness in the heuristic comparison?",
+    "answer": "The Clinical trials (2) slide shows that the drug group observations X1 through n_drug are i.i.d. with a Poisson distribution with parameter mu_drug, and the control group observations Y1 through n_control are i.i.d. with a Poisson distribution with parameter mu_control. The instructor explains that unlike the Cherry Blossom case where one unknown mean is compared to a fixed number, here there are two unknown means to estimate, creating two independent sources of randomness that both contribute fluctuations at the rate of one over square root of their respective sample sizes.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1605.0,
+        "end": 1680.0,
+        "hop": 1,
+        "description": "Clinical trials (2) slide showing Poisson distribution assumption for drug and control groups"
+      },
+      {
+        "start": 1680.0,
+        "end": 1760.0,
+        "hop": 2,
+        "description": "Explanation of two sources of randomness and convergence rates for both sample means"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec07_chunk_046",
+      "mit_18650_lec07_chunk_047",
+      "mit_18650_lec07_chunk_048"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Poisson distribution",
+      "two-sample comparison",
+      "sources of randomness",
+      "central limit theorem",
+      "clinical trials"
+    ],
+    "video_id": "mit_18650_lec07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec07_q005",
+    "question": "What does the Statistical formulation (3) slide define as the rejection region, and how does this connect to the instructor's description of splitting all possible values of X-bar into regions that produce test output zero or one?",
+    "answer": "The Statistical formulation (3) slide defines the rejection region R_psi as the set of all x in E^n such that psi(x) equals 1. The instructor explains that a test is an indicator function that partitions all possible sample values into two groups: those producing output zero where H0 is not rejected and those producing output one where H0 is rejected. The rejection region consists precisely of the sample values that lead to psi equals one, corresponding to the intervals in the Gaussian distribution that are farther than the threshold C from zero in absolute value.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3920.0,
+        "end": 3990.0,
+        "hop": 1,
+        "description": "Statistical formulation (3) slide defining rejection region as {x in E^n : psi(x)=1}"
+      },
+      {
+        "start": 3730.0,
+        "end": 3820.0,
+        "hop": 2,
+        "description": "Instructor's explanation of splitting X-bar values into zero and one outputs defining the rejection region"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec07_chunk_103",
+      "mit_18650_lec07_chunk_104",
+      "mit_18650_lec07_chunk_112"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "rejection region",
+      "indicator function",
+      "test statistic",
+      "hypothesis testing",
+      "partition of sample space"
+    ],
+    "video_id": "mit_18650_lec07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec07_q006",
+    "question": "What information does the Statistical formulation (1) slide present about the role of Theta_0 and Theta_1, and how does the instructor connect this to the Cherry Blossom run example to explain what is being removed from consideration?",
+    "answer": "The Statistical formulation (1) slide states that Theta_0 and Theta_1 are disjoint subsets of the full parameter space Theta, and defines H0 as theta belonging to Theta_0 and H1 as theta belonging to Theta_1. The instructor connects this to the Cherry Blossom run by explaining that for that example, Theta_0 is the single point mu equals 103.5 and Theta_1 is the set of mu values less than 103.5. The region where mu is greater than 103.5 is entirely removed from consideration, meaning the test makes no statement about whether runners went slower.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3090.0,
+        "end": 3165.0,
+        "hop": 1,
+        "description": "Statistical formulation (1) slide showing Theta_0 and Theta_1 as disjoint subsets of Theta with H0 and H1 definitions"
+      },
+      {
+        "start": 3165.0,
+        "end": 3240.0,
+        "hop": 2,
+        "description": "Instructor explains Cherry Blossom run has Theta_0 = {103.5} and Theta_1 = mu < 103.5, removing mu > 103.5 from consideration"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec07_chunk_088",
+      "mit_18650_lec07_chunk_089",
+      "mit_18650_lec07_chunk_090"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "null hypothesis",
+      "alternative hypothesis",
+      "parameter space",
+      "Cherry Blossom run",
+      "hypothesis formulation"
+    ],
+    "video_id": "mit_18650_lec07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec07_q007",
+    "question": "What does the 2x2 table shown in the lecture illustrate about type one and type two errors, and how does the instructor use the US court analogy to explain which error type is controlled and why?",
+    "answer": "The 2x2 table shown in the lecture displays four combinations of reality versus decision: when reality is H0 true and the decision is to reject H0 this is labeled type 1 error shown in a red block, when reality is H0 true and decision is fail to reject this is a correct decision, when reality is H1 true and decision is reject H0 this is correct, and when H1 is true but H0 is not rejected this is a type 2 error in another red block. The instructor uses the US court analogy to explain that H0 is innocence, type one error is convicting an innocent person, and type two error is letting a guilty person go free. The legal system controls type one error because the Constitution deems it worse to convict the innocent, so in hypothesis testing we similarly control the type one error rate.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 4590.0,
+        "end": 4650.0,
+        "hop": 1,
+        "description": "2x2 table slide showing type 1 error (reject H0 when H0 true) and type 2 error (fail to reject when H1 true) in red blocks"
+      },
+      {
+        "start": 4655.0,
+        "end": 4730.0,
+        "hop": 2,
+        "description": "US court analogy: H0 is innocence, type 1 error is convicting innocent, type 2 is letting guilty go free, Constitution favors controlling type 1"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec07_chunk_129",
+      "mit_18650_lec07_chunk_130",
+      "mit_18650_lec07_chunk_131"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "type 1 error",
+      "type 2 error",
+      "hypothesis testing",
+      "US court analogy",
+      "error control"
+    ],
+    "video_id": "mit_18650_lec07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec07_q008",
+    "question": "What specific numerical values for the Cherry Blossom run distribution are shown on the Cherry Blossom run (2) slide in the lecture?",
+    "answer": "The Cherry Blossom run (2) slide shows that based on past data the running time has a Gaussian distribution, and specifically states that the variance was 373. The slide also includes a histogram of running times with the x-axis ranging from 40 to 160 minutes.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 270.0,
+        "end": 340.0,
+        "hop": 1,
+        "description": "Cherry Blossom run (2) slide showing Gaussian distribution assumption and variance value of 373 with histogram"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec07_chunk_008",
+      "mit_18650_lec07_chunk_009"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "Cherry Blossom run",
+      "Gaussian distribution",
+      "variance",
+      "histogram"
+    ],
+    "video_id": "mit_18650_lec07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec07_q009",
+    "question": "According to the lecture slide on clinical trials, what specific drug type is used as the example and what measurement is used to quantify the drug's effect?",
+    "answer": "According to the Clinical trials (1) slide, the drug example uses a cough syrup, and the measurement used to quantify the drug's effect is the expected number of expectorations per hour after a patient has used either the drug or the placebo, denoted as mu_control for the placebo group.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1380.0,
+        "end": 1450.0,
+        "hop": 1,
+        "description": "Clinical trials (1) slide showing cough syrup example with mu_control as expected number of expectorations per hour after placebo use"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec07_chunk_038",
+      "mit_18650_lec07_chunk_039"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "clinical trials",
+      "cough syrup",
+      "expectorations per hour",
+      "mu_control",
+      "placebo"
+    ],
+    "video_id": "mit_18650_lec07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec07_q010",
+    "question": "How does the instructor justify that 5% is a meaningful threshold for the type one error rate, and how does this connect to the earlier discussion about the quantile 1.96 used when deciding if a Gaussian value is too extreme?",
+    "answer": "The instructor explains that 5% is a meaningful threshold because it can be directly envisioned in practical terms: if you were to perform the test a million times, you would expose yourself to making a mistake 5% of the time. This connects to the quantile 1.96 because the process maps the observed test statistic through the Gaussian distribution to obtain a probability representing the tail area beyond the observed value, and choosing alpha equals 5% corresponds exactly to using the quantile Q_{alpha/2} equals 1.96 as the threshold C. Moving from 5% to 1% requires using 2.5 instead of 1.96, making probabilities a more interpretable scale than raw Gaussian quantiles.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2870.0,
+        "end": 2940.0,
+        "hop": 1,
+        "description": "Explanation that 5% type one error means making a mistake 5% of the time in a million repetitions, connecting to quantile 1.96 for alpha=5%"
+      },
+      {
+        "start": 3010.0,
+        "end": 3080.0,
+        "hop": 2,
+        "description": "The mapping from Gaussian values to probabilities as a scale for error tolerance, 1% requires moving to 2.5 from 1.96"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec07_chunk_081",
+      "mit_18650_lec07_chunk_082",
+      "mit_18650_lec07_chunk_083",
+      "mit_18650_lec07_chunk_084"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "type 1 error",
+      "significance level",
+      "quantile 1.96",
+      "Gaussian distribution",
+      "error tolerance"
+    ],
+    "video_id": "mit_18650_lec07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec07_q011",
+    "question": "Why does the instructor argue that making more modeling assumptions about the distribution of running times actually helps the hypothesis test, connecting the discussion about carving out alternative distributions to the problem of overfitting to data?",
+    "answer": "The instructor argues that making more modeling assumptions restricts the number of alternative distributions that could fit the data, which prevents overfitting. If every possible distribution is allowed, then for any finite sample of say 10 runners taking 10 different values, a discrete distribution placing probability 1/10 on each observed value would have higher likelihood than any Gaussian. By restricting to Gaussian distributions with a fixed variance, the test only has to ask whether the mean shifted, and the fewer alternatives considered, the harder it is for pure randomness to generate a distribution that spuriously appears to fit the data better than the null hypothesis.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 750.0,
+        "end": 830.0,
+        "hop": 1,
+        "description": "Restricting to Gaussian distributions limits number of possible alternative realities for the hypothesis"
+      },
+      {
+        "start": 860.0,
+        "end": 960.0,
+        "hop": 2,
+        "description": "With 10 data points a discrete distribution on those exact values would be most likely if all distributions allowed, justifying why restrictions help"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec07_chunk_020",
+      "mit_18650_lec07_chunk_024",
+      "mit_18650_lec07_chunk_025"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "modeling assumptions",
+      "alternative distributions",
+      "overfitting",
+      "hypothesis testing",
+      "Gaussian restriction"
+    ],
+    "video_id": "mit_18650_lec07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec07_q012",
+    "question": "How does the instructor explain the asymmetry between H0 and H1 in terms of what the test output means, and how does the Neyman-Pearson approach resolve the inherent trade-off between controlling the two types of error?",
+    "answer": "The instructor explains that H0 and H1 play asymmetric roles because the data is only used to find evidence against H0; a test output of zero means failure to reject H0 rather than acceptance of H0, while a test output of one means rejecting H0. This asymmetry means we never say H0 is true when psi equals zero. The inherent trade-off between type one and type two errors cannot be eliminated simultaneously because making it impossible to commit type one error by always failing to reject maximizes type two error and vice versa. The Neyman-Pearson approach resolves this by constraining the type one error to a user-specified acceptable level such as 5% and then maximizing power, meaning minimizing type two error, subject to that constraint.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3360.0,
+        "end": 3440.0,
+        "hop": 1,
+        "description": "Asymmetry between H0 and H1: psi=0 means fail to reject not accept, psi=1 means reject H0"
+      },
+      {
+        "start": 4770.0,
+        "end": 4855.0,
+        "hop": 2,
+        "description": "Neyman-Pearson paradigm: constrain type one error to acceptable level then minimize type two error to resolve trade-off"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec07_chunk_096",
+      "mit_18650_lec07_chunk_097",
+      "mit_18650_lec07_chunk_133",
+      "mit_18650_lec07_chunk_134"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "H0 and H1 asymmetry",
+      "fail to reject",
+      "Neyman-Pearson",
+      "type 1 error",
+      "power"
+    ],
+    "video_id": "mit_18650_lec07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec07_q013",
+    "question": "In the Cherry Blossom run example, why does the instructor fix the variance at 373 rather than testing whether the variance also changed, and what explicit caveat does the instructor give about this assumption?",
+    "answer": "The instructor fixes the variance at 373 because the question being asked is specifically whether runners were going faster, which is a question about the mean. By fixing the variance, the modeling assumptions reduce the number of ways the hypothesis can be violated, focusing the test on a single parameter and making it more powerful for the specific question of interest. The explicit caveat given is that this assumption is actually wrong: if you look at the actual 2012 data, the variance is not the same as in 2009, but the instructor makes this assumption for the sake of argument to illustrate the methodology.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 505.0,
+        "end": 590.0,
+        "hop": 1,
+        "description": "Instructor fixes variance at 373 as modeling assumption but explicitly notes this is wrong when looking at actual 2012 data"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec07_chunk_015",
+      "mit_18650_lec07_chunk_016"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "variance assumption",
+      "modeling",
+      "Cherry Blossom run",
+      "hypothesis testing",
+      "simplification"
+    ],
+    "video_id": "mit_18650_lec07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec07_q014",
+    "question": "What specific practical challenge does the instructor identify when comparing runner speeds between 2012 and 2009 without having the full 2009 dataset, and what statistical approach does this motivate?",
+    "answer": "The instructor identifies that in practice one rarely has access to the full population dataset to establish a ground truth reference number like 103.5 minutes, because collecting such data may be expensive or impractical. Without the full 2009 dataset, one would instead sample perhaps 10 runners from 2012 and 15 runners from 2009, then compare their sample means directly to each other. This motivates the two-sample comparison framework where two unknown means are compared against each other, introducing two independent sources of randomness from both sample means rather than comparing one unknown mean to a fixed known value.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1005.0,
+        "end": 1090.0,
+        "hop": 1,
+        "description": "Without full dataset there is no standard reference number like 103.5, motivating two-sample comparison of unknown means from both years"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec07_chunk_026",
+      "mit_18650_lec07_chunk_027",
+      "mit_18650_lec07_chunk_028"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "two-sample comparison",
+      "reference value",
+      "practical data collection",
+      "sample mean",
+      "statistical motivation"
+    ],
+    "video_id": "mit_18650_lec07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec07_q015",
+    "question": "What is the exact formula for the maximum likelihood estimator of the variance parameter in the Gaussian model used for the Cherry Blossom run hypothesis test?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "medium",
+    "answerable": false,
+    "key_concepts": [
+      "maximum likelihood estimator",
+      "variance",
+      "Gaussian model"
+    ],
+    "video_id": "mit_18650_lec07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  }
+]

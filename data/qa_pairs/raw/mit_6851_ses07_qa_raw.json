@@ -1,0 +1,510 @@
+[
+  {
+    "qa_id": "mit_6851_ses07_q001",
+    "question": "According to the lecture, what course and institution originated the cache-oblivious model, and how does the slide shown at the start of the lecture identify the course being taught?",
+    "answer": "The cache-oblivious model was invented at MIT in 1999 by Charles Leiserson and his students, originally in the context of course 6.046. The opening slide shown at the start of the lecture identifies the course as '6.851, Spring 2012: Advanced Data Structures,' taught by Erik Demaine at MIT, as indicated by the MIT logo and course title displayed on the slide.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 0.0,
+        "end": 45.0,
+        "hop": 1,
+        "description": "Opening slide identifies the course as MIT 6.851 Advanced Data Structures taught by Erik Demaine"
+      },
+      {
+        "start": 1380.0,
+        "end": 1425.0,
+        "hop": 2,
+        "description": "Lecture states the cache-oblivious model originated at MIT in 1999, invented by Charles Leiserson and students in context of 6046"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6851_ses07_chunk_000",
+      "mit_6851_ses07_chunk_039"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "cache-oblivious model",
+      "MIT",
+      "course identification",
+      "Charles Leiserson"
+    ],
+    "video_id": "mit_6851_ses07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6851_ses07_q002",
+    "question": "The lecture's opening board lists three topics for today's session. What are those three topics, and which one does the lecturer say will be covered today in order to do something 'in another model which seems kind of boring because we already know how to do it'?",
+    "answer": "The opening board lists three topics: the external-memory model, the cache-oblivious model, and cache-oblivious B-trees. The lecturer specifically says that today's lecture will be about B-trees in the cache-oblivious model, calling it 'kind of boring because we already know how to do B-trees' but interesting because it is done in the cache-oblivious model rather than the external memory model.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 0.0,
+        "end": 45.0,
+        "hop": 1,
+        "description": "Board frame caption lists today's three topics: external-memory model, cache-oblivious model, cache-oblivious B-trees"
+      },
+      {
+        "start": 1330.0,
+        "end": 1415.0,
+        "hop": 2,
+        "description": "Lecturer says today's lecture is about B-trees in the cache-oblivious model, calling it kind of boring but interesting"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6851_ses07_chunk_000",
+      "mit_6851_ses07_chunk_038"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "cache-oblivious B-trees",
+      "external-memory model",
+      "today's topics",
+      "lecture agenda"
+    ],
+    "video_id": "mit_6851_ses07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6851_ses07_q003",
+    "question": "The lecture introduces two bounds on the number of memory transfers. What are those two bounds, and what does the lecturer say the cell probe model contributes to establishing one of them?",
+    "answer": "The two bounds on number of memory transfers are: an upper bound equal to the RAM running time (since in the worst case every RAM operation incurs one memory transfer), and a lower bound of the RAM running time divided by B (the block size). The cell probe model, which counts only the number of word reads from memory with computation being free, establishes the lower bound because in the external memory model we count blocks rather than words, so the best possible improvement is a factor of B.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 375.0,
+        "end": 430.0,
+        "hop": 1,
+        "description": "Lecturer states upper bound is RAM running time and mentions cell probe model"
+      },
+      {
+        "start": 420.0,
+        "end": 505.0,
+        "hop": 2,
+        "description": "Explains cell probe lower bound and that dividing by B is the best improvement possible"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6851_ses07_chunk_011",
+      "mit_6851_ses07_chunk_012"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "memory transfer bounds",
+      "cell probe model",
+      "block size B",
+      "upper and lower bounds"
+    ],
+    "video_id": "mit_6851_ses07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6851_ses07_q004",
+    "question": "What is the van Emde Boas layout ordering used for in the cache-oblivious static search tree, and how does the lecture's analysis use the concept of 'triangles' to prove the log base B of n bound on block transfers?",
+    "answer": "The van Emde Boas layout assigns a specific memory ordering to binary tree nodes so that any root-to-leaf path visits as few distinct memory blocks as possible for any value of B simultaneously. The analysis identifies 'triangles'\u2014sub-trees obtained by recursively halving the tree height\u2014that have size less than B. Each such triangle occupies at most two memory blocks because it is stored in a contiguous interval of size less than B. Along any root-to-leaf path, each triangle visited makes vertical progress of Theta(log B), and the total vertical progress needed is log n, so the number of triangles visited is log n divided by half-log B, giving order log base B of n triangles, each costing at most two block reads for a total of order log base B of n memory transfers.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2385.0,
+        "end": 2470.0,
+        "hop": 1,
+        "description": "Explains van Emde Boas layout and recursive splitting into triangles of size roughly square root of n"
+      },
+      {
+        "start": 2820.0,
+        "end": 2970.0,
+        "hop": 2,
+        "description": "Analysis showing triangles of size less than B fit in two blocks, height is log B, and total transfers are order log base B of n"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6851_ses07_chunk_068",
+      "mit_6851_ses07_chunk_082"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "van Emde Boas layout",
+      "cache-oblivious search tree",
+      "triangles",
+      "log base B of n",
+      "memory transfers"
+    ],
+    "video_id": "mit_6851_ses07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6851_ses07_q005",
+    "question": "What negative result does the lecture describe for permuting in the cache-oblivious model, and how does this relate to the permuting bound established in the external memory model earlier in the lecture?",
+    "answer": "In the external memory model, the optimal cost for permuting n items is the minimum of n (doing each item individually) and the sorting bound n/B times log base M/B of n/B, and the algorithm simply picks whichever is smaller. In the cache-oblivious model, there is a negative result: one cannot achieve this minimum bound because achieving it requires knowing how B and M relate to n, which the algorithm does not know in the cache-oblivious setting. While one can separately achieve each of the two individual bounds (n and the sorting bound), there is a proven lower bound showing you cannot achieve their minimum simultaneously, creating a limitation that does not exist in the external memory model.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1020.0,
+        "end": 1100.0,
+        "hop": 1,
+        "description": "External memory permuting result: optimal is min of n and sorting bound"
+      },
+      {
+        "start": 1865.0,
+        "end": 1970.0,
+        "hop": 2,
+        "description": "Cache-oblivious negative result: cannot achieve the min bound for permuting because you don't know B and M"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6851_ses07_chunk_031",
+      "mit_6851_ses07_chunk_055"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "permuting",
+      "cache-oblivious negative result",
+      "external memory model",
+      "minimum bound"
+    ],
+    "video_id": "mit_6851_ses07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6851_ses07_q006",
+    "question": "What is the 'tall cache assumption' mentioned for the cache-oblivious priority queue result, and what does the lecture say happens to the cache-oblivious B-tree constant factor compared to the optimal external memory constant factor?",
+    "answer": "The tall cache assumption requires that M is at least Omega of B to the power (1 + epsilon) for some small epsilon greater than zero; specifically M equaling B to the 1.001 would suffice. This ensures the cache is tall enough relative to its width. For the cache-oblivious B-tree constant factor on search, the external memory B-tree achieves a constant factor of exactly one (i.e., 1 times log base B+1 of n), whereas in the cache-oblivious world the best possible constant factor is proven to be log base 2 of e (approximately 1.44), making it slightly worse than the external memory optimum, representing a small but real separation between the two models.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2100.0,
+        "end": 2185.0,
+        "hop": 1,
+        "description": "Tall cache assumption: M must be at least B to the 1+epsilon"
+      },
+      {
+        "start": 2015.0,
+        "end": 2100.0,
+        "hop": 2,
+        "description": "Constant factor for cache-oblivious search is log base 2 of e (1.44) vs 1 for external memory B-trees"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6851_ses07_chunk_060",
+      "mit_6851_ses07_chunk_057"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "tall cache assumption",
+      "constant factor",
+      "cache-oblivious B-trees",
+      "external memory B-trees"
+    ],
+    "video_id": "mit_6851_ses07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6851_ses07_q007",
+    "question": "The lecture describes a five-step construction for cache-oblivious B-trees using indirection. What is the role of the 'order file maintenance' black box, and how does the indirection step with log n chunks speed up the update bound?",
+    "answer": "The order file maintenance data structure stores n elements in a physical array of linear size with gaps, supporting insertions and deletions between any two items with an amortized cost of log squared n memory transfers via a constant number of scans. It serves as the bottom layer holding actual sorted keys. The indirection step introduces chunks of size Theta(log n) at the bottom: rather than storing all n items directly in the van Emde Boas tree structure on n items, only n over log n representative items (e.g., the median of each chunk) are stored in the tree. When an update occurs, it is inserted into the appropriate log-n-sized chunk with a cheap scan costing log n over B. Splits and merges of chunks happen only every log n insertions, so each update to the upper structure is charged to log n operations, effectively dividing the prior update cost of log base B of n plus log squared n over B by log n, yielding an update cost of order log base B of n amortized.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3060.0,
+        "end": 3205.0,
+        "hop": 1,
+        "description": "Order file maintenance description: stores n items in linear array with gaps, amortized log squared n cost"
+      },
+      {
+        "start": 4930.0,
+        "end": 5060.0,
+        "hop": 2,
+        "description": "Indirection step with log n chunks speeds up updates by factor of log n"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6851_ses07_chunk_089",
+      "mit_6851_ses07_chunk_133"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "order file maintenance",
+      "indirection",
+      "cache-oblivious B-trees",
+      "update bound",
+      "log n chunks"
+    ],
+    "video_id": "mit_6851_ses07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6851_ses07_q008",
+    "question": "What three topics are listed on the blackboard for today's lecture session, as shown in the opening frame caption?",
+    "answer": "According to the blackboard frame caption shown at the start of the lecture, the three topics listed for today's session titled 'Memory Hierarchies I' are: the external-memory model, the cache-oblivious model, and cache-oblivious B-trees.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 0.0,
+        "end": 45.0,
+        "hop": 1,
+        "description": "Frame caption shows blackboard with today's three topics listed under Memory Hierarchies I"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6851_ses07_chunk_000"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "memory hierarchies",
+      "lecture topics",
+      "blackboard",
+      "session 7"
+    ],
+    "video_id": "mit_6851_ses07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6851_ses07_q009",
+    "question": "What specific course number, semester, and instructor name are identified on the MIT lecture slide shown at the very beginning of this lecture?",
+    "answer": "According to the frame caption describing the opening lecture slide, the course is identified as '6.851, Spring 2012: Advanced Data Structures,' and the instructor is Erik Demaine at the Massachusetts Institute of Technology.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 0.0,
+        "end": 45.0,
+        "hop": 1,
+        "description": "Frame caption identifies course as 6.851 Spring 2012 Advanced Data Structures taught by Erik Demaine"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6851_ses07_chunk_000"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "MIT course",
+      "Erik Demaine",
+      "6.851",
+      "Advanced Data Structures"
+    ],
+    "video_id": "mit_6851_ses07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6851_ses07_q010",
+    "question": "What is the external memory model's optimal sorting bound, and why does inserting into a B-tree and doing an in-order traversal fail to achieve this bound, according to the lecture?",
+    "answer": "The optimal sorting bound in the external memory model is n/B times log base M/B of n/B memory transfers. Inserting n items into a B-tree and doing an in-order traversal gives n times log base B of n memory transfers, which is suboptimal for two reasons: first, the coefficient is n rather than n/B, meaning we pay a factor of B too much; second, the base of the logarithm is B rather than M/B, though the lecturer says this difference is not as significant. The big problem is paying n instead of n/B, because every insert into the B-tree costs one memory transfer and there are n inserts, whereas the sorting algorithm exploits block transfers to do much better.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 915.0,
+        "end": 985.0,
+        "hop": 1,
+        "description": "Optimal sorting bound is n/B times log base M/B of n/B"
+      },
+      {
+        "start": 985.0,
+        "end": 1060.0,
+        "hop": 2,
+        "description": "B-tree approach gives n log base B of n, failing because coefficient is n not n/B"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6851_ses07_chunk_026",
+      "mit_6851_ses07_chunk_028"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "sorting bound",
+      "external memory",
+      "B-tree",
+      "n/B vs n",
+      "optimal"
+    ],
+    "video_id": "mit_6851_ses07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6851_ses07_q011",
+    "question": "What is the buffer tree data structure, what amortized bound does it achieve per operation, and what special operation called 'flush' does it support?",
+    "answer": "Buffer trees are a dynamic data structure described as essentially a dynamic version of sorting. They achieve an amortized cost per operation equal to the sorting bound divided by n, which simplifies to approximately 1/B times log base M/B of n/B\u2014typically a sub-constant amortized cost. The supported operations include insert, delete, and delayed successor queries, but queries are not answered immediately. The flush operation, when invoked, forces the data structure to return answers to all previously asked queries and costs one sorting pass through the entire data structure, so if you perform n operations followed by a flush, it takes no extra time beyond what the operations already cost.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1190.0,
+        "end": 1270.0,
+        "hop": 1,
+        "description": "Buffer trees achieve sorting bound divided by n per operation amortized"
+      },
+      {
+        "start": 1260.0,
+        "end": 1360.0,
+        "hop": 2,
+        "description": "Buffer tree supports delayed queries and flush operation that answers all pending queries in one sort pass"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6851_ses07_chunk_034",
+      "mit_6851_ses07_chunk_037"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "buffer tree",
+      "amortized bound",
+      "flush operation",
+      "delayed queries",
+      "sorting bound"
+    ],
+    "video_id": "mit_6851_ses07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6851_ses07_q012",
+    "question": "Why does the cache-oblivious model require the optimal cache replacement strategy to be analyzed as offline optimal (evicting the block used farthest in the future), and what practical replacement strategies can substitute for it without changing the asymptotic bounds?",
+    "answer": "The cache-oblivious model requires the algorithm to be analyzed against the offline optimal replacement strategy\u2014evicting the block used farthest in the future\u2014because the algorithm itself has no knowledge of B or M and cannot make manual cache management decisions. This offline strategy requires a crystal ball to implement in practice. However, the lecture states that LRU (least recently used) and FIFO (first in, first out) are both constant-competitive against the offline optimal: specifically, offline optimal with cache size M/2 costs at most a constant times LRU or FIFO with cache size M. Since changing M by a factor of two does not affect any of the asymptotic bounds under the tall cache assumption, these practical online strategies can be used without changing the theoretical guarantees.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1505.0,
+        "end": 1590.0,
+        "hop": 1,
+        "description": "Offline optimal replacement evicts block used farthest in future; needs crystal ball"
+      },
+      {
+        "start": 1575.0,
+        "end": 1660.0,
+        "hop": 2,
+        "description": "LRU and FIFO are constant competitive, changing M by factor 2 doesn't affect bounds"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6851_ses07_chunk_044",
+      "mit_6851_ses07_chunk_045"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "offline optimal replacement",
+      "LRU",
+      "FIFO",
+      "constant competitive",
+      "cache-oblivious model"
+    ],
+    "video_id": "mit_6851_ses07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6851_ses07_q013",
+    "question": "What is the information-theoretic lower bound argument given in the lecture for why search in the external memory model requires at least log base B of n block transfers?",
+    "answer": "The argument is as follows: there are Theta(n) possible outcomes for where a search key fits among n sorted items (it could fall in any of n+1 gaps), requiring log n bits of information. In the external memory model, each block transfer reads B items from a sorted array; comparing the query key against all B items in one block reveals at most log(B+1) bits of information, since there are only B+1 possible positions where the key can fit among those B items. Dividing the total information needed (log n) by the maximum information gained per transfer (log(B+1)) gives a lower bound of log n divided by log(B+1), which equals log base B+1 of n memory transfers.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 735.0,
+        "end": 870.0,
+        "hop": 1,
+        "description": "Information theoretic lower bound: Theta n outcomes, log n bits needed, each block gives at most log B+1 bits, so need log base B+1 of n transfers"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6851_ses07_chunk_020",
+      "mit_6851_ses07_chunk_021",
+      "mit_6851_ses07_chunk_022",
+      "mit_6851_ses07_chunk_023"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "lower bound",
+      "search",
+      "information theory",
+      "external memory model",
+      "log base B of n"
+    ],
+    "video_id": "mit_6851_ses07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6851_ses07_q014",
+    "question": "In the cache-oblivious B-tree construction, what specific property does the post-order traversal provide during the propagation step after an ordered file maintenance update, and why is it necessary to visit nodes in this order rather than any other?",
+    "answer": "Post-order traversal ensures that when propagating updated maximum values up the van Emde Boas tree after an ordered file maintenance update, each node's children are fully processed before the node itself is updated. This is necessary because the internal nodes store the maximum key of their subtree: to correctly recompute the maximum at a parent node, both child subtree maxima must already be correctly updated. If a pre-order or other traversal were used, a parent might be updated before its children, producing an incorrect maximum value. The lecture explicitly states that post-order traversal is required because 'I need to know what the max of this subtree is and this subtree before I can recompute the max of the root.'",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 3900.0,
+        "end": 4015.0,
+        "hop": 1,
+        "description": "Post-order traversal is needed so children are processed before parents when propagating max values up the tree"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6851_ses07_chunk_106",
+      "mit_6851_ses07_chunk_107",
+      "mit_6851_ses07_chunk_108",
+      "mit_6851_ses07_chunk_109"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "post-order traversal",
+      "max propagation",
+      "cache-oblivious B-tree",
+      "ordered file maintenance"
+    ],
+    "video_id": "mit_6851_ses07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6851_ses07_q015",
+    "question": "What is the exact worst-case (non-amortized) number of block memory transfers required for a single deletion operation in the cache-oblivious B-tree described in this lecture?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "hard",
+    "answerable": false,
+    "key_concepts": [
+      "deletion",
+      "worst-case",
+      "cache-oblivious B-tree",
+      "memory transfers"
+    ],
+    "video_id": "mit_6851_ses07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  }
+]

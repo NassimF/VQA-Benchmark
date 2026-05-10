@@ -159,7 +159,7 @@ else:
 - [x] V2 schema: all 3 pilot files valid
 - [x] V3 question count: 15 per pilot lecture
 - [x] V4 type distribution: meets thresholds
-- [ ] V5 full-run count: 60 files
+- [x] V5 full-run count: 60 files
 - [x] V6 skip behaviour: confirmed
 - [x] V7 rejection criteria: no failures
 - [ ] `git status` clean; no untracked files outside expected paths

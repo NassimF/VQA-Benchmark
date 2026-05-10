@@ -1,0 +1,514 @@
+[
+  {
+    "qa_id": "nyu_dl_week3_q001",
+    "question": "The lecture shows a network with two neurons per layer using 2x2 matrices. According to the visual diagrams shown during the affine transformation demonstrations, what geometric operations does a 2x2 matrix perform, and how does the ReLU operation visually affect the space after each affine transformation?",
+    "answer": "According to the transcript, a 2x2 matrix performs rotation, scaling, shearing, and reflection on the plane. The visual diagrams show that the ReLU operation kills all the negative sides of the space \u2014 after each affine transformation, the negative subspaces are erased and set to zero, so only one quadrant survives every time. The frame captions confirm this with diagrams showing colored spiral curves being transformed through successive layers with regions being zeroed out.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 35.0,
+        "end": 80.0,
+        "hop": 1,
+        "description": "2x2 matrix operations: rotation, scaling, shearing, reflection"
+      },
+      {
+        "start": 295.0,
+        "end": 375.0,
+        "hop": 2,
+        "description": "Visual frame captions showing ReLU zeroing negative subspaces after affine transformations"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week3_chunk_001",
+      "nyu_dl_week3_chunk_006"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "affine transformation",
+      "2x2 matrix operations",
+      "ReLU",
+      "negative subspace zeroing"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week3_q002",
+    "question": "The lecture explains that training the two-neuron-per-layer network was very hard. What specific reason is given for why bias placement causes training difficulty, and how does the visual diagram of the 'Detecting Motifs in Images' slide illustrate a related concept of shift invariance that avoids such fragility?",
+    "answer": "The transcript explains that if any of the four biases places points away from the top right quadrant, the ReLU will kill everything and collapse activations to zero, making the network untrainable. The 'Detecting Motifs in Images' visual slide illustrates shift invariance by showing that when a letter D is shifted by a couple of pixels, the detectors still fire at the corresponding shifted location \u2014 the output shifts equivalently with the input but is otherwise unchanged, demonstrating a more robust approach through shared-weight convolution.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 370.0,
+        "end": 430.0,
+        "hop": 1,
+        "description": "Bias placement killing activations causing training difficulty"
+      },
+      {
+        "start": 2430.0,
+        "end": 2550.0,
+        "hop": 2,
+        "description": "Visual slide showing shift invariance in motif detection with shifted letter D"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week3_chunk_010",
+      "nyu_dl_week3_chunk_043"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "bias placement",
+      "ReLU collapse",
+      "shift invariance",
+      "equivariance"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week3_q003",
+    "question": "The parameter transformation framework introduced in the lecture uses a function H(u) to produce weights w. According to the visual slide on 'Parameter transformations' and the explanation of weight sharing, what does the function H(u) do in the simple weight-sharing case, and how does back-propagation work through this scheme?",
+    "answer": "According to the visual 'Parameter transformations' slide, H(u) takes an input u and produces output w = H(u), which is then used in G(x,w). In the simple weight-sharing case, H(u) replicates one component of u into multiple components of w \u2014 for example, w1=w2=u1 and w3=w4=u2. During back-propagation, gradients flow through G to get gradients with respect to w, then continue through H to get gradients with respect to u. The gradient with respect to u1 becomes the sum of gradients with respect to w1 and w2, because multiple weights share the same parameter.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 830.0,
+        "end": 930.0,
+        "hop": 1,
+        "description": "Visual slide showing H(u) producing w for G(x,w) in parameter transformation diagram"
+      },
+      {
+        "start": 1215.0,
+        "end": 1380.0,
+        "hop": 2,
+        "description": "Weight sharing: H replicates u components, gradients are summed during backprop"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week3_chunk_015",
+      "nyu_dl_week3_chunk_022"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "parameter transformation",
+      "weight sharing",
+      "H(u)",
+      "backpropagation",
+      "gradient accumulation"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week3_q004",
+    "question": "The lecture introduces the concept of a hypernetwork. According to the visual 'Hypernetwork' slide and the transcript, what is the key idea of a hypernetwork, and how does it differ from simple weight sharing in terms of what determines the weights of the main network?",
+    "answer": "According to the visual 'Hypernetwork' slide showing the diagram with H(x,u) and G(x,w), a hypernetwork is a network where the weights of one network G are computed as the output of another network H. The key distinction from simple weight sharing is that in a hypernetwork, H can take both the input x and its own parameters u to dynamically compute w = H(x,u), making the weights a complex function of the input itself. In simple weight sharing, H(u) only copies components of u into multiple positions of w without any dependence on the input x.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1390.0,
+        "end": 1450.0,
+        "hop": 1,
+        "description": "Hypernetwork visual slide showing H(x,u) outputting w to G(x,w)"
+      },
+      {
+        "start": 1100.0,
+        "end": 1200.0,
+        "hop": 2,
+        "description": "Simple weight sharing: H(u) just replicates components, no input dependence"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week3_chunk_023",
+      "nyu_dl_week3_chunk_021"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "hypernetwork",
+      "weight sharing",
+      "dynamic weights",
+      "input-dependent parameters"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week3_q005",
+    "question": "The lecture explains how shared weights enable motif detection. The visual slide titled 'Shared Weights for Motif Detection' shows multiple G(x,w) functions connected to a MAX function. According to both the visual and the Alexa wake-word example in the transcript, why is the MAX function used at the output, and what is the training challenge it helps address?",
+    "answer": "The visual 'Shared Weights for Motif Detection' slide shows multiple copies of G(x,w) each analyzing a different window of the input sequence, all sharing the same weight w, and their outputs feed into a MAX function. The MAX function is used because the system needs to detect whether a motif \u2014 such as the wake word 'Alexa' \u2014 occurs anywhere in the input window, without knowing exactly where it occurs. The training challenge is that labelers only know the keyword was spoken somewhere within a few-second segment, not its exact position. The MAX function enables end-to-end training despite this location uncertainty by firing when any of the replicated detectors fires.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1570.0,
+        "end": 1640.0,
+        "hop": 1,
+        "description": "Visual slide showing G(x,w) copies connected to MAX function for motif detection"
+      },
+      {
+        "start": 1790.0,
+        "end": 1910.0,
+        "hop": 2,
+        "description": "Alexa wake-word example: labelers only know keyword occurred somewhere, MAX enables training"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week3_chunk_027",
+      "nyu_dl_week3_chunk_031"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "shared weights",
+      "motif detection",
+      "MAX pooling",
+      "wake-word detection",
+      "location-unknown training"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week3_q006",
+    "question": "The lecture describes the Hubel and Wiesel model of the visual cortex. According to the visual slide titled 'Hubel and Wiesel's Model of the Architecture of the Visual Cortex' and the transcript discussion, what do simple cells and complex cells respectively do, and how does this map onto the operations in a convolutional neural network?",
+    "answer": "According to the visual slide and the transcript, simple cells detect local features \u2014 they are sensitive to oriented edges or contours within a small receptive field and are selective for orientation. Complex cells pool the outputs of multiple simple cells that share the same orientation preference within a small region, performing an aggregation such as max or sum that is invariant to the order of inputs. This maps directly onto convolutional nets: simple cells correspond to the convolutional filter bank that detects local features at each spatial location, while complex cells correspond to the pooling operation that aggregates nearby simple-cell responses to build local shift invariance.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 4640.0,
+        "end": 4720.0,
+        "hop": 1,
+        "description": "Visual slide: simple cells detect local features, complex cells pool outputs of simple cells"
+      },
+      {
+        "start": 4790.0,
+        "end": 4890.0,
+        "hop": 2,
+        "description": "Transcript: complex cells integrate outputs of simple cells via max/sum, building shift invariance"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week3_chunk_076",
+      "nyu_dl_week3_chunk_079"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "simple cells",
+      "complex cells",
+      "receptive field",
+      "pooling",
+      "convolution",
+      "shift invariance"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week3_q007",
+    "question": "The lecture discusses the overall convolutional network architecture and shows a visual slide titled 'Overall Architecture: multiple stages of Normalization \u2192 Filter Bank \u2192 Non-Linearity \u2192 Pooling'. According to the visual and the transcript discussion of the LP norm pooling, what is a key property that any good pooling operation must satisfy, and how does the log-sum-exponential function satisfy it?",
+    "answer": "According to the lecture, a good pooling operation must be invariant to the permutation of its inputs \u2014 it must give the same result regardless of the order in which inputs are presented. The log-sum-exponential function, described in the transcript as 'one over beta times log of sum of exponential of beta times x', is a symmetric aggregation operation that satisfies this property because its value depends only on the multiset of input values, not their ordering. This makes it suitable as a pooling operation, similar to how max and average pooling are also permutation-invariant.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 6300.0,
+        "end": 6380.0,
+        "hop": 1,
+        "description": "Visual slide showing pooling stage in overall architecture with normalization and filter bank"
+      },
+      {
+        "start": 6360.0,
+        "end": 6445.0,
+        "hop": 2,
+        "description": "Transcript: pooling must be permutation-invariant; log-sum-exponential as a symmetric aggregation"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week3_chunk_108",
+      "nyu_dl_week3_chunk_109"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "pooling",
+      "permutation invariance",
+      "log-sum-exponential",
+      "LP norm",
+      "convolutional architecture"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week3_q008",
+    "question": "According to the visual frame caption for the 'Parameter transformations' slide, what are the specific components shown in the diagram and what update rule is displayed for the parameter u?",
+    "answer": "According to the frame captions for the 'Parameter transformations' slide, the diagram shows the following components: an input u flowing through a function H(u) to produce w, then w is used as an input to another function G(x,w) to produce y, and y is compared to y-bar and fed into a cost function C(y, y-bar). The parameter update rule shown is u \u2190 u minus some update term, indicating gradient descent on the elementary parameter u rather than directly on the weights w.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 830.0,
+        "end": 930.0,
+        "hop": 1,
+        "description": "Visual frame caption of Parameter transformations slide showing u\u2192H(u)\u2192w\u2192G(x,w)\u2192y\u2192C(y,y-bar) and update rule u\u2190u\u2212..."
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week3_chunk_015"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "parameter transformation",
+      "H(u)",
+      "G(x,w)",
+      "cost function",
+      "parameter update rule"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week3_q009",
+    "question": "According to the visual frame caption for the slide titled 'Hubel and Wiesel's Model of the Architecture of the Visual Cortex', what are the labeled layers shown in the diagram and what do simple cells and complex cells respectively do according to the text on the slide?",
+    "answer": "According to the frame captions for the Hubel and Wiesel slide, the diagram shows layers labeled U0 as the input layer, followed by U1 and subsequent layers. The text on the slide states that, based on Hubel and Wiesel 1962, simple cells detect local features, while complex cells pool the outputs of simple cells. This two-stage architecture of local detection followed by pooling is depicted visually in the diagram.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 4560.0,
+        "end": 4640.0,
+        "hop": 1,
+        "description": "Visual frame caption showing Hubel-Wiesel diagram with U0 input, simple cells detect local features, complex cells pool outputs"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week3_chunk_076"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "Hubel and Wiesel",
+      "simple cells",
+      "complex cells",
+      "visual cortex architecture",
+      "pooling"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week3_q010",
+    "question": "The lecture explains that the brain can recognize basic objects in about 100 milliseconds. What is the neuroscientific argument presented for why object recognition must be a feed-forward process, and how does this relate to the motivation for designing convolutional neural networks?",
+    "answer": "The lecture argues that since the signal takes about 100 milliseconds to travel from the retina through the LGN, then V1, V2, V4, and into the infero-temporal cortex, there is barely enough time for two spikes to propagate through each stage in the ventral pathway. This means there is no time for complex recurrent computations \u2014 recognition must proceed as a purely feed-forward process. This neuroscientific observation directly motivates the design of convolutional neural networks as hierarchical feed-forward architectures, since they can achieve rapid recognition without recurrence by building invariant representations layer by layer.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 4010.0,
+        "end": 4090.0,
+        "hop": 1,
+        "description": "100ms recognition time: signal travels from retina through LGN to V1, V2, V4, infero-temporal cortex"
+      },
+      {
+        "start": 4250.0,
+        "end": 4380.0,
+        "hop": 2,
+        "description": "Barely enough time for two spikes per stage implies feed-forward architecture; motivates ConvNet design"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week3_chunk_066",
+      "nyu_dl_week3_chunk_072"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "feed-forward processing",
+      "100ms recognition",
+      "ventral pathway",
+      "convolutional network motivation",
+      "recurrence"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week3_q011",
+    "question": "The lecture compares different network architectures on a small handwritten digit dataset from the University of Toronto experiments in 1988. What is the ordering of generalization performance from best to worst across the four architectures compared, and how many training samples were used?",
+    "answer": "According to the lecture, the experiment used only 320 training samples, and the ordering from best to worst generalization was: first, the baby convolutional net with shared weights and local connections, which achieved the best test performance; second, a network with local connections but no shared weights, which performed a little worse; third, fully connected networks, which performed worse still; and fourth, a linear network, which not only performed the worst but also overfitted, with the test error actually going back up after a while during training.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 5135.0,
+        "end": 5200.0,
+        "hop": 1,
+        "description": "320 training samples used; baby ConvNet best, local no-share second, fully connected third"
+      },
+      {
+        "start": 5200.0,
+        "end": 5270.0,
+        "hop": 2,
+        "description": "Linear network performs worst and also overfits with test error increasing"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week3_chunk_085",
+      "nyu_dl_week3_chunk_086"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "generalization",
+      "convolutional net",
+      "local connections",
+      "weight sharing",
+      "fully connected",
+      "linear network",
+      "overfitting"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week3_q012",
+    "question": "The lecture explains the mathematical difference between convolution and cross-correlation and why it matters. What is the key indexing convention that distinguishes the two operations, and why does the lecture say this distinction largely does not matter in practice for deep learning frameworks like PyTorch?",
+    "answer": "The key indexing convention that distinguishes the two operations is that in true mathematical convolution, the index j in the input window x goes backwards \u2014 specifically x is indexed as x_{i-j} \u2014 while in cross-correlation both the weight index and the input index go forwards as x_{i+j}. The lecture explains this distinction largely does not matter in practice because you can interpret a cross-correlation as a convolution simply by reading the weights in reverse order. Since the weights are learned anyway, the network will learn the reversed weights if needed, so deep learning frameworks like PyTorch implement what is technically cross-correlation but call it convolution without any loss of generality.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2935.0,
+        "end": 3010.0,
+        "hop": 1,
+        "description": "Convolution uses x_{i-j} index going backwards; cross-correlation uses x_{i+j} going forwards"
+      },
+      {
+        "start": 3010.0,
+        "end": 3075.0,
+        "hop": 2,
+        "description": "Reading weights backwards converts cross-correlation to convolution; distinction irrelevant in practice"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week3_chunk_049",
+      "nyu_dl_week3_chunk_050"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "convolution",
+      "cross-correlation",
+      "indexing convention",
+      "weight reversal",
+      "PyTorch"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week3_q013",
+    "question": "According to the lecture, what was the specific dataset used to train the first 'real' convolutional network at Bell Labs, and what were the training and test set sizes?",
+    "answer": "According to the lecture, the first real convolutional network at Bell Labs was trained on the USPS zipcode digits dataset, which came from zip codes on envelopes provided by the Postal Service. The dataset had 7,300 training samples and 2,000 test samples. This network was trained with backpropagation and used convolution with stride rather than separate pooling layers.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 5270.0,
+        "end": 5340.0,
+        "hop": 1,
+        "description": "USPS zipcode digits dataset: 7300 training samples and 2000 test samples at Bell Labs"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week3_chunk_088"
+    ],
+    "question_type": "text",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "Bell Labs",
+      "USPS zipcode",
+      "training set size",
+      "test set size",
+      "first real ConvNet"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week3_q014",
+    "question": "According to the lecture, who built the early computer model inspired by simple and complex cells in the late 1970s and early 1980s, and what learning method did he use to train the filters since backpropagation was not yet in common use?",
+    "answer": "According to the lecture, the early computer model implementing the simple-cell and complex-cell architecture was built by Kunihiko Fukushima in the late 1970s and early 1980s. Since backpropagation was not yet widely used at the time, Fukushima trained the filters using an unsupervised method that amounted to a form of clustering algorithm, applied separately for each layer. He would train the filters of the first layer, then feed the result through the complex cells, and repeat the same learning algorithm for successive layers.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 4870.0,
+        "end": 4980.0,
+        "hop": 1,
+        "description": "Kunihiko Fukushima built the early model in late 70s early 80s; trained with unsupervised clustering algorithm layer by layer"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week3_chunk_081",
+      "nyu_dl_week3_chunk_082"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "Fukushima",
+      "Neocognitron",
+      "unsupervised learning",
+      "clustering",
+      "layer-wise training",
+      "backpropagation"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week3_q015",
+    "question": "What is the exact error rate achieved by the first convolutional network trained at Bell Labs on the USPS zipcode dataset, and how does it compare to the error rate of a random forest trained on the same data?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "hard",
+    "answerable": false,
+    "key_concepts": [
+      "Bell Labs ConvNet",
+      "USPS zipcode",
+      "error rate",
+      "random forest comparison"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  }
+]

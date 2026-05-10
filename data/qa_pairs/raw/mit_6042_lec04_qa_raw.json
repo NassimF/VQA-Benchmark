@@ -1,0 +1,525 @@
+[
+  {
+    "qa_id": "mit_6042_lec04_q001",
+    "question": "What visual demonstration does the lecturer use to show students how to obtain four gallons, and what theorem does this demonstration motivate the need to prove?",
+    "answer": "The lecturer uses physical jugs (transparent containers) on the podium along with tennis balls representing gallons of water as a hands-on demonstration of the jug-pouring problem. This demonstration motivates the need to prove the theorem that if M divides both the capacity of the a-gallon jug and the b-gallon jug, then M must divide any result achievable through pouring, filling, and emptying those jugs, which is formalized using a state machine model.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 305.0,
+        "end": 400.0,
+        "hop": 1,
+        "description": "Lecturer demonstrates the jug problem physically using containers on podium"
+      },
+      {
+        "start": 1105.0,
+        "end": 1210.0,
+        "hop": 2,
+        "description": "Theorem stated that if m divides a and m divides b, then m divides any result"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6042_lec04_chunk_010",
+      "mit_6042_lec04_chunk_019",
+      "mit_6042_lec04_chunk_020"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "jug demonstration",
+      "state machine",
+      "divisibility theorem",
+      "invariant"
+    ],
+    "video_id": "mit_6042_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6042_lec04_q002",
+    "question": "In the Die Hard clip shown in the lecture, what specific constraint is placed on the jugs, and how does the theorem proved later in the lecture explain why a similar problem with 33-gallon and 55-gallon jugs would be unsolvable for getting four gallons?",
+    "answer": "In the Die Hard clip, the characters must use a 5-gallon jug and a 3-gallon jug to measure exactly four gallons of water to place on a scale and stop a timer from detonating a bomb. The theorem proved in the lecture explains that any result achievable with the jugs must be divisible by the greatest common divisor of both jug capacities. For 33 and 55, both are divisible by 11, so any achievable result must also be divisible by 11, and since four is not divisible by 11, four gallons cannot be obtained.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 245.0,
+        "end": 360.0,
+        "hop": 1,
+        "description": "Die Hard clip showing 5-gallon and 3-gallon jug puzzle with bomb timer"
+      },
+      {
+        "start": 1930.0,
+        "end": 2010.0,
+        "hop": 2,
+        "description": "Explanation that 33 and 55 are both divisible by 11 so four gallons cannot be reached"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6042_lec04_chunk_007",
+      "mit_6042_lec04_chunk_008",
+      "mit_6042_lec04_chunk_053",
+      "mit_6042_lec04_chunk_054"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Die Hard puzzle",
+      "greatest common divisor",
+      "divisibility",
+      "jug problem"
+    ],
+    "video_id": "mit_6042_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6042_lec04_q003",
+    "question": "What does the blackboard show as the state machine's start state and the set of possible transitions, and how does the induction proof use the invariant defined for those states?",
+    "answer": "The blackboard shows the start state as the pair (0, 0) representing empty jugs, with transitions including emptying (x,y)\u2192(0,y) or (x,y)\u2192(x,0), filling (x,y)\u2192(a,y) or (x,y)\u2192(x,b), and pouring, which maps (x,y)\u2192(0,x+y) when x+y\u2264b or (x,y)\u2192(x+y-b,b) otherwise. The induction proof defines the invariant P(n) as 'if (x,y) is the state after n transitions, then m divides x and m divides y.' The base case holds because m divides zero, and the inductive step shows that every possible transition from a state satisfying the invariant also satisfies it, since all resulting values are linear combinations of a, b, x, y divisible by m.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 755.0,
+        "end": 870.0,
+        "hop": 1,
+        "description": "Blackboard shows state machine states as pairs (x,y) and transitions including emptying, filling, and pouring"
+      },
+      {
+        "start": 1335.0,
+        "end": 1450.0,
+        "hop": 2,
+        "description": "Invariant P(n) defined and induction proof described"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6042_lec04_chunk_022",
+      "mit_6042_lec04_chunk_023",
+      "mit_6042_lec04_chunk_024",
+      "mit_6042_lec04_chunk_037",
+      "mit_6042_lec04_chunk_038"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "state machine",
+      "transitions",
+      "invariant",
+      "induction proof",
+      "divisibility"
+    ],
+    "video_id": "mit_6042_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6042_lec04_q004",
+    "question": "What equation for the pouring transition is visible on the blackboard when x+y is at least b, and how does the induction proof verify that this transition preserves the divisibility invariant?",
+    "answer": "The blackboard shows the transition (x,y)\u2192(x+y-b, b) when x+y\u2265b, representing the case where the b-jug is completely filled from the a-jug, leaving x+y-b gallons in the a-jug. The induction proof verifies this preserves the divisibility invariant by noting that since m divides x and m divides y by the inductive hypothesis, and m divides b by assumption, the value x+y-b is a linear combination of quantities all divisible by m. Using the handout fact that any linear combination of multiples of m is also divisible by m, m divides x+y-b and m divides b, so the invariant holds for the next state.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 980.0,
+        "end": 1065.0,
+        "hop": 1,
+        "description": "Blackboard shows pouring transition formula (x,y)->(x+y-b,b) when x+y>=b"
+      },
+      {
+        "start": 1750.0,
+        "end": 1855.0,
+        "hop": 2,
+        "description": "Inductive step showing linear combinations of a,b,x,y are all divisible by m"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6042_lec04_chunk_028",
+      "mit_6042_lec04_chunk_029",
+      "mit_6042_lec04_chunk_049",
+      "mit_6042_lec04_chunk_050"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "pouring transition",
+      "divisibility invariant",
+      "linear combination",
+      "inductive step"
+    ],
+    "video_id": "mit_6042_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6042_lec04_q005",
+    "question": "What definitions are written on the blackboard for divisibility and greatest common divisor, and how are these definitions connected through the corollary derived from the main jug theorem?",
+    "answer": "The blackboard shows the definition that m divides a (written m|a) if and only if there exists an integer k such that a = k*m, and gcd(a,b) is defined as the greatest common divisor of a and b. These definitions are connected through the corollary of the jug theorem: since the greatest common divisor of a and b divides both a and b by definition, the theorem that 'if m divides a and m divides b then m divides any result achievable with the jugs' implies that the gcd divides any result. This means only multiples of gcd(a,b) can be reached in the jug game.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 525.0,
+        "end": 610.0,
+        "hop": 1,
+        "description": "Blackboard shows definition of m divides a and gcd definition"
+      },
+      {
+        "start": 2100.0,
+        "end": 2185.0,
+        "hop": 2,
+        "description": "Corollary connecting gcd theorem to what results can be achieved"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6042_lec04_chunk_015",
+      "mit_6042_lec04_chunk_016",
+      "mit_6042_lec04_chunk_060",
+      "mit_6042_lec04_chunk_061"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "divisibility definition",
+      "greatest common divisor",
+      "corollary",
+      "jug theorem"
+    ],
+    "video_id": "mit_6042_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6042_lec04_q006",
+    "question": "What sequence of states is shown on the blackboard for the three-loop example achieving four gallons, and how does this correspond to the linear combination formula 4 = 3*3 - 1*5 used in the general algorithm proof?",
+    "answer": "The blackboard shows the sequence of states: (0,0)\u2192(3,0)\u2192(0,3)\u2192(3,3)\u2192(1,5)\u2192(1,0)\u2192(0,1)\u2192(3,1)\u2192(0,4), achieving four gallons in the b-jug after three loops of filling the three-gallon jug and pouring it into the five-gallon jug, emptying the five-gallon jug when full. This corresponds to the linear combination 4 = 3*3 + (-1)*5 because the algorithm fills the a-jug s'=3 times (contributing 3*3=9 gallons total input) and empties the b-jug u=1 time (removing 1*5=5 gallons), leaving r = s'*a - u*b = 9-5 = 4 gallons, which equals the desired linear combination.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2880.0,
+        "end": 2960.0,
+        "hop": 1,
+        "description": "Blackboard shows sequence of states through three loops achieving four gallons"
+      },
+      {
+        "start": 3060.0,
+        "end": 3145.0,
+        "hop": 2,
+        "description": "Linear combination 4=3*3-1*5 and algorithm analysis with r=s'a-u*b"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6042_lec04_chunk_080",
+      "mit_6042_lec04_chunk_081",
+      "mit_6042_lec04_chunk_082",
+      "mit_6042_lec04_chunk_083"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "state sequence",
+      "linear combination",
+      "algorithm",
+      "jug problem proof"
+    ],
+    "video_id": "mit_6042_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6042_lec04_q007",
+    "question": "What does the blackboard show for Euclid's algorithm applied to gcd(105, 224), and how does this example illustrate the lemma that gcd(a,b) = gcd(rem(b,a), a)?",
+    "answer": "The blackboard shows the computation gcd(105, 224) = gcd(rem(224,105), 105) = gcd(14, 105) = gcd(rem(105,14), 14) = gcd(7, 14) = gcd(rem(14,7), 7) = gcd(0, 7) = 7, using the fact that 224 = 2*105 + 14 and 105 = 7*14 + 7 and 14 = 2*7 + 0. This illustrates the lemma by repeatedly replacing the pair (a,b) with (rem(b,a), a), which preserves the greatest common divisor at each step. The process terminates when the remainder is zero, and the remaining nonzero value is the gcd, demonstrating that the gcd equals 7.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3720.0,
+        "end": 3810.0,
+        "hop": 1,
+        "description": "Blackboard shows Euclid's algorithm computation for gcd(105,224) step by step"
+      },
+      {
+        "start": 3870.0,
+        "end": 3960.0,
+        "hop": 2,
+        "description": "Lemma gcd(a,b)=gcd(rem(b,a),a) proved and connected to the example"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6042_lec04_chunk_107",
+      "mit_6042_lec04_chunk_108",
+      "mit_6042_lec04_chunk_109",
+      "mit_6042_lec04_chunk_110",
+      "mit_6042_lec04_chunk_111"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Euclid's algorithm",
+      "greatest common divisor",
+      "remainder",
+      "lemma proof"
+    ],
+    "video_id": "mit_6042_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6042_lec04_q008",
+    "question": "What text is visible on the blackboard that describes the state machine model for the jug problem, specifically showing the labels for the two state variables x and y?",
+    "answer": "The blackboard shows the text 'State machine' at the top, followed by 'States: pairs (x, y), where x = # gal. in the a-jug' and 'y = # gal. in the b-jug', along with 'Start-state: (0, 0)'. This clearly labels x as the number of gallons in the a-gallon jug and y as the number of gallons in the b-gallon jug, with the system starting in state (0,0) representing both jugs empty.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 745.0,
+        "end": 835.0,
+        "hop": 1,
+        "description": "Blackboard shows state machine definition with pairs (x,y) where x=gallons in a-jug and y=gallons in b-jug and start state (0,0)"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6042_lec04_chunk_021",
+      "mit_6042_lec04_chunk_022"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "state machine",
+      "state variables",
+      "jug problem"
+    ],
+    "video_id": "mit_6042_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6042_lec04_q009",
+    "question": "What does the blackboard display as the final theorem statement about the gcd being a linear combination, and what notation is used to express this result?",
+    "answer": "The blackboard displays the theorem statement that 'gcd(a, b) is a linear combination of a and b', along with the proof structure labeled 'PF (By induction)' and an invariant P(n) stating that if Euclid's algorithm reaches gcd(x,y) after n steps, then x and y are linear combinations of a and b. The notation used includes gcd(a,b) for the greatest common divisor and the linear combination expressed as sa + tb for integers s and t, with the conclusion that the gcd equals the smallest positive linear combination of a and b.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 4460.0,
+        "end": 4550.0,
+        "hop": 1,
+        "description": "Blackboard shows final theorem that gcd(a,b) is a linear combination with proof structure by induction"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6042_lec04_chunk_125",
+      "mit_6042_lec04_chunk_126"
+    ],
+    "question_type": "visual",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "gcd",
+      "linear combination",
+      "theorem statement",
+      "Euclid's algorithm"
+    ],
+    "video_id": "mit_6042_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6042_lec04_q010",
+    "question": "What is the general algorithm described for obtaining L gallons from the jugs, and why must the coefficient s' in the linear combination L = s'a + t'b be a positive integer for this algorithm to work?",
+    "answer": "The algorithm repeatedly fills the a-jug and pours it into the b-jug; when the b-jug becomes full, it is emptied out, and pouring from the a-jug continues. This process is repeated s' times. The coefficient s' must be a positive integer because the algorithm repeats the fill-and-pour process exactly s' times, and one cannot repeat something a negative or fractional number of times. To ensure s' is positive, the linear combination L = sa + tb can always be rewritten as L = (s + m*b)*a + (t - m*a)*b for any integer m, and choosing m large enough makes the new coefficient s' = s + m*b positive regardless of how negative s originally was.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2655.0,
+        "end": 2740.0,
+        "hop": 1,
+        "description": "Algorithm described: fill a-jug, pour into b-jug, empty b-jug when full, repeat s' times"
+      },
+      {
+        "start": 3415.0,
+        "end": 3500.0,
+        "hop": 2,
+        "description": "Explanation of why s' must be positive and how to rewrite the linear combination"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6042_lec04_chunk_074",
+      "mit_6042_lec04_chunk_075",
+      "mit_6042_lec04_chunk_097",
+      "mit_6042_lec04_chunk_098"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "algorithm",
+      "linear combination",
+      "positive coefficient",
+      "jug problem proof"
+    ],
+    "video_id": "mit_6042_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6042_lec04_q011",
+    "question": "What is the proof strategy used to establish that R equals L at the end of the jug-filling algorithm, and what key algebraic insight allows the conclusion that t' + u = 0?",
+    "answer": "The proof strategy expresses R (the remainder in the b-jug at the end of the algorithm) as s'*a - u*b, where s' is the number of times the a-jug was filled and u is the number of times the b-jug was emptied. The key algebraic insight comes from also expressing L = s'*a + t'*b and then rewriting R = s'*a - u*b = s'*a + t'*b - t'*b - u*b = L - (t'+u)*b. Since both R and L lie in the range (0, b), subtracting or adding any nonzero multiple of b would push R outside this range, which is impossible. Therefore t'+u must equal zero, implying u = -t', and substituting back gives R = L.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3130.0,
+        "end": 3215.0,
+        "hop": 1,
+        "description": "R expressed as s'*a - u*b where u is number of times b-jug emptied"
+      },
+      {
+        "start": 3265.0,
+        "end": 3360.0,
+        "hop": 2,
+        "description": "Algebraic argument that t'+u=0 because R and L are both in range (0,b)"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6042_lec04_chunk_088",
+      "mit_6042_lec04_chunk_089",
+      "mit_6042_lec04_chunk_090",
+      "mit_6042_lec04_chunk_091",
+      "mit_6042_lec04_chunk_094"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "algorithm proof",
+      "linear combination",
+      "range argument",
+      "algebraic identity"
+    ],
+    "video_id": "mit_6042_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6042_lec04_q012",
+    "question": "How does the proof of the lemma gcd(a,b) = gcd(rem(b,a), a) establish both directions of the equality, and what fact from the handout is used repeatedly in this argument?",
+    "answer": "The proof establishes both directions by showing that the sets of common divisors of (a,b) and (rem(b,a),a) are identical. For the first direction, if m divides both a and b, then since rem(b,a) = b - q*a is a linear combination of b and a, m also divides rem(b,a) and a. For the second direction, if m divides rem(b,a) and a, then since b = q*a + rem(b,a) is a linear combination of a and rem(b,a), m also divides b. The key fact from the handout used repeatedly is that if m divides two quantities, then m divides any linear combination of those quantities, which is item three on the divisibility handout distributed at the start of lecture.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 4035.0,
+        "end": 4120.0,
+        "hop": 1,
+        "description": "First direction: if m|a and m|b then m|rem(b,a) using linear combination"
+      },
+      {
+        "start": 4155.0,
+        "end": 4240.0,
+        "hop": 2,
+        "description": "Second direction using fact that m divides linear combinations, referencing handout item 3"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6042_lec04_chunk_116",
+      "mit_6042_lec04_chunk_117",
+      "mit_6042_lec04_chunk_118",
+      "mit_6042_lec04_chunk_119",
+      "mit_6042_lec04_chunk_120"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "gcd lemma",
+      "divisibility",
+      "linear combination",
+      "Euclidean algorithm"
+    ],
+    "video_id": "mit_6042_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6042_lec04_q013",
+    "question": "What specific values of a, b, and m does the lecturer use to explain why a six-gallon jug and three-gallon jug cannot produce four gallons, and what general principle does this illustrate?",
+    "answer": "The lecturer uses a equals three and b equals six, noting that three divides both three and six, so m equals three. Since any combination of filling, emptying, and pouring between these two jugs always results in a multiple of three gallons in either jug (because one times three is three and two times three is six), the number four, which is not a multiple of three, can never appear in either jug. This illustrates the general principle proved in the theorem: if m divides both a-gallon jug capacity and b-gallon jug capacity, then m must divide any achievable result, ruling out all non-multiples of m.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 455.0,
+        "end": 540.0,
+        "hop": 1,
+        "description": "Lecturer explains three and six gallon jugs: m=3 divides both, so only multiples of 3 achievable, not four"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6042_lec04_chunk_013",
+      "mit_6042_lec04_chunk_014"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "divisibility",
+      "six-gallon jug",
+      "three-gallon jug",
+      "multiple of three"
+    ],
+    "video_id": "mit_6042_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6042_lec04_q014",
+    "question": "How does the lecturer justify that any integer M divides zero, and why is this fact specifically needed for the base case of the jug theorem proof by induction?",
+    "answer": "The lecturer justifies that any integer M divides zero by noting that according to the definition of divisibility, M divides a if there exists an integer k such that a = k*M. Taking k equal to zero gives zero equals zero times M, which is true for any integer M. This fact is specifically needed for the base case of the jug theorem proof because the start state of the state machine is the pair (0, 0) representing both jugs empty, and the invariant P(0) requires that M divides x and M divides y in that initial state. Since x equals zero and y equals zero, and M divides zero for all integers M, P(0) is immediately verified as true.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 580.0,
+        "end": 660.0,
+        "hop": 1,
+        "description": "Explanation that any integer M divides zero because a=0*M for any M, used for base case P(0) with start state (0,0)"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6042_lec04_chunk_016",
+      "mit_6042_lec04_chunk_039"
+    ],
+    "question_type": "text",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "divisibility",
+      "zero",
+      "base case",
+      "induction proof"
+    ],
+    "video_id": "mit_6042_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6042_lec04_q015",
+    "question": "What is the exact number of steps required by Euclid's algorithm to terminate when computing gcd(3, 5), and what is the pulverizer representation of gcd(3,5) as a linear combination?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "medium",
+    "answerable": false,
+    "key_concepts": [
+      "Euclid's algorithm",
+      "pulverizer",
+      "linear combination",
+      "gcd"
+    ],
+    "video_id": "mit_6042_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  }
+]

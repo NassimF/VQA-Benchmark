@@ -1,0 +1,509 @@
+[
+  {
+    "qa_id": "mit_6006f11_lec03_q001",
+    "question": "The lecture slide shown early in the lecture lists several topics to be covered. What sorting algorithm is described as a divide and conquer approach, and what specific technique is introduced to improve the comparison complexity of the simpler sorting algorithm discussed first?",
+    "answer": "Merge sort is the divide and conquer algorithm listed on the lecture slide. The simpler algorithm, insertion sort, can have its comparison complexity improved from Theta n squared to Theta n log n by using binary search to find the correct insertion position in the already-sorted portion of the array, rather than doing sequential pairwise comparisons.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 35.0,
+        "end": 115.0,
+        "hop": 1,
+        "description": "Lecture slide visible on blackboard listing Insertion Sort, Merge Sort (Divide & Conquer), and Recurrence Solving as topics"
+      },
+      {
+        "start": 1260.0,
+        "end": 1345.0,
+        "hop": 2,
+        "description": "Discussion of using binary search to reduce comparison complexity of insertion sort to Theta n log n"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec03_chunk_001",
+      "mit_6006f11_lec03_chunk_036"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "insertion sort",
+      "merge sort",
+      "binary search",
+      "divide and conquer",
+      "comparison complexity"
+    ],
+    "video_id": "mit_6006f11_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec03_q002",
+    "question": "The blackboard shows the initial array [5, 2, 4, 6, 1, 3] being sorted by insertion sort. How many total swaps are required to place the element '1' into its correct position, and what does this reveal about the worst-case complexity of each step in insertion sort?",
+    "answer": "Four swaps are required to move the element '1' into its correct position in the array. This reveals that each step of insertion sort can require Theta n swaps in the worst case, because an element may need to be swapped all the way from its current position to the beginning of the already-sorted subarray, giving each step O(n) work and making the overall algorithm Theta n squared.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 870.0,
+        "end": 935.0,
+        "hop": 1,
+        "description": "Blackboard showing array [5,2,4,6,1,3] with key pointer and step-by-step insertion sort example"
+      },
+      {
+        "start": 1030.0,
+        "end": 1125.0,
+        "hop": 2,
+        "description": "Discussion of four swaps needed to move '1' to correct position and each step being Theta n work"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec03_chunk_024",
+      "mit_6006f11_lec03_chunk_030"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "insertion sort",
+      "pairwise swaps",
+      "worst case complexity",
+      "Theta n squared"
+    ],
+    "video_id": "mit_6006f11_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec03_q003",
+    "question": "The recursion tree diagram on the blackboard shows nodes labeled Cn, Cn/2, Cn/4, etc. How many levels does this tree have and what is the total work summed across all levels, as derived from the diagram?",
+    "answer": "The recursion tree has 1 plus log n levels, where log is base 2. At each level the total work done is Cn, because the two halves of size n/2 each contribute Cn/2 and together sum back to Cn. Multiplying the work per level by the number of levels gives Cn times (1 plus log n), which equals Theta n log n, proving merge sort's overall complexity.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2220.0,
+        "end": 2315.0,
+        "hop": 1,
+        "description": "Recursion tree diagram on blackboard showing Cn at root, Cn/2 at second level, Cn/4 at third level, with branches"
+      },
+      {
+        "start": 2375.0,
+        "end": 2440.0,
+        "hop": 2,
+        "description": "Explanation that each level sums to Cn and there are 1+log n levels giving T(n) = Theta n log n"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec03_chunk_062",
+      "mit_6006f11_lec03_chunk_065"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "recursion tree",
+      "merge sort",
+      "Theta n log n",
+      "levels",
+      "complexity proof"
+    ],
+    "video_id": "mit_6006f11_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec03_q004",
+    "question": "The blackboard displays the recurrence T(n) = 2T(n/2) + Cn^2. Using the recursion tree argument shown in the lecture, where does most of the work occur in this recurrence and what is its overall complexity?",
+    "answer": "In the recurrence T(n) = 2T(n/2) + Cn^2, most of the work is done at the root, the top level of the recursion. The top level contributes Cn^2, while each subsequent level contributes a geometrically decreasing fraction: Cn^2/2 at the second level, Cn^2/4 at the third, and so on. The sum is bounded by 2Cn^2, so the overall complexity is Theta n squared, dominated by the work at the root.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2940.0,
+        "end": 3000.0,
+        "hop": 1,
+        "description": "Blackboard showing recurrence T(n) = 2T(n/2) + Cn^2 with recursion tree nodes Cn^2, Cn^2/4, Cn^2/16"
+      },
+      {
+        "start": 3025.0,
+        "end": 3110.0,
+        "hop": 2,
+        "description": "Explanation that top level dominates and the algorithm is Theta n squared with all work at the root"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec03_chunk_082",
+      "mit_6006f11_lec03_chunk_083"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "recurrence relation",
+      "recursion tree",
+      "Theta n squared",
+      "dominant term",
+      "root level work"
+    ],
+    "video_id": "mit_6006f11_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec03_q005",
+    "question": "The merge sort diagram on the blackboard shows an array A divided into parts L and R. The lecture explains that sorting actually happens in a specific subroutine. What is that subroutine called, and what property must its inputs satisfy according to the lecture?",
+    "answer": "The subroutine is called merge. Its inputs must be two sorted arrays, referred to as L prime and R prime, meaning that the left and right halves must already be sorted before the merge routine is invoked. The merge routine then combines these two sorted arrays into a single sorted output array using a two-finger algorithm that compares elements from each array in sequence.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1583.0,
+        "end": 1635.0,
+        "hop": 1,
+        "description": "Blackboard diagram showing array A divided into L and R with Sort L and Sort R sub-diagrams and merge step"
+      },
+      {
+        "start": 1680.0,
+        "end": 1750.0,
+        "hop": 2,
+        "description": "Explanation that merge assumes two sorted arrays L prime and R prime as input, using the two-finger algorithm"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec03_chunk_045",
+      "mit_6006f11_lec03_chunk_048"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "merge sort",
+      "merge routine",
+      "sorted arrays",
+      "two-finger algorithm",
+      "divide and conquer"
+    ],
+    "video_id": "mit_6006f11_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec03_q006",
+    "question": "The blackboard shows the merge procedure working on two sorted arrays: [20, 13, 7, 2] and [12, 11, 9, 1]. What algorithm is used to merge them and what is the complexity of merging two arrays each of size n/2?",
+    "answer": "The two-finger algorithm is used to merge the two sorted arrays. One pointer tracks the current minimum of each input array, and at each step the smaller of the two pointed-to elements is written to the output array and the corresponding pointer advances. The complexity of merging two arrays each of size n/2 is Theta n overall, since every element is examined exactly once across both input arrays.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1680.0,
+        "end": 1760.0,
+        "hop": 1,
+        "description": "Blackboard showing two sorted arrays [20,13,7,2] and [12,11,9,1] labeled as L prime and R prime with two-finger algorithm notation"
+      },
+      {
+        "start": 1855.0,
+        "end": 1925.0,
+        "hop": 2,
+        "description": "Statement that the complexity of merging two arrays of size n/2 is Theta n"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec03_chunk_048",
+      "mit_6006f11_lec03_chunk_053"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "two-finger algorithm",
+      "merge",
+      "complexity",
+      "sorted arrays",
+      "Theta n"
+    ],
+    "video_id": "mit_6006f11_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec03_q007",
+    "question": "The blackboard shows the empirical running times comparing merge sort and insertion sort in Python and C. According to the lecture, at approximately what value of n does merge sort in Python become faster than insertion sort implemented in C?",
+    "answer": "According to the blackboard showing the empirical running times, merge sort in Python runs at approximately 2.2 n log n microseconds, insertion sort in Python runs at approximately 0.2 n squared microseconds, and insertion sort in C runs at approximately 0.01 n squared microseconds. The crossover point where merge sort in Python beats insertion sort in C occurs at approximately n equals 4000, beyond which the Theta n log n asymptotic advantage outweighs the constant factor advantage of the compiled C implementation.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2685.0,
+        "end": 2745.0,
+        "hop": 1,
+        "description": "Blackboard showing Mergesort in Python = 2.2n lg(n) ms, Insertion Python = 0.2n^2 ms, C = 0.01n^2 ms"
+      },
+      {
+        "start": 2770.0,
+        "end": 2830.0,
+        "hop": 2,
+        "description": "Statement that beyond n of about 4000, merge sort in Python beats insertion sort in C"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec03_chunk_076",
+      "mit_6006f11_lec03_chunk_077"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "empirical running time",
+      "asymptotic complexity",
+      "merge sort",
+      "insertion sort",
+      "crossover point"
+    ],
+    "video_id": "mit_6006f11_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec03_q008",
+    "question": "What text is written on the blackboard to describe the auxiliary space requirements of merge sort and in-place sorting, as shown in the frame captions?",
+    "answer": "The blackboard displays the text 'Merge-sort O(n) auxiliary space' on one line and 'In-place sort O(1) auxiliary space' on the next line, clearly contrasting the linear extra space needed by merge sort with the constant extra space required by in-place sorting algorithms such as insertion sort.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 2565.0,
+        "end": 2625.0,
+        "hop": 1,
+        "description": "Blackboard frame caption reading 'Merge-sort O(n) auxiliary space' and 'In-place sort O(1) auxiliary space'"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec03_chunk_071"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "auxiliary space",
+      "merge sort",
+      "in-place sort",
+      "space complexity"
+    ],
+    "video_id": "mit_6006f11_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec03_q009",
+    "question": "What specific equation is written on the blackboard to summarize the complexity of the merge sort recurrence, as visible in the frame caption for chunk 066?",
+    "answer": "The blackboard shows the equation T(n) = cn(1 + lg n) followed by the conclusion that this equals Theta n lg n. This equation captures the result of summing cn work across 1 plus log n levels of the recursion tree, formally expressing that the total complexity of merge sort is Theta n log n.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 2430.0,
+        "end": 2495.0,
+        "hop": 1,
+        "description": "Blackboard frame caption showing T(n) = cn(1 + lg n) = Theta(n lg n) written in chalk"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec03_chunk_066"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "merge sort complexity",
+      "recursion tree",
+      "Theta n log n",
+      "recurrence solution"
+    ],
+    "video_id": "mit_6006f11_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec03_q010",
+    "question": "The lecture explains why binary insertion sort does not achieve Theta n log n complexity for both comparisons and swaps when using an array data structure. What is the specific reason that swaps remain Theta n squared even after applying binary search?",
+    "answer": "Even though binary search reduces the number of comparisons to Theta n log n, the number of swaps remains Theta n squared because inserting element A[i] into its correct position in the already-sorted subarray A[0] through A[i-1] requires physically shifting all elements between the insertion point and position i-1 one step to the right. In the worst case this shift involves Theta n elements per insertion step, and with Theta n insertion steps the total swap count is Theta n squared regardless of how efficiently the correct position is found.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1375.0,
+        "end": 1445.0,
+        "hop": 1,
+        "description": "Explanation that binary search gives Theta n log n comparisons by searching the sorted portion in log i time per step"
+      },
+      {
+        "start": 1445.0,
+        "end": 1530.0,
+        "hop": 2,
+        "description": "Explanation that inserting into an array requires shifting elements, giving Theta n swaps per step and Theta n squared total"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec03_chunk_038",
+      "mit_6006f11_lec03_chunk_039"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "binary insertion sort",
+      "array shifting",
+      "Theta n squared swaps",
+      "Theta n log n comparisons",
+      "data structure limitation"
+    ],
+    "video_id": "mit_6006f11_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec03_q011",
+    "question": "The lecture discusses why sorting a list first makes finding the median easy, and also mentions binary search as another problem that benefits from a sorted list. What are the exact complexities for finding the median in a sorted list and for finding a specific element using binary search in a sorted list?",
+    "answer": "Finding the median in a sorted list is constant time, or O(1), because you simply look at the element at index n divided by 2 in the sorted array B, which by definition has an equal number of elements smaller and larger than it. Finding a specific element using binary search in a sorted list takes logarithmic time, O(log n), because at each step you compare the target to the middle element and eliminate half the remaining search space, converting what would be a linear scan into a logarithmic one.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 295.0,
+        "end": 385.0,
+        "hop": 1,
+        "description": "Explanation that finding the median is constant time by looking at B[n/2] in a sorted array"
+      },
+      {
+        "start": 385.0,
+        "end": 460.0,
+        "hop": 2,
+        "description": "Explanation that binary search finds a specific element in logarithmic time in a sorted array"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec03_chunk_008",
+      "mit_6006f11_lec03_chunk_009"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "median finding",
+      "binary search",
+      "sorted array",
+      "constant time",
+      "logarithmic time"
+    ],
+    "video_id": "mit_6006f11_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec03_q012",
+    "question": "The lecture describes two non-obvious applications of sorting in computer graphics rendering. What are these two rendering orders and why does each order matter for the rendering process?",
+    "answer": "The two rendering orders used in computer graphics are front-to-back and back-to-front. Front-to-back rendering is used most of the time because when a large opaque object is in front, rendering it first means you do not need to worry about processing or rendering everything occluded behind it, improving efficiency. Back-to-front rendering is used when transparency must be handled correctly, because transparent objects need to be composited over the objects behind them, requiring those background objects to already be rendered before the transparent layer is drawn on top.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 510.0,
+        "end": 575.0,
+        "hop": 1,
+        "description": "Explanation of front-to-back rendering in computer graphics for efficiency with opaque objects"
+      },
+      {
+        "start": 575.0,
+        "end": 640.0,
+        "hop": 2,
+        "description": "Explanation that back-to-front rendering is needed for transparency, requiring sorted lists in both orders"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec03_chunk_015",
+      "mit_6006f11_lec03_chunk_016"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "computer graphics",
+      "rendering order",
+      "front-to-back",
+      "back-to-front",
+      "transparency",
+      "occlusion"
+    ],
+    "video_id": "mit_6006f11_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec03_q013",
+    "question": "What is the exact auxiliary space complexity difference between merge sort and insertion sort as stated in this lecture, and what specific temporary storage does insertion sort require during its operation?",
+    "answer": "Merge sort requires Theta n auxiliary space because it must make copies of the left and right halves L and R in order to perform the recursion and merge them back into the sorted array. Insertion sort by contrast requires only Theta one constant auxiliary space, specifically a single temporary variable needed to hold one of the values when swapping two elements so that neither value is lost during the swap operation.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 2485.0,
+        "end": 2570.0,
+        "hop": 1,
+        "description": "Explanation that merge sort needs Theta n auxiliary space and insertion sort needs only Theta 1 for a temporary swap variable"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec03_chunk_071"
+    ],
+    "question_type": "text",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "auxiliary space",
+      "merge sort",
+      "insertion sort",
+      "in-place sorting",
+      "temporary variable"
+    ],
+    "video_id": "mit_6006f11_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec03_q014",
+    "question": "According to this lecture, what recurrence relation describes the complexity of merge sort, and what are the two separate constants C1 and C2 in that recurrence associated with?",
+    "answer": "The recurrence relation for merge sort is T(n) = C1 + 2T(n/2) + C2 times n. The constant C1 represents the work done to divide the array into its two halves, which is a constant-time operation. The constant C2 times n represents the merge step, which takes linear time proportional to the total number of elements being merged, since each element is examined exactly once by the two-finger algorithm during the merge.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 2055.0,
+        "end": 2135.0,
+        "hop": 1,
+        "description": "Statement of the recurrence T(n) = C1 + 2T(n/2) + C2n where C1 corresponds to the divide step and C2n corresponds to the merge step"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec03_chunk_058"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "recurrence relation",
+      "merge sort",
+      "divide step",
+      "merge step",
+      "C1 and C2 constants"
+    ],
+    "video_id": "mit_6006f11_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec03_q015",
+    "question": "What is the exact number of comparisons performed during the document distance computation described in this lecture, and how does it relate to the insertion sort algorithm?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "medium",
+    "answerable": false,
+    "key_concepts": [
+      "document distance",
+      "comparisons",
+      "insertion sort"
+    ],
+    "video_id": "mit_6006f11_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  }
+]

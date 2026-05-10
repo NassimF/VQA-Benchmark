@@ -1,0 +1,507 @@
+[
+  {
+    "qa_id": "nyu_dl_week11_q001",
+    "video_id": "nyu_dl_week11",
+    "question": "What activation function is shown on the slide when the lecturer explains that allowing the negative part of a ReLU to have a non-zero slope prevents vanishing gradients, and how was this activation specifically used to train very skinny networks?",
+    "answer": "The slide shown is LeakyReLU (nn.LeakyReLU()), which allows the negative region to have a small non-zero slope rather than being clamped to zero. The lecturer explains that LeakyReLU was necessary to train very skinny networks because standard ReLU caused all activations to land in a zero-output region, preventing any gradient from flowing back, whereas LeakyReLU ensures gradients can propagate even in the suppressed region.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 35.0,
+        "end": 75.0,
+        "hop": 1,
+        "description": "Frame caption shows LeakyReLU - nn.LeakyReLU() slide"
+      },
+      {
+        "start": 105.0,
+        "end": 175.0,
+        "hop": 2,
+        "description": "Lecturer explains LeakyReLU was necessary for training skinny networks to ensure gradients flow back"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week11_chunk_001",
+      "nyu_dl_week11_chunk_003"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "LeakyReLU",
+      "vanishing gradient",
+      "skinny networks",
+      "activation functions"
+    ],
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week11_q002",
+    "video_id": "nyu_dl_week11",
+    "question": "What formula is displayed on the Softplus slide, and what property does the lecturer describe about this function's relationship to the beta parameter as beta approaches infinity?",
+    "answer": "The Softplus slide shows the formula: Softplus(x) = (1/\u03b2) * log(1 + exp(\u03b2\u00b7x)). The lecturer explains that as beta increases, the function more closely resembles a standard ReLU, with the corner becoming sharper, and in the limit as beta approaches infinity, Softplus converges to a hard ReLU activation function.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 175.0,
+        "end": 215.0,
+        "hop": 1,
+        "description": "Frame caption shows Softplus formula: (1/\u03b2) log(1 + exp(\u03b2\u00b7x))"
+      },
+      {
+        "start": 205.0,
+        "end": 255.0,
+        "hop": 2,
+        "description": "Lecturer describes how larger beta makes Softplus look more like ReLU with sharper corner"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week11_chunk_006",
+      "nyu_dl_week11_chunk_007"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Softplus",
+      "beta parameter",
+      "scale",
+      "ReLU approximation"
+    ],
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week11_q003",
+    "video_id": "nyu_dl_week11",
+    "question": "The slide for ELU shows a specific mathematical formula. What advantage does the lecturer say ELU has over ReLU that makes it potentially better for gradient descent convergence?",
+    "answer": "The ELU slide shows the formula: ELU(x) = max(0,x) + min(0, \u03b1 \u00d7 (exp(x) - 1)). The lecturer explains that unlike ReLU which has a minimum at zero, ELU can go below zero, which allows the average output of units to be closer to zero. This zero-mean property means that weights connected to ELU units see both positive and negative values, which causes gradient descent to converge faster than when only positive values are observed.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 245.0,
+        "end": 295.0,
+        "hop": 1,
+        "description": "Frame caption shows ELU formula: max(0,x) + min(0, \u03b1*(exp(x)-1))"
+      },
+      {
+        "start": 315.0,
+        "end": 360.0,
+        "hop": 2,
+        "description": "Lecturer explains ELU going below zero allows zero-mean outputs, helping weights converge faster"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week11_chunk_009",
+      "nyu_dl_week11_chunk_010"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "ELU",
+      "zero-mean",
+      "convergence",
+      "gradient descent"
+    ],
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week11_q004",
+    "video_id": "nyu_dl_week11",
+    "question": "When the slide titled 'Sigmoid - nn.Sigmoid()' is displayed, the lecturer simultaneously discusses hyperbolic tangent. What specific advantage does the lecturer say hyperbolic tangent has over sigmoid, and why does the lecturer say they later became less enthusiastic about sigmoid-type functions for deep networks?",
+    "answer": "While the Sigmoid slide is shown, the lecturer explains that hyperbolic tangent is identical to sigmoid but centered between -1 and +1, giving outputs closer to zero mean, which is advantageous because weights that follow see both positive and negative values and converge faster. However, the lecturer notes they became less enthusiastic about stacking many sigmoid layers in deep networks because getting gradients to flow efficiently requires very careful normalization, making single-kink functions like ReLU better suited for deep architectures.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 420.0,
+        "end": 465.0,
+        "hop": 1,
+        "description": "Frame caption shows Sigmoid - nn.Sigmoid() slide"
+      },
+      {
+        "start": 420.0,
+        "end": 500.0,
+        "hop": 2,
+        "description": "Lecturer explains tanh advantage over sigmoid and why sigmoid-type functions are problematic for deep nets"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week11_chunk_013",
+      "nyu_dl_week11_chunk_014"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "sigmoid",
+      "hyperbolic tangent",
+      "zero mean",
+      "deep networks",
+      "gradient flow"
+    ],
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week11_q005",
+    "video_id": "nyu_dl_week11",
+    "question": "The Softsign slide is shown while the lecturer discusses a problem common to both sigmoid and hyperbolic tangent. What is that problem, who proposed Softsign as a solution, and how does Softsign address it?",
+    "answer": "The Softsign (nn.Softsign()) slide is shown while the lecturer discusses saturation near asymptotes: as inputs become large, both sigmoid and hyperbolic tangent produce near-zero gradients, causing units to stop learning quickly. Softsign was proposed by Yoshua Bengio and collaborators as a solution because it saturates more slowly than sigmoid or tanh, meaning it does not reach its asymptotes as quickly, so gradients remain larger for a wider range of input values.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 525.0,
+        "end": 570.0,
+        "hop": 1,
+        "description": "Frame caption shows Softsign - nn.Softsign() slide"
+      },
+      {
+        "start": 510.0,
+        "end": 570.0,
+        "hop": 2,
+        "description": "Lecturer explains saturation problem with sigmoid/tanh and that Softsign was proposed by Bengio et al. to saturate more slowly"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week11_chunk_015",
+      "nyu_dl_week11_chunk_016"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Softsign",
+      "saturation",
+      "gradient vanishing",
+      "Bengio",
+      "asymptote"
+    ],
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week11_q006",
+    "video_id": "nyu_dl_week11",
+    "question": "While slides for the Softshrink function are displayed, what application domain does the lecturer describe for shrinkage functions, and what algorithm specifically uses the Softshrink operation as one of its steps?",
+    "answer": "While the Softshrink (nn.Softshrink()) slides are displayed, the lecturer explains that shrinkage functions are primarily used for sparse coding rather than as standard neural network activation functions. Specifically, the Softshrink operation is one of the steps in the ISTA (Iterative Shrinkage-Thresholding Algorithm), which is used for inference in sparse coding models. The function shifts all latent variable values toward zero by a constant, forcing small values to zero while larger values are only reduced.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 630.0,
+        "end": 690.0,
+        "hop": 1,
+        "description": "Frame captions show Softshrink - nn.Softshrink() slides"
+      },
+      {
+        "start": 750.0,
+        "end": 795.0,
+        "hop": 2,
+        "description": "Lecturer explains Softshrink is used in ISTA algorithm for sparse coding inference"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week11_chunk_019",
+      "nyu_dl_week11_chunk_021"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Softshrink",
+      "sparse coding",
+      "ISTA algorithm",
+      "shrinkage",
+      "latent variable"
+    ],
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week11_q007",
+    "video_id": "nyu_dl_week11",
+    "question": "The slide 'CE - nn.CrossEntropyLoss()' is shown while the lecturer explains a numerical stability issue. What specific numerical problem arises when log and softmax are kept as separate operations, and what is the solution implemented by CrossEntropyLoss?",
+    "answer": "While the CrossEntropyLoss slide is displayed, the lecturer explains that when log and softmax are separate operations, intermediate values can become close to negative infinity (the log of a near-zero softmax output), and back-propagating through the log produces a value close to positive infinity, which when multiplied by the near-zero softmax derivative can cause numerical instability due to floating point limitations. CrossEntropyLoss solves this by merging log and softmax into a single operation called LogSoftmax, which uses the log-sum-exp trick to compute the result in a numerically stable way without creating intermediate infinite values.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2765.0,
+        "end": 2810.0,
+        "hop": 1,
+        "description": "Frame caption shows CE - nn.CrossEntropyLoss() slide"
+      },
+      {
+        "start": 2810.0,
+        "end": 2880.0,
+        "hop": 2,
+        "description": "Lecturer explains numerical instability from separate log and softmax, and how CrossEntropyLoss merges them"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week11_chunk_079",
+      "nyu_dl_week11_chunk_081"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "CrossEntropyLoss",
+      "numerical stability",
+      "LogSoftmax",
+      "log-sum-exp",
+      "backpropagation"
+    ],
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week11_q008",
+    "video_id": "nyu_dl_week11",
+    "question": "What does the slide for the nn.AdaptiveLogSoftmaxWithLoss() function indicate about the paper it is based on, including the authors credited?",
+    "answer": "The nn.AdaptiveLogSoftmaxWithLoss() slide indicates that this function is an efficient softmax approximation as described in the paper 'Efficient softmax approximation for GPUs' by Edouard Grave, Armand Joulin, Moustapha Ciss\u00e9, David Grangier, and Herv\u00e9 J\u00e9gou. The adaptive softmax is described as an approximate strategy for training models with large output spaces.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 3165.0,
+        "end": 3210.0,
+        "hop": 1,
+        "description": "Frame caption for nn.AdaptiveLogSoftmaxWithLoss() shows paper authors and description"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week11_chunk_090"
+    ],
+    "question_type": "visual",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "AdaptiveLogSoftmax",
+      "efficient softmax",
+      "large output spaces",
+      "GPU approximation"
+    ],
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week11_q009",
+    "video_id": "nyu_dl_week11",
+    "question": "What does the slide for the 'Designing a Loss Functional' show in terms of diagrams, and what concepts are labeled in those diagrams?",
+    "answer": "The 'Designing a Loss Functional' slide shows diagrams illustrating the concept of energy-based learning. The diagrams depict a 'Before Training' scenario with labels including Yi (Correct Answer), \u0176i (Incorrect Answer), and E(W, Xi) representing the Energy Function, along with a curve showing a peak and a valley to represent the energy landscape before and after training.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 5075.0,
+        "end": 5115.0,
+        "hop": 1,
+        "description": "Frame caption describes Designing a Loss Functional slide with diagrams showing Yi, \u0176i, and E(W,Xi) labels"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week11_chunk_135"
+    ],
+    "question_type": "visual",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "energy-based model",
+      "loss functional",
+      "correct answer",
+      "energy landscape"
+    ],
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week11_q010",
+    "video_id": "nyu_dl_week11",
+    "question": "Why does the lecturer recommend oversampling rare classes during training rather than using the NLLLoss weight parameter, and what additional fine-tuning step does the lecturer recommend after this oversampling training?",
+    "answer": "The lecturer recommends oversampling rare classes by cycling through a circular buffer of each class equally, rather than using per-category weights in NLLLoss, because oversampling exploits stochastic gradient descent more effectively. The lecturer explains that if rare classes are underrepresented during training, a multi-layer network never develops the right internal features for those rare cases. After oversampling-based training, the lecturer recommends doing a few additional fine-tuning passes using the actual natural class frequencies so the output biases adjust to reflect real-world class probabilities, similar to how medical students study all diseases equally before learning to weigh their diagnoses by disease prevalence.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2490.0,
+        "end": 2580.0,
+        "hop": 1,
+        "description": "Lecturer explains oversampling rare classes with circular buffers is better than NLLLoss weights"
+      },
+      {
+        "start": 2655.0,
+        "end": 2730.0,
+        "hop": 2,
+        "description": "Lecturer recommends fine-tuning passes with actual class frequencies after oversampling training"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week11_chunk_073",
+      "nyu_dl_week11_chunk_076"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "class imbalance",
+      "oversampling",
+      "NLLLoss",
+      "fine-tuning",
+      "stochastic gradient"
+    ],
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week11_q011",
+    "video_id": "nyu_dl_week11",
+    "question": "What is the perceptron loss function formula in energy-based model terms, why does it fail for nonlinear systems, and what property must a good loss function have according to the lecturer to avoid this failure?",
+    "answer": "The perceptron loss is defined as: L_perceptron = E(W, Y^i, X^i) - min_{Y in Y} E(W, Y, X^i), which pushes down the energy of the correct answer while pushing up the energy of the answer with the lowest energy across all possible answers. It fails for nonlinear systems because it allows the network to collapse by assigning the same energy to every answer \u2014 the loss becomes zero whenever the correct answer shares the minimum energy with all others, providing no incentive to separate energies. A good loss function must ensure that the energy of the correct answer is smaller than the energy of the most offending incorrect answer by at least a nonzero margin, which is what margin-based losses like the hinge loss guarantee.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 5205.0,
+        "end": 5280.0,
+        "hop": 1,
+        "description": "Lecturer introduces perceptron loss formula and explains it works only for linear systems"
+      },
+      {
+        "start": 5355.0,
+        "end": 5415.0,
+        "hop": 2,
+        "description": "Lecturer explains good loss must ensure energy of correct answer is smaller than most offending incorrect answer by a margin"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week11_chunk_143",
+      "nyu_dl_week11_chunk_146"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "perceptron loss",
+      "energy-based model",
+      "margin",
+      "collapse",
+      "nonlinear systems"
+    ],
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week11_q012",
+    "video_id": "nyu_dl_week11",
+    "question": "How does the temperature parameter beta in a softmax interact with batch normalization, and what is the annealing technique that exploits this relationship for mixture-of-experts models?",
+    "answer": "Without normalization, the beta temperature parameter in softmax is redundant with the scale of incoming weights since multiplying the weights by two has the same effect as doubling beta. However, when batch normalization is applied before the softmax, input variances are fixed, making beta independently meaningful. The lecturer describes an annealing technique where beta is started low during training so that softmax outputs are soft and gradients are well-behaved everywhere, then beta is progressively increased to make the distribution harder \u2014 approaching argmax behavior at high beta \u2014 so that the system eventually makes near-discrete decisions. This is used in mixture-of-experts and attention mechanisms to progressively sharpen routing decisions while maintaining stable early training.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1785.0,
+        "end": 1850.0,
+        "hop": 1,
+        "description": "Lecturer explains beta is redundant with weights unless batch normalization fixes input variance"
+      },
+      {
+        "start": 1885.0,
+        "end": 1980.0,
+        "hop": 2,
+        "description": "Lecturer describes annealing by increasing beta progressively for mixture-of-experts"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week11_chunk_051",
+      "nyu_dl_week11_chunk_053"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "softmax temperature",
+      "batch normalization",
+      "annealing",
+      "mixture of experts",
+      "beta parameter"
+    ],
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week11_q013",
+    "video_id": "nyu_dl_week11",
+    "question": "What specific reason does the lecturer give for why L1 loss produces sharper predictions than L2 loss when training a model on data with multiple valid outputs for a single input?",
+    "answer": "The lecturer explains that the value of Y minimizing the L2 (squared error) loss is the mean of all observed Y values, so when multiple valid outputs exist for a given input \u2014 such as multiple plausible images \u2014 the model is incentivized to predict the average, which is a blurry image. In contrast, the value minimizing the L1 (absolute value) loss is the median of all observed Y values. The median corresponds to a single actual data point rather than a blend, so the model learns to predict a sharper, more realistic output rather than an average.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 2240.0,
+        "end": 2320.0,
+        "hop": 1,
+        "description": "Lecturer explains L2 minimizer is the mean giving blurry predictions, L1 minimizer is the median giving sharper predictions"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week11_chunk_065"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "L1 loss",
+      "L2 loss",
+      "mean",
+      "median",
+      "blurry predictions",
+      "robust regression"
+    ],
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week11_q014",
+    "video_id": "nyu_dl_week11",
+    "question": "What specific historical application of triplet margin loss was described in the lecture, including the people involved and the company context?",
+    "answer": "The lecturer describes that one of the first triplet-style ranking losses was proposed by Jason Weston, Ronan Collobert, and Samy Bengio. At the time, Jason Weston was at Google, and they used this loss to train an image search system for Google. The system encoded a text query into a vector, compared it to pre-indexed vectors describing images, and retrieved images whose vectors were closest to the query vector. The networks computing these vectors were trained with the triplet loss so that good search hits had a smaller distance to the query vector than any bad hit.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 3715.0,
+        "end": 3810.0,
+        "hop": 1,
+        "description": "Lecturer describes Weston, Collobert, Bengio's triplet loss applied to Google image search"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week11_chunk_106",
+      "nyu_dl_week11_chunk_107"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "triplet margin loss",
+      "Google image search",
+      "metric learning",
+      "Siamese nets"
+    ],
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week11_q015",
+    "video_id": "nyu_dl_week11",
+    "question": "What is the exact mathematical formula for the GELU activation function as presented in the lecture slides, and what is its precise relationship to the cumulative distribution function of a standard normal distribution?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "hard",
+    "answerable": false,
+    "key_concepts": [
+      "GELU",
+      "activation function",
+      "Gaussian CDF"
+    ],
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  }
+]

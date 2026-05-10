@@ -1,0 +1,510 @@
+[
+  {
+    "qa_id": "nyu_dl_week9_q001",
+    "question": "The lecture slide shown at the beginning of this lecture identifies the course and instructor. What is the title of the specific topic covered in this lecture, and how does the DrSAE architecture shown in subsequent slides combine sparse coding with another type of training?",
+    "answer": "The lecture slide identifies the topic as 'Energy-Based Models (part 3)' presented by Yann LeCun at NYU. The DrSAE (Discriminative Recurrent Sparse Auto-Encoder) architecture combines sparse coding with discriminative training by jointly minimizing three criteria simultaneously: a reconstruction loss (squared error), an L1 sparsity regularizer on the feature vector, and a simple linear classifier for predicting categories, effectively making it a sparse autoencoder that also learns representations good for prediction.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 0.0,
+        "end": 45.0,
+        "hop": 1,
+        "description": "Frame caption identifies the lecture title as Energy-Based Models (part 3) at NYU taught by Yann LeCun"
+      },
+      {
+        "start": 155.0,
+        "end": 185.0,
+        "hop": 2,
+        "description": "Transcript describes the DrSAE architecture combining reconstruction, L1 sparsity, and discriminative classifier criteria"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week9_chunk_000",
+      "nyu_dl_week9_chunk_004"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "DrSAE",
+      "sparse coding",
+      "discriminative training",
+      "Energy-Based Models"
+    ],
+    "video_id": "nyu_dl_week9",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week9_q002",
+    "question": "The slide on group sparsity shown around the 8-minute mark names a reference from 2001 that originated the idea. What biological concept does the lecture connect this to, and what specific pooling topology is described as being used in the autoencoder with group sparsity experiment?",
+    "answer": "The frame captions identify the slide as referencing Hyvarinen and Hoyer 2001, originating from the context of independent component analysis (ICA). The lecture connects this to the biological concept of complex cells in the primary visual cortex, which serve as the equivalent of pooling units. The specific topology described is 6x6 blocks of features arranged in a 2D torus, where the pools are overlapping windows shifted by three rows and columns, forming a toroidal topology where left touches right and top touches bottom.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 490.0,
+        "end": 560.0,
+        "hop": 1,
+        "description": "Frame captions identify Hyvarinen and Hoyer 2001 reference and ICA context for group sparsity"
+      },
+      {
+        "start": 970.0,
+        "end": 1040.0,
+        "hop": 2,
+        "description": "Transcript describes 6x6 blocks in a 2D torus topology for group sparsity pooling in the autoencoder"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week9_chunk_008",
+      "nyu_dl_week9_chunk_017"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "group sparsity",
+      "complex cells",
+      "pooling topology",
+      "2D torus",
+      "Hyvarinen and Hoyer"
+    ],
+    "video_id": "nyu_dl_week9",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week9_q003",
+    "question": "The slide titled 'Pinwheels!' describes a pattern observed in a specific biological structure. How does the lecture connect the learned features from group sparsity training to this biological observation, and what property of the feature arrangement creates the pinwheel appearance?",
+    "answer": "The frame captions identify that the 'Pinwheels!' slide states the pinwheel pattern is observed in the primary visual cortex of mammals. The lecture connects the learned features to this by explaining that when group sparsity is applied with overlapping 6x6 pools arranged in a 2D toroidal topology, similar features naturally group together during training, causing orientation selectivity to vary continuously as you move around a central point (the pinwheel center). The overlapping groups force neighboring features to be similar, creating the characteristic swirling pattern where adjacent neurons detect similar oriented edges, exactly mirroring what neuroscientists observe when recording from the primary visual cortex.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1385.0,
+        "end": 1450.0,
+        "hop": 1,
+        "description": "Frame caption identifies Pinwheels slide stating the pattern is observed in the primary visual cortex"
+      },
+      {
+        "start": 1145.0,
+        "end": 1215.0,
+        "hop": 2,
+        "description": "Transcript explains that overlapping groups cause continuously varying features resembling pinwheel patterns found in neuroscience"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week9_chunk_022",
+      "nyu_dl_week9_chunk_019"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "pinwheel patterns",
+      "primary visual cortex",
+      "group sparsity",
+      "orientation selectivity",
+      "topographic map"
+    ],
+    "video_id": "nyu_dl_week9",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week9_q004",
+    "question": "The slide on 'Invariant Features through Lateral Inhibition' cites a specific NIPS paper. What mathematical structure does the lecture describe for the inhibition matrix S when organized as a tree, and what effect does this tree structure have on the sparsity of features at different levels?",
+    "answer": "The frame captions identify the slide as referencing 'Gregor, Szlam, LeCun NIPS 2011'. When the inhibition matrix S is organized as a tree, the zero entries of S follow the tree structure, meaning every feature inhibits all other features except those directly above or below it along the same branch. Features in the center of the tree enter many groups and thus receive more pressure to be sparse, making them more generic detectors. Features further out along branches enter fewer groups, receive less sparsity pressure, and become more selective for particular input patterns, with the tree structure encouraging activation along single branches to minimize the total number of active pools.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2210.0,
+        "end": 2270.0,
+        "hop": 1,
+        "description": "Frame caption identifies Gregor, Szlam, LeCun NIPS 2011 as the source paper for lateral inhibition"
+      },
+      {
+        "start": 2705.0,
+        "end": 2830.0,
+        "hop": 2,
+        "description": "Transcript describes how tree-organized S matrix creates varying sparsity pressure at different tree levels"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week9_chunk_062",
+      "nyu_dl_week9_chunk_047"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "lateral inhibition",
+      "S matrix",
+      "tree structure",
+      "structural sparsity",
+      "invariant features"
+    ],
+    "video_id": "nyu_dl_week9",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week9_q005",
+    "question": "The 'Learning World Models for Autonomous Control' slide describes an architecture with latent variables. How does the lecture explain the role of the latent variable z in a forward model, and what analogy is used to illustrate why z is necessary even when the action a is already known?",
+    "answer": "The frame captions show the 'Learning World Models for Autonomous Control' slide from Facebook AI at NYU Spring 2020. The lecture explains that the latent variable z represents the part of the world state that is unknown or unpredictable \u2014 information necessary to predict the next state but not observable. The penalty kick soccer analogy is used: the action a is which direction you jump as a goalkeeper, but z represents what you cannot know about the kicker \u2014 whether he will shoot left, right, or up. Even knowing your own action completely, you cannot predict the ball's trajectory without knowing z, which encodes the hidden state of the kicker's intentions.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 4355.0,
+        "end": 4430.0,
+        "hop": 1,
+        "description": "Frame caption shows Learning World Models for Autonomous Control slide with latent variable formula s[t+1] = g(s[t], a[t], z[t])"
+      },
+      {
+        "start": 4935.0,
+        "end": 5010.0,
+        "hop": 2,
+        "description": "Transcript gives soccer goalie analogy explaining z as unknown information about the kicker's intentions"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week9_chunk_074",
+      "nyu_dl_week9_chunk_141"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "forward model",
+      "latent variable",
+      "aleatoric uncertainty",
+      "world model",
+      "autonomous control"
+    ],
+    "video_id": "nyu_dl_week9",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week9_q006",
+    "question": "The 'Video Prediction: training' slide shown late in the lecture describes a specific trick applied half the time. What is this trick, what problem does it solve, and how does the overall video prediction system described use an encoder to handle the latent variable during training?",
+    "answer": "The frame captions identify the 'Video Prediction: training' slide from the NYU Deep Learning Spring 2020 course. The trick described is that half the time z is simply set to zero, meaning the system must make its best prediction using only the past frames without any latent variable. This prevents the system from cheating by relying exclusively on z while ignoring the past input frames. During training the encoder takes both the past frames (x) and the future frame (y) to predict the ideal value of the latent variable z-bar, along with a variance prediction; z is then sampled from that distribution in a VAE-like approach, with a term minimizing the sum of squared z values over time as standard VAE regularization.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 5390.0,
+        "end": 5435.0,
+        "hop": 1,
+        "description": "Frame caption identifies Video Prediction training slide showing encoder Enc(y,h) and decoder structure"
+      },
+      {
+        "start": 5350.0,
+        "end": 5420.0,
+        "hop": 2,
+        "description": "Transcript describes the trick of setting z to zero half the time and the VAE-like encoder approach"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week9_chunk_153",
+      "nyu_dl_week9_chunk_154"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "video prediction",
+      "VAE",
+      "latent variable",
+      "encoder",
+      "conditional autoencoder"
+    ],
+    "video_id": "nyu_dl_week9",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week9_q007",
+    "question": "The Wasserstein GAN slide appears near the end of the lecture. What problem with the original GAN formulation does the lecture describe that motivated this approach, and who is credited with proposing this solution?",
+    "answer": "The frame captions identify the 'Wasserstein GAN' slide in the NYU Deep Learning Spring 2020 course. The original GAN formulation has the problem that when the discriminator successfully learns to output zero probability outside the data manifold and one on the manifold, the energy function becomes essentially useless \u2014 it is like a golf course of infinite altitude, completely flat and going to infinity just outside the manifold. This makes inference by gradient descent impossible because you cannot smoothly find nearby manifold points. The lecture credits Martin Arjovsky, identified as having just graduated from NYU, with proposing to fix this by limiting the size of the discriminator's weights to force the energy function to be smooth, which is the core idea behind the Wasserstein GAN.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 6527.0,
+        "end": 6575.0,
+        "hop": 1,
+        "description": "Frame caption identifies the Wasserstein GAN slide in the NYU Deep Learning Spring 2020 course"
+      },
+      {
+        "start": 6480.0,
+        "end": 6555.0,
+        "hop": 2,
+        "description": "Transcript describes the golf course problem with original GAN and credits Martin Arjovsky from NYU for the fix"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week9_chunk_186",
+      "nyu_dl_week9_chunk_187"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Wasserstein GAN",
+      "mode collapse",
+      "discriminator",
+      "smooth energy function",
+      "GAN instability"
+    ],
+    "video_id": "nyu_dl_week9",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week9_q008",
+    "question": "What does the slide titled 'AE with Group Sparsity' shown around the 7-minute mark identify as the publication venue and year for this work, and what open question does the slide pose about extending this method?",
+    "answer": "The frame captions for the slide titled 'AE with Group Sparsity' identify the publication as Kavukcuoglu et al. CVPR 2009. The slide poses the open question of whether one could devise a similar method that also learns the pooling layer itself, rather than having the pooling structure predetermined, in addition to training a sparse autoencoder to produce invariant features.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 420.0,
+        "end": 510.0,
+        "hop": 1,
+        "description": "Frame caption identifies the AE with Group Sparsity slide as Kavukcuoglu et al. CVPR 2009 and asks whether a method could learn the pooling layer as well"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week9_chunk_012"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "group sparsity",
+      "CVPR 2009",
+      "Kavukcuoglu",
+      "invariant features",
+      "pooling layer"
+    ],
+    "video_id": "nyu_dl_week9",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week9_q009",
+    "question": "What does the 'Orientation Selectivity Map' slide shown around the 35-minute mark specify as the image input size and the number used in the experiment described?",
+    "answer": "The frame caption for the 'Orientation Selectivity Map' slide specifies that the image input size is 119x119 pixels, as indicated by the text '119x119 Image Input' visible in the slide caption description from the NYU Deep Learning Spring 2020 lecture.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 2135.0,
+        "end": 2165.0,
+        "hop": 1,
+        "description": "Frame caption for Orientation Selectivity Map slide specifies 119x119 image input size"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week9_chunk_060"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "orientation selectivity",
+      "image input size",
+      "local filters",
+      "group sparsity"
+    ],
+    "video_id": "nyu_dl_week9",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week9_q010",
+    "question": "The lecture explains the key distinction between training and inference in the context of energy-based models and latent variables. How does the lecture define this distinction, and how does this distinction apply to the model predictive control scenario described?",
+    "answer": "The lecture defines training as finding a parameter that is shared across a large number of samples and is remembered from one sample to the next, whereas inference is finding the value of a specific variable \u2014 such as a latent variable or action sequence \u2014 that is particular to one sample and changes with each sample, so it is not retained across samples. In model predictive control this distinction applies directly: the forward model's parameters are trained once and shared, but for every new situation the system must perform inference to find the optimal sequence of actions a1, a2, etc. that minimize the cumulative cost over the planned trajectory. This action sequence is a latent variable that must be re-optimized from scratch each time, not learned as a persistent parameter.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3360.0,
+        "end": 3445.0,
+        "hop": 1,
+        "description": "Transcript defines training vs inference: training finds shared parameters across samples, inference finds sample-specific variable values"
+      },
+      {
+        "start": 3510.0,
+        "end": 3580.0,
+        "hop": 2,
+        "description": "Transcript explains that in model predictive control inference finds optimal action sequence for each new situation without training"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week9_chunk_096",
+      "nyu_dl_week9_chunk_098"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "training vs inference",
+      "latent variables",
+      "model predictive control",
+      "energy-based models"
+    ],
+    "video_id": "nyu_dl_week9",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week9_q011",
+    "question": "The lecture explains why architectural regularization methods like sparsity are alternatives to contrastive methods for energy-based learning. How does regularizing the capacity of a code limit the volume of low-energy space, and how does this automatically push up energy outside the training data region?",
+    "answer": "The lecture explains that by regularizing the capacity of the latent code \u2014 through L1 sparsity, adding noise while limiting the norm, or group sparsity \u2014 you limit the number of distinct configurations the code can take. Because the energy function can only be low when the code can represent a sample, limiting the code's capacity automatically limits the volume of the input space that can take low energy. When you then train part of the space to have low energy by minimizing reconstruction error on training samples, the rest of the space will automatically have higher energy because the total volume of low-energy space is constrained by the code's limited capacity. This is in contrast to contrastive methods which explicitly generate negative samples and push their energy up, requiring a strategy to find good contrastive points.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1610.0,
+        "end": 1685.0,
+        "hop": 1,
+        "description": "Transcript explains that limiting code capacity limits volume of space that can take low energy"
+      },
+      {
+        "start": 1730.0,
+        "end": 1800.0,
+        "hop": 2,
+        "description": "Transcript explains that minimizing reconstruction error on training samples automatically pushes up energy outside data region when capacity is limited"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week9_chunk_027",
+      "nyu_dl_week9_chunk_029"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "architectural regularization",
+      "contrastive methods",
+      "energy-based models",
+      "code capacity",
+      "sparsity"
+    ],
+    "video_id": "nyu_dl_week9",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week9_q012",
+    "question": "The lecture describes two major differences between the world-model-based planning approach and reinforcement learning. What are these two key differences, and what three advantages does the lecture claim for the world-model approach over reinforcement learning?",
+    "answer": "The two key differences between the world-model approach and reinforcement learning are: first, in reinforcement learning the cost function is a black box \u2014 the agent can only observe the output of the cost function by actually trying actions in the real world and receiving a reward, not computing gradients through it; second, in reinforcement learning there is no forward model of the world, so the agent must interact with the real environment rather than simulating outcomes internally. The three advantages of the world-model approach are: first, you can run the internal forward model faster than real time since you do not need to interact with the actual world; second, the actions you explore will not kill you because you test them in your internal model, not in reality; and third, because everything is implemented in differentiable neural networks inside the agent, you can use efficient gradient-based inference algorithms to find good action sequences.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3990.0,
+        "end": 4065.0,
+        "hop": 1,
+        "description": "Transcript describes two differences with RL: cost function is black box and no forward model of world"
+      },
+      {
+        "start": 4270.0,
+        "end": 4385.0,
+        "hop": 2,
+        "description": "Transcript lists three advantages: faster than real time, actions won't kill you, everything is differentiable"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week9_chunk_115",
+      "nyu_dl_week9_chunk_121"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "reinforcement learning",
+      "world model",
+      "forward model",
+      "differentiability",
+      "model predictive control"
+    ],
+    "video_id": "nyu_dl_week9",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week9_q013",
+    "question": "What specific procedure does the lecture describe for using a stacked autoencoder trained with group sparsity to build a pre-trained convolutional network, and what happens to the decoder after pre-training?",
+    "answer": "The procedure described is to train a sparse autoencoder with group sparsity on complex cells using a convolutional encoder and decoder. After pre-training this first autoencoder, the decoder is discarded entirely and only the encoder is kept as a feature extractor, forming the first pair of layers of the convolutional network \u2014 specifically a convolution followed by L2 pooling rather than max pooling. Then the process is repeated: a second autoencoder is trained on top of the features extracted by the first encoder, again with group sparsity, and again the decoder is discarded after training, leaving only the second encoder. This stacking procedure, called a stacked autoencoder, builds a pre-trained multi-layer network without requiring labeled data.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1960.0,
+        "end": 2090.0,
+        "hop": 1,
+        "description": "Transcript describes the stacked autoencoder procedure: train with group sparsity, discard decoder, keep encoder as feature extractor, repeat for second layer"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week9_chunk_055",
+      "nyu_dl_week9_chunk_056"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "stacked autoencoder",
+      "group sparsity",
+      "pre-training",
+      "L2 pooling",
+      "convolutional network"
+    ],
+    "video_id": "nyu_dl_week9",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week9_q014",
+    "question": "What specific real-world autonomous driving data collection setup is described in the lecture for training the forward model, and what representation of the car's environment is used as the state input?",
+    "answer": "The data collection setup described involves placing a camera above a highway and tracking every vehicle passing by. For each car, a small rectangle centered on that car is extracted from the overhead video, showing the positions of all surrounding vehicles relative to the tracked car, with the central car always in a standardized location at the middle of the rectangle. This pixel representation of a rectangular window centered around each car serves as the state, and by doing this for every car a dataset of sequences is collected showing how the cars around each vehicle move over time, which is then used to train a forward model that predicts future car movements.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 5180.0,
+        "end": 5285.0,
+        "hop": 1,
+        "description": "Transcript describes overhead highway camera, vehicle tracking, and rectangular window centered on each car as state representation"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week9_chunk_147",
+      "nyu_dl_week9_chunk_148"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "autonomous driving",
+      "forward model",
+      "overhead camera",
+      "highway tracking",
+      "state representation"
+    ],
+    "video_id": "nyu_dl_week9",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week9_q015",
+    "question": "What specific numerical accuracy results on benchmark datasets does the lecture report for the DrSAE model compared to standard convolutional networks trained without the autoencoder regularization term?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "easy",
+    "answerable": false,
+    "key_concepts": [
+      "DrSAE",
+      "benchmark results",
+      "accuracy comparison"
+    ],
+    "video_id": "nyu_dl_week9",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  }
+]

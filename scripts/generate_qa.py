@@ -12,6 +12,7 @@ import argparse
 import json
 import logging
 import sys
+import time
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).parent.parent
@@ -61,16 +62,22 @@ def main() -> None:
         logger.info(f"Loaded {len(video_ids)} video IDs from metadata")
 
     generated = skipped = errors = 0
-    for video_id in video_ids:
+    for i, video_id in enumerate(video_ids):
+        made_api_call = False
         try:
             ok = run_one(video_id, out_dir, args.overwrite, cfg)
             if ok:
                 generated += 1
+                made_api_call = True
             else:
                 skipped += 1
         except Exception as exc:
             logger.error(f"{video_id}: FAILED — {exc}")
             errors += 1
+            made_api_call = True
+        # Wait after any real API call to respect the 30k token/min rate limit.
+        if made_api_call and i < len(video_ids) - 1:
+            time.sleep(65)
 
     logger.info(f"Done: {generated} generated, {skipped} skipped, {errors} errors")
     if errors:

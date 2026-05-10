@@ -1,0 +1,512 @@
+[
+  {
+    "qa_id": "mit_6006sp20_lec17_q001",
+    "question": "According to the lecture, what visual diagram shown on the blackboard is used to represent the piano fingering dynamic program, and how does the y-axis and x-axis in that diagram relate to the subproblem definition X(i,f)?",
+    "answer": "The blackboard shows a complete bipartite graph (subproblem DAG) where the y-axis represents which finger is being used (fingers 1 through 5, i.e., F), and the x-axis represents which suffix is being considered \u2014 that is, which note the player starts on. Each edge in the graph is labeled with the difficulty of the transition between finger-note combinations, corresponding directly to the subproblem definition X(i,f) which is the minimum total difficulty to play the suffix starting at note t_i with finger f.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 5305.0,
+        "end": 5400.0,
+        "hop": 1,
+        "description": "Subproblem definition X(i,f) for piano fingering \u2014 minimum total difficulty to play suffix starting with finger f on note t_i"
+      },
+      {
+        "start": 5900.0,
+        "end": 5965.0,
+        "hop": 2,
+        "description": "Frame caption describes the subproblem DAG diagram with y-axis as finger number and x-axis as which note/suffix, edges labeled with difficulty"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec17_chunk_091",
+      "mit_6006sp20_lec17_chunk_100"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "piano fingering",
+      "subproblem DAG",
+      "subproblem definition",
+      "dynamic programming"
+    ],
+    "video_id": "mit_6006sp20_lec17",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec17_q002",
+    "question": "The lecture introduces Floyd-Warshall as an improvement over running Bellman-Ford for all pairs shortest paths. What is the key difference shown on the blackboard between the subproblem constraint used in Bellman-Ford and the one used in Floyd-Warshall, and how does this difference lead to a better running time?",
+    "answer": "In Bellman-Ford recast as a DP, the subproblem constraint is that the path uses at most k edges, giving subproblems delta_k(s,v) and leading to a running time of O(V * E). In Floyd-Warshall, shown on the blackboard, the subproblem d(u,v,k) constrains intermediate vertices to come from the set {1, 2, ..., k} \u2014 a prefix of the numbered vertices \u2014 rather than bounding the number of edges. This means when guessing the last step, there are only two options: either vertex k is on the path or it is not, giving constant non-recursive work. With V^3 subproblems and O(1) work each, the total running time is O(V^3), which beats the O(V^2 * E) that would come from running Bellman-Ford V times.",
+    "num_hops": 3,
+    "ground_truth_spans": [
+      {
+        "start": 840.0,
+        "end": 930.0,
+        "hop": 1,
+        "description": "Bellman-Ford subproblem: shortest path using at most k edges, running time V*E"
+      },
+      {
+        "start": 1440.0,
+        "end": 1530.0,
+        "hop": 2,
+        "description": "Floyd-Warshall subproblem definition: d(u,v,k) uses only vertices in {u,v} union {1,...,k}"
+      },
+      {
+        "start": 1960.0,
+        "end": 2005.0,
+        "hop": 3,
+        "description": "Blackboard shows Floyd-Warshall relation has only two terms in the min giving O(1) non-recursive work and V^3 total time"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec17_chunk_014",
+      "mit_6006sp20_lec17_chunk_024",
+      "mit_6006sp20_lec17_chunk_032"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Floyd-Warshall",
+      "Bellman-Ford",
+      "subproblem constraint",
+      "running time",
+      "all pairs shortest paths"
+    ],
+    "video_id": "mit_6006sp20_lec17",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec17_q003",
+    "question": "In the arithmetic parenthesization problem, the lecture explains why substrings rather than prefixes or suffixes are needed as subproblems. What does the blackboard show about the tree structure used to motivate this, and what subproblem expansion is then added to handle negative integers?",
+    "answer": "The blackboard shows a tree diagram where the root corresponds to the last operation evaluated, and the left and right subtrees always correspond to substrings of the original formula. Choosing a prefix of a suffix yields a substring, so all substrings are needed as subproblems rather than just prefixes or suffixes. To handle negative integers, the lecture adds a subproblem expansion: instead of only solving for the maximum value, each substring subproblem is solved for both the minimum and maximum possible values, multiplying the subproblem space by a factor of 2. This is because taking the product of two very negative numbers can yield a large positive result, so the minimum is needed when computing products.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1920.0,
+        "end": 2010.0,
+        "hop": 1,
+        "description": "Blackboard shows tree diagram for arithmetic parenthesization; root is last operation; left and right subtrees are substrings"
+      },
+      {
+        "start": 3610.0,
+        "end": 3695.0,
+        "hop": 2,
+        "description": "Subproblem expansion: X(i,j,opt) where opt is min or max, expanding subproblem space by factor 2 to handle negative integers"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec17_chunk_051",
+      "mit_6006sp20_lec17_chunk_062"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "arithmetic parenthesization",
+      "substrings",
+      "subproblem expansion",
+      "negative integers",
+      "min and max"
+    ],
+    "video_id": "mit_6006sp20_lec17",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec17_q004",
+    "question": "The lecture discusses why the DAG relaxation algorithm for single-source shortest paths fails on general graphs. What does the blackboard show as the recurrence relation for SSSP in a DAG, and what specific property of DAGs makes it work but fails for general graphs?",
+    "answer": "The blackboard shows the recurrence S(s,v) = min { S(s,u) + w(u,v) | u in Adj^-(v) }, where the solution guesses the last edge (u,v) on the shortest s-to-v path. This works for DAGs because the graph has a topological order, guaranteeing that when computing S(s,v), all the needed S(s,u) values reference vertices earlier in the topological order, making the recursion acyclic. For general graphs, cycles mean the recursive call from delta(s,v) to delta(s,u) can loop back, creating cycles in the call graph, so the recursion never terminates and the algorithm runs in infinite time.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 660.0,
+        "end": 730.0,
+        "hop": 1,
+        "description": "Blackboard shows SSSP in DAG recurrence: S(s,v) = min{S(s,u) + w(u,v)} with topological order"
+      },
+      {
+        "start": 840.0,
+        "end": 920.0,
+        "hop": 2,
+        "description": "Explanation that cycles in general graphs cause infinite recursion; Bellman-Ford uses edge-count constraint to fix this"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec17_chunk_011",
+      "mit_6006sp20_lec17_chunk_013"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "DAG relaxation",
+      "topological order",
+      "general graphs",
+      "infinite recursion",
+      "SSSP"
+    ],
+    "video_id": "mit_6006sp20_lec17",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec17_q005",
+    "question": "The lecture's blackboard shows the Floyd-Warshall base case as a three-way conditional. What are the three cases in the base case d(u,v,0) shown on the board, and what does k=0 mean in terms of the subproblem definition?",
+    "answer": "When k equals 0, the set of allowed intermediate vertices {1, 2, ..., k} is empty, so a path from u to v may only use the vertices u and v themselves. The blackboard shows three cases for d(u,v,0): it equals 0 if u equals v (the trivial zero-length path), it equals w(u,v) if the edge (u,v) exists in the graph, and it equals infinity otherwise (no direct connection and no intermediaries allowed). This is the base case because no intermediate vertices from {1,...,|V|} are permitted, so only direct edges or self-loops are valid paths.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2040.0,
+        "end": 2085.0,
+        "hop": 1,
+        "description": "Lecture explains k=0 means empty set of intermediate vertices"
+      },
+      {
+        "start": 2205.0,
+        "end": 2260.0,
+        "hop": 2,
+        "description": "Blackboard shows base case: d(u,v,0) = 0 if u=v, w(u,v) if edge exists, infinity otherwise"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec17_chunk_036",
+      "mit_6006sp20_lec17_chunk_037"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Floyd-Warshall",
+      "base case",
+      "subproblem definition",
+      "intermediate vertices"
+    ],
+    "video_id": "mit_6006sp20_lec17",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec17_q006",
+    "question": "The lecture presents the guitar fingering problem as an extension of piano fingering. What does the blackboard show as the time complexity for the single-hand single-note piano fingering DP, and how does the lecture propose generalizing to handle multiple notes played simultaneously on multiple hands?",
+    "answer": "The blackboard shows the time complexity for single-hand single-note piano fingering as Theta(n * F^2), where n is the number of notes and F is the number of fingers (5 for humans). This arises because there are n*F subproblems and each requires minimizing over F choices for the next finger. To generalize to multiple notes played simultaneously with multiple hands, the lecture proposes replacing the single finger state with a tuple of fingers, giving T^F possible states per time step (where T is the maximum number of simultaneous notes, bounded by F). For all 10 human fingers this would be 10^10 states, a large but constant factor, keeping the algorithm polynomial in n.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 5730.0,
+        "end": 5815.0,
+        "hop": 1,
+        "description": "Blackboard and lecture show Theta(nF^2) time for piano fingering DP"
+      },
+      {
+        "start": 5935.0,
+        "end": 5980.0,
+        "hop": 2,
+        "description": "Generalization to multiple notes: T^F states, up to 10^10 for all human fingers, still polynomial in n"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec17_chunk_098",
+      "mit_6006sp20_lec17_chunk_101"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "piano fingering",
+      "time complexity",
+      "subproblem expansion",
+      "multiple notes",
+      "generalization"
+    ],
+    "video_id": "mit_6006sp20_lec17",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec17_q007",
+    "question": "What does the lecture's blackboard show as the recurrence relation for the arithmetic parenthesization subproblem X(i,j,opt), and how does the choice of optimizing over opt_l and opt_r for each sub-expression relate to the problem of negative integers?",
+    "answer": "The blackboard shows the recurrence X(i,j,opt) = opt over k (i < k < j) of { X(i,k,opt_l) star_k X(k,j,opt_r) }, where the outer opt is the desired min or max, and opt_l and opt_r independently range over {min, max} for the left and right subexpressions. This means all four combinations (min-min, min-max, max-min, max-max) of opt_l and opt_r are tried by brute force. This is necessary because of negative integers: when multiplying, taking the minimum (most negative) of one subexpression and minimum of the other can yield the largest positive product, so maximizing the overall expression might require minimizing a subexpression \u2014 you cannot simply maximize both sides independently.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3965.0,
+        "end": 4025.0,
+        "hop": 1,
+        "description": "Blackboard shows X(i,j,opt) recurrence with opt_l and opt_r brute-forced over all four min/max combinations"
+      },
+      {
+        "start": 3600.0,
+        "end": 3650.0,
+        "hop": 2,
+        "description": "Motivation: negative integers mean product of two minima can be maximum; need to track both min and max values"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec17_chunk_068",
+      "mit_6006sp20_lec17_chunk_060"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "arithmetic parenthesization",
+      "recurrence relation",
+      "min and max",
+      "negative integers",
+      "local brute force"
+    ],
+    "video_id": "mit_6006sp20_lec17",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec17_q008",
+    "question": "What does the frame caption reveal about the diagram drawn on the blackboard to illustrate the piano fingering dynamic program, specifically regarding what is on the axes and what labels appear on the edges?",
+    "answer": "The frame caption describes a network diagram (subproblem DAG) for piano fingering where the y-axis represents which finger is being used, numbered from 1 to 5 (with 5 = F for humans), and the x-axis represents the sequence of notes from t_0 to t_{n-1}. The edges between nodes in the graph are labeled with the word 'difficulty', representing the transition difficulty d(t_i, f, t_{i+1}, f') of moving from one note-finger combination to the next.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 5900.0,
+        "end": 5965.0,
+        "hop": 1,
+        "description": "Frame caption describes the piano fingering DAG diagram: y-axis is finger number 1-5, x-axis is notes, edges labeled with difficulty"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec17_chunk_100"
+    ],
+    "question_type": "visual",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "piano fingering",
+      "subproblem DAG",
+      "diagram",
+      "difficulty edges"
+    ],
+    "video_id": "mit_6006sp20_lec17",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec17_q009",
+    "question": "According to the frame captions describing the blackboard for the Floyd-Warshall algorithm, what is the exact recurrence relation shown for d(u,v,k) and what are the two terms in the minimum?",
+    "answer": "The frame captions show that the Floyd-Warshall recurrence relation on the blackboard is d(u,v,k) = min{ d(u,v,k-1), d(u,k,k-1) + d(k,v,k-1) }. The first term d(u,v,k-1) corresponds to the shortest u-to-v path that does not use vertex k (using only vertices up to k-1). The second term d(u,k,k-1) + d(k,v,k-1) corresponds to the shortest path that goes through vertex k, combining the shortest u-to-k path and the shortest k-to-v path, both using only vertices up to k-1.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1795.0,
+        "end": 1865.0,
+        "hop": 1,
+        "description": "Frame caption shows Floyd-Warshall recurrence: d(u,v,k) = min{d(u,v,k-1), d(u,k,k-1) + d(k,v,k-1)}"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec17_chunk_030"
+    ],
+    "question_type": "visual",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "Floyd-Warshall",
+      "recurrence relation",
+      "intermediate vertices",
+      "shortest path"
+    ],
+    "video_id": "mit_6006sp20_lec17",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec17_q010",
+    "question": "The lecture explains why Bellman-Ford, when recast as a dynamic program, avoids cycles in the recurrence even though the underlying graph may have cycles. How does the edge-count constraint k solve this, and what is the resulting running time derived from the subproblem count and per-subproblem work?",
+    "answer": "Bellman-Ford uses the subproblem delta_k(s,v) defined as the weight of the shortest s-to-v path using at most k edges. The recurrence references delta_{k-1}(s,u), which always has a strictly smaller value of k. By solving subproblems in order of increasing k, every recursive reference points to a previously solved subproblem with k-1, making the entire recurrence acyclic regardless of cycles in the original graph. The running time is computed by summing over all k (from 0 to |V|) and all v the cost of computing the relation, which involves iterating over incoming edges to v; this sum equals Theta(|V| * |E|) because the sum of in-degrees over all vertices is |E|, multiplied by the |V| values of k.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1080.0,
+        "end": 1150.0,
+        "hop": 1,
+        "description": "Adding index k makes recurrence acyclic: references always go to k-1, so solving in increasing k order avoids cycles"
+      },
+      {
+        "start": 1220.0,
+        "end": 1285.0,
+        "hop": 2,
+        "description": "Running time: sum over k and v of theta(in-degree of v) = Theta(|V|*|E|)"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec17_chunk_018",
+      "mit_6006sp20_lec17_chunk_020"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Bellman-Ford",
+      "acyclic recurrence",
+      "edge-count constraint",
+      "running time",
+      "dynamic programming"
+    ],
+    "video_id": "mit_6006sp20_lec17",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec17_q011",
+    "question": "The lecture compares Floyd-Warshall to Johnson's algorithm for all pairs shortest paths. Under what graph density conditions is Floyd-Warshall preferred, and what is Johnson's running time versus Floyd-Warshall's running time?",
+    "answer": "Floyd-Warshall runs in Theta(V^3) time and is preferred when the graph is dense, meaning when |E| is close to |V|^2 (the maximum for simple graphs). In this case, the ve term in Johnson's algorithm becomes V^3 anyway, so Floyd-Warshall matches Johnson while being much simpler. Johnson's algorithm runs in O(V^2 log V + V*E) time, which is superior for sparse graphs where |E| is much smaller than |V|^2 (for example when E is Theta(V), Johnson gives roughly O(V^2 log V)). For graphs of intermediate density, Johnson is still recommended because it benefits from sparsity; Floyd-Warshall is best chosen when the graph is known to be dense or when simplicity of implementation matters more than asymptotic optimality.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2035.0,
+        "end": 2100.0,
+        "hop": 1,
+        "description": "Floyd-Warshall is V^3; comparison with Johnson's V^2 log n + VE"
+      },
+      {
+        "start": 2475.0,
+        "end": 2565.0,
+        "hop": 2,
+        "description": "Dense graph means E ~ V^2 so both are V^3; sparse graphs should use Johnson; Floyd-Warshall recommended when graph is dense or simple"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec17_chunk_034",
+      "mit_6006sp20_lec17_chunk_041"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "Floyd-Warshall",
+      "Johnson's algorithm",
+      "graph density",
+      "running time comparison",
+      "APSP"
+    ],
+    "video_id": "mit_6006sp20_lec17",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec17_q012",
+    "question": "The lecture describes why the piano fingering subproblem must be parameterized by the starting finger f, rather than just by the suffix index i. What is the reason given, and how does knowing f allow the recurrence to compute the difficulty function correctly?",
+    "answer": "The difficulty function d(t_i, f, t_{i+1}, f') takes four arguments: the current note t_i, the current finger f, the next note t_{i+1}, and the next finger f'. To evaluate this function when computing the transition from note i to note i+1, the algorithm must know both the finger used for t_i and the finger used for t_{i+1} simultaneously. Without parameterizing the subproblem by f, the algorithm would not know which finger was used at position i when computing the cost of transitioning to position i+1. By defining X(i,f) as the minimum cost to play the suffix starting with finger f on note t_i, the algorithm knows f (the current finger) from the subproblem parameter, and guesses f' (the next finger) via local brute force, giving access to all four arguments needed to evaluate the difficulty function.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 5760.0,
+        "end": 5840.0,
+        "hop": 1,
+        "description": "Subproblem must be parameterized by starting finger f; without it the difficulty function cannot be computed"
+      },
+      {
+        "start": 5965.0,
+        "end": 6045.0,
+        "hop": 2,
+        "description": "The recurrence X(i,f) = min over f' of [X(i+1,f') + d(t_i,f,t_{i+1},f')] needs both f and f' to evaluate difficulty"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec17_chunk_093",
+      "mit_6006sp20_lec17_chunk_096"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "piano fingering",
+      "subproblem parameterization",
+      "difficulty function",
+      "subproblem constraint"
+    ],
+    "video_id": "mit_6006sp20_lec17",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec17_q013",
+    "question": "According to the lecture, why did Richard Bellman call his technique 'dynamic programming,' and what does the word 'programming' mean in this context?",
+    "answer": "Bellman called his technique dynamic programming primarily because it sounded impressive to government agencies that were funding his research \u2014 he wanted a name that was difficult to argue against. The word 'programming' in this context refers to an older meaning of the word, which is optimization, not computer programming. The word 'dynamic' refers to the fact that instead of following a static optimization plan, each subproblem behaves differently, optimizing locally at each stage through what the lecture calls local brute force. Together the name suggests an optimization approach that adapts dynamically at each step rather than following a fixed static plan.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 185.0,
+        "end": 235.0,
+        "hop": 1,
+        "description": "Bellman coined dynamic programming to impress grant agencies; programming means optimization (old meaning); dynamic refers to local optimization at each stage"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec17_chunk_002"
+    ],
+    "question_type": "text",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "dynamic programming",
+      "etymology",
+      "Bellman",
+      "optimization"
+    ],
+    "video_id": "mit_6006sp20_lec17",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec17_q014",
+    "question": "In the arithmetic parenthesization problem presented in this lecture, what is the specific example formula given with negative numbers, what is the claimed optimal parenthesization for it, and what is the resulting maximum value?",
+    "answer": "The lecture gives the example formula 7 + (-4) \u00d7 3 + (-5), which contains two negative numbers. The claimed optimal parenthesization is (-2) \u00d7 (-4) + 7, which evaluates as follows: (-4) times 3 gives -12 but the intended reading from the lecture appears to be grouping to get the product of two negative subexpressions. The lecture states the optimal result is 15, achieved by parenthesizing to get (-2) times (-4) plus 7, exploiting the fact that multiplying two negative numbers yields a positive result, so making both factors very negative maximizes the product.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 3510.0,
+        "end": 3610.0,
+        "hop": 1,
+        "description": "Example formula 7 + (-4) * 3 + (-5); optimal parenthesization gives 15 by multiplying two negative subexpressions"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec17_chunk_059"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "arithmetic parenthesization",
+      "negative integers",
+      "optimal parenthesization",
+      "worked example"
+    ],
+    "video_id": "mit_6006sp20_lec17",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec17_q015",
+    "question": "What is the exact worst-case running time of Johnson's algorithm when applied to graphs with negative edge weights, expressed in terms of the number of vertices V and the number of edges E, and how does this compare to Floyd-Warshall on a graph where E equals exactly V?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "hard",
+    "answerable": false,
+    "key_concepts": [
+      "Johnson's algorithm",
+      "running time",
+      "Floyd-Warshall",
+      "sparse graphs"
+    ],
+    "video_id": "mit_6006sp20_lec17",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  }
+]

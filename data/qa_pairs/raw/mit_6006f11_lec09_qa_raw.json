@@ -1,0 +1,508 @@
+[
+  {
+    "qa_id": "mit_6006f11_lec09_q001",
+    "question": "According to the lecture, what visual diagram is shown on the blackboard when the concept of hashing with chaining is being recalled, and how does table doubling address the key weakness identified in that earlier discussion?",
+    "answer": "The blackboard diagram shows a universe U mapped through a hash function to a table with chaining, depicting keys k1, k2, k3, k4 being hashed into slots with linked lists for collision resolution. The key weakness identified was choosing M appropriately \u2014 if M grows too large relative to n the structure wastes space, and if too small performance degrades. Table doubling addresses this by starting with a small M and doubling it whenever n exceeds M, maintaining M as Theta of n so the load factor alpha stays constant, giving amortized constant time per operation.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 60.0,
+        "end": 115.0,
+        "hop": 1,
+        "description": "Visual frame showing hashing with chaining diagram with universe U, hash function h, and chained linked lists"
+      },
+      {
+        "start": 780.0,
+        "end": 850.0,
+        "hop": 2,
+        "description": "Table doubling concept introduced to address the problem of choosing M appropriately"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec09_chunk_001",
+      "mit_6006f11_lec09_chunk_010"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "hashing with chaining",
+      "table doubling",
+      "load factor",
+      "table size M"
+    ],
+    "video_id": "mit_6006f11_lec09",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q002",
+    "question": "The lecture slide shows two hash function methods on the blackboard. What are those two methods, and how does the division method get specifically applied in the Karp-Rabin rolling hash data structure described later in the lecture?",
+    "answer": "The blackboard shows the division method h(k) = k mod m and the multiplication method h(k) = [(a\u00b7k) mod 2^w] >> (w\u2212r). The division method is specifically applied in the Karp-Rabin rolling hash by choosing m to be a random prime at least as large as the length of s, and treating the string x as a multi-digit number in base equal to the alphabet size. Each append operation updates the hash as u times the base plus ord(c) all modulo m, and skip removes the leading character by subtracting its contribution modulo m, allowing constant-time rolling hash updates.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 330.0,
+        "end": 400.0,
+        "hop": 1,
+        "description": "Frame caption showing division method h(k)=k mod m and multiplication method h(k)=[(a\u00b7k) mod 2^w] mod m on blackboard"
+      },
+      {
+        "start": 2940.0,
+        "end": 3010.0,
+        "hop": 2,
+        "description": "Division method applied in Karp-Rabin rolling hash with random prime m >= |s|}"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec09_chunk_005",
+      "mit_6006f11_lec09_chunk_083"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "division method",
+      "multiplication method",
+      "Karp-Rabin",
+      "rolling hash",
+      "random prime"
+    ],
+    "video_id": "mit_6006f11_lec09",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q003",
+    "question": "The blackboard in the lecture shows the condition 'if m > n: grow table'. What does the grow-table procedure involve as shown visually on the board, and how does this connect to the amortization argument that makes the overall cost of n insertions Theta(n)?",
+    "answer": "The blackboard shows the grow-table procedure as: make a table of size m-prime, build a new hash function f-prime, and rehash all items by iterating over T and inserting each item into T-prime. The cost of this single grow operation is O(n + m + m-prime), which is Theta(n) when m and m-prime are Theta(n). The amortization argument shows that when doubling \u2014 so m-prime equals 2m \u2014 the rebuild costs form a geometric series 1 + 2 + 4 + 8 + ... + n summing to Theta(n), meaning k inserts take Theta(k) total time and thus Theta(1) amortized time per insert.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 510.0,
+        "end": 580.0,
+        "hop": 1,
+        "description": "Blackboard shows grow-table procedure: make table of size m', build new hash f', rehash for item in T: T'.insert(item)"
+      },
+      {
+        "start": 1320.0,
+        "end": 1420.0,
+        "hop": 2,
+        "description": "Geometric series cost analysis showing doubling yields Theta(n) total cost for n inserts"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec09_chunk_015",
+      "mit_6006f11_lec09_chunk_023"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "grow table",
+      "rehashing",
+      "amortization",
+      "table doubling",
+      "geometric series"
+    ],
+    "video_id": "mit_6006f11_lec09",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q004",
+    "question": "The lecture blackboard shows the equation 'Time: \u0398(|s| * (|t| - |s|)) = O(|s| * |t|)' for the simple string matching algorithm. Why is this time complexity problematic, and what technique does the lecture introduce to improve it to the complexity shown on a later board?",
+    "answer": "The time complexity Theta(|s| * (|t| - |s|)) equals O(|s| * |t|) is problematic because it can be quadratic \u2014 for instance if s and t are both long strings of comparable length, the comparison cost grows as the product of their lengths. The lecture introduces the Karp-Rabin rolling hash algorithm using hashing, which reduces the expected time to O(|s| + |t|) plus a term proportional to the number of matches times |s|. By hashing substrings of t to constant-size values and comparing those hash values in constant time, each sliding window step costs O(1) expected time instead of O(|s|).",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2025.0,
+        "end": 2110.0,
+        "hop": 1,
+        "description": "Blackboard shows Time: \u0398(|s|*(|t|-|s|)) = O(|s|*|t|) for simple string matching algorithm"
+      },
+      {
+        "start": 2460.0,
+        "end": 2530.0,
+        "hop": 2,
+        "description": "Karp-Rabin algorithm using rolling hash reduces expected time to O(|s|+|t|)"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec09_chunk_059",
+      "mit_6006f11_lec09_chunk_070"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "simple string matching",
+      "Karp-Rabin",
+      "rolling hash",
+      "time complexity",
+      "expected time"
+    ],
+    "video_id": "mit_6006f11_lec09",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q005",
+    "question": "The lecture visually shows the amortization definition on the blackboard as 'operation takes T(n) amortized if k operations take \u2264 k\u00b7T(n) time'. How does this definition apply to the table doubling insertion analysis, and what does this imply about the amortized cost per insertion?",
+    "answer": "The amortization definition states that if k operations in total take at most k times T(n), then each operation is said to take T(n) amortized. Applied to table doubling with insertions: k insertions using the doubling strategy incur a total cost that forms a geometric series summing to Theta(k), because rebuilds happen at sizes 1, 2, 4, 8, ..., k with each rebuild costing linear in the rebuild size, and these costs sum geometrically. Since k total insertions take Theta(k) total time, dividing by k gives Theta(1) amortized time per insertion, meaning each insert costs O(1) on average across all operations.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1005.0,
+        "end": 1070.0,
+        "hop": 1,
+        "description": "Blackboard shows amortization definition: operation takes T(n) amortized if k operations take \u2264 k\u00b7T(n) time"
+      },
+      {
+        "start": 2025.0,
+        "end": 2100.0,
+        "hop": 2,
+        "description": "Table doubling k inserts take Theta(k) total time implying Theta(1) amortized per insert"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec09_chunk_028",
+      "mit_6006f11_lec09_chunk_034"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "amortization",
+      "table doubling",
+      "amortized analysis",
+      "geometric series",
+      "constant time amortized"
+    ],
+    "video_id": "mit_6006f11_lec09",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q006",
+    "question": "The lecture shows on the blackboard that 'if m = n/2 then shrink' is SLOW with alternating inserts and deletes causing Theta(n) per operation. What alternative shrink condition does the board show, and how does the lecture explain this fixes the problem?",
+    "answer": "The blackboard shows the alternative condition 'if m = n/4 then shrink to m/2' as the fix. The lecture explains that shrinking when the table is three-quarters empty \u2014 that is, when n equals m/4 \u2014 rather than when n equals m/2 prevents the thrashing behavior. After shrinking to m/2, making the table half full, the table would need m/4 additional insertions before it needs to grow again, providing enough amortization buffer. This maintains the invariant that m stays between n and 4n, ensuring linear space usage throughout, and the amortized time for any combination of k insertions and deletions remains O(1).",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1390.0,
+        "end": 1470.0,
+        "hop": 1,
+        "description": "Blackboard shows if m = n/2 then shrink is SLOW with 2k insert 2k delete = Theta(n) per op"
+      },
+      {
+        "start": 1530.0,
+        "end": 1610.0,
+        "hop": 2,
+        "description": "Blackboard shows if m = n/4 then shrink to m/2 as the correct fix with amortized time O(1)"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec09_chunk_041",
+      "mit_6006f11_lec09_chunk_042"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "table shrinking",
+      "deletion",
+      "amortization",
+      "invariant",
+      "thrashing"
+    ],
+    "video_id": "mit_6006f11_lec09",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q007",
+    "question": "The lecture slide titled 'Lecture 9: Table Doubling, Karp-Rabin' shown at the start introduces two major topics. How does the rolling hash ADT shown later on the blackboard \u2014 with operations r.append(c), r.skip(c), and r() \u2014 connect to implementing the Karp-Rabin algorithm for string matching?",
+    "answer": "The lecture slide at the start identifies the two main topics as table doubling and Karp-Rabin string matching. The rolling hash ADT shown later on the blackboard provides the key data structure for Karp-Rabin: r.append(c) adds a character to the end of the maintained string x, r.skip(c) deletes the first character of x assuming it is c, and r() returns the hash value h(x) of the current string. In Karp-Rabin, two rolling hashes rs and rt are created \u2014 rs stores the hash of the pattern s, and rt maintains the hash of the current window in t. By calling skip and append in each step, the window slides in O(1) time, enabling linear expected-time string matching by comparing hash values instead of full strings.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 0.0,
+        "end": 45.0,
+        "hop": 1,
+        "description": "Lecture slide shown at start: '6.006, Fall 2011 Lecture 9: Table Doubling, Karp-Rabin'"
+      },
+      {
+        "start": 2460.0,
+        "end": 2530.0,
+        "hop": 2,
+        "description": "Blackboard shows Rolling hash ADT with r.append(c), r.skip(c), r() operations and their use in Karp-Rabin algorithm"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec09_chunk_000",
+      "mit_6006f11_lec09_chunk_069"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Karp-Rabin",
+      "rolling hash ADT",
+      "append",
+      "skip",
+      "string matching",
+      "hash value"
+    ],
+    "video_id": "mit_6006f11_lec09",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q008",
+    "question": "What does the frame caption reveal about the specific condition written on the blackboard that triggers growing the hash table?",
+    "answer": "The frame caption reveals that the blackboard shows the condition written as 'If m > n: grow table', indicating that the grow operation is triggered when the current table size m becomes less than the number of stored items n, meaning the table needs to be enlarged to maintain the desired load factor and keep operations efficient.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 420.0,
+        "end": 490.0,
+        "hop": 1,
+        "description": "Frame caption shows blackboard text 'If m > n: grow table' written in white chalk"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec09_chunk_012"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "grow table",
+      "table size condition",
+      "hash table resizing"
+    ],
+    "video_id": "mit_6006f11_lec09",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q009",
+    "question": "What does the frame caption show is written on the blackboard about the Rolling hash ADT operations at the point where the data structure is being defined?",
+    "answer": "The frame caption shows the blackboard contains the following text describing the Rolling hash ADT: 'r.append(c): add char c to end of x', 'r.skip(c): delete first char of x (assuming it is c)', 'r maintains a string x', and 'r(): hash value of x = h(x)', defining all three core operations of the abstract data type along with the invariant that the data structure maintains a string x internally.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 2385.0,
+        "end": 2460.0,
+        "hop": 1,
+        "description": "Frame caption shows blackboard text defining Rolling hash ADT with r.append(c), r.skip(c), r maintains string x, r(): hash value of x=h(x)"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec09_chunk_069"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "rolling hash ADT",
+      "append",
+      "skip",
+      "hash value",
+      "abstract data type"
+    ],
+    "video_id": "mit_6006f11_lec09",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q010",
+    "question": "Why does the lecture say a new hash function must be built when growing the table, and how does this connect to the specific cost formula given for the grow-table operation?",
+    "answer": "The lecture explains that a new hash function must be built when growing the table because the hash function maps the universe of keys to a table of a specific size m. When m changes to m-prime, the old hash function would only map keys to the original m slots and would never use the new additional slots, making the expansion useless. Therefore every key must be rehashed using a new hash function designed for the new table size m-prime. This connects to the grow-table cost formula of O(n + m + m-prime): n to rehash all stored keys, m to iterate over all slots in the old table (since even empty slots must be visited), and m-prime to initialize the new table of size m-prime to null.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 630.0,
+        "end": 700.0,
+        "hop": 1,
+        "description": "Lecture explains why new hash function is needed when table size changes \u2014 old hash function only maps to original m slots"
+      },
+      {
+        "start": 570.0,
+        "end": 640.0,
+        "hop": 2,
+        "description": "Cost of grow-table is O(n + m + m') explained as iterating all slots and rehashing all keys"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec09_chunk_017",
+      "mit_6006f11_lec09_chunk_018"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "hash function",
+      "rehashing",
+      "grow table",
+      "cost analysis",
+      "table size"
+    ],
+    "video_id": "mit_6006f11_lec09",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q011",
+    "question": "The lecture contrasts incrementing m by 1 versus doubling m when growing the table. What is the total cost of n insertions under each strategy and why does the doubling strategy win?",
+    "answer": "Under the increment-by-one strategy m-prime equals m plus 1, the cost of n insertions is Theta(1 + 2 + 3 + 4 + ... + n) which equals Theta(n squared), because after each insertion the table must be rebuilt at a cost proportional to its current size. Under the doubling strategy m-prime equals 2m, the cost of n insertions is Theta(1 + 2 + 4 + 8 + ... + n) which is a geometric series summing to Theta(n). The doubling strategy wins because rebuilds happen only log n times rather than n times, and the costs of those rebuilds form a geometric series rather than an arithmetic one, resulting in linear total cost instead of quadratic total cost.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 750.0,
+        "end": 835.0,
+        "hop": 1,
+        "description": "Cost of n inserts with m+1 strategy is Theta(1+2+3+...+n) = Theta(n^2)"
+      },
+      {
+        "start": 835.0,
+        "end": 900.0,
+        "hop": 2,
+        "description": "Cost of n inserts with 2m doubling strategy is Theta(1+2+4+8+...+n) = Theta(n)"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec09_chunk_022",
+      "mit_6006f11_lec09_chunk_023"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "increment by one",
+      "table doubling",
+      "geometric series",
+      "arithmetic series",
+      "cost comparison"
+    ],
+    "video_id": "mit_6006f11_lec09",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q012",
+    "question": "How does the lecture connect the table doubling technique used for hash tables to the implementation of Python lists, and what specific Python operations are identified as constant amortized time?",
+    "answer": "The lecture explains that Python lists, also known as arrays, face the exact same problem as hash tables: they need to support dynamic resizing while maintaining constant-time random access and linear space. Python lists are implemented using arrays, and they use the table doubling technique \u2014 with some constant multiplier for growth \u2014 to handle the dynamic length changes. The lecture identifies list.append and list.pop as the specific Python operations that are constant amortized time rather than truly constant worst-case time; list.pop is also the same as deleting the last element via list bracket minus one. In contrast, deleting the first item takes linear time because it requires copying all values over.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1585.0,
+        "end": 1650.0,
+        "hop": 1,
+        "description": "Python lists are implemented using table doubling to support dynamic resizing with linear space"
+      },
+      {
+        "start": 1640.0,
+        "end": 1715.0,
+        "hop": 2,
+        "description": "list.append and list.pop identified as constant amortized time operations in Python"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec09_chunk_045",
+      "mit_6006f11_lec09_chunk_046"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "Python list",
+      "table doubling",
+      "list.append",
+      "list.pop",
+      "amortized constant time"
+    ],
+    "video_id": "mit_6006f11_lec09",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q013",
+    "question": "According to the lecture, what is the expected running time of the Karp-Rabin string matching algorithm and under what condition does a character-by-character verification of O(|s|) get triggered?",
+    "answer": "The expected running time of the Karp-Rabin algorithm is O(|s| + |t| + number-of-matches times |s|). The character-by-character verification costing O(|s|) is triggered when the rolling hash values of the current window in t and the pattern s are equal \u2014 that is, when rs() equals rt(). Because hash collisions can occur, equal hash values do not guarantee the strings are actually equal, so the algorithm checks character by character only in those cases. The lecture argues this verification happens with probability at most 1 over |s| when hashes differ, making its expected contribution O(1) per window position, preserving the overall linear expected time.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 2715.0,
+        "end": 2790.0,
+        "hop": 1,
+        "description": "Expected time O(|s|+|t|) for Karp-Rabin, character check O(|s|) triggered when rolling hashes are equal, happens with probability 1/|s|}"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec09_chunk_079"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "Karp-Rabin",
+      "expected running time",
+      "hash collision",
+      "verification",
+      "rolling hash"
+    ],
+    "video_id": "mit_6006f11_lec09",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q014",
+    "question": "What does the lecture state about implementing all hash table operations in constant worst-case time per operation rather than constant amortized time, and what is the key insight behind the technique?",
+    "answer": "The lecture states that it is possible to achieve constant worst-case time per operation rather than merely constant amortized time, though it is described as tricky to implement and rarely done in practice because of its complexity. The key insight is that when you detect the table is getting full, instead of waiting until the table is completely full and then doing a linear-time rebuild all at once, you begin building a new table of twice the size on the side incrementally. Each time you insert into the actual table, you simultaneously move a small constant number of items \u2014 enough items so that by the time the old table is completely full, all items have already been moved to the new table, and you can switch over to the new table immediately.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1665.0,
+        "end": 1730.0,
+        "hop": 1,
+        "description": "Lecture describes constant worst-case time technique: build new table on side incrementally, moving a constant number of items per insert"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec09_chunk_047"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "constant worst-case time",
+      "incremental rebuilding",
+      "real-time systems",
+      "hash table resizing"
+    ],
+    "video_id": "mit_6006f11_lec09",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q015",
+    "question": "What is the exact worst-case time complexity for a single deletion operation in a hash table that uses chaining as analyzed in this lecture, accounting for both the hash table slot access and the chain traversal?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "hard",
+    "answerable": false,
+    "key_concepts": [
+      "deletion",
+      "worst-case complexity",
+      "hash table chaining"
+    ],
+    "video_id": "mit_6006f11_lec09",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  }
+]

@@ -1,0 +1,513 @@
+[
+  {
+    "qa_id": "nyu_dl_week12_q001",
+    "question": "What language model was used to generate the unicorn story shown in the lecture slides, and according to the neural language model diagram shown visually, what mathematical operation is applied to produce the probability of the next word?",
+    "answer": "The language model used was GPT-2, which came out in 2019. According to the neural language model diagram shown in the lecture slides, the softmax function is applied to the product of the word embedding matrix E and the context encoder output f, expressed as p(x_n | x_{0..n-1}) = softmax(E f(x_{0..n-1})), to produce the probability distribution over the next word.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 155.0,
+        "end": 220.0,
+        "hop": 1,
+        "description": "GPT-2 language model introduced in 2019 used to generate unicorn text example"
+      },
+      {
+        "start": 385.0,
+        "end": 450.0,
+        "hop": 2,
+        "description": "Frame caption showing neural language model equation with softmax(E f(x_{0..n-1}))"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week12_chunk_005",
+      "nyu_dl_week12_chunk_012"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "GPT-2",
+      "neural language model",
+      "softmax",
+      "context encoder",
+      "word embedding matrix"
+    ],
+    "video_id": "nyu_dl_week12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week12_q002",
+    "question": "What limitation of convolutional language models is illustrated in the convolutional language model diagram shown in the slides, and how does the transformer architecture shown in the subsequent diagram address this specific problem?",
+    "answer": "The convolutional language model diagram illustrates that words can only condition on a fixed number of previous words determined by the kernel width and number of layers, representing a bounded receptive field \u2014 for example, the word 'unicorn' in the diagram could only condition on the previous five words. The transformer architecture shown subsequently addresses this by using self-attention, where every word is directly connected to every other word, giving the model direct access to any position in the context regardless of distance, thus providing an effectively unbounded receptive field.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 510.0,
+        "end": 580.0,
+        "hop": 1,
+        "description": "Convolutional language model diagram showing fixed receptive field limitation with unicorn example conditioned on only five previous words"
+      },
+      {
+        "start": 1325.0,
+        "end": 1400.0,
+        "hop": 2,
+        "description": "Transformer diagram showing all words directly connected to all other words via self-attention"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week12_chunk_015",
+      "nyu_dl_week12_chunk_053"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "convolutional language model",
+      "receptive field",
+      "transformer",
+      "self-attention",
+      "unbounded context"
+    ],
+    "video_id": "nyu_dl_week12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week12_q003",
+    "question": "What two sub-layers are shown in the transformer block diagram displayed in the lecture slides, and how does the masking mechanism described later in the lecture interact with one of these sub-layers during language model training?",
+    "answer": "The transformer block diagram shown in the lecture slides contains two sub-layers: Sub-layer 1 is Multi-Head Attention, and Sub-layer 2 is a Feed Forward network. The masking mechanism, called causal or self-potential masking, interacts directly with the Multi-Head Attention sub-layer. It applies an upper triangular matrix with zeros in the lower triangle and negative infinity in the upper triangle, added to the attention scores before softmax, which ensures that each word can only attend to previous words and not future words, maintaining the correct autoregressive factorization during training.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 975.0,
+        "end": 1050.0,
+        "hop": 1,
+        "description": "Frame caption showing transformer block diagram with Sub-layer 1 Multi-Head Attention and Sub-layer 2 Feed Forward"
+      },
+      {
+        "start": 1645.0,
+        "end": 1720.0,
+        "hop": 2,
+        "description": "Description of causal masking using upper triangular matrix with negative infinity added to attention scores"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week12_chunk_027",
+      "nyu_dl_week12_chunk_047"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "transformer block",
+      "multi-head attention",
+      "feed forward network",
+      "causal masking",
+      "autoregressive factorization"
+    ],
+    "video_id": "nyu_dl_week12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week12_q004",
+    "question": "What is the beam size shown in the beam decoding diagram displayed in the lecture slides, and what problem does the lecturer describe when applying beam search with a very large beam to the unicorn story generation example shown earlier?",
+    "answer": "The beam decoding diagram shown in the lecture slides displays a beam size of k=2. When applying beam search with a very large beam (b=32 as shown in the unicorn story example), the model gets stuck in a feedback loop where it repeatedly outputs the same phrase over and over infinitely. This happens because the model was never trained on these degenerate states \u2014 at training time, the model only sees correct previous outputs, so it has no idea how to behave when garbage hypotheses appear in the beam, causing it to put high probability on continuing the repetitive pattern.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2880.0,
+        "end": 2940.0,
+        "hop": 1,
+        "description": "Beam decoding diagram showing beam size k=2 with tree structure and scores"
+      },
+      {
+        "start": 3300.0,
+        "end": 3375.0,
+        "hop": 2,
+        "description": "Description of beam search with b=32 on unicorn example getting stuck in repetitive feedback loop"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week12_chunk_080",
+      "nyu_dl_week12_chunk_094"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "beam search",
+      "beam size",
+      "feedback loop",
+      "degenerate outputs",
+      "autoregressive training"
+    ],
+    "video_id": "nyu_dl_week12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week12_q005",
+    "question": "What does the word2vec slide diagram show about the relationship between the words king, queen, man, and woman, and how does the lecturer connect this to a fundamental limitation of word2vec embeddings discussed later in the lecture?",
+    "answer": "The word2vec slide diagram shows a square arrangement connecting king, queen, man, and woman with arrows, illustrating that king minus man plus woman equals approximately queen, demonstrating that word embeddings show surprising linear structure. However, the lecturer later connects this to a fundamental limitation: these word2vec representations are entirely independent of context, meaning each word gets the same single vector regardless of the sentence it appears in. This fails to capture that words can have multiple meanings or that the same word should be interpreted differently based on surrounding context, motivating the need for contextualized word representations as developed in ELMo, GPT, and BERT.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 4455.0,
+        "end": 4525.0,
+        "hop": 1,
+        "description": "Frame caption showing word2vec diagram with king-man+woman=queen relationship illustrated as square with arrows"
+      },
+      {
+        "start": 4590.0,
+        "end": 4650.0,
+        "hop": 2,
+        "description": "Discussion of word2vec limitation that word representations are independent of context and cannot capture polysemy"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week12_chunk_124",
+      "nyu_dl_week12_chunk_126"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "word2vec",
+      "word embeddings",
+      "king-queen analogy",
+      "context independence",
+      "polysemy"
+    ],
+    "video_id": "nyu_dl_week12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week12_q006",
+    "question": "What pre-training technique for conditional generation is shown in the BART slide diagram, and how does the encoder-decoder architecture shown in the sequence-to-sequence transformer diagram earlier in the lecture differ from the GPT architecture also shown in slides?",
+    "answer": "The BART slide diagram shows a bidirectional encoder feeding corrupted text (with masked tokens) into an autoregressive decoder that reconstructs the original clean text, illustrating pre-training by denoising. This sequence-to-sequence transformer architecture differs from GPT in that BART uses both an encoder stack and a decoder stack \u2014 the encoder stack allows every input token to attend to all other input tokens bidirectionally without masking, while the decoder stack attends to all input words and all previous output words. In contrast, GPT uses only a left-to-right unidirectional transformer that can only condition on leftward context, making it suitable for language modeling but limiting its ability to use full bidirectional context for understanding.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 5370.0,
+        "end": 5440.0,
+        "hop": 1,
+        "description": "Frame caption showing BART diagram with bidirectional encoder and autoregressive decoder for denoising pretraining"
+      },
+      {
+        "start": 3780.0,
+        "end": 3840.0,
+        "hop": 2,
+        "description": "Sequence-to-sequence transformer diagram showing encoder stack with unmasked bidirectional attention versus decoder stack"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week12_chunk_150",
+      "nyu_dl_week12_chunk_107"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "BART",
+      "denoising pretraining",
+      "sequence-to-sequence",
+      "encoder-decoder",
+      "GPT",
+      "bidirectional attention"
+    ],
+    "video_id": "nyu_dl_week12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week12_q007",
+    "question": "What does the top-k sampling diagram shown in the lecture slides illustrate about truncating the word distribution, and how does this technique relate to the text generation quality problem identified when pure sampling was applied to the unicorn story?",
+    "answer": "The top-k sampling diagram shows two bar charts illustrating word probability distributions \u2014 one showing the full distribution over words like 'nice, dog, car, woman, guy, man, people, big, house, cat' given context, and the other showing the distribution truncated to only the top-k most probable words which are then renormalized before sampling. This directly addresses the problem identified with pure sampling on the unicorn story: pure sampling can select low-probability words from the long tail of the distribution, putting the model into states it never encountered during training, which then leads to increasingly degenerate outputs. By truncating to the top-k and renormalizing, top-k sampling maintains diversity while avoiding the low-probability bad choices that cascade into nonsensical text.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3585.0,
+        "end": 3650.0,
+        "hop": 1,
+        "description": "Frame caption showing top-k sampling bar charts illustrating truncated distribution over words"
+      },
+      {
+        "start": 3510.0,
+        "end": 3570.0,
+        "hop": 2,
+        "description": "Pure sampling on unicorn story resulting in increasingly degenerate outputs because model enters states not seen during training"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week12_chunk_099",
+      "nyu_dl_week12_chunk_098"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "top-k sampling",
+      "probability distribution truncation",
+      "pure sampling",
+      "degenerate outputs",
+      "text generation"
+    ],
+    "video_id": "nyu_dl_week12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week12_q008",
+    "question": "According to the frame captions describing the Self Supervised Learning slide, what image is shown alongside the slide title and subtitle, and what conceptual metaphor does it represent?",
+    "answer": "The Self Supervised Learning slide shows a photograph of a chocolate cake with a cherry on top, placed on a green cake stand, with chocolate shavings decorating it and a slice cut out revealing the layers inside. This image represents the metaphor that the large bulk of learning is unsupervised \u2014 represented by the cake itself \u2014 while supervised learning is just a small amount of icing on top of the cake, illustrating that most of what these models learn comes from unlabeled text rather than labeled examples.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 4185.0,
+        "end": 4250.0,
+        "hop": 1,
+        "description": "Frame caption describing chocolate cake image on Self Supervised Learning slide representing unsupervised learning as the cake and supervised learning as the icing"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week12_chunk_119"
+    ],
+    "question_type": "visual",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "self-supervised learning",
+      "unsupervised learning",
+      "cake metaphor",
+      "unlabeled text"
+    ],
+    "video_id": "nyu_dl_week12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week12_q009",
+    "question": "According to the frame captions for the BERT slide, what visual character is shown alongside the BERT diagram, and what are the specific components labeled in the diagram?",
+    "answer": "The BERT slide shows the cartoon character Bert from Sesame Street standing next to the diagram. The specific components labeled in the diagram include a blue box labeled 'Huge Transformer' as the central component, with input words such as 'Bert' and 'yellow' feeding into the transformer via upward arrows, and three downward arrows each labeled with a question mark emerging from the transformer, representing the masked tokens being predicted. The slide also cites 'Devlin et al. (2018)' as the source.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 4725.0,
+        "end": 4800.0,
+        "hop": 1,
+        "description": "Frame caption describing BERT slide with Sesame Street Bert character, Huge Transformer box, input words Bert and yellow, and three question mark outputs"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week12_chunk_135"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "BERT",
+      "masked language model",
+      "Huge Transformer",
+      "Sesame Street",
+      "visual diagram"
+    ],
+    "video_id": "nyu_dl_week12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week12_q010",
+    "question": "What are the three specific training tricks listed in the Transformer Language Models slide, and how does the lecturer justify the need for the learning rate warmup trick in particular?",
+    "answer": "The three specific training tricks listed on the Transformer Language Models slide are: extensive use of layer normalization to stabilize training, a warmup plus inverse-square root training schedule, and careful initialization, along with label smoothing. For the learning rate warmup trick specifically, the lecturer explains that for whatever reason, transformers really need to linearly warm up the learning rate from zero to the goal learning rate over several thousand steps to work well \u2014 while warm-up learning rates are used in other settings, transformers are particularly dependent on this technique, and without it they do not train properly.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1995.0,
+        "end": 2055.0,
+        "hop": 1,
+        "description": "Slide listing transformer training tricks: layer normalization, warmup plus inverse-square root schedule, careful initialization, label smoothing"
+      },
+      {
+        "start": 2030.0,
+        "end": 2100.0,
+        "hop": 2,
+        "description": "Explanation that transformers specifically require linear warmup of learning rate from zero over several thousand steps to work properly"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week12_chunk_057",
+      "nyu_dl_week12_chunk_058"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "transformer training tricks",
+      "layer normalization",
+      "learning rate warmup",
+      "inverse-square root schedule",
+      "label smoothing"
+    ],
+    "video_id": "nyu_dl_week12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week12_q011",
+    "question": "How does the backtranslation technique work for training a German-to-English translation model according to the lecture, and why does the quality of the initial reverse translation model not matter critically to the final result?",
+    "answer": "Backtranslation for German-to-English translation works in four steps: first, an English-to-German reverse translation model is trained using existing parallel bitext; then this reverse model is used to translate billions of words of monolingual English into German, creating a large synthetic dataset; finally, a German-to-English forward model is trained using this back-translated data. The quality of the initial reverse translation model does not matter critically because even if the reverse model makes mistakes, the final training data will just contain noisy German translations paired with clean English outputs \u2014 since the English sentences come directly from the internet and are naturally high quality. This noisy input to clean output pairing may even help regularize the model, and the final model's performance when given clean German input should not be substantially hurt by having been trained on some noisy synthetic German.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3990.0,
+        "end": 4060.0,
+        "hop": 1,
+        "description": "Description of backtranslation steps: train reverse model, translate monolingual English to German, train forward model on back-translated data"
+      },
+      {
+        "start": 4080.0,
+        "end": 4145.0,
+        "hop": 2,
+        "description": "Explanation that reverse model quality does not matter because noisy German paired with clean English may help regularize and clean output quality is maintained"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week12_chunk_111",
+      "nyu_dl_week12_chunk_112"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "backtranslation",
+      "machine translation",
+      "reverse translation model",
+      "monolingual data",
+      "regularization"
+    ],
+    "video_id": "nyu_dl_week12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week12_q012",
+    "question": "What is the key difference between ELMo and BERT in how they achieve bidirectional context for word representations, and what specific limitation of ELMo's approach does BERT overcome?",
+    "answer": "ELMo achieves bidirectional context by training two separate language models \u2014 one running left-to-right and one running right-to-left \u2014 and then concatenating the final layer outputs of both models to form word representations. BERT overcomes ELMo's key limitation by using a single unified transformer that processes all words simultaneously with full bidirectional attention, allowing every word to directly attend to every other word in both directions within a single model. The specific limitation of ELMo that BERT overcomes is that ELMo only provides a shallow combination of leftward and rightward context \u2014 the two models are trained independently and their outputs merely concatenated, so there are no rich interactions between the left and right contexts, whereas BERT enables deep bidirectional interactions where every layer of the transformer can integrate information from both directions simultaneously.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 4680.0,
+        "end": 4755.0,
+        "hop": 1,
+        "description": "ELMo trains one left-to-right and one right-to-left language model and concatenates outputs, providing only shallow combination of contexts"
+      },
+      {
+        "start": 4740.0,
+        "end": 4820.0,
+        "hop": 2,
+        "description": "BERT overcomes ELMo's shallow combination limitation by enabling deep bidirectional interactions through masked language modeling with a single large transformer"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week12_chunk_133",
+      "nyu_dl_week12_chunk_134"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "ELMo",
+      "BERT",
+      "bidirectional context",
+      "shallow combination",
+      "deep bidirectional interactions",
+      "masked language model"
+    ],
+    "video_id": "nyu_dl_week12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week12_q013",
+    "question": "What specific factorization approach does the lecturer describe for turning density estimation of text into a series of classification problems in language modeling?",
+    "answer": "The lecturer describes using the chain rule to factorize the joint probability distribution over text into a product of conditional probabilities. Specifically, the joint probability p(x_0, ..., x_n) is factorized as p(x_0) times p(x_1 | x_0) times p(x_2 | x_1, x_0) and so on, where each factor is the probability of the next word given all preceding words. This is described as an exact characterization that costs nothing additional to impose. This factorization converts the density estimation problem into a series of classification problems, each of the form: given a sequence of preceding text, predict the next word.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 295.0,
+        "end": 370.0,
+        "hop": 1,
+        "description": "Explanation of chain rule factorization p(x_0,...,x_n) = p(x_0)*p(x_1|x_0)*p(x_2|x_1,x_0) converting density estimation to next-word classification problems"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week12_chunk_009"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "chain rule factorization",
+      "language modeling",
+      "density estimation",
+      "next-word prediction",
+      "classification problems"
+    ],
+    "video_id": "nyu_dl_week12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week12_q014",
+    "question": "What specific context window size do most transformers use in practice according to the lecturer, and what is identified as the fundamental computational reason that prevents vanilla transformers from modeling very long documents like a 50,000 word book?",
+    "answer": "According to the lecturer, most transformers in practice use a context window of 512 tokens, which is fairly affordable, with some models able to handle a few thousand tokens. The fundamental computational reason preventing vanilla transformers from modeling very long documents is that self-attention is quadratic in the sequence length \u2014 because every word can attend to every other word, the computational cost grows superlinearly with the number of tokens. This quadratic scaling means that modeling a 50,000 word book is completely infeasible with a vanilla transformer, as the memory and compute requirements would be prohibitively large.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 2385.0,
+        "end": 2460.0,
+        "hop": 1,
+        "description": "Discussion that most transformers use 512 token context windows because self-attention is quadratic, making 50,000 word books impossible for vanilla transformers"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week12_chunk_066"
+    ],
+    "question_type": "text",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "transformer context window",
+      "512 tokens",
+      "quadratic self-attention",
+      "sequence length limitation",
+      "long documents"
+    ],
+    "video_id": "nyu_dl_week12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week12_q015",
+    "question": "What specific BLEU score did the Transformer model achieve on the English-to-French translation benchmark when first introduced in the 2017 Attention is All You Need paper, and how did this compare to all previous models tested on the same benchmark?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "hard",
+    "answerable": false,
+    "key_concepts": [
+      "transformer",
+      "BLEU score",
+      "English-to-French translation",
+      "Attention is All You Need"
+    ],
+    "video_id": "nyu_dl_week12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  }
+]

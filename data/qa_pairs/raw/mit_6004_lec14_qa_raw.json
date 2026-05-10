@@ -1,0 +1,522 @@
+[
+  {
+    "qa_id": "mit_6004_lec14_q001",
+    "question": "According to the slide shown during the lecture, what is the title of the overall course lecture series being presented, and how does the direct-mapped cache address structure shown in the diagram divide a 32-bit address?",
+    "answer": "The lecture is part of MIT 6.004 Fall 2018, specifically Lecture 14 titled 'Caches 2,' presented by Silvina Hanono Wachman from CSAIL at MIT. The direct-mapped cache diagram shown divides the 32-bit address into three portions: the tag, the index, and the offset. The index uses K bits to select which of the 2^K cache lines to access, and the offset bits (specifically bits B-1 down to 2) select which word within the cache line, with the bottom two bits always zero for word alignment.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 0.0,
+        "end": 45.0,
+        "hop": 1,
+        "description": "Frame caption identifying the lecture as MIT 6.004 Fall 2018 L14 Caches 2 by Silvina Hanono Wachman"
+      },
+      {
+        "start": 70.0,
+        "end": 185.0,
+        "hop": 2,
+        "description": "Transcript and diagram describing how the 32-bit address is split into tag, index, and offset for direct-mapped cache"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6004_lec14_chunk_000",
+      "mit_6004_lec14_chunk_002"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "direct-mapped cache",
+      "address partitioning",
+      "tag index offset",
+      "MIT 6.004"
+    ],
+    "video_id": "mit_6004_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6004_lec14_q002",
+    "question": "The slide diagram for the n-way set-associative cache shows a specific structural difference from direct-mapped cache. Combining what the diagram reveals with the lecture explanation, what happens when the index bits are used in an n-way set-associative cache and why is it guaranteed that a hit cannot occur in more than one way simultaneously?",
+    "answer": "In the n-way set-associative cache diagram, the index bits select a set, which corresponds to one line in each of the n ways simultaneously. The tag is then compared against the tags stored in all n ways at that index. A hit in more than one way is impossible because the cache is designed so that a particular address only lives in one way at a time \u2014 storing the same address in multiple ways would waste space and the cache management policy ensures each address maps to exactly one way, so at most one way can contain a matching valid tag for any given address.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 485.0,
+        "end": 565.0,
+        "hop": 1,
+        "description": "Frame caption showing the n-way set-associative cache diagram with Tag, Index, and Offset fields"
+      },
+      {
+        "start": 310.0,
+        "end": 420.0,
+        "hop": 2,
+        "description": "Transcript explaining that index bits select a set and tag is compared in both ways, with guarantee of at most one hit"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6004_lec14_chunk_008",
+      "mit_6004_lec14_chunk_010",
+      "mit_6004_lec14_chunk_011"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "n-way set-associative cache",
+      "set selection",
+      "tag comparison",
+      "hit uniqueness"
+    ],
+    "video_id": "mit_6004_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6004_lec14_q003",
+    "question": "The slide shown during the discussion of replacement policy lists two cache types and their replacement behaviors. Combining the visual slide content with the lecture's explanation of LRU for a 2-way set-associative cache, what is the minimum additional state required per cache line to implement LRU and why is LRU preferred over other policies?",
+    "answer": "According to the slide on Replacement Policy and the lecture explanation, a direct-mapped cache has no replacement choice since each address maps to exactly one line, while an N-way set-associative cache has N choices. For a 2-way set-associative cache specifically, the LRU policy can be implemented by adding just one bit of state per cache line. LRU is preferred because of the locality principle: recently used data is likely to be used again soon, so evicting the least recently used entry minimizes the chance of immediately needing the evicted data again, thereby reducing cache misses.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 840.0,
+        "end": 900.0,
+        "hop": 1,
+        "description": "Frame caption showing Replacement Policy slide listing Direct Mapped Cache with no choice and N-way Set-associative cache options"
+      },
+      {
+        "start": 840.0,
+        "end": 945.0,
+        "hop": 2,
+        "description": "Transcript explaining LRU policy, locality principle, and that 2-way LRU requires just one bit of state per line"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6004_lec14_chunk_023",
+      "mit_6004_lec14_chunk_024"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "LRU replacement policy",
+      "2-way set-associative cache",
+      "locality principle",
+      "replacement state bit"
+    ],
+    "video_id": "mit_6004_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6004_lec14_q004",
+    "question": "The Cached Memory Systems slide diagram shows connections between the processor, SRAM-based cache, and DRAM-based memory. Combining this visual with the lecture's explanation, what is the key difference between the type of request the processor makes to the cache versus the type of request the cache makes to DRAM, in terms of data granularity?",
+    "answer": "According to the Cached Memory Systems diagram and the lecture explanation, the processor makes word-level requests to the SRAM-based cache, providing a 32-bit address and expecting a 32-bit (one word) response. In contrast, when the SRAM-based cache makes requests to the DRAM, it makes line-level requests fetching an entire cache line at once \u2014 specifically 16 words (64 bytes) at a time. This difference exists because it is only incrementally more expensive to fetch nearby bytes from DRAM once the initial access cost is paid, and fetching a whole line exploits spatial locality.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1260.0,
+        "end": 1330.0,
+        "hop": 1,
+        "description": "Frame caption of Cached Memory Systems diagram showing processor, SRAM cache, and DRAM with req/lineReq connections"
+      },
+      {
+        "start": 1295.0,
+        "end": 1360.0,
+        "hop": 2,
+        "description": "Transcript explaining word requests from processor vs. 16-word line requests from SRAM cache to DRAM"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6004_lec14_chunk_036",
+      "mit_6004_lec14_chunk_037"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "word request",
+      "line request",
+      "SRAM to DRAM",
+      "data granularity",
+      "spatial locality"
+    ],
+    "video_id": "mit_6004_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6004_lec14_q005",
+    "question": "The Cache Interface slide diagram shows four labeled connections between the SRAM-based cache and surrounding components. Combining this visual with the lecture explanation, what are the four methods of the cache interface and which two are considered the 'processor-side' methods versus the 'back-side' methods?",
+    "answer": "According to the Cache Interface diagram and the lecture explanation, the cache interface has four methods: req (request from processor), resp (response to processor), lineReq (line request to DRAM), and lineResp (line response from DRAM). The first two \u2014 req and resp \u2014 are the processor-side methods that handle communication between the processor and the cache, where req accepts a MemReq and resp returns a single word. The latter two \u2014 lineReq and lineResp \u2014 are the back-side methods that handle communication between the cache and main memory (DRAM), dealing with entire 64-byte lines.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1505.0,
+        "end": 1560.0,
+        "hop": 1,
+        "description": "Frame caption of Cache Interface diagram showing SRAM-based cache with req, resp, lineReq, lineResp connections to DRAM"
+      },
+      {
+        "start": 1505.0,
+        "end": 1590.0,
+        "hop": 2,
+        "description": "Transcript explaining the four cache interface methods, distinguishing processor-side from back-side methods"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6004_lec14_chunk_041",
+      "mit_6004_lec14_chunk_042",
+      "mit_6004_lec14_chunk_043"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "cache interface",
+      "four methods",
+      "processor-side methods",
+      "back-side methods",
+      "lineReq lineResp"
+    ],
+    "video_id": "mit_6004_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6004_lec14_q006",
+    "question": "The Cache Organization slide visually shows the internal components of the cache array unit including specific queues. Combining what the diagram shows with the lecture's description, what are the three SRAM components inside the cache array unit and what queues are used to communicate with the processor and back-end memory?",
+    "answer": "According to the Cache Organization diagram and the lecture explanation, the cache array unit contains three SRAMs: one for data (dataArray), one for the tag (tagArray), and one for the status (statusArray). For communication, there are queues on both sides: on the memory back-end side there is a lineReqQ (line request queue) for sending requests to DRAM and a lineRespQ (line response queue) for receiving responses from DRAM, and on the processor side there is a hitQ (hit queue) where data ready for the processor is placed. Additionally, there are registers for storing the current request and the current status.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1665.0,
+        "end": 1740.0,
+        "hop": 1,
+        "description": "Frame caption of Cache Organization diagram showing cache array unit with data, tag, status arrays and lineReqQ, lineRespQ, hitQ queues"
+      },
+      {
+        "start": 1575.0,
+        "end": 1680.0,
+        "hop": 2,
+        "description": "Transcript describing the three SRAMs (data, tag, status) and the queues for line request, line response, and hit queue"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6004_lec14_chunk_044",
+      "mit_6004_lec14_chunk_045",
+      "mit_6004_lec14_chunk_046"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "cache array unit",
+      "dataArray tagArray statusArray",
+      "hitQ lineReqQ lineRespQ",
+      "SRAM components"
+    ],
+    "video_id": "mit_6004_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6004_lec14_q007",
+    "question": "The 'Hit and miss performance' slide shown near the end of the lecture lists specific latency formulas for different miss scenarios. Combining those visual latency descriptions with the lecture's verbal explanation of why looking at the SRAM twice during a miss is acceptable, what are the two miss latency cases and why is the double SRAM access cost considered negligible?",
+    "answer": "According to the Hit and miss performance slide and the lecture explanation, there are two miss latency cases: first, a miss with no evacuation (clean line eviction) costs DRAM load latency plus 2 times SRAM latency \u2014 one SRAM access to detect the miss and one after the line is fetched from DRAM to return the result; second, a miss with evacuation (dirty line eviction) costs DRAM store latency plus DRAM load latency plus 2 times SRAM latency, since the dirty line must first be written back. The double SRAM access cost is considered negligible because the time to access main DRAM memory is so much larger than SRAM latency that the extra SRAM access is inconsequential in comparison, which also simplifies the implementation.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2975.0,
+        "end": 3090.0,
+        "hop": 1,
+        "description": "Frame caption of Hit and miss performance slide showing no evacuation and evacuation latency formulas"
+      },
+      {
+        "start": 3010.0,
+        "end": 3090.0,
+        "hop": 2,
+        "description": "Transcript explaining why double SRAM cost is negligible compared to DRAM latency and simplifies implementation"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6004_lec14_chunk_086",
+      "mit_6004_lec14_chunk_087"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "cache miss latency",
+      "no evacuation",
+      "evacuation dirty line",
+      "DRAM latency dominance",
+      "SRAM latency negligible"
+    ],
+    "video_id": "mit_6004_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6004_lec14_q008",
+    "question": "According to the frame captions describing the 'Stores' slide shown during this lecture, what are the two write policies described for handling a write hit, and what additional three-state status system is required specifically for the write-back policy?",
+    "answer": "The 'Stores' slide shows two write policies for handling a write hit: the write-back policy, which writes only to the cache and updates the next level memory when the line is evicted, and the write-through policy, which writes to both the cache and the next level memory simultaneously. The write-back policy specifically requires a three-state status system rather than just a valid bit, where the three states are: Invalid (data not present), Clean (valid data that has not been modified), and Dirty (valid data that has been modified and is inconsistent with main memory).",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 490.0,
+        "end": 580.0,
+        "hop": 1,
+        "description": "Frame captions of Stores slide describing write-back and write-through policies and the Invalid/Clean/Dirty status states required for write-back"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6004_lec14_chunk_014",
+      "mit_6004_lec14_chunk_015"
+    ],
+    "question_type": "visual",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "write-back policy",
+      "write-through policy",
+      "Invalid Clean Dirty states",
+      "write hit"
+    ],
+    "video_id": "mit_6004_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6004_lec14_q009",
+    "question": "Based on the frame captions describing the blocking cache slide shown in this lecture, what are the four specific characteristics of the cache that will be implemented, and what does the label on the states diagram reveal about the FSM structure?",
+    "answer": "The frame captions for the blocking cache slide reveal that the cache being implemented has four characteristics: it is one-way and direct-mapped, uses a write-back policy, uses write-miss allocate, and is a blocking cache. The slide also shows the module definition as mkBlockingCache with CAU (Cache Array Unit) and FIFO components instantiated inside it, and from the slide content it is evident the FSM includes states such as Ready, WaitCAUResp, and WaitDramResp, reflecting a sequential state machine where the cache processes one request at a time before returning to the Ready state.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1400.0,
+        "end": 1465.0,
+        "hop": 1,
+        "description": "Frame captions of blocking cache slide listing one-way direct-mapped write-back write-miss-allocate blocking characteristics and module definition"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6004_lec14_chunk_039",
+      "mit_6004_lec14_chunk_064"
+    ],
+    "question_type": "visual",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "blocking cache",
+      "direct-mapped",
+      "write-back",
+      "write-miss allocate",
+      "FSM states"
+    ],
+    "video_id": "mit_6004_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6004_lec14_q010",
+    "question": "The lecture explains the write-back policy and the write-miss allocate scheme together. Connecting the explanation of what write-back means with the explanation of what write-miss allocate means, what happens end-to-end when a processor executes a store to an address that is not currently in the cache?",
+    "answer": "When a store results in a cache miss with a write-back and write-miss allocate policy, the following occurs end-to-end: first, the cache checks its cache array unit and detects a miss; it then fetches the entire cache line containing the target address from main memory (DRAM) \u2014 this is the 'write-miss allocate' part, meaning the line is brought into the cache rather than writing directly to main memory. Once the line is in the cache, the processor's store data is written into the appropriate word location within that cached line. The cache line status is then marked dirty because it has been modified. The updated line is only written back to main memory later when that line is eventually evicted from the cache \u2014 this is the 'write-back' part.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 490.0,
+        "end": 605.0,
+        "hop": 1,
+        "description": "Transcript explaining write-back policy saves bandwidth by writing to main memory only on eviction"
+      },
+      {
+        "start": 595.0,
+        "end": 680.0,
+        "hop": 2,
+        "description": "Transcript explaining write-miss allocate brings the line into cache on a miss rather than writing directly to main memory"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6004_lec14_chunk_014",
+      "mit_6004_lec14_chunk_016",
+      "mit_6004_lec14_chunk_017"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "write-back policy",
+      "write-miss allocate",
+      "store miss",
+      "dirty bit",
+      "cache line fetch"
+    ],
+    "video_id": "mit_6004_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6004_lec14_q011",
+    "question": "The lecture describes how the blocking cache's FSM transitions across multiple states when handling a miss with a dirty eviction. Tracing through the states described in both the FSM overview and the waitCAUResponse rule explanation, what is the complete sequence of states visited and actions taken from the moment a miss is detected until the cache returns to the ready state?",
+    "answer": "When a miss is detected with a dirty eviction, the blocking cache goes through the following sequence: it starts in the Ready state and transitions to WaitCAUResp after sending a request to the cache array unit. In the WaitCAUResp state, the cache receives the response from the cache array unit \u2014 a full line along with a miss indicator. Seeing the line is dirty, it initiates a line store request to main memory and transitions to the SendRequest state (placing the dirty line write request). After the write to DRAM is acknowledged, it sends a load request for the new line from DRAM and moves to the WaitDramResp state. Once the DRAM responds with the new line, the cache updates the cache array unit with the new line (marked clean for a load, or dirty for a store), places the requested word in the hitQ if it was a load, and finally returns to the Ready state.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2385.0,
+        "end": 2445.0,
+        "hop": 1,
+        "description": "Transcript describing FSM states: Ready, WaitCAUResp, SendRequest, WaitDramResp and transitions on hit vs miss"
+      },
+      {
+        "start": 2720.0,
+        "end": 2835.0,
+        "hop": 2,
+        "description": "Transcript detailing the waitCAUResponse rule behavior on a miss with dirty eviction, initiating line request to DRAM"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6004_lec14_chunk_066",
+      "mit_6004_lec14_chunk_067",
+      "mit_6004_lec14_chunk_076",
+      "mit_6004_lec14_chunk_077"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "FSM states",
+      "dirty eviction",
+      "blocking cache",
+      "WaitCAUResp",
+      "WaitDramResp",
+      "SendRequest"
+    ],
+    "video_id": "mit_6004_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6004_lec14_q012",
+    "question": "The lecture covers two key distinctions between the Memory interface and the DRAM interface, and then separately describes how SRAM differs from both. Connecting these three interface descriptions, what are the key distinguishing characteristics of each of the three interfaces (Memory, DRAM, and SRAM) in terms of what data they transfer and how their sizes are specified?",
+    "answer": "The Memory interface is used for word-level access between the processor and cache: it accepts a MemReq containing an operation, a 32-bit address, and optionally data for stores, and returns a single 32-bit word. Its size is fixed in terms of address width and word size. The DRAM interface is also fixed in size (64 bytes per line for this class) but operates at line granularity rather than word granularity: it accepts a LReq with an operation, a line address, and optionally a full line for stores, and returns an entire line of 16 words. The SRAM interface is parameterizable: its size is specified by providing the number of index bits (logNLines), which determines how many lines (2^logNLines) it contains, and it can hold arbitrary data types including tag bits, status bits, or full data lines.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 980.0,
+        "end": 1105.0,
+        "hop": 1,
+        "description": "Transcript describing Memory interface as word-level with fixed 32-bit addresses and DRAM interface as line-level fetching 16 words at a time"
+      },
+      {
+        "start": 1105.0,
+        "end": 1200.0,
+        "hop": 2,
+        "description": "Transcript describing SRAM interface as parameterized by index bits specifying 2^logNLines lines and supporting arbitrary data types"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6004_lec14_chunk_028",
+      "mit_6004_lec14_chunk_030",
+      "mit_6004_lec14_chunk_032"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "Memory interface",
+      "DRAM interface",
+      "SRAM interface",
+      "word vs line granularity",
+      "parameterized size",
+      "logNLines"
+    ],
+    "video_id": "mit_6004_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6004_lec14_q013",
+    "question": "In the context of the cache array unit (CAU) response types described in this lecture, what are the three possible outcomes that can be returned by the CAU's response method, and what data is returned in each case?",
+    "answer": "The cache array unit response (CAUResp) can indicate three possible outcomes via the hitMiss enumeration field. First, a load hit (LdHit): the CAU returns the specific word that was requested, provided in the loadValue parameter of the response. Second, a store hit (StHit): the CAU does not need to return any data to the processor since the write was applied directly to the cache line in the CAU. Third, a miss: the CAU returns the entire evicted cache line in the tagLine parameter, so that if the line was dirty it can be written back to main memory before the new line is fetched.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1865.0,
+        "end": 1960.0,
+        "hop": 1,
+        "description": "Transcript describing the three CAU response types: LdHit returning loadValue word, StHit returning nothing, and Miss returning the entire evicted line"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6004_lec14_chunk_051",
+      "mit_6004_lec14_chunk_052",
+      "mit_6004_lec14_chunk_053"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "CAUResp",
+      "load hit",
+      "store hit",
+      "miss response",
+      "evicted line",
+      "loadValue"
+    ],
+    "video_id": "mit_6004_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6004_lec14_q014",
+    "question": "When constructing the line address for a DRAM request during a cache miss in the blocking cache implementation described in this lecture, exactly which bits from the original processor request are used and how are they combined?",
+    "answer": "When making a line request to DRAM during a cache miss, the line address is constructed by taking only the tag bits and the index bits from the original processor's 32-bit address, and concatenating them together. The offset bits are excluded because a DRAM line request fetches an entire cache line (16 words, 64 bytes), so the specific byte or word offset within the line is not needed for addressing in DRAM \u2014 the line address identifies which full line to fetch. This concatenation of tag and index bits from the currReq register forms the complete line address sent in the line request.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 2840.0,
+        "end": 2900.0,
+        "hop": 1,
+        "description": "Transcript explaining that the line address for DRAM is formed by concatenating tag bits and index bits from the original request, omitting the offset bits"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6004_lec14_chunk_080",
+      "mit_6004_lec14_chunk_081"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "line address",
+      "DRAM request",
+      "tag concatenation",
+      "index bits",
+      "offset excluded",
+      "cache miss"
+    ],
+    "video_id": "mit_6004_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6004_lec14_q015",
+    "question": "What is the specific clock frequency of the SRAM used in the cache implementation described in this lecture, and how does it compare to the DRAM clock frequency used for the main memory?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "easy",
+    "answerable": false,
+    "key_concepts": [
+      "SRAM clock frequency",
+      "DRAM clock frequency",
+      "memory timing"
+    ],
+    "video_id": "mit_6004_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  }
+]

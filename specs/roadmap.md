@@ -21,7 +21,7 @@ Status: ✅ Complete | ⚠️ Partial | ⏳ Pending
 | 4.1 | `src/frame_captioner.py` — Qwen2-VL-7B captioner | ✅ |
 | 4.2 | Run `scripts/build_frame_captions.py --all --device cuda` | ✅ 60/60 done |
 | 5.1 | `src/retriever.py` — two ChromaDB collections | ✅ |
-| 5.2 | `scripts/build_index.py` — ingest all chunks | ✅ |
+| 5.2 | `scripts/build_index.py` — ingest all chunks | ✅ 60/60, both collections |
 | 6.1 | `src/generator.py` — grounded prompt + citations | ✅ |
 | 7.1 | `src/qa_generator.py` — LLM draft QA | ⏳ |
 | 7.2 | `scripts/generate_qa.py` — CLI for draft generation | ⏳ |

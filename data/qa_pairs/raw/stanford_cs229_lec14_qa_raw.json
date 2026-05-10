@@ -1,0 +1,500 @@
+[
+  {
+    "qa_id": "stanford_cs229_lec14_q001",
+    "question": "According to the lecture, what visual diagram does the board show regarding the factor analysis model setup, and how does this connect to the E-step computation described later for computing the Q distribution?",
+    "answer": "The board shows the factor analysis model equations including x = \u03bc + \u039bz + \u03b5 where z ~ N(0, I) and x is in R^n, along with the partitioned vector and covariance matrix setup. This connects to the E-step where the conditional distribution of z given x^(i) is computed as a Gaussian with mean \u03bc_{z|x} and covariance \u03a3_{z|x}, derived by matching the formulas for conditional distributions of jointly Gaussian random variables, specifically using the term \u03bc_1 + \u03a3_{12}\u03a3_{22}^{-1}(x_2 - \u03bc_2).",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 244.0,
+        "end": 305.0,
+        "hop": 1,
+        "description": "Frame captions showing board with x = \u03bc + \u039bz + \u03b5 and z ~ N(0,I) equations"
+      },
+      {
+        "start": 970.0,
+        "end": 1035.0,
+        "hop": 2,
+        "description": "E-step derivation showing conditional distribution formula with mean and covariance of Q distribution"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec14_chunk_008",
+      "stanford_cs229_lec14_chunk_029"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "factor analysis",
+      "E-step",
+      "conditional Gaussian distribution",
+      "Q distribution"
+    ],
+    "video_id": "stanford_cs229_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec14_q002",
+    "question": "The lecture shows a diagram of data projected onto two different axes in the PCA discussion. What does the visual diagram illustrate about projection variance, and how does this connect to the formal optimization problem described for choosing direction U?",
+    "answer": "The diagram shows data points projected onto two different directions: the principal axis (roughly 45 degrees) where the projected points have very large variance, and an orthogonal direction shown as a purple line where projections have much smaller variance with points clustered tightly together. This connects to the formal optimization problem of choosing unit vector U to maximize the sum of squared projections (1/m times the sum of (x^(i)^T u)^2), which simplifies to maximizing U^T \u03a3 U subject to the constraint that the norm of U equals 1, ultimately identifying U as the principal eigenvector of the covariance matrix.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2785.0,
+        "end": 2850.0,
+        "hop": 1,
+        "description": "Visual diagram showing data projected onto principal axis with large variance vs orthogonal purple line with small variance"
+      },
+      {
+        "start": 3000.0,
+        "end": 3060.0,
+        "hop": 2,
+        "description": "Formal PCA optimization: maximize 1/m sum of (x^T u)^2 subject to norm of u equals 1"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec14_chunk_079",
+      "stanford_cs229_lec14_chunk_083"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "PCA",
+      "projection variance",
+      "principal eigenvector",
+      "optimization"
+    ],
+    "video_id": "stanford_cs229_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec14_q003",
+    "question": "What does the board show as the pre-processing steps for PCA, and how does the lecture connect those steps to the specific scenario where the second normalization step can be omitted?",
+    "answer": "The board shows four pre-processing steps: first set \u03bc equal to (1/m) times the sum of x^(i), then replace each x^(i) with x^(i) minus \u03bc to zero out the mean; third set \u03c3_j^2 equal to (1/m) times the sum of the j-th feature squared, then replace x^(i)_j with x^(i)_j divided by \u03c3_j to normalize variance. The lecture connects this to the scenario of image data, explaining that when all features are the same type of measurement on the same scale \u2014 such as pixel intensity values ranging from 0 to 255 \u2014 the variance normalization step can be omitted because normalization is only necessary when features are on very different scales.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2590.0,
+        "end": 2640.0,
+        "hop": 1,
+        "description": "Board showing four pre-processing steps including mean subtraction and variance normalization"
+      },
+      {
+        "start": 2745.0,
+        "end": 2810.0,
+        "hop": 2,
+        "description": "Explanation that variance normalization step can be omitted for image pixel data since all features are on same scale"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec14_chunk_073",
+      "stanford_cs229_lec14_chunk_075"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "PCA pre-processing",
+      "mean normalization",
+      "variance normalization",
+      "pixel intensity"
+    ],
+    "video_id": "stanford_cs229_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec14_q004",
+    "question": "The lecture board displays the eigenface grid of 16 images. What does the first eigenface roughly capture according to the lecture's description, and how does this connect to the underlying principle described earlier about what PCA finds as the principal axes?",
+    "answer": "According to the lecture, the first eigenface roughly captures variation in illumination \u2014 specifically whether the face is illuminated from the left or the right, with the weight on that image capturing that illumination variation. This connects to the earlier principle that PCA finds directions along which data varies the most by computing the principal eigenvectors of the covariance matrix \u03a3, where the top eigenvectors correspond to the highest eigenvalues and represent the axes of greatest variation in the data \u2014 in this case, illumination being among the most variable aspects across different face images.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 4670.0,
+        "end": 4720.0,
+        "hop": 1,
+        "description": "Description of first eigenface capturing illumination direction variation, second capturing brightness, third capturing shadow/beard"
+      },
+      {
+        "start": 3120.0,
+        "end": 3215.0,
+        "hop": 2,
+        "description": "Principal eigenvector of covariance matrix Sigma gives the main axis of variation; top k eigenvectors give k-dim subspace"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec14_chunk_131",
+      "stanford_cs229_lec14_chunk_091"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "eigenfaces",
+      "PCA principal axes",
+      "illumination variation",
+      "covariance matrix eigenvectors"
+    ],
+    "video_id": "stanford_cs229_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec14_q005",
+    "question": "The board shows the M-step integrals in the EM derivation for factor analysis. What is the key trick identified for evaluating these integrals more easily, and how does this connect to the specific error described when people incorrectly handle the E[ZZ^T] term?",
+    "answer": "The key trick identified is to recognize that integrals of the form \u222b Q_i(z) f(z) dz are simply expectations of f(z) with respect to the distribution Q_i, making them much easier to evaluate. Rather than writing out the full Gaussian density for Q_i and integrating explicitly \u2014 which looks horribly complicated \u2014 one can directly read off the expected value. This connects to the specific error where people incorrectly compute E[ZZ^T] by plugging in \u03bc_{z|x^(i)} times \u03bc_{z|x^(i)}^T, which is wrong because it neglects the additional term \u03a3_{z|x^(i)} \u2014 since E[ZZ^T] equals \u03a3 plus \u03bc\u03bc^T for a Gaussian, not just \u03bc\u03bc^T.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1230.0,
+        "end": 1310.0,
+        "hop": 1,
+        "description": "Board showing M-step integrals and the key trick of recognizing them as expectations"
+      },
+      {
+        "start": 1930.0,
+        "end": 2010.0,
+        "hop": 2,
+        "description": "Common mistake of plugging in expected value of Z everywhere, incorrectly dropping the Sigma_{z|x} term in E[ZZ^T]"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec14_chunk_035",
+      "stanford_cs229_lec14_chunk_055"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "M-step",
+      "expectation trick",
+      "E[ZZ^T]",
+      "EM algorithm error"
+    ],
+    "video_id": "stanford_cs229_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec14_q006",
+    "question": "The board displays the objective for the M-step as a sum of expectations of log P(x^(i), z; \u03b8) / Q(z; \u03b8). How does the lecture use the structure of factor analysis to simplify this, and what does the board show as the final simplified quantity to maximize with respect to \u039b?",
+    "answer": "The lecture simplifies by splitting log P(x, z; \u03b8) / Q(z; \u03b8) into two terms: the expectation of log P(x|z; \u03b8) plus the expectation of log P(z). In factor analysis, P(z) has no parameters because z is drawn from N(0, I), and Q_i(z) also has no parameters that we are optimizing over. So the M-step only needs to maximize the first term \u2014 the expectation with respect to z drawn from Q_i of log P(x^(i)|z; \u03b8). The board then shows this leading to maximizing a quadratic expression involving the Gaussian density of x given z (mean \u03bc + \u039bz, covariance S), which after taking the derivative with respect to \u039b and setting it to zero yields the update formula \u039b equals a sum over i of (x^(i) - \u03bc) E[z^(i)]^T times the inverse of a sum over i of E[z^(i) z^(i)^T].",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1410.0,
+        "end": 1490.0,
+        "hop": 1,
+        "description": "Board showing decomposition of M-step objective into E[log P(x|z)] and E[log P(z)] terms, with P(z) having no parameters"
+      },
+      {
+        "start": 1560.0,
+        "end": 1650.0,
+        "hop": 2,
+        "description": "Board showing the final Lambda update formula from setting derivative to zero"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec14_chunk_040",
+      "stanford_cs229_lec14_chunk_049"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "M-step simplification",
+      "factor analysis parameters",
+      "Lambda update",
+      "EM objective"
+    ],
+    "video_id": "stanford_cs229_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec14_q007",
+    "question": "The face recognition demo shown on the laptop displays a grid of matched faces. How does this visual output connect to the description of eigenfaces as linear combinations of eigenvectors, and what dimensionality reduction does the lecture state is typically used?",
+    "answer": "The visual output shows a query face in the upper leftmost position with the most similar faces retrieved from the database arranged in subsequent positions, where the algorithm identifies similar faces by measuring distances in a low-dimensional subspace rather than in the original pixel space. This connects to the description of eigenfaces: each 100\u00d7100 face image is a 10,000-dimensional vector, and PCA finds eigenvectors (eigenfaces) that span a lower-dimensional subspace; each face is approximated as a linear combination of these eigenface basis images. The lecture states that a PCA dimension of 50 would be fairly typical, meaning each face is compared by projecting it onto a 50-dimensional subspace and measuring Euclidean distance there rather than in the 10,000-dimensional space.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 4725.0,
+        "end": 4800.0,
+        "hop": 1,
+        "description": "Laptop demo showing face recognition results with most similar faces retrieved, source credited to Alex Pentland's lab at MIT"
+      },
+      {
+        "start": 4420.0,
+        "end": 4500.0,
+        "hop": 2,
+        "description": "Description of eigenfaces as linear combinations of eigenvector basis images and typical PCA dimension of 50 for face recognition"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec14_chunk_133",
+      "stanford_cs229_lec14_chunk_123"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "eigenfaces",
+      "face recognition",
+      "PCA dimensionality reduction",
+      "distance in subspace"
+    ],
+    "video_id": "stanford_cs229_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec14_q008",
+    "question": "What text appears on the chalkboard in the opening slide of this lecture, as shown in the frame caption?",
+    "answer": "The opening chalkboard shows three topics written in white chalk: Factor analysis, EM steps, and Principal Component Analysis. The person in the image is holding a piece of paper and writing on the board, wearing a brown shirt and glasses, with the content organized as an outline of the lecture's main subjects to be covered.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 0.0,
+        "end": 45.0,
+        "hop": 1,
+        "description": "Frame caption showing chalkboard with Factor analysis, EM steps, and Principal Component Analysis written on it"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec14_chunk_000"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "lecture outline",
+      "factor analysis",
+      "PCA",
+      "EM steps"
+    ],
+    "video_id": "stanford_cs229_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec14_q009",
+    "question": "According to the frame captions from the PCA applications section of the lecture, what specific list of applications is written on the chalkboard?",
+    "answer": "The chalkboard in the PCA applications section displays the following list written in white chalk: Visualization, Compression, Learning, Anomaly detection, and Matching (also described as distance calculations). These five items appear as a bulleted or numbered list on the dark blue chalkboard background, representing the main practical uses of PCA discussed in that portion of the lecture.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 4200.0,
+        "end": 4260.0,
+        "hop": 1,
+        "description": "Frame caption showing chalkboard with Visualization, Compression, Learning, Anomaly detection, Matching written as list"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec14_chunk_127"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "PCA applications",
+      "visualization",
+      "compression",
+      "anomaly detection",
+      "matching"
+    ],
+    "video_id": "stanford_cs229_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec14_q010",
+    "question": "What are the three key things that the lecture identifies as novel or tricky aspects of deriving EM for factor analysis compared to previous EM derivations, and why does each matter?",
+    "answer": "The three key things identified are: first, in the E-step, Z is now a continuous-valued Gaussian random variable rather than a discrete variable, so instead of summing over Z one must integrate, and to represent Q_i of Z one computes the mean \u03bc_{z|x^(i)} and covariance \u03a3_{z|x^(i)} of the Gaussian distribution; second, in the M-step when integrals appear, the simpler approach is to recognize them as expectations with respect to Q_i rather than writing out the full Gaussian density and integrating explicitly, which is unnecessarily complicated; third, the EM algorithm is not simply a matter of computing expected values of hidden variables and plugging them in everywhere \u2014 in particular E[ZZ^T] is not simply \u03bc_{z|x} times \u03bc_{z|x}^T but must include the additional term \u03a3_{z|x}.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1995.0,
+        "end": 2070.0,
+        "hop": 1,
+        "description": "First two key things: continuous Z requiring mean and covariance for E-step, and expectation trick for M-step integrals"
+      },
+      {
+        "start": 2060.0,
+        "end": 2130.0,
+        "hop": 2,
+        "description": "Third key thing: EM is not just plugging in expected values; E[ZZ^T] requires covariance term, not just mean squared"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec14_chunk_056",
+      "stanford_cs229_lec14_chunk_057"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "EM for factor analysis",
+      "continuous latent variable",
+      "expectation trick",
+      "E[ZZ^T] computation"
+    ],
+    "video_id": "stanford_cs229_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec14_q011",
+    "question": "Why does the lecture say that direct maximum likelihood estimation fails for factor analysis, and what alternative approach is used instead to learn the parameters?",
+    "answer": "Direct maximum likelihood estimation fails for factor analysis because, although one can write down the likelihood of the training set since each x^(i) is Gaussian with mean \u03bc and covariance \u039b\u039b^T + S, if you take the log likelihood, differentiate with respect to the parameters \u039b, \u03bc, and S, set the derivatives to zero, and try to solve analytically, you find that there is no closed-form solution \u2014 the system of equations cannot be solved analytically to find the maximum. Therefore, instead of direct MLE, the EM algorithm is used, which iterates between an E-step that computes the conditional distribution of the latent variable Z given each observed x^(i) and the current parameters, and an M-step that maximizes the expected complete-data log likelihood with the latent variable integrated out.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 660.0,
+        "end": 725.0,
+        "hop": 1,
+        "description": "Explanation that taking derivative of log likelihood with respect to parameters and setting to zero yields no analytic solution"
+      },
+      {
+        "start": 840.0,
+        "end": 910.0,
+        "hop": 2,
+        "description": "Description of EM algorithm as the alternative, with E-step computing Q and M-step performing maximization over parameters"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec14_chunk_019",
+      "stanford_cs229_lec14_chunk_025"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "maximum likelihood estimation",
+      "factor analysis",
+      "EM algorithm",
+      "analytic intractability"
+    ],
+    "video_id": "stanford_cs229_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec14_q012",
+    "question": "How does the lecture explain the reason that the covariance matrix \u03a3 used in PCA always has a full set of eigenvectors, and what subtle issue is identified about those eigenvectors when eigenvalues repeat?",
+    "answer": "The lecture explains that the covariance matrix \u03a3 is symmetric, and symmetric matrices are never deficient \u2014 meaning they always have a full set of n eigenvectors even if some eigenvalues repeat. The subtle issue identified is that when a covariance matrix has repeated eigenvalues, the identity of the corresponding eigenvectors is ambiguous: one can freely rotate those eigenvectors within the subspace they span and still obtain equally valid eigenvectors. For example, if the covariance matrix is approximately the identity (first two eigenvalues equal), then any pair of orthogonal vectors in that 2D subspace is a valid choice for U1 and U2. The practical implication is that it is dangerous to look at individual eigenvectors and try to interpret them as capturing specific features; what is meaningful is the subspace spanned by the top k eigenvectors, not the individual vectors themselves.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3625.0,
+        "end": 3690.0,
+        "hop": 1,
+        "description": "Explanation that symmetric covariance matrix Sigma is never deficient so always has full set of eigenvectors"
+      },
+      {
+        "start": 3690.0,
+        "end": 3770.0,
+        "hop": 2,
+        "description": "Issue of repeated eigenvalues causing eigenvectors to rotate freely within subspace and danger of interpreting individual eigenvectors"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec14_chunk_102",
+      "stanford_cs229_lec14_chunk_104"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "symmetric matrix",
+      "eigenvector uniqueness",
+      "repeated eigenvalues",
+      "PCA subspace"
+    ],
+    "video_id": "stanford_cs229_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec14_q013",
+    "question": "In the factor analysis model, what is the specific form of the marginal distribution of x, and what are all the parameters of this model as listed in the lecture?",
+    "answer": "In the factor analysis model, the marginal distribution of x is Gaussian with mean \u03bc and covariance \u039b\u039b^T plus S, where this is obtained by taking the lower-right block of the joint covariance matrix of (z, x). The parameters of the model are: \u03bc, which is an n-dimensional vector; \u039b, which is an n by d dimensional matrix (also called the factor loading matrix); and S, which is an n by n diagonal matrix representing the covariance of the noise term \u03b5.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 455.0,
+        "end": 540.0,
+        "hop": 1,
+        "description": "Statement that parameters are mu (n-dimensional vector), Lambda (n by d matrix), and S (diagonal matrix), and marginal distribution of x is Gaussian with mean mu and covariance Lambda Lambda^T plus S"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec14_chunk_013"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "factor analysis",
+      "marginal distribution",
+      "model parameters",
+      "Lambda",
+      "S diagonal matrix"
+    ],
+    "video_id": "stanford_cs229_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec14_q014",
+    "question": "What specific example from a Stanford lab does the lecture give to illustrate the use of PCA for visualization, and what was the dimensionality of the data before and after applying PCA?",
+    "answer": "The lecture describes an example from Krishna Shenoy's lab at Stanford in which researchers had recordings from tens of neurons in a monkey brain, forming a high-dimensional time series \u2014 described as roughly 50-dimensional data corresponding to different amounts of electrical activity in different parts of the monkey brain. PCA was used to project this approximately 50-dimensional data down to three dimensions, enabling visualization of the data in a 3D plot. This allowed researchers to visualize what the monkey was thinking over time, which the lecturer described as cool.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 3970.0,
+        "end": 4050.0,
+        "hop": 1,
+        "description": "Description of Krishna Shenoy's lab at Stanford using PCA to reduce 50-dimensional monkey neuron recording data to 3 dimensions for visualization"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec14_chunk_111"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "PCA visualization",
+      "neuroscience application",
+      "dimensionality reduction",
+      "monkey brain recordings"
+    ],
+    "video_id": "stanford_cs229_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec14_q015",
+    "question": "What is the precise closed-form update formula for the parameter \u03bc in the M-step of the EM algorithm for factor analysis, expressed in terms of the expectations over the Q distributions?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "hard",
+    "answerable": false,
+    "key_concepts": [
+      "M-step",
+      "mu update",
+      "factor analysis",
+      "EM algorithm"
+    ],
+    "video_id": "stanford_cs229_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  }
+]

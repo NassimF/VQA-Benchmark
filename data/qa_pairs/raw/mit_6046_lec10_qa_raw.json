@@ -1,0 +1,497 @@
+[
+  {
+    "qa_id": "mit_6046_lec10_q001",
+    "question_type": "multi-hop-visual",
+    "video_id": "mit_6046_lec10",
+    "question": "What are the four DP notions listed on the blackboard, and how does the lecture connect the second notion to the efficiency of the algorithm?",
+    "answer": "The four DP notions shown on the blackboard are: (1) Characterize the structure of the optimal solution, (2) Recursively define the value of an optimal solution based on optimal solutions of subproblems, (3) Compute the value of the optimal solution, and (4) Construct an optimal solution from computed information. The lecture connects the second notion\u2014writing the recurrence that relates the optimal value of a bigger problem to optimal values of subproblems\u2014to efficiency by explaining that memoization (caching subproblem solutions) prevents redundant recomputation, turning what would be exponential recursion into polynomial-time computation.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 60.0,
+        "end": 115.0,
+        "hop": 1,
+        "description": "Frame captions showing the four DP notions written on the blackboard"
+      },
+      {
+        "start": 175.0,
+        "end": 250.0,
+        "hop": 2,
+        "description": "Lecture explanation that memoization and step two (recurrence) are the key to efficiency"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec10_chunk_003",
+      "mit_6046_lec10_chunk_006"
+    ],
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "DP notions",
+      "memoization",
+      "recurrence",
+      "optimal substructure"
+    ],
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6046_lec10_q002",
+    "question_type": "multi-hop-visual",
+    "video_id": "mit_6046_lec10",
+    "question": "What Python function definition for the longest palindromic subsequence is shown on the blackboard, and how does the lecture explain the exponential complexity that arises when the memoization step is missing?",
+    "answer": "The blackboard shows the function def L(i, j): with cases returning 1 when i equals j, returning 2 when x[i] equals x[j] and i+1 equals j, returning 2 plus L(i+1, j-1) when the endpoints match, and returning max(L(i+1, j), L(i, j-1)) otherwise. The lecture explains that without a cache lookup, every call spawns two recursive calls, giving a recurrence T(n) = 2T(n-1) with n greater than 1, which solves to 2^(n-1)\u2014exponential complexity\u2014because subproblems are recomputed repeatedly instead of being looked up in constant time.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 980.0,
+        "end": 1030.0,
+        "hop": 1,
+        "description": "Blackboard frame showing the complete def L(i,j) function with all four cases"
+      },
+      {
+        "start": 1085.0,
+        "end": 1130.0,
+        "hop": 2,
+        "description": "Explanation of T(n)=2T(n-1) recurrence and 2^(n-1) exponential complexity without memoization"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec10_chunk_030",
+      "mit_6046_lec10_chunk_031"
+    ],
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "longest palindromic subsequence",
+      "recursion without memoization",
+      "exponential complexity",
+      "recurrence relation"
+    ],
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6046_lec10_q003",
+    "question_type": "multi-hop-visual",
+    "video_id": "mit_6046_lec10",
+    "question": "What words written on the blackboard during the palindrome warm-up exercise illustrate palindromes of increasing length, and how does the lecture use these examples to motivate the need for dynamic programming?",
+    "answer": "The blackboard shows the words 'underqualified', 'deified', 'turboventilator', and 'rotator' as examples used during the warm-up exercise. 'Deified' is a seven-letter palindrome found as a subsequence of 'underqualified', and 'rotator' is a seven-letter palindrome found within 'turboventilator'. The lecture uses these examples to show that finding the longest palindromic subsequence inside a longer string is non-trivial\u2014one must selectively drop letters\u2014and that an exhaustive search would be exponential, motivating the need for a dynamic programming approach with a recurrence over substrings.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 570.0,
+        "end": 630.0,
+        "hop": 1,
+        "description": "Blackboard showing 'underqualified', 'deified', 'turboventilator', 'rotator' written in chalk"
+      },
+      {
+        "start": 750.0,
+        "end": 810.0,
+        "hop": 2,
+        "description": "Lecture explanation that dynamic programming is needed to solve the longest palindromic subsequence problem"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec10_chunk_016",
+      "mit_6046_lec10_chunk_019"
+    ],
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "palindrome examples",
+      "longest palindromic subsequence",
+      "motivation for dynamic programming",
+      "subsequence"
+    ],
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6046_lec10_q004",
+    "question_type": "multi-hop-visual",
+    "video_id": "mit_6046_lec10",
+    "question": "What cost formula is written on the blackboard for the optimal BST problem, and how does the lecture use the Nick Davis counter-example with weights w1=1, w2=10, w3=8, w4=9 to show that the greedy algorithm fails?",
+    "answer": "The blackboard shows the formula: minimize the sum over i from 1 to n of w_i times (depth_T(K_i) plus 1), where the depth of the root is zero. In the Nick Davis counter-example, the greedy algorithm picks node 2 (weight 10) as root because it has the highest weight, placing node 1 on the left and nodes 4 and 3 on the right, yielding a cost of 1\u00d72 + 10\u00d71 + 9\u00d72 + 8\u00d73 = 54. However, picking node 3 (weight 8) as root gives cost 1\u00d73 + 10\u00d72 + 8\u00d71 + 9\u00d72 = 49, which is strictly less than 54, proving the greedy heuristic does not always produce the optimal BST.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1590.0,
+        "end": 1650.0,
+        "hop": 1,
+        "description": "Blackboard frame showing the BST cost formula sum of w_i*(depth+1)"
+      },
+      {
+        "start": 2520.0,
+        "end": 2600.0,
+        "hop": 2,
+        "description": "Nick Davis counter-example with four nodes showing greedy gives 54 but optimal is 49"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec10_chunk_046",
+      "mit_6046_lec10_chunk_074"
+    ],
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "optimal BST cost function",
+      "greedy algorithm failure",
+      "counter-example",
+      "weighted depth"
+    ],
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6046_lec10_q005",
+    "question_type": "multi-hop-visual",
+    "video_id": "mit_6046_lec10",
+    "question": "What topics are listed on the main lecture blackboard at the start of the session, and how does the lecture describe the progression of difficulty across those three problems?",
+    "answer": "The blackboard lists three topics: Longest Palindromic Sequence, Optimal Binary Search Trees, and Alternating Coin Game. The lecture describes a deliberate progression of difficulty: the longest palindromic subsequence problem is at approximately the level of 6.006 and serves as a review, the optimal BST problem is more sophisticated and introduces the idea that greedy fails where DP succeeds, and the alternating coin game is beyond what was covered in 6.006 because it introduces adversarial reasoning about an opponent's moves\u2014requiring a new modeling step not seen in the other two problems.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 35.0,
+        "end": 115.0,
+        "hop": 1,
+        "description": "Frame caption showing blackboard with three DP topics listed"
+      },
+      {
+        "start": 60.0,
+        "end": 200.0,
+        "hop": 2,
+        "description": "Lecture narration describing the three problems as progressively more sophisticated"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec10_chunk_001",
+      "mit_6046_lec10_chunk_002"
+    ],
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "lecture topics",
+      "difficulty progression",
+      "dynamic programming examples",
+      "adversarial game"
+    ],
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6046_lec10_q006",
+    "question_type": "multi-hop-visual",
+    "video_id": "mit_6046_lec10",
+    "question": "What does the blackboard show about the e(i,j) recurrence for optimal BSTs, and how does the lecture justify why the sum of all weights W(i,j) must be added outside the minimization over the root choice r?",
+    "answer": "The blackboard shows the recurrence e(i,j) = w_i (when i equals j) and e(i,j) = min over r from i to j of [e(i, r-1) + e(r+1, j)] plus W(i,j), where W(i,j) is the sum of all weights from index i to j. The lecture justifies adding W(i,j) outside the minimization by explaining that every node in the subproblem e(i,j) sits one level deeper when it becomes a child of a root in a larger problem, so each weight gets added once more at each level of recursion. Since this additive term does not depend on the choice of root r, it can be pulled out of the minimization, making the recurrence both correct and computationally clean.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2940.0,
+        "end": 3000.0,
+        "hop": 1,
+        "description": "Blackboard frame showing e(i,j) = min(e(i,r-1)+e(r+1,j)) + W(i,j) written in chalk"
+      },
+      {
+        "start": 3160.0,
+        "end": 3230.0,
+        "hop": 2,
+        "description": "Lecture explanation that weights appear multiple times due to depth and W(i,j) is independent of r"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec10_chunk_089",
+      "mit_6046_lec10_chunk_092"
+    ],
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "optimal BST recurrence",
+      "W(i,j) weight sum",
+      "depth accounting",
+      "minimization over root"
+    ],
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6046_lec10_q007",
+    "question_type": "multi-hop-visual",
+    "video_id": "mit_6046_lec10",
+    "question": "What does the blackboard show about the alternating coin game DP recurrence v(i,j), and how does the lecture connect the first-player advantage demonstrated in the classroom game to the DP formulation?",
+    "answer": "The blackboard shows the recurrence v(i,j) = max{ min{v(i+1,j-1), v(i+2,j)} + v_i, min{v(i+1,j-1), v(i,j-2)} + v_j }, with base cases v(i,i) = v_i and v(i,i+1) = max(v_i, v_{i+1}). The lecture connects this to the classroom demonstration by explaining that the first player (Josiah) was guaranteed not to lose by comparing the sum of odd-indexed coins versus even-indexed coins and always picking from the winning parity; however, to actually maximize total winnings rather than just guarantee a win, one needs the full DP because the optimal sequence of picks depends on the opponent's responses, which are modeled by the inner min (assuming the opponent plays optimally).",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 4620.0,
+        "end": 4700.0,
+        "hop": 1,
+        "description": "Blackboard showing v(i,j) = max{min{...}+vi, min{...}+vj} DP recurrence"
+      },
+      {
+        "start": 3700.0,
+        "end": 3800.0,
+        "hop": 2,
+        "description": "Classroom game with Josiah and Tessa showing first-player advantage via odd/even coin parity argument"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec10_chunk_133",
+      "mit_6046_lec10_chunk_103"
+    ],
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "alternating coin game",
+      "DP recurrence",
+      "first-player advantage",
+      "minimax modeling"
+    ],
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6046_lec10_q008",
+    "question_type": "visual",
+    "video_id": "mit_6046_lec10",
+    "question": "What specific text is written on the blackboard in the frame shown during the optimal BST section that defines the problem inputs and objective?",
+    "answer": "The blackboard in the optimal BST section displays the following text: 'Optimal BSTs', 'keys K1, K2, ..., Kn' with the ordering condition K1 less than K2 less than ... less than Kn, 'weights w1, w2, ..., wn (search probabilities)', and 'BST T that minimizes the sum of w_i times (depth(T(K_i)) plus 1)'. This clearly states that the inputs are an ordered set of keys with associated search-probability weights, and the goal is to find the binary search tree structure minimizing the weighted sum of depths plus one.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1770.0,
+        "end": 1830.0,
+        "hop": 1,
+        "description": "Frame caption describing the optimal BST blackboard with keys, weights, and minimization formula"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec10_chunk_049"
+    ],
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "optimal BST definition",
+      "search probabilities",
+      "cost function",
+      "blackboard content"
+    ],
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6046_lec10_q009",
+    "question_type": "visual",
+    "video_id": "mit_6046_lec10",
+    "question": "What sequence of numbers and player labels is written on the blackboard during the alternating coin game demonstration played by Josiah and Tessa?",
+    "answer": "The blackboard during the alternating coin game demonstration shows the row of six coin values: 4, 42, 39, 19, 25, and 6, accompanied by arrows pointing downward from each number, with the labels 'J' (for Josiah) and 'T' (for Tessa) indicating which player selected each coin, along with the title 'Row of n coins of values V1, V2, ..., Vn, n even' and the instruction 'Select either the first or last coin from the row, remove permanently, receive the value'.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 3610.0,
+        "end": 3660.0,
+        "hop": 1,
+        "description": "Frame caption showing blackboard with 4, 42, 39, 19, 25, 6 and J/T labels with arrows"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec10_chunk_100"
+    ],
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "alternating coin game",
+      "coin values",
+      "game demonstration",
+      "blackboard"
+    ],
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6046_lec10_q010",
+    "question_type": "multi-hop",
+    "video_id": "mit_6046_lec10",
+    "question": "How does the lecture explain the Theta(n^2) complexity of the memoized longest palindromic subsequence algorithm, connecting the number of subproblems to the per-subproblem cost?",
+    "answer": "The lecture explains that the memoized version achieves Theta(n^2) complexity by applying the standard DP complexity formula: number of subproblems multiplied by the time to solve each subproblem given that smaller ones are already solved. For the longest palindromic subsequence, the subproblems are all pairs (i, j) with i less than or equal to j, giving Theta(n^2) distinct subproblems. Once the cache is in place, solving each subproblem requires only a comparison and a maximum or addition operation\u2014all Theta(1) work\u2014because the recursive calls simply look up already-computed values in the 2D array. The product of Theta(n^2) subproblems and Theta(1) per-subproblem cost gives the overall Theta(n^2) complexity.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1050.0,
+        "end": 1090.0,
+        "hop": 1,
+        "description": "Explanation that there are Theta(n^2) subproblems corresponding to all pairs (i,j)"
+      },
+      {
+        "start": 1260.0,
+        "end": 1310.0,
+        "hop": 2,
+        "description": "Explanation that each subproblem takes Theta(1) time given cached results, yielding Theta(n^2) total"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec10_chunk_029",
+      "mit_6046_lec10_chunk_037"
+    ],
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "Theta(n^2) complexity",
+      "memoization",
+      "subproblem count",
+      "per-subproblem cost"
+    ],
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6046_lec10_q011",
+    "question_type": "multi-hop",
+    "video_id": "mit_6046_lec10",
+    "question": "How does the lecture describe the first-player winning strategy in the alternating coin game without dynamic programming, and why does this strategy not guarantee maximizing total collected value?",
+    "answer": "The lecture describes a simple first-player strategy: before the game begins, compute the sum of all odd-indexed coins (V1 + V3 + V5 + ... + V_{n-1}) and compare it with the sum of all even-indexed coins (V2 + V4 + ... + V_n). Whichever sum is larger determines the preferred parity. The first player then always picks from whichever end of the remaining row exposes the next coin of the preferred parity. This works because after the first player takes an odd-indexed coin, only even-indexed endpoints remain for the opponent, and vice versa, so the first player can always maintain access to the desired parity. However, this strategy only guarantees not losing\u2014it does not maximize total value because following the parity rule may force suboptimal choices when a non-parity coin at the other end has much higher value, which is the problem the full dynamic programming solution addresses.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3870.0,
+        "end": 3960.0,
+        "hop": 1,
+        "description": "Explanation of computing odd-sum vs even-sum and picking the winning parity as first player"
+      },
+      {
+        "start": 4200.0,
+        "end": 4280.0,
+        "hop": 2,
+        "description": "Explanation that parity strategy guarantees not losing but not maximizing, motivating the full DP"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec10_chunk_105",
+      "mit_6046_lec10_chunk_109"
+    ],
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "alternating coin game",
+      "parity strategy",
+      "first-player advantage",
+      "maximization vs. guarantee"
+    ],
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6046_lec10_q012",
+    "question_type": "multi-hop",
+    "video_id": "mit_6046_lec10",
+    "question": "Why does the lecture argue that the optimal BST problem requires dynamic programming rather than a greedy algorithm, and what is the general DP principle it invokes when the identity of the optimal root is unknown?",
+    "answer": "The lecture argues that the natural greedy heuristic\u2014always placing the highest-weight key at the root to minimize its depth contribution\u2014fails because a high-weight key may also be an extreme key (largest or smallest), forcing all other nodes onto one side and producing a heavily unbalanced tree whose total cost exceeds a more balanced alternative. The Nick Davis four-node counter-example with weights 1, 10, 8, 9 concretely demonstrates this: greedily picking the weight-10 node as root gives cost 54, while picking the weight-8 node as root gives cost 49. When the identity of the optimal root is unknown, the lecture invokes the DP principle of guessing all possibilities\u2014trying each of the n keys as the root and taking the minimum\u2014which keeps the algorithm polynomial (linear number of guesses per subproblem) while guaranteeing optimality.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2490.0,
+        "end": 2590.0,
+        "hop": 1,
+        "description": "Counter-example showing greedy gives cost 54 while optimal is 49, proving greedy fails"
+      },
+      {
+        "start": 2710.0,
+        "end": 2780.0,
+        "hop": 2,
+        "description": "DP principle: guess all possible roots (linear guesses) and take the minimum to guarantee optimality"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec10_chunk_074",
+      "mit_6046_lec10_chunk_077"
+    ],
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "greedy failure",
+      "optimal BST",
+      "guessing in DP",
+      "counter-example"
+    ],
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6046_lec10_q013",
+    "question_type": "text",
+    "video_id": "mit_6046_lec10",
+    "question": "What specific single line of code does the lecturer say would fix the exponential complexity of the naive recursive longest palindromic subsequence implementation, and what data structure does he use to implement it?",
+    "answer": "The lecturer says that a single cache lookup line added before the recursive calls would fix the exponential complexity. Specifically, he describes checking the entry L[i][j] in a two-dimensional array before computing anything\u2014if the value has already been stored there, return it immediately instead of recursing. He overloads the name L to refer to this 2D array (as opposed to the recursive function), using i and j directly as indices into the array, which guarantees order-one lookup with no hash collisions and transforms the exponential 2^(n-1) algorithm into a Theta(n^2) dynamic programming solution.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1105.0,
+        "end": 1160.0,
+        "hop": 1,
+        "description": "Lecturer describes adding a 2D array cache lookup L[i][j] as the single fix for exponential complexity"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec10_chunk_032"
+    ],
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "memoization",
+      "2D cache array",
+      "single-line fix",
+      "order-one lookup"
+    ],
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6046_lec10_q014",
+    "question_type": "text",
+    "video_id": "mit_6046_lec10",
+    "question": "How does the lecturer explain why the alternating coin game DP subproblem v(i, i+2) is more complex than v(i, i) or v(i, i+1), and what does this reveal about the modeling requirement for opponent moves?",
+    "answer": "The lecturer explains that v(i,i) is trivial\u2014only one coin remains and the current player simply picks it, receiving v_i. The case v(i, i+1) is also straightforward\u2014two coins remain and the current player picks whichever is larger, so v(i, i+1) equals max(v_i, v_{i+1}). However, v(i, i+2) involves three coins, which is an odd number, and this is the first case where the current player must reason about what the opponent will do after the current player's pick. This reveals that the DP must explicitly model the opponent's move as a separate subproblem: after the current player picks one coin, the opponent sees an even-coin board and picks optimally, and the current player then receives the result of a new subproblem. This adversarial modeling\u2014using a min over the opponent's possible picks\u2014is what distinguishes this DP from the previous two examples in the lecture.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 4130.0,
+        "end": 4230.0,
+        "hop": 1,
+        "description": "Lecture explanation of base cases v(i,i) and v(i,i+1) and why v(i,i+2) requires opponent modeling"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec10_chunk_118"
+    ],
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "alternating coin game",
+      "base cases",
+      "opponent modeling",
+      "adversarial DP"
+    ],
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6046_lec10_q015",
+    "question_type": "unanswerable",
+    "video_id": "mit_6046_lec10",
+    "question": "What is the exact asymptotic complexity of constructing the optimal binary search tree structure (not just computing the cost) as analyzed in this lecture, and how many additional lines of back-tracing code does the lecturer write on the board to demonstrate it?",
+    "answer": "",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "difficulty": "hard",
+    "answerable": false,
+    "key_concepts": [
+      "optimal BST construction complexity",
+      "back-tracing code",
+      "unanswerable"
+    ],
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  }
+]

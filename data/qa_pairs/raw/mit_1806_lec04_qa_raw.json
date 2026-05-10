@@ -1,0 +1,497 @@
+[
+  {
+    "qa_id": "mit_1806_lec04_q001",
+    "question": "What visual formula is shown on the blackboard at the start of the lecture connecting A and its inverse, and how does the lecture later use this relationship to derive the LU decomposition?",
+    "answer": "The blackboard at the start of the lecture shows the formula AA^(-1) = I = A^(-1)A, establishing that a matrix times its inverse gives the identity. The lecture later uses this relationship by showing that elimination steps represented as E matrices can be inverted and placed on the right side of the equation, so that the product of inverse elimination matrices forms L, yielding the factorization A = LU where L is lower triangular and U is upper triangular.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 35.0,
+        "end": 80.0,
+        "hop": 1,
+        "description": "Blackboard shows AA^(-1) = I = A^(-1)A at start of lecture"
+      },
+      {
+        "start": 1545.0,
+        "end": 1630.0,
+        "hop": 2,
+        "description": "Lecture derives A = LU from inverse elimination matrices"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_1806_lec04_chunk_001",
+      "mit_1806_lec04_chunk_028"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "matrix inverse",
+      "identity matrix",
+      "LU decomposition",
+      "elimination matrices"
+    ],
+    "video_id": "mit_1806_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_1806_lec04_q002",
+    "question": "The blackboard caption in the early part of the lecture lists four main topics for Lecture 4. Which of those topics connects directly to the result that multipliers go directly into L when there are no row exchanges, as discussed later in the lecture?",
+    "answer": "The blackboard lists 'Product of elimination matrices' and 'A = LU (no row exchanges)' as topics for Lecture 4. The topic 'Product of elimination matrices' connects directly to the result that when the inverses of the elimination matrices are taken in reverse order, the multipliers used during elimination steps sit cleanly in the lower triangular matrix L without interference, so the multipliers go directly into L when no row exchanges are needed.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 70.0,
+        "end": 115.0,
+        "hop": 1,
+        "description": "Blackboard caption lists lecture topics including Product of elimination matrices and A=LU"
+      },
+      {
+        "start": 1505.0,
+        "end": 1590.0,
+        "hop": 2,
+        "description": "Lecture explains multipliers go directly into L with no row exchanges"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_1806_lec04_chunk_001",
+      "mit_1806_lec04_chunk_042"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "elimination matrices",
+      "LU decomposition",
+      "multipliers",
+      "lower triangular matrix"
+    ],
+    "video_id": "mit_1806_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_1806_lec04_q003",
+    "question": "The frame caption for the 2x2 example shows a specific matrix A on the blackboard. What matrix L does the lecture derive from the elimination matrix E21 for that example, and why does L have a plus sign where E21 had a minus sign?",
+    "answer": "The blackboard frame caption shows the 2x2 matrix A with entries 2, 8 in the first row and 1, 7 in the second row. The lecture derives L as the inverse of E21, which has a plus sign because L adds back the multiple that E21 removed. Since E21 subtracted 4 times row one from row two (containing -4), the inverse matrix L has +4 in that position, giving L the form with 1 on the diagonal and 4 below it. The sign reversal occurs because inverting an elimination matrix simply changes the subtraction back to addition.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 525.0,
+        "end": 570.0,
+        "hop": 1,
+        "description": "Frame caption shows 2x2 matrix A = [[2,8],[1,7]] on blackboard"
+      },
+      {
+        "start": 660.0,
+        "end": 715.0,
+        "hop": 2,
+        "description": "Lecture explains inverse of E21 has plus sign, giving L"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_1806_lec04_chunk_016",
+      "mit_1806_lec04_chunk_019"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "elimination matrix",
+      "matrix inverse",
+      "lower triangular matrix",
+      "multipliers"
+    ],
+    "video_id": "mit_1806_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_1806_lec04_q004",
+    "question": "Based on the blackboard caption showing the equation for operations on an n\u00d7n matrix A, and the lecture's derivation of the operation count, what is the dominant term for the total number of operations and how is it derived from summing squared terms?",
+    "answer": "The blackboard shows the question 'How many operations on n\u00d7n matrix A?' with n=100. The lecture derives the count by summing n\u00b2 + (n-1)\u00b2 + (n-2)\u00b2 + ... + 1\u00b2, where each squared term represents the approximate cost at each elimination step as the active submatrix shrinks. Using calculus as an analogy, integrating x\u00b2 from 0 to n gives (1/3)n\u00b3, so the dominant term for the total operation count is approximately (1/3)n\u00b3, meaning elimination on an n\u00d7n matrix costs on the order of n cubed divided by three.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1635.0,
+        "end": 1680.0,
+        "hop": 1,
+        "description": "Blackboard caption shows 'How many operations on n\u00d7n matrix A?' with n=100"
+      },
+      {
+        "start": 2175.0,
+        "end": 2255.0,
+        "hop": 2,
+        "description": "Lecture derives 1/3 n^3 as dominant operation count using calculus analogy"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_1806_lec04_chunk_047",
+      "mit_1806_lec04_chunk_063"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "operation count",
+      "Gaussian elimination",
+      "n^3 complexity",
+      "matrix factorization"
+    ],
+    "video_id": "mit_1806_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_1806_lec04_q005",
+    "question": "The frame caption for the permutations section shows a blackboard labeled 'Permutations 3x3.' How many 3\u00d73 permutation matrices exist according to the lecture, and what key property do their inverses satisfy that is mentioned later?",
+    "answer": "The blackboard labeled 'Permutations 3x3' leads into the lecture's enumeration of all permutation matrices for a 3\u00d73 case. According to the lecture, there are exactly six 3\u00d73 permutation matrices, corresponding to all possible rearrangements of rows of the identity matrix. The key property mentioned later is that the inverse of each permutation matrix equals its transpose, meaning P^(-1) = P^T for any permutation matrix.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2520.0,
+        "end": 2565.0,
+        "hop": 1,
+        "description": "Blackboard caption shows 'Permutations 3x3' on the board"
+      },
+      {
+        "start": 2800.0,
+        "end": 2865.0,
+        "hop": 2,
+        "description": "Lecture states inverse of permutation matrix equals its transpose, and there are six 3x3 permutation matrices"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_1806_lec04_chunk_072",
+      "mit_1806_lec04_chunk_080"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "permutation matrices",
+      "matrix inverse",
+      "transpose",
+      "row exchanges"
+    ],
+    "video_id": "mit_1806_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_1806_lec04_q006",
+    "question": "The chalkboard caption in chunk 43 shows the statement 'If no row exchanges, multipliers go directly into L.' How does this statement connect to the earlier visual demonstration involving the 3\u00d73 case where multiplying E matrices in the wrong order produced an unexpected entry of 10?",
+    "answer": "In the 3\u00d73 demonstration, multiplying the elimination matrices E32 and E21 together in the order they were applied produced an unexpected entry of 10 in the product, because subtracting two of row one affected row two, and then subtracting five of that modified row two affected row three, so the effect of row one on row three was amplified by a factor of 10. This contamination does not occur when taking the inverses in reverse order to form L, because in that arrangement the multipliers simply occupy their natural positions in L without interacting. The statement on the chalkboard thus captures the key insight that reversing the order of the inverse matrices allows the multipliers to drop cleanly into L.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1155.0,
+        "end": 1200.0,
+        "hop": 1,
+        "description": "3x3 demonstration showing unexpected entry of 10 when E matrices multiplied in wrong order"
+      },
+      {
+        "start": 1505.0,
+        "end": 1550.0,
+        "hop": 2,
+        "description": "Chalkboard states 'If no row exchanges, multipliers go directly into L'"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_1806_lec04_chunk_033",
+      "mit_1806_lec04_chunk_043"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "elimination matrices",
+      "multipliers",
+      "LU decomposition",
+      "matrix multiplication order"
+    ],
+    "video_id": "mit_1806_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_1806_lec04_q007",
+    "question": "The frame caption in chunk 55 shows the blackboard expression for the operation count written as '(multiply + subtract) on n\u00d7n matrix A.' How does the lecture connect this to the cost of processing additional right-hand side vectors B after the LU factorization is already done?",
+    "answer": "The blackboard expression for the operation count on an n\u00d7n matrix A shows the full elimination cost which the lecture derives to be approximately (1/3)n\u00b3. The lecture then explains that once A has been factored into L and U, each additional right-hand side vector B can be processed at a much lower cost of approximately n\u00b2 operations, because B is just a single column that is carried through forward substitution with L and then back substitution with U. This means that if there are many right-hand sides, one pays the large cost once for the matrix A and then a much smaller cost for each new right-hand side.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1955.0,
+        "end": 2015.0,
+        "hop": 1,
+        "description": "Blackboard shows operation count formula (multiply + subtract) on n\u00d7n matrix A"
+      },
+      {
+        "start": 2345.0,
+        "end": 2425.0,
+        "hop": 2,
+        "description": "Lecture explains cost of each right-hand side B is n^2 after LU factorization"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_1806_lec04_chunk_055",
+      "mit_1806_lec04_chunk_068"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "operation count",
+      "LU decomposition",
+      "back substitution",
+      "computational cost"
+    ],
+    "video_id": "mit_1806_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_1806_lec04_q008",
+    "question": "According to the frame caption describing the blackboard at the very beginning of Lecture 4, what are the four main topics listed for this lecture?",
+    "answer": "According to the frame caption describing the blackboard at the beginning of Lecture 4, the four main topics listed are: the inverse of AB and A^T, the product of elimination matrices, A = LU (no row exchanges), and the relationship between these matrix factorizations as core content of the lecture.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 0.0,
+        "end": 45.0,
+        "hop": 1,
+        "description": "Frame caption lists four lecture topics on the opening blackboard"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_1806_lec04_chunk_000"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "lecture topics",
+      "inverse of AB",
+      "LU decomposition",
+      "elimination matrices"
+    ],
+    "video_id": "mit_1806_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_1806_lec04_q009",
+    "question": "Based on the frame caption for chunk 43, what exact statement is written on the blackboard regarding the LU decomposition and the behavior of multipliers?",
+    "answer": "According to the frame caption for chunk 43, the blackboard states: 'A = LU' and 'If no row exchanges multipliers go directly into L.' This statement captures the key insight that when Gaussian elimination proceeds without any row exchanges, the multipliers used at each elimination step populate the lower triangular matrix L directly, without any additional computation or rearrangement being required.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1505.0,
+        "end": 1550.0,
+        "hop": 1,
+        "description": "Frame caption shows 'If no row exchanges multipliers go directly into L' on the blackboard"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_1806_lec04_chunk_043"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "LU decomposition",
+      "multipliers",
+      "lower triangular matrix",
+      "row exchanges"
+    ],
+    "video_id": "mit_1806_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_1806_lec04_q010",
+    "question": "The lecture gives an analogy involving shoes and socks to explain why the inverse of a product AB is B inverse times A inverse rather than A inverse times B inverse. How does the lecture then apply this same reverse-order principle to derive the formula for the inverse of a transpose?",
+    "answer": "The lecture uses the shoes-and-socks analogy to explain that to reverse a sequence of operations you must undo them in the opposite order, which is why (AB)^(-1) = B^(-1)A^(-1). The lecture then applies this same principle to transposes by starting from the equation AA^(-1) = I and transposing both sides: since the identity is symmetric the transpose of the identity is still the identity, and transposing a product reverses order just as inverting does, giving (A^(-1))^T times A^T equals the identity. This means (A^(-1))^T is the inverse of A^T, establishing that the inverse of A transpose equals the transpose of A inverse, and that transposing and inverting can be done in either order.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 295.0,
+        "end": 400.0,
+        "hop": 1,
+        "description": "Shoes and socks analogy explaining reverse order for inverse of AB"
+      },
+      {
+        "start": 485.0,
+        "end": 600.0,
+        "hop": 2,
+        "description": "Lecture derives inverse of A transpose using the same reverse-order principle"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_1806_lec04_chunk_006",
+      "mit_1806_lec04_chunk_009"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "inverse of product",
+      "transpose",
+      "reverse order",
+      "matrix identities"
+    ],
+    "video_id": "mit_1806_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_1806_lec04_q011",
+    "question": "In the 3\u00d73 elimination example, the lecture explains why multiplying the E matrices together in the order they are applied produces an unwanted entry of 10, but taking their inverses in reverse order avoids this problem. What specific row operations caused the 10 to appear, and why does reversing the order prevent it?",
+    "answer": "The unwanted entry of 10 appeared because during forward elimination, E21 subtracted 2 times row one from row two, and then E32 subtracted 5 times the modified row two from row three. Since the modified row two already contained contributions from row one, the effect of row one on row three was 5 times 2, which equals 10. When the inverses are taken in reverse order to form L, each inverse matrix independently adds back only its own multiplier without any cascading interaction. The inverse of E21 simply places the multiplier 2 in its position in L, and the inverse of E32 places the multiplier 5 in its position, so the 10 never appears and the multipliers sit cleanly in L.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1155.0,
+        "end": 1240.0,
+        "hop": 1,
+        "description": "Lecture explains how subtracting 2 of row one then 5 of row two caused entry of 10"
+      },
+      {
+        "start": 1380.0,
+        "end": 1450.0,
+        "hop": 2,
+        "description": "Lecture explains taking inverses in reverse order places multipliers cleanly in L"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_1806_lec04_chunk_033",
+      "mit_1806_lec04_chunk_036"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "elimination matrices",
+      "matrix multiplication order",
+      "multipliers",
+      "LU decomposition"
+    ],
+    "video_id": "mit_1806_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_1806_lec04_q012",
+    "question": "The lecture discusses the computational cost of Gaussian elimination and separately the cost of processing the right-hand side vector b. How does the lecture relate these two costs, and what practical advantage does the LU factorization provide when there are multiple right-hand sides?",
+    "answer": "The lecture establishes that Gaussian elimination on an n\u00d7n matrix A costs approximately (1/3)n\u00b3 operations, which is the dominant cost. Processing each right-hand side vector b through forward and back substitution costs approximately n\u00b2 operations, which is far smaller. The practical advantage of LU factorization is that the expensive work of factoring A into L and U is done once, and then every additional right-hand side can be solved cheaply at n\u00b2 cost rather than repeating the full n\u00b3 elimination. This makes the approach highly efficient when the same matrix A must be solved with many different right-hand side vectors.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2210.0,
+        "end": 2270.0,
+        "hop": 1,
+        "description": "Lecture states total elimination cost is approximately 1/3 n^3"
+      },
+      {
+        "start": 2345.0,
+        "end": 2420.0,
+        "hop": 2,
+        "description": "Lecture states cost of each right-hand side b is n^2 and explains the practical advantage"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_1806_lec04_chunk_063",
+      "mit_1806_lec04_chunk_067"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "computational cost",
+      "LU decomposition",
+      "n^3 operations",
+      "right-hand side"
+    ],
+    "video_id": "mit_1806_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_1806_lec04_q013",
+    "question": "What is the specific 2\u00d72 example matrix A that the professor uses to illustrate the A = LU decomposition in this lecture, and what are the resulting L and U matrices?",
+    "answer": "The professor uses the specific 2\u00d72 matrix A with entries 2 and 8 in the first row and 1 and 7 in the second row. The first pivot is 2 and the multiplier is 4, so the elimination subtracts 4 times row one from row two to produce U with entries 2 and 8 in the first row and 0 and 3 in the second row. The lower triangular matrix L has 1 and 0 in the first row and 4 and 1 in the second row, storing the multiplier 4 in the lower left position with ones on the diagonal.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 495.0,
+        "end": 620.0,
+        "hop": 1,
+        "description": "Professor introduces 2x2 matrix A = [[2,8],[1,7]] and derives L and U"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_1806_lec04_chunk_015"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "LU decomposition",
+      "2x2 matrix",
+      "pivot",
+      "multiplier"
+    ],
+    "video_id": "mit_1806_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_1806_lec04_q014",
+    "question": "How does Professor Strang describe the relationship between the LDU factorization and the standard LU factorization in this lecture, and which form does he say he will primarily use?",
+    "answer": "Professor Strang explains that the standard LU factorization stores the pivots on the diagonal of U while L has ones on its diagonal. An alternative form called LDU separates out the pivot values into a diagonal matrix D placed between L and U, so that both L and the new U have ones on their diagonals, producing a more balanced decomposition. He notes that MATLAB can produce either form, but states that he will basically stay with the standard LU form for the course rather than the LDU form.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 735.0,
+        "end": 815.0,
+        "hop": 1,
+        "description": "Professor explains LDU factorization as alternative to LU and states he will stay with LU"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_1806_lec04_chunk_022"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "LDU factorization",
+      "LU decomposition",
+      "pivot matrix",
+      "diagonal matrix"
+    ],
+    "video_id": "mit_1806_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_1806_lec04_q015",
+    "question": "What is the exact numerical value of the determinant of the lower triangular matrix L produced in the 2\u00d72 LU decomposition example shown in this lecture?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "medium",
+    "answerable": false,
+    "key_concepts": [
+      "determinant",
+      "lower triangular matrix",
+      "LU decomposition"
+    ],
+    "video_id": "mit_1806_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  }
+]

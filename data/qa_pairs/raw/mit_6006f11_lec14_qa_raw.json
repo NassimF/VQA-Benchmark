@@ -1,0 +1,508 @@
+[
+  {
+    "qa_id": "mit_6006f11_lec14_q001",
+    "question": "What visual diagram appears on the lecture slide introducing today's topics, and how does the DFS algorithm shown in the pseudocode handle vertices that have already been visited?",
+    "answer": "The introductory lecture slide shows a graph diagram with nodes and edges alongside the topic list including depth-first search, edge classification, cycle detection, and topological sort. The DFS algorithm handles already-visited vertices by checking if a vertex v is in the parent dictionary; if it already has a parent entry, the algorithm simply skips it and moves to the next edge, ensuring each vertex is visited at most once.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 0.0,
+        "end": 45.0,
+        "hop": 1,
+        "description": "Introductory slide showing today's topics and graph diagram visual"
+      },
+      {
+        "start": 305.0,
+        "end": 360.0,
+        "hop": 2,
+        "description": "DFS-Visit pseudocode showing how already-visited vertices are skipped via parent check"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec14_chunk_000",
+      "mit_6006f11_lec14_chunk_010"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "DFS",
+      "visited vertices",
+      "parent dictionary",
+      "lecture slide topics"
+    ],
+    "video_id": "mit_6006f11_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q002",
+    "question": "The blackboard frame shows 'Depth-first search (DFS)' written during the maze analogy explanation, and later shows 'Analysis: O(V+E) (linear time)'. What is the conceptual connection between the breadcrumb strategy described in the maze analogy and why the algorithm achieves linear time?",
+    "answer": "The maze breadcrumb strategy corresponds to the parent pointer mechanism in DFS: each visited vertex gets its parent set, serving as a breadcrumb that prevents revisiting. This directly causes the linear time complexity because each vertex is visited exactly once (contributing O(V)), and each edge is examined at most once per direction (contributing O(E)), yielding the overall O(V+E) running time just as breadcrumbs prevent backtracking into already-explored corridors.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 240.0,
+        "end": 305.0,
+        "hop": 1,
+        "description": "Maze analogy and breadcrumb strategy described, blackboard shows 'Depth-first search (DFS)'"
+      },
+      {
+        "start": 960.0,
+        "end": 1020.0,
+        "hop": 2,
+        "description": "Analysis shown as O(V+E) linear time on blackboard with explanation of why"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec14_chunk_004",
+      "mit_6006f11_lec14_chunk_028"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "DFS",
+      "breadcrumb analogy",
+      "parent pointer",
+      "linear time complexity",
+      "O(V+E)"
+    ],
+    "video_id": "mit_6006f11_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q003",
+    "question": "The frame captions show a directed graph with nodes labeled in the DFS example, and the lecture describes visiting vertices starting with 'a' in alphabetical order. What is the parent pointer assigned to vertex E during the DFS traversal, and what type of edge connects vertex D back to vertex B according to the edge classification shown?",
+    "answer": "During the DFS traversal starting from vertex A in alphabetical order, vertex E is visited from B and receives a parent pointer of B. The edge from D back to B is classified as a backward edge, because B is an ancestor of D in the DFS tree (B is the parent of E, which is the parent of D), so the edge from D leads back up to an ancestor in the recursion stack.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 665.0,
+        "end": 730.0,
+        "hop": 1,
+        "description": "DFS traversal example showing B gets parent A, E gets parent B during alphabetical traversal"
+      },
+      {
+        "start": 1295.0,
+        "end": 1360.0,
+        "hop": 2,
+        "description": "Edge classification explaining backward edges go from a node to an ancestor in the tree"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec14_chunk_018",
+      "mit_6006f11_lec14_chunk_036"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "DFS traversal",
+      "parent pointers",
+      "backward edge",
+      "edge classification"
+    ],
+    "video_id": "mit_6006f11_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q004",
+    "question": "The lecture slide shows the top-level DFS pseudocode iterating over all vertices V, and later the blackboard displays 'Cycle detection: G has a cycle iff DFS has a back edge'. How does the top-level DFS loop contribute to ensuring cycle detection works for graphs that are not strongly connected?",
+    "answer": "The top-level DFS loop iterates over every vertex in V and calls DFS-Visit on any vertex that has not yet been visited. This ensures that all connected components of the graph are explored, not just the part reachable from a single starting vertex. For cycle detection, this means back edges in any component of the graph will be discovered, guaranteeing that if any directed cycle exists anywhere in the graph, it will be detected because the corresponding back edge will be found during the exhaustive traversal.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 490.0,
+        "end": 555.0,
+        "hop": 1,
+        "description": "Top-level DFS pseudocode shown iterating over all vertices to handle disconnected graphs"
+      },
+      {
+        "start": 1870.0,
+        "end": 1935.0,
+        "hop": 2,
+        "description": "Cycle detection theorem stated: G has cycle iff DFS has back edge"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec14_chunk_013",
+      "mit_6006f11_lec14_chunk_053"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "top-level DFS",
+      "disconnected graphs",
+      "cycle detection",
+      "back edges",
+      "strongly connected components"
+    ],
+    "video_id": "mit_6006f11_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q005",
+    "question": "The frame caption for the job scheduling section shows a DAG diagram with vertices labeled A through I, and the lecture later describes the topological sort algorithm. What specific output order is described as valid for the example graph, and what property must every edge satisfy in that ordering?",
+    "answer": "The valid topological order described is: G, A, H, D, B, E, C, F, I. Every edge in this ordering must satisfy the property that it points from a vertex with a lower position number to a vertex with a higher position number in the sequence, meaning all edges go from earlier-scheduled vertices to later-scheduled ones. This ensures all dependencies are respected so that every predecessor in the directed acyclic graph is completed before any of its successors.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2620.0,
+        "end": 2685.0,
+        "hop": 1,
+        "description": "DAG diagram shown with vertices A-I and job scheduling explanation"
+      },
+      {
+        "start": 2660.0,
+        "end": 2725.0,
+        "hop": 2,
+        "description": "Valid topological order G,A,H,D,B,E,C,F,I described with all edges pointing lower to higher order"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec14_chunk_076",
+      "mit_6006f11_lec14_chunk_077"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "topological sort",
+      "DAG",
+      "job scheduling",
+      "edge ordering",
+      "valid order"
+    ],
+    "video_id": "mit_6006f11_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q006",
+    "question": "The blackboard frame shows pseudocode for DFS-Visit with the condition 'if v not in parent', and the correctness proof frame shows 'for any edge e=(u,v), v finishes before u finishes'. For a tree edge in a DAG, how does the DFS-Visit condition connect to proving that v always finishes before u in the topological sort?",
+    "answer": "The DFS-Visit condition 'if v not in parent' ensures that when we follow a tree edge from u to v, vertex v has not yet been visited. Since v is unvisited when we start from u, the DFS will recursively visit and completely finish v before returning and finishing u. This is exactly the property needed for topological sort correctness: v finishes first, so when we take the reverse of finishing order, u appears before v in the output, correctly reflecting that the edge goes from u to v.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 245.0,
+        "end": 310.0,
+        "hop": 1,
+        "description": "DFS-Visit pseudocode showing 'if v not in parent' condition and recursive visit"
+      },
+      {
+        "start": 2835.0,
+        "end": 2900.0,
+        "hop": 2,
+        "description": "Correctness proof: for any edge (u,v), v finishes before u finishes, case 1 u starts before v"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec14_chunk_008",
+      "mit_6006f11_lec14_chunk_081"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "DFS-Visit",
+      "parent condition",
+      "topological sort correctness",
+      "finishing times",
+      "tree edges"
+    ],
+    "video_id": "mit_6006f11_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q007",
+    "question": "The frame captions show a diagram of the example graph with nodes a, b, c, d, e, f and bold tree edges during the DFS walkthrough, and the lecture explains what forward edges are. What is the specific example of a forward edge described in the example graph, and why does it qualify as a forward edge rather than a tree edge?",
+    "answer": "The specific forward edge described goes from node A directly to node D. It qualifies as a forward edge rather than a tree edge because it connects an ancestor in the DFS tree (A, which is the root) to a descendant (D) that was already visited and given a parent pointer via a different path (A\u2192B\u2192E\u2192D). A tree edge would require D to be unvisited at the time of traversal, but since D was already discovered through the tree path, this edge from A to D is instead classified as a forward edge.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 690.0,
+        "end": 760.0,
+        "hop": 1,
+        "description": "DFS walkthrough with bold tree edges shown in graph diagram, visiting a,b,e,d"
+      },
+      {
+        "start": 1260.0,
+        "end": 1325.0,
+        "hop": 2,
+        "description": "Forward edge definition: goes from ancestor to descendant in DFS tree, example A to D"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec14_chunk_019",
+      "mit_6006f11_lec14_chunk_035"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "forward edge",
+      "tree edge",
+      "DFS tree",
+      "ancestor",
+      "descendant"
+    ],
+    "video_id": "mit_6006f11_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q008",
+    "question": "According to the frame caption describing the blackboard content during the analysis section, what is the exact time complexity stated for DFS and what two components does it break down into?",
+    "answer": "According to the frame caption showing the blackboard analysis, the exact time complexity stated for DFS is Theta(V+E), described as linear time. It breaks down into two components: O(V) for visiting each vertex once in the DFS outer loop, and O(E) for the work done inside DFS-Visit paying for each vertex's adjacency list entries, which sums to O(E) across all vertices by the handshaking lemma.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 945.0,
+        "end": 1005.0,
+        "hop": 1,
+        "description": "Frame caption shows 'Analysis: Theta(V+E) (linear time) - visit each vertex once in DFS alone O(V) - DFS-Visit called once per vertex'"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec14_chunk_027"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "time complexity",
+      "Theta(V+E)",
+      "linear time",
+      "DFS analysis"
+    ],
+    "video_id": "mit_6006f11_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q009",
+    "question": "What does the frame caption of the topological sort section reveal about the relationship between DFS finishing times and the topological order output?",
+    "answer": "The frame caption of the topological sort section reveals that the algorithm runs DFS and outputs the reverse of the finishing times of vertices. Specifically, it states 'run DFS, output reverse of finishing time of vertices', meaning that as each vertex finishes its DFS-Visit recursion, it is added to a list, and this list is then reversed to produce the valid topological ordering where all edges point from lower-order to higher-order vertices.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 2750.0,
+        "end": 2810.0,
+        "hop": 1,
+        "description": "Frame caption shows 'Topological sort: run DFS, output reverse of finishing time of vertices'"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec14_chunk_078"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "topological sort",
+      "finishing times",
+      "reverse order",
+      "DFS output"
+    ],
+    "video_id": "mit_6006f11_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q010",
+    "question": "The lecture explains how backward edges in DFS can be detected using an 'in-process' marking scheme, and also explains why a back edge guarantees a cycle exists. How does the in-process marking mechanism allow detection of backward edges, and what logical argument proves that a back edge implies a directed cycle?",
+    "answer": "The in-process marking works by setting a flag 'inprocess = true' at the start of DFS-Visit on a node and 'inprocess = false' at the end, tracking which nodes are currently on the recursion stack. When following an edge to a node that is already marked in-process, that node is an ancestor in the current recursion stack, so the edge is a backward edge. This implies a directed cycle because: the backward edge goes from the current node to its ancestor, and there is a chain of tree edges forming a path from that ancestor down to the current node, so combining the tree path with the backward edge forms a directed cycle.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1475.0,
+        "end": 1540.0,
+        "hop": 1,
+        "description": "In-process marking scheme: set inprocess=true at start and inprocess=false at end of DFS-Visit to track recursion stack"
+      },
+      {
+        "start": 1955.0,
+        "end": 2020.0,
+        "hop": 2,
+        "description": "Proof that back edge implies cycle: tree edges form path from ancestor to descendant, back edge completes the directed cycle"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec14_chunk_042",
+      "mit_6006f11_lec14_chunk_056"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "backward edge detection",
+      "in-process marking",
+      "recursion stack",
+      "cycle proof",
+      "ancestor"
+    ],
+    "video_id": "mit_6006f11_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q011",
+    "question": "The lecture discusses why BFS is preferred for shortest paths while DFS is not, and also describes what DFS can uniquely do that BFS cannot do as efficiently. What specific limitation of BFS regarding graph exploration is mentioned, and what capability of DFS makes it useful for graphs that are not strongly connected?",
+    "answer": "The limitation of BFS mentioned is that it only explores vertices reachable from a single source vertex s; if a vertex cannot be reached from s, BFS gives infinite distance and cannot explore that component. DFS overcomes this with the top-level outer loop that iterates over all vertices in V and calls DFS-Visit on any unvisited vertex, effectively restarting the search at each new connected component or strongly connected component, allowing it to explore the entire graph regardless of connectivity and find all different clusters.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 65.0,
+        "end": 130.0,
+        "hop": 1,
+        "description": "BFS explores layer by layer and detects unreachable vertices, DFS used to explore whole graph not just part reachable from s"
+      },
+      {
+        "start": 490.0,
+        "end": 555.0,
+        "hop": 2,
+        "description": "DFS outer loop iterates over all vertices to find all clusters and strongly connected components"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec14_chunk_002",
+      "mit_6006f11_lec14_chunk_013"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "BFS limitation",
+      "DFS whole-graph exploration",
+      "strongly connected components",
+      "outer loop",
+      "unreachable vertices"
+    ],
+    "video_id": "mit_6006f11_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q012",
+    "question": "The lecture claims that in an undirected graph, forward edges and cross edges cannot exist in DFS, while tree edges and backward edges can. What argument is given for why forward edges cannot exist in undirected graphs, and what argument shows cross edges also cannot exist?",
+    "answer": "For forward edges in undirected graphs: a forward edge would require visiting a node A, then visiting a descendant D through tree edges, backtracking, and then finding the edge A\u2192D goes to already-visited D. But in an undirected graph, the edge is bidirectional, so when DFS first reaches D via the tree path it would have also seen the edge back to A; that edge from D to A would already have been classified as a backward edge rather than a forward edge being created later. For cross edges: a cross edge would connect two nodes in different subtrees with no ancestor relationship. But in an undirected graph, if such an edge exists between nodes X and Y, when DFS first reaches X and sees the edge to Y (which is unvisited), it would follow it, making it a tree edge rather than a cross edge.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1665.0,
+        "end": 1730.0,
+        "hop": 1,
+        "description": "Explanation of why forward edges cannot exist in undirected graphs due to bidirectional edge semantics"
+      },
+      {
+        "start": 1750.0,
+        "end": 1815.0,
+        "hop": 2,
+        "description": "Explanation of why cross edges cannot exist in undirected graphs: the edge would be visited as tree edge first"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec14_chunk_047",
+      "mit_6006f11_lec14_chunk_050"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "undirected graphs",
+      "forward edges",
+      "cross edges",
+      "DFS edge classification",
+      "tree edges",
+      "backward edges"
+    ],
+    "video_id": "mit_6006f11_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q013",
+    "question": "According to the lecture, what is the specific mathematical relationship used to justify that the sum of all adjacency list lengths across all vertices equals E for directed graphs, and what is the name given to this relationship?",
+    "answer": "The lecture states that the sum over all vertices V of the length of the adjacency list for each vertex equals E for directed graphs, or 2E for undirected graphs. This relationship is called the Handshaking Lemma, which was introduced in the previous lecture. It is used to justify that the total work done in the DFS-Visit for-loops across all recursive calls is O(E), completing the O(V+E) linear time analysis.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1015.0,
+        "end": 1060.0,
+        "hop": 1,
+        "description": "Handshaking Lemma mentioned: sum of adjacency list lengths is E for directed graphs, 2E for undirected, from last lecture"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec14_chunk_029"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "Handshaking Lemma",
+      "adjacency list lengths",
+      "directed graphs",
+      "sum of degrees",
+      "O(E)"
+    ],
+    "video_id": "mit_6006f11_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q014",
+    "question": "The lecture describes how the textbook records timestamps during DFS to distinguish forward edges from cross edges. What two specific timestamps are recorded for each vertex, and how are they described in terms of the algorithm's execution?",
+    "answer": "The textbook records two timestamps for each vertex: a start time recorded when DFS begins visiting that vertex, and a finish time recorded when DFS completes visiting that vertex and all vertices reachable from it. These are described as being measured by incrementing a counter every time any step in the algorithm occurs, so the start time is the counter value when DFS-Visit begins on the vertex and the finish time is the counter value when DFS-Visit returns from the vertex.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1540.0,
+        "end": 1605.0,
+        "hop": 1,
+        "description": "Textbook approach: record start time when vertex begins being visited and finish time when done, using incrementing counter"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec14_chunk_044"
+    ],
+    "question_type": "text",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "DFS timestamps",
+      "start time",
+      "finish time",
+      "counter",
+      "forward edge detection"
+    ],
+    "video_id": "mit_6006f11_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q015",
+    "question": "What is the exact recurrence relation that DFS uses internally to compute shortest path distances from the source vertex to all other vertices in the graph?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "medium",
+    "answerable": false,
+    "key_concepts": [
+      "DFS",
+      "shortest paths",
+      "recurrence relation"
+    ],
+    "video_id": "mit_6006f11_lec14",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  }
+]

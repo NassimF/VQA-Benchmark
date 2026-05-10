@@ -1,0 +1,525 @@
+[
+  {
+    "qa_id": "mit_18065_lec06_q001",
+    "question": "According to the lecture, what geometric interpretation does the SVD give for every matrix multiplication, and what visual evidence on the blackboard shows the factorization formula that encodes this interpretation?",
+    "answer": "The SVD tells us that every matrix multiplication factors into a rotation times a stretch times a different rotation. The blackboard shows the formula A = U\u03a3V^T, where U and V are orthogonal matrices (representing rotations) and \u03a3 is a diagonal matrix (representing stretching), along with diagrams of a unit circle being transformed into an ellipse through these operations.",
+    "num_hops": 3,
+    "ground_truth_spans": [
+      {
+        "start": 32.0,
+        "end": 125.0,
+        "hop": 1,
+        "description": "Blackboard caption showing SVD formula A = U\u03a3V^T compared to S = Q\u039bQ^T"
+      },
+      {
+        "start": 1940.0,
+        "end": 2030.0,
+        "hop": 2,
+        "description": "Lecture explanation that SVD factors every linear transformation into rotation times stretch times rotation"
+      },
+      {
+        "start": 1845.0,
+        "end": 1955.0,
+        "hop": 3,
+        "description": "Visual description of unit circle being rotated by V^T then stretched by Sigma then rotated by U"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18065_lec06_chunk_003",
+      "mit_18065_lec06_chunk_055",
+      "mit_18065_lec06_chunk_051"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "SVD geometric interpretation",
+      "rotation",
+      "stretch",
+      "orthogonal matrix",
+      "diagonal matrix"
+    ],
+    "video_id": "mit_18065_lec06",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18065_lec06_q002",
+    "question": "The lecture describes why eigenvalues fail for rectangular matrices, and the blackboard shows the SVD formula. What two distinct sets of vectors appear in the SVD that replace the single set of eigenvectors, and what are the dimensions of each set for an m-by-n matrix A?",
+    "answer": "In the SVD, there are two sets of singular vectors: the left singular vectors U, which live in m-dimensional space (the output space or column space), and the right singular vectors V, which live in n-dimensional space (the input space or row space). These replace the single set of eigenvectors used in eigendecomposition, accommodating the rectangular shape of A.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 140.0,
+        "end": 225.0,
+        "hop": 1,
+        "description": "Explanation that rectangular matrix cannot have eigenvalues since Ax = \u03bbx is impossible"
+      },
+      {
+        "start": 245.0,
+        "end": 305.0,
+        "hop": 2,
+        "description": "Blackboard and transcript describing two sets of singular vectors: left (m dimensions) and right (n dimensions)"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18065_lec06_chunk_001",
+      "mit_18065_lec06_chunk_004"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "singular vectors",
+      "left singular vectors",
+      "right singular vectors",
+      "rectangular matrix",
+      "dimensions"
+    ],
+    "video_id": "mit_18065_lec06",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18065_lec06_q003",
+    "question": "The blackboard displays the equation A^T A = V \u039b V^T and A A^T = U \u039b U^T. How does the lecture use A^T A to prove that the U vectors defined as u_i = A v_i / \u03c3_i are orthogonal, connecting the visual equation to the algebraic argument?",
+    "answer": "The lecture proves orthogonality of the U vectors by computing u_1^T u_2. Since u_i = A v_i / \u03c3_i, the inner product becomes (1/\u03c3_1 \u03c3_2) v_1^T A^T A v_2. The key step uses the fact that v_2 is an eigenvector of A^T A with eigenvalue \u03c3_2^2, so A^T A v_2 = \u03c3_2^2 v_2. This reduces the expression to (\u03c3_2/\u03c3_1) v_1^T v_2, which equals zero because the V's are orthogonal eigenvectors of A^T A.",
+    "num_hops": 3,
+    "ground_truth_spans": [
+      {
+        "start": 625.0,
+        "end": 720.0,
+        "hop": 1,
+        "description": "Blackboard showing A^T A = V \u039b V^T and A A^T = U \u039b U^T equations"
+      },
+      {
+        "start": 2090.0,
+        "end": 2170.0,
+        "hop": 2,
+        "description": "Definition of u_i = A v_i / sigma_i and intent to show orthogonality"
+      },
+      {
+        "start": 2430.0,
+        "end": 2550.0,
+        "hop": 3,
+        "description": "Proof that v_2 is eigenvector of A^T A so A^T A v_2 = sigma_2^2 v_2, leading to zero"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18065_lec06_chunk_010",
+      "mit_18065_lec06_chunk_037",
+      "mit_18065_lec06_chunk_043"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "orthogonality proof",
+      "eigenvector",
+      "A^T A",
+      "singular vectors",
+      "inner product"
+    ],
+    "video_id": "mit_18065_lec06",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18065_lec06_q004",
+    "question": "The lecture mentions the polar decomposition as an analog of the polar form of a complex number. What visual information on the blackboard distinguishes the polar decomposition from the SVD, and what does each factor in A = SQ represent geometrically?",
+    "answer": "The polar decomposition A = SQ is derived directly from the SVD by inserting U^T U = I into A = U\u03a3V^T, yielding A = (U\u03a3U^T)(UV^T) = SQ. The symmetric matrix S = U\u03a3U^T represents the stretching or strain component (analogous to the real magnitude r of a complex number), while the orthogonal matrix Q = UV^T represents the rotation component (analogous to e^{i\u03b8}). In mechanical engineering, S captures the symmetric stretch and Q captures the internal twist of an elastic deformation.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2835.0,
+        "end": 2920.0,
+        "hop": 1,
+        "description": "Lecture explanation of polar decomposition analogy with complex numbers and statement every matrix = symmetric times orthogonal"
+      },
+      {
+        "start": 2940.0,
+        "end": 3010.0,
+        "hop": 2,
+        "description": "Derivation showing S = U Sigma U^T and Q = U V^T from SVD by inserting identity"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18065_lec06_chunk_081",
+      "mit_18065_lec06_chunk_083"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "polar decomposition",
+      "symmetric matrix",
+      "orthogonal matrix",
+      "SVD",
+      "mechanical engineering"
+    ],
+    "video_id": "mit_18065_lec06",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18065_lec06_q005",
+    "question": "The blackboard shows diagrams of circles and ellipses alongside the SVD formula. Combining the visual and the lecture's explanation of parameter counting, how many total numbers describe a 2\u00d72 matrix A through its SVD, and how are they distributed among U, \u03a3, and V^T?",
+    "answer": "A 2\u00d72 matrix A has 4 entries. In its SVD A = U\u03a3V^T, the diagonal matrix \u03a3 contributes 2 singular values (\u03c3_1 and \u03c3_2). Each of U and V^T is a 2\u00d72 rotation matrix requiring 1 angle parameter each (since a 2D rotation is characterized by a single angle \u03b8). Thus the total is 2 + 1 + 1 = 4 parameters, matching the 4 entries of A. The blackboard visually shows the circle-to-ellipse transformation illustrating \u03a3's stretching role.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1845.0,
+        "end": 1955.0,
+        "hop": 1,
+        "description": "Visual diagrams of circles and ellipses showing rotation and stretching in SVD"
+      },
+      {
+        "start": 2100.0,
+        "end": 2200.0,
+        "hop": 2,
+        "description": "Parameter counting: 2 for Sigma, 1 angle for U rotation, 1 angle for V rotation, total 4 matching 2x2 matrix"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18065_lec06_chunk_051",
+      "mit_18065_lec06_chunk_061"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "parameter counting",
+      "rotation angle",
+      "singular values",
+      "2\u00d72 matrix",
+      "SVD factorization"
+    ],
+    "video_id": "mit_18065_lec06",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18065_lec06_q006",
+    "question": "The lecture explains why one should not compute A^T A explicitly when computing the SVD numerically. What does the blackboard show about the structure of A^T A, and what specific numerical problem arises when forming this product for a large matrix?",
+    "answer": "The blackboard shows the equation A^T A = V \u039b V^T, indicating that A^T A is a symmetric positive-definite matrix whose eigenvectors give the right singular vectors V. However, the lecture warns that explicitly computing A^T A is a mistake for large matrices because the vulnerability to roundoff errors is squared \u2014 specifically, the condition number of A^T A is the square of the condition number of A. For a matrix as large as 5000 by 10000, this squaring of the condition number makes the computation numerically unstable.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 610.0,
+        "end": 720.0,
+        "hop": 1,
+        "description": "Blackboard showing A^T A = V Lambda V^T structure as symmetric positive definite"
+      },
+      {
+        "start": 1645.0,
+        "end": 1730.0,
+        "hop": 2,
+        "description": "Warning that computing A^T A squares the condition number making it vulnerable to roundoff errors"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18065_lec06_chunk_010",
+      "mit_18065_lec06_chunk_047"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "condition number",
+      "roundoff error",
+      "A^T A",
+      "numerical stability",
+      "SVD computation"
+    ],
+    "video_id": "mit_18065_lec06",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18065_lec06_q007",
+    "question": "The lecture slides shown at the beginning display the course title and the SVD formula. How does the SVD formula A = U\u03a3V^T shown on the blackboard compare with the spectral decomposition S = Q\u039bQ^T, and what key structural difference does the lecture identify between the two?",
+    "answer": "The blackboard explicitly writes both formulas side by side: 'Compare with S = Q\u039bQ^T, Now A = U\u03a3V^T.' The key structural difference is that in the spectral decomposition S = Q\u039bQ^T for a symmetric matrix, the same orthogonal matrix Q appears on both sides, meaning there is only one set of orthonormal eigenvectors. In the SVD A = U\u03a3V^T, there are two different orthogonal matrices U and V \u2014 the left singular vectors U in m-dimensional space and the right singular vectors V in n-dimensional space \u2014 making it applicable to any matrix, including rectangular ones.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 70.0,
+        "end": 165.0,
+        "hop": 1,
+        "description": "Blackboard slide showing 'Compare with S = Q\u039bQ^T, Now A = U\u03a3V^T' with SVD label"
+      },
+      {
+        "start": 245.0,
+        "end": 365.0,
+        "hop": 2,
+        "description": "Explanation that SVD has two sets of singular vectors while spectral theorem has one set Q"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18065_lec06_chunk_003",
+      "mit_18065_lec06_chunk_005"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "spectral theorem",
+      "SVD comparison",
+      "orthogonal matrices",
+      "symmetric matrix",
+      "two sets of singular vectors"
+    ],
+    "video_id": "mit_18065_lec06",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18065_lec06_q008",
+    "question": "What text does the blackboard display at the very beginning of the lecture that introduces the topic of Lecture 6, and what course and institution does it identify?",
+    "answer": "The blackboard slide at the beginning identifies the course as 'Matrix Methods in Data Analysis, Signal Processing, and Machine Learning' (18.065) offered at the Massachusetts Institute of Technology (MIT) in Spring 2018, taught by Gilbert Strang. The specific lecture is identified as Lecture 6, which focuses on 'Singular Value Decomposition (SVD).' The slide also includes the MIT logo, the MIT OpenCourseWare logo, and a Creative Commons license (CC BY-NC-SA) indicator.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 0.0,
+        "end": 45.0,
+        "hop": 1,
+        "description": "Opening lecture slide showing course name 18.065, MIT, Spring 2018, Gilbert Strang, Lecture 6 SVD"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18065_lec06_chunk_000"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "course identification",
+      "MIT OpenCourseWare",
+      "SVD",
+      "Gilbert Strang",
+      "18.065"
+    ],
+    "video_id": "mit_18065_lec06",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18065_lec06_q009",
+    "question": "What does the blackboard diagram visible during the discussion of the fundamental picture of linear algebra show, and how does it relate to the input and output spaces in the SVD?",
+    "answer": "The blackboard diagram shows two rectangular shapes connected by arrows labeled 'mult by A,' representing the mapping from the input space (domain) to the output space (range). The diagram depicts the V vectors (right singular vectors) living in the input/row space on the left side, and the U vectors (left singular vectors) living in the output/column space on the right side, with the matrix A mapping orthogonal V's in the input space to orthogonal U's in the output space. This illustrates the fundamental property that makes the SVD special: orthogonal inputs map to orthogonal outputs.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 630.0,
+        "end": 715.0,
+        "hop": 1,
+        "description": "Frame caption showing diagram of two rectangular shapes with arrow labeled mult by A between them"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18065_lec06_chunk_019"
+    ],
+    "question_type": "visual",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "fundamental picture",
+      "input space",
+      "output space",
+      "singular vectors",
+      "linear mapping diagram"
+    ],
+    "video_id": "mit_18065_lec06",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18065_lec06_q010",
+    "question": "The lecture establishes that A^T A and A A^T share a key property about their nonzero eigenvalues. What is that shared property, how do the dimensions of these two matrices differ, and what are the respective eigenvectors called in the SVD?",
+    "answer": "Both A^T A (which is n\u00d7n) and A A^T (which is m\u00d7m) have the same nonzero eigenvalues; any eigenvalues present in one but not the other are simply zero. The eigenvectors of A^T A are called the right singular vectors V (columns of V), while the eigenvectors of A A^T are called the left singular vectors U (columns of U). These two symmetric positive-semidefinite matrices provide both sets of orthonormal singular vectors needed for the SVD factorization A = U\u03a3V^T.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 395.0,
+        "end": 480.0,
+        "hop": 1,
+        "description": "Explanation that A^T A is n\u00d7n and A A^T is m\u00d7m both being symmetric positive semidefinite"
+      },
+      {
+        "start": 420.0,
+        "end": 505.0,
+        "hop": 2,
+        "description": "Statement that nonzero eigenvalues of A^T A and A A^T are the same, missing ones are zeros, eigenvectors called V and U"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18065_lec06_chunk_011",
+      "mit_18065_lec06_chunk_012"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "A^T A",
+      "A A^T",
+      "shared eigenvalues",
+      "left singular vectors",
+      "right singular vectors"
+    ],
+    "video_id": "mit_18065_lec06",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18065_lec06_q011",
+    "question": "The lecture discusses when the SVD reduces to the spectral decomposition, requiring U = V. What two conditions must a matrix satisfy for this to occur, and why is both conditions necessary rather than just one?",
+    "answer": "For U = V in the SVD, the matrix must be both symmetric and positive definite. Symmetry alone is not sufficient because if the matrix has negative eigenvalues, the convention that singular values \u03c3 are all non-negative means the signs would differ between the eigenvalue decomposition and the SVD. Positive definiteness ensures all eigenvalues are positive, so the eigenvalues can serve directly as singular values (\u039b = \u03a3), and the single orthogonal matrix Q in S = Q\u039bQ^T corresponds simultaneously to both U and V^T in the SVD.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1980.0,
+        "end": 2060.0,
+        "hop": 1,
+        "description": "Question of when U equals V, requiring matrix to be square and symmetric"
+      },
+      {
+        "start": 2000.0,
+        "end": 2090.0,
+        "hop": 2,
+        "description": "Additional requirement of positive definiteness because singular values must be non-negative"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18065_lec06_chunk_057",
+      "mit_18065_lec06_chunk_058"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "positive definite",
+      "symmetric matrix",
+      "spectral decomposition",
+      "SVD reduction",
+      "eigenvalues vs singular values"
+    ],
+    "video_id": "mit_18065_lec06",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18065_lec06_q012",
+    "question": "The lecture explains how the product of singular values relates to the determinant and compares this to eigenvalues. What is the relationship between the product of singular values and the determinant of a square matrix, and why does this follow from the SVD formula?",
+    "answer": "For a square matrix A, the product of all singular values equals the absolute value of the determinant of A. This follows directly from the SVD formula A = U\u03a3V^T by taking determinants of both sides: det(A) = det(U) \u00b7 det(\u03a3) \u00b7 det(V^T). Since U and V are orthogonal matrices their determinants are \u00b11, and det(\u03a3) equals the product of the diagonal entries \u03c3_1 \u00b7 \u03c3_2 \u00b7 ... \u00b7 \u03c3_r. Therefore the product of singular values equals |det(A)|, just as the product of eigenvalues equals the determinant for symmetric matrices.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2395.0,
+        "end": 2460.0,
+        "hop": 1,
+        "description": "Statement that product of eigenvalues gives determinant and similarly product of singular values gives determinant"
+      },
+      {
+        "start": 2415.0,
+        "end": 2510.0,
+        "hop": 2,
+        "description": "Explanation using determinant of product rule: det(U)=1 for orthogonal matrix so product of Sigmas = determinant"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18065_lec06_chunk_069",
+      "mit_18065_lec06_chunk_070"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "determinant",
+      "product of singular values",
+      "orthogonal matrix determinant",
+      "SVD formula"
+    ],
+    "video_id": "mit_18065_lec06",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18065_lec06_q013",
+    "question": "What is the rank-one matrix that the lecture identifies as the most important or leading part of any matrix A in the SVD expansion, and how is it expressed in terms of the SVD components?",
+    "answer": "The most important rank-one part of the matrix A is \u03c3_1 u_1 v_1^T, where \u03c3_1 is the largest singular value, u_1 is the corresponding first left singular vector, and v_1^T is the transpose of the first right singular vector. This is the leading term when A is written as a sum of rank-one matrices: A = \u03c3_1 u_1 v_1^T + \u03c3_2 u_2 v_2^T + ... + \u03c3_r u_r v_r^T. Since \u03c3_1 \u2265 \u03c3_2 \u2265 ... \u2265 \u03c3_r, the first term dominates and captures the principal component of the data matrix.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 3110.0,
+        "end": 3175.0,
+        "hop": 1,
+        "description": "Identification of sigma_1 u_1 v_1^T as the biggest rank-one part, the leading principal component of the matrix"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18065_lec06_chunk_090"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "rank-one matrix",
+      "principal component",
+      "largest singular value",
+      "SVD expansion",
+      "data matrix"
+    ],
+    "video_id": "mit_18065_lec06",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18065_lec06_q014",
+    "question": "In the lecture's treatment of double or triple eigenvalues in the context of SVD, what specific example of a symmetric matrix is given, what eigenvalue has a whole plane of eigenvectors, and what must be done to resolve this ambiguity for the SVD?",
+    "answer": "The lecture uses the example of the 3\u00d73 diagonal matrix with entries 1, 1, 5 on the diagonal. The eigenvalue \u03bb = 5 has the eigenvector (0, 0, 1). The eigenvalue \u03bb = 1 has a whole plane of eigenvectors \u2014 any vector of the form (x, y, 0) in the XY-plane is an eigenvector. To resolve this ambiguity for the SVD, one must choose two orthogonal vectors from this plane to serve as the eigenvectors, and then ensure that the corresponding U vectors (obtained via u_i = A v_i / \u03c3_i) are also orthogonal to each other.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1085.0,
+        "end": 1205.0,
+        "hop": 1,
+        "description": "Example of 3x3 matrix diag(1,1,5) with double eigenvalue 1 having whole plane of eigenvectors in XY plane requiring orthogonal pair to be chosen"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18065_lec06_chunk_032"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "double eigenvalue",
+      "eigenspace",
+      "plane of eigenvectors",
+      "orthogonal selection",
+      "SVD ambiguity"
+    ],
+    "video_id": "mit_18065_lec06",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18065_lec06_q015",
+    "question": "What is the exact numerical value of the Frobenius norm of the matrix used as the worked SVD example in the lecture, and what are the precise angles in degrees of the rotation matrices U and V for that example?",
+    "answer": "",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "hard",
+    "answerable": false,
+    "key_concepts": [
+      "Frobenius norm",
+      "rotation angle",
+      "SVD example",
+      "numerical values"
+    ],
+    "video_id": "mit_18065_lec06",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  }
+]

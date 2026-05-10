@@ -1,0 +1,512 @@
+[
+  {
+    "qa_id": "nyu_dl_week7_q001",
+    "question": "According to the slide shown at the beginning of the lecture, who are the teaching assistants for this course, and how does the instructor explain the fundamental limitation of feed-forward models that motivates energy-based models?",
+    "answer": "According to the opening slide, the teaching assistants for the NYU Deep Learning course are Alfredo Canziani and Mark Goldstein. The instructor explains that feed-forward networks use a finite, fixed number of computational steps to produce a single output \u2014 even recurrent networks have a limit on unfolding \u2014 which is fundamentally inappropriate for two situations: when inference requires complex computation beyond simple weighted sums, and when the task demands producing not a single output but a possible set of outputs, such as predicting future video frames or generating high-dimensional continuous outputs.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 0.0,
+        "end": 45.0,
+        "hop": 1,
+        "description": "Opening slide frame caption listing TAs Alfredo Canziani and Mark Goldstein"
+      },
+      {
+        "start": 105.0,
+        "end": 185.0,
+        "hop": 2,
+        "description": "Instructor explains two situations where feed-forward models with fixed computation steps are inappropriate"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week7_chunk_000",
+      "nyu_dl_week7_chunk_003"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "feed-forward limitations",
+      "energy-based models",
+      "teaching assistants",
+      "finite computation"
+    ],
+    "video_id": "nyu_dl_week7",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week7_q002",
+    "question": "The slide titled 'Energy-Based Model: implicit function' states that multiple y values can be compatible with a single x. How does the instructor connect this property to the problem of video prediction and why does training with least squares fail in that scenario?",
+    "answer": "The slide on implicit functions explicitly states that an EBM captures dependencies between x and y and that multiple y values can be compatible with a single x. The instructor connects this to video prediction by explaining that when you try to predict what a scene will look like two seconds in the future, there are many plausible futures \u2014 the person might move left or right, hands might be in different positions. If you train a neural network with least squares to make a single prediction, the best it can do is produce the average of all possible futures, which results in a blurry image because it cannot commit to any one outcome. This demonstrates why latent variable models are necessary to represent uncertainty and generate diverse predictions.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 630.0,
+        "end": 695.0,
+        "hop": 1,
+        "description": "Slide states multiple y can be compatible with single x in implicit function EBM"
+      },
+      {
+        "start": 1540.0,
+        "end": 1625.0,
+        "hop": 2,
+        "description": "Instructor explains least squares video prediction produces blurry average of all possible futures"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week7_chunk_018",
+      "nyu_dl_week7_chunk_044"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "implicit function",
+      "multiple predictions",
+      "video prediction",
+      "least squares failure",
+      "latent variables"
+    ],
+    "video_id": "nyu_dl_week7",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week7_q003",
+    "question": "The lecture slide on 'Learning Representations through Pretext SSL Tasks' categorizes different data types. Based on that visual and the instructor's explanation of why self-supervised learning works differently for text versus images, what fundamental difference explains the disparity in success?",
+    "answer": "The slide on pretext SSL tasks categorizes text and symbol sequences as 'discrete, works great' while images are categorized as continuous. The instructor explains that in the discrete world of text, uncertainty can be represented as a large softmax vector over all possible words \u2014 you can enumerate all words and assign probabilities to them. In the continuous world of images and video, there is no equivalent mechanism to represent a probability distribution over all possible pixel configurations. This means that when you train a system to predict missing image patches or video frames, it cannot represent uncertainty and instead produces the average of all plausible completions, yielding blurry results with poor internal representations.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3325.0,
+        "end": 3410.0,
+        "hop": 1,
+        "description": "Slide categorizes text as discrete works great, images as continuous in pretext SSL tasks"
+      },
+      {
+        "start": 3395.0,
+        "end": 3475.0,
+        "hop": 2,
+        "description": "Instructor explains discrete world allows softmax over words but continuous spaces have no equivalent uncertainty representation"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week7_chunk_094",
+      "nyu_dl_week7_chunk_095"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "self-supervised learning",
+      "discrete vs continuous",
+      "softmax uncertainty",
+      "pretext tasks",
+      "image vs text"
+    ],
+    "video_id": "nyu_dl_week7",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week7_q004",
+    "question": "The slides on 'When inference involves latent variables' illustrate handwritten word recognition and speech recognition. How does the instructor use these two examples together to build a general principle about what latent variables provide during inference?",
+    "answer": "The instructor uses handwritten word recognition and speech recognition as parallel examples to establish the general principle that latent variables capture information that would make inference easier if it were known, but which is never directly observed. For handwritten word recognition, knowing the character boundaries \u2014 where one character ends and another begins \u2014 would make reading individual characters much easier, but this segmentation is not given. For speech recognition, knowing where word and phoneme boundaries lie would similarly simplify recognition, but continuous speech provides no clear markers, especially in languages like French without lexical stress. In both cases, the latent variable represents hidden structure that, if provided, would decompose a hard joint inference problem into simpler sub-problems.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 960.0,
+        "end": 1040.0,
+        "hop": 1,
+        "description": "Latent variables slide explains handwritten word recognition: knowing character boundaries simplifies the task"
+      },
+      {
+        "start": 1055.0,
+        "end": 1135.0,
+        "hop": 2,
+        "description": "Speech recognition example: not knowing word and phoneme boundaries makes recognition hard; latent variable would help"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week7_chunk_027",
+      "nyu_dl_week7_chunk_030"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "latent variables",
+      "character boundaries",
+      "speech recognition",
+      "inference simplification",
+      "hidden structure"
+    ],
+    "video_id": "nyu_dl_week7",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week7_q005",
+    "question": "The slide titled 'Latent-Variable EBM' shows a diagram with components Pred(x), Dec(z,h), and a gray region representing variation in z. How does the instructor connect this architectural diagram to the limitation of feed-forward models producing only a single output?",
+    "answer": "The slide diagram shows that an input x flows into a Pred(x) module producing hidden representation h, while a latent variable z is fed together with h into a Dec(z,h) decoder that produces prediction y-bar. The instructor explains that a standard feed-forward model is an explicit function that can only compute one output from x, and while one can cheat with discrete classification by producing one score per class, this trick fails for high-dimensional continuous or compositional outputs. By contrast, the latent variable architecture allows the system to produce multiple predictions: as z varies over a set \u2014 symbolized by the gray region in the diagram \u2014 the output y-bar varies over a manifold of possible predictions, effectively parameterizing the entire set of plausible outputs without requiring normalization over an intractable continuous space.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1400.0,
+        "end": 1465.0,
+        "hop": 1,
+        "description": "Latent-Variable EBM slide shows Pred(x), Dec(z,h) architecture diagram with z varying over gray region"
+      },
+      {
+        "start": 600.0,
+        "end": 680.0,
+        "hop": 2,
+        "description": "Instructor explains feed-forward model can only produce single output, trick fails for continuous high-dimensional spaces"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week7_chunk_040",
+      "nyu_dl_week7_chunk_017"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "latent variable EBM",
+      "decoder architecture",
+      "multiple predictions",
+      "manifold of outputs",
+      "feed-forward limitations"
+    ],
+    "video_id": "nyu_dl_week7",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week7_q006",
+    "question": "The 'Seven Strategies to Shape the Energy Function' slide lists both contrastive and architectural methods. How does the instructor's explanation of k-means as a latent-variable EBM demonstrate the architectural approach without using any contrastive pushing up?",
+    "answer": "The slide lists architectural methods as those where the model's structure itself limits the volume of low-energy regions, so pushing down on data points automatically causes everything else to have higher energy. The instructor explains k-means as a latent-variable EBM where the decoder is linear and z is a one-hot vector selecting one column (prototype) from matrix W. The energy is the squared distance between y and the selected prototype. When trained by minimizing average energy, prototypes move toward data points. Crucially, the instructor points out that in k-means, you never explicitly push up on any point \u2014 instead, because there are only K possible prototypes, only K points in the space can have exactly zero energy, and everything else grows quadratically with distance. The architecture itself constrains the volume of low-energy regions to exactly K locations, making contrastive pushing unnecessary.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 4740.0,
+        "end": 4825.0,
+        "hop": 1,
+        "description": "Seven Strategies slide lists contrastive and architectural methods with C1-C4 and architectural subcategories"
+      },
+      {
+        "start": 5040.0,
+        "end": 5085.0,
+        "hop": 2,
+        "description": "Instructor explains k-means belongs to architectural methods: only K points have zero energy, everything else grows quadratically"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week7_chunk_122",
+      "nyu_dl_week7_chunk_144"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "architectural methods",
+      "k-means EBM",
+      "one-hot latent variable",
+      "energy volume constraint",
+      "no contrastive pushing"
+    ],
+    "video_id": "nyu_dl_week7",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week7_q007",
+    "question": "The slide on 'Self-Supervised Learning = Filling in the Blanks' shows diagrams of predicting across time or space. How does the instructor link this prediction framework to the claim that animals and humans learn background knowledge about the world through observation alone?",
+    "answer": "The slide illustrates self-supervised learning as predicting any part of the input from any other part \u2014 predicting the future from the past, or one spatial region from another \u2014 using diagrams with time or space axes. The instructor connects this to biological learning by arguing that if a system is trained to predict how a camera view changes when it moves, it must internally discover that every point in space has a depth, because depth is the simplest explanation for optical flow patterns. Once the system learns depth, the concept of distinct objects emerges because objects move differently from backgrounds. From there, intuitive physics \u2014 like gravity and inertia \u2014 can be learned by observing that unsupported objects fall, which babies learn around nine months of age not from birth but through observation. This is exactly what self-supervised learning does: train on prediction to acquire rich world knowledge without explicit labels.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2880.0,
+        "end": 2945.0,
+        "hop": 1,
+        "description": "Self-Supervised Learning slide shows predict any part from any other part diagrams across time or space"
+      },
+      {
+        "start": 2975.0,
+        "end": 3060.0,
+        "hop": 2,
+        "description": "Instructor explains training to predict camera movement leads to implicit learning of depth, objects, and intuitive physics like gravity"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week7_chunk_080",
+      "nyu_dl_week7_chunk_085"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "self-supervised learning",
+      "prediction",
+      "depth learning",
+      "intuitive physics",
+      "biological learning"
+    ],
+    "video_id": "nyu_dl_week7",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week7_q008",
+    "question": "What specific components and labels are shown in the diagram on the 'Solution: latent variable energy-based models' slide?",
+    "answer": "The diagram on the 'Solution: latent variable energy-based models' slide shows an observation input labeled x, which feeds into a module called Pred(x). The output of Pred(x) is a hidden representation labeled h. There are latent variables labeled z and h shown in a box labeled 'Latent Variables.' The latent variable z and the hidden representation h together feed into a decoding function labeled Dec(z, h), which produces the predicted output y-bar. The slide's main text states that latent variables allow the system to make multiple predictions.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 3720.0,
+        "end": 3780.0,
+        "hop": 1,
+        "description": "Solution latent variable EBM slide diagram showing x, Pred(x), h, latent variables z, Dec(z,h), and output y-bar"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week7_chunk_103"
+    ],
+    "question_type": "visual",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "latent variable EBM",
+      "Pred(x)",
+      "Dec(z,h)",
+      "diagram components",
+      "hidden representation"
+    ],
+    "video_id": "nyu_dl_week7",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week7_q009",
+    "question": "What does the diagram on the 'Energy-Based Model: gradient-based inference' slide show about how inference proceeds in the y space?",
+    "answer": "The diagram on the 'Energy-Based Model: gradient-based inference' slide shows a two-dimensional space with x and y axes. Several black dots representing data points are scattered across the space. The energy function F(x,y) is represented as a contour plot with concentric circles or ellipses indicating different energy levels. Red arrows are drawn pointing from various positions toward the data points or low-energy regions, illustrating the direction of gradient descent. This shows that for a given value of x, one starts from some initial y and follows the gradient of F downward, moving along the contour landscape toward a minimum, which corresponds to the most compatible y value.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 840.0,
+        "end": 900.0,
+        "hop": 1,
+        "description": "Gradient-based inference slide diagram with contour plot, black data points, and red arrows showing gradient descent paths toward minima"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week7_chunk_022"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "gradient-based inference",
+      "contour plot",
+      "energy landscape",
+      "gradient descent",
+      "data points"
+    ],
+    "video_id": "nyu_dl_week7",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week7_q010",
+    "question": "How does the instructor derive the F-beta free energy function from the joint distribution over y and z in the latent-variable EBM, and what is the mathematical relationship between F-beta and F-infinity?",
+    "answer": "The instructor starts with the joint Gibbs-Boltzmann distribution over y and z given x, defined as e to the minus beta times energy of X,Y,Z divided by the integral over both y and z of that exponential. To get the marginal P(y|x), one integrates over z. The instructor then applies a 'sneaky' algebraic trick: multiplying by e to the minus beta times minus 1 over beta times log, which cancels out completely, allowing the integral over z to be rewritten as e to the minus beta times F-beta(x,y), where F-beta(x,y) equals minus 1 over beta times log of the integral over z of e to the minus beta E(x,y,z). As beta goes to infinity, F-beta converges to F-infinity(x,y), which equals the minimum over z of E(x,y,z), because for very large beta the integral is dominated by the single z value that produces the lowest energy, causing log and exponential to cancel and leaving only that minimum.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1980.0,
+        "end": 2065.0,
+        "hop": 1,
+        "description": "Instructor defines F-beta as minus 1 over beta log integral over z of e to minus beta energy, and shows the algebraic trick"
+      },
+      {
+        "start": 2065.0,
+        "end": 2135.0,
+        "hop": 2,
+        "description": "Instructor explains as beta goes to infinity F-beta converges to min over z of E(x,y,z) because dominant term is lowest energy z"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week7_chunk_036",
+      "nyu_dl_week7_chunk_037"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "free energy",
+      "F-beta",
+      "F-infinity",
+      "marginalization",
+      "Gibbs-Boltzmann",
+      "beta parameter"
+    ],
+    "video_id": "nyu_dl_week7",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week7_q011",
+    "question": "Why does the instructor argue that maximum likelihood training is fundamentally problematic for high-dimensional continuous data, and how does this argument connect to the impossibility of building a correct probabilistic model for data lying on a thin manifold?",
+    "answer": "The instructor argues that maximum likelihood is problematic because it requires computing a partition function \u2014 the integral of e to the minus beta energy over all y \u2014 which is intractable for high-dimensional spaces. More fundamentally, for data lying on a thin manifold like a one-dimensional curve in 2D space, a correct probability density model would need to assign infinite density exactly on the manifold and zero everywhere else, while integrating to one. Implementing this through a neural network would require infinite weights precisely calibrated to produce a function that integrates correctly, which is computationally impossible. Furthermore, even if such a model could be built, it would be useless for inference because gradient-based methods could not find the manifold starting from an arbitrary point \u2014 the function is zero almost everywhere with no gradient to follow. The instructor concludes that insisting on probabilistic normalization makes high-dimensional models more wrong, not less, echoing statistician Box's statement that all models are wrong but some are useful.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2490.0,
+        "end": 2560.0,
+        "hop": 1,
+        "description": "Instructor explains correct probabilistic model for thin manifold requires infinite density on manifold and zero elsewhere, impossible to implement"
+      },
+      {
+        "start": 2325.0,
+        "end": 2405.0,
+        "hop": 2,
+        "description": "Instructor explains partition function integral is intractable for high-dimensional spaces, maximum likelihood is problematic"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week7_chunk_070",
+      "nyu_dl_week7_chunk_067"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "maximum likelihood",
+      "partition function",
+      "thin manifold",
+      "intractability",
+      "probabilistic model failure"
+    ],
+    "video_id": "nyu_dl_week7",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week7_q012",
+    "question": "How does the instructor explain the two distinct roles of latent variables in energy-based models using the examples of character recognition and video prediction?",
+    "answer": "The instructor explains that latent variables can serve two fundamentally different roles. In character recognition, the latent variable captures information that is in principle determinable from the input but makes the inference problem easier when known: specifically, the character boundary locations. If told where each character begins and ends, individual character recognizers can be applied independently, decomposing a hard joint problem. In this role, the latent variable implements a constraint or decomposition that simplifies inference. In video prediction, the role is different: the latent variable captures information about the future that is genuinely absent from the observable past, such as which direction a person will move. Here z parameterizes the set of plausible outputs \u2014 by sampling different values of z, the system can generate different valid future scenarios. In this role, z does not simplify a computationally hard problem but rather encodes irreducible uncertainty about outcomes not determined by the observed input.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3780.0,
+        "end": 3870.0,
+        "hop": 1,
+        "description": "Instructor explains in character recognition latent variable captures boundary locations making inference easier"
+      },
+      {
+        "start": 3900.0,
+        "end": 3970.0,
+        "hop": 2,
+        "description": "Instructor explains in video prediction latent variable captures information about future not present in observation, parameterizes set of plausible outputs"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week7_chunk_108",
+      "nyu_dl_week7_chunk_109"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "latent variable roles",
+      "character recognition",
+      "video prediction",
+      "inference simplification",
+      "uncertainty parameterization"
+    ],
+    "video_id": "nyu_dl_week7",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week7_q013",
+    "question": "According to the lecture, what specific property of the beta parameter in the Gibbs-Boltzmann distribution does the instructor describe using a physics analogy, and what happens to the distribution in the limit as beta approaches infinity?",
+    "answer": "The instructor describes beta as the inverse temperature in physics terms, so a large beta corresponds to low temperature and a small beta corresponds to high temperature. As beta becomes very large, the distribution becomes increasingly peaked or binary: almost all probability mass concentrates on the y value that produces the lowest energy, while all other values have negligibly small probability. Conversely, for small beta (high temperature), the distribution becomes smoother and more spread out. In the mathematical limit as beta approaches infinity (zero temperature), the distribution converges to a point mass at the y that minimizes the energy function, which corresponds to the argmin inference procedure.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1870.0,
+        "end": 1960.0,
+        "hop": 1,
+        "description": "Instructor explains beta is inverse temperature in physics, large beta gives peaked binary distribution, small beta gives smooth distribution, limit beta to infinity gives point mass at minimum energy y"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week7_chunk_053"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "beta parameter",
+      "inverse temperature",
+      "Gibbs-Boltzmann",
+      "distribution sharpness",
+      "zero temperature limit"
+    ],
+    "video_id": "nyu_dl_week7",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week7_q014",
+    "question": "What specific name does the instructor give to the denoising auto-encoder variant used in NLP systems like BERT, and how does the corruption procedure work in that specific context?",
+    "answer": "The instructor calls this NLP variant a masked rotary encoder, specifying that it is a special case of the denoising auto-encoder where the type of corruption is masking \u2014 specifically masking pieces of the input text. In practice, this means taking a sentence, removing or blanking out some fraction of the words, typically ten to fifteen to twenty percent, replacing those word tokens with a blank indicator, and then training a large neural network to predict the missing words. Because the system cannot make an exact continuous prediction for what the missing words are, it is trained as a classifier using a large softmax vector for each masked position, which produces a probability distribution over all possible words in the vocabulary. After training, the final classification layer is discarded and the penultimate layer is used as a text representation.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 5760.0,
+        "end": 5835.0,
+        "hop": 1,
+        "description": "Instructor names the NLP denoising auto-encoder variant as masked rotary encoder, explains corruption is masking words and system predicts missing words via softmax"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week7_chunk_166"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "masked rotary encoder",
+      "BERT",
+      "denoising auto-encoder",
+      "masking corruption",
+      "NLP pretraining"
+    ],
+    "video_id": "nyu_dl_week7",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week7_q015",
+    "question": "What specific numerical accuracy benchmarks or performance metrics does the instructor report for energy-based models trained using contrastive divergence on standard vision datasets during this lecture?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "easy",
+    "answerable": false,
+    "key_concepts": [
+      "contrastive divergence",
+      "benchmarks",
+      "performance metrics",
+      "vision datasets"
+    ],
+    "video_id": "nyu_dl_week7",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  }
+]

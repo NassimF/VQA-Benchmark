@@ -1,0 +1,498 @@
+[
+  {
+    "qa_id": "nyu_dl_week10_q001",
+    "question": "According to the bar chart shown in the lecture, what are the approximate scales of data available at the bounding box level versus internet-scale photos, and how does the speaker use this visual contrast to motivate the need for self-supervised learning?",
+    "answer": "The bar chart shows that bounding box labeled data is approximately 10^6 images, image-level labeled data is also roughly 10^6, while internet photos reach approximately 10^12 images\u2014a gap of about five to six orders of magnitude. The speaker uses this dramatic visual contrast to argue that human labeling cannot possibly scale to the vast amount of visual data that exists on the internet and in the real world, making self-supervised methods that can leverage unlabeled data essential for progress in visual representation learning.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 245.0,
+        "end": 290.0,
+        "hop": 1,
+        "description": "Speaker explains the scale difference between labeled and internet-scale images in the bar chart"
+      },
+      {
+        "start": 485.0,
+        "end": 540.0,
+        "hop": 2,
+        "description": "Speaker explains the motivation for self-supervised learning and why labeling cannot scale"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week10_chunk_007",
+      "nyu_dl_week10_chunk_009"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "data scale",
+      "bounding boxes",
+      "internet photos",
+      "self-supervised motivation"
+    ],
+    "video_id": "nyu_dl_week10",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week10_q002",
+    "question": "The 'Relative Position' pretext task uses a specific classification setup shown in the slide diagram. How many possible classification outputs does this task predict, and what does the nearest neighbor visualization reveal about what the trained network has learned according to the speaker's analysis of the results?",
+    "answer": "The relative position pretext task solves an eight-way classification problem, predicting the relative position of one patch with respect to another among eight possible spatial locations. The nearest neighbor visualization reveals that the network learns to associate local patches with similar visual appearance, and notably shows some degree of color invariance\u2014for example, finding cat patches that are not just black and white when given a black-and-white input. This demonstrates the network can reason about local patches semantically, grouping together patches that are visually and structurally similar even across color variations.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 875.0,
+        "end": 930.0,
+        "hop": 1,
+        "description": "Slide diagram shows the 8-way classification setup for relative position task with CNN architecture"
+      },
+      {
+        "start": 1005.0,
+        "end": 1080.0,
+        "hop": 2,
+        "description": "Speaker explains nearest neighbor results showing color invariance and semantic grouping"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week10_chunk_025",
+      "nyu_dl_week10_chunk_029"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "relative position",
+      "8-way classification",
+      "nearest neighbors",
+      "color invariance"
+    ],
+    "video_id": "nyu_dl_week10",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week10_q003",
+    "question": "The 'Predicting Rotations' slide shows a tree image rotated to four specific angles. What are those four angles, and why does the speaker argue that this seemingly simple pretext task actually forces the network to learn semantically meaningful representations?",
+    "answer": "The four rotation angles shown in the slide are 0\u00b0, 90\u00b0, 180\u00b0, and 270\u00b0. The speaker argues that to correctly predict which rotation was applied, the network must implicitly understand semantic content of the image\u2014for example, it must learn to distinguish sky from sand or water, and understand that trees grow upward rather than downward. This forces the network to reason about meaningful visual concepts rather than just low-level statistics, which explains why the task empirically produces useful representations despite appearing trivially simple.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1085.0,
+        "end": 1140.0,
+        "hop": 1,
+        "description": "Slide shows tree image rotated at 0, 90, 180, and 270 degrees"
+      },
+      {
+        "start": 1190.0,
+        "end": 1255.0,
+        "hop": 2,
+        "description": "Speaker explains why predicting rotation requires semantic understanding of sky vs sand and tree orientation"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week10_chunk_031",
+      "nyu_dl_week10_chunk_034"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "rotation prediction",
+      "four angles",
+      "semantic understanding",
+      "pretext task"
+    ],
+    "video_id": "nyu_dl_week10",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week10_q004",
+    "question": "The 'Shuffle and Learn' method uses a triplet network architecture visible in the slide. How does the speaker explain the reason the Shuffle and Learn nearest neighbors focus on human pose rather than background, and how did the quantitative evaluation on keypoint estimation confirm this observation?",
+    "answer": "The speaker explains that because the Shuffle and Learn pretext task requires predicting whether three frames are in correct temporal order, the network must focus on what is actually changing between frames\u2014namely the person performing the action\u2014rather than the static background. The nearest neighbor visualization shows the network retrieves frames with similar human poses even across different scenes. The quantitative evaluation on human keypoint estimation using FLIC and MPII datasets with AlexNet showed the self-supervised representation was competitive with or even slightly better than ImageNet supervised pre-training, confirming the network had inadvertently learned strong pose-sensitive features.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1870.0,
+        "end": 1960.0,
+        "hop": 1,
+        "description": "Nearest neighbor slide shows pose-focused retrieval; speaker explains why background is ignored in Shuffle and Learn"
+      },
+      {
+        "start": 2010.0,
+        "end": 2075.0,
+        "hop": 2,
+        "description": "Speaker describes keypoint estimation results showing self-supervised method was competitive with ImageNet supervised"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week10_chunk_053",
+      "nyu_dl_week10_chunk_057"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Shuffle and Learn",
+      "human pose",
+      "temporal ordering",
+      "keypoint estimation"
+    ],
+    "video_id": "nyu_dl_week10",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week10_q005",
+    "question": "The 'Objects that Sound' slide shows a network architecture with separate vision and audio subnetworks. What specific visual localization capability does this network learn without explicit supervision, and what example involving musical instruments does the speaker give to illustrate this emergent behavior?",
+    "answer": "The network learns to localize which objects in a video frame are producing sound, a capability that emerges purely from training on the correspondence between video frames and their associated audio clips. The speaker illustrates this with an example involving a piano and a flute: when shown an image containing both instruments and given only the audio information\u2014with no motion information from video\u2014the network automatically places high visual importance on the piano and the flute because it has learned to associate their visual appearance with the sounds they produce.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2335.0,
+        "end": 2390.0,
+        "hop": 1,
+        "description": "Objects that Sound slide shows vision and audio subnetwork architecture producing 128-dimensional embeddings"
+      },
+      {
+        "start": 2405.0,
+        "end": 2445.0,
+        "hop": 2,
+        "description": "Speaker explains piano and flute localization example without motion information"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week10_chunk_065",
+      "nyu_dl_week10_chunk_066"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "audio-visual correspondence",
+      "sound localization",
+      "piano and flute",
+      "emergent capability"
+    ],
+    "video_id": "nyu_dl_week10",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week10_q006",
+    "question": "The 'What does each layer learn?' graph shows a sharp performance drop from res4 to res5 for self-supervised networks. What does the speaker conclude from this pattern, and how does this observation lead into the motivation for contrastive learning methods like PIRL?",
+    "answer": "The speaker concludes that the sharp drop in mean average precision from res4 to res5 indicates that the highest-level representations in self-supervised networks are overly specialized to the specific pretext task rather than learning general semantic features. This contrasts with supervised networks where representation quality consistently improves from lower to higher layers. This observation reveals that pretext tasks impose co-variation between the representation and the transform applied, which is the exact opposite of what is needed\u2014invariance to such transforms. This motivates PIRL, which explicitly trains representations to be invariant to pretext transforms rather than predictive of them, addressing the core limitation of traditional pretext task approaches.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3660.0,
+        "end": 3720.0,
+        "hop": 1,
+        "description": "Graph slide shows sharp res4 to res5 accuracy drop for self-supervised methods on VOC07"
+      },
+      {
+        "start": 5270.0,
+        "end": 5340.0,
+        "hop": 2,
+        "description": "Speaker explains PIRL motivation: representations should be invariant to transforms rather than predictive of them"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week10_chunk_104",
+      "nyu_dl_week10_chunk_153"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "layer-wise analysis",
+      "res5 drop",
+      "invariance",
+      "PIRL motivation"
+    ],
+    "video_id": "nyu_dl_week10",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week10_q007",
+    "question": "The Jigsaw Puzzles slide shows patches processed independently through a shared network. The speaker explains that the jigsaw pre-training task produced significantly better results than ImageNet supervised pre-training on a specific 3D understanding benchmark. What was that benchmark, and what numerical performance values were reported to demonstrate the improvement?",
+    "answer": "The benchmark was the surface normal estimation task evaluated on the NYU-v2 dataset using PSPNet architecture with only the last few layers trained. The jigsaw pre-training on Flickr 100M images achieved a median error of 13.1 degrees, compared to 17.1 degrees for ImageNet supervised pre-training\u2014a significant improvement since lower is better for median error. The percentage of predictions correct within 11.25 degrees also improved substantially over the ImageNet supervised baseline of 36.1%, demonstrating that the jigsaw task incorporates geometric and pixel-level information much more effectively than standard ImageNet classification supervision.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2955.0,
+        "end": 2995.0,
+        "hop": 1,
+        "description": "Jigsaw Puzzles slide shows patches processed independently through shared N-way ConvNet"
+      },
+      {
+        "start": 3510.0,
+        "end": 3575.0,
+        "hop": 2,
+        "description": "Surface Normal Estimation results showing jigsaw Flickr 100M achieves median error 13.1 vs ImageNet supervised 17.1"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week10_chunk_083",
+      "nyu_dl_week10_chunk_099"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "jigsaw puzzles",
+      "surface normal estimation",
+      "NYU-v2",
+      "performance comparison"
+    ],
+    "video_id": "nyu_dl_week10",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week10_q008",
+    "question": "According to the slide shown during the lecture, what are the three bullet points explaining why self-supervision is useful, as presented on the 'Why self-supervision?' slide?",
+    "answer": "According to the 'Why self-supervision?' slide visible in the lecture, the three reasons given are: it helps us learn using observations and interactions, it does not require exhaustive annotation of concepts, and it allows leveraging multiple modalities or structure in the domain.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 630.0,
+        "end": 675.0,
+        "hop": 1,
+        "description": "Why self-supervision slide lists three bullet points about learning from observations, no exhaustive annotation, and leveraging multiple modalities"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week10_chunk_017"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "self-supervision",
+      "multiple modalities",
+      "annotation",
+      "observations"
+    ],
+    "video_id": "nyu_dl_week10",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week10_q009",
+    "question": "In the 'Nearby patches vs. distant patches of an Image' slide shown during the lecture, what specific image is used to illustrate the concept of related positives versus unrelated negatives in contrastive learning?",
+    "answer": "The slide uses a beach scene featuring a distinctive tree as the example image. Two patches are highlighted on this beach scene: one close-up patch of the tree area is labeled as 'Related (Positives)', while another patch from a more distant or different part of the image is labeled as 'Unrelated (Negatives)'. This illustrates how nearby patches from the same image can serve as positive pairs while distant or cross-image patches serve as negatives in contrastive learning frameworks.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 5110.0,
+        "end": 5155.0,
+        "hop": 1,
+        "description": "Nearby patches slide shows beach scene with tree, with yellow box for related positives and red box for unrelated negatives"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week10_chunk_146"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "contrastive learning",
+      "positive patches",
+      "negative patches",
+      "beach image"
+    ],
+    "video_id": "nyu_dl_week10",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week10_q010",
+    "question": "The speaker explains two distinct definitions of self-supervised learning and the concept of a pretext task. How do these two definitions differ, and what does the speaker mean when calling certain vision tasks 'pretext' tasks in terms of their relationship to downstream goals?",
+    "answer": "The first definition views self-supervised learning from a discriminative perspective: it is a way to automatically obtain labels from the data itself without significant human intervention, allowing standard supervised training algorithms to be applied. The second definition frames it as a prediction problem where the model must predict hidden parts of the data from observed parts. A pretext task is distinguished as a self-supervised task that is specifically NOT the real downstream task of interest\u2014for example, predicting image rotations or patch relative positions\u2014but is used as a proxy to learn useful feature representations. The term 'pretext' captures the idea that you are solving one task as an excuse or stepping stone before tackling the actual task you care about, such as image classification or object detection.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 420.0,
+        "end": 480.0,
+        "hop": 1,
+        "description": "Speaker defines self-supervised learning as obtaining automatic labels or predicting hidden data from observed data"
+      },
+      {
+        "start": 770.0,
+        "end": 830.0,
+        "hop": 2,
+        "description": "Speaker defines pretext task as self-supervised task that is not the real task but used to learn representations for downstream tasks"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week10_chunk_012",
+      "nyu_dl_week10_chunk_022"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "self-supervised learning",
+      "pretext task",
+      "downstream tasks",
+      "automatic labels"
+    ],
+    "video_id": "nyu_dl_week10",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week10_q011",
+    "question": "The speaker describes the ClusterFit method as having two steps. What are these two steps in detail, and what experimental evidence involving synthetic label noise on ImageNet did the speaker present to validate why clustering acts as a beneficial bottleneck?",
+    "answer": "ClusterFit has two steps: first, a 'cluster' step where features are extracted from any pre-trained network on an unlabeled dataset and k-means clustering is applied to assign pseudo-labels to each image; second, a 'fit' step where a new network is trained from scratch to predict these pseudo cluster labels. To validate why clustering helps, the speaker added synthetic label noise to ImageNet-1K at varying percentages from 0% to 75% and measured transfer performance on the larger ImageNet-9K dataset. The results showed that while the pre-trained network's performance degraded rapidly with increasing noise, the ClusterFit model (green line) was consistently better than both the pre-trained network and a model distillation baseline at all noise levels, including zero noise. This demonstrates that clustering acts as a bottleneck that filters out task-specific noise and retains only essential inter-image relationships.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3960.0,
+        "end": 4050.0,
+        "hop": 1,
+        "description": "Speaker explains the cluster and fit steps of ClusterFit method using k-means and pseudo-label training"
+      },
+      {
+        "start": 4130.0,
+        "end": 4220.0,
+        "hop": 2,
+        "description": "Synthetic noise experiment shows ClusterFit consistently outperforms pre-training and distillation across 0-75% label noise"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week10_chunk_114",
+      "nyu_dl_week10_chunk_119"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "ClusterFit",
+      "k-means clustering",
+      "synthetic label noise",
+      "bottleneck"
+    ],
+    "video_id": "nyu_dl_week10",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week10_q012",
+    "question": "The speaker compares pretext tasks and contrastive learning in terms of how many data points they reason about simultaneously and what they predict. How do these two approaches fundamentally differ on these dimensions, and why does the speaker argue contrastive learning is better aligned with the goal of learning invariant representations?",
+    "answer": "Pretext tasks always reason about a single image in isolation\u2014you apply a transform to one image and ask the network to predict the property of that transform, so the representation at the final layer must co-vary with the transform. This is fundamentally at odds with the goal of invariance, since you want representations to be the same regardless of rotation or jigsaw permutation. Contrastive learning, by contrast, always reasons about multiple data points simultaneously: it brings related samples close together and pushes unrelated samples apart in feature space. This directly encourages invariance because related samples\u2014such as an image and its transformed version\u2014should have the same representation, making the features robust to the specific transforms used to generate positive pairs rather than predictive of them.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 4800.0,
+        "end": 4860.0,
+        "hop": 1,
+        "description": "Speaker explains pretext tasks reason about single images and representations must co-vary with the transform"
+      },
+      {
+        "start": 4860.0,
+        "end": 4920.0,
+        "hop": 2,
+        "description": "Speaker explains contrastive learning reasons about multiple data points simultaneously and encourages invariance"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week10_chunk_140",
+      "nyu_dl_week10_chunk_141"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "pretext tasks vs contrastive learning",
+      "invariance",
+      "covariance",
+      "multiple data points"
+    ],
+    "video_id": "nyu_dl_week10",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week10_q013",
+    "question": "In the context of the colorization pretext task, what specific problem did the initial deterministic mapping approach have, and what type of model was proposed as a follow-up solution to address this issue?",
+    "answer": "The initial deterministic mapping approach for colorization had the problem that for objects that can appear in multiple colors\u2014such as a ball that could be red, blue, or green\u2014the network would predict the average or mean color (gray) as its best guess, since it had no way to represent uncertainty over multiple valid colorizations. As a follow-up solution, work from David Forsyth's group at UIUC proposed using variational auto-encoders with latent variables that enable diverse and consistent colorization, allowing the network to actually predict a specific color like green for a ball while maintaining consistent colorization across the entire scene.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1435.0,
+        "end": 1500.0,
+        "hop": 1,
+        "description": "Speaker explains deterministic mapping problem and VAE follow-up for diverse colorization"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week10_chunk_041"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "colorization",
+      "deterministic mapping",
+      "variational auto-encoder",
+      "diverse colorization"
+    ],
+    "video_id": "nyu_dl_week10",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week10_q014",
+    "question": "What specific numerical finding regarding PIRL trained on only 1 million Flickr images compared to a Jigsaw method trained on 100 million images did the speaker report when evaluating on in-the-wild YFCC data, and what conclusion did the speaker draw from this result?",
+    "answer": "The speaker reported that PIRL trained on only 1 million Flickr images from the YFCC dataset was able to outperform the Jigsaw method that was trained on 100 million images\u2014a hundred-times larger dataset\u2014on transfer learning benchmarks including ImageNet and Places-205. The speaker concluded that this result powerfully demonstrates the advantage of baking invariance directly into the representation learning objective rather than using pretext task prediction, since PIRL's contrastive invariant approach extracts far more useful representations per training image than the jigsaw approach despite using dramatically less data.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 5985.0,
+        "end": 6045.0,
+        "hop": 1,
+        "description": "Speaker reports PIRL on 1M images outperforms Jigsaw on 100M images on YFCC transfer benchmarks"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week10_chunk_171"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "PIRL",
+      "YFCC dataset",
+      "data efficiency",
+      "invariance advantage"
+    ],
+    "video_id": "nyu_dl_week10",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week10_q015",
+    "question": "What were the specific ImageNet top-5 accuracy scores reported for the fully supervised ImageNet pre-training baseline using ResNet50 on the ClusterFit gain table shown in the lecture?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "hard",
+    "answerable": false,
+    "key_concepts": [
+      "ClusterFit",
+      "ResNet50",
+      "ImageNet top-5 accuracy",
+      "fully supervised baseline"
+    ],
+    "video_id": "nyu_dl_week10",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  }
+]

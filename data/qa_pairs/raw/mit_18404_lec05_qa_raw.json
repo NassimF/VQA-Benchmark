@@ -1,0 +1,503 @@
+[
+  {
+    "qa_id": "mit_18404_lec05_q001",
+    "question": "According to the lecture slide shown early in the lecture, what topics were covered last time, and how does the professor explain the relationship between those topics and today's main new model?",
+    "answer": "The lecture slide shows that last time covered context-free grammars (CFGs), context-free languages (CFLs), pushdown automata (PDA), and converting CFGs to PDAs. The professor explains that context-free languages are a larger class than regular languages because adding a stack gives more computational power, and these topics serve as a lead-in to the main new model of the semester, the Turing machine, which can do things that push-down automata and grammars cannot.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 0.0,
+        "end": 45.0,
+        "hop": 1,
+        "description": "Frame caption showing the lecture slide listing last time's topics: CFGs, CFLs, PDAs, and converting CFGs to PDAs"
+      },
+      {
+        "start": 35.0,
+        "end": 120.0,
+        "hop": 2,
+        "description": "Professor explains that adding a stack gives more power than finite automata and introduces the Turing machine as the main model"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_000",
+      "mit_18404_lec05_chunk_001"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "context-free grammars",
+      "pushdown automata",
+      "Turing machine",
+      "computational power hierarchy"
+    ],
+    "video_id": "mit_18404_lec05",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q002",
+    "question": "What does the lecture slide titled 'Equivalence of CFGs and PDAs' show as the two corollaries, and how does the professor use the concept of a single stack to explain why one of those corollaries does NOT extend to the intersection of two context-free languages?",
+    "answer": "The lecture slide shows two corollaries: (1) every regular language is a CFL, and (2) if A is a CFL and B is regular then A intersect B is a CFL. The professor explains that corollary 2 works because you can simulate the finite automaton for the regular language inside the PDA's finite control. However, this does not extend to the intersection of two context-free languages because you would need two pushdown automata, and you cannot simulate both with a single stack \u2014 a PDA only has one stack, so you cannot track both context-free constraints simultaneously.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 570.0,
+        "end": 650.0,
+        "hop": 1,
+        "description": "Frame caption shows slide with two corollaries: every regular language is a CFL, and CFL intersect regular is CFL"
+      },
+      {
+        "start": 1200.0,
+        "end": 1285.0,
+        "hop": 2,
+        "description": "Professor explains why intersection of two CFLs fails: two PDAs cannot be simulated with one stack"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_016",
+      "mit_18404_lec05_chunk_020"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "CFG-PDA equivalence",
+      "closure under intersection",
+      "single stack limitation",
+      "context-free languages"
+    ],
+    "video_id": "mit_18404_lec05",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q003",
+    "question": "The lecture slide for 'Proving languages not Context Free' defines the language B. What is that definition as shown on the slide, and how does the professor informally argue why a pushdown automaton would struggle to recognize it?",
+    "answer": "The lecture slide defines the language B as the set of strings of the form 0^k 1^k 2^k where k is greater than or equal to 0, meaning runs of zeros followed by an equal number of ones followed by an equal number of twos. The professor informally argues that a pushdown automaton could use its stack to match zeros with ones by pushing zeros and popping them as ones are read, but once that is done the stack is empty, so there is no way to then verify that the number of twos equals the number of ones, illustrating the inherent limitation of a single stack.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 820.0,
+        "end": 875.0,
+        "hop": 1,
+        "description": "Frame caption shows slide defining B = {0^k 1^k 2^k | k >= 0}"
+      },
+      {
+        "start": 840.0,
+        "end": 925.0,
+        "hop": 2,
+        "description": "Professor informally argues the stack is empty after matching zeros to ones, leaving no way to count twos"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_022",
+      "mit_18404_lec05_chunk_024"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "non-context-free language",
+      "pushdown automaton limitation",
+      "pumping lemma",
+      "stack-based matching"
+    ],
+    "video_id": "mit_18404_lec05",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q004",
+    "question": "The lecture slide for the 'Pumping Lemma \u2013 Proof' shows the formal statement of the pumping lemma for CFLs. What are the three conditions listed, and how does the professor's 'cutting and pasting' argument explain why condition 1 is satisfied?",
+    "answer": "The lecture slide shows the three conditions as: (1) uv^i xy^i z is in A for all i greater than or equal to 0, (2) vy is not the empty string, and (3) the length of vxy is at most p. The professor explains that condition 1 is satisfied through the cutting and pasting argument: since a long string forces a tall parse tree with a repeated variable R on some path, the larger subtree rooted at the first R can be substituted in for the smaller subtree rooted at the second R, generating u v v x y y z, and this substitution can be repeated arbitrarily many times or the smaller subtree can replace the larger to get u x z, corresponding to i equal to zero.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1140.0,
+        "end": 1210.0,
+        "hop": 1,
+        "description": "Frame caption shows slide with the three conditions of the pumping lemma: uv^ixy^iz in A, vy not epsilon, |vxy| <= p"
+      },
+      {
+        "start": 1440.0,
+        "end": 1525.0,
+        "hop": 2,
+        "description": "Professor explains cutting and pasting: substituting the larger subtree for the smaller generates u v v x y y z"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_031",
+      "mit_18404_lec05_chunk_040"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "pumping lemma for CFLs",
+      "parse tree",
+      "cutting and pasting",
+      "repeated variable"
+    ],
+    "video_id": "mit_18404_lec05",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q005",
+    "question": "What does the lecture slide titled 'TM - Formal Definition' show as the transition function signature for a Turing machine, and how does the professor use this to explain what happens at each computational step?",
+    "answer": "The lecture slide shows the transition function as delta: Q times Gamma maps to Q times Gamma times {L, R}, where L means left and R means right. The professor explains that this means when the machine is in a certain state and the head is reading a certain tape symbol, the transition function outputs a new state, a new symbol to write at that tape location, and a direction (left or right) for the head to move. As an example, if delta(q, a) equals (r, b, R), the machine moves from state q to state r, replaces the symbol a with b on the tape, and moves the head one square to the right.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3615.0,
+        "end": 3690.0,
+        "hop": 1,
+        "description": "Frame caption shows slide with formal definition of TM as 7-tuple and transition function delta: Q x Gamma -> Q x Gamma x {L,R}"
+      },
+      {
+        "start": 3700.0,
+        "end": 3775.0,
+        "hop": 2,
+        "description": "Professor explains the transition function: reads state and symbol, writes new symbol, moves head left or right, gives example delta(q,a)=(r,b,R)"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_103",
+      "mit_18404_lec05_chunk_106"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Turing machine formal definition",
+      "transition function",
+      "tape alphabet",
+      "head movement"
+    ],
+    "video_id": "mit_18404_lec05",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q006",
+    "question": "What does the frame caption for the Turing machine diagram show about the physical components of the machine, and how does the professor's description of the head's capabilities explain why Turing machines are more powerful than pushdown automata?",
+    "answer": "The frame caption for the Turing machine diagram shows a finite control box connected to a head that reads and writes on a tape labeled 'read/write input tape,' with symbols like a, b, and blank symbols on an infinite tape. The professor explains that the head can both read and write on the tape, unlike a PDA which can only read input, and critically the head is two-way, meaning it can move both left and right under control of the transition function. This means the machine can use the entire tape as flexible storage and return to read what it has previously written, giving it much greater power than a pushdown automaton which is limited to a last-in-first-out stack.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2895.0,
+        "end": 2970.0,
+        "hop": 1,
+        "description": "Frame caption shows Turing machine diagram with finite control, head, and read/write input tape with symbols"
+      },
+      {
+        "start": 3010.0,
+        "end": 3095.0,
+        "hop": 2,
+        "description": "Professor explains the head can read and write, move bidirectionally, making the tape flexible storage unlike a stack"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_082",
+      "mit_18404_lec05_chunk_085"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Turing machine",
+      "read/write head",
+      "bidirectional movement",
+      "tape storage",
+      "PDA comparison"
+    ],
+    "video_id": "mit_18404_lec05",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q007",
+    "question": "What does the slide shown at the end of the lecture titled 'Quick review of today' list as the three main accomplishments, and how does the professor's earlier discussion of language hierarchies connect the second and third items on that list?",
+    "answer": "The 'Quick review of today' slide lists three accomplishments: (1) proved the CFL Pumping Lemma as a tool for showing languages are not context-free, (2) defined Turing machines (TMs), and (3) defined TM deciders that halt on all inputs. The professor's earlier discussion explains that Turing-decidable languages are a proper subset of Turing-recognizable languages, because a decider is an additional restriction requiring the machine to always halt on every input, whereas a recognizer may reject by running forever. This hierarchy connects items 2 and 3: defining TMs established recognizers, and then defining deciders carved out the strictly more restricted class of languages where the machine always terminates.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 4326.0,
+        "end": 4395.0,
+        "hop": 1,
+        "description": "Frame caption shows 'Quick review of today' slide listing: proved CFL pumping lemma, defined TMs, defined TM deciders"
+      },
+      {
+        "start": 4185.0,
+        "end": 4250.0,
+        "hop": 2,
+        "description": "Professor explains that decidable languages are a proper subset of recognizable languages because deciders must always halt"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_122",
+      "mit_18404_lec05_chunk_120"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Turing decidable",
+      "Turing recognizable",
+      "language hierarchy",
+      "decider vs recognizer"
+    ],
+    "video_id": "mit_18404_lec05",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q008",
+    "question": "What does the frame caption for the 'TM \u2013 example' slide reveal about the specific steps of the Turing machine algorithm shown for recognizing language B?",
+    "answer": "The frame caption for the 'TM \u2013 example' slide reveals that the Turing machine algorithm for recognizing B = {a^k b^k c^k | k >= 0} proceeds through the following steps: (1) scan right until the blank symbol while checking if the input is in a* b* c*, and reject if not; (2) return the head to the left end; and (3) scan right, crossing off a single a, a single b, and a single c on each pass.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 3180.0,
+        "end": 3270.0,
+        "hop": 1,
+        "description": "Frame caption shows TM-example slide with steps: scan right checking a*b*c*, return head to left, scan crossing off single a, b, c"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_092"
+    ],
+    "question_type": "visual",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "Turing machine example",
+      "crossing off symbols",
+      "algorithm steps",
+      "language recognition"
+    ],
+    "video_id": "mit_18404_lec05",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q009",
+    "question": "What does the frame caption for the 'Pumping Lemma \u2013 Proof details' slide reveal about the value of p defined in terms of the grammar's parameters?",
+    "answer": "The frame caption for the 'Pumping Lemma \u2013 Proof details' slide reveals that the pumping length p is defined by letting b equal the length of the longest right-hand side of any rule in the grammar, and then setting p based on b raised to the power of the number of variables in the grammar, specifically so that a string of length at least p forces the parse tree to be tall enough to guarantee a repeated variable on some path from the start symbol.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1575.0,
+        "end": 1650.0,
+        "hop": 1,
+        "description": "Frame caption shows 'Pumping Lemma \u2013 Proof details' slide with: let b = length of longest right-hand side of a rule, and formula for p in terms of b and number of variables"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_044"
+    ],
+    "question_type": "visual",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "pumping length",
+      "parse tree height",
+      "grammar variables",
+      "pumping lemma proof"
+    ],
+    "video_id": "mit_18404_lec05",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q010",
+    "question": "How does the professor use De Morgan's laws to derive the conclusion that the class of context-free languages is not closed under complement, and what two earlier facts about CFLs are required to make this argument work?",
+    "answer": "The professor uses two earlier facts: first, that the context-free languages ARE closed under union, and second, that they are NOT closed under intersection. The argument by De Morgan's laws is that if the class were closed under both union and complement, then by De Morgan's law (the complement of a union equals the intersection of complements), it would also be closed under intersection. Since we already know the class is NOT closed under intersection, it follows by contrapositive that the class cannot be closed under complement, even though it is closed under union.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1290.0,
+        "end": 1370.0,
+        "hop": 1,
+        "description": "Professor states CFLs are closed under union and regular operations but not under intersection"
+      },
+      {
+        "start": 2380.0,
+        "end": 2460.0,
+        "hop": 2,
+        "description": "Professor applies De Morgan's laws: closure under union plus closure under complement would give closure under intersection, but that fails, so CFLs are not closed under complement"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_022",
+      "mit_18404_lec05_chunk_069"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "closure properties",
+      "De Morgan's laws",
+      "context-free languages",
+      "complement",
+      "intersection"
+    ],
+    "video_id": "mit_18404_lec05",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q011",
+    "question": "Why does the professor say that the string 0^p 1^p composed with itself (zeros then a one then zeros then a one) is a bad choice of s when trying to use the pumping lemma to show that the language F = {ww} is not context-free, and what string does he recommend instead and why?",
+    "answer": "The professor says that string is a bad choice because there exists a valid way to cut it up that satisfies all three pumping lemma conditions while still pumping to a string that remains in the language: you can let x be the middle '1' symbol and let v and y be a small number of zeros on either side, giving a short vxy, and repeating v and y just adds equal numbers of zeros on both sides so the string still has the form ww. Since the pumping lemma only requires that SOME decomposition works, not that ALL fail, this string cannot be used to derive a contradiction. Instead, the professor recommends using 0^p 1^p 0^p 1^p, which alternates zeros and ones, because the condition that vxy has length at most p means vxy cannot span two different runs of zeros or two different runs of ones, so any pumping will create runs of unequal length that cannot be split into two identical halves.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2580.0,
+        "end": 2660.0,
+        "hop": 1,
+        "description": "Professor explains why 0^p 1^p 0^p 1^p composed naively is a bad choice: there is a valid cut that keeps the string in the language"
+      },
+      {
+        "start": 2710.0,
+        "end": 2795.0,
+        "hop": 2,
+        "description": "Professor recommends 0^p 1^p 0^p 1^p and explains vxy cannot span two runs, so pumping creates unequal run lengths, exiting the language"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_072",
+      "mit_18404_lec05_chunk_075"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "pumping lemma application",
+      "string choice",
+      "language F = {ww}",
+      "condition 3 vxy length bound"
+    ],
+    "video_id": "mit_18404_lec05",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q012",
+    "question": "How does the professor define a Turing machine decider and explain the distinction between a language being Turing-recognizable versus Turing-decidable, and what example does he give of how a language can be in one class but not the other?",
+    "answer": "The professor defines a Turing machine decider as a Turing machine that halts on every input, always entering either the accept state or the reject state in finite time, never looping forever. A language is Turing-recognizable if some Turing machine accepts exactly those strings in the language, where strings not in the language may be rejected either by halting in the reject state or by looping forever. A language is Turing-decidable if some decider recognizes it, meaning every input eventually gets an explicit accept or reject decision. The professor explains that decidable languages are a proper subset of recognizable languages because there exist languages that can be recognized but not decided \u2014 a recognizer may loop on inputs not in the language, while a decider must explicitly reject. He promises to give an example of a recognizable but undecidable language in the next lecture.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 4230.0,
+        "end": 4305.0,
+        "hop": 1,
+        "description": "Professor defines decider as TM that always halts on all inputs, and defines Turing-decidable language"
+      },
+      {
+        "start": 4185.0,
+        "end": 4250.0,
+        "hop": 2,
+        "description": "Professor explains recognizable vs decidable: decidable is proper subset of recognizable, some languages are recognizable but not decidable"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_118",
+      "mit_18404_lec05_chunk_120"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "Turing decider",
+      "Turing-recognizable",
+      "Turing-decidable",
+      "looping vs halting",
+      "language hierarchy"
+    ],
+    "video_id": "mit_18404_lec05",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q013",
+    "question": "In the proof sketch of the CFL pumping lemma, what name does the professor give to the proof technique, and why is the requirement to use the smallest possible parse tree important for establishing condition 2 of the pumping lemma?",
+    "answer": "The professor calls the technique the 'cutting and pasting argument' because pieces of the parse tree are cut apart and pasted into other locations to generate new strings. The requirement to use the smallest possible parse tree is important for condition 2 (that v and y are not both empty) because in an arbitrary parse tree it is possible to have a repeated variable R where going from the upper R to the lower R generates nothing new, making v and y both the empty string. If you insist on the smallest possible parse tree, this cannot happen: if going from one R to another R generated nothing new, then you could eliminate that portion and obtain a smaller parse tree for the same string, contradicting the assumption of minimality. Therefore the smallest parse tree guarantees that the substitution from the first R to the second R must produce some nonempty contribution to v or y.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1870.0,
+        "end": 1985.0,
+        "hop": 1,
+        "description": "Professor names the 'cutting and pasting argument' and explains that the smallest parse tree cannot have R going to R with nothing new, which guarantees vy is not both empty"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_043",
+      "mit_18404_lec05_chunk_054"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "cutting and pasting",
+      "smallest parse tree",
+      "condition 2",
+      "pumping lemma proof",
+      "repeated variable"
+    ],
+    "video_id": "mit_18404_lec05",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q014",
+    "question": "How does the professor explain the way a Turing machine implements 'crossing off' symbols when running on input strings, and why is this different from adding a new capability to the machine model?",
+    "answer": "The professor explains that the Turing machine implements crossing off by writing a special 'crossed off' symbol in place of the original symbol at that tape location. This is done using the tape alphabet, which can include these new crossed-off symbols in addition to the input alphabet symbols. This is not a new capability added to the model because the ability to write on the tape is already part of the Turing machine definition \u2014 the transition function already allows the machine to write any symbol from the tape alphabet at the current head position. So crossing off is simply a design choice in how the programmer defines the tape alphabet for a particular machine, not an extension to the model itself.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 3590.0,
+        "end": 3660.0,
+        "hop": 1,
+        "description": "Professor explains crossing off is implemented by writing a crossed-off symbol from the tape alphabet, not a new model capability"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_102"
+    ],
+    "question_type": "text",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "Turing machine tape alphabet",
+      "crossing off symbols",
+      "tape writing",
+      "model design"
+    ],
+    "video_id": "mit_18404_lec05",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q015",
+    "question": "What is the specific pumping length p that the professor derives for the context-free pumping lemma in terms of both the maximum branching factor of the grammar and the exact number of variables, and what inequality must hold for the height h of the parse tree to guarantee a repeated variable?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "hard",
+    "answerable": false,
+    "key_concepts": [
+      "pumping length",
+      "parse tree height",
+      "branching factor",
+      "repeated variable"
+    ],
+    "video_id": "mit_18404_lec05",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  }
+]

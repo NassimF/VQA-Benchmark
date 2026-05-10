@@ -1,0 +1,533 @@
+[
+  {
+    "qa_id": "stanford_cs229_lec12_q001",
+    "question": "What visual demonstration was shown during the K-means animation, and how does this connect to the distortion function J(c,\u03bc) described on the whiteboard?",
+    "answer": "The K-means animation showed colored data points (blue and red) being assigned to cluster centroids marked as crosses, with centroids moving to the average position of their assigned points across iterations until convergence. This visually demonstrates the two steps of K-means \u2014 assigning points to the nearest centroid and updating centroids to the mean \u2014 which correspond exactly to coordinate descent on the distortion function J(c,\u03bc) defined as the sum of squared distances between each point and its assigned centroid. Each iteration of K-means monotonically decreases this distortion function, guaranteeing convergence.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 489.0,
+        "end": 670.0,
+        "hop": 1,
+        "description": "K-means animation showing blue and red cluster assignments and centroid updates"
+      },
+      {
+        "start": 750.0,
+        "end": 870.0,
+        "hop": 2,
+        "description": "Distortion function J(c,mu) defined as sum of squared distances, K-means as coordinate descent"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec12_chunk_015",
+      "stanford_cs229_lec12_chunk_016",
+      "stanford_cs229_lec12_chunk_017",
+      "stanford_cs229_lec12_chunk_018",
+      "stanford_cs229_lec12_chunk_021",
+      "stanford_cs229_lec12_chunk_022",
+      "stanford_cs229_lec12_chunk_023"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "K-means animation",
+      "cluster centroids",
+      "distortion function",
+      "coordinate descent"
+    ],
+    "video_id": "stanford_cs229_lec12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q002",
+    "question": "The lecture slide shows the outline topic 'Mixture of Gaussians' for unsupervised learning. How does the mixture of Gaussians model relate to Gaussian Discriminant Analysis as explained later in the lecture, and what is the key difference?",
+    "answer": "According to the lecture slide shown early in the lecture, the topics include Mixture of Gaussians under unsupervised learning. Later, the lecturer explains that the mixture of Gaussians model uses nearly the same equations as Gaussian Discriminant Analysis \u2014 with class label variable Z playing a role analogous to the class label y in GDA. The key difference is that in GDA we are given labeled data with known class labels, whereas in the mixture of Gaussians model the class labels are latent (hidden) random variables Z whose values are unknown and must be inferred. This transforms it from a supervised to an unsupervised problem requiring the EM algorithm.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 35.0,
+        "end": 80.0,
+        "hop": 1,
+        "description": "Lecture slide listing Mixture of Gaussians as an unsupervised learning topic"
+      },
+      {
+        "start": 1575.0,
+        "end": 1680.0,
+        "hop": 2,
+        "description": "Explanation of how mixture of Gaussians relates to GDA with latent Z replacing observed y"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec12_chunk_001",
+      "stanford_cs229_lec12_chunk_045",
+      "stanford_cs229_lec12_chunk_046"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "mixture of Gaussians",
+      "Gaussian Discriminant Analysis",
+      "latent variables",
+      "supervised vs unsupervised"
+    ],
+    "video_id": "stanford_cs229_lec12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q003",
+    "question": "Based on the whiteboard showing the K-means algorithm input and the scatter plot animation with green data points, what is the full procedure K-means follows starting from initialization?",
+    "answer": "The whiteboard shows the K-means algorithm takes as input an unlabeled dataset X(1), X(2), ..., X(m). The scatter plot animation shows green data points in two clusters. K-means starts by randomly initializing cluster centroids mu_1 through mu_k in R^n. Then it repeatedly performs two steps: first, each data point is assigned to the nearest centroid (points are painted blue or red in the animation based on proximity to the colored cross markers), and second, each centroid is moved to the mean of all points assigned to it. These steps repeat until the cluster assignments and centroid positions no longer change, indicating convergence.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 295.0,
+        "end": 400.0,
+        "hop": 1,
+        "description": "Whiteboard showing K-means algorithm with input X(1) through X(m) and initialization of centroids mu_1 through mu_k"
+      },
+      {
+        "start": 490.0,
+        "end": 640.0,
+        "hop": 2,
+        "description": "Scatter plot animation showing green dots painted blue and red based on closest centroid, centroids moving to means"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec12_chunk_008",
+      "stanford_cs229_lec12_chunk_009",
+      "stanford_cs229_lec12_chunk_010",
+      "stanford_cs229_lec12_chunk_015",
+      "stanford_cs229_lec12_chunk_016",
+      "stanford_cs229_lec12_chunk_017"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "K-means initialization",
+      "cluster assignment",
+      "centroid update",
+      "convergence"
+    ],
+    "video_id": "stanford_cs229_lec12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q004",
+    "question": "The whiteboard displays the density estimation setup with axes labeled 'Heat' and 'Vibration' for aircraft engines. How does this connect to the anomaly detection application described verbally in the lecture?",
+    "answer": "The whiteboard shows a scatter plot with axes for Heat and Vibration representing measured properties of aircraft engines rolling off an assembly line, with data points representing typical engine measurements. The lecturer explains that by modeling the joint distribution P(x) of these features from the training set of unlabeled examples, one can detect anomalous engines: when a new engine produces a measurement that has very low probability under this learned density model P(x), it is flagged as anomalous and subjected to further inspection. This is the core of anomaly detection \u2014 building a density model from normal data and flagging points in low-probability regions as potential defects.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1120.0,
+        "end": 1200.0,
+        "hop": 1,
+        "description": "Whiteboard showing density estimation scatter plot with Heat and Vibration axes"
+      },
+      {
+        "start": 1235.0,
+        "end": 1330.0,
+        "hop": 2,
+        "description": "Verbal explanation of anomaly detection: flag aircraft engines with low P(x) for inspection"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec12_chunk_033",
+      "stanford_cs229_lec12_chunk_034",
+      "stanford_cs229_lec12_chunk_035"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "density estimation",
+      "anomaly detection",
+      "aircraft engine",
+      "P(x)"
+    ],
+    "video_id": "stanford_cs229_lec12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q005",
+    "question": "The whiteboard for Jensen's inequality shows a convex curve with a graphical illustration using x=1 and x=6. How does this graphical proof connect to the derivation of the EM algorithm's lower bound?",
+    "answer": "The Jensen's inequality slide shows a convex function f with points at x=1 and x=6 each with probability 1/2, demonstrating that f(E[X]) = f(3.5) lies below E[f(X)] which is the average of f(1) and f(6). The lecture then uses the concave version of Jensen's inequality \u2014 since log is a concave function \u2014 in the EM derivation: the log of an expectation is greater than or equal to the expectation of the log. This allows construction of a lower bound on the log likelihood by applying Jensen's inequality to move the log inside the expectation over the distribution Q_i, yielding a tractable lower bound that can be tightened by choosing Q_i = P(z|x; theta).",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2655.0,
+        "end": 2820.0,
+        "hop": 1,
+        "description": "Jensen's inequality graphical illustration with x=1 and x=6, convex function diagram"
+      },
+      {
+        "start": 3120.0,
+        "end": 3250.0,
+        "hop": 2,
+        "description": "EM derivation using concave Jensen's inequality to construct lower bound on log likelihood"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec12_chunk_077",
+      "stanford_cs229_lec12_chunk_078",
+      "stanford_cs229_lec12_chunk_079",
+      "stanford_cs229_lec12_chunk_080",
+      "stanford_cs229_lec12_chunk_102",
+      "stanford_cs229_lec12_chunk_103"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Jensen's inequality",
+      "convex function",
+      "EM lower bound",
+      "log likelihood"
+    ],
+    "video_id": "stanford_cs229_lec12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q006",
+    "question": "The lecture slide showing two ellipses encircling clusters of data points was used to illustrate unsupervised clustering. Later in the lecture, two bell curves were drawn on the chalkboard. How do these two visual representations relate to each other conceptually in the context of the mixture of Gaussians model?",
+    "answer": "The early slide with two ellipses encircling clusters of unlabeled data points visually represents the problem of clustering \u2014 discovering that the data naturally falls into distinct groups without any labels. The two bell curves drawn later on the chalkboard represent the mixture of Gaussians model that formalizes this clustering: each ellipse of clustered points corresponds to one Gaussian component, and the bell curves show the probability distributions of those Gaussian components. In the mixture of Gaussians model, it is assumed that each data point was generated by one of K Gaussian distributions, but the specific Gaussian that generated each point is the latent variable Z that is unknown and must be estimated by the EM algorithm.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 150.0,
+        "end": 250.0,
+        "hop": 1,
+        "description": "Slide showing two ellipses with data points inside, illustrating clustering structure"
+      },
+      {
+        "start": 1350.0,
+        "end": 1465.0,
+        "hop": 2,
+        "description": "Two bell curves drawn on chalkboard representing two Gaussian components in mixture model"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec12_chunk_004",
+      "stanford_cs229_lec12_chunk_005",
+      "stanford_cs229_lec12_chunk_038",
+      "stanford_cs229_lec12_chunk_039"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "clustering",
+      "mixture of Gaussians",
+      "latent variable",
+      "visual representation"
+    ],
+    "video_id": "stanford_cs229_lec12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q007",
+    "question": "The EM algorithm whiteboard shows 'E-step: Set Q(z) = P(z|x, theta)' and 'M-step: maximize lower bound.' How does the graphical illustration of the EM algorithm's iterative convergence shown earlier connect to what is written on this whiteboard?",
+    "answer": "The graphical illustration of EM shows a log likelihood curve as a function of theta, with the algorithm starting at theta_0 and iteratively constructing lower bounds that are tight at the current theta, then maximizing each lower bound to jump to theta_1, theta_2, and so on, converging to a local optimum. The whiteboard formula connects this directly: in the E-step, Q_i(z) is set to P(z|x; theta), which ensures the constructed lower bound is tight (holds with equality under Jensen's inequality) at the current parameter value theta. In the M-step, the parameters theta are updated by maximizing this lower bound with respect to theta, which corresponds to taking the jump shown in the graph. Together these steps guarantee the log likelihood is non-decreasing at each iteration.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3330.0,
+        "end": 3450.0,
+        "hop": 1,
+        "description": "Graphical cartoon showing EM constructing lower bounds and jumping to theta_1, theta_2 to converge"
+      },
+      {
+        "start": 4320.0,
+        "end": 4450.0,
+        "hop": 2,
+        "description": "Whiteboard showing EM algorithm E-step Q_i = P(z|x,theta) and M-step maximize lower bound"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec12_chunk_094",
+      "stanford_cs229_lec12_chunk_095",
+      "stanford_cs229_lec12_chunk_122",
+      "stanford_cs229_lec12_chunk_123"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "EM algorithm",
+      "lower bound",
+      "E-step",
+      "M-step",
+      "convergence"
+    ],
+    "video_id": "stanford_cs229_lec12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q008",
+    "question": "What does the scatter plot animation shown during the K-means demonstration depict at the stage after the first iteration?",
+    "answer": "After the first iteration of K-means shown in the animation, the scatter plot displays the data points painted in two colors \u2014 red and blue \u2014 where the color of each point indicates which cluster centroid (marked by a red cross or blue cross) is closest to it. The two cluster centroids have also moved from their random initial positions to the mean (average) location of all the data points assigned to each respective cluster. The slide attributes this animation to a source credited to Michael Jordan at Berkeley.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 590.0,
+        "end": 680.0,
+        "hop": 1,
+        "description": "Frame caption describes scatter plot with red and blue data points and crosses after first iteration"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec12_chunk_017",
+      "stanford_cs229_lec12_chunk_018"
+    ],
+    "question_type": "visual",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "K-means animation",
+      "cluster assignment colors",
+      "centroid update"
+    ],
+    "video_id": "stanford_cs229_lec12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q009",
+    "question": "What does the lecture slide for Jensen's inequality show graphically on the board at the point where the numerical example with x=1 and x=6 is presented?",
+    "answer": "The lecture slide at this point shows a graph of a convex function f(x) plotted on a Cartesian coordinate system. The x-axis shows values including 1, 3.5, and 6, and the curve is U-shaped (concave up), consistent with a strictly convex function. There is a dashed line or chord connecting the points f(1) and f(6) on the curve, and markings that show f(E[X]) \u2014 the function evaluated at the expected value of x which is 3.5 \u2014 lies below the chord representing E[f(X)], visually illustrating that f(E[X]) \u2264 E[f(X)] for convex functions. The board also displays the formal statement of Jensen's inequality: if f is convex and X is a random variable, then f(EX) \u2264 E[f(X)].",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 2790.0,
+        "end": 2890.0,
+        "hop": 1,
+        "description": "Frame caption describes graph of convex function with numerical example, dashed line and points illustrating Jensen's inequality"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec12_chunk_079",
+      "stanford_cs229_lec12_chunk_080"
+    ],
+    "question_type": "visual",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "Jensen's inequality",
+      "convex function graph",
+      "visual illustration",
+      "E[f(X)] vs f(E[X])"
+    ],
+    "video_id": "stanford_cs229_lec12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q010",
+    "question": "How does the lecturer explain the condition under which Jensen's inequality holds with equality, and why is this condition important for the EM algorithm's convergence?",
+    "answer": "The lecturer explains that for a strictly convex function f (where f''(x) > 0), Jensen's inequality holds with equality \u2014 meaning E[f(X)] = f(E[X]) \u2014 if and only if the random variable X is a constant with probability 1, i.e., X equals E[X] with probability one. For the EM algorithm, this condition is exploited in reverse using the concave version of Jensen's inequality applied to the log function: the lower bound on the log likelihood is tight (holds with equality) when the distribution Q_i is chosen such that P(x,z;theta)/Q_i(z) is constant for all values of z. The specific choice that achieves this is Q_i(z) = P(z|x;theta), making the lower bound tight at the current theta and ensuring that maximizing the lower bound in the M-step actually improves or maintains the true log likelihood.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2930.0,
+        "end": 3010.0,
+        "hop": 1,
+        "description": "Equality condition for Jensen's inequality: X must be constant w.p. 1 for strictly convex f"
+      },
+      {
+        "start": 3960.0,
+        "end": 4100.0,
+        "hop": 2,
+        "description": "EM uses equality condition to choose Q_i = P(z|x;theta) so lower bound is tight at current theta"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec12_chunk_083",
+      "stanford_cs229_lec12_chunk_084",
+      "stanford_cs229_lec12_chunk_112",
+      "stanford_cs229_lec12_chunk_113",
+      "stanford_cs229_lec12_chunk_114"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Jensen's equality condition",
+      "constant random variable",
+      "EM lower bound tightness",
+      "Q_i choice"
+    ],
+    "video_id": "stanford_cs229_lec12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q011",
+    "question": "How does the lecturer explain the relationship between the M-step update formula for phi_j in the mixture of Gaussians EM algorithm and the corresponding formula derived for GDA when labels are known?",
+    "answer": "The lecturer explains that in Gaussian Discriminant Analysis, when the class labels y (or equivalently z) are known, the maximum likelihood estimate for phi_j \u2014 the probability that a data point comes from class j \u2014 is simply the fraction of training examples that belong to class j, computed as (1/m) times the sum of indicator functions I{z_i = j}. In the EM algorithm for mixture of Gaussians, the class labels z are unknown, so the hard indicator functions I{z_i = j} are replaced by soft weights w_ij, which are the posterior probabilities P(z=j | x_i; phi, mu, sigma) computed in the E-step. The M-step formula for phi_j therefore becomes (1/m) times the sum of w_ij, which reduces to the GDA formula when the weights become zero or one (i.e., when labels are known).",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2285.0,
+        "end": 2385.0,
+        "hop": 1,
+        "description": "GDA formula for phi_j as fraction of examples in class j using indicator functions"
+      },
+      {
+        "start": 2490.0,
+        "end": 2590.0,
+        "hop": 2,
+        "description": "EM M-step phi_j formula uses soft weights w_ij instead of indicator functions"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec12_chunk_065",
+      "stanford_cs229_lec12_chunk_066",
+      "stanford_cs229_lec12_chunk_069",
+      "stanford_cs229_lec12_chunk_070"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "phi_j estimation",
+      "GDA comparison",
+      "soft weights",
+      "indicator functions"
+    ],
+    "video_id": "stanford_cs229_lec12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q012",
+    "question": "What practical strategies does the lecturer recommend for dealing with local optima in K-means, and what happens if a cluster centroid has no points assigned to it?",
+    "answer": "To deal with local optima in K-means, the lecturer recommends trying multiple random initializations: run the K-means algorithm several times from different random starting positions for the cluster centroids, and then pick the solution that achieved the lowest value of the distortion function J(c, mu). This guards against the susceptibility of K-means to local optima that arises because the distortion function is highly non-convex. Regarding a centroid with no points assigned to it, the lecturer describes two options: one is to simply eliminate that cluster (reducing K by one), and the other is to randomly reinitialize that centroid to a new position, which keeps the number of clusters at K.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 980.0,
+        "end": 1060.0,
+        "hop": 1,
+        "description": "Recommendation to try multiple random initializations and pick lowest distortion function value"
+      },
+      {
+        "start": 1015.0,
+        "end": 1080.0,
+        "hop": 2,
+        "description": "If a centroid has no points: eliminate it or reinitialize it randomly"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec12_chunk_028",
+      "stanford_cs229_lec12_chunk_029"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "local optima",
+      "multiple initializations",
+      "empty cluster",
+      "distortion function"
+    ],
+    "video_id": "stanford_cs229_lec12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q013",
+    "question": "What specific applications does the lecturer mention for clustering algorithms during this lecture?",
+    "answer": "The lecturer mentions several specific applications of clustering algorithms: in biology, clustering is used to group genes together in order to examine and better understand their biological functions; in market research, clustering is applied to customer databases to break customers into different market segments so that products and sales pitches can be targeted appropriately to different segments; news aggregation websites use clustering to automatically group related news articles together so users can see which articles cover the same story; and image segmentation, which was mentioned at the start of class, uses clustering to group subsets of pixels in an image into coherent pieces in order to understand the contents of the picture.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 175.0,
+        "end": 330.0,
+        "hop": 1,
+        "description": "Applications of clustering: biology/genes, market research/customer segments, news grouping, image segmentation"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec12_chunk_005",
+      "stanford_cs229_lec12_chunk_006",
+      "stanford_cs229_lec12_chunk_007"
+    ],
+    "question_type": "text",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "clustering applications",
+      "biology",
+      "market research",
+      "image segmentation",
+      "news aggregation"
+    ],
+    "video_id": "stanford_cs229_lec12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q014",
+    "question": "How does the lecturer explain the construction of the lower bound in the general EM derivation, specifically how the expression involving Q_i is derived from the log likelihood?",
+    "answer": "The lecturer explains that the log likelihood l(theta) equals the sum over i of log P(x_i; theta), and P(x_i; theta) is obtained by summing (marginalizing) the joint distribution P(x_i, z; theta) over all values of z. To construct a lower bound, the expression is rewritten by multiplying and dividing by an arbitrary probability distribution Q_i(z) \u2014 which must satisfy Q_i(z) > 0 and sum to one. This turns the sum over z into an expectation with respect to Q_i. Because the log function is concave, Jensen's inequality applied in its concave form states that log(E[X]) \u2265 E[log X], so log of the expectation is greater than or equal to the expectation of the log. This yields a lower bound: sum over i of the expectation under Q_i of log(P(x_i, z; theta) / Q_i(z)), which is the ELBO (evidence lower bound).",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 3360.0,
+        "end": 3540.0,
+        "hop": 1,
+        "description": "EM derivation: multiplying by Q_i, rewriting as expectation, applying Jensen's inequality to get lower bound"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec12_chunk_097",
+      "stanford_cs229_lec12_chunk_098",
+      "stanford_cs229_lec12_chunk_099",
+      "stanford_cs229_lec12_chunk_100",
+      "stanford_cs229_lec12_chunk_102",
+      "stanford_cs229_lec12_chunk_103"
+    ],
+    "question_type": "text",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "EM lower bound",
+      "Q_i distribution",
+      "Jensen's inequality",
+      "ELBO",
+      "marginalization"
+    ],
+    "video_id": "stanford_cs229_lec12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q015",
+    "question": "What is the computational complexity of the K-means algorithm as a function of the number of data points, dimensionality, and number of clusters, and how does this compare to the EM algorithm for mixture of Gaussians?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "hard",
+    "answerable": false,
+    "key_concepts": [
+      "computational complexity",
+      "K-means",
+      "EM algorithm",
+      "mixture of Gaussians"
+    ],
+    "video_id": "stanford_cs229_lec12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  }
+]

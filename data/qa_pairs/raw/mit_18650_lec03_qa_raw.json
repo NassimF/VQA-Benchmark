@@ -1,0 +1,500 @@
+[
+  {
+    "qa_id": "mit_18650_lec03_q001",
+    "question": "According to the lecture, what visual notation appears on the slide shown at the beginning of the lecture, and how does the instructor explain the motivation for using a Poisson distribution instead of a general discrete distribution for modeling sibling counts?",
+    "answer": "The opening slide shown visually is titled 'Lecture 3: Parametric Inference' from MIT's Statistics for Applications course (18.650), taught by Philippe Rigollet in Fall 2016, with the MIT logo and Creative Commons license visible. Later in the lecture, the instructor explains that using a Poisson distribution reduces the estimation problem from seven separate parameters (the pmf values for counts 1 through 7+) down to a single parameter Lambda, while also ensuring that no probability value is forced to be exactly zero \u2014 which would otherwise happen when rare sibling counts simply don't appear in a small sample of roughly 15\u201320 students.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 0.0,
+        "end": 45.0,
+        "hop": 1,
+        "description": "Frame caption identifies the lecture slide title and course details visually"
+      },
+      {
+        "start": 1325.0,
+        "end": 1410.0,
+        "hop": 2,
+        "description": "Instructor explains the advantage of Poisson: one parameter instead of seven, and always-positive probabilities"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec03_chunk_000",
+      "mit_18650_lec03_chunk_023"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Poisson distribution",
+      "parametric modeling",
+      "parameter reduction",
+      "lecture slide identification"
+    ],
+    "video_id": "mit_18650_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec03_q002",
+    "question": "The blackboard caption in chunk_009 shows the equation 'Xn Be' and 'X1 \u03b5 {0,1}', and the instructor later explains what the naive estimator is for this model. What distribution is being described, and what does the instructor say is the naive estimator and its key property?",
+    "answer": "The blackboard shows the setup for a Bernoulli model where each observation Xi belongs to the set {0,1}, so the distribution is Bernoulli with parameter p. The instructor explains that the naive estimator is the proportion of ones observed in the sample \u2014 that is, the sample mean \u2014 and states that this estimator will be the best estimator you can think of in pretty much all respects, meaning it is both intuitive and optimal for this simple model.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 275.0,
+        "end": 360.0,
+        "hop": 1,
+        "description": "Frame caption shows blackboard with Xi in {0,1} and Xn~Be notation"
+      },
+      {
+        "start": 335.0,
+        "end": 415.0,
+        "hop": 2,
+        "description": "Instructor explains that the naive estimator is the proportion of ones and it is the best estimator"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec03_chunk_008",
+      "mit_18650_lec03_chunk_010"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Bernoulli distribution",
+      "naive estimator",
+      "proportion of ones",
+      "best estimator"
+    ],
+    "video_id": "mit_18650_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec03_q003",
+    "question": "A frame caption in the lecture describes a slide titled 'The rational behind statistical modeling' which mentions Bernoulli distribution. The instructor also discusses the problem with estimating parameters when the sample size is small relative to the number of parameters. What specific numerical example does the instructor give to illustrate this problem?",
+    "answer": "The slide on statistical modeling rationale introduces the Bernoulli and Poisson cases. The instructor illustrates the small-sample problem by noting that with only about 20 observations and seven parameters to estimate (the pmf values for sibling counts 1 through 7+), the ratio of data to parameters is unfavorable \u2014 specifically, with roughly 20 students in the sample, nobody has four or more siblings, so the estimates for P4-hat, P5-hat, P6-hat, and P(\u22657)-hat would all be exactly zero, which is clearly wrong since the true population probability of having four or more children is definitely greater than zero.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 150.0,
+        "end": 235.0,
+        "hop": 1,
+        "description": "Frame caption describes the 'rational behind statistical modeling' slide mentioning Bernoulli distribution"
+      },
+      {
+        "start": 1085.0,
+        "end": 1175.0,
+        "hop": 2,
+        "description": "Instructor explains that with 20 observations and 7 parameters, P4-hat through P7-hat are all zero"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec03_chunk_002",
+      "mit_18650_lec03_chunk_019"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "statistical modeling",
+      "small sample problem",
+      "parameter estimation",
+      "zero estimates"
+    ],
+    "video_id": "mit_18650_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec03_q004",
+    "question": "The frame captions around chunk_097 show a slide titled 'Identification' with the formal definition that the parameter \u03b8 is identified if the map \u03b8\u2192P\u03b8 is injective. The instructor also gives a specific example where this fails. What is the non-identifiable example described, and why does it fail to be identifiable?",
+    "answer": "The slide formally defines identifiability as the injectivity of the map from \u03b8 to P\u03b8, meaning different parameter values must give different distributions. The instructor's non-identifiable example involves observing X = 1(Y > 0) where Y follows a normal distribution with mean \u03bc and variance \u03c3\u00b2. This model is not identifiable because the probability P(Y > 0) depends only on the ratio \u03bc/\u03c3 \u2014 scaling both \u03bc and \u03c3 by the same factor leaves this probability unchanged. Therefore, many different pairs (\u03bc, \u03c3) give exactly the same distribution for X, making it impossible to separately identify \u03bc and \u03c3 even with infinite data.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3600.0,
+        "end": 3690.0,
+        "hop": 1,
+        "description": "Frame caption shows the 'Identification' slide with formal injective map definition"
+      },
+      {
+        "start": 3690.0,
+        "end": 3780.0,
+        "hop": 2,
+        "description": "Instructor explains the Gaussian indicator example where \u03bc/\u03c3 ratio is the only identifiable quantity"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec03_chunk_097",
+      "mit_18650_lec03_chunk_103"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "identifiability",
+      "injective map",
+      "Gaussian model",
+      "mu over sigma ratio"
+    ],
+    "video_id": "mit_18650_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec03_q005",
+    "question": "A frame caption in the lecture shows a slide titled 'Statistical model (1)' with a formal definition involving i.i.d. random variables and a measurable space E. Later the instructor works through an example with an exponential distribution. What does the instructor say E (the sample space) is for the exponential model, and what is the parameter space for that model?",
+    "answer": "The slide 'Statistical model (1)' provides the formal definition of a statistical model as a pair consisting of a measurable space E and a family of probability distributions indexed by \u03b8. For the exponential distribution example, the instructor specifies that E \u2014 the set of values the random variables can take \u2014 is the interval from zero to positive infinity (excluding zero), since exponential random variables are strictly positive. The parameter space consists of all positive real numbers (\u03bb > 0), since the exponential distribution's rate parameter Lambda must be positive.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1125.0,
+        "end": 1210.0,
+        "hop": 1,
+        "description": "Frame caption shows the 'Statistical model (1)' slide with formal definition of E and the family of distributions"
+      },
+      {
+        "start": 1960.0,
+        "end": 2050.0,
+        "hop": 2,
+        "description": "Instructor specifies E as (0, +\u221e) and parameter space as positive reals for the exponential model"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec03_chunk_031",
+      "mit_18650_lec03_chunk_056"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "statistical model",
+      "sample space E",
+      "exponential distribution",
+      "parameter space"
+    ],
+    "video_id": "mit_18650_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec03_q006",
+    "question": "A frame caption shows a slide titled 'Parameter estimation (2)' which defines the bias of an estimator and the quadratic risk. The instructor also derives a decomposition of the quadratic risk. What two components does the quadratic risk decompose into, and what intuitive example does the instructor give to show that an unbiased estimator can still be useless?",
+    "answer": "The 'Parameter estimation (2)' slide formally defines bias as E[\u03b8\u0302_n] \u2212 \u03b8 and the quadratic risk as E[|\u03b8\u0302_n \u2212 \u03b8|\u00b2]. The instructor derives algebraically that the quadratic risk equals the variance of the estimator plus the squared bias. The intuitive example given is the constant estimator that always returns the value four regardless of the data: this estimator has zero variance (it never fluctuates), but its bias is (4 \u2212 \u03b8), which can be arbitrarily large if the true parameter \u03b8 is far from four, demonstrating that low variance alone does not make an estimator good.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 4920.0,
+        "end": 4980.0,
+        "hop": 1,
+        "description": "Frame caption shows the Parameter estimation (2) slide with bias and quadratic risk definitions"
+      },
+      {
+        "start": 4995.0,
+        "end": 5085.0,
+        "hop": 2,
+        "description": "Instructor gives the example of the constant estimator 'four' having zero variance but bad bias"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec03_chunk_140",
+      "mit_18650_lec03_chunk_141"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "bias-variance decomposition",
+      "quadratic risk",
+      "constant estimator",
+      "unbiased estimator"
+    ],
+    "video_id": "mit_18650_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec03_q007",
+    "question": "The frame captions in the lecture show a blackboard with 'Censored Truncated Exponential Distribution' written on it, and the instructor explains a censored data example involving waiting times. What observable variable Y does the instructor define, what space does the resulting observation X live in, and what distribution family does the instructor say should be used to model X?",
+    "answer": "The blackboard caption shows a censored truncated exponential distribution setup. The instructor defines Y as the actual waiting time following an exponential distribution with parameter Lambda, but explains that the researcher only observes whether the waiting time exceeded five minutes \u2014 for example, seeing someone exit a train station looking upset. Therefore X is the indicator random variable 1(Y > 5), which takes values only in {0, 1}. Because X takes values zero or one, the instructor states that one should immediately write down a Bernoulli distribution for X, with the Bernoulli parameter p equal to e^(\u22125\u03bb), which is the probability that an exponential(\u03bb) random variable exceeds five.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2755.0,
+        "end": 2820.0,
+        "hop": 1,
+        "description": "Frame caption shows 'Censored Truncated Exponential Distribution' on blackboard"
+      },
+      {
+        "start": 2840.0,
+        "end": 2960.0,
+        "hop": 2,
+        "description": "Instructor explains X=1(Y>5), sample space {0,1}, and the Bernoulli model with p=exp(-5\u03bb)"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec03_chunk_077",
+      "mit_18650_lec03_chunk_082"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "censored data",
+      "indicator function",
+      "Bernoulli model",
+      "exponential distribution",
+      "sample space"
+    ],
+    "video_id": "mit_18650_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec03_q008",
+    "question": "What does the frame caption of the slide shown around timestamp 64:10\u201364:55 reveal about the formal definitions introduced for parameter estimation?",
+    "answer": "The frame caption for the slide titled 'Parameter estimation (1)' reveals that it formally defines two key concepts: first, a statistic is defined as any measurable function of the sample, with examples given such as the sample mean X\u0304_n and the maximum of the observations max(Xi); and second, an estimator is defined as a statistic used to estimate the parameter \u03b8, written as \u03b8\u0302 = \u03b8\u0302(X\u2081,\u2026,X\u2099), emphasizing that it must be computable from the data alone without knowledge of the unknown parameter.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 3850.0,
+        "end": 3935.0,
+        "hop": 1,
+        "description": "Frame caption of 'Parameter estimation (1)' slide defining statistic and estimator with examples"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec03_chunk_110"
+    ],
+    "question_type": "visual",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "statistic",
+      "estimator",
+      "measurable function",
+      "parameter estimation"
+    ],
+    "video_id": "mit_18650_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec03_q009",
+    "question": "What does the frame caption visible around timestamp 97 (chunk_096) show as the formal definition of identifiability on the lecture slide?",
+    "answer": "The frame caption for the slide titled 'Identification' shows that the parameter \u03b8 is called identified if the map from \u03b8 in \u0398 to P\u03b8 is injective, which is formally expressed as: \u03b8 \u2260 \u03b8' implies P\u03b8 \u2260 P\u03b8'. The slide also notes that in all four previous examples given in the lecture, the parameter was identified, and then introduces the counterexample involving X_i = 1(Y_i \u2265 something) where the Gaussian parameters are not identifiable.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 3600.0,
+        "end": 3645.0,
+        "hop": 1,
+        "description": "Frame caption of 'Identification' slide showing formal injective definition \u03b8\u2260\u03b8' implies P\u03b8\u2260P\u03b8'"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec03_chunk_096"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "identifiability",
+      "injective map",
+      "formal definition",
+      "statistical model"
+    ],
+    "video_id": "mit_18650_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec03_q010",
+    "question": "The instructor distinguishes between parametric and non-parametric models. What definition of a parametric model does the instructor give, and what example of a non-parametric model does the instructor describe to contrast it?",
+    "answer": "The instructor defines a parametric model as one where the parameter space Theta is a subset of R^d for some finite d \u2014 meaning the distribution can be described by a finite-dimensional vector of parameters. In the course, the overwhelming majority of cases will have d equal to one, meaning just a single real-valued parameter to estimate. As a contrasting non-parametric example, the instructor describes the model where the only assumption is that the data has a probability density function f \u2014 the set of all densities satisfying f \u2265 0 and integrating to one \u2014 which cannot be represented by any finite number of parameters. The instructor also notes that histograms are the prime tool of non-parametric estimation because they attempt to estimate this density without imposing a finite-dimensional parameterization.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1575.0,
+        "end": 1660.0,
+        "hop": 1,
+        "description": "Instructor defines parametric model as Theta subset of R^d with finite d"
+      },
+      {
+        "start": 1660.0,
+        "end": 1745.0,
+        "hop": 2,
+        "description": "Instructor describes non-parametric model as all densities f, and mentions histograms"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec03_chunk_044",
+      "mit_18650_lec03_chunk_048"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "parametric model",
+      "non-parametric model",
+      "finite-dimensional parameter space",
+      "histograms"
+    ],
+    "video_id": "mit_18650_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec03_q011",
+    "question": "The instructor explains why making modeling assumptions improves estimation accuracy, and separately explains what 'well-specified' means. How are these two ideas connected, and what famous quote does the instructor invoke in this context?",
+    "answer": "The instructor explains that making assumptions about the distribution \u2014 such as restricting the number of siblings to be a Poisson random variable rather than allowing any discrete distribution \u2014 reduces the number of parameters to estimate, which injects prior knowledge into the problem and forces the data to do a minimal job, ultimately requiring less data to achieve a given accuracy. The concept of 'well-specified' formalizes this by requiring that the true distribution of the data actually belongs to the parametric family being used \u2014 that there exists a true \u03b8* in the parameter space Theta such that the data really does follow P\u03b8*. The instructor connects these ideas by invoking the famous quote 'all models are wrong, but some of them are useful,' noting it is attributed to someone but the instructor is unsure of the original source, and uses it to acknowledge that the Poisson assumption for sibling counts may not be exactly correct but is probably good enough for practical purposes.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 760.0,
+        "end": 850.0,
+        "hop": 1,
+        "description": "Instructor explains that modeling assumptions reduce parameters and improve estimation accuracy"
+      },
+      {
+        "start": 1225.0,
+        "end": 1330.0,
+        "hop": 2,
+        "description": "Instructor defines well-specified and invokes 'all models are wrong but some are useful' quote"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec03_chunk_012",
+      "mit_18650_lec03_chunk_035"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "well-specified model",
+      "modeling assumptions",
+      "parameter reduction",
+      "all models are wrong"
+    ],
+    "video_id": "mit_18650_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec03_q012",
+    "question": "The instructor discusses the concept of consistency and then explains why both X\u0304_n and X\u2081 have the same bias but differ in a crucial way. What does the instructor use to prove that X\u0304_n is unbiased, and what argument does the instructor make about why X\u2081 is not consistent while X\u0304_n is?",
+    "answer": "The instructor proves that X\u0304_n is unbiased by noting that since the observations are identically distributed, all the Xi have the same expectation, so the expectation of X\u0304_n equals the expectation of any single Xi, which is the true parameter. For example in the kissing experiment this equals p, the true probability of turning the head right. The instructor argues that X\u2081 is not consistent because collecting more and more data is irrelevant \u2014 the estimator simply ignores all observations after the first one, so it never gets closer to the true parameter as n increases. By contrast, X\u0304_n is strongly consistent by the strong law of large numbers, which guarantees almost sure convergence to the true expected value as the sample size grows.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 4435.0,
+        "end": 4530.0,
+        "hop": 1,
+        "description": "Instructor proves X-bar is unbiased using identical distribution of Xi"
+      },
+      {
+        "start": 4620.0,
+        "end": 4720.0,
+        "hop": 2,
+        "description": "Instructor argues X1 is not consistent while X-bar is consistent by the strong law of large numbers"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec03_chunk_125",
+      "mit_18650_lec03_chunk_132"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "unbiasedness",
+      "consistency",
+      "law of large numbers",
+      "identical distribution"
+    ],
+    "video_id": "mit_18650_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec03_q013",
+    "question": "What is the specific data example the instructor uses to motivate the entire chapter on statistical modeling, and what was the largest value observed in that data set?",
+    "answer": "The instructor uses a data set collected from college students in a previous class by asking them to fill out a Google form with the question: including yourself, how many siblings do you have? The data consisted of a list of positive integers representing the number of siblings (including self) reported by each student. The instructor states that the largest number observed in this particular data set was six, and notes that the data shows mostly ones, twos, and threes, reflecting pretty standard family sizes.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 105.0,
+        "end": 185.0,
+        "hop": 1,
+        "description": "Instructor describes the Google form siblings data collected from college students, largest value was six"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec03_chunk_003"
+    ],
+    "question_type": "text",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "siblings data",
+      "motivating example",
+      "data collection",
+      "college students"
+    ],
+    "video_id": "mit_18650_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec03_q014",
+    "question": "What concrete real-world scenario does the instructor describe involving a measurement device and a known variance, and how does this change the statistical model compared to the standard Gaussian model?",
+    "answer": "The instructor describes a laboratory measurement device \u2014 for example one measuring tensile strength of materials \u2014 where the manufacturer has tested and calibrated the device so thoroughly that they print the standard deviation of measurement errors on the side of the box (given as 0.23 in the example). Because the manufacturer's testing has precisely determined the measurement error, the researcher in the lab already knows the exact value of \u03c3 (the standard deviation), so it is no longer a free parameter to estimate. This changes the Gaussian statistical model from one with two parameters (\u03bc and \u03c3\u00b2) to one with only a single parameter (\u03bc), since \u03c3\u00b2 is fixed to the manufacturer-specified value, making the parameter space simply the real line for \u03bc rather than R \u00d7 (0,\u221e).",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 2345.0,
+        "end": 2455.0,
+        "hop": 1,
+        "description": "Instructor describes measurement device with manufacturer-specified standard deviation of 0.23, reducing Gaussian model to one parameter"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec03_chunk_067"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "Gaussian model",
+      "known variance",
+      "measurement device",
+      "parameter reduction",
+      "manufacturer specification"
+    ],
+    "video_id": "mit_18650_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec03_q015",
+    "question": "What is the exact numerical value of the Cram\u00e9r-Rao lower bound for the variance of any unbiased estimator of the Poisson parameter Lambda in the siblings example discussed in this lecture?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "hard",
+    "answerable": false,
+    "key_concepts": [
+      "Cram\u00e9r-Rao bound",
+      "Poisson distribution",
+      "unbiased estimator",
+      "variance lower bound"
+    ],
+    "video_id": "mit_18650_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  }
+]

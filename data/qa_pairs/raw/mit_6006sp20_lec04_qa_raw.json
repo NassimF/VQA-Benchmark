@@ -1,0 +1,506 @@
+[
+  {
+    "qa_id": "mit_6006sp20_lec04_q001",
+    "question": "What visual representation on the blackboard in the early part of the lecture outlines the two main goals, and how do those goals connect to the lower bound proven for the comparison model using decision trees?",
+    "answer": "The blackboard shows '6.006 Lecture 4: Hashing' with two bullet points: proving you can't find(k) faster than O(log n), and showing how to find(k) faster than O(log n). These goals connect directly to the decision tree argument in the comparison model, where any correct binary tree representing a search algorithm must have at least n+1 leaves to return any of n items or indicate absence, meaning the minimum height of that tree\u2014which equals the worst-case number of comparisons\u2014is at least Theta(log n), establishing the lower bound before moving to hashing techniques that break it.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 0.0,
+        "end": 45.0,
+        "hop": 1,
+        "description": "Frame caption showing blackboard with two lecture goals: prove can't find(k) faster than O(log n) and show how to find(k) faster than O(log n)"
+      },
+      {
+        "start": 1205.0,
+        "end": 1300.0,
+        "hop": 2,
+        "description": "Explanation that minimum height of binary decision tree with n+1 leaves is Theta(log n), establishing the lower bound"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec04_chunk_000",
+      "mit_6006sp20_lec04_chunk_022"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "comparison model",
+      "decision tree",
+      "lower bound",
+      "O(log n)",
+      "hashing"
+    ],
+    "video_id": "mit_6006sp20_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec04_q002",
+    "question": "The Set Interface table shown visually lists build and static operation complexities for different data structures. How does the sorted array's static find complexity visible in that table relate to the lower bound argument made using decision trees later in the lecture?",
+    "answer": "The Set Interface table shown in the frame captions lists the sorted array with a static find complexity of O(log n), consistent with binary search. This directly connects to the decision tree lower bound argument made later in the lecture, where the professor proves that any algorithm in the comparison model\u2014where the only operations are comparisons like equals, less than, or greater than\u2014must perform at least Omega(log n) comparisons to find a key among n items, because the corresponding binary decision tree must have at least n+1 leaves and thus minimum height Theta(log n). The sorted array achieves exactly this optimal comparison-based bound.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 35.0,
+        "end": 115.0,
+        "hop": 1,
+        "description": "Frame caption showing Set Interface table with sorted array having O(log n) static operations"
+      },
+      {
+        "start": 820.0,
+        "end": 930.0,
+        "hop": 2,
+        "description": "Decision tree argument proving logarithmic lower bound in comparison model"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec04_chunk_001",
+      "mit_6006sp20_lec04_chunk_016"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Set Interface",
+      "sorted array",
+      "comparison model",
+      "decision tree lower bound",
+      "O(log n)"
+    ],
+    "video_id": "mit_6006sp20_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec04_q003",
+    "question": "What does the frame caption showing the 'Comparison Model' blackboard reveal about the allowed operations, and how does the restriction to those operations force the minimum height of a decision tree to be logarithmic when storing n items?",
+    "answer": "The frame caption for the Comparison Model blackboard shows that the only allowed operations are equality and inequality comparisons: =, <, >, >=, <=. Because each such comparison produces only two possible outcomes (true or false), the decision tree representing any algorithm in this model is a binary tree. For a correct search algorithm that must be able to return any of n stored items or report absence, the tree needs at least n+1 leaves. A binary tree with at least n+1 leaves must have height at least log base 2 of (n+1), so the minimum height\u2014and thus the worst-case number of comparisons\u2014is Omega(log n), making logarithmic time a fundamental lower bound in the comparison model.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 500.0,
+        "end": 600.0,
+        "hop": 1,
+        "description": "Frame caption showing Comparison Model blackboard with operators =, <, >, >=, <="
+      },
+      {
+        "start": 1215.0,
+        "end": 1310.0,
+        "hop": 2,
+        "description": "Argument that minimum height of binary tree with n+1 leaves is log n, establishing the lower bound"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec04_chunk_010",
+      "mit_6006sp20_lec04_chunk_022"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "comparison model",
+      "binary tree height",
+      "lower bound",
+      "decision tree",
+      "comparison operators"
+    ],
+    "video_id": "mit_6006sp20_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec04_q004",
+    "question": "The frame caption for the Direct Access Array slide shows a diagram with 'X.key=10' and a label 'U -> largest key'. How does the variable U introduced there connect to the word RAM model constraint discussed shortly afterward regarding the machine word size w?",
+    "answer": "The Direct Access Array frame caption shows a diagram where an item with key equal to 10 is stored at index 10 in an array, and the label 'U -> largest key' indicates that U represents the size of the universe of possible key values. The lecture then explains that for direct access array operations to run in constant time, the CPU must be able to use these key values as memory addresses in a single operation. In the word RAM model, a machine with word size w can address 2^w locations, so the key values\u2014and thus U\u2014must be less than 2^w. If keys exceed 2^w, they cannot be used as addresses in constant time, making the constant-time guarantee of direct access arrays fail.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1620.0,
+        "end": 1705.0,
+        "hop": 1,
+        "description": "Frame caption showing Direct Access Array diagram with X.key=10 and U as largest key"
+      },
+      {
+        "start": 2155.0,
+        "end": 2235.0,
+        "hop": 2,
+        "description": "Explanation of word RAM model constraint that U must be less than 2^w for constant-time operations"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec04_chunk_029",
+      "mit_6006sp20_lec04_chunk_037"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "direct access array",
+      "universe size U",
+      "word RAM model",
+      "word size w",
+      "constant time addressing"
+    ],
+    "video_id": "mit_6006sp20_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec04_q005",
+    "question": "The frame caption of one slide shows the division hash function formula h(k) = k mod m on the blackboard. What limitation of this fixed deterministic function is later addressed by the universal hash family, and what specific mathematical property does the universal family guarantee about collision probability?",
+    "answer": "The division hash function h(k) = k mod m is a fixed deterministic function that maps keys by taking them modulo m. Its critical limitation is that because it is hardcoded and deterministic, an adversary who knows the function can craft an input set that causes many collisions\u2014specifically, when u (the universe size) is large, there exist inputs that all map to the same hash bucket, making chain lengths as long as n and destroying constant-time performance. The universal hash family addresses this by choosing the hash function randomly from a parameterized family, so no adversary can predict which function will be used. The universal property then guarantees that for any two distinct keys k_i and k_j, the probability over a random choice of hash function from the family that h(k_i) equals h(k_j) is at most 1/m.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3500.0,
+        "end": 3570.0,
+        "hop": 1,
+        "description": "Frame caption showing division hash function h(k) = k mod m on blackboard"
+      },
+      {
+        "start": 4345.0,
+        "end": 4430.0,
+        "hop": 2,
+        "description": "Definition of universality property: probability of collision for any two distinct keys is at most 1/m"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec04_chunk_060",
+      "mit_6006sp20_lec04_chunk_075"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "division hash function",
+      "universal hash family",
+      "collision probability",
+      "deterministic vs randomized",
+      "1/m bound"
+    ],
+    "video_id": "mit_6006sp20_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec04_q006",
+    "question": "The lecture's blackboard captions show the universal hash function formula h_ab(k) = ((ak+b) mod p) mod m. Using the universality property and the indicator random variable argument presented later, what is the expected size of a chain at any index when m is chosen to be Theta(n)?",
+    "answer": "The universal hash function h_ab(k) = ((ak+b) mod p) mod m involves random parameters a and b chosen from {0,...,p-1} with a not equal to zero, where p is a large prime exceeding u. Using indicator random variables X_ij that equal 1 when key i and key j collide, the expected chain length at index h(k_i) equals the sum of expectations of these indicators. The indicator for i equaling itself contributes 1 (certain collision), while by the universality property each other indicator has expectation at most 1/m. Summing over the n-1 other stored keys gives expected chain length of 1 plus (n-1)/m. When m is chosen to be Theta(n), this quantity becomes 1 plus (n-1)/(Theta(n)), which is O(1), meaning chains are expected to have constant length.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 4105.0,
+        "end": 4210.0,
+        "hop": 1,
+        "description": "Frame caption showing universal hash function formula h_ab(k) = ((ak+b) mod p) mod m and the hash family definition"
+      },
+      {
+        "start": 5100.0,
+        "end": 5205.0,
+        "hop": 2,
+        "description": "Derivation showing expected chain length equals 1 + (n-1)/m, which is O(1) when m is Theta(n)"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec04_chunk_071",
+      "mit_6006sp20_lec04_chunk_088"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "universal hash function",
+      "indicator random variable",
+      "linearity of expectation",
+      "expected chain length",
+      "Theta(n)"
+    ],
+    "video_id": "mit_6006sp20_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec04_q007",
+    "question": "Early in the lecture a Set Interface table is shown visually listing data structures including an unsorted array. How does the O(n) find time for an unsorted array connect to the comparison model argument, and why does the hash table described later avoid the logarithmic lower bound proven for that model?",
+    "answer": "The Set Interface table shows that an unsorted array achieves O(n) time for static find operations, corresponding to a linear scan that in the comparison model traverses a decision tree of linear height\u2014far worse than optimal. The comparison model lower bound proves that any algorithm limited to comparisons (=, <, >, >=, <=) needs at least Omega(log n) time for find, since the binary decision tree must have n+1 leaves and minimum height log n. The hash table avoids this lower bound by exploiting the random access machine's ability to jump directly to any memory address in constant time using arithmetic on key values, which is not a comparison operation. This non-comparison memory indexing operation allows a branching factor that is non-constant and not bounded by any fixed constant, breaking the decision-tree lower bound and enabling expected O(1) find time.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 35.0,
+        "end": 115.0,
+        "hop": 1,
+        "description": "Frame caption showing Set Interface table with unsorted array having O(n) operations"
+      },
+      {
+        "start": 1390.0,
+        "end": 1520.0,
+        "hop": 2,
+        "description": "Explanation that random memory access allows non-constant branching factor, escaping the comparison model lower bound"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec04_chunk_001",
+      "mit_6006sp20_lec04_chunk_024"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Set Interface",
+      "comparison model lower bound",
+      "random access machine",
+      "hash table",
+      "branching factor"
+    ],
+    "video_id": "mit_6006sp20_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec04_q008",
+    "question": "What does the frame caption for the direct access array slide visually depict about how an item with key 10 is stored?",
+    "answer": "The frame caption for the direct access array slide shows a horizontal line representing the array, with the number 10 labeled above it and an arrow pointing to the right labeled with 'X, keys=10' or 'X.key=10', illustrating that an item whose key equals 10 is stored at index position 10 in the array, directly using the key value as the array index to enable constant-time lookup.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1620.0,
+        "end": 1705.0,
+        "hop": 1,
+        "description": "Frame caption showing direct access array diagram with a horizontal line labeled 10 and arrow labeled X.key=10"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec04_chunk_029"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "direct access array",
+      "key indexing",
+      "array diagram"
+    ],
+    "video_id": "mit_6006sp20_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec04_q009",
+    "question": "What mathematical formula is shown written on the blackboard in the frame caption when the division hash function is introduced?",
+    "answer": "The frame caption for the division hash function slide shows the text 'Division hash function' written at the top of the blackboard in white chalk, followed by the equation h(k) = k mod m written below it, indicating that the division hash function maps a key k to the remainder of k divided by m.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 3500.0,
+        "end": 3570.0,
+        "hop": 1,
+        "description": "Frame caption showing Division hash function label and formula h(k) = k mod m on blackboard"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec04_chunk_060"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "division hash function",
+      "modular arithmetic",
+      "hash function formula"
+    ],
+    "video_id": "mit_6006sp20_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec04_q010",
+    "question": "Why can't a fixed deterministic hash function guarantee good performance for all inputs when the universe size u is large, and how does choosing a hash function randomly from a family solve this problem?",
+    "answer": "A fixed deterministic hash function cannot guarantee good performance for all inputs when u is large because for any such function mapping the large universe to a smaller range of size m, there must exist at least u/m keys that all map to the same index by the pigeonhole principle. If u is much larger than n squared, there exist n inputs that all collide at the same location, making every chain operation take linear time and destroying the hash table's efficiency. Choosing a hash function randomly from a family solves this because the user or adversary picks their inputs before the hash function is selected, so they cannot know which function will be used and therefore cannot craft an input that is bad for all functions in the family. By the universality property, for any two fixed distinct keys, the probability over random choice of hash function from the family that they collide is at most 1/m, guaranteeing good expected performance regardless of the input.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2815.0,
+        "end": 2910.0,
+        "hop": 1,
+        "description": "Explanation that any fixed function mapping large universe to small space will cause n items to collide at same location"
+      },
+      {
+        "start": 3835.0,
+        "end": 3960.0,
+        "hop": 2,
+        "description": "Explanation that choosing hash function randomly after user picks inputs prevents adversary from choosing bad input"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec04_chunk_047",
+      "mit_6006sp20_lec04_chunk_066"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "fixed hash function limitation",
+      "pigeonhole principle",
+      "randomized hash family",
+      "adversarial inputs",
+      "universality"
+    ],
+    "video_id": "mit_6006sp20_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec04_q011",
+    "question": "Why does a direct access array fail as a practical data structure when keys are MIT student IDs, and what variable does the professor introduce to describe this problem formally?",
+    "answer": "A direct access array fails as a practical data structure for MIT student IDs because those IDs are nine-digit numbers, meaning they can be as large as 10^9. To use a direct access array indexed by key value, one must allocate an array large enough to span the entire range of possible key values, which would be approximately 10^9 entries. However, the actual number of students in the class is only about 300 to 400, so the array would be allocated for roughly a billion entries while only a few hundred are used, wasting enormous amounts of space and making order operations like finding the next element very slow. The professor formally introduces the variable u to represent the maximum size of any key\u2014equivalently, the size of the universe of possible keys\u2014to describe this mismatch between n (number of items stored) and u (size of key space).",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1805.0,
+        "end": 1910.0,
+        "hop": 1,
+        "description": "Explanation that MIT IDs are nine-digit numbers requiring array of size 10^9"
+      },
+      {
+        "start": 1975.0,
+        "end": 2060.0,
+        "hop": 2,
+        "description": "Introduction of variable u as the maximum key size representing the universe of keys"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec04_chunk_032",
+      "mit_6006sp20_lec04_chunk_033"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "direct access array",
+      "space inefficiency",
+      "universe size u",
+      "MIT student IDs",
+      "key space"
+    ],
+    "video_id": "mit_6006sp20_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec04_q012",
+    "question": "What is chaining in the context of hash tables, and why is open addressing\u2014the alternative collision resolution strategy used by Python\u2014not discussed in detail in this lecture?",
+    "answer": "Chaining is a collision resolution strategy where each slot in the hash table contains a pointer to a secondary data structure\u2014such as a linked list, dynamic array, or sorted array\u2014that stores all items whose keys hash to that index. When a new item hashes to an already-occupied slot, it is simply appended to that secondary data structure, and when looking up a key, the algorithm hashes the key to find the slot and then does a linear search through the chain at that slot. Open addressing is the alternative where, instead of using a secondary data structure, colliding items are placed elsewhere in the existing hash table array by some probing scheme. Python uses an open addressing scheme internally. The professor explicitly states that open addressing is not covered in this class because it is notoriously difficult to analyze theoretically, whereas chaining is much easier to analyze, and an implementation is provided in the recitation handouts.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3080.0,
+        "end": 3155.0,
+        "hop": 1,
+        "description": "Explanation of open addressing as finding another place in the array for collisions, and Python's use of it"
+      },
+      {
+        "start": 3200.0,
+        "end": 3280.0,
+        "hop": 2,
+        "description": "Description of chaining as using a pointer to a secondary data structure at each hash table slot"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec04_chunk_052",
+      "mit_6006sp20_lec04_chunk_053"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "chaining",
+      "open addressing",
+      "collision resolution",
+      "Python hash table",
+      "secondary data structure"
+    ],
+    "video_id": "mit_6006sp20_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec04_q013",
+    "question": "In the comparison model as defined in this lecture, what is the only type of operation an algorithm is allowed to perform to distinguish between items, and what is the consequence of each such operation in terms of branching?",
+    "answer": "In the comparison model as defined in this lecture, the only type of operation an algorithm is allowed to perform to distinguish between items is a comparison between keys, specifically operations such as checking whether two keys are equal, whether one is less than another, greater than another, less than or equal, or greater than or equal. The consequence of each such comparison operation is that it can produce only two possible outcomes\u2014true or false\u2014meaning the algorithm branches into exactly two paths at each decision point. This binary branching structure means that any algorithm in the comparison model can be represented as a binary decision tree where internal nodes are comparisons and leaves are output values.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 575.0,
+        "end": 660.0,
+        "hop": 1,
+        "description": "Definition of comparison model: only comparisons allowed, each with two possible outputs causing binary branching"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec04_chunk_011"
+    ],
+    "question_type": "text",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "comparison model",
+      "binary branching",
+      "decision tree",
+      "comparison operations"
+    ],
+    "video_id": "mit_6006sp20_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec04_q014",
+    "question": "What are the three parameters a, b, and p in the universal hash function h_ab(k) = ((ak+b) mod p) mod m, and what constraint is imposed on each when instantiating the hash table?",
+    "answer": "In the universal hash function h_ab(k) = ((ak+b) mod p) mod m, the parameter p is a fixed large prime number that must be greater than u (the size of the universe of keys), chosen once when the hash table is created. The parameters a and b are random integers both chosen from the range {0, 1, ..., p-1}; the constraint on a is that it must not equal zero, because if a were zero the key information would be lost (the function would output (b mod p) mod m regardless of k, making all keys collide). The parameters a and b are chosen randomly and independently when the hash table is instantiated, not deterministically, so that an adversary cannot predict which function from the family is being used.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 4125.0,
+        "end": 4245.0,
+        "hop": 1,
+        "description": "Description of universal hash family parameters: p is a large prime greater than u, a and b are chosen randomly from {0,...,p-1} with a not equal to zero"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec04_chunk_071"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "universal hash function",
+      "hash parameters a b p",
+      "prime modulus",
+      "random instantiation"
+    ],
+    "video_id": "mit_6006sp20_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec04_q015",
+    "question": "What is the exact worst-case time complexity for the delete operation in a hash table using chaining with the universal hash family, as proven and stated in this lecture?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "medium",
+    "answerable": false,
+    "key_concepts": [
+      "hash table",
+      "chaining",
+      "delete operation",
+      "worst-case complexity"
+    ],
+    "video_id": "mit_6006sp20_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  }
+]

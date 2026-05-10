@@ -1,0 +1,497 @@
+[
+  {
+    "qa_id": "mit_18650_lec13_q001",
+    "question": "According to the lecture slide visible in chunk 4 and the explanation of the linear regression heuristics in chunk 7, what is the core idea behind fitting a line to data points and what two parameters need to be found?",
+    "answer": "The core idea is to fit the best line to a cloud of i.i.d. random points (X_i, Y_i), approximating Y_i \u2248 a + bX_i for unknown a, b in the real numbers. The two parameters that need to be found are the intercept a and the slope b, estimated from the data as a-hat and b-hat, which represent the most likely line explaining the relationship between Y and X.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 105.0,
+        "end": 165.0,
+        "hop": 1,
+        "description": "Lecture slide showing scatter plot titled 'Heuristics of the linear regression (1)' with i.i.d. random points"
+      },
+      {
+        "start": 245.0,
+        "end": 290.0,
+        "hop": 2,
+        "description": "Slide showing 'Heuristics of the linear regression (2)' with the idea of fitting the best line and finding a-hat, b-hat"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec13_chunk_003",
+      "mit_18650_lec13_chunk_006"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "linear regression heuristics",
+      "slope",
+      "intercept",
+      "parameter estimation"
+    ],
+    "video_id": "mit_18650_lec13",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec13_q002",
+    "question": "The lecture slide in chunk 15 shows an economics example and a physics example for linear regression. Combining this with the instructor's explanation in chunk 17 about the ideal gas law, how is PV=NRT transformed into a linear regression model?",
+    "answer": "The ideal gas law PV=NRT is linearized by taking the logarithm of both sides, yielding log(P) + log(V) = log(N) + log(R) + log(T). Assuming R is constant (absorbed into a constant A), the result is log(P) = A - log(V) + log(T), which is a linear model with coefficients b = -1 for log(V) and c = +1 for log(T). The slide confirms the equation D_i \u2248 a + b*p_i for economics, and similarly the gas law becomes a linear regression after the log transformation.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 525.0,
+        "end": 570.0,
+        "hop": 1,
+        "description": "Slide showing 'Heuristics of the linear regression (3)' with economics demand-price and ideal gas law examples"
+      },
+      {
+        "start": 617.0,
+        "end": 660.0,
+        "hop": 2,
+        "description": "Instructor derives log(P) = a - log(V) + log(T) from PV=NRT on the blackboard"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec13_chunk_014",
+      "mit_18650_lec13_chunk_016"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "ideal gas law",
+      "log transformation",
+      "linearization",
+      "linear regression"
+    ],
+    "video_id": "mit_18650_lec13",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec13_q003",
+    "question": "Looking at the slide in chunk 68 defining the theoretical linear regression and the instructor's derivation in chunk 67, what explicit formula is given for the slope coefficient b and why must Var(X) be nonzero?",
+    "answer": "The slope coefficient b is equal to Cov(X,Y) divided by Var(X), derived by minimizing the expected squared vertical distance E[(Y - (a+bX))^2]. The variance of X must be nonzero because if Var(X) were zero, all X values would be at the same point, making it impossible to fit a meaningful line; mathematically the formula b = Cov(X,Y)/Var(X) would involve division by zero, yielding plus or minus infinity, so a nonzero variance of X is required as a necessary condition.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2385.0,
+        "end": 2430.0,
+        "hop": 1,
+        "description": "Instructor derives b = Cov(X,Y)/Var(X) and explains why Var(X) must be nonzero"
+      },
+      {
+        "start": 2448.0,
+        "end": 2490.0,
+        "hop": 2,
+        "description": "Slide titled 'Linear regression of a r.v. Y on a r.v. X (1)' showing the theoretical linear regression definition with Var(X) \u2260 0 condition"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec13_chunk_066",
+      "mit_18650_lec13_chunk_067"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "slope formula",
+      "covariance",
+      "variance",
+      "least squares"
+    ],
+    "video_id": "mit_18650_lec13",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec13_q004",
+    "question": "The slide visible in chunk 80 shows conditions on epsilon for the theoretical linear regression, and the instructor discusses these in chunk 81. What two necessary conditions must the noise epsilon satisfy, and what stronger assumption is often made in practice?",
+    "answer": "The two necessary conditions the noise epsilon must satisfy are: first, the expectation of epsilon equals zero (epsilon is centered), and second, the covariance between X and epsilon equals zero. In practice, a stronger assumption is often made: that X is independent of epsilon, or equivalently that the conditional expectation E[epsilon | X] = 0. These conditions ensure that the a and b obtained from the least-squares minimization are the correct parameters. For full statistical inference using t-distributions, an additional assumption of Gaussian distribution for epsilon is required.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2805.0,
+        "end": 2850.0,
+        "hop": 1,
+        "description": "Slide showing conditions E[epsilon]=0 and cov(X,epsilon)=0 with the statement that a+bX is the theoretical linear regression"
+      },
+      {
+        "start": 2875.0,
+        "end": 2920.0,
+        "hop": 2,
+        "description": "Instructor explains the stronger assumption of X independent of epsilon or E[epsilon|X]=0"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec13_chunk_079",
+      "mit_18650_lec13_chunk_080"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "noise conditions",
+      "centered epsilon",
+      "covariance zero",
+      "independence assumption"
+    ],
+    "video_id": "mit_18650_lec13",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec13_q005",
+    "question": "The slide in chunk 97 shows the LSE estimator definition with a scatter plot illustrating vertical arrows, and the instructor explains in chunk 97-98 the geometric meaning. What does the least squares criterion minimize and how does this relate to the visual arrows shown on the scatter plot?",
+    "answer": "The least squares criterion minimizes the sum of squared vertical distances from each data point to the fitted line, represented visually as the vertical arrows in the scatter plot. For each data point (x_i, y_i), the arrow length is y_i minus (a + b*x_i), and the criterion sums the squares of all these arrow lengths. Among all possible lines, the one with minimum total squared arrow length is selected. The instructor explicitly notes that one could use other distances (e.g., perpendicular distance or absolute value), but the vertical squared distance is computationally convenient and yields closed-form solutions.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3415.0,
+        "end": 3455.0,
+        "hop": 1,
+        "description": "Slide titled 'Linear regression of a r.v. Y on a r.v. X (5)' showing scatter plot with red vertical arrows and fitted line"
+      },
+      {
+        "start": 3455.0,
+        "end": 3515.0,
+        "hop": 2,
+        "description": "Instructor explains that vertical squared distances are summed and minimized, contrasting with other possible distance measures"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec13_chunk_096",
+      "mit_18650_lec13_chunk_097"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "least squares criterion",
+      "vertical distance",
+      "residuals",
+      "minimization"
+    ],
+    "video_id": "mit_18650_lec13",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec13_q006",
+    "question": "The slide in chunk 111 defines the LSE estimator for the multivariate case, and the instructor explains in chunks 107-108 how the intercept is incorporated. How is the intercept folded into the multivariate regression model, and what does the design matrix X look like as a result?",
+    "answer": "The intercept is incorporated by augmenting each observation vector x_i with a leading coordinate of 1. Instead of writing the model as a + b1*x1 + ... + bp*xp, the first coordinate of x is set to always equal one, so that the corresponding beta coefficient acts as the intercept. In the design matrix X (an n-by-p matrix), the first column consists entirely of ones, and the remaining columns contain the actual measured variables. This allows the intercept to be treated uniformly as part of the parameter vector beta, eliminating the need for separate notation.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3745.0,
+        "end": 3790.0,
+        "hop": 1,
+        "description": "Instructor explains folding the intercept into x by adding a coordinate of 1"
+      },
+      {
+        "start": 3975.0,
+        "end": 4015.0,
+        "hop": 2,
+        "description": "Slide defining the LSE estimator for beta with the design matrix structure"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec13_chunk_107",
+      "mit_18650_lec13_chunk_110"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "intercept",
+      "design matrix",
+      "augmented feature vector",
+      "multivariate regression"
+    ],
+    "video_id": "mit_18650_lec13",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec13_q007",
+    "question": "From the slide visible in chunk 131 describing the multivariate case in matrix form, and combining with the instructor's explanation in chunk 129 about the least squares criterion, how is the sum of squared residuals expressed compactly using matrix notation?",
+    "answer": "In matrix notation, the least squares criterion is expressed as the squared Euclidean norm of the vector (Y - X*beta), written as ||Y - X*beta||^2. This equals the sum from i=1 to n of (y_i - x_i^T * beta)^2, which is the sum of squares of the coordinates of the residual vector Y - X*beta. The slide in the final chunk confirms this formulation, showing Y = (Y_1,...,Y_n)^T in R^n and X as the n-by-p design matrix, making it possible to minimize a norm-squared objective and take derivatives using matrix calculus.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 4515.0,
+        "end": 4560.0,
+        "hop": 1,
+        "description": "Instructor explains the least squares criterion as ||Y - X*beta||^2 using matrix notation"
+      },
+      {
+        "start": 4550.0,
+        "end": 4595.0,
+        "hop": 2,
+        "description": "Slide titled 'Multivariate case (2)' showing LSE in matrix form with Y in R^n and X as n-by-p matrix"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec13_chunk_129",
+      "mit_18650_lec13_chunk_130"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "matrix notation",
+      "least squares criterion",
+      "norm squared",
+      "residual vector"
+    ],
+    "video_id": "mit_18650_lec13",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec13_q008",
+    "question": "According to the lecture slide visible in chunk 32, what formula is shown for the estimator b-hat and what visual accompanies it on the slide?",
+    "answer": "The slide visible in chunk 32 shows the formula b-hat = (1/n) * sum_{i=1}^{n} (x_i - x-bar)(y_i - y-bar) for the slope estimator, which is the sample covariance formula. Accompanying this formula is a scatter plot with a line of best fit drawn through the data points, illustrating the linear regression of Y on X with the fitted line visually representing the estimated relationship.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1140.0,
+        "end": 1185.0,
+        "hop": 1,
+        "description": "Slide showing b-hat formula with scatter plot and line of best fit for linear regression of Y on X"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec13_chunk_031"
+    ],
+    "question_type": "visual",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "b-hat estimator",
+      "sample covariance",
+      "scatter plot",
+      "line of best fit"
+    ],
+    "video_id": "mit_18650_lec13",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec13_q009",
+    "question": "What does the lecture slide shown in chunk 89 display regarding the estimated versus true regression line, and what notation does it use?",
+    "answer": "The slide shown in chunk 89, titled 'Linear regression of a r.v. Y on a r.v. X (3)', displays a scatter plot on a Cartesian plane with x-axis ranging from 0 to 2 and y-axis from 0 to 2. It shows data points from a sample of n i.i.d. random pairs (X_1,...,X_n) with the same distribution as (X,Y). The plot illustrates both an estimated regression line (shown in red) and the true regression line (shown in blue), visually demonstrating the goal of estimating a and b from data to recover the true underlying relationship.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 3120.0,
+        "end": 3165.0,
+        "hop": 1,
+        "description": "Slide titled 'Linear regression of a r.v. Y on a r.v. X (3)' showing scatter plot with estimated red line and true blue line"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec13_chunk_088"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "estimated line",
+      "true line",
+      "scatter plot",
+      "regression visualization"
+    ],
+    "video_id": "mit_18650_lec13",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec13_q010",
+    "question": "The lecture introduces the concept of measuring the fit of a line using a squared criterion and then derives the optimal parameters. What function is minimized to find the population-level optimal a and b, and what specific formula does minimization yield for b?",
+    "answer": "The function minimized to find the population-level optimal a and b is E[(Y - (a + bX))^2], the expected squared vertical distance from the random point (X,Y) to the line y = a + bX. Setting the partial derivatives with respect to a and b equal to zero yields two equations. From the equation involving b, one obtains that Cov(X,Y) = b * Var(X), so that b = Cov(X,Y) / Var(X). The intercept a then equals E[Y] - b * E[X]. This derivation requires Var(X) \u2260 0; otherwise, division by zero makes b undefined.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1200.0,
+        "end": 1265.0,
+        "hop": 1,
+        "description": "Instructor introduces the function E[(Y-(a+bX))^2] as the objective to minimize for finding optimal a and b"
+      },
+      {
+        "start": 2370.0,
+        "end": 2430.0,
+        "hop": 2,
+        "description": "Instructor derives the result b = Cov(X,Y)/Var(X) after taking partial derivatives and solving the system"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec13_chunk_033",
+      "mit_18650_lec13_chunk_066"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "least squares objective",
+      "expected squared distance",
+      "covariance",
+      "population parameters"
+    ],
+    "video_id": "mit_18650_lec13",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec13_q011",
+    "question": "The lecture discusses univariate versus multivariate regression at two separate points. What distinguishes univariate regression from multivariate regression in terms of the form of the model and the approach to computing estimators?",
+    "answer": "In univariate regression, X is a real-valued random variable and the model is Y = a + bX + epsilon, with only two scalar parameters a and b. Closed-form solutions exist for the population-level parameters via b = Cov(X,Y)/Var(X) and a = E[Y] - b*E[X]. In multivariate regression, X is a vector in R^p with p \u2265 2 and the model becomes Y = a + b1*X1 + b2*X2 + ... + bp*Xp + epsilon, equivalently written as Y = X^T*beta + epsilon with a vector beta. Here closed-form coordinate-by-coordinate solutions are unavailable; instead, one must solve a system of P equations involving cross-covariances between all pairs of coordinates, which is handled efficiently using matrix notation and inverting the system.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 305.0,
+        "end": 365.0,
+        "hop": 1,
+        "description": "Instructor distinguishes univariate regression (X in R) from multivariate regression (X in R^p, p\u22652)"
+      },
+      {
+        "start": 4265.0,
+        "end": 4330.0,
+        "hop": 2,
+        "description": "Instructor explains that multivariate case requires matrix notation and solving a system of P equations with cross-covariances"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec13_chunk_008",
+      "mit_18650_lec13_chunk_120"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "univariate regression",
+      "multivariate regression",
+      "closed-form solution",
+      "system of equations"
+    ],
+    "video_id": "mit_18650_lec13",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec13_q012",
+    "question": "The lecture explains two equivalent ways to obtain the least squares estimators a-hat and b-hat. What are these two approaches and why do they yield the same answer?",
+    "answer": "The two approaches are: first, computing the population-level optimal a and b by minimizing E[(Y-(a+bX))^2] to get explicit formulas involving expectations, then replacing each expectation with its sample average (e.g., E[XY] becomes (1/n)*sum(x_i*y_i)); second, directly minimizing the empirical criterion (1/n)*sum(y_i - a - b*x_i)^2 over a and b by taking partial derivatives and setting them to zero. Both yield the same answer because, for this particular quadratic problem, the operation of first minimizing and then plugging in averages commutes with first plugging in averages and then minimizing. This equivalence is a general principle for problems where closed forms exist, though it fails for more complex likelihood problems without closed forms.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2490.0,
+        "end": 2550.0,
+        "hop": 1,
+        "description": "Instructor explains replacing expectations by averages to get empirical estimators a-hat and b-hat"
+      },
+      {
+        "start": 3295.0,
+        "end": 3360.0,
+        "hop": 2,
+        "description": "Instructor confirms that minimizing the average criterion gives the same result as plugging averages into the population formula"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec13_chunk_069",
+      "mit_18650_lec13_chunk_094"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "plug-in principle",
+      "empirical criterion",
+      "equivalence of approaches",
+      "sample averages"
+    ],
+    "video_id": "mit_18650_lec13",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec13_q013",
+    "question": "In the lecture, what famous t-shirt quote from a statistics department is mentioned to describe the situation where a fitted line misses all the data points in a scatter plot?",
+    "answer": "The instructor mentions a famous t-shirt from the UC Berkeley statistics department that shows a picture of data points with a line drawn through them (missing all the points) and the caption reads: 'statisticians so many points and you still managed to miss all of them.' This quote humorously illustrates the fact that real data points are almost never exactly on any single line, motivating the introduction of a noise term epsilon to account for deviations from the linear relationship.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 155.0,
+        "end": 210.0,
+        "hop": 1,
+        "description": "Instructor cites the UC Berkeley stats department t-shirt quote about statisticians missing all the data points"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec13_chunk_004"
+    ],
+    "question_type": "text",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "UC Berkeley statistics",
+      "t-shirt quote",
+      "noise term",
+      "linear regression motivation"
+    ],
+    "video_id": "mit_18650_lec13",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec13_q014",
+    "question": "In the body density example discussed in the lecture, what specific body measurement is mentioned as being a surprisingly strong indicator of body density, and what alternative method for directly measuring body density is described as inconvenient?",
+    "answer": "The instructor mentions that the circumference of the wrist is described as a surprisingly strong indicator of body density. The direct method for measuring body density that is deemed inconvenient involves weighing a person and then submerging them in a cubic meter of water to measure the overflow volume, thereby obtaining both mass and volume to compute density. The instructor notes he would personally not want to go to a gym where the first thing they ask is to get into a bucket of water, motivating the use of regression with easier-to-measure indicators.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 3595.0,
+        "end": 3660.0,
+        "hop": 1,
+        "description": "Instructor explains body density measurement using water displacement and identifies wrist circumference as a strong predictor"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18650_lec13_chunk_102"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "body density",
+      "wrist circumference",
+      "water displacement",
+      "multivariate regression motivation"
+    ],
+    "video_id": "mit_18650_lec13",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18650_lec13_q015",
+    "question": "What is the exact numerical value of the R-squared statistic for the linear regression example shown in this lecture, and in which chunk is it displayed?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "easy",
+    "answerable": false,
+    "key_concepts": [
+      "R-squared",
+      "goodness of fit",
+      "regression statistics"
+    ],
+    "video_id": "mit_18650_lec13",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  }
+]

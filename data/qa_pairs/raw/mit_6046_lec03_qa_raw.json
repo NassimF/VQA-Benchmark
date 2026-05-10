@@ -1,0 +1,517 @@
+[
+  {
+    "qa_id": "mit_6046_lec03_q001",
+    "question": "According to the lecture, what visual property do the nth roots of unity exhibit on the complex plane, and how does this property enable the divide-and-conquer FFT algorithm to achieve n log n time complexity?",
+    "answer": "The nth roots of unity are uniformly spaced points around the unit circle in the complex plane. This geometric property enables the 'collapsing' behavior: when you square all the points in the set, the set halves in size because squaring a complex number doubles its angle, causing antipodal points to merge. This means the set X reduces by a factor of two at each level of recursion, changing the recurrence from T(n) = 2T(n/2, |X|) + O(n) where |X| stays constant (giving O(n^2)) to one where |X| also halves, yielding T(n) = 2T(n/2) + O(n), the merge-sort recurrence that solves to O(n log n).",
+    "num_hops": 3,
+    "ground_truth_spans": [
+      {
+        "start": 2850.0,
+        "end": 2940.0,
+        "hop": 1,
+        "description": "Introduction of collapsing sets and the need for |X^2| = |X|/2"
+      },
+      {
+        "start": 3000.0,
+        "end": 3060.0,
+        "hop": 2,
+        "description": "Unit circle identified as the key geometric structure for collapsing"
+      },
+      {
+        "start": 2520.0,
+        "end": 2580.0,
+        "hop": 3,
+        "description": "Recursion tree analysis showing x never decreases leads to O(n^2), motivating need for collapsing"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec03_chunk_077",
+      "mit_6046_lec03_chunk_086",
+      "mit_6046_lec03_chunk_071"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "nth roots of unity",
+      "unit circle",
+      "collapsing sets",
+      "divide and conquer",
+      "n log n complexity"
+    ],
+    "video_id": "mit_6046_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6046_lec03_q002",
+    "question": "The lecture introduces three representations of polynomials and shows a table comparing their performance. Based on both the visual table shown and the algebraic explanation, which representation makes multiplication trivially easy and why, and what is the major drawback of this same representation?",
+    "answer": "The sample representation (column C in the table) makes multiplication trivially easy: if you have polynomials A and B both evaluated at the same set of points x_k, then to compute C = A*B you simply multiply the corresponding sample values, so C(x_k) = A(x_k) * B(x_k) for each k, giving O(n) time. The major drawback is that evaluation at an arbitrary point (polynomial interpolation) is hard \u2014 the best known algorithms take quadratic time in general. This means converting from sample representation back to coefficient representation is expensive, which is precisely why the FFT is needed to do this conversion in O(n log n).",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1190.0,
+        "end": 1270.0,
+        "hop": 1,
+        "description": "Visual table comparing three representations across three operations"
+      },
+      {
+        "start": 1260.0,
+        "end": 1320.0,
+        "hop": 2,
+        "description": "Explanation that evaluation in sample representation is hard, requiring quadratic time interpolation"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec03_chunk_036",
+      "mit_6046_lec03_chunk_037"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "sample representation",
+      "polynomial multiplication",
+      "polynomial interpolation",
+      "O(n) multiplication",
+      "quadratic evaluation"
+    ],
+    "video_id": "mit_6046_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6046_lec03_q003",
+    "question": "The lecture shows a diagram of the complex plane with roots of unity plotted. Using both what is drawn on the board and the algebraic explanation given, what happens geometrically when you square a complex number on the unit circle, and how does this connect to Euler's formula?",
+    "answer": "When you square a complex number on the unit circle, you geometrically double its angle relative to the positive real x-axis. This is because Euler's formula states that e^(i*theta) = cos(theta) + i*sin(theta), so a point on the unit circle at angle theta is represented as e^(i*theta). When you square it, you get e^(i*2*theta), which is the same point but at twice the angle. This doubling of angles is why squaring the set of nth roots of unity (which are uniformly spaced at angles that are multiples of tau/n) produces the (n/2)th roots of unity, collapsing the set size by exactly half.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3060.0,
+        "end": 3150.0,
+        "hop": 1,
+        "description": "Complex plane diagram showing unit circle with roots of unity plotted at 1, -1, i, -i and intermediate points"
+      },
+      {
+        "start": 3360.0,
+        "end": 3420.0,
+        "hop": 2,
+        "description": "Euler's formula introduced: e^(i*theta) = cos(theta) + i*sin(theta), and explanation that squaring doubles the angle"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec03_chunk_087",
+      "mit_6046_lec03_chunk_094"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Euler's formula",
+      "unit circle",
+      "complex plane",
+      "angle doubling",
+      "roots of unity"
+    ],
+    "video_id": "mit_6046_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6046_lec03_q004",
+    "question": "The lecture describes the matrix view of polynomial evaluation and introduces the Vandermonde matrix. Based on the visual representation of this matrix shown on the board and the algorithm description, what does the entry V_jk of this matrix equal, and what two computational problems does converting between coefficient and sample representations correspond to?",
+    "answer": "The entry V_jk of the Vandermonde matrix equals x_j raised to the power k (i.e., V_jk = x_j^k), where j is the row index and k is the column index. The two computational problems are: (1) Converting from coefficient representation to sample representation corresponds to computing the matrix-vector product V * A, where A is the coefficient vector; (2) Converting from sample representation back to coefficient representation corresponds to computing V^(-1) * Y, where Y is the sample vector. Both correspond to linear algebra operations on the Vandermonde matrix, with the forward transform being a matrix-vector multiply and the inverse requiring solving a linear system.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1620.0,
+        "end": 1680.0,
+        "hop": 1,
+        "description": "Visual of Vandermonde matrix on the board showing x_j^k structure"
+      },
+      {
+        "start": 1680.0,
+        "end": 1740.0,
+        "hop": 2,
+        "description": "Explanation that coefficients to samples = V*A and samples to coefficients = V inverse times A"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec03_chunk_044",
+      "mit_6046_lec03_chunk_047"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Vandermonde matrix",
+      "matrix-vector product",
+      "coefficient to sample conversion",
+      "inverse transform",
+      "V_jk = x_j^k"
+    ],
+    "video_id": "mit_6046_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6046_lec03_q005",
+    "question": "The lecture board shows the divide step of the FFT algorithm splitting a polynomial into A_even and A_odd. Combining this visual with the algebraic combine step described, what is the formula for reconstructing A(x) from A_even and A_odd evaluated at x^2, and why is x^2 used rather than x itself?",
+    "answer": "The formula for reconstructing A(x) from its even and odd parts is A(x) = A_even(x^2) + x * A_odd(x^2). The reason x^2 is used rather than x is because of the mismatch between the exponents: A_even is defined as the sum of a_{2k} * t^k, where t is the argument. To get the terms a_{2k} * x^{2k} that appear in the original polynomial, we need to substitute t = x^2. Similarly for A_odd, the terms a_{2k+1} * x^{2k+1} arise from x * A_odd(x^2) because A_odd(x^2) gives a_{2k+1} * x^{2k} and multiplying by x gives the needed x^{2k+1} factor.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2040.0,
+        "end": 2100.0,
+        "hop": 1,
+        "description": "Blackboard showing A_even(x) and A_odd(x) definitions with even and odd coefficient vectors"
+      },
+      {
+        "start": 2160.0,
+        "end": 2240.0,
+        "hop": 2,
+        "description": "Combine step: A(x) = A_even(x^2) + x * A_odd(x^2) derived algebraically"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec03_chunk_059",
+      "mit_6046_lec03_chunk_062"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "FFT divide step",
+      "even and odd coefficients",
+      "combine step",
+      "A_even",
+      "A_odd",
+      "polynomial splitting"
+    ],
+    "video_id": "mit_6046_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6046_lec03_q006",
+    "question": "The lecture presents the fast polynomial multiplication algorithm using FFT and IFFT. Based on the steps shown on the board and the complexity arguments given across multiple parts of the lecture, what are all the steps of the algorithm and what is the total time complexity?",
+    "answer": "The fast polynomial multiplication algorithm has four steps: (1) Compute A* = FFT(A), converting polynomial A from coefficient representation to sample representation at the nth roots of unity \u2014 this takes O(n log n) time; (2) Compute B* = FFT(B), doing the same for B \u2014 O(n log n); (3) Compute C* pointwise, where C*_k = A*_k * B*_k for each k \u2014 this is O(n) since it is just n multiplications of complex numbers; (4) Compute C = IFFT(C*), converting the product back from samples to coefficients using the inverse FFT \u2014 O(n log n). The total time complexity is O(n log n), which improves over the naive O(n^2) polynomial multiplication.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3960.0,
+        "end": 4020.0,
+        "hop": 1,
+        "description": "Fast polynomial multiplication steps shown: A* = FFT(A), B* = FFT(B), C* = A* * B* pointwise"
+      },
+      {
+        "start": 1140.0,
+        "end": 1200.0,
+        "hop": 2,
+        "description": "Goal stated as achieving O(n log n) polynomial multiplication, contrasted with naive O(n^2)"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec03_chunk_111",
+      "mit_6046_lec03_chunk_033"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "fast polynomial multiplication",
+      "FFT",
+      "IFFT",
+      "O(n log n)",
+      "pointwise multiplication"
+    ],
+    "video_id": "mit_6046_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6046_lec03_q007",
+    "question": "The lecture's board shows that the instructor has tattoos related to mathematical constants. What formula did the instructor say is tattooed on one arm and on the other arm, and what is the mathematical significance of both formulas to the FFT algorithm presented?",
+    "answer": "The instructor stated that e^(i*tau) = 1 is tattooed on one arm, and the tau constant (tau = 2*pi, a full circle) is tattooed on the other arm. Both are mathematically significant to the FFT: e^(i*tau) = 1 is Euler's formula applied at a full rotation, meaning that going around the unit circle once returns to the starting point \u2014 this is precisely the fact that makes the modular arithmetic on complex angles work, ensuring that the nth roots of unity wrap around correctly and that the geometric series in the proof of V_inverse sums to zero for j \u2260 k. The tau notation makes the angle formulas for nth roots of unity cleaner (theta = k*tau/n instead of 2*pi*k/n).",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3180.0,
+        "end": 3240.0,
+        "hop": 1,
+        "description": "Instructor mentions tattooing e^(i*tau)=1 and tau on arms, frame captions visible showing person with MATHCOUNTS shirt"
+      },
+      {
+        "start": 3510.0,
+        "end": 3570.0,
+        "hop": 2,
+        "description": "e^(i*tau)=1 used in geometric series proof to show off-diagonal entries of V*V_conjugate are zero"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec03_chunk_091",
+      "mit_6046_lec03_chunk_132"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Euler's formula",
+      "tau constant",
+      "e^(i*tau)=1",
+      "roots of unity",
+      "geometric series proof"
+    ],
+    "video_id": "mit_6046_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6046_lec03_q008",
+    "question": "Based on the frame caption describing the coordinate plane drawn on the chalkboard during the lecture, what are the two axes of the diagram used to represent complex numbers, and what does each axis measure?",
+    "answer": "The coordinate plane drawn on the chalkboard has two axes: the horizontal axis labeled 'Re' representing the real part of a complex number, and the vertical axis labeled 'Im' representing the imaginary part of a complex number. Together they form the complex plane, where every point corresponds to a unique complex number whose real component is given by its horizontal position and whose imaginary component is given by its vertical position.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 2940.0,
+        "end": 3000.0,
+        "hop": 1,
+        "description": "Frame caption describes coordinate plane with Re on horizontal axis and Im on vertical axis drawn for complex number visualization"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec03_chunk_083"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "complex plane",
+      "real axis",
+      "imaginary axis",
+      "complex number representation"
+    ],
+    "video_id": "mit_6046_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6046_lec03_q009",
+    "question": "According to the frame caption describing the table visible on the chalkboard in the lecture, what are the three columns and three rows of the algorithm-representation comparison table that was drawn?",
+    "answer": "According to the frame caption, the table on the chalkboard has three columns labeled A (coefficients), B (roots), and C (samples), representing the three polynomial representations. The three rows are labeled with the three operations: evaluation, addition, and multiplication. This table compares the time complexity of each operation under each representation, and the lecture uses it to motivate the need to convert efficiently between the coefficient and sample representations.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1380.0,
+        "end": 1440.0,
+        "hop": 1,
+        "description": "Frame caption describes table with columns A:coefficients, B:roots, C:samples and rows evaluation, addition, multiplication"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec03_chunk_038"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "polynomial representations",
+      "algorithm comparison table",
+      "coefficients",
+      "roots",
+      "samples"
+    ],
+    "video_id": "mit_6046_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6046_lec03_q010",
+    "question": "The lecture explains why the root representation of polynomials is not algorithmically useful. What specific mathematical impossibility result from the 1800s does the lecturer cite, and how does this connect to the conclusion that going from coefficient vector to roots is essentially infeasible in an arithmetic model?",
+    "answer": "The lecturer cites the classical result from the 1800s that there is no quintic formula \u2014 that is, there is no closed-form algebraic formula (using addition, subtraction, multiplication, division, and taking kth roots) for finding the roots of a polynomial of degree five or higher. While quadratic, cubic, and quartic formulas exist, no such formula exists for degree five and above. In the arithmetic model (where only arithmetic operations are allowed), this means converting from a coefficient vector to its roots is impossible in finite time \u2014 the lecturer says it 'takes infinite time' \u2014 making the root representation computationally useless for the operations needed in polynomial multiplication.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1020.0,
+        "end": 1080.0,
+        "hop": 1,
+        "description": "No quintic formula exists \u2014 result from the 1800s \u2014 going from coefficients to roots is impossible in arithmetic model"
+      },
+      {
+        "start": 1080.0,
+        "end": 1140.0,
+        "hop": 2,
+        "description": "Addition is hard in root representation, multiplication is easy, but root representation overall is not useful"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec03_chunk_029",
+      "mit_6046_lec03_chunk_030"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "quintic formula",
+      "Abel-Ruffini theorem",
+      "root representation",
+      "arithmetic model",
+      "polynomial roots"
+    ],
+    "video_id": "mit_6046_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6046_lec03_q011",
+    "question": "The lecture proves that V * V_conjugate = n * I (the identity matrix scaled by n). What two cases does the proof consider for the (j,k) entry of this product, and what algebraic tool is used in the harder case to evaluate the resulting sum?",
+    "answer": "The proof considers two cases for the (j,k) entry P_jk. In the first case, j equals k (the diagonal case): the exponent becomes zero, so e^0 = 1, and the sum is just 1 added n times, giving n. This shows the diagonal entries equal n. In the second case, j does not equal k (the off-diagonal case): the sum becomes a geometric series of the form sum_{m=0}^{n-1} z^m where z = e^(i*tau*(j-k)/n). The geometric series formula gives (z^n - 1)/(z - 1). The numerator z^n = e^(i*tau*(j-k)) = 1 because e^(i*tau) = 1 and j-k is a nonzero integer, so the numerator is 1-1 = 0, making the entire sum zero. Therefore off-diagonal entries are zero, confirming V * V_conjugate = n * I.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 4620.0,
+        "end": 4680.0,
+        "hop": 1,
+        "description": "Diagonal case j=k: exponent is zero, sum of n ones gives n"
+      },
+      {
+        "start": 4680.0,
+        "end": 4770.0,
+        "hop": 2,
+        "description": "Off-diagonal case j\u2260k: geometric series formula applied, numerator z^n = e^(i*tau*integer) = 1, so result is 0"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec03_chunk_127",
+      "mit_6046_lec03_chunk_131"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Vandermonde matrix inverse",
+      "geometric series",
+      "V * V_conjugate = nI",
+      "diagonal vs off-diagonal",
+      "Euler's formula"
+    ],
+    "video_id": "mit_6046_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6046_lec03_q012",
+    "question": "The lecture discusses convolution and its relationship to polynomial multiplication. What is convolution formally defined as in this lecture, and what practical example from image processing is given to illustrate it?",
+    "answer": "Convolution is formally defined as follows: given two vectors A and B, for all possible integer shifts k of vector B, compute the dot product (inner product) of vector A with the shifted version of B, specifically C_k = sum_{j=0}^{n-1} a_j * b_{k-j}. This is equivalent to polynomial multiplication if you reverse one of the vectors (changing minus signs to plus). The practical image processing example given is Gaussian blur in Photoshop: you take a two-dimensional image (mapped to a one-dimensional vector), convolve it with a two-dimensional Gaussian function, and the result simulates what the image would look like if the camera lens were out of focus. High-pass and low-pass filters in audio processing are also mentioned as related applications.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 780.0,
+        "end": 840.0,
+        "hop": 1,
+        "description": "Convolution formally defined as computing dot products of A with all shifts of B: C_k = sum a_j b_{k-j}"
+      },
+      {
+        "start": 720.0,
+        "end": 780.0,
+        "hop": 2,
+        "description": "Gaussian blur in Photoshop described as a convolution, simulating out-of-focus lens"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec03_chunk_021",
+      "mit_6046_lec03_chunk_020"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "convolution",
+      "dot product",
+      "shifts",
+      "Gaussian blur",
+      "polynomial multiplication equivalence"
+    ],
+    "video_id": "mit_6046_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6046_lec03_q013",
+    "question": "According to this lecture, what is the specific time complexity of Horner's Rule for polynomial evaluation, and what model of computation is used to measure time throughout this lecture?",
+    "answer": "According to the lecture, Horner's Rule achieves O(n) time for polynomial evaluation of a degree n-1 polynomial (with n terms). The rule rewrites A(x) as a_0 + x*(a_1 + x*(a_2 + ... + x*(a_{n-1})...)), performing only a linear number of additions and multiplications. The model of computation used to measure time throughout this lecture is the number of arithmetic operations, specifically counting additions (+) and multiplications (*), and assuming each such operation takes constant time.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 370.0,
+        "end": 430.0,
+        "hop": 1,
+        "description": "Horner's rule gives O(n) time; model is number of arithmetic operations (+, *) each taking constant time"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec03_chunk_010"
+    ],
+    "question_type": "text",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "Horner's rule",
+      "O(n) evaluation",
+      "arithmetic operations model",
+      "polynomial evaluation"
+    ],
+    "video_id": "mit_6046_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6046_lec03_q014",
+    "question": "What is the name of the software implementation of FFT mentioned at the end of this lecture, where was it developed, and what practical consumer devices does the lecturer suggest use it?",
+    "answer": "The software implementation mentioned is called FFTW, which stands for the Fastest Fourier Transform in the West. It was developed at MIT (Massachusetts Institute of Technology). The lecturer suggests that noise-cancelling headsets likely use it, and MP3 compression also uses FFT-based techniques. FFTW is described as still being the best software implementation of FFT and is used widely in practice, in addition to hardware implementations.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 4830.0,
+        "end": 4875.0,
+        "hop": 1,
+        "description": "FFTW described as Fastest Fourier Transform in the West, made at MIT, used in noise-cancelling headsets and MP3"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec03_chunk_138"
+    ],
+    "question_type": "text",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "FFTW",
+      "MIT",
+      "noise-cancelling headsets",
+      "MP3",
+      "FFT software implementation"
+    ],
+    "video_id": "mit_6046_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6046_lec03_q015",
+    "question": "What is the exact running time of the naive polynomial interpolation algorithm for converting from sample representation back to coefficient representation, and who proved the existence of the interpolating polynomial in the 1800s according to this lecture?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "medium",
+    "answerable": false,
+    "key_concepts": [
+      "polynomial interpolation",
+      "sample to coefficient conversion",
+      "historical attribution"
+    ],
+    "video_id": "mit_6046_lec03",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  }
+]

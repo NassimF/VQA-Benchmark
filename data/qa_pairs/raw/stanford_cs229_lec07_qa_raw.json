@@ -1,0 +1,499 @@
+[
+  {
+    "qa_id": "stanford_cs229_lec07_q001",
+    "question": "What optimization problem formulation is shown on the chalkboard that the lecturer says avoids the non-convex constraint, and what property of the geometric margin makes this reformulation possible?",
+    "answer": "The chalkboard shows the formulation to minimize (1/2)||w||^2 subject to y_i(w^T x_i + b) >= 1 for all i. This reformulation is possible because the geometric margin is invariant to scaling of w and b \u2014 multiplying w and b by any constant does not change the separating hyperplane's position, so one can impose a convenient normalization constraint such as setting the minimum functional margin equal to one, which converts the non-convex constraint into a convex quadratic program with linear constraints.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 288.0,
+        "end": 360.0,
+        "hop": 1,
+        "description": "Chalkboard shows the final optimal margin classifier formulation: min 1/2||w||^2 subject to y_i(w^T x_i+b)>=1"
+      },
+      {
+        "start": 165.0,
+        "end": 240.0,
+        "hop": 2,
+        "description": "Transcript explains that scaling w and b does not change the geometric margin, enabling arbitrary normalization constraints"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec07_chunk_030",
+      "stanford_cs229_lec07_chunk_009"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "optimal margin classifier",
+      "geometric margin",
+      "scaling invariance",
+      "convex quadratic program"
+    ],
+    "video_id": "stanford_cs229_lec07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec07_q002",
+    "question": "The lecture shows a diagram on the chalkboard where points are labeled with '+' and '-' signs around a separating line. What is the name given to the training examples that lie exactly on the margin boundary, and what Lagrange multiplier condition relates to those examples?",
+    "answer": "The training examples that lie exactly on the margin boundary \u2014 having functional margin equal to one \u2014 are called support vectors, which is the origin of the name 'support vector machine.' The Karush-Kuhn-Tucker complementarity condition relates to these points: it states that alpha_i * g_i(w*, b*) = 0, which means that for support vectors (where g_i = 0, i.e., the constraint is active), the corresponding Lagrange multiplier alpha_i is typically non-zero, whereas for all other training examples with functional margin strictly greater than one, alpha_i equals zero.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3240.0,
+        "end": 3360.0,
+        "hop": 1,
+        "description": "Chalkboard diagram shows separating hyperplane with + and - labeled points; text on board reads 'Functional margin = 1' and 'Support Vectors'"
+      },
+      {
+        "start": 2795.0,
+        "end": 2900.0,
+        "hop": 2,
+        "description": "KKT complementarity condition board shows alpha_i * g_i(w*) = 0; discussion of active constraints"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec07_chunk_093",
+      "stanford_cs229_lec07_chunk_077"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "support vectors",
+      "functional margin",
+      "KKT complementarity",
+      "active constraints"
+    ],
+    "video_id": "stanford_cs229_lec07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec07_q003",
+    "question": "The lecture board shows the Lagrangian L(w, b, alpha) for the SVM. What equation for w is derived by taking the derivative of this Lagrangian with respect to w and setting it to zero, and why does this result have significance for making predictions?",
+    "answer": "Taking the derivative of the Lagrangian with respect to w and setting it to zero yields w = sum_i alpha_i * y_i * x_i, meaning w is a linear combination of the training input feature vectors x_i weighted by alpha_i * y_i. This is significant for predictions because when evaluating the hypothesis on a new input x, computing w^T x can be expressed entirely as a sum of inner products alpha_i * y_i * <x_i, x>, which means the algorithm can operate in feature spaces without ever needing to represent w explicitly \u2014 enabling the kernel trick for potentially infinite-dimensional feature spaces.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3600.0,
+        "end": 3660.0,
+        "hop": 1,
+        "description": "Chalkboard equation shows L(w,b,alpha) = 1/2||w||^2 - sum alpha_i(y_i(w^T x_i+b)-1) and derivative with respect to w"
+      },
+      {
+        "start": 4260.0,
+        "end": 4335.0,
+        "hop": 2,
+        "description": "Transcript explains that w as linear combination of x_i is useful for predictions via inner products, leading to kernels"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec07_chunk_097",
+      "stanford_cs229_lec07_chunk_121"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Lagrangian derivative",
+      "support vector expansion",
+      "inner products",
+      "kernel trick"
+    ],
+    "video_id": "stanford_cs229_lec07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec07_q004",
+    "question": "The lecture chalkboard shows today's agenda topics. How does the topic of 'Primal/dual optimization' connect to the practical benefit of kernels described later in the lecture?",
+    "answer": "The chalkboard lists 'Primal/dual optimization' as a prerequisite topic before SVMs and kernels. The connection is that by deriving the dual formulation of the optimal margin classifier, the objective function W(alpha) and all prediction computations end up expressed entirely in terms of inner products between training examples. This inner-product representation is critical because kernels exploit it: even when feature vectors are extremely high-dimensional or infinite-dimensional, kernels allow efficient implicit computation of inner products without ever explicitly representing the feature vectors, making SVMs tractable in these spaces.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 0.0,
+        "end": 45.0,
+        "hop": 1,
+        "description": "Chalkboard shows agenda: Optimal margin classifier, Primal/dual optimization, SVM dual, Kernels"
+      },
+      {
+        "start": 4320.0,
+        "end": 4395.0,
+        "hop": 2,
+        "description": "Transcript explains entire SVM algorithm can be expressed in inner products, enabling kernel application to high-dimensional spaces"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec07_chunk_000",
+      "stanford_cs229_lec07_chunk_122"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "dual problem",
+      "inner products",
+      "kernels",
+      "high-dimensional feature spaces"
+    ],
+    "video_id": "stanford_cs229_lec07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec07_q005",
+    "question": "The board shows the constraint '||w||=1' as one possible scaling normalization. Why does the lecturer reject this constraint for the optimal margin classifier formulation, and what constraint is chosen instead?",
+    "answer": "The lecturer rejects the constraint ||w||=1 because, although it correctly ensures geometric and functional margins are equivalent, it creates a non-convex feasible set \u2014 the parameters w are forced to lie on the surface of a unit sphere, which is a non-convex constraint. This means gradient descent and other local search algorithms have no guarantee of finding the global optimum. Instead, the lecturer chooses the constraint that the minimum functional margin over the training set equals one, written as min_i y_i(w^T x_i + b) = 1. Combined with the objective of maximizing the geometric margin (equivalently minimizing ||w||^2), this yields a convex quadratic program with linear constraints.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 420.0,
+        "end": 510.0,
+        "hop": 1,
+        "description": "Chalkboard shows ||w||=1 as possible normalization; transcript explains this is non-convex"
+      },
+      {
+        "start": 1005.0,
+        "end": 1080.0,
+        "hop": 2,
+        "description": "Transcript and board show choosing functional margin = 1 as scaling constraint instead"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec07_chunk_015",
+      "stanford_cs229_lec07_chunk_030"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "non-convex constraint",
+      "unit sphere",
+      "functional margin normalization",
+      "convex quadratic program"
+    ],
+    "video_id": "stanford_cs229_lec07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec07_q006",
+    "question": "The board shows the Lagrangian for the primal optimization problem. What happens to theta_P(w) when a value of w violates one of the inequality constraints g_i(w) > 0, and what does this imply about the equivalence between minimizing theta_P(w) and solving the original primal problem?",
+    "answer": "When w violates one of the inequality constraints (i.e., g_i(w) > 0), theta_P(w) becomes positive infinity because one can set the corresponding Lagrange multiplier alpha_i to plus infinity, making the Lagrangian arbitrarily large. Similarly, if any equality constraint h_i(w) is not zero, theta_P(w) is also infinity. Only when w satisfies all constraints does theta_P(w) equal f(w). Therefore, minimizing theta_P(w) over all w is exactly equivalent to the original primal problem: infeasible points are automatically penalized with infinite cost, and feasible points incur cost f(w), so the minimizer of theta_P is the same as the constrained minimizer of f(w).",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1920.0,
+        "end": 1995.0,
+        "hop": 1,
+        "description": "Board shows theta_P(w) = infinity if g_i(w)>0; explanation of why alpha_i can be sent to infinity"
+      },
+      {
+        "start": 2055.0,
+        "end": 2130.0,
+        "hop": 2,
+        "description": "Board and transcript show theta_P(w)=f(w) when constraints satisfied; minimizing theta_P equals original primal problem"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec07_chunk_053",
+      "stanford_cs229_lec07_chunk_057"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "theta_P",
+      "primal problem",
+      "Lagrangian",
+      "constraint violation",
+      "infinity penalty"
+    ],
+    "video_id": "stanford_cs229_lec07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec07_q007",
+    "question": "The board shows the formula for b = (max_{y_i=1} w^T x_i + min_{y_i=-1} w^T x_i) / 2. How does the diagram drawn alongside this formula justify the formula intuitively, and how does one arrive at this formula once alpha and w are known?",
+    "answer": "The diagram on the board shows the separating hyperplane with positive examples on one side and negative examples on the other. Once w is known, the direction of the hyperplane is determined. The formula for b works by finding the worst-case (closest) positive example \u2014 the one with maximum w^T x_i among positive examples \u2014 and the worst-case negative example \u2014 with minimum w^T x_i among negative examples \u2014 and placing the threshold exactly halfway between them. This splits the difference between the two closest examples of opposite classes, centering the hyperplane optimally. One arrives at this formula after solving for the alpha_i values from the dual problem, then recovering w as the weighted sum of support vectors, and finally computing b to satisfy the margin constraints.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 4125.0,
+        "end": 4200.0,
+        "hop": 1,
+        "description": "Chalkboard shows formula b = (max_{y_i=1} w^T x_i + min_{y_i=-1} w^T x_i)/2 with diagram of hyperplane and data points"
+      },
+      {
+        "start": 4035.0,
+        "end": 4110.0,
+        "hop": 2,
+        "description": "Transcript explains solving b after alpha and w are known by finding worst positive and negative examples and splitting difference"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec07_chunk_119",
+      "stanford_cs229_lec07_chunk_117"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "bias term b",
+      "optimal hyperplane placement",
+      "support vectors",
+      "dual problem solution"
+    ],
+    "video_id": "stanford_cs229_lec07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec07_q008",
+    "question": "What text is written on the chalkboard at the very beginning of the lecture that lists all topics to be covered that day?",
+    "answer": "The chalkboard at the beginning of the lecture displays the following agenda items listed under 'Today': Optimal margin classifier, Primal/dual optimization, Problem (KKT), SVM dual, and Kernels. These five topics outline the full scope of the lecture session.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 0.0,
+        "end": 45.0,
+        "hop": 1,
+        "description": "Frame caption describes chalkboard reading: Today - Optimal margin classifier, Primal/dual optimization, Problem (KKT), SVM dual, Kernels"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec07_chunk_000"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "lecture agenda",
+      "SVM topics",
+      "chalkboard"
+    ],
+    "video_id": "stanford_cs229_lec07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec07_q009",
+    "question": "What equation for the bias parameter b is written on the chalkboard when the lecturer explains how to recover b after solving the dual problem?",
+    "answer": "The chalkboard shows the equation b = (max_{i: y_i = 1} w^T x_i + min_{i: y_i = -1} w^T x_i) / 2. This formula computes b by averaging the maximum inner product of w with positive-class training examples and the minimum inner product of w with negative-class training examples, effectively placing the decision threshold midway between the closest positive and negative support vectors.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 4155.0,
+        "end": 4230.0,
+        "hop": 1,
+        "description": "Frame caption shows chalkboard equation b = (max_{i:y_i=1} w^T x_i + min_{i:y_i=-1} w^T x_i) / 2"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec07_chunk_119"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "bias recovery",
+      "optimal margin classifier",
+      "support vectors",
+      "chalkboard equation"
+    ],
+    "video_id": "stanford_cs229_lec07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec07_q010",
+    "question": "What is the relationship between the primal optimal value p* and the dual optimal value d* in general, and under what specific conditions do these two values become equal in the SVM context?",
+    "answer": "In general, the dual optimal value d* is less than or equal to the primal optimal value p* \u2014 this is because the max of the min of any function is always less than or equal to the min of the max of that function. However, they become equal under specific conditions known as strong duality: the objective function f must be convex (positive semidefinite Hessian), the equality constraints h_i must be affine, and the inequality constraints g_i must be strictly feasible (there exists a w satisfying all g_i with strict inequality). For the SVM optimal margin classifier, these conditions are satisfied because the objective 1/2||w||^2 is convex, there are no equality constraints h_i, and the inequality constraints are linear (hence affine and strictly feasible when data is linearly separable). Under these conditions p* = d*.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2190.0,
+        "end": 2265.0,
+        "hop": 1,
+        "description": "Transcript states d* <= p* in general, explains max-min <= min-max with concrete example"
+      },
+      {
+        "start": 2400.0,
+        "end": 2490.0,
+        "hop": 2,
+        "description": "Transcript gives conditions: f convex, h affine, g strictly feasible for p*=d* to hold, applied to SVM"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec07_chunk_062",
+      "stanford_cs229_lec07_chunk_068"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "strong duality",
+      "primal optimal",
+      "dual optimal",
+      "KKT conditions",
+      "convex optimization"
+    ],
+    "video_id": "stanford_cs229_lec07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec07_q011",
+    "question": "What is the interpretation of the constraint that sum_i y_i * alpha_i = 0 in the SVM dual problem, and how does this constraint arise mathematically?",
+    "answer": "The constraint sum_i y_i * alpha_i = 0 arises from taking the partial derivative of the Lagrangian with respect to the bias parameter b and setting it equal to zero \u2014 this is a necessary condition for minimizing the Lagrangian over w and b. The interpretation is that the Lagrangian is a linear function of b, so if the sum y_i * alpha_i is not zero, then theta_D(alpha) would be minus infinity (by sending b to plus or minus infinity), which would never be chosen when maximizing the dual. Therefore, any alpha that achieves a finite maximum of the dual objective must satisfy this constraint, effectively restricting the feasible set of the dual problem to only those alpha vectors satisfying this linear equality.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3645.0,
+        "end": 3720.0,
+        "hop": 1,
+        "description": "Transcript explains partial derivative of Lagrangian w.r.t. b yields constraint sum y_i alpha_i = 0"
+      },
+      {
+        "start": 3900.0,
+        "end": 3975.0,
+        "hop": 2,
+        "description": "Transcript explains if sum y_i alpha_i not zero then theta_D = minus infinity, so must satisfy constraint to maximize dual"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec07_chunk_101",
+      "stanford_cs229_lec07_chunk_111"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "dual constraint",
+      "Lagrangian derivative",
+      "bias parameter",
+      "feasibility condition"
+    ],
+    "video_id": "stanford_cs229_lec07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec07_q012",
+    "question": "How does the lecturer explain the Lagrange multiplier method for equality-constrained optimization, and how is this generalized to handle inequality constraints in the SVM problem?",
+    "answer": "For equality-constrained optimization \u2014 minimizing f(w) subject to h_i(w) = 0 \u2014 the classical Lagrange multiplier method constructs the Lagrangian L(w, beta) = f(w) + sum_i beta_i * h_i(w), then solves by taking partial derivatives with respect to both w and the multipliers beta_i and setting them to zero. The theorem by Lagrange guarantees that at the optimal solution w*, there exist multipliers beta* such that these partial derivatives vanish. This is generalized to handle inequality constraints g_i(w) <= 0 by introducing a generalized Lagrangian L(w, alpha, beta) = f(w) + sum_i alpha_i * g_i(w) + sum_j beta_j * h_j(w) with the additional requirement that alpha_i >= 0. The KKT conditions then provide necessary and sufficient optimality conditions including the complementarity condition alpha_i * g_i(w*) = 0 at the solution.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1440.0,
+        "end": 1530.0,
+        "hop": 1,
+        "description": "Transcript describes classical Lagrange multiplier method with Lagrangian for equality constraints"
+      },
+      {
+        "start": 1650.0,
+        "end": 1725.0,
+        "hop": 2,
+        "description": "Transcript describes generalization to inequality constraints with generalized Lagrangian and alpha_i >= 0"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec07_chunk_042",
+      "stanford_cs229_lec07_chunk_047"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "Lagrange multipliers",
+      "equality constraints",
+      "inequality constraints",
+      "generalized Lagrangian",
+      "KKT conditions"
+    ],
+    "video_id": "stanford_cs229_lec07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec07_q013",
+    "question": "What specific property of the functional margin makes it unsuitable as a direct optimization objective without normalization, according to the lecturer?",
+    "answer": "The functional margin has the undesirable property that it can be increased arbitrarily simply by scaling the parameters w and b by any positive constant, without changing the actual decision boundary or classifier. Specifically, if you multiply both w and b by a factor of two, the functional margin of every training example doubles, even though the hyperplane defined by w^T x + b = 0 is identical to the one defined by 2w^T x + 2b = 0. This means maximizing the functional margin is not well-posed unless a normalization or scaling constraint is imposed on w.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 155.0,
+        "end": 225.0,
+        "hop": 1,
+        "description": "Transcript explains functional margin can be increased by multiplying w and b by two; this is a strange property making it unsuitable as objective"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec07_chunk_005"
+    ],
+    "question_type": "text",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "functional margin",
+      "scaling invariance",
+      "normalization",
+      "optimization objective"
+    ],
+    "video_id": "stanford_cs229_lec07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec07_q014",
+    "question": "What is the KKT complementarity condition in the context of SVMs, and what does the lecturer say typically happens in practice even though the condition does not strictly guarantee it?",
+    "answer": "The KKT complementarity condition states that at the optimal solution, alpha_i* * g_i(w*, b*) = 0 for every training example i. Since this is a product of two quantities equal to zero, at least one of them must be zero: either alpha_i* = 0 or g_i(w*, b*) = 0. The condition g_i = 0 means the training example has functional margin exactly equal to one (an active constraint). The lecturer notes that while the KKT condition only guarantees at least one is zero \u2014 and technically both could be zero simultaneously \u2014 in practice when solving SVM problems, it turns out that alpha_i* is non-zero if and only if g_i(w*, b*) = 0, meaning alpha_i* is non-zero precisely for the support vectors (examples on the margin boundary).",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 2820.0,
+        "end": 2910.0,
+        "hop": 1,
+        "description": "Transcript explains KKT complementarity: alpha_i* g_i(w*)=0 implies one is zero; in practice alpha_i nonzero iff g_i=0, i.e., only for support vectors"
+      }
+    ],
+    "source_chunk_ids": [
+      "stanford_cs229_lec07_chunk_078"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "KKT complementarity condition",
+      "active constraints",
+      "support vectors",
+      "Lagrange multipliers"
+    ],
+    "video_id": "stanford_cs229_lec07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "stanford_cs229_lec07_q015",
+    "question": "What is the exact computational complexity of solving the SVM dual problem as a function of the number of training examples, as derived in this lecture?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "medium",
+    "answerable": false,
+    "key_concepts": [
+      "computational complexity",
+      "SVM dual",
+      "training examples"
+    ],
+    "video_id": "stanford_cs229_lec07",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  }
+]
