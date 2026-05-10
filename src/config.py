@@ -78,6 +78,7 @@ class GeneratorConfig:
 
 @dataclass
 class QAGenerationConfig:
+    model: str
     questions_per_lecture: int
     target_accepted: int
 
@@ -162,6 +163,7 @@ def load_config(config_path: Path | None = None) -> Config:
 
     qa = raw["qa_generation"]
     qa_generation = QAGenerationConfig(
+        model=qa["model"],
         questions_per_lecture=int(qa["questions_per_lecture"]),
         target_accepted=int(qa["target_accepted"]),
     )
