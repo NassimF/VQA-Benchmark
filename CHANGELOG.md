@@ -4,6 +4,8 @@
 
 - feat: generator module (Phase 6) (d92ccef)
 - docs: add model asymmetry justification to benchmark.tex and roadmap (a8a7f04)
+- docs: add generator model choice justification to pipeline.tex (725bce5)
+- test: smoke test passed — gpt-4o-mini, mit_6046_lec10, span 105.0s–185.0s
 
 ## 2026-05-08
 

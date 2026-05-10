@@ -100,10 +100,10 @@ Expected output: `PASS — raised ValueError: ...`
 
 ## Merge checklist
 
-- [ ] `pytest tests/test_generator.py` — all green
-- [ ] Smoke test passes with live API call
-- [ ] No hardcoded model names or hyperparameters in `src/generator.py`
-- [ ] Citation string format verified manually
-- [ ] `ValueError` raised on malformed LLM output (confirmed)
-- [ ] `specs/roadmap.md` Phase 6.1 marked ✅
-- [ ] Git commit: `feat: generator module (Phase 6)`
+- [x] `pytest tests/test_generator.py` — all green (25/25)
+- [x] Smoke test passes with live API call (gpt-4o-mini, mit_6046_lec10, span 105.0s–185.0s)
+- [x] No hardcoded model names or hyperparameters in `src/generator.py`
+- [x] Citation string format verified manually
+- [x] `ValueError` raised on malformed LLM output (confirmed)
+- [x] `specs/roadmap.md` Phase 6.1 marked ✅
+- [x] Git commit: `feat: generator module (Phase 6)`
