@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-05-10
+
+- feat: generator module (Phase 6) (d92ccef)
+- docs: add model asymmetry justification to benchmark.tex and roadmap (a8a7f04)
+
+## 2026-05-08
+
+- feat: RAG ingestion, both configs (Phase 5) (635af03)
+
 ## 2026-05-08
 
 - docs: update CHANGELOG.md (22d6993)
