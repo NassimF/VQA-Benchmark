@@ -2,6 +2,10 @@
 
 ## 2026-05-11
 
+- docs: Phase 7.3 lit review, paper formatting rules, sync fixes (08edc0d)
+
+## 2026-05-11
+
 - docs: add Phase 7.3 context for post-context-clear pickup (46fb5c4)
 - docs: strengthen EduVidQA contrast in related work (79b15f1)
 
