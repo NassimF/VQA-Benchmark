@@ -15,9 +15,9 @@ The `specs/` directory is the project constitution — read it before starting a
 - `specs/mission.md` — project goals and required deliverables
 - `specs/YYYY-MM-DD-<feature>/` — per-feature plan, requirements, and validation docs
 
-Keep specs in sync with any implementation changes. Run `/changelog` before merging.
+Keep specs in sync with any implementation changes. Run `/changelog` before every git commit — not just before merging.
 
-**Overleaf sync rule:** Any time `overleaf/assets/` is edited (locally or in Overleaf), follow the workflow in `overleaf/Overleaf sync instructions.md` before committing. Never commit submodule changes without syncing first.
+**Overleaf sync rule:** Any time `overleaf/assets/` is edited (locally or in Overleaf), run `./push_to_overleaf.sh` immediately after saving — do not wait, do not batch with other tasks. Never commit submodule changes without syncing first. Sync is required even for small edits like fixing a placeholder.
 
 ## Language & Style
 - Python 3.10+
@@ -72,3 +72,29 @@ Two ChromaDB collections must always be maintained:
 ## Report
 Every parameter choice (window size, overlap, k, embedding model, frame interval, etc.)
 must be **explained and justified** in the report — not just stated.
+
+## Paper Tables & Figures
+
+### Table reproduction
+For every table in the paper, write a dedicated function named `reproduce_table_N`
+(e.g. `reproduce_table_1`, `reproduce_table_2`) that regenerates that table's values
+from experiment artifacts (`data/benchmark/evaluation_results.json`, etc.).
+All such functions live in `scripts/reproduce_tables.py`.
+A single top-level call `python scripts/reproduce_tables.py` must regenerate every table.
+
+### Results tracking
+`results.md` (repo root) compares reproduced numbers to the paper's reported numbers
+side by side. Update it whenever evaluation results change.
+
+### Proposed improvement
+The frame-augmented config (Config 2) is the proposed improvement over the baseline
+(Config 1). Add Config 2 numbers directly into the original results tables alongside
+Config 1 numbers. `results.md` must include a clear side-by-side showing Config 2
+meets or beats Config 1 on visual-dependent questions.
+
+### Draft paper requirements
+1. All paper sections must be written end-to-end, even if not final.
+2. All results tables must have their complete row/column structure. Cells with
+   unfinalized numbers must be marked `\textcolor{red}{TBD}` in LaTeX (never left blank).
+3. All figures must be present — use a placeholder `\fbox{\rule{0pt}{4cm}\rule{6cm}{0pt}}`
+   if the final figure is not ready. Never omit a figure entirely.

@@ -54,5 +54,7 @@ Every generated answer cites `[video_id @ mm:ss to mm:ss]` with a YouTube deep l
 | `run_part1.py` — end-to-end RAG demo | ⏳ |
 | `run_part2.py` — full benchmark evaluation (both retrieval configs) | ⏳ |
 | `data/benchmark/benchmark_v1.json` (12–15 QA × 60 lectures) | ⏳ |
-| Conference paper (`report/main.tex`) | ⏳ |
-| `README.md` (setup and usage instructions, dataset description) | ⏳ |
+| `scripts/reproduce_tables.py` — one `reproduce_table_N()` per paper table; single top-level call regenerates all | ⏳ |
+| `results.md` — side-by-side comparison of reproduced vs. reported numbers; Config 2 improvement over Config 1 | ⏳ |
+| Conference paper (`overleaf/assets/vqa_benchmark.tex`) — all sections written, all tables structured (TBD/RED for unfinalized cells), all figures present (placeholders acceptable) | ⏳ |
+| `README.md` — setup, usage, dataset description, how to reproduce all tables from clean checkout | ⏳ |

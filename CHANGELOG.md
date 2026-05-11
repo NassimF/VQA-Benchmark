@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-05-11
+
+- docs: add Phase 7.3 context for post-context-clear pickup (46fb5c4)
+- docs: strengthen EduVidQA contrast in related work (79b15f1)
+
+## 2026-05-10
+
+- docs: fix frame interval and fill corpus duration in paper (4bc3877)
+- docs: update changelog through Phase 7.2 (fa4c9d3)
+
 ## 2026-05-10
 
 - chore: sync specs to current project state (b7b22ef)

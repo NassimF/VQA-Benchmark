@@ -30,6 +30,8 @@ Status: ✅ Complete | ⚠️ Partial | ⏳ Pending
 | 8.1 | `src/evaluator.py` — temporal IoU, hit rate@k, LLM-judge | ⏳ |
 | 9.1 | `run_part1.py` — end-to-end RAG demo | ⏳ |
 | 9.2 | `run_part2.py` — full benchmark eval, both configs | ⏳ |
+| 9.3 | `scripts/reproduce_tables.py` — one function per paper table | ⏳ |
+| 9.4 | `results.md` — reproduced vs. reported numbers, Config 1 vs Config 2 | ⏳ |
 | 10.1 | `overleaf/assets/vqa_benchmark.tex` — conference paper | ⚠️ |
 | 10.2 | `README.md` | ⏳ |
 
@@ -434,7 +436,21 @@ Fill these in after Phase 8. Both configs side by side, split by question type.
 - Saves `data/benchmark/evaluation_results.json`
 - Generates summary plots for the report
 
-**Git checkpoint:** `feat: run_part1 and run_part2 (Phase 9)`
+### 9.3 — Table reproduction script
+**File:** `scripts/reproduce_tables.py`
+
+One function per paper table, named `reproduce_table_1`, `reproduce_table_2`, etc.
+Reads from `data/benchmark/evaluation_results.json` and prints/saves each table.
+A single top-level call `python scripts/reproduce_tables.py` regenerates every table.
+
+### 9.4 — Results tracking
+**File:** `results.md` (repo root)
+
+Side-by-side comparison of reproduced numbers vs. paper-reported numbers.
+Must include a clear Config 1 vs Config 2 comparison showing the visual grounding
+improvement on visual-dependent questions. Update whenever evaluation results change.
+
+**Git checkpoint:** `feat: run_part1, run_part2, reproduce_tables (Phase 9)`
 
 ---
 
@@ -459,6 +475,11 @@ Overleaf submodule set up under `overleaf/` with sync scripts (`sync_overleaf.sh
 
 Every parameter choice (window size, overlap, k values, embedding model, frame interval, max_new_tokens) must be **explained and justified** — not just stated.
 
+**Draft paper requirements (enforced from first draft):**
+1. All sections written end-to-end, even if not final.
+2. All results tables must have complete row/column structure. Unfinalized cells: `\textcolor{red}{TBD}` — never blank.
+3. All figures must be present. Use `\fbox{\rule{0pt}{4cm}\rule{6cm}{0pt}}` as placeholder if final figure not ready. Never omit.
+
 **Dataset release note:** License as CC BY-NC-SA 4.0 — required by the ShareAlike clause of the MIT OCW and Stanford SEE source material.
 
 ### 10.2 — README
@@ -467,6 +488,7 @@ Every parameter choice (window size, overlap, k values, embedding model, frame i
 - Setup instructions (Python env, system deps: ffmpeg, yt-dlp)
 - Usage: `run_part1.py` and `run_part2.py`
 - Dataset description and license
+- How to reproduce all paper tables from a clean checkout: `python scripts/reproduce_tables.py`
 
 **Git checkpoint:** `docs: final report and README (Phase 10)`
 
