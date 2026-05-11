@@ -266,6 +266,10 @@ Packages: chromadb 1.5.8, sentence-transformers 5.4.1
 
 ### 7.3 — LLM Review ⏳
 
+**Status: NOT STARTED. Requires literature review before implementation.**
+A literature review of LLM-as-judge approaches is needed to decide the best evaluation
+strategy before writing any code. Start there, then create `specs/YYYY-MM-DD-llm-review/`.
+
 **Method decided: LLM-only review using Claude Sonnet 4.6.**
 
 A second Claude pass evaluates each draft QA pair against the source chunks for:
@@ -275,6 +279,10 @@ A second Claude pass evaluates each draft QA pair against the source chunks for:
 
 Rejection criteria: answer < 10 words, or answer is verbatim in the question.
 Target: 12 accepted QA pairs per lecture (~720 total) saved to `data/qa_pairs/reviewed/`.
+
+**Known raw data quality issue (found during 6.3 spot-check):**
+`stanford_cs229_lec03_q010` (multi-hop) has a span gap of -10s — two adjacent chunks,
+not truly multi-hop. The LLM review pass must catch and reject these.
 
 Ground-truth spans are LLM-estimated (~±15–30s precision) — disclosed as a limitation in
 the paper. No human tightening of spans.
