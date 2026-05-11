@@ -2,6 +2,10 @@
 
 ## 2026-05-11
 
+- docs: add Phase 7.5 span precision audit to roadmap (0cfbaf3)
+
+## 2026-05-11
+
 - docs: Phase 7.3 lit review, paper formatting rules, sync fixes (08edc0d)
 
 ## 2026-05-11

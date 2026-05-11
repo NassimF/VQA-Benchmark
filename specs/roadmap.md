@@ -361,7 +361,17 @@ def temporal_iou(pred_start, pred_end, gt_start, gt_end) -> float:
 - **Hit Rate@k** (k=1,3,5) — ≥1 of top-k chunks has IoU > 0.3 with GT span
 - **Hit Rate@k multi-hop (per-hop recall)** — fraction of GT hops covered by ≥1 top-k chunk (IoU > 0.3)
 - **Hit Rate@k multi-hop (complete retrieval)** — fraction of questions where ALL hops covered by top-k
-- **LLM-judge score (1–5)** — feed `question + generated_answer + reference_answer` to LLM
+- **LLM-judge score (1–5)** — feed `question + generated_answer + reference_answer` to LLM.
+  Candidate scoring criteria (to be confirmed via literature review before implementing):
+  1. Factual correctness — does the answer match the reference answer's key claims?
+  2. Completeness — for multi-hop questions, does it address all hops?
+  3. Groundedness — are claims supported by cited chunks, not hallucinated from general knowledge?
+  Use G-Eval form-filling paradigm (sub-score per criterion, then aggregate to 1–5).
+  **⚠️ TODO before Phase 8: conduct a targeted literature review of how similar RAG
+  benchmarks (RAGAS, EduVidQA, NA-VQA, ActivityNet-QA) define their LLM judge criteria.
+  Confirm which of the three candidate criteria above are standard, and whether
+  groundedness (chunk-only) vs. correctness (reference answer) should be the primary
+  signal. This decision must be made before `src/evaluator.py` is written.**
 - **Citation accuracy** — fraction of cited chunks that actually contained the answer; for multi-hop, check ≥1 citation per hop
 
 **Multi-hop metric implementations:**
