@@ -238,6 +238,13 @@ For **Phase 7.3** (binary filtering), multi-judge is not required but one lightw
 
 > **Option B (current plan):** Single-judge, structured G-Eval rubric, report it as a limitation. Acceptable per EduVidQA and Ho et al. (2025) precedent. Cheapest and simplest.
 
+> **Option C (criterion-targeted reliability):** Run the reviewer once for all three criteria. Then apply targeted reliability checks per criterion:
+> - **C1 (answer correctness / Q4):** Rerun C1 only with a cross-family judge (GPT-4o) to catch knowledge-conflict overrides (Lee et al., 2026). If the two judges disagree on C1, mark the pair as borderline and discard.
+> - **C2 (span plausibility / Q2):** Rerun C2 only with a different prompt seed (same model) to catch prompt sensitivity (Wei et al., 2024). If the two runs disagree on C2, mark as borderline and discard.
+> - C3 (type accuracy) is deterministic enough that no second check is needed.
+> - Only pairs that pass all checks on both runs are ACCEPTED.
+> This adds ~1.5× the cost of a single full review pass (not 2×, since only C1 and C2 are re-checked, not the full rubric). It is the most targeted and principled option, with each reliability strategy matched to the specific failure mode of each criterion.
+
 For **Phase 8** (LLM-judge 1–5 quality scoring), multi-judge is *strongly recommended* — see the Phase 8 section below.
 
 ---

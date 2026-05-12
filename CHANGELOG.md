@@ -2,6 +2,10 @@
 
 ## 2026-05-12
 
+- docs: add Lee et al. 2026 to multi-judge lit review (145773a)
+
+## 2026-05-12
+
 - docs: add multi-judge lit review to Phase 7.3 report (331177e)
 
 ## 2026-05-12
