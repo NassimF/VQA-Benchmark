@@ -2,6 +2,10 @@
 
 ## 2026-05-12
 
+- docs: add multi-judge lit review to Phase 7.3 report (331177e)
+
+## 2026-05-12
+
 - feat: add Phase 7.3 LLM review spec (fcbcd2b)
 
 ## 2026-05-11

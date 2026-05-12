@@ -215,6 +215,8 @@ Multi-judge LLM evaluation refers to using two or more independent LLM evaluator
 
 **Tang et al. (2025)** show empirically that aggregating multiple LLM judges before distillation reduces systematic bias in dialogue evaluation. The relevant finding: 2–3 judge majority vote achieves most of the bias reduction benefit of a full distilled ensemble.
 
+**Lee et al. (2026)** — the most directly relevant paper for Phase 7.3 Q4 — identifies a critical failure mode in reference-based QA judging: when the provided source text *conflicts* with the judge's parametric (training) knowledge, the judge systematically favors its own prior over the reference, degrading evaluation fidelity. For LectureBench, lecture content on recent ML advances (MIT 6.S191, NYU Deep Learning) may conflict with Claude's training knowledge — the judge might override what the chunk text says with what it "knows" to be true. This is a concrete, testable failure mode, not a vague bias concern.
+
 **Wei et al. (2024)** introduce a key practical concern: the same LLM judge with different prompt templates disagrees 15–25% of the time on identical inputs. This *internal* inconsistency exists independent of multi-judge setups and suggests that even a single-judge review should report reliability (Cohen's Kappa between two runs with different prompt seeds) as a credibility measure.
 
 ### Multi-Judge Assessment Per Question
@@ -224,7 +226,7 @@ Multi-judge LLM evaluation refers to using two or more independent LLM evaluator
 | **Q1 (Same-model bias)** | Multi-judge with a cross-family model (GPT-4o) would eliminate residual SPB. But Ho et al. (2025) already shows SPB is near zero for structured QA. Yang et al. (2026) structured prompting reduces SPB 31.5%. Marginal additional gain. | **Not needed for Phase 7.3** |
 | **Q2 (Rubric)** | Multi-judge could catch disagreements on borderline C1 cases (factual claims that are partially supported). PCFJudge's permutation consensus is a low-cost way to add robustness to C1 without a second model. | **Optional: run C1 twice with shuffled claim order; flag disagreements for discard** |
 | **Q3 (Multi-hop gap)** | Span gap is a deterministic arithmetic check (≥70s). No judgment involved — multi-judge adds zero value here. | **Not applicable** |
-| **Q4 (Correctness without video)** | This is where multi-judge adds the most value in Phase 7.3: atomic fact checking is the most subjective criterion. A second run or cross-family judge catching hallucinations the primary judge misses would improve benchmark credibility. | **Recommended for Phase 8; optional for Phase 7.3** |
+| **Q4 (Correctness without video)** | Lee et al. (2026) identifies a concrete failure mode here: when chunk text conflicts with Claude's parametric knowledge (likely for cutting-edge ML lecture content), the judge overrides the reference. A cross-family second judge (GPT-4o) is less likely to share the same knowledge bias. This is the strongest case for optional multi-judge in Phase 7.3. Low Kappa on Q4 disagreements likely signals knowledge-conflict failures, not random noise. | **Optional cross-family check for Phase 7.3 Q4; strongly recommended for Phase 8** |
 | **Q5 (Rejection policy)** | Policy is deterministic once criteria are evaluated. No judgment involved. | **Not applicable** |
 | **Q6 (Span tightening)** | Span plausibility (C2) is also a near-deterministic check against chunk boundaries. Multi-judge adds little. | **Not applicable** |
 
@@ -301,3 +303,4 @@ Phase 8 uses an LLM judge to score generated answers on a 1–5 scale for answer
 18. Tang, Y., Feng, K., Wang, Y., et al. (2025). *Learning an Efficient Multi-Turn Dialogue Evaluator from Multiple LLM Judges*. arXiv:2508.00454.
 19. Wei, H., He, S., Xia, T., Liu, F., Wong, A. (2024). *Systematic Evaluation of LLM-as-a-Judge in LLM Alignment Tasks*. arXiv:2408.13006.
 20. Huang, T., Huang, N., Tang, J., Chen, W., Fan, E. (2026). *PCFJudge: Permutation-Consensus Listwise Judging for Robust Factuality Evaluation*. arXiv:2603.20562.
+21. Lee, D., Hwang, Y., Kang, T., Lee, M., Chae, Y. (2026). *Judging Against the Reference: Uncovering Knowledge-Driven Failures in LLM-Judges on QA Evaluation*. arXiv:2601.07506.
