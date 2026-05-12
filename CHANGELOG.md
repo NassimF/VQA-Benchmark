@@ -2,6 +2,10 @@
 
 ## 2026-05-11
 
+- docs: define Phase 8 LLM judge criteria, add lit review TODO (0524d15)
+
+## 2026-05-11
+
 - docs: add Phase 7.5 span precision audit to roadmap (0cfbaf3)
 
 ## 2026-05-11
