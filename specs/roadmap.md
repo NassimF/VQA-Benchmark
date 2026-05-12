@@ -372,6 +372,16 @@ def temporal_iou(pred_start, pred_end, gt_start, gt_end) -> float:
   Confirm which of the three candidate criteria above are standard, and whether
   groundedness (chunk-only) vs. correctness (reference answer) should be the primary
   signal. This decision must be made before `src/evaluator.py` is written.**
+
+  **Multi-judge protocol (decided via Phase 7.3 lit review, 2026-05-12):**
+  Phase 8 LLM-judge scoring is subjective (1–5 scale) — the scenario where multi-judge
+  literature shows the largest gains. Recommended protocol:
+  - 2 judges: Claude Sonnet 4.6 + GPT-4o-mini (cross-family, cost-effective)
+  - Aggregation: averaged score across both judges
+  - Reliability: report Krippendorff's alpha between the two judges; if α < 0.6, escalate
+    to a third judge (GPT-4o) for tie-breaking on low-agreement pairs
+  - Backing: PRD (Li et al., 2023), ChatEval (Chan et al., 2023), Chen et al. (2025)
+  - See `literature-review/phase_7.3/literature_review_report.md` — Phase 8 section
 - **Citation accuracy** — fraction of cited chunks that actually contained the answer; for multi-hop, check ≥1 citation per hop
 
 **Multi-hop metric implementations:**

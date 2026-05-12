@@ -114,6 +114,8 @@ For LectureBench's chunk structure (45s window, 35s stride):
 
 **BRIDGE** (Xiang et al., 2026) provides the most recent corroborating evidence from the multimodal long-document setting — closest to LectureBench's scenario. BRIDGE benchmarks multi-hop reasoning over long scientific papers integrating text, tables, and figures, and finds that "systematic deficiencies in evidence aggregation and grounding remain hidden under conventional answer-only evaluation." This directly motivates LectureBench's use of span-level (step-level) evaluation: answer-only metrics would miss cases where the correct answer is reached via a single-hop shortcut. The step-level evaluation principle maps onto our span plausibility criterion in the Phase 7.3 reviewer rubric.
 
+**Relationship to Q2:** Q3 answers the specific threshold value that Q2's Criterion 2 (Span Plausibility) requires to be fully specified. Q2 defines the rubric structure; Q3 provides the parameter. Neither is redundant — Q2 is underspecified without Q3's answer.
+
 ### Answer to Q3
 
 **Reject multi-hop questions where span start times are fewer than 70 seconds apart (i.e., within 2 chunk strides of 35s each).** In chunk index terms: reject if `|chunk_index_A - chunk_index_B| < 2`. The -10s gap case (stanford_cs229_lec03_q010) is clearly rejectable: overlapping spans. A threshold of 2 chunk strides (70s) ensures the retriever must make at least two genuinely separate decisions to find both evidence pieces.
@@ -146,6 +148,8 @@ The overall floor/count logic:
 2. **Type-targeted regeneration:** If a specific type slot is under-represented after review (e.g., only 4 multi-hop-visual accepted out of 7 drafted), regenerate *only the failed type* for that lecture — send a narrowed prompt requesting only the missing type(s) with the relevant failure constraint added. Merge with accepted pairs.
 3. **Discard floor:** If a lecture yields < 8 accepted pairs after regeneration, discard it from the benchmark entirely. With 60 lectures, losing 1–2 is acceptable; the paper reports "N lectures included."
 4. **Preserve 60% visual ratio per lecture**, not just corpus-wide. This is the primary constraint for the paper's central comparison.
+
+**Updated decision (2026-05-12):** The regeneration strategy (type-targeted vs. full regeneration of all rejected pairs) is deferred until after the review pass produces actual failure statistics. The review pass will generate a per-lecture report (failure rate by criterion, by type, lectures below floor). The user reviews this report and decides scope of regeneration before it runs. The failure-aware constraint carry-forward policy above remains in effect regardless of which regeneration scope is chosen. See `specs/2026-05-12-llm-review/plan.md` task 3.3a/3.3b for implementation details.
 
 ---
 
@@ -191,6 +195,77 @@ However, span precision *does* affect which temporal IoU thresholds are meaningf
 
 ---
 
+## Cluster 7: Multi-Judge and Ensemble Evaluation
+
+**Papers:** Li et al. (2023), Chan et al. (2023), Chen et al. (2025), Tang et al. (2025), Wei et al. (2024), Huang et al. (2026)
+
+**Added:** 2026-05-12 — supplementary review to assess whether multi-judge approaches strengthen LectureBench Phase 7.3 or Phase 8.
+
+### Overview
+
+Multi-judge LLM evaluation refers to using two or more independent LLM evaluators — either different model families, different prompt variations of the same model, or agents with different personas — and aggregating their decisions (via majority vote, discussion, or consensus) rather than trusting a single judge.
+
+**PRD** (Li et al., 2023) is the foundational paper: multiple LLMs independently score answers, then discuss disagreements before a final consensus. PRD reduces position bias and self-enhancement bias compared to single-judge evaluation. Crucially, PRD finds that *discussion* between judges outperforms simple majority voting — judges update their positions after seeing each other's reasoning, catching errors that neither would catch alone.
+
+**ChatEval** (Chan et al., 2023) extends this with a multi-agent debate framework: evaluators with different assigned personas argue about response quality before converging. ChatEval outperforms single-judge evaluation on MT-Bench. The persona diversity acts as a proxy for inter-annotator variation, surfacing disagreements that a single model would mask.
+
+**PCFJudge** (Huang et al., 2026) takes a different angle: instead of using multiple models, it reruns the *same* model over multiple orderings of the candidate set (permutation consensus) to cancel out order/position sensitivity. This is a lightweight multi-run approach requiring only one API key. Directly targets factuality evaluation — the same task as Phase 7.3 Criterion 1.
+
+**LLM Ensemble Survey** (Chen et al., 2025) provides the most comprehensive taxonomy: majority voting is the simplest and most robust aggregation for binary decisions; weighted voting adds complexity with marginal gain unless judges have known reliability scores. For QA benchmark filtering (binary PASS/FAIL), majority vote over 2–3 judges is the recommended approach.
+
+**Tang et al. (2025)** show empirically that aggregating multiple LLM judges before distillation reduces systematic bias in dialogue evaluation. The relevant finding: 2–3 judge majority vote achieves most of the bias reduction benefit of a full distilled ensemble.
+
+**Wei et al. (2024)** introduce a key practical concern: the same LLM judge with different prompt templates disagrees 15–25% of the time on identical inputs. This *internal* inconsistency exists independent of multi-judge setups and suggests that even a single-judge review should report reliability (Cohen's Kappa between two runs with different prompt seeds) as a credibility measure.
+
+### Multi-Judge Assessment Per Question
+
+| Q | Multi-judge benefit | Verdict |
+|---|---|---|
+| **Q1 (Same-model bias)** | Multi-judge with a cross-family model (GPT-4o) would eliminate residual SPB. But Ho et al. (2025) already shows SPB is near zero for structured QA. Yang et al. (2026) structured prompting reduces SPB 31.5%. Marginal additional gain. | **Not needed for Phase 7.3** |
+| **Q2 (Rubric)** | Multi-judge could catch disagreements on borderline C1 cases (factual claims that are partially supported). PCFJudge's permutation consensus is a low-cost way to add robustness to C1 without a second model. | **Optional: run C1 twice with shuffled claim order; flag disagreements for discard** |
+| **Q3 (Multi-hop gap)** | Span gap is a deterministic arithmetic check (≥70s). No judgment involved — multi-judge adds zero value here. | **Not applicable** |
+| **Q4 (Correctness without video)** | This is where multi-judge adds the most value in Phase 7.3: atomic fact checking is the most subjective criterion. A second run or cross-family judge catching hallucinations the primary judge misses would improve benchmark credibility. | **Recommended for Phase 8; optional for Phase 7.3** |
+| **Q5 (Rejection policy)** | Policy is deterministic once criteria are evaluated. No judgment involved. | **Not applicable** |
+| **Q6 (Span tightening)** | Span plausibility (C2) is also a near-deterministic check against chunk boundaries. Multi-judge adds little. | **Not applicable** |
+
+### Practical Recommendation for LectureBench
+
+For **Phase 7.3** (binary filtering), multi-judge is not required but one lightweight option adds credibility with minimal cost:
+
+> **Option A (recommended if paper needs stronger credibility claim):** Run the reviewer twice on each pair with different prompt seeds; compute Cohen's Kappa. Report Kappa in the paper's methodology section. If Kappa > 0.8 (near-perfect agreement), single-judge review is justified. If Kappa < 0.7, escalate to cross-family review for the disagreement cases only. Cost: ~2× review calls = ~$6–16 total, vs ~$3–8 for single-run.
+
+> **Option B (current plan):** Single-judge, structured G-Eval rubric, report it as a limitation. Acceptable per EduVidQA and Ho et al. (2025) precedent. Cheapest and simplest.
+
+For **Phase 8** (LLM-judge 1–5 quality scoring), multi-judge is *strongly recommended* — see the Phase 8 section below.
+
+---
+
+## Phase 8 — Multi-Judge Implications
+
+*This section covers Phase 8 (LLM-judge quality scoring, 1–5 scale) based on the multi-judge literature. It is separate from the Phase 7.3 binary filtering decisions above.*
+
+Phase 8 uses an LLM judge to score generated answers on a 1–5 scale for answer quality and grounding. Unlike Phase 7.3's binary criteria checks, this is a subjective judgment — the exact scenario where multi-judge literature shows the largest gains.
+
+**Key findings from the multi-judge literature:**
+
+1. **PRD (Li et al., 2023):** Discussion between judges reduces position and self-enhancement bias more than majority voting alone. For Phase 8 quality scoring, a two-judge setup where judges share reasoning and resolve disagreements before finalizing a score would produce more reliable 1–5 ratings. Recommended: 2-judge discussion protocol for Phase 8 LLM-judge.
+
+2. **ChatEval (Chan et al., 2023):** Persona diversity reduces systematic blind spots. For Phase 8, assigning one judge a "strict grounding" persona (penalizes hallucinations) and another a "answer completeness" persona (rewards thoroughness) would catch different failure modes. The two-persona debate produces a more balanced 1–5 score.
+
+3. **Wei et al. (2024):** Internal inconsistency of 15–25% on identical inputs is especially problematic for 1–5 scoring (a swing of 1 point is 20–25% of the scale). Reporting Krippendorff's alpha between two independent judge runs is a minimum credibility requirement for Phase 8.
+
+4. **Chen et al. (2025) Ensemble Survey:** For quality scoring (not binary PASS/FAIL), average-score aggregation across 2–3 judges outperforms majority voting. The averaged score reduces the impact of any single judge's bias.
+
+**Recommended Phase 8 multi-judge protocol:**
+- 2 judges: Claude Sonnet 4.6 + GPT-4o-mini (cost-effective cross-family pair)
+- Aggregation: averaged score
+- Report: Krippendorff's alpha between the two judges; if α < 0.6, escalate to a third judge (GPT-4o) for tie-breaking on low-agreement pairs
+- Estimated cost: ~2× Phase 8 judge calls; GPT-4o-mini is ~5× cheaper than GPT-4o for the second judge
+
+> ⚠️ **TODO before Phase 8 implementation:** Conduct targeted lit review of LLM-judge *criteria* (what dimensions to score: correctness, completeness, groundedness) before selecting the final 1–5 rubric. See roadmap Phase 8 ⚠️ note.
+
+---
+
 ## Summary of Decisions
 
 | Question | Decision |
@@ -220,3 +295,9 @@ However, span precision *does* affect which temporal IoU thresholds are meaningf
 12. Xiang, B., Han, S. C., Ding, Y. (2026). *BRIDGE: Benchmark for Multi-hop Reasoning In long multimodal Documents with Grounded Evidence*. arXiv:2603.07931.
 13. DAIR-IIT Delhi. (2025). *EduVidQA: Generating and Evaluating Long-form Answers to Student Questions based on Lecture Videos*. EMNLP 2025. arXiv:2509.24120.
 14. Unknown Authors. (2026). *VideoZeroBench: Probing the Limits of Video MLLMs with Spatio-Temporal Evidence Verification*. arXiv:2604.01569.
+15. Li, R., Patel, T., Du, X. (2023). *PRD: Peer Rank and Discussion Improve Large Language Model based Evaluations*. arXiv:2307.02762.
+16. Chan, C., Chen, W., Su, Y., et al. (2023). *ChatEval: Towards Better LLM-based Evaluators through Multi-Agent Debate*. arXiv:2309.17012.
+17. Chen, Z., Lu, X., Li, J., et al. (2025). *Harnessing Multiple Large Language Models: A Survey on LLM Ensemble*. arXiv:2502.18036.
+18. Tang, Y., Feng, K., Wang, Y., et al. (2025). *Learning an Efficient Multi-Turn Dialogue Evaluator from Multiple LLM Judges*. arXiv:2508.00454.
+19. Wei, H., He, S., Xia, T., Liu, F., Wong, A. (2024). *Systematic Evaluation of LLM-as-a-Judge in LLM Alignment Tasks*. arXiv:2408.13006.
+20. Huang, T., Huang, N., Tang, J., Chen, W., Fan, E. (2026). *PCFJudge: Permutation-Consensus Listwise Judging for Robust Factuality Evaluation*. arXiv:2603.20562.

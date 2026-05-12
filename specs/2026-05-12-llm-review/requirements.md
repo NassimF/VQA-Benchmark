@@ -45,6 +45,8 @@ with human evaluators, matching GPT-4. Binary PASS/FAIL (rather than 1–5 scale
 sufficient because Phase 7.3 output is an accept/reject decision, not a quality ranking.
 
 ### D3 — Multi-hop adjacency: ≥70s span gap required
+> **Relationship to D2:** D3 provides the specific threshold that D2's Criterion 2 (Span Plausibility) requires to be fully specified. D2 defines the rubric structure; D3 provides the parameter value.
+
 
 Reject multi-hop questions where `|start_A - start_B| < 70s` (i.e., < 2 chunk strides).
 
@@ -122,6 +124,23 @@ Maximum 1 retry per lecture. If still below floor after retry, discard the lectu
 valid multi-hop questions is more valuable than inflating counts with borderline pairs.
 Cost analysis in Phase 7.3 lit review: 900 review calls at ~$0.003 each ≈ $3–8 total;
 a second retry round doubles cost for affected lectures only.
+
+### D8b — Optional: single-judge reliability check (Cohen's Kappa)
+
+Run the reviewer twice per QA pair with different prompt seeds; compute Cohen's Kappa
+between the two runs. Report Kappa in the paper's Phase 7.3 methodology section.
+
+- Kappa > 0.8 → single-judge review is well-justified; no cross-family review needed
+- Kappa 0.7–0.8 → acceptable; note as a limitation
+- Kappa < 0.7 → escalate disagreement cases to cross-family review (GPT-4o) only
+
+**This is optional** — it adds ~2× review cost (~$6–16 total vs $3–8). If paper credibility
+is a concern, it is the cheapest way to add a quantitative reliability claim.
+
+**Backing:** Wei et al. (2024) found LLM judges disagree with themselves 15–25% of the
+time under prompt variation. Reporting Kappa directly addresses this concern without
+requiring a second model. PCFJudge (Huang et al., 2026) confirms that permutation
+consensus (multi-run, same model) is effective for factuality evaluation.
 
 ### D9 — Count targets (locked)
 

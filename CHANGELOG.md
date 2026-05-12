@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-05-12
+
+- feat: add Phase 7.3 LLM review spec (fcbcd2b)
+
 ## 2026-05-11
 
 - docs: define Phase 8 LLM judge criteria, add lit review TODO (0524d15)
