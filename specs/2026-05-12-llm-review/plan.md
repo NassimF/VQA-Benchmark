@@ -85,14 +85,17 @@
 3.2 Implement `scripts/review_qa.py`:
     - CLI: `--video_id <id>` or `--all`
     - Loads raw QA from `data/qa_pairs/raw/`
-    - Loads chunk text from `data/chunks/` for reviewer context
+    - Loads augmented chunk text from `data/chunks/{video_id}_chunks_augmented.json`
+      (must use augmented file — contains [frame caption: ...] markers required for
+      C1 atomic check and C3 visual hop detection)
     - Writes accepted pairs to `data/qa_pairs/reviewed/{video_id}_qa_reviewed.json`
     - Writes full review log to `data/qa_pairs/review_log/{video_id}_review_log.json`
 3.3a Implement review statistics report:
     - After review pass completes, print per-lecture summary: accepted count, rejected count,
-      rejection breakdown by criterion (C1/C2/C3), rejection breakdown by question type
+      rejection breakdown by criterion (C1/C2/C3/c1_knowledge_conflict), rejection breakdown
+      by question type
     - Print corpus-wide totals: overall rejection rate, lectures below floor, lectures at risk
-      of discard
+      of discard, count of knowledge-conflict discards (c1_knowledge_conflict) separately
     - Save report to `data/qa_pairs/review_log/review_summary.json`
 
     > **Approval gate:** Present the statistics report to the user before proceeding to 3.3b.
@@ -107,7 +110,8 @@
 3.4 Add `qa_review` section to `config.yaml`:
     ```yaml
     qa_review:
-      model: "claude-sonnet-4-6"
+      primary_model: "claude-sonnet-4-6"
+      c1_crosscheck_model: "gpt-4o"
       temperature: 0.0
       floor_accepted: 10
       discard_threshold: 8

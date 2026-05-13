@@ -2,6 +2,10 @@
 
 ## 2026-05-13
 
+- feat: add reviewer prompt templates for Phase 7.3 (Group 2) (b24d775)
+
+## 2026-05-13
+
 - docs: sync all specs with D1 two-call reviewer design (830329e)
 
 ## 2026-05-13
