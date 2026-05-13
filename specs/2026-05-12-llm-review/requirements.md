@@ -137,22 +137,25 @@ valid multi-hop questions is more valuable than inflating counts with borderline
 Cost analysis in Phase 7.3 lit review: 900 review calls at ~$0.003 each ≈ $3–8 total;
 a second retry round doubles cost for affected lectures only.
 
-### D8b — Optional: single-judge reliability check (Cohen's Kappa)
+### D8b — Optional: Claude C2/C3 reliability check (Cohen's Kappa)
 
-Run the reviewer twice per QA pair with different prompt seeds; compute Cohen's Kappa
-between the two runs. Report Kappa in the paper's Phase 7.3 methodology section.
+**Update 2026-05-13:** The original D8b condition "Kappa < 0.7 → escalate to GPT-4o" is
+superseded — GPT-4o cross-family check for C1 is now unconditional (D1). D8b now applies
+only to C2 and C3 reliability.
 
-- Kappa > 0.8 → single-judge review is well-justified; no cross-family review needed
+Run the Claude reviewer twice on C2 and C3 with different prompt seeds; compute Cohen's
+Kappa between the two runs. Report Kappa in the paper's Phase 7.3 methodology section.
+
+- Kappa > 0.8 → C2/C3 single-run is well-justified
 - Kappa 0.7–0.8 → acceptable; note as a limitation
-- Kappa < 0.7 → escalate disagreement cases to cross-family review (GPT-4o) only
+- Kappa < 0.7 → flag as a paper limitation; C2 near-deterministic (D3 threshold) so
+  low Kappa here would indicate a prompt design issue to fix before full run
 
-**This is optional** — it adds ~2× review cost (~$6–16 total vs $3–8). If paper credibility
-is a concern, it is the cheapest way to add a quantitative reliability claim.
+**This is optional** — it adds cost only for the C2/C3 second-run (~$1–4 extra).
 
 **Backing:** Wei et al. (2024) found LLM judges disagree with themselves 15–25% of the
-time under prompt variation. Reporting Kappa directly addresses this concern without
-requiring a second model. PCFJudge (Huang et al., 2026) confirms that permutation
-consensus (multi-run, same model) is effective for factuality evaluation.
+time under prompt variation. Reporting Kappa directly addresses this concern. PCFJudge
+(Huang et al., 2026) confirms permutation consensus is effective for factuality evaluation.
 
 ### D9 — Count targets (locked)
 

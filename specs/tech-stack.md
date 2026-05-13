@@ -80,10 +80,14 @@ a# Tech Stack
 **Status:** Resolved via Phase 7.3 literature review (`literature-review/phase_7.3/`).
 See `specs/2026-05-12-llm-review/requirements.md` for all locked decisions.
 
-**Decision: LLM-only review using Claude Sonnet 4.6. No human review. No span tightening.**
+**Decision: Claude Sonnet 4.6 primary reviewer + GPT-4o cross-family C1 check. No human review. No span tightening.**
 
 - Same-model judging shows no self-preference bias for structured QA (Ho et al., 2025)
 - G-Eval form-filling rubric reduces SPB by 31.5% (Yang et al., 2026)
+- Cross-family GPT-4o reruns Criterion 1 only (answer correctness) for pairs Claude passes;
+  if GPT-4o disagrees, pair is discarded. Motivated by knowledge-conflict failure mode
+  (Lee et al., 2026): Claude may override chunk text with parametric knowledge on
+  cutting-edge ML lecture content. C2 and C3: Claude only.
 - Span tightening not required — EduVidQA EMNLP 2025 precedent at ±35.4s; LectureBench
   ±15–30s is better; report tIoU@0.3 as primary metric
 - Multi-hop adjacency threshold: ≥70s span gap (Min et al., 2019)

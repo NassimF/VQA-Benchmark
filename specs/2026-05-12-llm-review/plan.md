@@ -15,6 +15,22 @@
 
 ---
 
+## Group 1.5 — Literature Review Sign-off
+
+> Walk through all 6 Q&A answers with the user and get explicit confirmation on each.
+> Any answer that is revised must update both `literature-review/phase_7.3/literature_review_report.md`
+> and `specs/2026-05-12-llm-review/requirements.md` before Group 2 starts.
+> Group 2 does not begin until all 6 are confirmed.
+
+1.5.1 Confirm Q1: Same-model review accepted (Claude Sonnet 4.6, structured checklist)
+1.5.2 Confirm Q2: Binary PASS/FAIL per criterion; G-Eval form-filling rubric
+1.5.3 Confirm Q3: Multi-hop adjacency threshold ≥70s (≥2 chunk strides)
+1.5.4 Confirm Q4: Answer correctness via atomic fact check against chunk text + frame captions
+1.5.5 Confirm Q5: Rejection policy — floor ≥10, 1 retry with failure-aware constraints, discard if <8
+1.5.6 Confirm Q6: Span tightening not required; tIoU@0.3 as primary metric
+
+---
+
 ## Group 2 — Reviewer Prompt Design
 
 2.1 Write the reviewer prompt template implementing the G-Eval form-filling rubric:
@@ -22,7 +38,9 @@
     - Include unanswerable-specific path (D5): no-evidence check replaces C1/C2/C3
     - Include visual hop detection instruction (D6): check for `[frame caption: ...]` marker
     - Include multi-hop adjacency check (D3): reject if span gap < 70s
-2.2 Define JSON schema for the reviewer response:
+2.2 Define JSON schema for the reviewer response.
+    Two schemas required — one per model call (D1: two-call flow for non-unanswerable pairs):
+    - Claude primary call (all 3 criteria):
     ```json
     {
       "criterion_1": {"result": "PASS|FAIL", "reason": "..."},
@@ -32,8 +50,16 @@
       "rejection_reason": "..."
     }
     ```
+    - GPT-4o C1 cross-family call (only when Claude passes C1):
+    ```json
+    {
+      "criterion_1": {"result": "PASS|FAIL", "reason": "..."}
+    }
+    ```
+    If GPT-4o returns FAIL for C1, overall decision is REJECT (knowledge-conflict discard).
 2.3 Manually test the prompt on 3 sample raw QA pairs (1 valid, 1 span-gap violation,
-    1 type-accuracy failure) and confirm the reviewer returns expected ACCEPT/REJECT
+    1 type-accuracy failure) and confirm the reviewer returns expected ACCEPT/REJECT.
+    Also test the GPT-4o C1 cross-check on the valid pair.
 
 ---
 
@@ -41,21 +67,35 @@
 
 3.1 Implement `src/qa_reviewer.py`:
     - `review_qa_pair(qa: dict, chunks: dict) -> ReviewResult` — single-pair review
-    - `ReviewResult` dataclass: criterion results, overall decision, rejection reason
-    - Uses `anthropic` SDK; model from `config.yaml` (add `qa_review.model` key)
-    - Handles unanswerable type with separate prompt path
+    - `ReviewResult` dataclass: criterion results, overall decision, rejection reason,
+      c1_cross_check_result (PASS/FAIL/SKIPPED)
+    - Two-call flow (D1): Claude primary for all 3 criteria; if C1 passes, call GPT-4o
+      for C1 cross-check via `openai` SDK; if GPT-4o disagrees → REJECT
+    - Uses `anthropic` SDK for Claude call; `openai` SDK for GPT-4o C1 call
+    - Models from `config.yaml` (`qa_review.primary_model`, `qa_review.c1_crosscheck_model`)
+    - Handles unanswerable type with separate prompt path (no C1 cross-check needed)
 3.2 Implement `scripts/review_qa.py`:
     - CLI: `--video_id <id>` or `--all`
     - Loads raw QA from `data/qa_pairs/raw/`
     - Loads chunk text from `data/chunks/` for reviewer context
     - Writes accepted pairs to `data/qa_pairs/reviewed/{video_id}_qa_reviewed.json`
     - Writes full review log to `data/qa_pairs/review_log/{video_id}_review_log.json`
-3.3 Implement failure-aware regeneration (D8):
-    - After first review pass, identify under-floor lectures (< 10 accepted)
-    - Build type-targeted regeneration prompt with failure constraint carried forward
-    - Call `qa_generator.py` logic for the missing types only
+3.3a Implement review statistics report:
+    - After review pass completes, print per-lecture summary: accepted count, rejected count,
+      rejection breakdown by criterion (C1/C2/C3), rejection breakdown by question type
+    - Print corpus-wide totals: overall rejection rate, lectures below floor, lectures at risk
+      of discard
+    - Save report to `data/qa_pairs/review_log/review_summary.json`
+
+    > **Approval gate:** Present the statistics report to the user before proceeding to 3.3b.
+    > User decides regeneration strategy (type-targeted vs. full regeneration) based on
+    > actual failure distribution. Do not implement regeneration until strategy is confirmed.
+
+3.3b Implement regeneration (strategy decided after 3.3a):
+    - Build regeneration prompt with failure-aware constraints carried forward (D8)
+    - Run regeneration for the chosen scope (type-targeted or full)
     - Re-run reviewer on regenerated pairs; merge with accepted set
-    - If still < 8 after retry: write discard flag; log lecture as excluded
+    - If still < 8 after regeneration: write discard flag; log lecture as excluded
 3.4 Add `qa_review` section to `config.yaml`:
     ```yaml
     qa_review:

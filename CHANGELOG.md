@@ -2,6 +2,10 @@
 
 ## 2026-05-13
 
+- docs: adopt simplified Option C (cross-family C1 check) for Phase 7.3 (67e055d)
+
+## 2026-05-13
+
 - fix: convert Figure 1 PNG to RGB, set 300 DPI (3720b7d)
 
 ## 2026-05-13

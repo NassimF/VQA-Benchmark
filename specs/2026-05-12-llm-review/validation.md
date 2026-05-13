@@ -31,11 +31,18 @@ Phase 7.3 is complete and ready to merge when ALL of the following pass.
 - [ ] `pytest tests/test_qa_reviewer.py` — all tests pass
 - [ ] No real model loaded in any test fixture (mock client only)
 
+## Cross-Family C1 Check (D1)
+
+- [ ] Every non-unanswerable pair where Claude passed C1 has a `c1_cross_check_result`
+      field in its review log entry (`PASS`, `FAIL`, or `SKIPPED` for unanswerable)
+- [ ] Any pair discarded due to GPT-4o C1 disagreement has `rejection_reason` =
+      `"c1_knowledge_conflict"` and `c1_cross_check_result` = `"FAIL"`
+
 ## Rejection Log Integrity
 
 - [ ] Every rejected pair has a `rejection_reason` string (non-empty)
 - [ ] Every rejected pair specifies which criterion failed (`criterion_1`, `criterion_2`,
-      or `criterion_3`)
+      `criterion_3`, or `c1_knowledge_conflict` for GPT-4o C1 disagreements)
 
 ## Merge Condition
 
