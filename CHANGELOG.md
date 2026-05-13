@@ -2,6 +2,10 @@
 
 ## 2026-05-13
 
+- docs: sync all specs with D1 two-call reviewer design (830329e)
+
+## 2026-05-13
+
 - docs: adopt simplified Option C (cross-family C1 check) for Phase 7.3 (67e055d)
 
 ## 2026-05-13

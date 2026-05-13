@@ -33,11 +33,19 @@
 
 ## Group 2 — Reviewer Prompt Design
 
-2.1 Write the reviewer prompt template implementing the G-Eval form-filling rubric:
-    - Present each criterion (D2) with explicit chain-of-thought step before PASS/FAIL
-    - Include unanswerable-specific path (D5): no-evidence check replaces C1/C2/C3
-    - Include visual hop detection instruction (D6): check for `[frame caption: ...]` marker
-    - Include multi-hop adjacency check (D3): reject if span gap < 70s
+2.1 Write two prompt templates:
+    a) Claude primary prompt — G-Eval form-filling rubric for all 3 criteria:
+       - C1: instruct reviewer to decompose answer into atomic factual claims and verify
+         each claim against cited chunk text individually (D4, FActScore method) — not
+         holistic correctness judgment
+       - Present each criterion (D2) with explicit chain-of-thought step before PASS/FAIL
+       - Include unanswerable-specific path (D5): no-evidence check replaces C1/C2/C3
+       - Include visual hop detection instruction (D6): check for `[frame caption: ...]` marker
+       - Include multi-hop adjacency check (D3): reject if span gap < 70s
+    b) GPT-4o C1 cross-check prompt — C1 only:
+       - Simpler prompt scoped to Criterion 1 alone
+       - Same atomic fact decomposition instruction as (a)
+       - No C2/C3, no unanswerable path, no span gap check
 2.2 Define JSON schema for the reviewer response.
     Two schemas required — one per model call (D1: two-call flow for non-unanswerable pairs):
     - Claude primary call (all 3 criteria):
