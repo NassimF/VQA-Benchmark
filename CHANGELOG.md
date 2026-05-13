@@ -2,6 +2,10 @@
 
 ## 2026-05-12
 
+- docs: add Option C criterion-targeted reliability to lit review (c561800)
+
+## 2026-05-12
+
 - docs: add Lee et al. 2026 to multi-judge lit review (145773a)
 
 ## 2026-05-12

@@ -179,6 +179,8 @@ However, span precision *does* affect which temporal IoU thresholds are meaningf
 
 **Practical consequence:** Report tIoU@0.3 as the primary retrieval evaluation threshold. Report tIoU@0.5 as a secondary metric with a footnote disclosing ±15–30s span precision. Do not report tIoU@0.7. The paper's current disclosure ("spans LLM-estimated at ±15–30s, chunk granularity") is sufficient — no tightening pass is needed in Phase 7.3.
 
+> **Source of the @0.3 threshold:** The choice of tIoU@0.3 as primary comes from VideoZeroBench (2026), which uses tIoU > 0.3 as its Level 4 evaluation threshold for temporal grounding. EduVidQA provided the precedent for *not tightening spans*; VideoZeroBench provided the justification for *which threshold is appropriate* at chunk-level precision.
+
 **If span tightening is ever added in future work**, it would require a separate LLM pass that reads chunk text sentence-by-sentence and identifies the exact sentence(s) containing the evidence, then maps those sentences back to timestamps. This is feasible but adds cost and complexity beyond the current scope.
 
 ---
