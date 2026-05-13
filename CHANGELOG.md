@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-05-13
+
+- docs: clarify tIoU@0.3 source in Q6 answer (04c4406)
+
 ## 2026-05-12
 
 - docs: add Option C criterion-targeted reliability to lit review (c561800)
