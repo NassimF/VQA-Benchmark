@@ -2,6 +2,10 @@
 
 ## 2026-05-13
 
+- feat: implement Phase 7.3 core reviewer and review script (Group 3) (838e7d5)
+
+## 2026-05-13
+
 - feat: add reviewer prompt templates for Phase 7.3 (Group 2) (b24d775)
 
 ## 2026-05-13

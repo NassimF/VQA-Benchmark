@@ -129,9 +129,13 @@
     - Test C3 FAIL: multi-hop-visual with no frame caption marker in cited chunks
     - Test unanswerable PASS: no chunk contains supporting evidence
     - Test unanswerable FAIL: one chunk does contain supporting evidence
-    - Test overall ACCEPT: all criteria pass
+    - Test overall ACCEPT: all criteria pass, GPT-4o C1 cross-check also passes
+    - Test knowledge-conflict discard: Claude passes C1, GPT-4o returns FAIL →
+      REJECT with rejection_reason = "c1_knowledge_conflict"
+    - Test unanswerable skips GPT-4o: c1_cross_check_result = "SKIPPED"
     - Use `pytest.approx` for any float comparisons (span gap arithmetic)
-    - Never load real models — mock `anthropic.Anthropic` client in fixtures
+    - Never load real models — mock both `anthropic.Anthropic` and `openai.OpenAI`
+      clients in fixtures (both SDKs are used in the two-call flow)
 
 ---
 
