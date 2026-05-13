@@ -2,6 +2,10 @@
 
 ## 2026-05-13
 
+- feat: add Figure 1 pipeline diagram to paper (31dcd04)
+
+## 2026-05-13
+
 - docs: clarify tIoU@0.3 source in Q6 answer (04c4406)
 
 ## 2026-05-12
