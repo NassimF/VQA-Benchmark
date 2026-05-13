@@ -2,6 +2,10 @@
 
 ## 2026-05-13
 
+- fix: convert Figure 1 PNG to RGB, set 300 DPI (3720b7d)
+
+## 2026-05-13
+
 - feat: add Figure 1 pipeline diagram to paper (31dcd04)
 
 ## 2026-05-13

@@ -228,7 +228,7 @@ Multi-judge LLM evaluation refers to using two or more independent LLM evaluator
 | **Q1 (Same-model bias)** | Multi-judge with a cross-family model (GPT-4o) would eliminate residual SPB. But Ho et al. (2025) already shows SPB is near zero for structured QA. Yang et al. (2026) structured prompting reduces SPB 31.5%. Marginal additional gain. | **Not needed for Phase 7.3** |
 | **Q2 (Rubric)** | Multi-judge could catch disagreements on borderline C1 cases (factual claims that are partially supported). PCFJudge's permutation consensus is a low-cost way to add robustness to C1 without a second model. | **Optional: run C1 twice with shuffled claim order; flag disagreements for discard** |
 | **Q3 (Multi-hop gap)** | Span gap is a deterministic arithmetic check (≥70s). No judgment involved — multi-judge adds zero value here. | **Not applicable** |
-| **Q4 (Correctness without video)** | Lee et al. (2026) identifies a concrete failure mode here: when chunk text conflicts with Claude's parametric knowledge (likely for cutting-edge ML lecture content), the judge overrides the reference. A cross-family second judge (GPT-4o) is less likely to share the same knowledge bias. This is the strongest case for optional multi-judge in Phase 7.3. Low Kappa on Q4 disagreements likely signals knowledge-conflict failures, not random noise. | **Optional cross-family check for Phase 7.3 Q4; strongly recommended for Phase 8** |
+| **Q4 (Correctness without video)** | Lee et al. (2026) identifies a concrete failure mode here: when chunk text conflicts with Claude's parametric knowledge (likely for cutting-edge ML lecture content), the judge overrides the reference. A cross-family second judge (GPT-4o) is less likely to share the same knowledge bias. This is the strongest case for optional multi-judge in Phase 7.3. Low Kappa on Q4 disagreements likely signals knowledge-conflict failures, not random noise. | **Adopted (2026-05-13): cross-family C1 check with GPT-4o; strongly recommended for Phase 8** |
 | **Q5 (Rejection policy)** | Policy is deterministic once criteria are evaluated. No judgment involved. | **Not applicable** |
 | **Q6 (Span tightening)** | Span plausibility (C2) is also a near-deterministic check against chunk boundaries. Multi-judge adds little. | **Not applicable** |
 
@@ -238,7 +238,7 @@ For **Phase 7.3** (binary filtering), multi-judge is not required but one lightw
 
 > **Option A (recommended if paper needs stronger credibility claim):** Run the reviewer twice on each pair with different prompt seeds; compute Cohen's Kappa. Report Kappa in the paper's methodology section. If Kappa > 0.8 (near-perfect agreement), single-judge review is justified. If Kappa < 0.7, escalate to cross-family review for the disagreement cases only. Cost: ~2× review calls = ~$6–16 total, vs ~$3–8 for single-run.
 
-> **Option B (current plan):** Single-judge, structured G-Eval rubric, report it as a limitation. Acceptable per EduVidQA and Ho et al. (2025) precedent. Cheapest and simplest.
+> **Option B (original plan):** Single-judge, structured G-Eval rubric, report it as a limitation. Acceptable per EduVidQA and Ho et al. (2025) precedent. Cheapest and simplest.
 
 > **Option C (criterion-targeted reliability):** Run the reviewer once for all three criteria. Then apply targeted reliability checks per criterion:
 > - **C1 (answer correctness / Q4):** Rerun C1 only with a cross-family judge (GPT-4o) to catch knowledge-conflict overrides (Lee et al., 2026). If the two judges disagree on C1, mark the pair as borderline and discard.
@@ -246,6 +246,9 @@ For **Phase 7.3** (binary filtering), multi-judge is not required but one lightw
 > - C3 (type accuracy) is deterministic enough that no second check is needed.
 > - Only pairs that pass all checks on both runs are ACCEPTED.
 > This adds ~1.5× the cost of a single full review pass (not 2×, since only C1 and C2 are re-checked, not the full rubric). It is the most targeted and principled option, with each reliability strategy matched to the specific failure mode of each criterion.
+
+> **Decision (2026-05-13) — Simplified Option C adopted (C1 cross-family only):**
+> Run Claude Sonnet 4.6 once for all three criteria. For pairs where C1 passes, rerun C1 only with GPT-4o. If GPT-4o disagrees, discard the pair. C2 double-run skipped because the ≥70s deterministic threshold (D3) already reduces C2 ambiguity sufficiently — prompt sensitivity (Wei et al., 2024) is a real concern but less critical than the systematic knowledge-conflict failure in C1 (Lee et al., 2026). C3 remains single-run (deterministic). Cost: ~$1–3 extra ≈ ~1.2× base cost. See requirements.md D1.
 
 For **Phase 8** (LLM-judge 1–5 quality scoring), multi-judge is *strongly recommended* — see the Phase 8 section below.
 

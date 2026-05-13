@@ -17,16 +17,28 @@ reviewer. No human review of any kind. No span tightening.
 All decisions below are backed by the Phase 7.3 literature review
 (`literature-review/phase_7.3/literature_review_report.md`).
 
-### D1 — Reviewer model: Claude Sonnet 4.6 (LLM-only)
+### D1 — Reviewer model: Claude Sonnet 4.6 primary + GPT-4o cross-family check for C1
 
-Same-model, structured-checklist review. No hybrid human pass.
+Primary review: Claude Sonnet 4.6, structured G-Eval rubric, all three criteria.
+Cross-family verification: GPT-4o reruns Criterion 1 only for pairs where Claude passes C1.
+If GPT-4o disagrees on C1, the pair is discarded. C2 and C3: Claude only, no second check.
+No human review of any kind.
 
-**Backing:** Ho et al. (2025) shows same-model judging has no self-preference bias for
-structured QA tasks (0.85 correlation with human, no SPB detected). Yang et al. (2026)
-shows structured multi-dimensional prompting reduces SPB by 31.5%. The G-Eval form-filling
-paradigm (Liu et al., 2023) is the mechanism that achieves this — and it is exactly the
-rubric structure we adopt. Cross-family review (GPT-4o) is optional and adds ~$10–30 with
-marginal benefit given this evidence.
+**Backing:** Ho et al. (2025) shows same-model judging has no SPB for structured QA tasks
+(0.85 correlation with human). Yang et al. (2026) structured prompting reduces SPB 31.5% —
+so C2 and C3 need no second check. Lee et al. (2026) identifies a concrete systematic
+failure mode for C1 specifically: when chunk text conflicts with Claude's parametric
+knowledge (as may occur in cutting-edge MIT/Stanford/NYU ML lectures), Claude overrides the
+reference text rather than the chunk. A cross-family judge (GPT-4o) is less likely to share
+the same parametric bias, making disagreement a reliable signal of knowledge-conflict
+failure. C2's ≥70s deterministic threshold (D3) reduces ambiguity enough that a second run
+adds little value. Cost: ~$1–3 extra on top of base ~$3–8 (~1.2× total).
+
+**Update 2026-05-13:** Changed from Option B (single-judge) to simplified Option C
+(cross-family C1 only). Rationale: knowledge-conflict failure is systematic and silent —
+the judge confidently passes C1 while ignoring the source text. Cross-family check is the
+only method that catches this. C2 double-run skipped because the ≥70s threshold makes C2
+near-deterministic. See lit review Practical Recommendation.
 
 ### D2 — Rubric: Binary PASS/FAIL per criterion, G-Eval form-filling
 
