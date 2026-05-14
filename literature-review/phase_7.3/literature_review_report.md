@@ -11,12 +11,12 @@
 
 This review covers six open design questions for implementing the Phase 7.3 LLM review pass that filters raw QA drafts into the final LectureBench benchmark. The six questions are:
 
-1. Is same-model review circular, or is structured same-model review accepted?
-2. What scoring rubric design works best for factual QA validation?
-3. What minimum span gap distinguishes genuine multi-hop from single-hop-in-disguise?
-4. How do you operationalize answer correctness when the reviewer only sees text (not video frames)?
-5. What should happen to rejected QA pairs — accept the shortfall, regenerate, or set a floor?
-6. Is span tightening required, or is chunk-level span precision acceptable?
+1. **Q1 — Same-model circularity:** Is same-model review circular (the model reviewing its own outputs), or is structured same-model review accepted by the literature? When is a cross-family judge needed?
+2. **Q2 — Scoring rubric design:** What scoring rubric format works best for factual QA validation — holistic scoring, binary pass/fail, or multi-dimensional criteria? What level of granularity is appropriate for a binary curation decision?
+3. **Q3 — Multi-hop adjacency threshold:** What minimum temporal gap between evidence spans distinguishes a genuine multi-hop question from a single-hop question in disguise? How should "adjacency" be defined for LectureBench's 45s/35s chunk structure?
+4. **Q4 — Answer correctness without video:** How do you operationalize answer correctness when the reviewer only sees transcript text and frame captions — not the actual video? What verification method catches hallucinated or unsupported claims?
+5. **Q5 — Rejection and replacement policy:** What should happen to rejected QA pairs — accept the shortfall, regenerate with failure-aware constraints, or set a minimum floor below which a lecture is discarded entirely?
+6. **Q6 — Span tightening:** Is manual or automated span tightening (refining ground-truth timestamps to exact-second precision) required for a credible benchmark, or is chunk-level precision (±15–30s) acceptable?
 
 Papers are organized into seven clusters. All 23 papers are real and verified on arXiv, Semantic Scholar, or publisher pages. Several papers were added after the initial draft: Yang et al. (2026) on mitigating self-preference bias, Xiang et al. (2026) on multi-hop grounded evidence benchmarking, Wataoka et al. (NeurIPS 2024) on the perplexity root cause of self-preference bias, EduVidQA (EMNLP 2025) and VideoZeroBench (2026) for Q6, and Baysan et al. (Frontiers 2025) and Yu et al./DeCE (EMNLP 2025) as peer-reviewed alternatives to Ho et al.
 
@@ -36,7 +36,7 @@ The most directly relevant paper for our setting is **LLM-as-a-Judge: Reassessin
 
 **G-Eval** (Liu et al., 2023) identifies LLM bias toward LLM-generated text in open-ended NLG tasks (summarization, dialogue) where no external ground truth exists — a different setting from LectureBench's chunk-grounded verification. **The JETTS Benchmark** (Zhou et al., 2025) reinforces that LLM judges are effective in structured decision-making contexts.
 
-### Answer to Q1
+### Answer to Q1 — Same-Model Circularity
 
 **Same-model review with a structured checklist is supported by the literature.** Ho et al. (2025) provides direct empirical evidence that same-model judging shows no SPB for structured QA (0.85 correlation with human, no SPB detected). Yang et al. (2026) shows that structured multi-dimensional prompting reduces SPB by 31.5% — our G-Eval form-filling rubric implements this directly. Wataoka et al. (2024) explains *why* SPB is lower in our setting: the perplexity familiarity mechanism requires stylistic similarity, which does not apply when verifying factual claims against a fixed source text.
 
@@ -71,7 +71,7 @@ The most directly relevant paper for our setting is **LLM-as-a-Judge: Reassessin
 
 For LectureBench Phase 7.3, the three review criteria are: (a) answer correctness, (b) span plausibility, (c) question type accuracy. Both papers recommend separate sub-scores per criterion rather than a single pass/fail judgment. For our purposes, binary pass/fail per criterion (rather than a 1–5 scale) is sufficient, because the output of the review pass is an accept/reject decision, not a ranked quality score. A 1–5 scale adds granularity that Phase 7.3 does not need — it would only matter if we were ranking QA pairs by quality, which we are not.
 
-### Answer to Q2
+### Answer to Q2 — Scoring Rubric Design
 
 **Use binary pass/fail per sub-criterion (correctness, span plausibility, type accuracy), with an overall accept/reject decision.** Prompt the reviewer with a structured form (G-Eval paradigm): present each criterion explicitly, ask for a chain-of-thought rationale, then a PASS/FAIL for each. A pair is accepted only if all three criteria pass. Do not use a 1–5 holistic scale — it introduces unnecessary ambiguity for a binary filtering decision.
 
@@ -102,7 +102,7 @@ This resolves the apparent problem of text-only correctness checking for visual 
 
 Ho et al. (2025) reinforces that LLM judges achieve 0.85 correlation with human correctness assessments for structured QA — the reviewer does not need to be human or see the video to make reliable correctness judgments when working from source text.
 
-### Answer to Q4
+### Answer to Q4 — Answer Correctness Without Video
 
 **Answer correctness is operationalized as atomic fact verification against cited chunk text.** The reviewer decomposes each answer into its smallest indivisible factual claims and checks each claim individually against the cited chunk text (including `[frame caption: ...]` content). Reject if any single claim is unsupported or contradicted — whole-answer holistic judgment is too coarse. The reviewer does not need video access: frame captions from Qwen2-VL-7B convert visual content to natural language, making all evidence available in text form.
 
@@ -146,7 +146,7 @@ For LectureBench's chunk structure (45s window, 35s stride):
 
 **Relationship to Q2:** Q3 answers the specific threshold value that Q2's Criterion 2 (Span Plausibility) requires to be fully specified. Q2 defines the rubric structure; Q3 provides the parameter. Neither is redundant — Q2 is underspecified without Q3's answer.
 
-### Answer to Q3
+### Answer to Q3 — Multi-Hop Adjacency Threshold
 
 **Reject multi-hop questions where span start times are fewer than 70 seconds apart (i.e., within 2 chunk strides of 35s each).** In chunk index terms: reject if `|chunk_index_A - chunk_index_B| < 2`. The -10s gap case (stanford_cs229_lec03_q010) is clearly rejectable: overlapping spans. A threshold of 2 chunk strides (70s) ensures the retriever must make at least two genuinely separate decisions to find both evidence pieces.
 
@@ -159,13 +159,13 @@ For LectureBench's chunk structure (45s window, 35s stride):
 
 ---
 
-## Q5: Rejection and Replacement Policy
+## Q5 — Rejection and Replacement Policy
 
 No paper in the reviewed literature directly addresses QA benchmark replacement policy. However, the multi-hop quality literature (Min et al., 2019) provides an indirect answer: a benchmark with fewer, genuinely multi-hop questions is more valuable than one with more questions that include single-hop shortcuts. Quality over count.
 
 The practical constraint for LectureBench is the 60% visual question ratio — if too many multi-hop-visual slots are rejected without replacement, the visual-vs-nonvisual comparison in the paper loses statistical power.
 
-### Answer to Q5
+### Answer to Q5 — Rejection and Replacement Policy
 
 **Recommended policy: per-lecture floor with failure-aware type-targeted regeneration.**
 
@@ -206,7 +206,7 @@ Span tightening — refining a ground truth timestamp from chunk-level precision
 
 LectureBench's ±15–30s precision at 45s chunk boundaries is actually **better** than EduVidQA's ±35.4s. The key difference is that LectureBench uses temporal IoU as an evaluation metric (which directly measures span overlap), whereas EduVidQA does not — meaning LectureBench's span precision is held to a higher standard by its own metrics.
 
-### Answer to Q6
+### Answer to Q6 — Span Tightening
 
 **Span tightening is not required.** EduVidQA (EMNLP 2025) establishes a direct precedent for span precision: auto-generated timestamps with ±35.4s average error were accepted at EMNLP without tightening. LectureBench's ±15–30s precision is better than this accepted baseline. Note: EduVidQA's precedent here is strictly about *span precision tolerance*, not about QA review methodology (see Q1 note).
 

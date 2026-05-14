@@ -2,6 +2,10 @@
 
 ## 2026-05-14
 
+- docs: downgrade D8b human spot-check to optional note in all specs (6e62c34)
+
+## 2026-05-14
+
 - docs: sync specs with Phase 7.3 run results and lit review updates (91537dd)
 
 ## 2026-05-14
