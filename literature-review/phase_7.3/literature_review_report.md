@@ -1,8 +1,8 @@
 # Literature Review: LLM-as-Judge for QA Benchmark Validation
 ## LectureBench Phase 7.3 — Pre-Implementation Review
 
-**Date:** 2026-05-11  
-**Scope:** Focused review (~10–15 papers) addressing 5 design questions for the Phase 7.3 LLM review pass  
+**Date:** 2026-05-14 (last updated; originally 2026-05-11)
+**Scope:** Focused review (23 papers) addressing 6 design questions for the Phase 7.3 LLM review pass  
 **Main paper:** LectureBench (this project)
 
 ---
@@ -18,7 +18,7 @@ This review covers six open design questions for implementing the Phase 7.3 LLM 
 5. What should happen to rejected QA pairs — accept the shortfall, regenerate, or set a floor?
 6. Is span tightening required, or is chunk-level span precision acceptable?
 
-Papers are organized into six clusters. All 14 papers are real and verified on arXiv or Semantic Scholar. Three 2026 papers were added after a web search: Yang et al. (2026) on mitigating self-preference bias, Xiang et al. (2026) on multi-hop grounded evidence benchmarking, and Wataoka et al. (2024/NeurIPS) on the perplexity root cause of self-preference bias. Two additional papers (EduVidQA 2025, VideoZeroBench 2026) were added to answer Q6.
+Papers are organized into seven clusters. All 23 papers are real and verified on arXiv, Semantic Scholar, or publisher pages. Several papers were added after the initial draft: Yang et al. (2026) on mitigating self-preference bias, Xiang et al. (2026) on multi-hop grounded evidence benchmarking, Wataoka et al. (NeurIPS 2024) on the perplexity root cause of self-preference bias, EduVidQA (EMNLP 2025) and VideoZeroBench (2026) for Q6, and Baysan et al. (Frontiers 2025) and Yu et al./DeCE (EMNLP 2025) as peer-reviewed alternatives to Ho et al.
 
 ---
 
@@ -63,7 +63,7 @@ The most directly relevant paper for our setting is **LLM-as-a-Judge: Reassessin
 
 ## Cluster 2: Fine-grained Rubric Design
 
-**Papers:** Liu et al. (2023), Kim et al. (2023)
+**Papers:** Liu et al. (2023), Kim et al. (ICLR 2024), Yu et al. (EMNLP 2025)
 
 **G-Eval** (Liu et al., 2023) introduces the *form-filling paradigm* for LLM evaluation: rather than asking the model for a holistic score, the prompt breaks evaluation into discrete criteria, each with a step-by-step chain-of-thought rationale. The model fills out a structured form before assigning a score. G-Eval achieves Spearman correlation of 0.514 with human judgments on summarization — significantly higher than BLEU or ROUGE. The key design insight is that decomposing evaluation into named criteria reduces ambiguity and forces the model to reason through each dimension independently.
 
@@ -77,7 +77,7 @@ For LectureBench Phase 7.3, the three review criteria are: (a) answer correctnes
 
 **Papers backing this decision:**
 - Liu et al. / G-Eval (2023) — **EMNLP 2023** — form-filling with named criteria + CoT achieves Spearman 0.514 with human judgment; decomposed criteria outperform holistic scoring
-- Kim et al. / Prometheus (2023) — **ICLR 2024** — task-specific rubrics achieve Pearson 0.897 with human evaluators; binary PASS/FAIL is sufficient for accept/reject filtering
+- Kim et al. / Prometheus (ICLR 2024) — task-specific rubrics achieve Pearson 0.897 with human evaluators; binary PASS/FAIL is sufficient for accept/reject filtering
 - Yu et al. / DeCE (2025) — **EMNLP 2025 Industry Track** — decomposed criteria-based LLM evaluation achieves r=0.78 with expert judgments vs r=0.35 for pointwise scoring; directly validates our rubric design approach
 
 **Recommended rubric structure:**
@@ -232,13 +232,15 @@ However, span precision *does* affect which temporal IoU thresholds are meaningf
 
 ## Cost Analysis
 
-| Reviewer Model | Cost per review call | 60 lectures × 15 QA | Total estimate |
-|---|---|---|---|
-| Claude Sonnet 4.6 | ~$0.003 (3¢) per 1K output tokens | ~900 review calls | ~$3–8 |
-| GPT-4o | ~$0.010 (1¢) per 1K output tokens | ~900 review calls | ~$10–25 |
-| GPT-4o-mini | ~$0.0002 per 1K output tokens | ~900 review calls | <$1 |
+| Reviewer Model | Role | Calls (estimated) | Cost per 1K output tokens | Total estimate |
+|---|---|---|---|---|
+| Claude Sonnet 4.6 | Primary — all 3 criteria | ~900 (all pairs) | ~$0.003 | ~$3–8 |
+| GPT-4o | C1 cross-check only — called when Claude passes C1 | ~400–600 (C1-pass subset) | ~$0.010 | ~$4–12 |
+| GPT-4o-mini | Not used (too weak for multi-hop type accuracy) | — | ~$0.0002 | — |
 
-**Recommendation:** Claude Sonnet 4.6 is cost-competitive and avoids adding a second API dependency. GPT-4o costs ~3× more with marginal benefit given Ho et al. (2025) shows same-model judging is unbiased for structured QA. GPT-4o-mini is too weak for complex multi-hop type accuracy checking.
+**Note (updated after full run):** GPT-4o is called only on pairs where Claude passes C1, not on all 900 pairs. The actual call count depends on Claude's C1 pass rate; after the first full run (~56% overall rejection rate), approximately 400–600 C1-pass pairs received a GPT-4o cross-check. Total cost for the two-call flow is approximately $7–20 combined.
+
+**Recommendation:** The two-call flow (Claude primary + GPT-4o C1 cross-check) was adopted as the final design (Simplified Option C). GPT-4o-mini is too weak for complex multi-hop type accuracy checking and is not used in Phase 7.3.
 
 ---
 
@@ -270,7 +272,7 @@ Multi-judge LLM evaluation refers to using two or more independent LLM evaluator
 
 | Q | Multi-judge benefit | Verdict |
 |---|---|---|
-| **Q1 (Same-model bias)** | Multi-judge with a cross-family model (GPT-4o) would eliminate residual SPB. But Ho et al. (2025) already shows SPB is near zero for structured QA. Yang et al. (2026) structured prompting reduces SPB 31.5%. Marginal additional gain. | **Not needed for Phase 7.3** |
+| **Q1 (Same-model bias)** | Multi-judge with a cross-family model (GPT-4o) would eliminate residual SPB. Ho et al. (2025) shows SPB is near zero for structured QA; Yang et al. (2026) structured prompting reduces SPB 31.5%. Residual knowledge-conflict risk (Lee et al., 2026) motivated a targeted cross-family check for C1 specifically. | **Adopted (Simplified Option C): GPT-4o cross-check for C1 only; C2/C3 remain Claude-only** |
 | **Q2 (Rubric)** | Multi-judge could catch disagreements on borderline C1 cases (factual claims that are partially supported). PCFJudge's permutation consensus is a low-cost way to add robustness to C1 without a second model. | **Optional: run C1 twice with shuffled claim order; flag disagreements for discard** |
 | **Q3 (Multi-hop gap)** | Span gap is a deterministic arithmetic check (≥70s). No judgment involved — multi-judge adds zero value here. | **Not applicable** |
 | **Q4 (Correctness without video)** | Lee et al. (2026) identifies a concrete failure mode here: when chunk text conflicts with Claude's parametric knowledge (likely for cutting-edge ML lecture content), the judge overrides the reference. A cross-family second judge (GPT-4o) is less likely to share the same knowledge bias. This is the strongest case for optional multi-judge in Phase 7.3. Low Kappa on Q4 disagreements likely signals knowledge-conflict failures, not random noise. | **Adopted (2026-05-13): cross-family C1 check with GPT-4o; strongly recommended for Phase 8** |
@@ -424,7 +426,7 @@ If κ < 0.70, escalate: re-review all rejected pairs for the failing criterion m
 10. Wataoka, K., Takahashi, T., Ri, R. (2024). *Self-Preference Bias in LLM-as-a-Judge*. NeurIPS 2024 Safe Generative AI Workshop. arXiv:2410.21819.
 11. Yang, J., Qiu, C., Deng, Z., Jiao, X., Zhou, T. (2026). *Quantifying and Mitigating Self-Preference Bias of LLM Judges*. arXiv:2604.22891.
 12. Xiang, B., Han, S. C., Ding, Y. (2026). *BRIDGE: Benchmark for Multi-hop Reasoning In long multimodal Documents with Grounded Evidence*. arXiv:2603.07931.
-13. DAIR-IIT Delhi. (2025). *EduVidQA: Generating and Evaluating Long-form Answers to Student Questions based on Lecture Videos*. EMNLP 2025. arXiv:2509.24120.
+13. Ray, S., Sarkar, S., Agarwal, S., et al. (2025). *EduVidQA: Generating and Evaluating Long-form Answers to Student Questions based on Lecture Videos*. EMNLP 2025. arXiv:2509.24120.
 14. Unknown Authors. (2026). *VideoZeroBench: Probing the Limits of Video MLLMs with Spatio-Temporal Evidence Verification*. arXiv:2604.01569.
 15. Li, R., Patel, T., Du, X. (2023). *PRD: Peer Rank and Discussion Improve Large Language Model based Evaluations*. arXiv:2307.02762.
 16. Chan, C., Chen, W., Su, Y., et al. (2023). *ChatEval: Towards Better LLM-based Evaluators through Multi-Agent Debate*. arXiv:2309.17012.

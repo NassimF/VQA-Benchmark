@@ -2,6 +2,10 @@
 
 ## 2026-05-14
 
+- docs: rewrite abstract following top-venue benchmark paper conventions (03a2893)
+
+## 2026-05-14
+
 - docs: update benchmark.tex LLM Review section for Phase 7.3 (da18882)
 
 ## 2026-05-14
