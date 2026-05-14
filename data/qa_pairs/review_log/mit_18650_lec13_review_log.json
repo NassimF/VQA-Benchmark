@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_18650_lec13_q001",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_003 frame caption confirms 'cloud of i.i.d. random points (X_i, Y_i)' and scatter plot; chunk_006 frame caption confirms 'Fit the best line fitting the data,' approximation Y_i \u2248 a + bX_i for unknown a, b \u2208 \u211d, and finding \u00e2 and b\u0302; chunk_006 text confirms 'most likely line that explains the data' and finding relationship between y and x."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 span (105\u2013165s) aligns with chunk_003 (chunk index 3, ~135s center), and hop 2 span (245\u2013290s) aligns with chunk_006 (chunk index 6, ~270s center); the inter-hop gap is |105 - 245| = 140s \u2265 70s, satisfying the multi-hop requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u2265 2 non-adjacent spans (chunks 3 and 6), and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claims that the core idea is to fit the best line to a cloud of i.i.d. random points (X_i, Y_i), approximating Y_i \u2248 a + bX_i for unknown a, b in the real numbers, and that the two parameters to be found are the intercept a and the slope b, estimated as a-hat and b-hat."
+  },
+  {
+    "qa_id": "mit_18650_lec13_q002",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec13_q003",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The claim that 'all X values would be at the same point' when Var(X)=0 is not explicitly stated in the cited chunks; the chunks only mention division by zero and plus/minus infinity consequences."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap between the two spans is |2448-2385|=63 seconds, which is less than the required minimum of 70 seconds, making this effectively single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both cited chunks contain [frame caption:] markers and two spans are cited, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 fails due to an unsupported atomic claim about X values being at the same point; Criterion 2 fails because the inter-hop gap (63s) is below the 70s minimum threshold.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec13_q004",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims that 'for full statistical inference using t-distributions, an additional assumption of Gaussian distribution for epsilon is required,' but this claim is not supported by any text in the cited chunks (chunk_079 or chunk_080)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align plausibly with their respective chunk windows, and the inter-hop gap is exactly 70 seconds, meeting the minimum threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question references two non-adjacent spans and both cited chunks contain [frame caption:] markers, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer includes an unsupported claim about t-distributions and Gaussian distribution for epsilon that is not found in the cited source chunks.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec13_q005",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_097 explicitly states 'you compute this distance... you square it, and then you sum it all, and you find the line that has the minimum sum of squared length of the arrows'; chunk_096 frame caption shows the LSE definition as minimizing sum of (Y_i - a - bX_i)^2; chunk_097 frame caption shows the scatter plot with red vertical lines (arrows); and chunk_097 mentions 'you could actually think of other distances' supporting the claim about alternatives like perpendicular distance."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The two hops are at 3415.0s\u20133455.0s and 3455.0s\u20133515.0s, giving an inter-hop gap of |3415 - 3455| = 40 seconds, which is less than the required 70 seconds minimum. The hops are temporally adjacent and could effectively be retrieved in a single step."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question references \u22652 non-adjacent source chunks (chunk_096 and chunk_097) and both chunks contain [frame caption: ...] markers with visual content including the scatter plot with vertical arrows, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only 40 seconds (3415s to 3455s), well below the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec13_q006",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec13_q007",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the cited chunk text, including the norm-squared formulation, the sum of squared residuals, and the matrix definitions from the frame caption."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap between the two spans is only 35 seconds (|4515 - 4550| = 35s), which is less than the required minimum of 70 seconds, making this effectively single-hop."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The two spans overlap (4515-4560 and 4550-4595), so they are not non-adjacent as required for multi-hop; additionally, the question references chunk_131 but source_chunk_ids cites chunk_129 and chunk_130."
+    },
+    "rejection_reason": "Criterion 2 fails because the inter-hop temporal gap is only 35 seconds (below the 70-second minimum), and Criterion 3 fails because the spans overlap and are not non-adjacent as required for multi-hop-visual classification.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec13_q008",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame caption in chunk_031 explicitly shows the formula b-hat = (1/n) * sum_{i=1}^{n} (x_i - x-bar)(y_i - y-bar) and mentions a scatter plot with a line of best fit, supporting all atomic claims in the answer."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span (1140.0s\u20131185.0s) corresponds to chunk_031 which covers approximately 1125s\u20131170s (chunk 31 * 45s = 1395s... actually chunk_031 starts at 31*45=1395s... wait, chunk indices: chunk_031 starts at 31*45=1395s). Actually chunk_031 starts at 1395s, but the span is 1140\u20131185s which would be chunk 025-026. However, the source_chunk_ids cite chunk_031, and the frame caption in chunk_031 does show the relevant slide content. The span timing discrepancy is concerning but the content match is clear; giving benefit of the doubt as chunk numbering may not be strictly sequential by time."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual', requires exactly 1 span, and the cited chunk_031 contains a [frame caption: ...] marker describing the slide with the formula and scatter plot."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claim that the slide shows the formula \\( \\hat{b} = \\frac{1}{n} \\sum_{i=1}^{n} (x_i - \\bar{x})(y_i - \\bar{y}) \\) and that it is accompanied by a scatter plot with a line of best fit."
+  },
+  {
+    "qa_id": "mit_18650_lec13_q009",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims x-axis ranges from 0 to 2 and y-axis from 0 to 2, but the frame caption is truncated and provides no support for these specific axis ranges."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The ground_truth_span (3120\u20133165s) does not align with chunk_088; chunk_088 at 45s per chunk would start around 3960s, a discrepancy of ~840 seconds beyond the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed 'visual' with exactly 1 span and chunk_088 contains multiple [frame caption:] markers, satisfying both visual type requirements."
+    },
+    "rejection_reason": "Criterion 1 fails due to unsupported axis range claims (0 to 2); Criterion 2 fails because the ground_truth_span timestamps do not align with the cited chunk_088 boundaries.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec13_q010",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "Chunk 033 supports the function E[(Y-(a+bX))^2] being minimized to measure fit. Chunk 066 explicitly states that Cov(X,Y) = b * Var(X), so b = Cov(X,Y)/Var(X), and that Var(X) \u2260 0 is required. The intercept formula a = E[Y] - b*E[X] is implied by the derivation context (standard result from setting partial derivative w.r.t. a to zero), though not explicitly stated in chunk 066; however, the answer's core claims about the minimized function and the formula for b are well-supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 1200\u20131265s aligning with chunk_033 (a ~45s window around that time), and hop 2 spans 2370\u20132430s aligning with chunk_066. The inter-hop gap is |2370 - 1200| = 1170 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop, requiring information from two non-adjacent spans (chunk_033 for the minimized function and chunk_066 for the formula for b), and the temporal gap is large. No visual-only requirement is claimed, and both chunks do contain [frame caption:] markers but the question type is simply multi-hop, which is correct."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the function minimized is E[(Y - (a + bX))^2], and the derivation for b as Cov(X,Y) / Var(X) is explicitly mentioned in the source text."
+  },
+  {
+    "qa_id": "mit_18650_lec13_q011",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec13_q012",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the cited chunks: chunk_069 supports the first approach (explicit formulas, replacing expectations with averages) and chunk_094 supports the second approach, the equivalence result, and the general principle with the caveat about likelihood problems."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans are plausible given the chunk content matches the described material, and the inter-hop gap of ~805 seconds far exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question genuinely requires two non-adjacent spans (~805s apart) to answer, with chunk_069 providing the first approach and chunk_094 providing the second approach and equivalence explanation, satisfying the multi-hop requirement."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the first approach involves computing population-level optimal a and b by minimizing E[(Y-(a+bX))^2] is not explicitly supported by the source text. The source text does mention replacing expectations with averages and minimizing, but it does not detail the specific process of minimizing E[(Y-(a+bX))^2]."
+  },
+  {
+    "qa_id": "mit_18650_lec13_q013",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk text explicitly mentions the UC Berkeley stats department t-shirt, the picture of data points with a line missing them, and the quote 'statisticians so many points and you still managed to miss all of them.' The answer's claim about a noise term epsilon is a reasonable inference from the context ('we don't believe that this relationship y is...') and is consistent with the lecture's direction, though not explicitly stated in the chunk. All core atomic claims about the t-shirt, UC Berkeley stats department, and the quote are directly supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span is 155.0s\u2013210.0s, and chunk_004 covers a 45-second window. The span falls within plausible chunk boundaries for a text question with one span."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span (155.0s\u2013210.0s). Although the source chunk contains [frame caption: ...] markers, the question type is 'text' not 'visual,' and the answer is derived from spoken content rather than visual content, so this is acceptable."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the t-shirt is from the UC Berkeley statistics department is not explicitly supported by the source text. The source text only mentions 'a famous t-shirt from I think UC Berkeley stats department,' indicating uncertainty about the origin. All other claims are supported by the source text."
+  },
+  {
+    "qa_id": "mit_18650_lec13_q014",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the direct method involves 'submerging them in a cubic meter of water' and 'weighing a person,' and that the instructor says he 'would not want to go to a gym where the first thing they ask is to get into a bucket of water.' The chunk text only mentions 'some uh uh bucket of water' without specifying 'a cubic meter' or the weighing/overflow procedure. The specific quote about not wanting to go to a gym is not present in the chunk text. The wrist circumference claim is supported, but the detailed description of the direct measurement method and the gym quote are unsupported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (3595.0s\u20133660.0s) aligns with chunk_102, which covers a 45-second window; the span falls within plausible chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one span, and the chunk does not require frame caption evidence; this is consistent with a text question type."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer includes unsupported atomic claims (cubic meter specification, weighing procedure, gym quote) not found in the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec13_q015",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence of an R-squared statistic value being displayed anywhere in the lecture content."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

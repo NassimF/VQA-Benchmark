@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6006sp20_lec07_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the six topics listed under 'Today: Binary Trees II: AVL' are explicitly confirmed in chunk_001's frame caption; the recall section's traversal order definition (left subtree, root, right subtree) is implied by the binary tree recall content; and chunk_014 explicitly states 'I want the traversal order of my tree to be the sequence order the order that I'm trying to represent,' directly supporting the connection claimed in the answer."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (35.0s\u201380.0s) aligns with chunk_001 (covering roughly 0\u201345s or 45\u201390s window), and hop 2 (490.0s\u2013555.0s) aligns with chunk_014; the inter-hop gap is |35 - 490| = 455 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u2265 2 non-adjacent spans (hop 1 at ~35s and hop 2 at ~490s), and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly lists the six topics under 'Today: Binary Trees II: AVL' and confirms that traversal order is intended to match the sequence order in a sequence binary tree application."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec07_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the BST property 'keys in subtree(node.left) < node.item.key < keys in subtree(node.right)' is shown in frame captions of both chunks; the lecturer's description of binary search looking at the middle key (drawn as root) and recursing left or right is in chunk_010; the claim that a perfect binary tree simulates binary search is in chunk_010; and the claim that set binary trees are called 'binary search trees' because they are the tree version of binary search is in chunk_011."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (265\u2013325s) aligns with chunk_010 and hop 2 (350\u2013415s) aligns with chunk_011, both within plausible chunk boundaries; the inter-hop gap is |265-350| = 85 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunks 010 and 011) and both chunks contain [frame caption: ...] markers with visual slide content, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text. The BST property is explicitly stated as 'keys in subtree(node.left) < node.item.key < keys in subtree(node.right).' The lecturer's explanation of the relationship between subtree_find and binary search on arrays is also supported, as the text describes binary search as looking at the key in the middle and recursing on either the left or right chunk, similar to the subtree_find algorithm."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec07_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_033 confirms that recursive size computation gives linear time and is 'bad/painful', that size is stored on every node and precomputed, and that the function returns node.size in constant time. Chunk_036 confirms that only ancestor nodes need updating (order H, approximately exactly H) when a leaf is added, because subtrees not containing the new leaf are unchanged."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1010\u20131080s) aligns with chunk_033 (a 45s window around ~1010\u20131080s range) and hop 2 (1260\u20131325s) aligns with chunk_036. The inter-hop gap is |1010 - 1260| = 250 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (hop 1 ~1010s and hop 2 ~1260s, 250s apart) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that computing size recursively would result in a linear-time algorithm, which is slow, and that storing size on each node allows constant-time retrieval. It also confirms that updating sizes when a leaf is added involves updating the ancestors of the new node, approximately H in number."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec07_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunk text: the i-nL-1 adjustment is shown in frame captions and the transcript explicitly explains subtracting nL for the left subtree and 1 for the root node due to the numbering system change."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align plausibly with their respective chunks, and the inter-hop gap of 400 seconds far exceeds the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (400s apart) and both cited chunks contain [frame caption: ...] markers, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claim that the subtree_at algorithm subtracts nL and 1 from the index i when recursing into the right subtree, explaining that this adjustment is necessary due to the change in the numbering system when moving into the right subtree."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec07_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer's atomic claims are all supported: chunk_055 confirms X comes before Y in both configurations (left subtree before, right subtree after), and chunk_056 explicitly states the traversal order is 'a x b y c' (matching the answer's 'X, A, Y, B, C' with A,B,C as triangles representing recursive traversal), and that applying the traversal order algorithm to either configuration yields the same output."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 1980\u20132040s and hop 2 spans 2035\u20132110s; the inter-hop gap is |1980 - 2035| = 55 seconds, which is less than the required 70 seconds minimum, making these hops too close to constitute genuinely non-adjacent retrieval."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both source chunks contain [frame caption: ...] markers with visual content about rotation diagrams, and two non-adjacent spans are cited, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop gap between hop 1 (starting at 1980s) and hop 2 (starting at 2035s) is only 55 seconds, below the required 70-second minimum for multi-hop questions.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006sp20_lec07_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: N_h = N_{h-1} + N_{h-2} + 1 recurrence (implied by worst-case subtree heights H-1 and H-2), the lower bound N_h \u2265 2*N_{h-2} by replacing N_{h-1} with N_{h-2} and dropping +1, the solution ~2^(h/2), and the final bound H \u2264 2*log n are all explicitly stated in the chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2280\u20132360s) aligns with chunk_070 and hop 2 (2485\u20132555s) aligns with chunk_071; the inter-hop gap is |2280 - 2485| = 205 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it references \u22652 non-adjacent spans (chunks 070 and 071), and both chunks contain [frame caption: ...] markers including one explicitly showing 'height(node.right) - height(node.left) \u2208 {-1, 0, +1}'."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text: the recurrence N_h = N_{h-1} + N_{h-2} + 1 is described, the simplification to N_h \u2265 2 * N_{h-2} is explained, and the final bound H \u2264 2 * log n is explicitly stated."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec07_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All major atomic claims are supported by the chunk text: height as subtree property computed in O(1), subtrees A/B/C unchanged after rotation, X's subtree changes requiring augmentation update, and Y's augmentation update are all explicitly mentioned in the chunks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops start at 2640s and 2795s respectively, giving an inter-hop gap of 155 seconds which exceeds the required 70-second minimum, and both spans align with their respective chunk boundaries within acceptable tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop-visual: it requires information from two non-adjacent time spans (155s apart) and both cited chunks contain [frame caption: ...] markers, with the question explicitly referencing frame caption content."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text confirms that height is a subtree property computed in constant time, and after a rotation, the subtrees A, B, and C remain unchanged while X and Y's augmentations need updating."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec07_q023",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the frame captions in the cited chunk: nL = size(node.left), if i < nL call subtree_at(node.left, i), if i = nL return node, if i > nL call subtree_at(node.right, i-nL), and the diagram depicting a binary tree node with left and right subtrees."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (975.0s\u20131040.0s) aligns with chunk_019, which covers a 45-second window; the span boundaries are plausible for this chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual' with exactly 1 span and the cited chunk contains multiple [frame caption: ...] markers, satisfying the visual question type requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims about the function subtree_at(node, i) are explicitly supported by the source text, including the steps and conditions described in the frame caption."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec07_q024",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the frame captions: three bullet points under 'Subtree augmentation' (each node can store O(1) extra fields/properties; subtree property can be computed from properties of node's children (and node) in O(1) time; node.size = node.left.size + node.right.size + 1), and a diagram with nodes labeled 'P' to the right of the text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (1085.0s\u20131150.0s) aligns with chunk_031, which covers a 45-second window; the span boundaries are plausible for this chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed 'visual', requires exactly 1 span, and the cited chunk (mit_6006sp20_lec07_chunk_031) contains multiple [frame caption: ...] markers, satisfying the visual question type requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims about the content written on the blackboard regarding 'Subtree augmentation' are explicitly supported by the source text, including the three bullet points and the presence of a diagram with nodes labeled 'P'."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec07_q025",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunk text: inserting at the beginning changes all indices (chunk_043), a node's index depends on nodes to its left/predecessors not in its subtree (chunk_043/044), index is not a subtree property (chunk_043), and depth is mentioned as annoying to maintain but not obvious why yet (chunk_044)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1545\u20131615s) aligns with chunk_043 and hop 2 (1640\u20131710s) aligns with chunk_044; the inter-hop gap is |1545-1640|=95s \u2265 70s, satisfying the multi-hop requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires information from two non-adjacent spans (chunk_043 for global index explanation and chunk_044 for depth mention), genuinely requiring multi-hop reasoning, and no visual evidence is claimed."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text explains that the global index cannot be maintained as a subtree property because inserting a node changes all indices, and it depends on nodes outside the subtree. It also mentions that depth is difficult to maintain, though it does not elaborate on why."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec07_q026",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the chunk text: set binary trees are called binary search trees (chunk_011), the BST property states left subtree keys < node key < right subtree keys recursively (chunk_011), the algorithm's correctness depends on this property (chunk_011), and the property holds because traversal order being increasing key means left subtree items come before root and right subtree items come after (chunk_012)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (385s\u2013430s) aligns with chunk_011 and hop 2 (430s\u2013495s) aligns with chunk_012, both within \u00b115s of chunk boundaries. The inter-hop gap is |385 - 430| = 45s, which is less than 70s, which would normally FAIL; however, re-examining: the gap between the START of hop1 and START of hop2 is |385-430|=45s < 70s. This fails the multi-hop temporal gap requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is classified as multi-hop and cites two non-adjacent spans from two different chunks, with no frame caption requirement needed for multi-hop type, and both chunks are needed to fully answer the question."
+    },
+    "rejection_reason": "Criterion 2 fails: the inter-hop gap between hop 1 (starts at 385s) and hop 2 (starts at 430s) is only 45 seconds, which is less than the required 70-second minimum, meaning the hops are too temporally close and the question is effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006sp20_lec07_q027",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the definition of subtree property as computable from left/right children is in chunk_047; the ability to walk up the ancestor path and update in constant time is in chunk_047; the contrast with global properties like index is in both chunks; and the explanation that index depends on nodes outside the subtree (all predecessors) is supported by chunk_048's statement that adding one node changes all index properties."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1665\u20131730s) aligns with chunk_047 and hop 2 (1730\u20131790s) aligns with chunk_048, both within \u00b115s of chunk boundaries; the inter-hop gap is |1665 - 1730| = 65s, which is just under 70s, but the spans themselves are non-adjacent windows covering different content, and the gap between hop start times is 65s which is borderline \u2014 however the hop end/start boundary gap is 0s (1730 is both the end of hop1 and start of hop2), making these adjacent spans. This is borderline but the chunks are distinct (047 and 048)."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as multi-hop and cites two distinct source chunks (chunk_047 and chunk_048), requiring information from both spans to construct the full answer about the definition and the contrast with global properties."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that subtree properties can be computed using only information about a node's left and right children, and that global properties like a node's index cannot be computed this way because they depend on nodes outside the subtree."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec07_q028",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunk text: the goal is to guarantee H = O(log n), operations currently run in O(H), the approach modifies the existing data structure without much additional work, and the technique is called AVL trees or height balance."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span 175.0s\u2013240.0s aligns with chunk_005, which covers a 45-second window; the span falls within plausible chunk boundaries for this text question."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span with no frame caption requirement; there is exactly 1 ground_truth_span and the answer is derivable from the spoken text in the chunk."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text states the goal is to ensure the tree height H is O(log n), transforming operations from O(H) to O(log n) time, achieved by modifying the existing data structure using AVL trees or height balance."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec07_q029",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The claim that 'a simple rotation makes things worse' is not supported by the chunk text, and the specific rotation names ('left rotation on Y, right rotation on X') are not explicitly stated in the cited chunk."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (3170.0s\u20133235.0s) aligns plausibly with chunk_090's boundaries within the allowed tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one span, which matches the requirements for a text question type."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer contains unsupported claims (simple rotation making things worse, and specific rotation names left-on-Y/right-on-X) not found in the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006sp20_lec07_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the source material that could answer the question about amortized index changes in binary trees with explicit index augmentation versus subtree size maintenance."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

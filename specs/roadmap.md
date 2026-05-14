@@ -26,8 +26,8 @@ Status: ✅ Complete | ⚠️ Partial | ⏳ Pending
 | 7.1 | `src/qa_generator.py` — LLM draft QA | ✅ |
 | 7.2 | `scripts/generate_qa.py` — CLI for draft generation | ✅ 60/60 done |
 | 7.3 | LLM review + `scripts/regenerate_qa.py` — populate `data/qa_pairs/reviewed/` | ✅ |
-| 7.4 | `scripts/build_benchmark.py` + `validate_benchmark.py` | ⏳ |
-| 7.5 | `scripts/audit_span_precision.py` — empirical span error → validate tIoU@0.3 | ⏳ |
+| 7.4 | `scripts/build_benchmark.py` + `validate_benchmark.py` | ✅ 810 pairs, 60 lectures |
+| 7.5 | `scripts/audit_span_precision.py` — empirical span error → validate tIoU@0.3 | ✅ mean 25.8s, tIoU@0.3 valid |
 | 8.1 | `src/evaluator.py` — temporal IoU, hit rate@k, LLM-judge | ⏳ |
 | 9.1 | `run_part1.py` — end-to-end RAG demo | ⚠️ placeholder |
 | 9.2 | `run_part2.py` — full benchmark eval, both configs | ⚠️ placeholder |
@@ -321,47 +321,21 @@ the paper. No human tightening of spans.
 | `"unanswerable"` | 1 | Required |
 | **Total** | **15** | 10 multi-hop (67%) / 9 visual (60%) / 2 text / 1 unanswerable |
 
-### 7.4 — Benchmark merge and validation
+### 7.4 — Benchmark merge and validation ✅
 **Files:** `scripts/check_coverage.py`, `scripts/build_benchmark.py`, `scripts/validate_benchmark.py`
 
-Run in this order:
-1. `python scripts/check_coverage.py --fix` — zero-pair retry (Pass 1) + total/visual count check vs 500/300 minimums (Pass 2, user-confirmed). All 60 lectures must be present; no lecture is discarded.
-2. `build_benchmark.py`: merges all reviewed JSON files → `data/benchmark/benchmark_v1.json`
-3. `validate_benchmark.py`: checks schema completeness, span validity, `num_hops` consistency, unanswerable count per lecture
+**Status (2026-05-14):** Complete. 810 pairs across 60 lectures, 455 visual (56.2%).
+9 pairs dropped post-validation (span gap 55–69s). All schema/span/hop checks pass.
+Output: `data/benchmark/benchmark_v1.json`
 
-### 7.5 — Span precision audit (required before Phase 8)
+### 7.5 — Span precision audit ✅
 **File:** `scripts/audit_span_precision.py`
 
-Empirically measures how accurate the LLM-estimated ground-truth spans are, to
-validate the tIoU@0.3 threshold before the evaluator is built.
-
-**Method:** For a stratified sample of ~120 reviewed QA pairs (2 per lecture —
-1 visual-type, 1 non-visual):
-1. Load the cited chunk text from `data/chunks/`
-2. Check whether the answer text (or its key claims) appears within the cited
-   `[start_time, end_time]` window by searching the transcript segments
-3. If the answer text is found, compute how much of the span is "wasted"
-   (evidence occupies only part of the window) → estimate effective span error in seconds
-4. Report: mean span error, worst-case span error, % of spans where evidence
-   falls within the inner 50% of the window vs. near the edges
-
-**Sample size justification:** 120 samples from a population of 810 QA pairs.
-For estimating a mean span error with σ ≈ 15s, n=120 gives a margin of error of
-±σ/√120 ≈ ±1.4s — precise enough to distinguish the two decision-gate thresholds
-(≤20s vs >30s), which have a 10s buffer between them. Stratifying by question type
-(visual vs non-visual, 1 each per lecture) ensures span error is measured across both
-types, since visual questions cite frame-caption chunks whose boundaries may differ
-systematically from transcript-only chunks. Pure random sampling of 60 (1 per lecture)
-would miss this and could underestimate tail error in one type.
-
-**Decision gate:** If mean span error > 30s → reconsider tIoU@0.3 as primary threshold
-(may need to drop to @0.2 or report only Hit Rate@k without IoU).
-If mean span error ≤ 20s → tIoU@0.3 is well-justified; add the measured value to
-the paper's limitation disclosure (replacing the current "±15–30s estimate").
-
-**Git checkpoint:** `data: reviewed QA pairs, all lectures`
-
-**Paper reminder — `sections/benchmark.tex`:** Draft the Benchmark Contribution section now (~1 page): lecture selection rationale, QA generation process, LLM review procedure, QA type breakdown table (multi-hop-visual / visual / multi-hop / text / unanswerable counts).
+**Status (2026-05-14):** Complete. Results in `data/benchmark/span_audit_results.json`.
+- Mean span error: 25.8s (20–30s range → tIoU@0.3 acceptable, noted as limitation)
+- Worst case: 82.5s. Visual single-hop: 11.5s. Multi-hop: 30–33s.
+- Decision gate: ⚠️ acceptable — tIoU@0.3 is primary, tIoU@0.5 secondary.
+- Paper updated: benchmark.tex limitation section now shows measured values.
 
 ---
 

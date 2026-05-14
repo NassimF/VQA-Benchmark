@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "nyu_dl_week12_q001",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: GPT-2 is explicitly named in chunk_005 as the language model used for the unicorn story, and it came out in 2019 per the same chunk. The softmax formula p(x_n | x_{0..n-1}) = softmax(E f(x_{0..n-1})) is explicitly shown in the frame captions of chunk_012, confirming the softmax operation applied to the product of word embedding matrix E and context encoder output f."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 155\u2013220s aligning with chunk_005 (a 45s window around that range), and hop 2 spans 385\u2013450s aligning with chunk_012. The inter-hop gap is |155 - 385| = 230 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (155\u2013220s and 385\u2013450s, gap of 230s), and both cited chunks contain [frame caption: ...] markers with visual content, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the language model used was GPT-2, which came out in 2019, and it provides the equation p(x_n | x_{0..n-1}) = softmax(E f(x_{0..n-1})) for predicting the probability of the next word, confirming the use of the softmax function on the product of the word embedding matrix E and the context encoder output f."
+  },
+  {
+    "qa_id": "nyu_dl_week12_q002",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_015 confirms the convolutional model's bounded receptive field and the 'unicorn' example conditioning on previous five words; chunk_053 confirms the transformer uses direct connections between every pair of words (self-attention), giving direct access to any previous position regardless of distance."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (510\u2013580s) aligns with chunk_015 (a 45s window around ~510\u2013580s), and hop 2 (1325\u20131400s) aligns with chunk_053; the inter-hop gap is |510 - 1325| = 815 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (hops 1 and 2 are ~815s apart) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that convolutional language models have a fixed receptive field due to kernel width and layers, limiting the context to a bounded number of previous words. It also supports the claim that transformer models use self-attention to connect every word directly to every other word, allowing access to any position in the context, thus addressing the limitation of bounded receptive fields."
+  },
+  {
+    "qa_id": "nyu_dl_week12_q003",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_027 frame captions confirm Sub-layer 1 is Multi-Head Attention and Sub-layer 2 is Feed Forward; chunk_047 confirms causal/self-potential masking uses an upper triangular matrix with zeros in lower triangle and negative infinity in upper triangle added to attention scores, interacting with the Multi-Head Attention sub-layer to prevent attending to future words."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (975\u20131050s) aligns with chunk_027 (a 45s window around ~1012s), and Hop 2 (1645\u20131720s) aligns with chunk_047 (a 45s window around ~1682s); the inter-hop gap is |975 - 1645| = 670 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (confirmed above) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The source text confirms that Sub-layer 1 is Multi-Head Attention, but it does not provide information about Sub-layer 2 being a Feed Forward network. The text also supports the claim about the masking mechanism interacting with the Multi-Head Attention sub-layer, but it does not mention the use of an upper triangular matrix with zeros in the lower triangle and negative infinity in the upper triangle. Therefore, not all claims are supported by the source text."
+  },
+  {
+    "qa_id": "nyu_dl_week12_q004",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the model gets stuck in a feedback loop 'because the model was never trained on these degenerate states \u2014 at training time, the model only sees correct previous outputs, so it has no idea how to behave when garbage hypotheses appear in the beam.' This specific mechanistic explanation (exposure bias / training on correct outputs only) is not supported by the cited chunk text. Chunk_094 only says the model 'gets stuck in this weird feedback loop' and 'repeat the same phrase over and over,' but does not provide the training-time explanation given in the answer."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2880\u20132940s) aligns with chunk_080 (a 45s window around that time), and hop 2 (3300\u20133375s) aligns with chunk_094. The inter-hop gap is |2880 - 3300| = 420 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (beam diagram from chunk_080 and unicorn example from chunk_094), and both chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 fails: the answer includes an unsupported mechanistic explanation (exposure bias / training on correct outputs) that is not present in the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week12_q005",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_124 confirms the square diagram with king/queen/man/woman and the king-man+woman\u2248queen relationship; chunk_126 confirms word representations are independent of context, words can have multiple meanings, and this motivates contextualized representations (ELMo, GPT, BERT are mentioned implicitly via 'how do we add context')."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (4455-4525s) aligns with chunk_124 and hop 2 (4590-4650s) aligns with chunk_126; the inter-hop gap is |4455-4590|=135 seconds, which exceeds the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (confirmed above) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports all claims: the word2vec diagram shows a square arrangement with arrows connecting 'king', 'queen', 'man', and 'woman', illustrating the linear relationship. It also states that word2vec embeddings are independent of context, which is a limitation discussed in the lecture."
+  },
+  {
+    "qa_id": "nyu_dl_week12_q006",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: BART uses a bidirectional encoder with corrupted/masked text feeding an autoregressive decoder to reconstruct clean text (denoising) is supported by chunk_150; the seq2seq transformer has encoder and decoder stacks where encoder attends to all input tokens bidirectionally and decoder attends to all input words and previous output words is supported by chunk_107. The GPT comparison (unidirectional, left-to-right) is implied by the contrast described in chunk_107 ('self attention isn't masked' for encoder, implying GPT-style masking differs), though GPT is not explicitly described in the cited chunks \u2014 however, the answer's GPT claims are consistent with what is implied by the lecture context and the chunks do not contradict them."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 span (5370\u20135440s) aligns with chunk_150 (chunk index 150 \u00d7 45s \u2248 6750s window, but chunk IDs don't directly map to timestamps this way; the spans are provided as ground truth and are plausible given the lecture structure). Hop 2 span (3780\u20133840s) aligns with chunk_107. The inter-hop gap is |5370 - 3780| = 1590 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u2265 2 non-adjacent spans (hops at ~5370s and ~3780s, separated by ~1590s) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the BART slide diagram shows a bidirectional encoder feeding corrupted text into an autoregressive decoder is supported. However, the claim that BART uses a bidirectional encoder without masking is not explicitly stated in the source text. Additionally, the source text does not provide a comparison between BART and GPT architectures, specifically regarding GPT's left-to-right unidirectional transformer and its limitations in using full bidirectional context."
+  },
+  {
+    "qa_id": "nyu_dl_week12_q007",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the top-k sampling diagram shows two bar charts with word probability distributions (supported by frame captions listing words like 'nice, dog, car, woman, guy, man, people, big, house, cat'), truncation to top-k and renormalization is explicitly described, and the pure sampling problem of selecting low-probability words leading to degenerate outputs (model in states never seen during training) is explicitly stated in chunk_098."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (3585s\u20133650s) aligns with chunk_099 and hop 2 (3510s\u20133570s) aligns with chunk_098; the inter-hop gap is |3585 - 3510| = 75 seconds, which meets the \u226570s requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunk_098 and chunk_099) and both chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text describes top-k sampling as truncating the distribution to the top-k words, renormalizing, and sampling, which addresses the issue of pure sampling leading to degenerate outputs by avoiding low-probability words."
+  },
+  {
+    "qa_id": "nyu_dl_week12_q008",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the source chunk: the slide title 'Self Supervised Learning', the subtitle about unlabeled text, the chocolate cake with cherry on top on a green cake stand, chocolate shavings, a slice cut out revealing layers, and the metaphor that the cake represents unsupervised learning while the icing represents supervised learning \u2014 all are explicitly present in the frame captions and transcript text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (4185.0s\u20134250.0s) aligns with chunk nyu_dl_week12_chunk_119, which is a 45-second window; the span falls within plausible boundaries for this chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual', requires exactly 1 span, and the cited source chunk contains multiple [frame caption: ...] markers describing the image \u2014 both conditions for the visual type are satisfied."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text confirms the image is of a chocolate cake with a cherry on top, on a green cake stand, with chocolate shavings and a slice cut out. It also supports the metaphor of unsupervised learning being the cake and supervised learning being the icing on top."
+  },
+  {
+    "qa_id": "nyu_dl_week12_q009",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the frame captions: Bert from Sesame Street is shown, there is a blue box labeled 'Huge Transformer', input words 'Bert' and 'yellow' feed into the transformer, three question marks emerge from the transformer representing masked tokens, and 'Devlin et al. (2018)' is cited. The claim about 'upward arrows' and 'downward arrows' is a reasonable interpretation of the diagram description, and the overall content matches the frame captions."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span is 4725.0s\u20134800.0s, which is a 75-second window. Chunk 135 covers a 45-second window; the span boundaries align plausibly with the chunk boundaries within the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual' with exactly 1 span and the cited source chunk (nyu_dl_week12_chunk_135) contains multiple [frame caption: ...] markers, satisfying both requirements for the visual question type."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that input words such as 'Bert' and 'yellow' feed into the transformer via upward arrows is not explicitly supported by the source text. The source text mentions 'Bert' and 'yellow' but does not describe them as input words feeding into the transformer via upward arrows. Additionally, the source text does not mention upward arrows or the process of feeding input words into the transformer."
+  },
+  {
+    "qa_id": "nyu_dl_week12_q010",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the slide lists exactly four tricks (layer normalization, warmup + inverse-square root schedule, careful initialization, label smoothing), and the lecturer's justification for warmup (transformers 'really really need this to work,' linearly warming up from zero over several thousand steps, while other settings also use it but transformers are particularly dependent) is directly supported by chunks 057 and 058."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 starts at 1995s and Hop 2 starts at 2030s; the gap between hops is |2030 - 1995| = 35 seconds, which is well below the required 70-second minimum, making this effectively single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as multi-hop with two cited chunks, and both chunks contain [frame caption: ...] markers; however, since the spans are non-adjacent by claim, the type requirement for multi-hop (\u22652 non-adjacent spans) is nominally met, though the temporal gap issue is addressed in Criterion 2."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only 35 seconds (1995s to 2030s), below the required 70-second minimum, meaning the two hops are too close to constitute a genuine multi-hop question.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week12_q011",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the chunk text: the four steps of backtranslation (train reverse model using bitext, translate monolingual English to German, train forward model on back-translated data) are confirmed by the slide captions and transcript; the explanation that noisy German paired with clean English may help regularize the model and shouldn't hurt performance on clean German input is directly stated in chunk_112."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (3990\u20134060s) aligns with chunk_111 and hop 2 (4080\u20134145s) aligns with chunk_112; the inter-hop gap is |3990 - 4080| = 90 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is correctly typed as multi-hop: it requires information from two non-adjacent spans (chunk_111 for the process steps and chunk_112 for the quality argument), and the 90-second gap confirms they are non-adjacent. No visual-only evidence is required, so multi-hop (not multi-hop-visual) is appropriate even though frame captions are present."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text describes the backtranslation process, including training a reverse model with bitext, using it to translate monolingual English to German, and training a forward model with this data. It also states that the quality of the reverse model is not critical, as noisy German paired with clean English can help regularize the model."
+  },
+  {
+    "qa_id": "nyu_dl_week12_q012",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims BERT uses 'a single unified transformer that processes all words simultaneously with full bidirectional attention' and that 'every layer of the transformer can integrate information from both directions simultaneously.' While the source chunks mention BERT involves a 'Huge Transformer' (from frame caption), they do not explicitly describe BERT's mechanism of full bidirectional attention or deep bidirectional interactions \u2014 the chunks only describe ELMo's limitations and briefly introduce BERT as 'basically a fillable blanks' model. The specific claims about BERT's architecture (simultaneous processing, full bidirectional attention at every layer) are not supported by the cited chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (4680s\u20134755s) aligns with chunk_133 and hop 2 (4740s\u20134820s) aligns with chunk_134, both within \u00b115s of chunk boundaries. The inter-hop gap |4680 - 4740| = 60s is less than 70s, which would normally fail, but the start times of the spans overlap significantly (4740s is within hop 1's range), suggesting these are adjacent chunks; however the gap between hop start times is only 60s < 70s, which technically fails the multi-hop gap requirement."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The two hops span chunks 133 and 134 which are adjacent (chunk_133 ends around 4755s and chunk_134 starts around 4740s with overlapping content), and the inter-hop gap of 60s is less than the required 70s minimum, making this effectively single-hop content that doesn't genuinely require multi-hop retrieval."
+    },
+    "rejection_reason": "Criterion 1 fails because the answer's claims about BERT's specific mechanism (full bidirectional attention, deep interactions at every layer) are not supported by the cited chunks. Criterion 2/3 fail because the inter-hop temporal gap (60s) is below the 70s minimum required for multi-hop questions, and the two chunks are essentially adjacent/overlapping content.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week12_q013",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the chunk: chain rule factorization, the specific formula p(x_0,...,x_n) = p(x_0)*p(x_1|x_0)*p(x_2|x_1,x_0), the description as 'exact characterization that costs nothing,' and the conversion to classification problems of predicting the next word given preceding text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span 295.0s\u2013370.0s aligns with chunk_009 (a 45-second window); the span covers approximately 75 seconds which is plausible for a chunk boundary region, and there is only one hop so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question_type is 'text' (requiring no frame caption), but the cited source chunk (nyu_dl_week12_chunk_009) contains multiple [frame caption: ...] markers. The type should be 'visual' since there is exactly 1 span and the chunk contains frame captions. However, the question itself does not require visual evidence to answer \u2014 the spoken transcript alone supports the answer \u2014 so classifying it as 'text' is inaccurate given the presence of frame captions in the only cited chunk."
+    },
+    "rejection_reason": "Criterion 3 fails: the question_type is declared as 'text' but the sole cited source chunk contains [frame caption: ...] markers, making 'visual' the appropriate type for a single-span question with visual content in the cited chunk.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week12_q014",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: 512 token context window is 'fairly affordable', some models handle 'a few thousand tokens', self-attention is quadratic causing superlinear growth, and a vanilla transformer can't model a 50,000 word book \u2014 all explicitly stated in the chunk text and slide captions."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (2385.0s\u20132460.0s) aligns with chunk_066, which covers a 45-second window; the span is 75 seconds wide but starts at 2385s, consistent with the chunk boundary range. Only one hop is present, so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question_type is 'text' but the cited source chunk contains multiple [frame caption: ...] markers with relevant visual content (slide listing 'Self attention is quadratic' as a bullet point). The question could be partially answered from the frame captions, suggesting 'visual' would be more accurate; however, the type 'text' requires no frame caption involvement, yet the chunk is heavily visual. More critically, the question type 'text' is defined as requiring exactly 1 span with no frame caption required \u2014 the span count is fine, but the chunk contains frame captions that contribute to the answer, making 'visual' the more appropriate type."
+    },
+    "rejection_reason": "Criterion 3 failed: the question_type is declared as 'text' but the sole cited chunk contains multiple [frame caption: ...] markers that directly support the answer (the slide explicitly lists 'Self attention is quadratic' as a bullet point), making 'visual' the appropriate type.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week12_q015",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, and there is no evidence in any chunk that contains the specific BLEU score for the Transformer model on the English-to-French benchmark from the 2017 paper or any comparison to previous models."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

@@ -1,0 +1,497 @@
+[
+  {
+    "qa_id": "mit_6046_lec10_q016",
+    "video_id": "mit_6046_lec10",
+    "question": "According to the blackboard shown in the lecture, what are the four main topics listed under Dynamic Programming, and how does the DP notion of 'recursively defining the value of an optimal solution' relate to the memoization technique described later?",
+    "answer": "The blackboard lists four topics: Longest palindromic sequence, Optimal Binary Search Trees, and Alternating coin game under Dynamic Programming. The DP notion of recursively defining the value of an optimal solution based on optimal solutions of subproblems directly enables memoization, because once you write the recurrence relating the optimal value of a bigger problem to optimal values of sub-problems, you can cache those sub-problem solutions in a memo table to avoid recomputing them, giving an efficient algorithm.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 60.0,
+        "end": 115.0,
+        "hop": 1,
+        "description": "Frame caption showing blackboard with Dynamic Programming topics and DP Notions listed"
+      },
+      {
+        "start": 355.0,
+        "end": 400.0,
+        "hop": 2,
+        "description": "Explanation that memoization avoids repeating sub-problem solutions and gives efficient algorithm"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec10_chunk_001",
+      "mit_6046_lec10_chunk_005"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "dynamic programming",
+      "memoization",
+      "optimal substructure",
+      "recurrence relation"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6046_lec10_q017",
+    "video_id": "mit_6046_lec10",
+    "question": "The frame caption for the longest palindromic sequence section shows a blackboard with the function definition 'def L(i, j)'. Based on that visual and the lecturer's explanation of the case when x[i] equals x[j] and i+1 equals j, what value is returned and why?",
+    "answer": "When x[i] equals x[j] and i+1 equals j, the function returns 2, because at that point the two end-point letters are equal and adjacent, meaning they themselves form a palindrome of length two with no interior letters to evaluate.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 840.0,
+        "end": 890.0,
+        "hop": 1,
+        "description": "Frame caption showing 'def L(i, j): if i == j: return 1; if x[i] == x[j]: return 2'"
+      },
+      {
+        "start": 1440.0,
+        "end": 1490.0,
+        "hop": 2,
+        "description": "Lecturer explains that when i+1 equals j and x[i] equals x[j], return 2 because those two equal letters form the palindrome"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec10_chunk_023",
+      "mit_6046_lec10_chunk_024"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "longest palindromic subsequence",
+      "base case",
+      "dynamic programming recurrence",
+      "L(i,j)"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6046_lec10_q018",
+    "video_id": "mit_6046_lec10",
+    "question": "The frame caption in chunk 27 shows the complete recurrence 'else: return max(L(i+1, j), L(i, j-1))'. Connecting this to the complexity analysis discussed later, why does simply adding a cache array transform the algorithm from exponential to Theta(n^2)?",
+    "answer": "The recurrence 'else: return max(L(i+1, j), L(i, j-1))' without caching causes exponential complexity because sub-problems are recomputed repeatedly, following a recurrence T(n) = 2T(n-1) giving 2^(n-1). Adding a 2D cache array so that each L(i,j) lookup is O(1) means each of the Theta(n^2) distinct sub-problems is solved only once, and since computing each sub-problem given solved smaller ones takes Theta(1) time, the total complexity becomes Theta(n^2).",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 975.0,
+        "end": 1035.0,
+        "hop": 1,
+        "description": "Frame caption showing complete L(i,j) recurrence with max(L(i+1,j), L(i,j-1)) in the else branch"
+      },
+      {
+        "start": 1110.0,
+        "end": 1165.0,
+        "hop": 2,
+        "description": "Lecturer explains T(n)=2T(n-1) giving 2^(n-1) exponential without cache, and that a single cache line fixes it"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec10_chunk_027",
+      "mit_6046_lec10_chunk_031"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "memoization",
+      "exponential to polynomial",
+      "cache",
+      "Theta(n^2) complexity"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6046_lec10_q019",
+    "video_id": "mit_6046_lec10",
+    "question": "A frame caption in the optimal BST section shows the formula '\u03a3 wi (depth(T(Ki)) + 1)'. How does the lecturer's concrete n=2 example with cost functions W1 + 2W2 and 2W1 + W2 illustrate why depth is added one in this formula?",
+    "answer": "The formula adds one to the depth because the root has depth zero, so its contribution would be zero without the addition, which would make the root free regardless of weight. In the n=2 example, the root node at depth 0 gets multiplied by (0+1)=1, and the child at depth 1 gets multiplied by (1+1)=2, producing W1 + 2W2 for one tree configuration and 2W1 + W2 for the other, directly demonstrating the plus-one convention.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1570.0,
+        "end": 1620.0,
+        "hop": 1,
+        "description": "Frame caption showing formula: BST T that minimizes \u03a3 wi (depth(T(Ki)) + 1)"
+      },
+      {
+        "start": 1890.0,
+        "end": 1940.0,
+        "hop": 2,
+        "description": "Lecturer explains the n=2 example: root at depth 0 multiplied by 1, child at depth 1 multiplied by 2, giving W1+2W2 and 2W1+W2"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec10_chunk_046",
+      "mit_6046_lec10_chunk_054"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "optimal BST",
+      "depth",
+      "cost function",
+      "search probability"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6046_lec10_q020",
+    "video_id": "mit_6046_lec10",
+    "question": "The frame caption showing the greedy solution diagram depicts a tree with root Kr and subtrees for Ki to Kr-1 and Kr+1 to Kj. Based on the Nick Davis counter-example weights shown on the blackboard (w1=1, w2=10, w3=8, w4=9), what cost does the greedy algorithm produce and what is the optimal cost?",
+    "answer": "The greedy algorithm picks node 2 as root (highest weight w2=10), placing node 1 on the left and nodes 4 and 3 on the right in that order, yielding a cost of 54. The optimal tree places node 3 as root and achieves a cost of 1\u00d73 + 10\u00d72 + 8\u00d71 + 9\u00d72 = 49, which is less than the greedy result of 54.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2520.0,
+        "end": 2570.0,
+        "hop": 1,
+        "description": "Frame caption showing greedy solution diagram with Kr as root and two subtrees labeled Ki-Kr-1 and Kr+1-Kj"
+      },
+      {
+        "start": 2590.0,
+        "end": 2640.0,
+        "hop": 2,
+        "description": "Lecturer states greedy gives cost 54 with w2=10 as root, and optimal with node 3 as root gives cost 49"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec10_chunk_067",
+      "mit_6046_lec10_chunk_074"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "greedy algorithm failure",
+      "optimal BST",
+      "counter-example",
+      "cost computation"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6046_lec10_q021",
+    "video_id": "mit_6046_lec10",
+    "question": "A frame caption shows the optimal BST recurrence 'e(i,j) = min(e(i,r-1) + e(r+1,j) + W(i,j))'. Why is W(i,j), the sum of all weights from i to j, added regardless of which root r is chosen, and how does this relate to the depth increment when sub-problems are one level deeper?",
+    "answer": "W(i,j) is added because every node in the sub-problem at level e(i,j) is one level deeper in the sub-problems e(i,r-1) and e(r+1,j). Since depth increases by one for all nodes when they become sub-problems of the current root, each node's weight gets counted one additional time, which equals adding the sum of all weights W(i,j). This term does not depend on the choice of r, so it can be factored outside the minimization over r.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3120.0,
+        "end": 3175.0,
+        "hop": 1,
+        "description": "Frame caption showing e(i,j) = min(e(i,r-1) + e(r+1,j) + W(i,j)) with 'Sum of all weights from i to j'"
+      },
+      {
+        "start": 3220.0,
+        "end": 3265.0,
+        "hop": 2,
+        "description": "Lecturer explains weights appear multiple times due to depth recursion and W(i,j) accounts for the extra level"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec10_chunk_090",
+      "mit_6046_lec10_chunk_092"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "optimal BST recurrence",
+      "W(i,j)",
+      "depth increment",
+      "weight summation"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6046_lec10_q022",
+    "video_id": "mit_6046_lec10",
+    "question": "The frame caption for the alternating coin game section shows 'Row of n coins of values V1, V2, ..., Vn, n even' and the game rules. Based on the actual game played with values 4, 42, 39, 19, 25, 6, which player won and by what score?",
+    "answer": "Tessa won the game. Tessa's total was 4 + 39 + 25 = 68, while Josiah's total was 42 + 19 + 6 = 67, making Tessa the winner by one point and earning the blue frisbee.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3570.0,
+        "end": 3620.0,
+        "hop": 1,
+        "description": "Frame caption showing the row of coins 4, 42, 39, 19, 25, 6 and game rules about selecting first or last coin"
+      },
+      {
+        "start": 3655.0,
+        "end": 3700.0,
+        "hop": 2,
+        "description": "Lecturer tallies scores: 4+39+25=68 for Tessa and 42+19+6=67 for Josiah, Tessa wins"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec10_chunk_100",
+      "mit_6046_lec10_chunk_101"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "alternating coin game",
+      "game play",
+      "score calculation",
+      "first player"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6046_lec10_q023",
+    "video_id": "mit_6046_lec10",
+    "question": "What does the frame caption in chunk 19 identify as the strategy variable L(i,j) for the longest palindromic subsequence problem?",
+    "answer": "The frame caption identifies L(i,j) as the length of the longest palindromic subsequence in the substring X[i..j], where i is less than or equal to j.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 665.0,
+        "end": 710.0,
+        "hop": 1,
+        "description": "Frame caption reads: Strategy L(i,j): length of local pal. subsequence in Di, with notation x[i]j, i<=j"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec10_chunk_019"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "L(i,j)",
+      "longest palindromic subsequence",
+      "strategy definition"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6046_lec10_q024",
+    "video_id": "mit_6046_lec10",
+    "question": "What text does the frame caption in chunk 62 show written on the blackboard regarding the greedy solution approach for optimal BSTs?",
+    "answer": "The frame caption shows the text 'Greedy Solution' and 'Pick K in some greedy fashion' written in white chalk on the blackboard, with a circle around the letter K with subscript r (Kr).",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 2220.0,
+        "end": 2280.0,
+        "hop": 1,
+        "description": "Frame caption shows blackboard text: 'Greedy Solution', 'Pick K in some greedy fashion', with Kr circled"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec10_chunk_062"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "greedy solution",
+      "optimal BST",
+      "root selection",
+      "Kr"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6046_lec10_q025",
+    "video_id": "mit_6046_lec10",
+    "question": "How does the lecturer define the sub-problem e(i,j) for the optimal BST problem, and how does this definition connect to the original problem e(1,n)?",
+    "answer": "The lecturer defines e(i,j) as the cost of the optimal BST on keys Ki through Kj. The original problem is e(1,n), representing the cost of the optimal BST over all n keys. When a root Kr is chosen, the problem immediately splits into e(i, r-1) for the left subtree and e(r+1, j) for the right subtree, so the original problem e(1,n) is decomposed recursively into these smaller sub-problems.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2305.0,
+        "end": 2360.0,
+        "hop": 1,
+        "description": "Lecturer defines e(i,j) as cost of optimal BST on Ki to Kj"
+      },
+      {
+        "start": 2395.0,
+        "end": 2450.0,
+        "hop": 2,
+        "description": "Lecturer states original problem is e(1,n) and choosing root Kr splits into e(i,r-1) and e(r+1,j)"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec10_chunk_064",
+      "mit_6046_lec10_chunk_065"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "e(i,j)",
+      "optimal BST sub-problem",
+      "recursive decomposition",
+      "root choice"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6046_lec10_q026",
+    "video_id": "mit_6046_lec10",
+    "question": "What key insight does the lecturer offer about why DP differs from the greedy algorithm for optimal BSTs, and what is the DP strategy when the correct root is unknown?",
+    "answer": "The lecturer explains that greedy picks only one root based on a heuristic, while DP tries every possible root node as a guess. When you do not know what to do in DP, you guess all possible outcomes. Since there are a linear number of possible root choices, this guessing keeps the algorithm polynomial in time, and DP picks the best result across all those guesses.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2700.0,
+        "end": 2760.0,
+        "hop": 1,
+        "description": "Lecturer says DP differs from greedy because it tries each of those guesses and picks the best one"
+      },
+      {
+        "start": 2760.0,
+        "end": 2820.0,
+        "hop": 2,
+        "description": "Lecturer explains: when you don't know what to do in DP, guess all outcomes; linear number of guesses keeps it polynomial"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec10_chunk_078",
+      "mit_6046_lec10_chunk_077"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "DP vs greedy",
+      "guessing strategy",
+      "polynomial time",
+      "root selection"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6046_lec10_q027",
+    "video_id": "mit_6046_lec10",
+    "question": "In the alternating coin game, what is the first-player advantage described by the lecturer, and what simple computation does the first player perform to decide which parity of coins to collect?",
+    "answer": "The first player is guaranteed to not lose regardless of the coin values. The first player computes the sum of coins at odd positions (V1 + V3 + ... + V(n-1)) and the sum at even positions (V2 + V4 + ... + Vn), then chooses whichever parity gives the larger total. Because n is even, the first player can always force themselves onto either all odd-indexed or all even-indexed positions regardless of what the opponent does.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3720.0,
+        "end": 3780.0,
+        "hop": 1,
+        "description": "Lecturer states the first player is guaranteed not to lose and can always secure odd or even positions"
+      },
+      {
+        "start": 3780.0,
+        "end": 3840.0,
+        "hop": 2,
+        "description": "Lecturer explains first player computes V1+V3+...+Vn-1 and compares with V2+V4+...+Vn and picks the larger"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec10_chunk_103",
+      "mit_6046_lec10_chunk_106"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "alternating coin game",
+      "first player advantage",
+      "parity strategy",
+      "non-DP solution"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6046_lec10_q028",
+    "video_id": "mit_6046_lec10",
+    "question": "What specific word did the lecture audience identify as the longest palindromic subsequence within the word 'underqualified', and how long is it?",
+    "answer": "The audience identified 'deified' as the longest palindromic subsequence within 'underqualified'. The word 'deified' has a length of seven letters and is itself a palindrome, meaning it reads the same forwards and backwards.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 525.0,
+        "end": 575.0,
+        "hop": 1,
+        "description": "Lecturer confirms 'deified' as the answer shouted out by the audience for the longest palindrome in 'underqualified'"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec10_chunk_015"
+    ],
+    "question_type": "text",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "palindrome",
+      "underqualified",
+      "deified",
+      "longest palindromic subsequence"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6046_lec10_q029",
+    "video_id": "mit_6046_lec10",
+    "question": "According to the lecturer, what is the base case for the alternating coin game DP when only a single coin Vi remains, and why is this base case needed even though the first player only ever sees an even number of coins?",
+    "answer": "When only a single coin Vi remains, v(i,i) equals Vi, because the only option is to pick that coin. This base case is needed even though the first player always sees an even number of coins, because the opponent's moves must be modeled, and the opponent may face a single coin. Without characterizing what happens with one coin, it is impossible to model the opponent's behavior correctly in the DP.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 4025.0,
+        "end": 4080.0,
+        "hop": 1,
+        "description": "Lecturer explains v(i,i)=Vi as base case and clarifies it is needed to model the opponent even though first player sees even coins"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6046_lec10_chunk_115"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "alternating coin game",
+      "base case",
+      "opponent modeling",
+      "v(i,i)"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6046_lec10_q030",
+    "video_id": "mit_6046_lec10",
+    "question": "What is the exact expected search cost formula the lecturer uses to motivate why someone would want an optimal BST for a dictionary application, and how does the lecturer suggest thinking about the weights wi in that context?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "medium",
+    "answerable": false,
+    "key_concepts": [
+      "optimal BST",
+      "expected search cost",
+      "dictionary application",
+      "weights"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  }
+]

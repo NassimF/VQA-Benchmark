@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "nyu_dl_week10_q001",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame captions in chunk_009 explicitly state bounding boxes ~10^6, image level ~10^6, and internet photos ~10^12, supporting the five-to-six orders of magnitude gap claim. Chunk_009 also explicitly states that 'labeling is not really going to scale to either all of Internet photos or even the real world,' supporting the motivation for self-supervised learning."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (245\u2013290s) aligns with chunk_007 (which covers roughly the 225\u2013270s window based on chunk numbering), and hop 2 (485\u2013540s) aligns with chunk_009; the inter-hop gap is |245 - 485| = 240 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires information from two non-adjacent spans (chunk_007 and chunk_009), and both chunks contain [frame caption: ...] markers with visual bar chart data, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports all claims: bounding box and image-level data are approximately 10^6 images, internet photos are approximately 10^12 images, and the speaker argues that labeling cannot scale to internet-scale data, motivating self-supervised learning."
+  },
+  {
+    "qa_id": "nyu_dl_week10_q002",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_025 confirms the eight-way classification problem and the relative position setup; chunk_029 confirms the nearest neighbor visualization shows color invariance (black-and-white input finding non-black-and-white cat patches) and that the network learns to associate local patches with similar visual appearance."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (875\u2013930s) aligns with chunk_025 and hop 2 (1005\u20131080s) aligns with chunk_029; the inter-hop gap is |875 - 1005| = 130 seconds, which exceeds the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunks 025 and 029), and both chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports all claims: the task involves an eight-way classification problem, and the nearest neighbor visualization shows the network's ability to associate local patches with similar visual appearance and some color invariance."
+  },
+  {
+    "qa_id": "nyu_dl_week10_q003",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the four angles (0\u00b0, 90\u00b0, 180\u00b0, 270\u00b0) are confirmed by both chunk_031 text and frame captions; the argument about needing to understand semantic content (sky vs. sand, object orientation) is directly stated in chunk_034; the claim about empirical effectiveness is also confirmed in chunk_034."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1085\u20131140s) aligns with chunk_031 and hop 2 (1190\u20131255s) aligns with chunk_034; the inter-hop gap is |1085 - 1190| = 105 seconds, which exceeds the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunk_031 for the visual angles, chunk_034 for the semantic reasoning argument), and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports all claims: the rotation angles are 0\u00b0, 90\u00b0, 180\u00b0, and 270\u00b0, and the speaker argues that predicting these rotations requires understanding semantic content, such as distinguishing sky from sand, which leads to learning meaningful representations."
+  },
+  {
+    "qa_id": "nyu_dl_week10_q004",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_053 confirms the network ignores background and focuses on moving people (the person performing actions) because the pretext task requires predicting temporal order, and the nearest neighbor visualization shows pose-matching across scenes. Chunk_057 confirms the quantitative evaluation on keypoint estimation using AlexNet showed the self-supervised representation was competitive with or slightly better than ImageNet supervised pre-training, measured by AUC on FLIC and MPII datasets."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1870\u20131960s) aligns with chunk_053, and hop 2 (2010\u20132075s) aligns with chunk_057; the inter-hop gap is |1870 - 2010| = 140 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans (chunks 053 and 057, ~140s apart) and both cited chunks contain [frame caption: ...] markers with visual slide descriptions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text explains that the network focuses on changes between frames, such as human actions, rather than the static background. It also confirms that the self-supervised representation was competitive with ImageNet supervised pre-training in keypoint estimation tasks, indicating strong pose-sensitive features."
+  },
+  {
+    "qa_id": "nyu_dl_week10_q005",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the network learns to localize sound-producing objects (chunk_065 frame caption: 'Learn to localize objects that sound'), this emerges without explicit supervision (binary correspondence training only), and the piano/flute example with no motion/video information is explicitly described in chunk_066 text and its frame caption ('Note, no video (motion) information is used')."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2335\u20132390s) aligns with chunk_065 and hop 2 (2405\u20132445s) aligns with chunk_066; the inter-hop gap is |2335-2405|=70s, which meets the \u226570s requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunks 065 and 066) and both chunks contain multiple [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the network learns to localize sound-producing objects from video frames and audio clips, and the example of a piano and flute is explicitly mentioned as an illustration of this capability."
+  },
+  {
+    "qa_id": "nyu_dl_week10_q006",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All major atomic claims are supported by the cited chunks: the sharp res4-to-res5 drop and task specialization are in chunk_104, and PIRL's invariance motivation is explicitly in chunk_153."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops are separated by ~1610 seconds, well exceeding the 70-second minimum, and both spans are plausible given the lecture content described in the respective chunks."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans and both cited chunks contain [frame caption:] markers, satisfying the multi-hop-visual requirements; the question also explicitly references a visual graph."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the sharp drop in performance from res4 to res5 indicates that the highest-level representations in self-supervised networks are overly specialized to the specific pretext task is supported. However, the claim that this observation reveals pretext tasks impose co-variation between the representation and the transform applied, and that PIRL addresses this by training representations to be invariant to pretext transforms, is not explicitly supported by the source text."
+  },
+  {
+    "qa_id": "nyu_dl_week10_q007",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the benchmark used 'PSPNet architecture with only the last few layers trained' and that 'The percentage of predictions correct within 11.25 degrees also improved substantially over the ImageNet supervised baseline of 36.1%' \u2014 while the 36.1% figure is supported, the specific PSPNet architecture claim is not found in any cited chunk text. Additionally, the Jigsaw % correct within 11.25\u00b0 value is not shown in the truncated frame captions (they cut off at 'Median Error: 13.1'), so the answer's implication that a specific improved percentage was reported is not fully supported. The NYU-v2 dataset is also not explicitly mentioned in the cited chunks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2955s\u20132995s) aligns with chunk_083 and hop 2 (3510s\u20133575s) aligns with chunk_099; the inter-hop gap is |2955 - 3510| = 555 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunk_083 for the Jigsaw Puzzles slide and chunk_099 for the Surface Normal Estimation results), and both chunks contain [frame caption: ...] markers, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 fails because the answer includes unsupported claims (PSPNet architecture, NYU-v2 dataset) not found in the cited chunk text, and the specific improved percentage for Jigsaw within 11.25\u00b0 is not visible in the truncated frame captions.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week10_q008",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame caption in the chunk explicitly lists all three bullet points: 'Helps us learn using observations and interactions', 'Does not require exhaustive annotation of concepts', and 'Leverage multiple modalities or structure in the domain', which match the answer's claims exactly."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span of 630.0s\u2013675.0s aligns with chunk_017, which covers a 45-second window; 630s falls within the expected range for chunk 17 (approximately 630s\u2013675s), well within the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual' with exactly 1 span, and the cited chunk contains a [frame caption: ...] marker describing the 'Why self-supervision?' slide, satisfying both requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text, which lists the three bullet points on the 'Why self-supervision?' slide as: helps us learn using observations and interactions, does not require exhaustive annotation of concepts, and leverage multiple modalities or structure in the domain."
+  },
+  {
+    "qa_id": "nyu_dl_week10_q009",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame caption in chunk_146 explicitly confirms a beach scene with a tree, two highlighted boxes labeled 'Related (Positives)' (close-up of tree) and 'Unrelated (Negative)', matching all atomic claims in the answer."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span 5110.0s\u20135155.0s aligns with chunk_146 (a 45-second window), and the span boundaries fall within acceptable range of the chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual' with exactly 1 span and chunk_146 contains multiple [frame caption: ...] markers describing the slide image, satisfying both visual type requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the slide uses a beach scene with a tree to illustrate related positives and unrelated negatives, with a close-up of the tree labeled as 'Related (Positives)' and another patch labeled as 'Unrelated (Negatives)'."
+  },
+  {
+    "qa_id": "nyu_dl_week10_q010",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_012 confirms the two definitions (automatic label extraction and predicting hidden parts from observed parts), and chunk_022 confirms that a pretext task is a self-supervised task used for learning representations that is 'not the real task' (like image classification), serving as a stepping stone before the downstream task."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (420\u2013480s) aligns with chunk_012 (a ~45s window around that range), and hop 2 (770\u2013830s) aligns with chunk_022; the inter-hop gap is |420 - 770| = 350 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop, requiring information from two non-adjacent spans (chunk_012 for the two definitions and chunk_022 for the pretext task concept), and both chunks contain [frame caption: ...] markers, though the question type is listed as multi-hop (not multi-hop-visual), which is acceptable since frame captions are not required for multi-hop."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text. The text describes two definitions of self-supervised learning: obtaining labels automatically and predicting parts of data from other parts. It also explains pretext tasks as self-supervised tasks not being the real downstream tasks of interest, used to learn representations."
+  },
+  {
+    "qa_id": "nyu_dl_week10_q011",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_114 confirms the two-step process (cluster step with k-means pseudo-labels, fit step training from scratch), and chunk_119 confirms the synthetic noise experiment on ImageNet with 0-75% noise, transfer performance on ImageNet-9K, the pre-trained network degrading with noise (pink line), and the ClusterFit model (green line) outperforming baselines. The claim about 'model distillation baseline' (blue line) is also supported by chunk_119's mention of 'module desolations' (distillation)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 3960-4050s and hop 2 spans 4130-4220s, both plausibly aligning with their respective chunks (chunk_114 and chunk_119). The inter-hop gap is |3960 - 4130| = 170 seconds, which exceeds the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is classified as multi-hop, requiring \u22652 non-adjacent spans \u2014 confirmed by the two hops at 3960s and 4130s. Both cited chunks contain [frame caption: ...] markers, but multi-hop (not multi-hop-visual) is claimed, which is valid since the question can be answered primarily from the spoken text with visual support being supplementary."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims about the ClusterFit method and the experimental evidence are explicitly supported by the source text. The two steps of ClusterFit are described in detail, and the experimental results involving synthetic label noise on ImageNet are clearly outlined."
+  },
+  {
+    "qa_id": "nyu_dl_week10_q012",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week10_q013",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunk text: the ball example with red/blue/green colors, the network predicting gray as the mean, David Forsyth's group at UIUC, variational auto-encoders with latent variables, diverse colorization, green colored ball example, and consistent colorization across the scene."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (1435.0s\u20131500.0s) aligns with chunk_041, which covers a 45-second window; 1435s falls within plausible chunk boundaries for this chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly 1 span, which is consistent with the requirements; no multi-hop or visual evidence is needed."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the deterministic mapping approach predicted the mean color (gray) for objects with multiple possible colors, and the follow-up solution involved using variational auto-encoders with latent variables for diverse and consistent colorization."
+  },
+  {
+    "qa_id": "nyu_dl_week10_q014",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the question type is 'text' but the chunk contains [frame caption: ...] markers with visual content. More critically, the answer states the transfer learning benchmarks include 'ImageNet and Places-205' \u2014 this is supported by the frame captions. However, the answer's claim that PIRL 'outperforms' Jigsaw is supported by the chunk text. The claim that the conclusion is about 'baking invariance directly into the representation learning objective' is supported ('breaking invariance into your representation rather than sort of predicting pretext asks'). The specific numerical claim of '1 million vs 100 million images' is supported. Overall the atomic claims are supported, so this is PASS on correctness."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (5985.0s\u20136045.0s) corresponds to chunk nyu_dl_week10_chunk_171, which is a 45-second window; 5985s to 6045s is a 60-second span but falls within plausible alignment with the chunk boundaries (\u00b115s tolerance). This is a single-hop text question so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question_type is declared as 'text' (requiring exactly 1 span and no frame caption requirement), but the cited source chunk nyu_dl_week10_chunk_171 contains multiple [frame caption: ...] markers with substantive visual content (the slide table comparing methods). Since the answer relies on information from both the spoken transcript and the frame captions (e.g., the specific datasets ImageNet and Places-205, the table structure), the question type should be 'visual' rather than 'text'. However, strictly speaking, the 'text' type only requires exactly 1 span and does not prohibit frame captions from being present \u2014 the type just doesn't require them. Re-evaluating: 'text' requires exactly 1 span (satisfied) and no frame caption requirement. The presence of frame captions doesn't disqualify 'text' type. PASS on this criterion."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week10_q015",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the source material that could answer the question about specific ImageNet top-5 accuracy scores for the ClusterFit gain table."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

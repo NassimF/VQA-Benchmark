@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_18404_lec05_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the slide title 'Equivalence of CFGs and PDAs' is confirmed by frame captions; both corollaries (every regular language is a CFL; if A is CFL and B is regular then A\u2229B is CFL) appear explicitly in the frame captions and chunk text; the explanation that a finite automaton is a pushdown automaton that 'just happens not to use its stack' is verbatim in chunk_017."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 9.0s\u2013605.0s and hop 2 spans 597.0s\u2013640.0s; the inter-hop gap is |9.0 - 597.0| = 588s which is \u2265 70s, so that condition passes. However, chunk_016 covers roughly 9s\u2013(9+45)=54s or similar 45-second windows, yet hop 1 is claimed to span 9.0s\u2013605.0s \u2014 a nearly 10-minute span that encompasses both chunks, making the span boundaries implausible for a 45-second chunk window alignment. The hop 1 end time of 605s is far outside the \u00b115s tolerance of chunk_016's boundary."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it references two non-adjacent spans (chunk_016 and chunk_017) and both chunks contain multiple [frame caption: ...] markers with visual slide content, satisfying both conditions."
+    },
+    "rejection_reason": "Criterion 2 fails: hop 1's ground_truth_span (9.0s\u2013605.0s) is implausibly wide for a 45-second chunk window and does not align within \u00b115s of chunk_016's boundaries.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18404_lec05_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_043 confirms the instructor calls it the 'cutting and pasting argument'; chunks_053 and _054 confirm condition (2) is guaranteed by requiring the smallest possible parse tree, since if v and y were both empty, the parse tree could be shortened, contradicting minimality."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1485\u20131530s) aligns with chunk_043 (which covers ~1485\u20131530s range), and hop 2 (1830\u20131900s) aligns with chunks_053/054; the inter-hop gap is |1485 - 1830| = 345 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (hops at ~1485s and ~1830s) and all cited chunks contain [frame caption: ...] markers, satisfying both conditions for multi-hop-visual."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claim that the instructor calls the argument for condition (1) the 'cutting and pasting argument.' It also explains that condition (2) is guaranteed by requiring the smallest possible parse tree, ensuring vy \u2260 \u03b5, as stated in the answer."
+  },
+  {
+    "qa_id": "mit_18404_lec05_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are explicitly supported by the cited chunks: step 1 description matches the frame caption in chunk_092, and the acceptance condition (crossing off last a, b, c on same pass implies equal counts) is directly stated in chunk_094."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops (3210-3265s and 3352-3415s) are plausibly aligned with chunks 092 and 094 respectively, and the inter-hop gap of ~142 seconds exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop-visual: it requires two non-adjacent spans (gap ~142s) and both cited chunks contain [frame caption: ...] markers providing visual evidence."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports both claims: Step 1 is to scan right until the blank symbol while checking if the input is in a*b*c* and reject if not, and the acceptance condition is when the last a, b, and c are crossed off on the same pass, indicating equal counts."
+  },
+  {
+    "qa_id": "mit_18404_lec05_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_107 confirms \u03b4(q,a)=(r,b,R) means move to state r, write b, move head right; chunk_112 confirms the nondeterministic modification is option B (power set), meaning several different ways to proceed."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (3750\u20133815s) aligns with chunk_107 and hop 2 (3905\u20133965s) aligns with chunk_112; the inter-hop gap is |3750-3905|=155s, well above the 70s threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (155s apart) and both cited chunks contain [frame caption: ...] markers with visual slide content, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim that \u03b4(q, a) = (r, b, R) means the machine moves to state r, writes b, and moves right is supported by the source text. The claim about modifying the codomain to a power set for nondeterminism is also supported by the source text."
+  },
+  {
+    "qa_id": "mit_18404_lec05_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18404_lec05_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18404_lec05_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_045 confirms E \u2192 E + T as the example rule with right-hand side length 3 (making b=3), and chunks_048/049 confirm p = b^|V| + 1 where |V| is the number of variables, with the reasoning that if |s| \u2265 p > b^|V| then parse tree height exceeds number of variables forcing a repeated variable."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1575\u20131620s) aligns with chunk_045 (which covers ~1575\u20131620s range), and hop 2 (1680\u20131740s) aligns with chunks_048/049. The inter-hop gap is |1575 - 1680| = 105 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u2265 2 non-adjacent spans (hop 1 at ~1575s and hop 2 at ~1680s) and all cited chunks contain [frame caption: ...] markers referencing the 'Pumping Lemma \u2013 Proof details' slide, satisfying both multi-hop and visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that the instructor uses the grammar rule E \u2192 E + T as an example, which has a right-hand side of length three, making b = 3. It also supports that the instructor sets p to be b^|V| + 1, where |V| is the number of variables in the grammar, to ensure the parse tree height exceeds the number of variables, forcing a repeated variable."
+  },
+  {
+    "qa_id": "mit_18404_lec05_q023",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer (7-tuple (Q, \u03a3, \u0393, \u03b4, q0, qacc, qrej), Q=set of states, \u03a3=input alphabet, \u0393=tape alphabet with \u03a3\u2286\u0393, \u03b4 mapping Q\u00d7\u0393\u2192Q\u00d7\u0393\u00d7{L,R}, q0=start state, qacc=accept state, qrej=reject state) are explicitly supported by the frame captions in the cited chunks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (3630.0s\u20133710.0s) covers an 80-second window; chunk_103 and chunk_104 are adjacent chunks that would fall within this range, and the span boundaries are plausible for a visual question with one span."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual' with exactly 1 span (3630.0s\u20133710.0s) and both cited chunks contain [frame caption: ...] markers referencing the 'TM - Formal Definition' slide, satisfying the visual type requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims about the components of the Turing Machine's 7-tuple are explicitly supported by the source text, including the definitions of Q, \u03a3, \u0393, \u03b4, q0, qacc, and qrej."
+  },
+  {
+    "qa_id": "mit_18404_lec05_q024",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All three atomic claims in the answer are explicitly supported by the frame captions in the cited chunks: (1) Proved the CFL Pumping Lemma as a tool for showing languages are not context free, (2) Defined Turing machines (TMs), and (3) Defined TM deciders (halt on all inputs) \u2014 all appear verbatim in multiple frame captions."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span (4270.0s\u20134335.0s) covers a 65-second window, and the cited chunks (chunk_122 and chunk_123) are adjacent chunks that would cover this time range; the span aligns plausibly with the chunk boundaries. This is a single-hop visual question, so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'visual', which requires exactly 1 span and at least 1 source chunk with a [frame caption: ...] marker. There is one ground_truth_span, and both cited chunks contain multiple [frame caption: ...] markers describing the 'Quick review of today' slide."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are explicitly supported by the source text, which lists the three items covered in Lecture 5 as: (1) Proved the CFL Pumping Lemma as a tool for showing that languages are not context free, (2) Defined Turing machines (TMs), and (3) Defined TM deciders (halt on all inputs)."
+  },
+  {
+    "qa_id": "mit_18404_lec05_q025",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All major atomic claims are supported by the cited chunks: pigeonhole principle for repeated variable (chunk_036), upper/lower R generating vxy and x respectively (chunk_038), and substitution producing uvvxyyz (chunk_040). The i=0 pumping-down claim is a minor inference not explicitly contradicted."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1260s\u20131305s) aligns with chunk_036 and Hop 2 (1395s\u20131450s) aligns with chunk_038/040; the inter-hop gap is 135 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question genuinely requires two non-adjacent spans (135s apart): one for the pigeonhole argument and one for the substitution/pumping mechanism, satisfying the multi-hop requirement."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims that a tall parse tree guarantees a repeated variable due to the finite number of variables, and that having two occurrences of the same variable allows for substitution of subtrees to pump the string, as described in the proof of the CFL Pumping Lemma."
+  },
+  {
+    "qa_id": "mit_18404_lec05_q026",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the cited chunks: closure under union from chunk_021, non-closure under intersection from both chunks, and the De Morgan's law argument from chunk_069."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops are at 760s and 2400s, giving an inter-hop gap of 1640 seconds, well above the 70-second threshold, confirming genuine multi-hop retrieval."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question genuinely requires combining information from two non-adjacent spans (chunk_021 for union closure, chunk_069 for the De Morgan's argument), satisfying the multi-hop requirement."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claims that context-free languages are closed under union but not under intersection, and that De Morgan's laws imply closure under intersection if closure under union and complement are assumed. The key fact that context-free languages are not closed under intersection is also supported by the source text."
+  },
+  {
+    "qa_id": "mit_18404_lec05_q027",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the cited chunks: the bad choice explanation (chunk_072), the cutting strategy for 0^p 1 0^p 1 (chunk_072), and the condition 3 argument for 0^p 1^p 0^p 1^p (chunks_075/076)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops (2580s and 2665s) align with their respective cited chunks, and the inter-hop gap of 85 seconds exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question genuinely requires two non-adjacent spans (gap ~85s) covering distinct reasoning steps, satisfying the multi-hop requirement."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text. The text explains that the string 0^p 1 0^p 1 can be pumped without leaving the language, while 0^p 1^p 0^p 1^p leads to a contradiction due to condition 3 of the pumping lemma, as vxy cannot span two different blocks."
+  },
+  {
+    "qa_id": "mit_18404_lec05_q028",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk text explicitly states that (\u03a3\u03a3\u03a3)* represents all strings whose length is a multiple of three, and that putting a \u03a3 in front gives all strings whose length is one plus a multiple of three \u2014 both atomic claims in the answer are directly supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (210.0s\u2013275.0s) aligns with chunk_006, which as a 45-second window would plausibly cover this range; the span falls within acceptable boundaries for a single-hop text question."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question_type is 'text' (single span, no frame caption required), but the cited chunk contains multiple [frame caption: ...] markers. However, the actual content answering the question comes from the spoken transcript, not the frame captions. More critically, the chunk does contain frame captions, which would make this potentially a 'visual' type \u2014 but since the answer is derived purely from the transcript text and not from any visual content, the 'text' classification is arguably correct. On closer inspection, the question type 'text' requires exactly 1 span and no frame caption requirement \u2014 the presence of frame captions in the chunk doesn't disqualify it as 'text' since the answer doesn't rely on them. PASS on reconsideration."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports both claims: it states that (\u03a3 \u03a3 \u03a3)* is a regular expression for strings whose length is a multiple of three, and that \u03a3(\u03a3\u03a3\u03a3)* represents strings whose length is one plus a multiple of three."
+  },
+  {
+    "qa_id": "mit_18404_lec05_q029",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk explicitly states the machine writes 'a crossed off symbol instead of the symbol that was originally there' and that 'we're going to add these new crosstalk symbols,' directly supporting all atomic claims in the answer about using expanded tape alphabet with crossed-off versions of symbols rather than a special erasing capability."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span 3720.0s\u20133790.0s aligns with chunk_102; chunk windows are 45 seconds wide and the span falls within plausible boundaries for this chunk. Only one hop is present, so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question_type is 'text' (single span, no frame caption required), but the cited chunk contains multiple [frame caption: ...] markers. While the answer is derivable from the spoken content, the chunk includes frame captions, which would make this more appropriately classified as 'visual.' However, the text type requires exactly 1 span and no frame caption requirement \u2014 the presence of frame captions doesn't automatically disqualify 'text' type, but the answer is fully supported by the spoken transcript portion alone. On reflection, 'text' type only requires exactly 1 span and does not prohibit frame captions from being present in the chunk; the type is valid as long as the answer doesn't require visual evidence. The answer is derived from spoken content, so this PASSES."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claim that the Turing machine uses an expanded tape alphabet with 'crossed-off' symbols to implement the crossing off of symbols, rather than adding a special erasing capability."
+  },
+  {
+    "qa_id": "mit_18404_lec05_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the lecture content that could answer the question about a proof that every context-free language is Turing-decidable."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

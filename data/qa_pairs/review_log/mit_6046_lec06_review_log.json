@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6046_lec06_q001",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "While the algorithm name and count of three matrix-vector products are supported, the answer's specific claims about which three products are computed (Br, A(Br), Cr) and the element-by-element comparison are not found in the cited chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two spans (1260-1320s and 1570-1640s) are plausible for their respective chunks, and the inter-hop gap of 310 seconds exceeds the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both source chunks contain [frame caption: ...] markers, and the two spans are non-adjacent with a 310-second gap, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer includes unsupported atomic claims about the specific three matrix-vector products performed (Br, A(Br), Cr) and element-by-element comparison, which are not evidenced in the cited chunks.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec06_q002",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec06_q003",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: (1) one run gives prob[output=YES] \u2264 1/2 when AxB\u2260C is confirmed by frame captions in both chunks; (2) K independent runs drive error probability to 1/2^K is supported by chunk_033 ('probability of error going down to 1/2 raised to K'); (3) runtime remains O(K\u00b7n\u00b2) which is still polynomial is explicitly stated in chunk_033 ('KNN square is still order n square in polynomial time')."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 1840\u20131920s aligns with chunk_031, and hop 2 spans 2040\u20132100s aligns with chunk_033; the inter-hop gap is |1840 - 2040| = 200 seconds, which is well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans (chunks 031 and 033, separated by ~200s) and both cited chunks contain multiple [frame caption: ...] markers showing blackboard content with the probability equations."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the probability of a false positive for one run of the algorithm is less than or equal to one half, and running the algorithm K times reduces the error probability to one divided by two raised to the power K, while maintaining a runtime of order K times n squared."
+  },
+  {
+    "qa_id": "mit_6046_lec06_q004",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: D = AB - C is explicitly shown in frame captions; the hypothesis that D \u2260 0 when AB \u2260 C is stated on the blackboard; the claim that Prob[Dr \u2260 0] \u2265 1/2 is supported by chunk_057; and the connection between Dr \u2260 0 and detecting incorrect multiplication is explicitly stated in chunk_057."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 3300\u20133370s and hop 2 spans 3390\u20133450s; the gap between hop starts is |3300 - 3390| = 90s which meets the \u226570s requirement, but the gap between hop 1 end (3370s) and hop 2 start (3390s) is only 20s, meaning the two hops are essentially adjacent windows (chunk_056 and chunk_057 are consecutive chunks). The inter-hop gap of 90s between starts is borderline, but more critically both hops are covered by consecutive chunks with nearly no separation, making this effectively single-hop retrieval."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question uses \u2265 2 non-adjacent spans and both cited chunks contain [frame caption: ...] markers with blackboard content, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 2 fails: the two hops (3300\u20133370s and 3390\u20133450s) are from consecutive chunks with only a 20-second gap between the end of hop 1 and the start of hop 2, making them effectively a single retrievable window rather than genuinely non-adjacent multi-hop spans.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec06_q005",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk text explicitly states the exit condition: '|L| \u2264 3/4 |A| and |G| \u2264 3/4 |A|' (from frame caption in chunk_124), and the worst-case imbalance of 'one quarter and 3/4' is directly stated in chunk_124 ('you might get one quarter and 3/4 if you're lucky you'll get a half and a half uh but the worst case given uh that you're going to be exiting out of this Loop is one quarter and 3/4'). All atomic claims in the answer are supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 4335\u20134400s and hop 2 spans 4430\u20134500s; the inter-hop gap is |4430 - 4335| = 95 seconds, which exceeds the 70-second minimum. Both spans align plausibly with the cited chunks (chunk_124 and chunk_125 covering adjacent 45-second windows around those timestamps)."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans (hop 1 and hop 2 are 95s apart) and both cited chunks contain [frame caption: ...] markers showing blackboard/whiteboard content with the paranoid quicksort pseudocode. Both conditions for multi-hop-visual are satisfied."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the repeat loop exits when both |L| and |G| are less than or equal to three quarters of |A| is supported. However, the claim that the worst-case imbalance is one quarter of n on one side and three quarters of n on the other side is not explicitly supported by the source text, which only mentions the worst-case imbalance as one quarter and three quarters without specifying 'on one side and the other side.'"
+  },
+  {
+    "qa_id": "mit_6046_lec06_q006",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec06_q007",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec06_q008",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer (course title 'Design and Analysis of Algorithms', course number '6.046', semester 'Spring 2015', instructor 'Srinivas Devadas', Lecture 6, topic 'Randomization: Matrix Multiply, Quicksort') are explicitly supported by the frame captions in the cited chunk."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (0.0s\u201345.0s) aligns with chunk_000 which covers the first 45-second window, well within the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual', requires exactly 1 span, and the cited chunk contains multiple [frame caption: ...] markers providing the visual evidence needed to answer the question."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are explicitly supported by the source text, which confirms the course title, course number, semester, instructor, and lecture focus as described in the answer."
+  },
+  {
+    "qa_id": "mit_6046_lec06_q009",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer incorrectly merges two separate frame captions: the first shows 'Prob[AB \u2260 C] \u2265 1/2' and the second shows 'Prob[ABr \u2260 Cr] > 0', but the answer states 'Prob[ABr \u2260 Cr] \u2265 1/2', which is not explicitly supported by any single frame caption in the chunk."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The ground_truth_span is 3240.0s\u20133310.0s, but chunk_053 would cover approximately 2385s\u20132430s (53\u00d745s), making the span fall far outside the \u00b115s tolerance for the cited chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as visual with exactly 1 span and the cited chunk contains multiple [frame caption: ...] markers, satisfying the visual type requirements."
+    },
+    "rejection_reason": "Criterion 1 fails because the answer conflates two separate frame captions into an unsupported claim; Criterion 2 fails because the ground_truth_span timestamps (~3240s) do not align with chunk_053's expected time window (~2385s\u20132430s).",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec06_q010",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims Atlantic City is 'both probably correct and probably fast' and 'sometimes incorrect and sometimes slow,' but the cited chunks only mention Atlantic City as a student's correct guess without explicitly defining these properties; the chunk text does not support these specific characterizations."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (625-700s) aligns with chunk_010 and Hop 2 (755-835s) aligns with chunk_013; the inter-hop gap of 130 seconds exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is correctly labeled multi-hop as it requires information from two non-adjacent spans (130s apart) covering Monte Carlo and Las Vegas algorithm properties respectively."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer's characterization of Atlantic City algorithms as 'both probably correct and probably fast' and 'sometimes incorrect and sometimes slow' is not explicitly supported by the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec06_q011",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec06_q012",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec06_q013",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer includes unsupported claims: 'billions or trillions' as examples of large n are not mentioned in the chunk, and 'constant amount of temporary space for swapping' is not explicitly stated \u2014 the chunk only says quicksort is 'in place' with 'no auxiliary space... order n'."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "There is exactly one span (3060.0s\u20133140.0s) and the cited chunk content matches the topic discussed, making the span plausible."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one ground_truth_span, which satisfies the text type requirement."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer contains factual claims ('billions or trillions', 'constant amount of temporary space for swapping') not supported by the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec06_q014",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: worst-case is Theta(n^2), caused by sorted/reverse sorted input, one side gets n-1 elements and the other gets 0, the recurrence is T(n) = T(0) + T(n-1) + Theta(n), and the Theta(n) term comes from the partition/divide step comparing every element with the pivot \u2014 all explicitly present in the chunk text and frame captions."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (3660s\u20133760s) corresponds to chunk mit_6046_lec06_chunk_102; assuming chunks are ~45s windows, this span aligns plausibly with the cited chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one ground_truth_span, which is consistent with a single-span text question; no multi-hop or visual requirement is claimed, and the answer is derivable from a single chunk."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the worst-case complexity is Theta n squared, occurring with sorted or reverse sorted input, and the recurrence relation is T(n) = T(0) + T(n-1) + Theta n."
+  },
+  {
+    "qa_id": "mit_6046_lec06_q015",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the source material that could answer the question about a specific CLRS page number for in-place partitioning code."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

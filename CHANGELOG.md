@@ -2,6 +2,10 @@
 
 ## 2026-05-14
 
+- feat: Phase 7.5 span precision audit, update paper limitation (fcd93d5)
+
+## 2026-05-14
+
 - feat: Phase 7.4 build/validate benchmark, 810 final QA pairs (41e9c7a)
 
 ## 2026-05-14

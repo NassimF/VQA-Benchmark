@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_1806_lec06_q001",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame caption in chunk_000 explicitly states 'Column Space (A) = Range (A)' and 'Nullspace of A = Kernel (A)' on the blackboard, supporting the first hop. Chunk_039 explicitly states 'I can solve axal B exactly when the right hand side B is a vector in the column space,' supporting the second hop claim about B needing to be in the column space (a linear combination of columns)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 0.0s\u201345.0s aligning with chunk_000 (a 45-second window starting at 0s). Hop 2 spans 1380.0s\u20131440.0s aligning with chunk_039. The inter-hop gap is |0 - 1380| = 1380 seconds, well above the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u2265 2 non-adjacent spans (0s and 1380s), and both cited chunks contain [frame caption: ...] markers with visual content, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim that 'Column Space (A) = Range (A)' and 'Nullspace of A = Kernel (A)' are introduced as central topics is supported by the text on the blackboard. The explanation that Ax=b can be solved when B is a vector in the column space of A is also explicitly stated in the source text."
+  },
+  {
+    "qa_id": "mit_1806_lec06_q002",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_008 shows the blackboard with 'P and L' as two subspaces (plane and line), and chunk_017 explicitly proves that if V and W are in both S and T, then V+W is in S (since S is a subspace) and in T (since T is a subspace), so V+W is in the intersection. The union failure claim (adding a vector from P and one from L can produce a result outside both) is a reasonable inference from the setup in chunk_008 where the union question is posed, and is consistent with the lecture context."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (480\u2013540s) aligns with chunk_008 (which covers roughly that window), and hop 2 (595\u2013670s) aligns with chunk_017. The inter-hop gap is |480 - 595| = 115 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires information from two non-adjacent chunks (chunk_008 for the visual of P and L, chunk_017 for the proof), and chunk_008 contains multiple [frame caption: ...] markers including one explicitly showing '2 subspaces: P and L' on the blackboard."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims that the intersection of subspaces S and T is a subspace because the sum of vectors in both S and T remains in the intersection. It also supports that the union of subspaces does not form a subspace, as adding vectors from P and L can result in a vector outside both subspaces."
+  },
+  {
+    "qa_id": "mit_1806_lec06_q003",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The atomic claims are supported: chunk_022 confirms the matrix is 4x3 and the column space is a subspace of R^4; chunk_029 confirms the instructor asks whether Ax=b has a solution for every B and implies the answer is no. The reasoning that three columns cannot span all of R^4 and that only special right-hand sides are achievable is consistent with the chunk content, though stated implicitly rather than word-for-word."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (780\u2013840s) aligns with chunk_022 (which covers roughly the 780\u2013825s window), and hop 2 (960\u20131025s) aligns with chunk_029; the inter-hop gap is |780 - 960| = 180 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it references two non-adjacent spans (chunks 022 and 029, ~180s apart) and both cited chunks contain [frame caption: ...] markers with visual blackboard content, satisfying both conditions for multi-hop-visual."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims that the column space of a 4x3 matrix A is a subspace of R^4 and that Ax=b does not have a solution for every B because the column space cannot fill R^4."
+  },
+  {
+    "qa_id": "mit_1806_lec06_q004",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_1806_lec06_q005",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "Chunk 001 supports the blackboard listing 'Vector spaces and Subspaces' and 'Column space of A: Solving' (with Ax=b). Chunk 047 explicitly states the third column 'gives me nothing new, it's dependent' and that 'the column space of this Matrix as a two-dimensional Subspace of R4.' The frame captions in chunk 047 show the matrix A with columns consistent with the answer's description. All atomic claims are supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (35s\u201380s) aligns with chunk_001 (covering roughly 0\u201345s or 0\u201390s range); hop 2 (1605s\u20131680s) aligns with chunk_047. The inter-hop gap is |35 - 1605| = 1570 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunk_001 at ~35s and chunk_047 at ~1605s), and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The source text does not explicitly state that the third column is the sum of the first two columns. It only mentions that the third column is dependent and does not provide anything new, leading to a two-dimensional column space."
+  },
+  {
+    "qa_id": "mit_1806_lec06_q006",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_1806_lec06_q007",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_1806_lec06_q008",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame caption in chunk_000 explicitly states the blackboard displays 'Column Space (A) = Range (A)' and 'Nullspace of A = Kernel (A)', directly supporting all atomic claims in the answer."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (0.0s\u201345.0s) aligns with chunk_000's 45-second window, well within the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual', requires exactly 1 span and at least one frame caption marker \u2014 both conditions are met with the single span and the [frame caption: ...] content in chunk_000."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claims that the blackboard at the start of Lecture 6 displays 'Column Space (A) = Range (A)' and 'Nullspace of A = Kernel (A)', identifying these as the two main subspaces introduced in the lecture."
+  },
+  {
+    "qa_id": "mit_1806_lec06_q009",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims the blackboard displays 'If Av=0 and Aw=0 then A(v+w)=0', which is supported by the second frame caption in chunk_067. The answer also correctly describes this as proving the sum of two solutions is also a solution, establishing closure under addition for a subspace, which is consistent with the chunk content about checking solutions to Ax=0 form a subspace."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span is 2385.0s\u20132450.0s (65-second window). Chunk_067 is a 45-second chunk; the span boundaries fall within plausible alignment with the chunk. This is a single-hop visual question, so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual', requires exactly 1 span (hop 1: 2385.0s\u20132450.0s), and the cited chunk_067 contains multiple [frame caption: ...] markers describing blackboard content, satisfying the visual type requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claim that the blackboard displays the statement 'If Av=0 and Aw=0 then A(v+w)=0', which is used to prove that the sum of any two solutions to Ax=0 is also a solution, establishing closure under vector addition."
+  },
+  {
+    "qa_id": "mit_1806_lec06_q010",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_011 confirms that adding a vector from P and one from L goes outside the union (violating closure), and chunk_017 explicitly shows the intersection proof (V,W in S and T implies V+W in both, hence in intersection). The zero-vector intersection claim for P and L is consistent with the frame captions showing a plane and line through the origin."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (390\u2013480s) aligns with chunk_011 (a 45s window around ~390\u2013480s), and Hop 2 (615\u2013700s) aligns with chunk_017. The inter-hop gap is |390 - 615| = 225 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop: it requires information from two non-adjacent spans (chunk_011 for the union/plane-line example and chunk_017 for the intersection proof), and both chunks contain [frame caption: ...] markers, though the question type is listed as multi-hop (not multi-hop-visual), which is satisfied by the two non-adjacent spans requirement."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that the union of a plane and a line in R^3 is not a subspace because adding vectors from each can result in a vector outside the union. It also supports the claim that the intersection of two subspaces is always a subspace, as shown with vectors V and W being in both subspaces S and T, making their sum also in the intersection."
+  },
+  {
+    "qa_id": "mit_1806_lec06_q011",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_1806_lec06_q012",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims two 'distinct' reasons: (1) zero vector is not a solution, and (2) the solution set geometrically does not pass through the origin. However, the chunk text (chunk_072) only explicitly states one reason: 'the zero Vector is not a solution.' The geometric reason about not passing through the origin is not explicitly stated in the cited chunks \u2014 it is an inference or outside knowledge. Additionally, the answer presents these as two distinct reasons when they are essentially the same reason stated differently, and the chunk only supports one of them explicitly."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The two hops are at 2520.0s\u20132580.0s and 2580.0s\u20132640.0s, giving an inter-hop gap of |2520 - 2580| = 60 seconds, which is less than the required 70 seconds minimum. This means the hops are too close together and could be retrieved in a single step."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question is labeled multi-hop, but both hops span consecutive 60-second windows (2520\u20132580 and 2580\u20132640), which are adjacent chunks covering essentially the same moment in the lecture. This does not constitute genuinely non-adjacent spans requiring multi-hop reasoning."
+    },
+    "rejection_reason": "Criterion 1 fails because the second claimed reason (geometric argument about not passing through origin) is not explicitly supported by the cited chunks. Criterion 2 fails because the inter-hop gap is only 60 seconds, below the required 70-second minimum. Criterion 3 fails because the spans are adjacent and do not constitute genuine multi-hop retrieval.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_1806_lec06_q013",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The key claims \u2014 vector (1,1,-1) in nullspace, all multiples c(1,1,-1), and nullspace being a line through origin \u2014 are all supported by the cited chunks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "There is a single ground_truth_span (1995s\u20132120s) consistent with the text question type, and it plausibly covers the two cited chunks within that window."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one ground_truth_span, which satisfies the text type requirement regardless of the presence of frame captions in the cited chunks."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the vector (1, 1, -1) is identified as a nontrivial element of the nullspace is not supported by the source text. The source text mentions vectors of the form c, c, -c, but does not explicitly mention (1, 1, -1). Additionally, the description of the nullspace as a line through the origin in R^3 is not explicitly supported by the source text provided."
+  },
+  {
+    "qa_id": "mit_1806_lec06_q014",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the chunk text: (1) two natural ways to describe a subspace, (2) first way is giving vectors and taking combinations (building up from below / column space), (3) second way is giving equations/requirements that vectors must satisfy (nullspace as solutions to Ax=0). Both chunks explicitly state these ideas."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span is 2695.0s\u20132760.0s (a 65-second window), and the cited chunks 076 and 077 are consecutive 45-second chunks that together cover this range. This is a single-span question (text type), so only alignment check (a) applies, and the span plausibly aligns with the chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question_type is 'text' (exactly 1 span, no frame caption required), but the ground_truth_spans reference two source chunks (076 and 077), and both chunks contain [frame caption: ...] markers. More importantly, the answer draws from content spanning two chunks, which could suggest multi-hop; however, the span is listed as a single continuous range (2695.0s\u20132760.0s) covering both chunks, so it is treated as one span. The 'text' type requires exactly 1 span with no frame caption requirement \u2014 the single span condition is met, so this technically qualifies as 'text'. On reflection, the type is acceptable since there is one continuous span cited."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims that the column space is constructed by taking linear combinations of given vectors and that the nullspace is defined by a system of equations that vectors must satisfy. These are described as the two natural ways to describe a subspace."
+  },
+  {
+    "qa_id": "mit_1806_lec06_q015",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence available that could answer the question about eigenvalue decomposition of a 4x3 matrix or its relation to column space."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

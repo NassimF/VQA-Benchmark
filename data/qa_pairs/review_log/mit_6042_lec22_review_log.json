@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6042_lec22_q001",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunks support all atomic claims: the formula E(R) = \u03a3 R(w) Pr(w) is shown in chunk_004's frame caption, Ex(R) = 1/6 + 2/6 + ... appears in both chunks' frame captions, each outcome 1-6 occurs with probability 1/6 is stated in the transcript, and the calculation '6 times 7 over 2 times over 2 or 3 and 1/2' is explicitly in chunk_005's transcript."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 105.0s\u2013165.0s and hop 2 spans 172.0s\u2013235.0s; the gap between hop starts is |105 - 172| = 67 seconds, which is less than the required 70-second minimum inter-hop gap, making this effectively single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question claims multi-hop-visual: there are 2 non-adjacent spans and both cited chunks contain [frame caption: ...] markers with visual evidence of the blackboard content."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop gap between hop 1 start (105s) and hop 2 start (172s) is only 67 seconds, below the required 70-second minimum.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec22_q002",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the cited chunk texts, including the formal definition from chunk_008 frame captions and the die-rolling verification from chunk_009 transcript and captions."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align with their respective chunk boundaries within \u00b115s, and the inter-hop gap is exactly 70 seconds, meeting the \u226570s requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans and both cited chunks contain [frame caption: ...] markers, satisfying multi-hop-visual requirements; the definition hop and verification hop are genuinely distinct."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports all claims: it provides the formal definition of the median as 'Pr(R < x) \u2264 1/2 and Pr(R > x) \u2264 1/2' and verifies that 4 is a valid median for a six-sided die by showing Pr(R < 4) = 1/2 and Pr(R > 4) = 1/3, which satisfies the conditions."
+  },
+  {
+    "qa_id": "mit_6042_lec22_q003",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims 'Martyna ends with plus 6 dollars,' but chunk_030 only mentions Nick (who ends even) and Adam (who lost $6); Martyna is not mentioned in either cited chunk. Additionally, the claim about 'per 2-dollar wager' is unsupported by the chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops are separated by ~575 seconds (|1035-1610|), well above the 70-second threshold, and the spans align plausibly with their respective chunk windows."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual with two non-adjacent spans and both cited chunks contain [frame caption:] markers."
+    },
+    "rejection_reason": "Criterion 1 fails: the answer incorrectly attributes a +$6 result to 'Martyna,' while the cited chunk only mentions Nick ending even; Martyna is not referenced in either source chunk.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec22_q004",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the cited chunks: the theorem formula is shown in chunk_066 frame captions, the proof by reorganization is described in chunk_066 text, and the geometric series derivation yielding 1/p is explicitly shown in chunk_086 text and frame captions."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align with their respective chunk boundaries within \u00b115s, and the inter-hop gap of 550 seconds far exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (2390s and 2940s) and both cited chunks contain [frame caption: ...] markers, satisfying all multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports all claims: the theorem Ex(R) = \u03a3 (x \u2208 Range(R)) x * P(R = x) is displayed on the blackboard, and the lecture uses the corollary Ex(R) = \u03a3 Pr(R > i) with Pr(R > i) = (1-p)^i to derive the mean time to failure as 1/p."
+  },
+  {
+    "qa_id": "mit_6042_lec22_q005",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the blackboard shows 'Ex(R1 + R2) = Ex(R1) + Ex(R2)' for any random variables R1 and R2 (chunk_119); the dice example defines R1 as outcome on 1st die, R2 on 2nd die, and the transcript states the expected value is 3 and 1/2 for each die and the answer is 7 (chunk_124). The claim about no independence requirement is implied by the theorem statement but not explicitly contradicted."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (4110\u20134160s) aligns with chunk_119 (which covers ~4110\u20134155s range), and hop 2 (4340\u20134410s) aligns with chunk_124. The inter-hop gap is |4110 - 4340| = 230 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u2265 2 non-adjacent spans (confirmed by 230s gap) and both cited chunks contain [frame caption: ...] markers with visual blackboard content, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the theorem is stated as Ex(R1 + R2) = Ex(R1) + Ex(R2) without needing independence, and the expected value of each die is given as 3.5, leading to a total expected sum of 7."
+  },
+  {
+    "qa_id": "mit_6042_lec22_q006",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec22_q007",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the cited chunks: the blackboard content, indicator variable definition, linearity of expectation application, Pr(Ri=1)=1/n, and the final result of 1 are all evidenced in the frame captions and transcribed text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align with their respective chunk boundaries within \u00b115s, and the inter-hop gap of 140 seconds (|4850-4710|) exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (confirmed) and visual evidence from blackboard content, with both cited chunks containing multiple [frame caption: ...] markers satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that 'Ex(R) equals n times 1/n, which equals 1' is not explicitly supported by the source text. The source text mentions 'Ex(R1) + ... + Ex(Rn)' and '1 over n', but does not explicitly state the final calculation of Ex(R) as n times 1/n equals 1."
+  },
+  {
+    "qa_id": "mit_6042_lec22_q008",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The atomic claims in the answer are largely supported by the frame captions and surrounding text in the chunk, including the x-axis range (0-40), the straight line labeled L from origin to (30,30), the curved line, and the context of Super Bowl score betting around a median."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "There is exactly one span (2065.0s\u20132125.0s) for a visual question type, and it aligns with the cited source chunk mit_6042_lec22_chunk_059 within plausible boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual' with exactly one span and the cited chunk contains multiple [frame caption: ...] markers, satisfying both requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the x-axis is labeled from 0 to 40 is unsupported; the source text mentions labels from 20 to 40. The claim about the curved line representing a probability distribution is also unsupported, as the source text does not describe the curved line in this way."
+  },
+  {
+    "qa_id": "mit_6042_lec22_q009",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec22_q010",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims Herman Chernoff worked at MIT in the 1980s, but none of these details (his name, MIT affiliation, or the decade) appear in the cited chunk text; the chunks only reference lottery strategy and the 7% return figure."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops span chunks _050 and _055 with a temporal gap of ~215 seconds, well above the 70-second threshold, and the span times align plausibly with the chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question genuinely requires two non-adjacent spans (lottery strategy context and expected return figure), satisfying the multi-hop requirement with a sufficient temporal gap."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer includes unsupported claims about Herman Chernoff's identity, MIT affiliation, and the 1980s timeframe, none of which are present in the cited source chunks.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec22_q011",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the cited chunks: the MTTF formula Ex(R)=1/p from chunk_086, and the application yielding 1/(1/2)-1=1 expected boy from chunk_095."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align with their respective chunk boundaries within \u00b115s, and the inter-hop gap is 420 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question genuinely requires two non-adjacent spans (chunk_086 for the formula derivation and chunk_095 for its application), satisfying the multi-hop requirement."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text confirms the use of the mean time to failure framework with p = 1/2, the formula Ex(R) = 1/p, and the calculation of 2 - 1 = 1 for the expected number of boys before a girl."
+  },
+  {
+    "qa_id": "mit_6042_lec22_q012",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec22_q013",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims students should read 'Chapter 18 and Sections 19.1, 19.5.1, and 19.5.2' but the frame captions show 'CH 18 & Sec 19.1, 19.51-19.5.2' and 'Read Ch 12 Sec 19.1, 19.5, 19.5.2' \u2014 there is ambiguity about whether it's Chapter 18 or Chapter 12, and the section numbers are not clearly '19.5.1' but rather '19.51' or '19.5'. Additionally, the answer claims this is about 'expectation and related topics' which is an inference not directly stated in the reminder text on the blackboard."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span (35.0s\u201380.0s) falls within the first chunk (chunk_001), which covers approximately 0\u201345s window; the span starting at 35s and ending at 80s is plausible for a single chunk covering this early lecture segment."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question_type is listed as 'text' but the answer is clearly derived from [frame caption: ...] markers in the chunk (visual content of the blackboard), which means this should be classified as 'visual' rather than 'text'."
+    },
+    "rejection_reason": "Criterion 1 fails because the answer contains inaccurate details (section numbers are ambiguous/incorrect per the frame captions, and the chapter number is inconsistent across captions). Criterion 3 fails because the answer relies on frame caption (visual) content but is classified as 'text' type.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec22_q014",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The core claims \u2014 opponents guessing differently, expected gain of 0 in fair game, and expected loss of $0.50 \u2014 are all supported by the chunk text."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The ground_truth_span (1610\u20131680s) corresponds to approximately chunk 35\u201337, but the cited source chunk is chunk_046 which would cover approximately 2070\u20132115s \u2014 a discrepancy far exceeding the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one span, which matches the single-hop requirement; no frame caption is required for this type."
+    },
+    "rejection_reason": "Criterion 2 failed: the ground_truth_span timestamps (1610\u20131680s) do not align with the cited source chunk_046 (which covers ~2070\u20132115s), exceeding the \u00b115s tolerance by a large margin.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec22_q015",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the source material that could answer the question about the exact probability of a specific player winning all rounds of a coin-toss game demonstration."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

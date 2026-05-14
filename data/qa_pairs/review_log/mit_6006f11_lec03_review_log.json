@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6006f11_lec03_q001",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_001's frame caption explicitly lists 'Merge sort (Divide & Conquer)' on the lecture slide; chunk_036 confirms binary search replaces sequential comparisons in insertion sort to achieve Theta n log n complexity for comparisons, consistent with the answer's claims about improving from Theta n squared."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (35s\u2013115s) aligns with chunk_001 (a ~45s window starting near 0\u201390s range, within \u00b115s tolerance); Hop 2 (1260s\u20131345s) aligns with chunk_036; the inter-hop gap is |35 - 1260| = 1225 seconds, well above the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (chunks 001 and 036, ~1225s apart), and chunk_001 contains multiple [frame caption: ...] markers including one describing the blackboard slide listing sorting topics, satisfying both multi-hop-visual conditions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that merge sort is a divide and conquer algorithm and that insertion sort can be improved to Theta n log n complexity using binary search for insertion."
+  },
+  {
+    "qa_id": "mit_6006f11_lec03_q002",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec03_q003",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_062 confirms 'log n + 1' levels; chunk_065 confirms 'roughly the same amount of work (Cn) at each level', '1 + log n levels', 'T(n) = cn(1 + lg n)', and 'Theta(n lg n)'. The frame captions in chunk_065 explicitly show 'T(n) = cn (1 + lg n)' and 'cn = \u0398(n lg n)'."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 2220\u20132315s aligns with chunk_062 (which covers ~2220\u20132265s window, within \u00b115s tolerance); hop 2 spans 2375\u20132440s aligns with chunk_065. The inter-hop gap is |2375 - 2220| = 155s \u2265 70s, satisfying the multi-hop requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u2265 2 non-adjacent spans (hops at ~2220s and ~2375s) and both cited chunks contain [frame caption: ...] markers with visual diagram descriptions, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the recursion tree has 1 plus log n levels and that the total work per level is Cn, leading to a total work of Theta n log n, which supports all claims in the answer."
+  },
+  {
+    "qa_id": "mit_6006f11_lec03_q004",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the recurrence T(n)=2T(n/2)+Cn^2 is shown on the blackboard (chunk_082 frame captions), the top level contributes Cn^2, subsequent levels contribute Cn^2/2, Cn^2/4, etc. (chunk_082), the sum is bounded by 2Cn^2 (chunk_083 explicitly states 'bounded by CN^2 and you already have CN^2 up at the top'), and the overall complexity is Theta(n^2) (chunk_083 states 'is a Theta n Square algorithm')."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 2940\u20133000s and hop 2 spans 3025\u20133110s; chunk_082 and chunk_083 are consecutive 45-second windows that align with these timestamps. The inter-hop gap is |3025-2940|=85 seconds, which is \u226570 seconds, satisfying the multi-hop requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans (chunk_082 and chunk_083) and both chunks contain multiple [frame caption: ...] markers showing the blackboard with the recurrence and recursion tree, satisfying both conditions for multi-hop-visual."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports all claims: the top level contributes Cn^2, subsequent levels contribute decreasing fractions, and the sum is bounded by 2Cn^2, leading to an overall complexity of Theta n squared."
+  },
+  {
+    "qa_id": "mit_6006f11_lec03_q005",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the subroutine is called 'merge' (chunk_048 frame caption: 'Merge'), inputs must be two sorted arrays called L prime and R prime (chunk_048: 'merge is going to assume that you have two sorted arrays...l Prime and R Prime'), and the two-finger algorithm is described (chunk_048: 'what we call a two finger algorithm')."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1583\u20131635s) aligns with chunk_045 and hop 2 (1680\u20131750s) aligns with chunk_048; the inter-hop gap is |1583 - 1680| = 97 seconds, which exceeds the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunks 045 and 048, ~97s apart) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the subroutine is called 'merge' and that it assumes its inputs are two sorted arrays, referred to as L prime and R prime. It also describes the use of a two-finger algorithm to merge these arrays."
+  },
+  {
+    "qa_id": "mit_6006f11_lec03_q006",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the two-finger algorithm is explicitly named in chunk_053 ('two finger algo'), the pointer/minimum tracking mechanism is described in chunk_048 ('two fingers and each of them point to'), and the Theta(n) complexity for merging two arrays of size n/2 is confirmed in chunk_053 ('two arrays of size n/2 here what do I have yeah n')."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1680\u20131760s) aligns with chunk_048 and hop 2 (1855\u20131925s) aligns with chunk_053; the inter-hop gap is |1680 - 1855| = 175 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans (chunks 048 and 053), and both cited chunks contain multiple [frame caption: ...] markers describing blackboard/whiteboard visual content."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the use of the two-finger algorithm for merging two sorted arrays and states that the complexity of merging two arrays each of size n/2 is Theta n."
+  },
+  {
+    "qa_id": "mit_6006f11_lec03_q007",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: merge sort in Python \u2248 2.2n log n microseconds (frame captions in both chunks), insertion sort in Python \u2248 0.2n\u00b2 microseconds (frame captions), insertion sort in C \u2248 0.01n\u00b2 microseconds (chunk_076 text and frame captions), and crossover at n \u2248 4000 (chunk_077 text explicitly states 'once n gets Beyond about uh 4,000 uh you're going to see that merge sort in Python beats insertion sort in C')."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 2685\u20132745s aligns with chunk_076 (a 45s window), and hop 2 spans 2770\u20132830s aligns with chunk_077; the inter-hop gap is |2770 - 2685| = 85s, which exceeds the required 70s minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires information from two non-adjacent spans (chunk_076 for the empirical constants and chunk_077 for the n=4000 crossover), and both chunks contain [frame caption: ...] markers with blackboard content."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text: merge sort in Python runs at 2.2 n log n microseconds, insertion sort in Python at 0.2 n squared microseconds, insertion sort in C at 0.01 n squared microseconds, and the crossover point is at approximately n equals 4000."
+  },
+  {
+    "qa_id": "mit_6006f11_lec03_q008",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame captions in the cited chunk explicitly show 'Merge -sort O(n) auxiliary space' and 'In-place sort O(1) auxiliary space' on the blackboard. The answer's claims about the text content, the contrast between linear and constant space, and the mention of insertion sort as an in-place algorithm are all supported by the chunk text and captions."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span is 2565.0s\u20132625.0s (a 60-second window), and chunk_071 covers a 45-second window. The span aligns plausibly with the chunk boundaries within the \u00b115s tolerance. This is a single-hop visual question, so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'visual', requiring exactly 1 span and at least one source chunk with a [frame caption: ...] marker. There is exactly 1 span (2565.0s\u20132625.0s) and the cited chunk mit_6006f11_lec03_chunk_071 contains multiple [frame caption: ...] markers describing the blackboard content."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports both claims: 'Merge-sort O(n) auxiliary space' and 'In-place sort O(1) auxiliary space' are written on the blackboard, as described in the frame captions."
+  },
+  {
+    "qa_id": "mit_6006f11_lec03_q009",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame caption in chunk_066 explicitly shows 'T(n) = cn (1 + lg n)' and 'cn = \u0398(n lg n)', supporting the answer's claims about the equation and the Theta(n lg n) conclusion. The claim about summing cn work across 1 + log n levels is also supported by the surrounding lecture text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span starts at 2430.0s. Chunk_066 covers a 45-second window; at roughly 45s per chunk, chunk_066 would be around 2430-2475s, which aligns well with the span 2430.0s\u20132495.0s (within \u00b115s of chunk boundaries)."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual', requiring exactly 1 span and at least 1 source chunk with a [frame caption: ...] marker. There is exactly 1 span (2430.0s\u20132495.0s) and chunk_066 contains multiple [frame caption: ...] markers."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the equation 'T(n) = cn(1 + lg n)' is followed by the conclusion 'Theta n lg n' is not fully supported. The source text only mentions 'T(n) = cn (1 + lg n)' and 'cn = \u0398(n lg n)' separately, without explicitly stating that one follows from the other or that it captures the result of summing cn work across recursion levels."
+  },
+  {
+    "qa_id": "mit_6006f11_lec03_q010",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunk text: binary search reduces comparisons to Theta(n log n) (chunk_038), inserting into the sorted subarray requires shifting elements to the right (chunk_039), worst case shifting is Theta(n) per step (chunk_039), and with Theta(n) insertion steps the total swap count is Theta(n^2) (chunk_039)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1375s\u20131445s) aligns with chunk_038 and hop 2 (1445s\u20131530s) aligns with chunk_039, both within plausible 45-second windows; the inter-hop gap is |1375 - 1445| = 70 seconds, which meets the \u226570s requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop requiring information from two non-adjacent spans (chunk_038 for the binary search reducing comparisons context, chunk_039 for the shifting/swaps explanation), and no visual-only evidence is required, consistent with the multi-hop type."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that binary search reduces comparisons to Theta n log n and that swaps remain Theta n squared due to the need to shift elements in an array, which involves Theta n elements per insertion step in the worst case."
+  },
+  {
+    "qa_id": "mit_6006f11_lec03_q011",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_008 confirms median is found at B[n/2] and is constant time O(1) in a sorted list; chunk_009 confirms binary search finds a specific element in logarithmic time in a sorted array, contrasted with linear time for unsorted scanning."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (295s\u2013385s) aligns with chunk_008 and hop 2 (385s\u2013460s) aligns with chunk_009, both within \u00b115s of chunk boundaries; the inter-hop gap is |295-385|=90s \u2265 70s, satisfying the multi-hop temporal separation requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question genuinely requires two non-adjacent spans (median finding and binary search are discussed in separate chunks), and no frame caption is required for multi-hop type, which is correctly assigned here."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that finding the median in a sorted list is constant time, O(1), and that binary search in a sorted list takes logarithmic time, O(log n)."
+  },
+  {
+    "qa_id": "mit_6006f11_lec03_q012",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All major atomic claims (front-to-back for efficiency with opaque objects, back-to-front for transparency) are explicitly supported by chunk_015 text, with the compositing explanation being a reasonable inference not contradicted by the source."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap between hop 1 (510s) and hop 2 (575s) is only 65 seconds, which is less than the required 70-second minimum, making this effectively single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "Both rendering orders (front-to-back and back-to-front) are described within chunk_015 alone, meaning the question can largely be answered from a single span rather than requiring genuine multi-hop retrieval."
+    },
+    "rejection_reason": "Criterion 2 fails because the inter-hop gap (65s) is below the 70s threshold; Criterion 3 fails because both rendering orders appear in a single chunk, making the multi-hop classification unjustified.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec03_q013",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims merge sort requires 'Theta n' auxiliary space because it 'must make copies of the left and right halves L and R,' but the chunk text only states 'Merge-sort O(n) auxiliary space' (or \u0398(n) in the frame caption) without mentioning copying left/right halves L and R as the reason. The specific explanation about copying halves L and R is not supported by the cited chunk. Additionally, the chunk uses O(n) notation in some places and \u0398(n) in others, while the answer asserts 'Theta n' specifically. The claim about insertion sort's temporary variable for swapping is supported, but the unsupported merge sort explanation causes a FAIL."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (2485.0s\u20132570.0s) aligns with chunk_071, which covers a 45-second window; the span falls within plausible chunk boundaries for this content."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question_type is 'text' (exactly 1 span, no frame caption required), but the cited chunk contains multiple [frame caption: ...] markers showing visual blackboard content. Since the answer relies on visual frame caption content (the blackboard showing 'Merge-sort O(n) auxiliary space' and 'In-place sort O(1) auxiliary space'), the question_type should be 'visual' rather than 'text'."
+    },
+    "rejection_reason": "Criterion 1 fails because the answer's claim about merge sort copying 'left and right halves L and R' is not supported by the cited chunk text. Criterion 3 fails because the chunk contains [frame caption: ...] markers with relevant visual content, making 'text' an inaccurate question type.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec03_q014",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The chunk text supports the recurrence T(n) = C1 + 2T(n/2) + C2*n and associates C1 with 'divide' and C2*n with 'merge', but the answer's specific claim that C1 represents 'dividing the array into two halves as a constant-time operation' and the detailed explanation of the 'two-finger algorithm' during merge are not explicitly supported by the cited chunk text. The chunk only labels C1 as 'divide' and C2*n as 'merge' without elaborating on these specifics."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (2055.0s\u20132135.0s) aligns with chunk_058, which covers a 45-second window; the span start at 2055s is plausible for this chunk boundary."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one span, and the cited chunk contains [frame caption: ...] markers but the type only requires a single span without needing visual evidence, so the text type is appropriate."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer includes unsupported atomic claims (C1 specifically being 'constant-time division into two halves' and the 'two-finger algorithm' detail) that are not explicitly stated in the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec03_q015",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the source material that gives an exact number of comparisons during document distance computation or relates it to insertion sort. The question asks for a very specific numerical claim that is not supported by any available chunk."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

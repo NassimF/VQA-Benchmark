@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "nyu_dl_week9_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The claim that the instructor connects group sparsity to LISTA (including the specific recurrent structure description) is entirely unsupported by the cited chunk text; neither chunk_000 nor chunk_008 mentions LISTA or describes such a connection."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The hop 2 span (240s\u2013325s) does not align with chunk_008's expected temporal window (approximately 360s\u2013405s for the 9th chunk at 45s intervals), exceeding the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both cited chunks contain [frame caption:] markers and two non-adjacent spans are claimed, satisfying the structural requirements for multi-hop-visual."
+    },
+    "rejection_reason": "Criterion 1 fails because the LISTA connection in the answer is unsupported by the cited chunks; Criterion 2 fails because the hop 2 span timing does not align with chunk_008's expected boundaries.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week9_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_004 confirms the three DrSAE training criteria (reconstruction via decoding matrix, L1 sparsity on feature vector, linear classifier for category prediction); chunk_012 confirms the group sparsity regularizer uses L2 norm over groups of z components; and the frame captions in chunk_012 confirm the slide asks whether a similar method could learn the pooling layer."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (105\u2013185s) aligns with chunk_004 (a ~45s window around that range), and hop 2 (420\u2013505s) aligns with chunk_012; the inter-hop gap is |105 - 420| = 315 seconds, well above the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunks 004 and 012, separated by ~315 seconds), and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports all claims: the DrSAE architecture includes three training criteria (reconstruction, L1 sparsity, and classification), and the group sparsity regularizer replaces L1 with L2 over groups, as described in the Kavukcuoglu et al. work. The slide also questions learning the pooling layer similarly."
+  },
+  {
+    "qa_id": "nyu_dl_week9_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The claims about features varying 'slowly and continuously' and producing 'swirling pinwheel-like patterns visible in the decoder columns' are not supported by the cited chunk text; the frame captions are truncated and do not describe any visual filter patterns."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap between hop 2 (515s) and hop 1 (565s) is only 50 seconds, which is less than the required 70-second minimum, making this effectively single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "While frame captions are present, the two hops are only 50 seconds apart and both chunks cover the same slide, so the multi-hop requirement of non-adjacent, well-separated spans is not met."
+    },
+    "rejection_reason": "All three criteria failed: unsupported claims about pinwheel patterns and slow feature variation (C1); inter-hop gap of only 50s below the 70s threshold (C2); hops too close to constitute genuine multi-hop retrieval (C3).",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week9_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the cited chunks: the pinwheel pattern in primary visual cortex is confirmed by the frame caption in chunk_022, the swirling/overlapping group behavior is confirmed by chunk_019, and pooling units as complex cells is confirmed by chunk_019's slide content."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The inter-hop temporal gap is |630-490|=140s, well above the 70s threshold, confirming genuine multi-hop retrieval; both spans align with chunks containing the relevant content."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop-visual: it requires two non-adjacent spans and both cited chunks contain [frame caption: ...] markers, including the 'Pinwheels!' visual slide in chunk_022."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the instructor connects the pinwheel pattern to group sparsity training by explaining that similar features are grouped together and overlap in a 2D toroidal topology is supported. However, the claim that this is how the brain organizes its neurons with a criterion on complex cells is not explicitly supported by the source text."
+  },
+  {
+    "qa_id": "nyu_dl_week9_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_073 confirms the slide title 'Learning World Models for Autonomous Control' and subtitle 'With latent variables to handle the uncertainty in the world'; chunk_078 confirms the equation s[t+1] = g(s[t], a[t], z[t]) and that z[t] 'represents what you don't know about the world' and 'the thing that's unpredictable about what's going to go on in the world,' which maps to aleatoric uncertainty from incomplete world state information."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2555\u20132640s) aligns with chunk_073 (a ~45s window around that range), and hop 2 (2720\u20132800s) aligns with chunk_078; the inter-hop gap is |2555 - 2720| = 165 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunks 073 and 078, ~165s apart) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the subtitle 'With latent variables to handle the uncertainty in the world' is present on the 'Learning World Models for Autonomous Control' slide, and the role of z[t] as representing unknown or unpredictable aspects of the world is explicitly described in the source text."
+  },
+  {
+    "qa_id": "nyu_dl_week9_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims 'z is sampled from a distribution obtained from the output of an encoder that predicts z-bar and variances, with a term minimizing the sum of squares of z over time (standard VAE technique)' \u2014 this specific detail about z-bar, variances, and sum-of-squares minimization is not supported by the cited chunk text. The chunks only mention that z is sampled from a 'learned distribution' and that the system is trained as a 'conditional autoencoder' with z set to zero half the time; the VAE-specific details about z-bar and variance prediction are not present in the provided chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 5085\u20135170s aligns with chunk_150 (which would cover roughly that window), and hop 2 spans 5355\u20135440s aligns with chunk_154. The inter-hop gap is |5085 - 5355| = 270 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunk_150 and chunk_154, ~270s apart), and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer includes unsupported atomic claims about z-bar, variance prediction, and sum-of-squares minimization that are not present in the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week9_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the cited chunks: chunk_065 confirms 'kind of adversarial training' and maximizing S_ij values, while chunk_029 confirms contrastive methods push up energy of samples outside the distribution."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops (1010-1095s and 2390-2475s) align plausibly with their respective chunks, and the inter-hop gap of ~1380 seconds far exceeds the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans and both cited chunks contain [frame caption:] markers; the question genuinely requires visual identification of the slide attribution and cross-referencing with earlier lecture content."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports all claims: the slide is attributed to Gregor, Szlam, and LeCun NIPS 2011; the training of S involves maximizing terms, described as 'kind of adversarial training'; and this is related to contrastive methods as both involve maximizing certain values to achieve an objective."
+  },
+  {
+    "qa_id": "nyu_dl_week9_q023",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the frame captions in the chunk: (1) filters arrange themselves spontaneously so similar filters enter the same pool, (2) pools are 6x6 blocks of features arranged in a 2D torus, and (3) pooling units can be seen as complex cells \u2014 wait, the 'complex cells' claim is NOT explicitly present in the truncated frame captions shown. However, reviewing carefully, the frame captions are truncated and do not include the 'complex cells' claim. This claim is unsupported by the cited chunk text. FAIL."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span is 515.0s\u2013600.0s, and chunk_016 covers an 85-second window. The span aligns plausibly with the chunk boundaries for a single-hop visual question."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual' with exactly 1 span and the cited chunk contains multiple [frame caption: ...] markers, satisfying the visual type requirements."
+    },
+    "rejection_reason": "Criterion 1 fails: the answer claims 'pooling units can be seen as complex cells,' but this claim is not supported by the truncated frame captions in the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week9_q024",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer's atomic claims \u2014 subtitle 'The so-called pinwheel pattern is observed in the primary visual cortex' and the description of the main image as a grayscale pattern resembling a pinwheel with concentric circles and radial lines repeated across the image \u2014 are all explicitly supported by the frame caption in nyu_dl_week9_chunk_022."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (815.0s\u2013870.0s) corresponds to chunk_022, which covers a 45-second window; 815s\u2013870s is a 55-second window that plausibly aligns with the chunk boundary within the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed 'visual', requires exactly 1 span, and the cited chunk nyu_dl_week9_chunk_022 contains a [frame caption: ...] marker describing the Pinwheels slide \u2014 both conditions for the visual type are satisfied."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "Both claims are explicitly supported by the source text: the subtitle 'The so-called pinwheel pattern is observed in the primary visual cortex' and the description of the main image as a grayscale pattern resembling a pinwheel or concentric circles with radial lines are directly mentioned in the source text."
+  },
+  {
+    "qa_id": "nyu_dl_week9_q025",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunk text: training learns a parameter shared across many samples (chunk_096), inference finds a variable specific to one sample that changes with the sample (chunk_096), the inferred variable is not remembered (chunk_096), in energy-based models inference still requires minimization at every use (chunk_097), and in model predictive control the forward model may already be trained so you are only doing inference to find optimal actions (chunk_097)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (3360\u20133445s) aligns with chunk_096 and hop 2 (3430\u20133515s) aligns with chunk_097, both within \u00b115s of chunk boundaries; the inter-hop gap |3360-3430| = 70s, which meets the \u226570s requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop, requiring information from two non-adjacent spans (chunk_096 for the training/inference distinction and chunk_097 for the MPC application), and both chunks contain [frame caption: ...] markers though the question type is multi-hop (not multi-hop-visual), which is valid since multi-hop does not require absence of frame captions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text, which explains the distinction between training and inference in energy-based models and applies this to model predictive control."
+  },
+  {
+    "qa_id": "nyu_dl_week9_q026",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are directly supported by the chunk text: reducing information capacity of the code limits configurations, which limits the volume of space that can take low energy; training part of space to have low energy via reconstruction error means the rest automatically has higher energy; L1/sparsity/noise with norm limiting achieves this purpose. All these claims appear verbatim or near-verbatim in chunks 027 and 028."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (945s\u20131030s) aligns with chunk_027 and hop 2 (1030s\u20131115s) aligns with chunk_028, both within plausible 45-second chunk boundaries. The inter-hop gap is |945 - 1030| = 85 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is classified as multi-hop and requires information from two non-adjacent spans (chunks 027 and 028), with the answer synthesizing content across both chunks. No visual evidence is claimed, and the question type does not require frame captions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text, which explains that reducing the information capacity of the latent variable limits the volume of space that can take low energy, and regularizing with L1 or sparsity prevents the energy function from being flat everywhere."
+  },
+  {
+    "qa_id": "nyu_dl_week9_q027",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "Both atomic claims are supported: chunk_114 confirms the cost function is a black box in RL, and chunk_115 confirms there is no forward model of the world and the measure of the state is imperfect, with the cost function only observable by trying something and seeing the effect."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 starts at 4020s and Hop 2 starts at 4050s; the inter-hop gap is only 30 seconds, which is far below the required 70-second minimum, meaning both hops are essentially co-located and retrievable in a single step."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is labeled multi-hop and cites two non-adjacent source chunks (chunk_114 and chunk_115), and no frame caption evidence is required for multi-hop type."
+    },
+    "rejection_reason": "Criterion 2 failed: the temporal gap between the two hops is only 30 seconds (4020s vs 4050s), well below the required 70-second minimum for a genuine multi-hop question.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week9_q028",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are directly supported by the chunk text: (1) half the time z is set to zero, (2) the system is told it cannot use z, (3) this drives the system to use past frames more, (4) with standard VAE training the system ignores the past and cheats by looking at the answer y \u2014 all explicitly stated in the chunk."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (5350.0s\u20135435.0s) covers a 85-second window; chunk_154 is a 45-second chunk, and the span boundaries align plausibly with the chunk's temporal location. Only one hop is present, so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text', which requires exactly 1 span \u2014 there is exactly one span (5350.0s\u20135435.0s) and one source chunk cited, consistent with a single-span text question. The chunk does contain frame captions, but the question type is 'text' not 'visual', and the answer is derivable from the spoken transcript alone, so this is appropriate."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text. The text explicitly states that half the time z is set to zero, forcing the system to predict without z, which encourages the use of past frames more than standard VAE training, where the system might ignore the past and rely on the answer y."
+  },
+  {
+    "qa_id": "nyu_dl_week9_q029",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the discriminator produces zero outside the manifold and one on it, and that the energy is the negative log of that \u2014 neither claim is explicitly supported by the cited chunk text, which only discusses the resulting golf-course shape without explaining the GAN discriminator outputs or the negative-log relationship."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "There is a single span (6405\u20136490s) and the cited chunk_184 content clearly corresponds to this portion of the lecture about the golf-course energy problem."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly one span, and exactly one span is provided."
+    },
+    "rejection_reason": "Criterion 1 failed: key claims about the discriminator outputting 0/1 and the energy being the negative log are not supported by the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week9_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the source material that could answer the question about Martin Arjoski's specific fix or his affiliation."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

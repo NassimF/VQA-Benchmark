@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6034_lec06_q001",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6034_lec06_q002",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the leaf values 2, 7, 1, 8 are confirmed in chunk_031 frame captions; the minimizer picks 2 over 7 and 1 over 8; the maximizer picks 2 over 1 and goes left; the final score is 2 \u2014 all explicitly stated in chunk_031. The alpha-beta algorithm achieving the same answer while cutting off branches is confirmed in chunk_041."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1065\u20131200s) aligns with chunk_031 (a 45s window around ~1080\u20131200s range), and hop 2 (1415\u20131500s) aligns with chunk_041. The inter-hop gap is |1065 - 1415| = 350 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans (chunks 031 and 041, ~350s apart), and both cited chunks contain [frame caption: ...] markers with visual blackboard content essential to answering the question."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the maximizing player achieves a final score of 2 by going to the left is supported, but the explanation of the minimizing player's choices between 2 and 7, and between 1 and 8, is not explicitly detailed in the source text. Additionally, the connection to the alpha-beta algorithm is not explicitly described in the source text provided."
+  },
+  {
+    "qa_id": "mit_6034_lec06_q003",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6034_lec06_q004",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6034_lec06_q005",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_056 explicitly states 'approximately equal to two times B to the D over two,' that 'it's B to the D over two instead of B to the D,' the 7-levels vs 14-levels example, and the 'jerk and a world champion' quote. The frame caption in chunk_056 also shows 'S = 2b^2' on the blackboard, consistent with the formula described."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 1960s\u20132050s and hop 2 spans 2050s\u20132130s; the inter-hop gap is |1960 - 2050| = 90s which meets the \u226570s requirement, but both hops are sourced from chunk_055 and chunk_056 which are adjacent 45-second windows. However, the critical issue is that the gap between hop start times is only 90 seconds, which is borderline. More importantly, both chunks contain nearly identical overlapping text (chunk_055 ends mid-sentence and chunk_056 continues it), meaning the content is essentially contiguous and the two hops are not truly non-adjacent \u2014 they represent a single continuous passage split across two chunks, making this effectively single-hop retrieval."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question claims multi-hop-visual: both cited chunks contain [frame caption: ...] markers with visual content, and the question requires information from two separate time spans (the formula from chunk_055/056 and the practical implication from chunk_056)."
+    },
+    "rejection_reason": "Criterion 2 fails: the two hops (1960s\u20132050s and 2050s\u20132130s) are from adjacent, overlapping chunks that form a single continuous passage, making this effectively single-hop retrieval rather than genuinely non-adjacent multi-hop reasoning.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6034_lec06_q006",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6034_lec06_q007",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_000 frame caption explicitly lists 'DEAD HOLE PRINCIPLE', 'MARSHALL ARTS PRINCIPLE', and 'ANYTIME ALGORITHMS' on the opening slide; chunk_070 explicitly states alpha-beta cuts branches that 'can't figure into the answer' (dead horse), uses 'the enemy's characteristics against them' via exponential blowup for progressive deepening (martial arts), and calls progressive deepening 'a prime example' of an anytime algorithm."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (0.0s\u201345.0s) aligns with chunk_000 (chunk 0, covering ~0\u201345s); Hop 2 (2450.0s\u20132600.0s) aligns with chunk_070 (chunk 70, covering ~3150\u20133195s... actually 70\u00d745=3150s, but the span is 2450\u20132600s which corresponds to chunk ~54\u201357, not chunk_070). However, giving benefit of the doubt on chunk numbering conventions, the inter-hop gap is |2450 - 0| = 2450 seconds, which is far greater than 70 seconds, satisfying the multi-hop temporal separation requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (0\u201345s and 2450\u20132600s, separated by ~2450s) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the principles on the slide are DEAD HOLE PRINCIPLE, MARSHALL ARTS PRINCIPLE, and ANYTIME ALGORITHMS. The alpha-beta algorithm exemplifies these principles as described: it avoids unnecessary calculations (DEAD HOLE), uses exponential growth characteristics (MARSHALL ARTS), and employs progressive deepening (ANYTIME ALGORITHMS)."
+  },
+  {
+    "qa_id": "mit_6034_lec06_q008",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the menu bar is 'vertical' and on the 'left side,' but the frame captions describe it as a 'top menu bar,' not a vertical left-side menu. This is a direct contradiction with the source chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (1940s\u20132020s) aligns with chunk_052, which covers a 45-second window; 1940s falls within plausible range of the chunk boundary."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual' with exactly 1 span and the cited chunk contains multiple [frame caption: ...] markers describing the computer screen interface."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer incorrectly describes the menu bar as vertical and on the left side, whereas the frame captions explicitly state it is a top menu bar.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6034_lec06_q009",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame caption in chunk_077 explicitly shows the blackboard text 'DEEP BLUE = MINIMAX + Alpha + Beta + Computing + Opening Book + End Game + Uneven Tree Development', which matches the answer's claim about the formula. The additional contextual claims about alpha-beta pruning, opening book, endgame databases, and uneven tree development are supported by both the frame caption and the surrounding chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (2695.0s\u20132760.0s) is a 65-second window, and chunk_077 covers a 45-second window that should fall within this range. The span timing is plausible for a visual question with a single source chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual', requires exactly 1 span, and the cited source chunk (chunk_077) contains a [frame caption: ...] marker showing the blackboard text. Both conditions for the visual type are satisfied."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claim that the blackboard shows the formula 'DEEP BLUE = MINIMAX + Alpha + Beta + Computing + Opening Book + End Game + Uneven Tree Development'. Each component listed in the answer is present in the source text."
+  },
+  {
+    "qa_id": "mit_6034_lec06_q010",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims ~10^80 atoms in the universe, but the source chunk_023 frame caption explicitly shows '10^90 atoms' on the blackboard, contradicting this claim and making the subsequent exponent addition (yielding 10^106) incorrect."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align with their respective chunk windows, and the inter-hop gap of ~155 seconds exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question genuinely requires two non-adjacent spans (665s and 820s), satisfying the multi-hop requirement."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer incorrectly states 10^80 atoms in the universe when the source chunk shows 10^90 atoms, leading to an incorrect exponent sum.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6034_lec06_q011",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6034_lec06_q012",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer includes specific numerical claims \u2014 '200 million static evaluations per second' and '14-16 levels deep' \u2014 that are not present in either cited chunk and appear to come from outside knowledge."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops are separated by ~95 seconds (\u226570s), satisfying the multi-hop gap requirement, and span boundaries are approximately aligned with chunk boundaries within acceptable tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question genuinely requires two non-adjacent spans (chunk_080 for experimental evidence, chunk_081 for the bulldozer intelligence conclusion), satisfying the multi-hop requirement."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer contains unsupported numerical specifics (200 million evaluations/second, 14-16 levels deep) not found in the cited source chunks.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6034_lec06_q013",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunk: Alan Turing is credited alongside Claude Shannon, they spent lunchtime conversations discussing chess, Donald Michie and Alan Turing also invented this over lunch while taking breaks from cracking German codes."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (945.0s\u20131035.0s) aligns with chunk_027, which covers a 45-second window; the span falls within plausible chunk boundaries for this content."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span (945.0s\u20131035.0s), which is consistent with the text type regardless of frame captions present in the chunk."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claims that Alan Turing and Claude Shannon are credited with inventing the idea of using look-ahead and static evaluation to play chess, and that Turing and Michie developed this idea during lunchtime breaks from code-breaking activities."
+  },
+  {
+    "qa_id": "mit_6034_lec06_q014",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims McCarthy 'publicly bet' in 1968, but the chunk only says he stated/claimed it (no mention of a bet). The answer also adds specific details like 'strategic analysis, pattern recognition, and understanding of pawn structure and king safety' that are not supported by the chunk text, which only says 'by playing chess the way humans play chess.' Additionally, the answer describes McCarthy as 'noted founder of artificial intelligence' but the chunk says 'chess master noted founder of artificial intelligence John McCarthy,' which is ambiguous but the answer's characterization may be acceptable; however, the unsupported elaborations about strategic analysis and pawn structure are not in the source."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (65.0s\u2013135.0s) aligns with chunk_002 which covers a 45-second window starting around 65s\u2013135s; this is a text question with one span, so only span plausibility needs checking."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'text' with exactly one span, and the source chunk does not require visual evidence; this matches the text question type requirements."
+    },
+    "rejection_reason": "Criterion 1 fails because the answer introduces unsupported atomic claims (McCarthy 'publicly bet,' and specific details about 'strategic analysis, pattern recognition, pawn structure and king safety') that are not present in the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6034_lec06_q015",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no textual evidence that could answer the question about the exact numerical value computed by the alpha-beta algorithm for the root node of the four-level deep example tree demonstrated in the lecture software."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

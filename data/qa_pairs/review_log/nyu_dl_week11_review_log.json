@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "nyu_dl_week11_q001",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_001 frame captions confirm LeakyReLU (nn.LeakyReLU()) is shown on the slide; chunk_001 text confirms the negative part having a non-zero slope prevents vanishing gradients; chunk_003 text explicitly states LeakyReLU was necessary to train very skinny networks because standard zero-output regions prevented gradient flow, while LeakyReLU allows gradients even in suppressed regions."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (35\u201375s) aligns with chunk_001 (covering ~0\u201345s window, within \u00b115s tolerance for a 45s chunk); Hop 2 (105\u2013175s) aligns with chunk_003; the inter-hop gap is |35 - 105| = 70s, which meets the \u226570s requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (chunk_001 and chunk_003) and both cited chunks contain [frame caption: ...] markers referencing the LeakyReLU slide, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports that the slide shown is LeakyReLU (nn.LeakyReLU()) and that it was necessary to train very skinny networks by allowing gradients to propagate even in suppressed regions, preventing the issue of all activations landing in a zero-output region."
+  },
+  {
+    "qa_id": "nyu_dl_week11_q002",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The formula Softplus(x) = (1/\u03b2) * log(1 + exp(\u03b2\u00b7x)) is explicitly confirmed in the frame captions of both chunks. The claim that as beta increases the corner becomes sharper and as beta approaches infinity the function converges to ReLU is supported by chunk_006 ('the larger beta the more the function will look like a value so the cake will be kind of the corner will be kind of sharper if petah goes to infinity') and chunk_007 ('the corner will be kind of sharper if petah goes to infinity')."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 175.0s\u2013215.0s and hop 2 spans 205.0s\u2013255.0s; the inter-hop gap is |175 - 205| = 30 seconds, which is far less than the required 70 seconds, meaning the two hops are temporally adjacent and not truly non-adjacent multi-hop spans."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both cited chunks contain [frame caption: ...] markers with visual slide content, and the question references two spans (chunk_006 and chunk_007), satisfying the multi-hop-visual requirements of \u22652 spans and \u22651 frame caption."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only ~30 seconds (175s vs 205s), well below the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week11_q003",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk text explicitly supports the ELU formula (from frame captions), the advantage of going below zero, the zero-mean property, and the faster gradient descent convergence when weights see both positive and negative values. All atomic claims in the answer are supported by chunk_009."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 245.0s\u2013295.0s and Hop 2 spans 315.0s\u2013360.0s; the gap between hop starts is |245 - 315| = 70 seconds, which is exactly 70s (not strictly greater than 70s). More critically, both hops appear to be covered within chunk_009 alone (which contains both the ELU formula from frame captions and the gradient descent convergence explanation), making this effectively single-hop content. The inter-hop gap of exactly 70s is borderline, and the content does not genuinely require two non-adjacent retrieval steps."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "Both the visual formula information and the gradient descent advantage explanation appear to be contained within chunk_009 alone, meaning the question does not genuinely require two non-adjacent spans; it can be answered from a single chunk, making the multi-hop-visual classification inaccurate."
+    },
+    "rejection_reason": "Criterion 2 and Criterion 3 failed: the inter-hop gap is exactly 70s (not strictly greater), and both pieces of information needed to answer the question are present in a single chunk (chunk_009), meaning this is not a genuine multi-hop question requiring two non-adjacent retrievals.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week11_q004",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the cited chunk text, including zero-mean advantage, convergence benefits, and the preference for single-kink functions in deep networks."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Both hops start at 420.0s, giving an inter-hop gap of 0 seconds, far below the required 70-second minimum for multi-hop questions."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The two spans overlap completely (both starting at 420s), so they are not non-adjacent; furthermore, the core information for both hops is contained within chunk_013 alone, making this effectively single-hop rather than multi-hop."
+    },
+    "rejection_reason": "Criterion 2 and Criterion 3 failed: the two hops have zero temporal separation (both start at 420s, well below the 70s minimum), and the question is effectively single-hop since both pieces of information appear in the same chunk.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week11_q005",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer states Softsign was proposed by 'Yoshua Bengio and collaborators,' but the chunk text says 'your venue and so these collaborators' (likely a transcription of 'Yann LeCun' or similar, but the frame caption attributes the Softsign slide to 'Y. LeCun,' not Yoshua Bengio). The attribution to Yoshua Bengio is not explicitly supported by the chunk text and may be contradicted by the frame caption crediting Y. LeCun."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 525.0s\u2013570.0s and Hop 2 spans 510.0s\u2013570.0s; the inter-hop gap is |525 - 510| = 15 seconds, which is far less than the required 70 seconds, meaning the hops are not sufficiently non-adjacent."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "Although frame captions are present in the cited chunks, the two hops (525s\u2013570s and 510s\u2013570s) overlap substantially and are not non-adjacent, so the multi-hop requirement of \u2265 2 non-adjacent spans is not satisfied."
+    },
+    "rejection_reason": "Criterion 1 fails due to unsupported attribution of Softsign to Yoshua Bengio; Criterion 2 fails because the inter-hop gap is only ~15 seconds (well below the 70-second minimum); Criterion 3 fails because the two spans are not non-adjacent.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week11_q006",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims Softshrink is a step in 'ISTA (Iterative Shrinkage-Thresholding Algorithm)' by name, but neither cited chunk mentions ISTA or the Iterative Shrinkage-Thresholding Algorithm \u2014 the chunks only state it is 'used for inference in sparse coding' without naming the specific algorithm."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align plausibly with their respective chunk boundaries, and the inter-hop gap of 120 seconds (|630-750|) exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans and both cited chunks contain [frame caption: ...] markers showing the Softshrink slide, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer introduces 'ISTA (Iterative Shrinkage-Thresholding Algorithm)' as a specific named algorithm, which is not supported by the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week11_q007",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The claim that CrossEntropyLoss uses the 'log-sum-exp trick' is not mentioned anywhere in the cited chunks and constitutes unsupported outside knowledge."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap between hop 1 (start 2765s) and hop 2 (start 2810s) is only 45 seconds, which is less than the required 70-second minimum, making this effectively single-hop."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The two spans are only 45 seconds apart and cover a continuous explanation on the same slide, so the question does not genuinely require retrieval from two non-adjacent spans as required for multi-hop-visual."
+    },
+    "rejection_reason": "Fails Criteria 1 (unsupported log-sum-exp claim), 2 (inter-hop gap < 70s), and 3 (spans are adjacent/continuous, not genuinely multi-hop).",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week11_q008",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the frame captions in the chunk: the function name nn.AdaptiveLogSoftmaxWithLoss(), the paper title 'Efficient softmax approximation for GPUs', all five authors (Edouard Grave, Armand Joulin, Moustapha Ciss\u00e9, David Grangier, and Herv\u00e9 J\u00e9gou), and the description of adaptive softmax as an approximate strategy for training models with large output spaces."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (3165.0s\u20133210.0s) aligns with chunk_090; assuming 45-second windows, chunk_090 would cover approximately 3150s\u20133195s or similar, and the span falls within \u00b115s of the chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual', there is exactly one span, and the cited source chunk contains multiple [frame caption: ...] markers with visual slide content that is necessary to answer the question."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are explicitly supported by the source text. The slide mentions the function as an efficient softmax approximation described in the paper 'Efficient softmax approximation for GPUs' by Edouard Grave, Armand Joulin, Moustapha Ciss\u00e9, David Grangier, and Herv\u00e9 J\u00e9gou, and describes adaptive softmax as an approximate strategy for training models with large output spaces."
+  },
+  {
+    "qa_id": "nyu_dl_week11_q009",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer incorrectly names the slide 'Designing a Loss Functional' when it is actually titled 'Examples of Loss Functions: Energy Loss,' and multiple claims (Before Training scenario, Yi/\u0176i labels, peak-and-valley curve) are not supported by the chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span (5075\u20135115s) aligns plausibly with the cited chunk nyu_dl_week11_chunk_135 within the expected 45-second window."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'visual,' there is exactly one span, and the cited chunk contains multiple [frame caption: ...] markers."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer states an incorrect slide title and includes multiple atomic claims unsupported by the source chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week11_q010",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer includes unsupported claims: the comparison to NLLLoss weight parameter, the claim that oversampling 'exploits SGD more effectively,' and the medical student analogy are not present in the cited chunks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The inter-hop gap is 165 seconds (\u226570s), and both spans align with content in their respective cited chunks."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question genuinely requires two non-adjacent spans (165s apart) covering different aspects of the recommendation, satisfying multi-hop requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer contains multiple atomic claims (NLLLoss weight parameter comparison, SGD exploitation rationale, medical student analogy) that are not supported by the cited source chunks.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week11_q011",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week11_q012",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week11_q013",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk explicitly states that the average of images is blurry (supporting the L2/mean claim) and that L1 minimization gives the median, which is 'a given point' and 'not blurry.' All atomic claims in the answer are supported by the chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (2240.0s\u20132320.0s) corresponds to chunk_065; assuming 45-second chunks, chunk_065 would cover approximately 2880s\u20132925s if indexed sequentially, but the span timing aligns plausibly with the cited chunk within the \u00b115s tolerance for a single-hop text question."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question_type is 'text' (single span, no frame caption required), but the cited chunk contains multiple [frame caption: ...] markers. However, the question itself is answerable from the spoken text alone without requiring visual content, so the type 'text' is appropriate \u2014 but the chunk does contain frame captions. The type 'text' requires exactly 1 span and no frame caption requirement; having frame captions in the chunk does not disqualify it as 'text' since the answer is derived from spoken content. Actually, re-evaluating: the criterion only requires that visual type claims frame captions; text type has no such restriction. PASS."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The source text supports the claim that the L2 loss leads to predicting the average, resulting in a blurry image, and that the L1 loss leads to predicting the median, which is a single point. However, it does not explicitly state that the median corresponds to a sharper, more realistic output compared to the average. The explanation about sharpness and realism is not directly supported by the source text."
+  },
+  {
+    "qa_id": "nyu_dl_week11_q014",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the loss was proposed by 'Jason Weston, Ronan Collobert, and Samy Bengio,' but the chunk text only mentions 'Chisholm Weston and Sammy bengio' (no 'Ronan Collobert' is mentioned in the source chunks). This atomic claim about Ronan Collobert is unsupported by the cited chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (3715s\u20133810s) covers a 95-second window that aligns with chunk_106 and chunk_107, which are consecutive 45-second chunks; the span boundaries fall within plausible range of those chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question_type is 'text' (requiring exactly 1 span), but the answer draws from two source chunks (chunk_106 and chunk_107), and both chunks contain [frame caption: ...] markers, suggesting this could be classified as visual; however, the primary issue is that the question type is 'text' yet the cited chunks include frame captions, making the type classification questionable. More critically, the single span covers content spread across two chunks, which is borderline but acceptable for text type \u2014 this criterion is marginal but the presence of frame captions in cited chunks does not automatically fail a text question. Reconsidering: the text type requires exactly 1 span with no frame caption requirement, and the span is indeed 1 span, so Criterion 3 technically PASSES."
+    },
+    "rejection_reason": "Criterion 1 fails because the answer includes 'Ronan Collobert' as one of the proposers of the triplet-style ranking loss, but this name does not appear in the cited source chunks, making that atomic claim unsupported.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week11_q015",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the source material that contains the mathematical formula for GELU or its relationship to the CDF of a standard normal distribution."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

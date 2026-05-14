@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6006sp20_lec11_q001",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_044 frame captions explicitly show the restrictions table listing 'DAG Relaxation' for DAGs with any edge weights and O(|V|+|E|) running time; chunk_044 text confirms linear time for DAGs; the explanation about topological sort order and relaxing outgoing edges is consistent with the lecture content."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1560s\u20131635s) aligns with chunk_044 (which covers ~1575s\u20131620s range, within \u00b115s); Hop 2 (3705s\u20133780s) aligns with chunk_098; the inter-hop gap is |1560 - 3705| = 2145 seconds, well above the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (chunks 044 and 098 are far apart temporally), and both cited chunks contain [frame caption: ...] markers with visual content showing the restrictions table and blackboard content, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that 'DAG Relaxation' is the algorithm for DAGs with any edge weights and achieves a running time of O(|V| + |E|), which is linear time."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec11_q002",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: w(b,f) = -4 is confirmed in chunk_009 ('the weight from vertex b to f in this graph is...minus 4') and a frame caption ('w(b,f) = -4'); the notation w(e) = w(u,v) with w: E \u2192 Z is confirmed in both chunks' frame captions; the graph has eight nodes (a,b,c,d,e,f,g,h) as shown in frame captions."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (240\u2013315s) aligns with chunk_008 and hop 2 (555\u2013630s) aligns with chunk_009; the inter-hop gap is |240 - 555| = 315 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunk_008 for notation, chunk_009 for the specific edge weight), and both cited chunks contain [frame caption: ...] markers with visual graph information, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the weight from vertex b to f is -4 and defines the notation for edge weights as w(e) = w(u, v), where w maps edges E to integers Z."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec11_q003",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer's claims about non-negative edge weights and O(|V| log |V| + |E|) running time are supported by the chunks: chunk_046 explicitly mentions 'non-negative' weights and 'n log n' with 'losing a log factor on the number of vertices,' and the frame captions in chunk_047 show a table listing 'Non-negative' as a restriction with corresponding running times. The claim about road networks is a reasonable inference from the lecture context about traveling distances."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 1650.0s\u20131725.0s and hop 2 spans 1695.0s\u20131770.0s. The inter-hop gap is |1650 - 1695| = 45 seconds, which is less than the required 70 seconds, meaning the two hops are too close together and can effectively be retrieved in a single step."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both cited chunks contain [frame caption: ...] markers, and the question references both blackboard content and lecture explanation across two spans, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only 45 seconds (1695 - 1650), which is below the required minimum of 70 seconds, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006sp20_lec11_q004",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_026 confirms delta(s,t)=\u221e when no path exists; chunk_031 confirms that negative-weight cycles cause delta to be set to -\u221e because one can traverse the cycle repeatedly to make path weight arbitrarily small."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (900\u2013975s) aligns with chunk_026 and hop 2 (1140\u20131215s) aligns with chunk_031; the inter-hop gap is |900-1140|=240s, well above the 70s threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (chunks 026 and 031) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that when no path exists, delta(s,t) is set to infinity, and in the case of negative-weight cycles, delta is set to negative infinity, supporting both claims in the answer."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec11_q005",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006sp20_lec11_q006",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer's key claims \u2014 that the sum of all edge weights must be asymptotically less than V+E, and that each edge of weight w is replaced by w unweighted edges in series \u2014 are both explicitly supported by chunk_041 ('one two three four edges...if the sum of all weights in my graph is asymptotically less than v plus e right we can get a linear time algorithm again by reducing to bfs')."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1320\u20131395s) aligns with chunk_041 (which covers roughly 1305\u20131395s range given 45s windows), and hop 2 (1470\u20131545s) aligns with chunk_042; the inter-hop gap is |1320 - 1470| = 150s, which exceeds the required 70s minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it references two non-adjacent spans (chunks 041 and 042, separated by ~150s), and both cited chunks contain [frame caption: ...] markers with visual content descriptions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim that the sum of all edge weights must be asymptotically less than V plus E for the BFS reduction to run in linear time is explicitly supported by the source text, which states that if the sum of all weights is asymptotically less than V plus E, a linear time algorithm can be achieved by reducing to BFS."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec11_q007",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The condition 'v not in P and \u03b4(s,v) = \u03b4(s,u) + w(u,v)' is explicitly shown in the frame captions of chunk_059. The explanation that only finite shortest path distances need parent pointers (excluding infinite/unreachable and negative-infinity/negative-cycle vertices) is supported by chunk_051's text and frame captions stating 'only need P(v) for v with finite \u03b4(s,v)' and the lecture audio mentioning 'we don't care about the infinite ones or the minus infinite ones just the finite ones.'"
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1980s\u20132055s) aligns with chunk_059 and hop 2 (1845s\u20131920s) aligns with chunk_051, both within plausible chunk boundaries. The inter-hop gap is |1980 - 1845| = 135 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunk_051 at ~1845s and chunk_059 at ~1980s), and both chunks contain [frame caption: ...] markers with visual board content, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that the condition checked is 'if v not in P and \u03b4(s, v) = \u03b4(s, u) + w(u, v)'. It also supports the explanation that parent pointers are only needed for vertices with finite shortest path distances because vertices with infinite or negative-infinity distances are not relevant for shortest paths."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec11_q008",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer (red background, white text, 'ocw.mit.edu' URL, MIT OCW logo in bottom left, Creative Commons logo with 'cc BY NC SA' in bottom right, Attribution-NonCommercial-ShareAlike license) are explicitly supported by the second frame caption in the cited chunk."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (3717.0s\u20133775.0s) aligns with chunk_098, which covers approximately a 45-second window near the end of the lecture; the span boundaries are plausible for this chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual', requiring exactly 1 span and at least 1 source chunk with a [frame caption: ...] marker; both conditions are met with one span and the chunk containing frame caption content."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text confirms the slide has a red background with white text directing viewers to 'ocw.mit.edu', displays the MIT OCW logo in the bottom left corner, and a Creative Commons license logo with 'cc BY NC SA' in the bottom right corner."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec11_q009",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the sad face emoji appears 'below' the 'Negative-Weight Cycles' text, but the frame captions show it appears next to or above/below in varying descriptions. More critically, the answer states the blackboard reads 'if there exists a path from s to v that goes through a vertex on a negative weight cycle' as part of the initial introduction frame, but the chunk shows this text was added progressively across multiple frames \u2014 the first frame only shows 'Negative-Weight Cycles' with the sad face, not the full path description. Additionally, the answer describes the emoji as a 'sad face emoji symbol' but the frame caption uses \ud83d\ude0a which is actually a smiling face, not a sad face \u2014 this is a contradiction within the source itself, but the answer uncritically repeats the caption's description of it as a 'sad face' while the Unicode character is a smile."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span (1155.0s\u20131230.0s) is a 75-second window, and chunk_033 is cited; the span timing is plausible for a single chunk covering this content. Only one hop is present, so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual', there is exactly one span, and the cited source chunk contains multiple [frame caption: ...] markers, satisfying the visual question type requirements."
+    },
+    "rejection_reason": "Criterion 1 fails: the answer inaccurately describes the blackboard content as showing the full path description in the initial introduction frame, when the frames show text was added progressively; also the emoji described as 'sad face' is represented by \ud83d\ude0a (smiling face) in the source, creating an unsupported claim.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006sp20_lec11_q010",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_013 confirms storing weight with each adjacency as a tuple; chunk_015 confirms a separate dictionary/hash table mapping edges to weights; and chunk_015 explicitly states the assumption that edge weight can be queried in constant time given a vertex pair."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (490\u2013565s) aligns with chunk_013 and hop 2 (600\u2013675s) aligns with chunk_015, both within \u00b115s of chunk boundaries; the inter-hop gap is |490-600|=110s \u2265 70s, satisfying the multi-hop requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop, requiring information from two non-adjacent spans (chunk_013 for storage methods and chunk_015 for the constant-time query assumption), and the temporal gap between hops exceeds 70 seconds."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports both ways of storing edge weights: storing the weight with each adjacency as a tuple and using a separate dictionary mapping edges to weights. It also confirms the key assumption that the weight of any given edge can be queried in constant time."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec11_q011",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_082 confirms initialization with d(s,v)=\u221e then d(s,s)=0; chunk_095 confirms the inductive argument that predecessors in topological order must come before v (no cycles = DAG property), and that correct distances are established by induction when processing in topological order."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (3060-3135s) aligns with chunk_082 (which covers ~3060-3105s range, within \u00b115s tolerance); Hop 2 (3540-3615s) aligns with chunk_095. The inter-hop gap is |3060-3540| = 480 seconds, well above the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is correctly typed as multi-hop: it requires information from two non-adjacent spans (initialization details from chunk_082 and the correctness argument from chunk_095), and both chunks contain [frame caption: ...] markers though the type is multi-hop (not multi-hop-visual), which is valid since multi-hop does not require visual evidence."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the initialization of distance estimates with d(s, v) = \u221e and d(s, s) = 0. It also confirms that processing vertices in topological order ensures correct shortest path distances by induction, as any predecessor of a vertex in a DAG must be processed before the vertex itself."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec11_q012",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006sp20_lec11_q013",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims (path route, individual edge weights -5, -4, 2, sum computation yielding -7, and definition of path weight) are explicitly supported by the chunk text and frame captions."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span (720.0s\u2013795.0s) aligns plausibly with the cited chunk mit_6006sp20_lec11_chunk_019, and no inter-hop gap check is needed for a single-hop text question."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, which is satisfied; the answer is derivable from a single source chunk without requiring visual-only evidence."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text: the weights of the edges a to b, b to f, and f to g are -5, -4, and 2 respectively, and their sum is -7."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec11_q014",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk explicitly states 'a topological sort order is... a b e f g h d c' and 'let's use e let's do shortest paths from e', supporting the topological order and source vertex claims. The claim about a and b having infinite distances and no relaxations is a reasonable inference from the topological order context, though not explicitly stated; however, the core factual claims about the order and source vertex are directly supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span is 3165.0s\u20133240.0s (75-second window), and chunk_087 covers a 45-second window. The span start at 3165s should align with the chunk boundary within \u00b115s, which is plausible for a single-hop text question."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span (hop 1: 3165.0s\u20133240.0s). Although the chunk contains [frame caption: ...] markers, the text type does not require their absence, only that there is exactly 1 span."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the topological sort order as a, b, e, f, g, h, d, c and confirms that vertex e is used as the source for shortest paths computation."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec11_q015",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the supplied content that could answer the question about Bellman-Ford's worst-case running time complexity."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

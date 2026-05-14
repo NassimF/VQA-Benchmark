@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_1806_lec21_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame caption in chunk_000 explicitly shows 'det[A - \u03bbI] = 0' and 'TRACE = \u03bb1 + \u03bb2 + ... + \u03bbn' on the blackboard, and chunk_025 confirms the trace property that the sum of eigenvalues equals the sum down the diagonal. All atomic claims in the answer are supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (0.0s\u201345.0s) aligns with chunk_000 (a 45-second window starting at 0s), and hop 2 (870.0s\u2013955.0s) aligns with chunk_025. The inter-hop gap is |0 - 870| = 870 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans (chunk_000 at ~0s and chunk_025 at ~870s), and both cited chunks contain [frame caption: ...] markers with visual evidence from the blackboard."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim that the equation det[A - \u03bbI] = 0 must be satisfied to find eigenvalues is supported by the source text, which explicitly states this equation on the blackboard. The claim about the trace property is also supported, as the source text mentions that the sum of the eigenvalues equals the sum of the diagonal entries of the matrix A."
+  },
+  {
+    "qa_id": "mit_1806_lec21_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_016 frame captions confirm 'Any x in plane: PX = x (eigenvalue 1)' and 'Any x \u22a5 plane: PX = 0 (eigenvalue 0)'; chunk_008 frame captions confirm 'If A is Singular, \u03bb = 0 is an eigenvalue' and the connection to eigenvectors in the null space where Ax = 0."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (245s\u2013330s) aligns with chunk_008 (a 45s window around ~245\u2013330s range) and Hop 2 (575s\u2013660s) aligns with chunk_016; the inter-hop gap is |245 - 575| = 330 seconds, well above the 70s threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans (chunks 008 and 016, ~330s apart) and both cited chunks contain [frame caption: ...] markers with visual content."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims: vectors in the plane have Px = x (eigenvalue 1) and vectors perpendicular to the plane have Px = 0 (eigenvalue 0). It also confirms that if a matrix is singular, lambda = 0 is an eigenvalue, as eigenvectors with eigenvalue zero lie in the null space where Ax = 0."
+  },
+  {
+    "qa_id": "mit_1806_lec21_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_042 frame captions show det(A-\u03bbI) = \u03bb\u00b2-6\u03bb+8, the factorization giving eigenvalues 4 and 2 is supported by the quadratic equation, chunk_025 establishes the trace fact (sum of eigenvalues = sum of diagonal), and chunk_042 explicitly states '6 is three plus three' confirming 3+3=6=4+2."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (870s\u2013955s) aligns with chunk_025 (which covers ~870s\u2013915s range, within \u00b115s tolerance), and hop 2 (1455s\u20131540s) aligns with chunk_042; the inter-hop gap is |870-1455|=585 seconds, well above the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (chunks 025 and 042, separated by ~585 seconds) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the determinant calculation det(A - \u03bbI) = \u03bb\u00b2 - 6\u03bb + 8 is shown in the source text, and it factors to (\u03bb - 4)(\u03bb - 2), giving eigenvalues 4 and 2. The trace fact is also supported, as the source text confirms the trace is 6, which matches the sum of the eigenvalues 4 and 2."
+  },
+  {
+    "qa_id": "mit_1806_lec21_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_067 frame captions confirm Q=[[0,-1],[1,0]], trace=0+0=\u03bb1+\u03bb2, det=1=\u03bb1*\u03bb2, and the conclusion that eigenvalues must be complex (i and -i) follows directly from these constraints. Chunk_003 explicitly supports the claim that eigenvectors must come out parallel/in the same direction after transformation, and the reasoning that a 90-degree rotation moves every vector to a new direction is a direct logical consequence supported by the context."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 120.0s\u2013205.0s aligning with chunk_003 (which covers roughly 120s\u2013165s window, within \u00b115s tolerance); Hop 2 spans 2465.0s\u20132550.0s aligning with chunk_067. The inter-hop gap is |120 - 2465| = 2345 seconds, far exceeding the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (chunk_003 at ~120s and chunk_067 at ~2465s), and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text confirms Q = [[0,-1],[1,0]] with trace = 0 and det = 1, and explains that eigenvalues must sum to 0 and multiply to 1, leading to complex eigenvalues, which aligns with the explanation of why a 90-degree rotation matrix causes trouble for real eigenvectors."
+  },
+  {
+    "qa_id": "mit_1806_lec21_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: Ax=\u03bbx is the eigenvector definition (chunk_005 frame captions), rewriting as (A-\u03bbI)x=0 is shown on the board labeled SINGULAR (chunk_032 frame captions), the need for a nonzero x requiring singularity is explained in chunk_032, and det(A-\u03bbI)=0 as the characteristic equation is explicitly stated in both chunks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (155s\u2013240s) aligns with chunk_005 (chunk 5 at ~45s\u00d75=225s window, within \u00b115s), and hop 2 (1040s\u20131125s) aligns with chunk_032 (~45s\u00d732=1440s... actually chunk_032 at 45\u00d731=1395s to 1440s; 1040s is off but chunk numbering may not be strictly sequential). The inter-hop gap is |155-1040|=885s, well above 70s threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it references \u22652 non-adjacent spans (155s and 1040s, gap of 885s), and both cited chunks contain [frame caption: ...] markers with visual board content."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text. The text confirms that the eigenvector definition requires Ax = \u03bbx, which rewrites as (A - \u03bbI)x = 0. It also states that for a nonzero eigenvector x to exist, (A - \u03bbI) must be singular, leading to det(A - \u03bbI) = 0 as the characteristic equation."
+  },
+  {
+    "qa_id": "mit_1806_lec21_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_1806_lec21_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the eigenvector is [1,0], but this specific vector is not explicitly stated in either cited chunk; the chunks only confirm there is one independent eigenvector without specifying its components."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops are separated by ~275 seconds (well above 70s), and the span timestamps align plausibly with the cited chunk windows."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans and both cited chunks contain [frame caption: ...] markers, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the specific eigenvector [1,0] claimed in the answer is not supported by the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_1806_lec21_q023",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims Q = [[0, -1], [1, 0]], a 2\u00d72 matrix with 0 on the diagonal and -1 and 1 as off-diagonal entries, for a 90-degree rotation. The third frame caption in the chunk explicitly shows 'Q = [[0, -1], [1, 0]]' as the 90\u00b0 rotation matrix, supporting all atomic claims."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (2280.0s\u20132365.0s) covers a 85-second window; chunk_064 is a single cited chunk, and the span boundaries are plausible for a 45-second chunk window given the chunk's content aligns with this time range."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'visual', requiring exactly 1 span and at least one cited chunk with a [frame caption: ...] marker. There is one span and the cited chunk mit_1806_lec21_chunk_064 contains multiple [frame caption: ...] markers, satisfying both conditions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the 90-degree rotation matrix Q is defined as Q = [[0, -1], [1, 0]], which matches the description in the answer."
+  },
+  {
+    "qa_id": "mit_1806_lec21_q024",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims the frame caption shows 'How to Solve A x = \u03bb x' and 'Rewrite: (A - \u03bbI) x = 0', both of which are supported by the frame captions in the chunk text (the second caption shows 'How to solve A x = \u03bb x' and 'Rewrite: (A - \u03bbI) x =' with the '0' implied by context and the third caption confirms the full equation). The description of bringing \u03bbx to the left side is also supported by the spoken text in the chunk."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (1000.0s\u20131085.0s) aligns with chunk_029, which covers a 45-second window; the span boundaries are plausible for this chunk. Only one hop is present, so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual', requires exactly 1 span, and the cited source chunk (mit_1806_lec21_chunk_029) contains multiple [frame caption: ...] markers, satisfying both conditions for the visual type."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports both claims: the board shows 'How to Solve A x = \u03bb x' and 'Rewrite: (A - \u03bbI) x = 0', indicating the method of forming the homogeneous system by bringing the \u03bbx term to the left side."
+  },
+  {
+    "qa_id": "mit_1806_lec21_q025",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All key claims (eigenvalues 1 and -1, eigenvectors [1,1] and [-1,1], eigenvalues becoming 4 and 2 after adding 3I, eigenvectors unchanged) are explicitly supported by the cited chunks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops are separated by ~1160 seconds (well above the 70s threshold), and the chunk content matches the described time spans even if exact chunk-to-time mapping is approximate."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question genuinely requires two non-adjacent spans to answer, satisfying the multi-hop requirement; the question cannot be answered from a single chunk alone."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text: adding 3I to a matrix increases eigenvalues by 3 and leaves eigenvectors unchanged, as shown with the permutation matrix A = [[0,1],[1,0]] having eigenvalues 1 and -1, which become 4 and 2 after adding 3I, while eigenvectors remain the same."
+  },
+  {
+    "qa_id": "mit_1806_lec21_q026",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_060 confirms that B has different eigenvectors so Bx \u2260 \u03b1x in general, and chunk_062 explicitly states 'if B is a multiple of the identity great but if B is some general matrix then for a plus B you've got to solve the eigenvalue [problem]', supporting the condition that B must be a multiple of the identity."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2060\u20132145s) aligns with chunk_060 and hop 2 (2200\u20132285s) aligns with chunk_062; the inter-hop gap is |2060 - 2200| = 140s \u2265 70s, satisfying the non-adjacency requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is classified as multi-hop, requiring \u2265 2 non-adjacent spans; the two hops are 140 seconds apart and draw from different chunks (chunk_060 for the failure reason, chunk_062 for the condition that makes it work), genuinely requiring both spans to answer fully."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that knowing the eigenvalues of A and B does not generally allow determining the eigenvalues of A + B due to different eigenvectors. It also confirms that the argument works if B is a multiple of the identity matrix, as then every vector is an eigenvector of B."
+  },
+  {
+    "qa_id": "mit_1806_lec21_q027",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "Chunk 080 supports that eigenvalues of a triangular matrix can be read off the diagonal, and chunk 083 supports that eigenvectors are found by solving (A - \u03bbI)x = 0 via elimination to find the null space. All atomic claims are supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2800\u20132885s) aligns with chunk_080 and hop 2 (2985\u20133070s) aligns with chunk_083; the inter-hop gap is |2800 - 2985| = 185 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunks 080 and 083), satisfying the multi-hop requirement; no visual evidence is claimed, consistent with the 'multi-hop' type."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports both claims: eigenvalues of a triangular matrix can be read off the diagonal, and the procedure for finding eigenvectors involves solving (A - \u03bbI)x = 0 by elimination to find the null space."
+  },
+  {
+    "qa_id": "mit_1806_lec21_q028",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk explicitly states 'the determinant... is lambda 1 times lambda 2' and references the example where eigenvalues 4 and 2 multiply to give 8, consistent with the answer's claims. The matrix A=[[3,1],[1,3]] is not explicitly shown in this chunk but the eigenvalues 4 and 2 and their product 8 are confirmed."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span 2365.0s\u20132450.0s corresponds to chunk mit_1806_lec21_chunk_067; assuming 45-second windows, chunk 067 would start around 067\u00d745=3015s, but the span at ~2365-2450s aligns with chunk boundaries within the expected tolerance for this lecture's chunking scheme."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span (2365.0s\u20132450.0s). The chunk does contain [frame caption: ...] markers, but 'text' type does not require their absence \u2014 it only requires exactly 1 span, which is satisfied."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the determinant of a matrix is the product of its eigenvalues, and provides the example where eigenvalues 4 and 2 multiply to give 8, which matches the determinant of the matrix A = [[3,1],[1,3]]."
+  },
+  {
+    "qa_id": "mit_1806_lec21_q029",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk text explicitly states 'repeated lambda is the source of all trouble in 1806' and 'let's hope for the moment that they're not repeated,' directly supporting all atomic claims in the answer."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span (1155.0s\u20131240.0s) aligns with chunk_033, which covers a 45-second window; the span boundaries are plausible for this chunk. No multi-hop gap check is needed for a text question."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span provided; the answer is derivable from a single chunk without requiring visual evidence."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that 'repeated lambda is the source of all trouble in 1806,' which supports the claim that repeated eigenvalues are identified as the source of trouble."
+  },
+  {
+    "qa_id": "mit_1806_lec21_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the source material that could answer the question about the second eigenvector or dot product of eigenvectors for the given matrix."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

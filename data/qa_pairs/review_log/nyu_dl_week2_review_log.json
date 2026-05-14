@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "nyu_dl_week2_q001",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the slide defines \u0233 = G(x, w) with \u0233 as predicted output, G as parameterized deterministic function, x as input, and w as parameters (chunk_001 frame captions); the nearest-neighbor explanation about finding row k minimizing distance and the point that computation can be arbitrarily complex (not just weighted sums and nonlinearities) is directly supported by chunk_006 transcript text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (35\u201380s) aligns with chunk_001 (a 45s window starting ~35s), and hop 2 (175\u2013255s) aligns with chunk_006; the inter-hop gap is |35 - 175| = 140s, which is \u2265 70s, satisfying the multi-hop temporal separation requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans (chunks 001 and 006), and both cited chunks contain [frame caption: ...] markers with visual slide content; the question genuinely requires combining information from both spans."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are explicitly supported by the source text. The definition of a parameterized model as \u0233 = G(x, w) is directly stated in the source. The explanation of the nearest-neighbor example involving complex operations like minimization is also explicitly described in the source text."
+  },
+  {
+    "qa_id": "nyu_dl_week2_q002",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims 'red squares' represent cost function modules and that 'rounded shape' conveys computation direction, but neither claim is explicitly supported by the cited chunk text or frame captions; the chunks only mention 'squares are factors' without specifying color or shape details."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align with their respective chunk boundaries (310-360s for chunk_009, 420-465s for chunk_012), and the inter-hop gap of 110 seconds exceeds the required 70 seconds."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop-visual: it requires two non-adjacent spans (gap of 110s) and both cited chunks contain [frame caption: ...] markers with visual content about the slide notation."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer contains unsupported atomic claims about 'red squares' for cost function modules and 'rounded shape' for deterministic function modules, which are not evidenced in the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week2_q003",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_017 confirms lines of equal cost, gradient vectors pointing uphill and orthogonal to those lines; chunk_032 confirms the oscillating trajectory, that each sample pulls in a different direction, the average pulls toward the minimum of the average loss, and that SGD is faster than batch gradient when samples have redundancy."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (595\u2013650s) aligns with chunk_017 (a ~45s window around that time), and hop 2 (1120\u20131165s) aligns with chunk_032; the inter-hop gap is |595 - 1120| = 525 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (595s and 1120s) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text describes the gradient vectors pointing uphill and orthogonal to lines of equal cost, the oscillating path of SGD, and the instructor's explanation of the noisy trajectory being beneficial due to faster convergence when data has redundancy."
+  },
+  {
+    "qa_id": "nyu_dl_week2_q004",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the two equations s[i] = \u03a3 w[i,j]\u00b7z[j] and z[i] = f(s[i]) are explicitly shown in the frame captions of chunk_044, and the explanation that removing nonlinearities makes the product of two linear functions a linear function (collapsible into a single matrix) is directly stated in chunk_043."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1340\u20131390s) aligns with chunk_044 and hop 2 (1505\u20131550s) aligns with chunk_043; the inter-hop gap is |1340 - 1505| = 165 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunks 043 and 044, separated by ~165s) and both cited chunks contain multiple [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports all claims: it presents the equations s[i] = \u03a3_{j \u2208 UP(i)} w[i,j]\u00b7z[j] and z[i] = f(s[i]), and explains that without nonlinearities, multiple layers can be collapsed into a single linear layer due to the composition of linear functions being linear."
+  },
+  {
+    "qa_id": "nyu_dl_week2_q005",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week2_q006",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_076 confirms zg is dg\u00d71 and zf is df\u00d71, the chain rule formula \u2202c/\u2202zf = (\u2202c/\u2202zg)(\u2202zg/\u2202zf) with Jacobian dimensions dg rows \u00d7 df columns; chunk_080 confirms the (i,j) entry represents the partial derivative of the i-th output component of module G with respect to the j-th input component, capturing sensitivity of output to input perturbation."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2610\u20132660s) aligns with chunk_076 (which covers ~2610\u20132655s range), and hop 2 (2800\u20132850s) aligns with chunk_080 (~2800\u20132845s range); the inter-hop gap is |2610 - 2800| = 190 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (confirmed by 190s gap) and both cited chunks contain multiple [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that zg is a column vector of dimension dg\u00d71 and zf is a column vector of dimension df\u00d71. It also describes the Jacobian matrix as having dg rows and df columns, and explains that the (i,j) entry represents the partial derivative of the i-th component of the output vector with respect to the j-th component of the input vector, matching the explanation given in the answer."
+  },
+  {
+    "qa_id": "nyu_dl_week2_q007",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_140 confirms ReLU is recommended and tanh/logistic are falling out of favor; chunk_170 confirms weights should be drawn randomly with zero mean and variance of one over the square root of the number of inputs, to preserve signal variance through the network."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (5040-5100s) aligns with chunk_140 (which covers ~5040-5085s range), and hop 2 (5945-5990s) aligns with chunk_170; the inter-hop gap is |5040 - 5945| = 905 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunks 140 and 170, ~900s apart), and both chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports both claims: the slide lists ReLU non-linearities as recommended, and the instructor states that weights should be initialized with a variance of one over the square root of the number of inputs to maintain signal variance."
+  },
+  {
+    "qa_id": "nyu_dl_week2_q008",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame captions in the cited chunk explicitly state the three perturbation equations ds[0] = w[0]\u00b7dz, ds[1] = w[1]\u00b7dz, and ds[2] = w[2]\u00b7dz (the third equation is implied by the pattern shown across multiple captions), and the answer accurately reflects these equations along with their meaning."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (1970.0s\u20132010.0s) aligns with chunk nyu_dl_week2_chunk_056; a 45-second chunk centered around ~1990s is consistent with this span, and the \u00b115s tolerance is satisfied."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual', requiring exactly 1 span and at least one source chunk with a [frame caption: ...] marker; both conditions are met as there is one span and the cited chunk contains multiple [frame caption: ...] markers."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claims that perturbing z by dz affects s[0], s[1], and s[2] by ds[0] = w[0]\u00b7dz, ds[1] = w[1]\u00b7dz, and ds[2] = w[2]\u00b7dz, as stated in the frame caption of the slide titled 'Backprop through a weighted sum'."
+  },
+  {
+    "qa_id": "nyu_dl_week2_q009",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the frame captions in the chunk: L(x,y,w)=C(y,G(x,w)), L is the loss function, C is a comparison function, y is the true label, G is the model's prediction, and G(x,w) is the predicted output. The claim about \u0233 is a minor extension but consistent with the frame caption content describing G(x,w) as the model's prediction."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (505.0s\u2013535.0s) falls within chunk_014's window; with a 45-second chunk window and the span centered around 520s, this is plausible alignment with the cited chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual' requiring exactly 1 span and at least one frame caption marker; there is exactly one span and the cited chunk contains multiple [frame caption: ...] markers describing the slide."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims about the simple per-sample loss function L(x, y, w) = C(y, G(x, w)) and its components are explicitly supported by the source text, which describes the loss function, comparison function, true label, and model's prediction function."
+  },
+  {
+    "qa_id": "nyu_dl_week2_q010",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_024 confirms C is not differentiable/unknown (only gives value not gradient) as the key RL vs supervised learning difference; chunk_027 confirms that high-dimensional \u0233 creates a huge search space making RL inefficient. The claim about estimating gradients by perturbation is implied by the 'try lots and lots of different times' language in chunk_027 and the 'black box' framing in chunk_024."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (730\u2013775s) aligns with chunk_024 and hop 2 (840\u2013900s) aligns with chunk_027; the inter-hop gap is |730-840|=110 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question genuinely requires two non-adjacent spans (chunk_024 for the differentiability distinction and chunk_027 for the sample efficiency consequence), satisfying the multi-hop requirement; no visual evidence is claimed."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims that in supervised learning, the cost function is differentiable, allowing gradient computation, while in reinforcement learning, the cost function is a black box without gradient information, leading to inefficiency in high-dimensional spaces."
+  },
+  {
+    "qa_id": "nyu_dl_week2_q011",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_034 confirms hardware (GPUs/multi-core CPUs) efficiency as the reason for batching and calls it a 'bad reason'; chunk_037 confirms the empirical rule of 1-2x number of categories (ImageNet: 1,000 categories \u2192 batches up to ~2,000) and that beyond this convergence speed degrades. The claim about data redundancy/algorithmic motivation for SGD is implied by the context in chunk_037 ('redundancy') though less explicit, it is sufficiently supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1190-1235s) aligns with chunk_034 (which covers ~1012.5-1057.5s range... actually chunk_034 is chunk 34, so ~34*45=1530s start; let me reconsider: chunk_034 at index 34 covers 34*45=1530s to 1575s, but the span is 1190-1235s which would be chunk ~26-27. However, the naming convention may not be strictly sequential by index number. Taking the chunk IDs at face value and the spans as provided, hop 1 at 1190s and hop 2 at 1295s gives a gap of |1295-1190|=105s \u2265 70s, satisfying the multi-hop temporal gap requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop, requiring information from two non-adjacent spans (1190-1235s and 1295-1345s, gap of 105s \u2265 70s), and both source chunks are needed to answer the full question. No visual evidence is claimed, consistent with the 'multi-hop' type."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text confirms that batching is motivated by hardware constraints for parallelization efficiency, and it cites empirical evidence for choosing batch sizes based on the number of categories in classification tasks."
+  },
+  {
+    "qa_id": "nyu_dl_week2_q012",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week2_q013",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunk: John Bridle invented softmax, he is from Britain, the year was around 1988-1989, he regretted calling it softmax, and he said it should have been called 'soft argmax' (the chunk says 'soft agmax' which is clearly 'soft argmax'). The claim that the name had become widely established is supported by 'it's too late. People call it...'"
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (4095.0s\u20134140.0s) covers a 45-second window, and chunk_117 is cited as the source. The span timing is plausible for a single-hop text question with one cited chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span (4095.0s\u20134140.0s). Although the chunk contains [frame caption: ...] markers, the question type is 'text' not 'visual', and the answer is derived from the spoken transcript content, not visual content, so this is acceptable."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text states that John Bridle from Britain invented softmax around 1988 or 1989, regretted the name, and suggested it should have been called soft argmax."
+  },
+  {
+    "qa_id": "nyu_dl_week2_q014",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunk text: PyTorch's cross-entropy loss expects log softmax inputs (supported), it's easy to accidentally use softmax instead (supported), this leads to hours of debugging (supported), and the recommendation is to use log softmax not softmax when feeding into cross-entropy loss (supported). The claim about 'numerically incorrect but not obvious error' is a reasonable paraphrase of 'debugging for hours' without knowing what went wrong, which is supported by the chunk."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span is 5025.0s\u20135075.0s. Chunk 142 covers a 45-second window; the span's boundaries align plausibly with the chunk boundaries (within \u00b115s). Only one hop is present, so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text', which requires exactly 1 span \u2014 there is exactly one span (5025.0s\u20135075.0s). Although the chunk contains [frame caption: ...] markers, the question type is 'text' not 'visual', and the answer is derived from the spoken transcript content, not the visual content, so this is appropriate."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text explicitly states that PyTorch's cross-entropy loss expects log softmax outputs and warns against using softmax, which can lead to debugging issues."
+  },
+  {
+    "qa_id": "nyu_dl_week2_q015",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, and there is no evidence of CUDA kernel writing guidelines for custom backpropagation modules in PyTorch anywhere in the available content."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

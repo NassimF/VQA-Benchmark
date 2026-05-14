@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "stanford_cs229_lec12_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer states 'K-means is coordinate descent on J' but the source chunk_022 explicitly says 'coordinate Ascent on the function J,' directly contradicting the answer's claim about descent."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops are at 556s and 770s, giving an inter-hop gap of 214 seconds (\u226570s), and both spans align plausibly with their respective source chunks."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans and both cited chunks contain [frame caption:] markers, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer incorrectly states 'coordinate descent' when the source explicitly says 'coordinate ascent,' which is a factual contradiction with the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_010 confirms inputs are vectors in R^n and centroids mu1..muK are also vectors in R^n; chunk_029 confirms that if a centroid has no points assigned, one option is to eliminate it and another is to re-initialize it randomly."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (315-395s) aligns with chunk_010 (a ~45s window around that range), and hop 2 (1016-1060s) aligns with chunk_029; the inter-hop gap is |315 - 1016| = 701 seconds, well above the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (hops at ~315s and ~1016s) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that if the input data are vectors in R^n, then the cluster centroids will also be vectors in R^n. It also mentions that if a centroid has no points assigned to it, one option is to eliminate the cluster, and another is to re-initialize it randomly."
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims 'coordinate descent' but the frame caption in chunk_023 explicitly states 'K-means is coordinate ascent on J'; additionally, the described scatter plot with red/blue dot clusters and cross centroids is not present in any cited frame caption."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops are at 630s and 812s, giving an inter-hop gap of 182 seconds (\u226570s), and both spans plausibly align with their respective chunk windows."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (gap ~182s) and both cited chunks contain [frame caption: ...] markers, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer incorrectly states 'coordinate descent' when the source explicitly says 'coordinate ascent,' and the described visual (scatter plot with red/blue clusters and cross centroids) is not supported by any cited frame caption.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer accepts the claim that frame captions show a 'Heat' axis, but no cited chunk frame caption mentions 'Heat' as an axis label \u2014 captions reference 'Vibration', 'Density', 'Flux', 'x', and 'y' axes only."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align plausibly with their respective chunks' content, and the inter-hop gap is exactly 70 seconds, meeting the minimum threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question uses two non-adjacent spans and both cited chunks contain [frame caption: ...] markers, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer's claim about a 'Heat' axis in the frame caption is unsupported by any cited chunk text, which only references Vibration, Density, Flux, x, and y as axis labels.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The claim that P(x|z=j) is Gaussian with mean mu_j and covariance sigma_j is not supported by the cited chunk text; the chunks do not mention these specific parameters explicitly."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align plausibly with their respective chunk boundaries, and the inter-hop gap of ~125 seconds exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question has two non-adjacent spans and both cited chunks contain [frame caption: ...] markers, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer includes an unsupported claim about P(x|z=j) being Gaussian with parameters mu_j and sigma_j, which is not evidenced in the cited source chunks.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are explicitly supported by the cited chunks: the Bayes' rule formula for w_j is shown in chunk_057's frame caption, and the soft indicator role of w_ij in the M-step is described in chunk_070's transcript."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align plausibly with their cited chunks, and the inter-hop gap of ~475 seconds far exceeds the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (475s apart) and both cited chunks contain [frame caption: ...] markers, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claim that w_j is computed using Bayes' rule as P(x|z=j)P(z=j) divided by the sum over all l of P(x|z=l)P(z=l), and that in the M-step, phi_j is estimated by (1/m) times the sum over i of w_ij, where w_ij acts as a soft version of the indicator function."
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the frame caption shows a convex function graph with x-axis values 1-6 and a dashed line (chunk_079); the example uses X=1 with prob 1/2 and X=6 with prob 1/2 giving E[X]=3.5 is implied by the graph annotations; for convex functions E[f(X)] \u2265 f(E[X]) is stated in chunk_079; for concave functions (f''(x) \u2264 0) the inequality reverses so f(E[X]) \u2265 E[f(X)] is explicitly stated in chunk_085."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 2850-2935s aligns with chunk_079, and hop 2 spans 2975-3020s aligns with chunk_085; the inter-hop gap is |2850 - 2975| = 125 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunks 079 and 085) and both chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text: the example with X = 1 and X = 6 is mentioned, the inequality for convex functions is stated as f(EX) \u2264 E[f(X)], and the reversal for concave functions is noted as f(E[X]) \u2265 E[f(X)]."
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q023",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims the input shown is X(1), X(2), ..., X(m) as unlabeled training data points, which is explicitly supported by multiple frame captions in the chunk showing 'Input: X(1), X(2), ..., X(m)'. The claim about these being unlabeled training data is consistent with the K-means context described."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (315.0s\u2013360.0s) aligns with chunk_010, which covers a 45-second window. The span falls within the expected chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual' with exactly 1 span and the cited chunk contains multiple [frame caption: ...] markers, satisfying both requirements for the visual question type."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the input to the K-means algorithm is 'X(1), X(2), ..., X(m)', which matches the claim in the answer."
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q024",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame captions in the cited chunk explicitly show 'f''(x) > 0 (f is strictly convex)', 'E[f(X)] = f(E[X])', and 'X = E[X] w.p. 1', all of which support the answer's atomic claims about the condition for equality in the strictly convex case."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (2970.0s\u20133010.0s) corresponds to chunk_084; assuming 45-second chunks, chunk_084 would cover approximately 2970s\u20133015s, which aligns well within the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual' with exactly 1 span, and the cited chunk contains multiple [frame caption: ...] markers describing whiteboard content, satisfying the visual question type requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that if f''(x) > 0 (f is strictly convex), then E[f(X)] = f(E[X]) if and only if X = E[X] with probability one, matching the claims in the answer."
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q025",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "Chunk 045 explicitly supports the claim that mixture of Gaussians uses nearly the same equations as GDA, with Z replacing the observed class labels y. Chunk 047 supports the claim that if Z were known, maximum likelihood estimation could be applied directly, yielding the same formulas as GDA \u2014 implying that the unobserved nature of Z is what makes the problem harder and requires EM."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1575\u20131620s) aligns with chunk_045 (roughly 1575\u20131620s window) and hop 2 (1690\u20131740s) aligns with chunk_047 (roughly 1687.5\u20131732.5s window), both within \u00b115s. The inter-hop gap is |1575 - 1690| = 115s \u2265 70s, satisfying the multi-hop temporal separation requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is classified as multi-hop and requires information from two non-adjacent spans (chunk_045 for the GDA comparison and chunk_047 for the MLE/EM distinction). No visual-only evidence is required, and the two hops are genuinely non-adjacent, confirming multi-hop type."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that the mixture of Gaussians model uses nearly the same equations as Gaussian Discriminant Analysis, with the class labels y in GDA corresponding to the latent variables Z in the mixture model. It also supports the claim that in GDA, class labels y are observed, allowing for direct maximum likelihood estimation, whereas in the mixture of Gaussians, the latent variables Z are unobserved, necessitating the use of the EM algorithm."
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q026",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_026 confirms K is picked manually due to ambiguity in true cluster count (two vs four clusters example); chunk_028 confirms K-means is susceptible to local optima and the remedy is multiple random initializations picking the lowest distortion. The non-convexity claim is implied by the coordinate descent framing in chunk_026's frame captions, though the answer's specific claim about J being 'highly non-convex' is a reasonable characterization of what's described."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (935s\u2013975s) aligns with chunk_026 and hop 2 (1008s\u20131045s) aligns with chunk_028; the inter-hop gap is |935 - 1008| = 73 seconds, which meets the \u226570s requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires information from two non-adjacent spans (chunk_026 for K selection rationale and chunk_028 for local optima), satisfying the multi-hop requirement with a sufficient temporal gap."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that the number of clusters K is often chosen manually due to the ambiguity in the true number of clusters. It also confirms that K-means is susceptible to local optima and suggests using multiple random initializations to find the solution with the lowest distortion."
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q027",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunks support the key claims: log is concave (chunk_102 states 'the log function looks like that and it's a concave function'), Jensen's inequality for concave functions gives log E[X] \u2265 E[log X] (chunk_102 frame caption shows this inequality), and the derivation yields a lower bound expressed as a sum involving log P(x,z;theta)/Q(z) (chunk_103 frame captions show the resulting expression with summation over log of joint probability divided by Q)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (3480\u20133530s) aligns with chunk_102 (which covers ~3480\u20133525s range based on 45s windows), and hop 2 (3615\u20133670s) aligns with chunk_103; the inter-hop gap is |3480 - 3615| = 135 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop requiring two non-adjacent spans (3480\u20133530s and 3615\u20133670s), and both cited chunks contain [frame caption: ...] markers, though the question type is listed as multi-hop (not multi-hop-visual), which is satisfied by the two non-adjacent spans requirement."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The source text does not explicitly mention the process of rewriting P(x^(i); theta) as a sum over z of P(x^(i), z; theta), nor does it mention multiplying and dividing by a distribution Qi(z). These steps are crucial to the derivation described in the answer but are not supported by the provided text."
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q028",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk explicitly states 'we set we choose the distributions Qi so Qi of to um P of Z given X par by Theta' and 'by this step we've now created a lower bound on the log likelihood function that is now tight at the current value of theta,' supporting all atomic claims in the answer about setting Qi to the posterior P(z|x^(i);theta) and the justification that this makes the lower bound tight."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (4320.0s\u20134395.0s) aligns with chunk_122, which covers a 45-second window; the span's 75-second duration is consistent with the chunk boundary range, and this is a single-hop question so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span provided; although the chunk contains [frame caption: ...] markers, the question type 'text' does not require their absence, only that there is a single span."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that in the E-step, Qi is set to P(z | x^(i); theta), and this choice makes the lower bound tight at the current value of theta, which aligns with the justification provided in the answer."
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q029",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame caption explicitly mentions 'news.google' written on the board, and the chunk text describes a website that uses clustering to group related news articles daily, supporting all atomic claims in the answer."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (210.0s\u2013255.0s) aligns with chunk_006, which covers a 45-second window; the span falls within plausible chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question_type is listed as 'text' but the answer relies on a [frame caption: ...] marker (the frame caption showing 'news.google' written on the board) to identify the specific website name, since the spoken text in the chunk omits the website name. This makes it a visual question, not a text question."
+    },
+    "rejection_reason": "Criterion 3 failed: the question_type is 'text' but the answer depends on visual evidence from a frame caption to identify 'news.google', making it a visual question type.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the source material that could answer the question about the closed-form expression for the optimal covariance matrix Sigma_j in the M-step of the mixture of Gaussians EM algorithm."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

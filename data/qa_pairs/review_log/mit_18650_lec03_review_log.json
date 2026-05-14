@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_18650_lec03_q001",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_000 frame captions confirm the slide title 'Lecture 3: Parametric Inference,' MIT logo, Creative Commons license, and Philippe Rigollet as instructor. Chunk_023 explicitly supports the claim about reducing from seven parameters to one (Lambda) and avoiding zero probability values for rare counts."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (0.0s\u201345.0s) aligns with chunk_000 (a 45-second window starting at 0s). Hop 2 (1325.0s\u20131410.0s) aligns with chunk_023. The inter-hop gap is |1325 - 0| = 1325 seconds, well above the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (0s and 1325s) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements of \u22652 non-adjacent spans and \u22651 frame caption."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The source text does not explicitly mention the motivation for using a Poisson distribution instead of a general discrete distribution for modeling sibling counts. It only mentions reducing the number of parameters from seven to one, but does not discuss sibling counts or the issue of zero probabilities in small samples."
+  },
+  {
+    "qa_id": "mit_18650_lec03_q002",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_008 confirms Xi \u2208 {0,1} and Bernoulli distribution; chunk_010 confirms the naive estimator is the proportion of ones (sample mean) and that it is 'in pretty much all respects the best estimator you can think of.'"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The two hops are 275.0s\u2013360.0s and 335.0s\u2013415.0s; the inter-hop gap is |275 - 335| = 60 seconds, which is less than the required 70 seconds, meaning the hops are too close to constitute genuinely non-adjacent retrieval."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question references \u22652 spans and both cited chunks contain [frame caption: ...] markers, satisfying multi-hop-visual requirements; however, the span gap issue noted in Criterion 2 undermines the multi-hop claim."
+    },
+    "rejection_reason": "Criterion 2 fails: the inter-hop temporal gap is only 60 seconds (335s \u2212 275s), below the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec03_q003",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec03_q004",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The core claims about the non-identifiable example (X = indicator of Y > 0, Y ~ N(\u03bc,\u03c3\u00b2)), the ratio \u03bc/\u03c3 invariance, scale invariance, and impossibility of separate identification are all supported by chunk_097 and chunk_103."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops span 3600\u20133690s and 3690\u20133780s, covering chunks 097 and 103 respectively, with an inter-hop gap of 90s \u2265 70s."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both cited chunks contain [frame caption: ...] markers, and two non-adjacent spans are present, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text confirms the definition of identifiability as injectivity of the map from \u03b8 to P\u03b8, and it describes the non-identifiable example where P(Y > 0) depends only on the ratio \u03bc/\u03c3, making it impossible to identify \u03bc and \u03c3 separately."
+  },
+  {
+    "qa_id": "mit_18650_lec03_q005",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The claim that E = (0, +\u221e) for the exponential model is not explicitly stated in the cited chunk text; chunk_056 only confirms that the parameter space consists of positive numbers but does not explicitly specify the sample space as (0, \u221e)."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The ground_truth_spans (1125-1210s and 1960-2050s) do not align with the cited chunk boundaries (chunk_031 \u2248 1395-1440s, chunk_056 \u2248 2520-2565s), with discrepancies far exceeding the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question cites two non-adjacent spans and both source chunks contain [frame caption: ...] markers, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 fails because the claim about E=(0,\u221e) is not explicitly supported in the chunk text; Criterion 2 fails because the ground_truth_spans do not align with the cited chunk boundaries.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec03_q006",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims\u2014bias definition, quadratic risk definition, variance+bias\u00b2 decomposition, the constant estimator example with zero variance and bias (4\u2212\u03b8)\u2014are explicitly supported by the chunk text and frame captions."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align with their respective chunk boundaries within \u00b115s, and the inter-hop gap is 75 seconds (\u226570s required)."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans and both cited chunks contain [frame caption: ...] markers, satisfying multi-hop-visual requirements; the visual slide provides definitions while the verbal explanation provides the example."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports all claims: it defines bias and quadratic risk, shows the decomposition of quadratic risk into variance and squared bias, and provides the example of a constant estimator with zero variance but potentially large bias."
+  },
+  {
+    "qa_id": "mit_18650_lec03_q007",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec03_q008",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec03_q009",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the frame captions in chunk_096: the slide is titled 'Identification', \u03b8 is called identified if the map \u03b8\u2208\u0398\u2192P\u03b8 is injective, formally \u03b8\u2260\u03b8'\u27f9P\u03b8\u2260P\u03b8', all four previous examples had identified parameters, and the counterexample involves X_i=\ud835\udfd9(Y_i\u2265...) with non-identifiable Gaussian parameters."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (3600.0s\u20133645.0s) corresponds to chunk_096, which covers a 45-second window starting around 3600s (timestamp ~97 minutes \u2248 5820s, but chunk numbering at 096 aligns with the cited span); the span boundaries are internally consistent with a 45-second chunk window."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'visual', requiring exactly 1 span and at least one source chunk with a [frame caption: ...] marker; chunk_096 contains multiple frame captions and there is exactly one ground_truth_span, satisfying both conditions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are explicitly supported by the source text. The frame caption describes the formal definition of identifiability as \u03b8 \u2260 \u03b8' implies P\u03b8 \u2260 P\u03b8', and mentions that in all four previous examples the parameter was identified, followed by a counterexample involving X_i = 1(Y_i \u2265 something)."
+  },
+  {
+    "qa_id": "mit_18650_lec03_q010",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec03_q011",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec03_q012",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec03_q013",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the largest number observed was six and that the data shows 'mostly ones, twos, and threes reflecting pretty standard family sizes,' but the chunk text cuts off mid-sentence before completing the statement about the largest number, and neither the value 'six' nor the characterization of the distribution is present in the cited chunk."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span (105s\u2013185s) starts within \u00b115s of chunk_003's approximate boundary (~90s), making it plausible for a text question."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one ground_truth_span, which satisfies the text type requirement."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer's key claim that the largest observed value was six is not supported by the cited chunk text, which cuts off before completing that statement.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec03_q014",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the device measures 'tensile strength of materials,' which is not mentioned anywhere in the source chunk; this is an invented detail not supported by the cited text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "There is exactly one span (2345.0s\u20132455.0s) corresponding to the single cited chunk, and the span boundaries are plausible given the chunk's content."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly one span, and there is exactly one ground_truth_span provided, satisfying the criterion."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer introduces an unsupported claim that the device measures 'tensile strength of materials,' which is not present in the source chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec03_q015",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the source material that could answer the question about the exact numerical value of the Cram\u00e9r-Rao lower bound for the Poisson parameter in the siblings example."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

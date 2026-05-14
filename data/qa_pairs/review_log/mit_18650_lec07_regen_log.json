@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_18650_lec07_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_008 contains the 'Cherry Blossom run (2)' slide with the bell-shaped histogram, the statement about Gaussian distribution, and variance 373; chunk_011 contains the hypothesis test formulation asking whether X1 ~ N(103.5, 373), confirming the mean 103.5 and variance 373 parameters."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (240\u2013325s) aligns with chunk_008 and hop 2 (650\u2013720s) aligns with chunk_011; the inter-hop gap is |240 - 650| = 410 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u2265 2 non-adjacent spans (chunks 008 and 011 are separated by ~400s) and both cited chunks contain [frame caption: ...] markers with visual content (the histogram slide in chunk_008 and the Cherry Blossom run (3) slide in chunk_011), satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the mean is 103.5 is not supported by the source text. The source text only mentions the variance of 373 and does not provide a specific mean value. The rest of the claims about the Gaussian distribution and the use of variance in hypothesis testing are supported."
+  },
+  {
+    "qa_id": "mit_18650_lec07_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are explicitly supported by the cited chunk text: var[X1]=373, X1 Gaussian, and E[X1]=\u03bc as the unknown are from the Cherry Blossom run (4) frame caption in chunk_015; the directional test (\u03bc < 103.5) and faster runners context are from chunk_015 transcript."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (570-660s) aligns with chunk_015 and hop 2 (1050-1150s) aligns with chunk_029; the inter-hop gap of 480 seconds far exceeds the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans and chunk_015 contains [frame caption: ...] markers for the Cherry Blossom run (4) slide, satisfying both conditions for multi-hop-visual."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claims that the assumptions are var[X1] = 373 and X1 is Gaussian, and that the only thing not fixed is E[X1] = \u03bc. The instructor's discussion about testing whether \u03bc equals 103.5 or is less than 103.5 is also supported by the source text."
+  },
+  {
+    "qa_id": "mit_18650_lec07_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims xbar is 'roughly one over root n away from mu' and references a specific value of '3.45' as unusually large, but neither of these specific details appears in the cited chunks; chunk_078 discusses standardization and scale but does not mention 'one over root n' or the value 3.45."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops are separated by ~880 seconds (well above the 70s threshold), and both span windows align plausibly with their respective chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop-visual: it requires two non-adjacent spans (~880s apart) and both cited chunks contain [frame caption: ...] markers."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer includes unsupported atomic claims ('roughly one over root n away from mu' and the specific value '3.45') that are not found in the cited source chunks.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec07_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec07_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_037 confirms the placebo effect is real but unknown and motivates splitting into drug/control groups; chunk_046's frame caption confirms X1,...,X_ndrug ~ Poiss(\u03bc_drug) and Y1,...,Y_ncontrol ~ Poiss(\u03bc_control), and the text confirms testing \u03bc_drug vs \u03bc_control rather than against a fixed value."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1330\u20131410s) aligns with chunk_037 (chunk index 37 \u00d7 45s \u2248 1665s boundary, but chunk_037 covers ~1665\u20131710s... actually chunk boundaries at 37\u00d745=1665s); however, the spans at 1330s and 1690s differ by |1690-1330|=360s \u2265 70s, satisfying the inter-hop gap requirement. The spans are plausible given the lecture progression from placebo discussion to the Clinical trials (2) slide."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (hop 1: placebo discussion ~1330s, hop 2: Clinical trials (2) slide ~1690s), and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text confirms the use of Poisson distribution for both drug and control groups, and explains the need to compare two unknown parameters due to the placebo effect being real but unknown."
+  },
+  {
+    "qa_id": "mit_18650_lec07_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec07_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The core claims\u2014n=30, 13 heads, standardized statistic of -0.77, plausibility within Gaussian, and the purpose of mapping to Gaussian scale\u2014are all supported by the cited chunks, with only a minor inference about 'threshold changes with n' not explicitly stated."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align with their respective chunk boundaries within tolerance, and the inter-hop gap of 115 seconds (|2655-2770|) exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop-visual: it requires two non-adjacent spans (115s apart) and both cited chunks contain [frame caption: ...] markers with visual slide content."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the CLT-standardized statistic yields approximately -0.77 is supported, but the explanation that -0.77 is a plausible realization from a standard Gaussian is not explicitly stated in the source text. The source text mentions '77' and 'negative.77' but does not clearly connect these to the Gaussian scale argument as described in the answer."
+  },
+  {
+    "qa_id": "mit_18650_lec07_q023",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunk text: the slide is titled 'Cherry Blossom run (2)', the x-axis ranges from 40 to 160 minutes, the slide states 'We can see from past data that the running time has Gaussian distribution', the variance was 373, and the histogram shows a bell-shaped curve consistent with a Gaussian distribution fit to 2009 race data (the chunk mentions 15,000 runners in '29' i.e., 2009)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (240.0s\u2013325.0s) aligns with chunk_008, which covers an 85-second window; the span boundaries fall within plausible chunk boundaries for a 45-second window chunk system."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual', requiring exactly 1 span and at least one source chunk with a [frame caption: ...] marker; chunk_008 contains multiple [frame caption: ...] markers describing the Cherry Blossom run slide, satisfying both conditions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the slide is titled 'Cherry Blossom run (2)', it shows a histogram with the x-axis ranging from 40 to 160 minutes, states the running time has a Gaussian distribution, and specifies the variance as 373."
+  },
+  {
+    "qa_id": "mit_18650_lec07_q024",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame caption in the chunk explicitly describes the 2x2 contingency table with 'Reality' on the vertical axis, 'Decision' on the horizontal axis, and confirms the Type 1 error quadrant (H\u2080 true, Reject H\u2080) shaded in red. The answer's claims about the four quadrants and their labels are supported by the chunk text, including the frame caption description."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (4590.0s\u20134680.0s) corresponds to chunk mit_18650_lec07_chunk_131; at 45-second windows, chunk 131 would cover approximately 4590s\u20134635s or nearby, and the span falls within plausible boundaries for this chunk. The question is visual type with a single span, so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is classified as 'visual' with exactly 1 span and the cited chunk contains a [frame caption: ...] marker describing the 2x2 contingency table, satisfying both requirements for the visual question type."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The source text does not provide information about the quadrant where H1 is true and H0 is rejected being a correct decision, nor does it mention the quadrant where H1 is true and the test fails to reject H0 as a Type 2 error. The text only partially describes the table, mentioning the Type 1 error when H0 is true and rejected, but lacks details on the other outcomes."
+  },
+  {
+    "qa_id": "mit_18650_lec07_q025",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunk text: the alternative being mu < 103.5 for a directional question, the concept of 'limiting the number of possible alternative realities,' fixing variance at 373 and assuming Gaussianity, and the argument that restricting to one direction makes the test more focused are all explicitly present in chunks 019 and 020."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1120\u20131200s) aligns with chunk_019 (roughly 1125\u20131170s window) and hop 2 (1220\u20131290s) aligns with chunk_020 (roughly 1170\u20131215s window); the inter-hop gap between start times is |1120 - 1220| = 100s \u2265 70s, satisfying the multi-hop temporal separation requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as multi-hop and requires information from two non-adjacent spans across two chunks (chunk_019 and chunk_020), with the answer synthesizing content from both; this genuinely requires multi-hop reasoning."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that a more specific question allows a more precise answer by limiting the number of possible alternative realities for the hypothesis. It also supports the idea that restricting the alternative to one direction makes the test more powerful for that specific question."
+  },
+  {
+    "qa_id": "mit_18650_lec07_q026",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the source chunks: H0 and H1 don't play symmetric roles (chunk_097 frame caption), data is used to disprove H0 (chunk_097 frame caption), the innocent-until-proven-guilty analogy (chunk_096 and chunk_097), OJ Simpson was 'found not guilty' not 'found innocent' (chunk_097), and the language 'I failed to reject H0' rather than 'I accepted H0' (chunk_096)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 3360\u20133440s and hop 2 spans 3410\u20133480s; chunk_096 and chunk_097 are adjacent 45-second windows consistent with these timestamps. The inter-hop gap between start times is |3360 - 3410| = 50s, which is less than 70s, making the hops too close to be genuinely multi-hop."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question is classified as multi-hop, but the inter-hop gap is only ~50 seconds (3360s vs 3410s), which is below the required 70-second minimum, meaning the content can effectively be retrieved in a single step from adjacent chunks."
+    },
+    "rejection_reason": "Criterion 2 and Criterion 3 fail: the inter-hop gap between the two spans is only ~50 seconds (below the 70-second threshold), meaning the hops are too close together and the question is single-hop in disguise rather than genuinely multi-hop.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec07_q027",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_132 confirms that always acquitting maximizes type 2 error ('for every guy that's guilty, you let them go') and always convicting maximizes type 1 error, establishing the inherent trade-off. Chunk_134 confirms the Neyman-Pearson paradigm constrains type 1 error to an acceptable level (5% example given) and then maximizes convictions (minimizes type 2 error)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 4650\u20134710s aligning with chunk_132, and hop 2 spans 4700\u20134775s aligning with chunk_134; the inter-hop gap between start times is |4650 - 4700| = 50s, but the gap between hop 1 end (4710s) and hop 2 start (4700s) shows overlap, yet the canonical measure is |start_A - start_B| = 50s which is less than 70s. However, examining more carefully: hop1 start=4650, hop2 start=4700, gap=50s < 70s, which would normally FAIL. But the chunks are distinct (chunk_132 vs chunk_134), and the spans do cover different content. Still, the 50s gap is below the 70s threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop, requiring information from two non-adjacent chunks (chunk_132 for the trade-off explanation and chunk_134 for the Neyman-Pearson solution); no frame caption is required for multi-hop type."
+    },
+    "rejection_reason": "Criterion 2 fails: the inter-hop gap between hop 1 start (4650s) and hop 2 start (4700s) is only 50 seconds, which is less than the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec07_q028",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: variance fixed at 373 (confirmed in chunk text and frame caption), assumption that variance unchanged between 2009 and 2012 (confirmed), acknowledgment that assumption is wrong with the exact quote 'if you look at the data from 2012 this is not the correct assumption' (confirmed), 'for the sake of argument' phrasing (confirmed), and the purpose of fixing variance to focus on testing mean \u03bc (confirmed in frame caption 'The only thing that we did not fix is E[...')."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop spans 510.0s\u2013580.0s, which is a 70-second window. Chunk 015 covers a 45-second window; the span start at 510s aligns plausibly with the chunk boundary within the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span (510.0s\u2013580.0s). Although the chunk contains [frame caption: ...] markers, the text type does not require their absence, only that there is exactly 1 span, which is satisfied."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the variance was fixed at 373 and that this assumption was acknowledged as incorrect by the instructor, who made it for the sake of argument."
+  },
+  {
+    "qa_id": "mit_18650_lec07_q029",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec07_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the supplied content that could answer the question about the definition of the power of a test and its relation to the type 2 error function \u03b2_\u03c8(\u03b8)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

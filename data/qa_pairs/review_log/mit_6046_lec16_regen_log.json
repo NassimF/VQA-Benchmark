@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6046_lec16_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the blackboard topics (Super Mario Bros., 3SAT, 3-Dimensional Matching, Subset Sum, Partition, Rectangle Packing, 4-Partition, Jigsaw Puzzles) are confirmed by frame captions in chunk_001, and the instructor's description of covering NP completeness 'an entire field in one lecture' in 80 minutes, looking at problems from Super Mario Brothers to jigsaw puzzles, is directly supported by the transcript in chunks 000 and 001."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 0.0s\u201345.0s and Hop 2 spans 35.0s\u201380.0s; the inter-hop gap is |0.0 - 35.0| = 35 seconds, which is far less than the required 70-second minimum, meaning the hops are not sufficiently non-adjacent and could be retrieved in a single step."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question claims multi-hop-visual type: both cited chunks contain [frame caption: ...] markers with visual content, and the question requires combining visual information (blackboard content) with transcript information (instructor's description), satisfying both conditions."
+    },
+    "rejection_reason": "Criterion 2 failed: the temporal gap between hops is only 35 seconds (0.0s vs 35.0s), well below the required 70-second minimum for multi-hop questions.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec16_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame caption in chunk_004 explicitly states 'NP = decision problems solvable in nondeterministic polynomial time', supporting the first claim. Chunk_008 transcript explicitly states the asymmetry ('bi us towards yes'), why only decision problems are considered, and mentions Co NP as the alternative biased towards no, supporting all remaining claims."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (155.0s\u2013200.0s) aligns with chunk_004 (which covers roughly 135s\u2013180s window, within \u00b115s tolerance). Hop 2 (280.0s\u2013325.0s) aligns with chunk_008. The inter-hop gap is |155 - 280| = 125 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunk_004 and chunk_008) and both chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements. The visual component (frame caption showing the blackboard definition) is genuinely needed for the first hop."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim that NP is defined as 'decision problems solvable in nondeterministic polynomial time' is explicitly supported by the source text. Additionally, the explanation that NP is biased towards yes answers and this asymmetry is why only decision problems are considered is also directly supported by the transcript."
+  },
+  {
+    "qa_id": "mit_6046_lec16_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the cited chunk text, including the blackboard steps from chunk_016 frame captions and the 'no path to yes' statement from chunk_009 transcript."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap between hop 1 (575s) and hop 2 (580s) is only ~5 seconds, far below the required 70-second minimum, making the hops effectively co-located rather than non-adjacent."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question claims multi-hop-visual requiring \u22652 non-adjacent spans, but the two spans (575-620s and 580-625s) are nearly identical and overlapping, so they do not constitute non-adjacent hops."
+    },
+    "rejection_reason": "Criteria 2 and 3 fail: the two ground_truth_spans are nearly identical (575-620s and 580-625s), with an inter-hop gap of only ~5 seconds, failing the \u226570s non-adjacency requirement for multi-hop questions.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec16_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the cited chunk text, including frame captions showing NP-completeness definitions and transcript text about NP-hardness meaning."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap between hop 1 (955s) and hop 2 (990s) is only 35 seconds, well below the required 70-second minimum, making the hops temporally adjacent and retrievable in a single step."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The claimed multi-hop-visual type requires \u22652 non-adjacent spans, but the two spans (955\u20131000s and 990\u20131035s) overlap and are separated by only 35 seconds, failing the non-adjacency requirement."
+    },
+    "rejection_reason": "Criteria 2 and 3 failed: the two hops are temporally adjacent (35-second gap, below the 70-second minimum), making this effectively single-hop rather than multi-hop.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec16_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the variable gadget is described as a 'black box,' but this term does not appear in either cited chunk; the transcript simply calls it 'the variable Gadget' without using 'black box' language."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align with their respective chunk boundaries, and the inter-hop gap is exactly 70 seconds, meeting the minimum threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans and both cited chunks contain [frame caption: ...] markers, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer introduces an unsupported 'black box' description of the variable gadget that is not present in the cited source chunks.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec16_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The visual description claims 'orange and brown blocks on the left' and 'blue rectangular area in the middle,' but the frame captions describe 'red and blue blocks' without matching these specific color/position details; the visual claims are not accurately supported by the cited chunk text."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap between hop 1 (2385s) and hop 2 (2430s) is only 45 seconds, which is less than the required 70-second minimum, making this effectively single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "Although frame captions are present in both chunks, the temporal gap between hops is only 45 seconds (below the 70-second threshold), so the multi-hop-visual classification is not justified."
+    },
+    "rejection_reason": "Criteria 1, 2, and 3 all fail: the visual description inaccurately represents the frame captions, the inter-hop temporal gap (45s) is below the 70s minimum required for multi-hop questions, and consequently the multi-hop-visual type classification is invalid.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec16_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: frame captions show '3-Dimensional Matching (3DM)', 'given 3 sets X, Y, Z' (disjoint sets each size n), and 'given T \u2286 X x Y x Z' on the blackboard; the transcript explicitly states matching problems are about pairs (two-dimensional matching) solvable in polynomial time, but changing two to three makes the problem NP complete."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Both hops share the same time range (2835.0s\u20132880.0s), meaning the inter-hop gap is 0 seconds, which is far less than the required 70 seconds. The two hops are not temporally separated and can be retrieved in a single step."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "Although frame captions are present in the cited chunks, the question is claimed as multi-hop-visual requiring \u2265 2 non-adjacent spans, but both ground_truth_spans cover the identical time range (2835.0s\u20132880.0s), meaning they are not non-adjacent and effectively constitute a single span."
+    },
+    "rejection_reason": "Criteria 2 and 3 both fail: the two hops share the same time window (0-second gap, far below the required 70s), making this single-hop in disguise rather than a genuine multi-hop question.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec16_q023",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims the blackboard shows 'Subset Sum: given n integers', 'A = {a1, a2, ..., an} & target sum t', and 'is there a subset S of A such that \u03a3S = \u03a3ai = t'. All three claims are explicitly supported by the third frame caption in the chunk, which contains exactly this text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span 3780.0s\u20133825.0s covers a 45-second window, which aligns with the chunk boundaries for mit_6046_lec16_chunk_107 (chunk 107 at 45s per chunk would be around 3780s\u20133825s). This is consistent."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual', requiring exactly 1 span and at least 1 source chunk with a [frame caption: ...] marker. There is exactly 1 span and the cited chunk contains multiple [frame caption: ...] markers."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are explicitly supported by the source text, which describes the blackboard containing 'Subset Sum: given n integers', 'A = {a1, a2, ..., an} & target sum t', and 'is there a subset S of A such that \u03a3S = \u03a3 ai = t'."
+  },
+  {
+    "qa_id": "mit_6046_lec16_q024",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims the blackboard shows 'Reduction from Subset Sum', 'let \u03c3 = \u03a3A', and 'add a_{n+1} = \u03c3 + t & add a_{n+2} = 2\u03c3 - t', all of which are explicitly supported by the second frame caption in the cited chunk."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span (4530.0s\u20134575.0s) is a 45-second window, and chunk mit_6046_lec16_chunk_131 covers this range; the span aligns plausibly with the chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual', there is exactly 1 span, and the cited chunk contains multiple [frame caption: ...] markers with relevant visual content."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are explicitly supported by the source text, which lists 'Reduction from Subset Sum', 'let \u03c3 = \u03a3A', and 'add a_{n+1} = \u03c3 + t & add a_{n+2} = 2\u03c3 - t' as content on the blackboard."
+  },
+  {
+    "qa_id": "mit_6046_lec16_q025",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_033 defines reduction as a polynomial time algorithm converting A inputs to equivalent B inputs (same yes/no answer), and chunk_034 explains that if B has a polynomial time algorithm, you convert A input to B input, run B's algorithm, and get the answer to A, so A also has a polynomial time algorithm."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1190\u20131235s) aligns with chunk_033 and hop 2 (1235\u20131280s) aligns with chunk_034, both within \u00b115s of chunk boundaries. The inter-hop gap is |1190 - 1235| = 45s, which is less than 70s \u2014 FAIL on the gap requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is labeled multi-hop and uses two non-adjacent spans from two different chunks; no frame caption is required for multi-hop type."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop gap between hop 1 (starting at 1190s) and hop 2 (starting at 1235s) is only 45 seconds, which is less than the required 70 seconds, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec16_q026",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: (1) step 1 is proving X is in NP via non-deterministic algorithm or certificate+verification (chunk_042 supports this), (2) step 2 is reducing from a known NP-complete problem (chunk_042 supports this), (3) Cook proved 3SAT NP-complete in the 1970s (chunk_046 explicitly states 'this happened in the 70s um by cook basically he proved that threat is MP complete'), and (4) it required reduction from any problem in NP (chunk_046 supports 'he had to start from any problem in NP')."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 1470\u20131515s aligns with chunk_042 (a 45s window around that range), and hop 2 spans 1610\u20131655s aligns with chunk_046; the inter-hop gap is |1470 - 1610| = 140 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop, requiring information from two non-adjacent spans (1470\u20131515s and 1610\u20131655s, gap of 140s), and no visual evidence is claimed; both cited chunks contain [frame caption: ...] markers but the question type is correctly labeled multi-hop (not multi-hop-visual), which is valid since multi-hop does not require absence of frame captions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that proving a problem X is NP-complete involves showing X is in NP and reducing from a known NP-complete problem. It also confirms that Cook proved 3SAT is NP-complete in the 1970s, starting from any problem in NP."
+  },
+  {
+    "qa_id": "mit_6046_lec16_q027",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_110 confirms B = 1 + max(n_xi), chunk_113 confirms that adding two ones gives a two which is problematic, that the base is set one larger than the total number of colliding ones, and that this guarantees no carry when adding in this base."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (3900\u20133945s) aligns with chunk_110 and hop 2 (3975\u20134020s) aligns with chunk_113; the inter-hop gap is |3900 - 3975| = 75s \u2265 70s, satisfying the multi-hop requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop: the definition of B comes from chunk_110 and the carry-prevention property comes from chunk_113, which are non-adjacent spans separated by ~75 seconds, requiring information from two distinct chunks."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims that the base B is defined as 1 plus the maximum number of occurrences of any variable, and that this base is designed to prevent carries when summing numbers, as it ensures the total number of colliding ones is less than B."
+  },
+  {
+    "qa_id": "mit_6046_lec16_q028",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the chunk: 3SAT involves a Boolean formula that is an AND of OR clauses, each OR clause has exactly three literals, a literal is either X_i or its negation not X_i, and the decision question is whether a satisfying assignment exists. All of these are explicitly stated in the chunk text and frame captions."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (385.0s\u2013430.0s) aligns with chunk_011, which covers a 45-second window; the span boundaries are consistent with the chunk's temporal range."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question_type is listed as 'text' (requiring no frame caption), but the cited source chunk (mit_6046_lec16_chunk_011) contains multiple [frame caption: ...] markers. While this alone doesn't disqualify a text question, the chunk does contain visual content that contributes to the answer. However, the question type 'text' requires exactly 1 span with no frame caption requirement \u2014 the span count is correct (1 span), and 'text' type does not require absence of frame captions, only that it doesn't claim to be visual. Since 'text' type only requires exactly 1 span and does not mandate absence of frame captions, this actually PASSES."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the 3SAT problem involves a Boolean formula structured as an AND of OR clauses, each containing exactly three literals, where a literal is either a variable or its negation. It also confirms that the decision question is whether the variables can be set to make the formula true, which aligns with finding a satisfying assignment."
+  },
+  {
+    "qa_id": "mit_6046_lec16_q029",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the chunk text: the reduction from Partition is invalid because values are exponential, making the number of jigsaw pieces exponential in N (explicitly stated), and 4-Partition must be used instead (shown in the frame caption listing '4-Partition Rectangle Packing' in the reduction chain), with the reason being strong NP-hardness meaning integers have polynomial value (implied by the 'weakly NP-hard' contrast in the chunk)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span 4865.0s\u20134910.0s covers a 45-second window; chunk_139 would correspond to approximately that time range, which is consistent with the \u00b115s tolerance requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span (4865.0s\u20134910.0s) with 1 source_chunk_id; the chunk does contain [frame caption: ...] markers but text type does not require their absence, only that there is exactly 1 span."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that the reduction from Partition to Jigsaw Puzzles is not valid due to exponential values leading to an exponential number of jigsaw pieces. It also supports the claim that 4-Partition must be used instead because it is strongly NP-hard."
+  },
+  {
+    "qa_id": "mit_6046_lec16_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the source material that could answer the question about a specific pseudo-polynomial time algorithm for Subset Sum with its time complexity."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

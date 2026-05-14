@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_1806_lec25_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The claim that Q^T replaces S\u207b\u00b9 because orthonormal columns give Q inverse equal to Q transpose is not explicitly stated in the chunk text; the frame captions show inconsistent formulas (Q\u039bQ\u207b\u00b9 vs Q^TQ) without explaining the orthonormality reasoning."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 2 span (390\u2013450s) does not align with chunk_014, which as the 14th chunk would cover approximately 630\u2013675s, a mismatch of ~240 seconds beyond the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both cited chunks contain [frame caption: ...] markers and two non-adjacent spans are claimed, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 fails because the explanatory claim about Q^T = Q\u207b\u00b9 due to orthonormality is not explicitly supported in the chunk text. Criterion 2 fails because the hop 2 span (390\u2013450s) does not align with chunk_014 (expected ~630\u2013675s).",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_1806_lec25_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_001 shows the blackboard with 'A = A^T' and fill-in-the-blank statements about eigenvalues and eigenvectors; chunk_005 frame captions confirm 'eigenvalues are REAL' and 'eigenvectors are PERPENDICULAR' with 'can be chosen' written below, and the chunk text explicitly explains the repeated eigenvalue qualifier about a whole plane of eigenvectors from which perpendicular ones can be chosen."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (35s\u2013120s) aligns with chunk_001 (a ~45s window starting around 0\u201345s or similar early chunk), and hop 2 (295s\u2013400s) aligns with chunk_005; the inter-hop gap is |35 - 295| = 260 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (hop 1 at ~35\u2013120s and hop 2 at ~295\u2013400s, gap of 260s), and both cited chunks contain [frame caption: ...] markers with visual evidence of the blackboard content, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that for a symmetric matrix A = A^T, the eigenvalues are REAL and the eigenvectors are PERPENDICULAR, with 'can be chosen' added. It also specifies that if an eigenvalue is repeated, there is a whole plane of eigenvectors, and we can choose perpendicular ones from that plane, supporting the answer's claims."
+  },
+  {
+    "qa_id": "mit_1806_lec25_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_013 names it the 'spectral theorem' and mentions spectrum coming from 'the spectrum of light as a combination of'; chunk_014 completes this with 'pure things where our matrix is broken down into pure eigenvalues and eigenvectors' and explicitly states 'in mechanic's it's often called the principal axis theorem'."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (415\u2013490s) aligns with chunk_013 and hop 2 (490\u2013535s) aligns with chunk_014, both within \u00b115s of chunk boundaries; the inter-hop gap is |415-490|=75s \u2265 70s, satisfying the multi-hop requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires information from two non-adjacent spans (chunks 013 and 014), and both cited chunks contain multiple [frame caption: ...] markers with visual content."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the factorization A = Q\u039bQ^T is called the spectral theorem and explains that the term 'spectrum' comes from the idea of the spectrum of light, where the matrix is broken down into pure eigenvalues and eigenvectors. It also mentions that in mechanics, it is often called the principal axis theorem."
+  },
+  {
+    "qa_id": "mit_1806_lec25_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All major atomic claims are supported by the cited chunks: Ax=\u03bbx shown in chunk_016 frame captions, the cancellation and lambda=lambda-bar conclusion explicitly stated in chunk_028 text, and the conclusion that lambda is real because it equals its own conjugate directly quoted from chunk_028."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 span (560-620s) aligns with chunk_016 boundaries and hop 2 span (1015-1085s) is close to chunk_028 boundaries; the inter-hop gap of ~455 seconds far exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop-visual: it requires information from two non-adjacent spans (560s and 1015s), and both cited chunks contain [frame caption: ...] markers with visual blackboard content."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The source text does not explicitly mention the conjugate of the eigenvalue equation or the specific reasoning about X-bar-transpose-X being positive. It only confirms that lambda equals lambda-bar, implying lambda is real, and that this conclusion depends on a non-zero expression that was canceled out."
+  },
+  {
+    "qa_id": "mit_1806_lec25_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "Chunk 018 explicitly states 'I haven't used any assumption of a equal a transpose yet symmetry is waiting in the wings to be used,' supporting the claim that symmetry hasn't been used when the conjugate equation is written. Chunk 020 confirms symmetry is invoked when transposing and using A^T = A to compare expressions, supporting the second hop of the answer."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (630\u2013710s) aligns with chunk_018 and hop 2 (735\u2013800s) aligns with chunk_020, both within plausible chunk boundaries. The inter-hop gap is |630 - 735| = 105 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires information from two non-adjacent spans (chunks 018 and 020), and both cited chunks contain [frame caption: ...] markers describing blackboard content with visual evidence of the equations being discussed."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the symmetry assumption A = A^T has not been used at the stage where the conjugate equation is written, and it confirms that symmetry is invoked when the transposed equation is rewritten using A^T = A."
+  },
+  {
+    "qa_id": "mit_1806_lec25_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_039 frame captions confirm 'Good matrices' label on blackboard with real eigenvalues and perpendicular eigenvectors; chunk_040 explicitly states 'if a is complex all our proof will still work provided a bar transpose is a' and that for real matrices the condition reduces to A = A^T symmetry."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1365s\u20131430s) aligns with chunk_039 and hop 2 (1430s\u20131490s) aligns with chunk_040, both within \u00b115s of chunk boundaries; the inter-hop gap is |1365 - 1430| = 65s, which is just under 70s \u2014 however the hops are in adjacent chunks and the gap between hop start times is 65s, which fails the \u226570s requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans and both cited chunks contain [frame caption: ...] markers, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 2 fails: the inter-hop gap between hop 1 start (1365s) and hop 2 start (1430s) is only 65 seconds, which is less than the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_1806_lec25_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer includes unsupported atomic claims: the characteristic equation \u03bb\u00b2 \u2212 8\u03bb + 11 = 0 and eigenvalues 4 \u00b1 \u221a5 are not mentioned anywhere in the cited source chunks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops (2205s and 2315s) have a gap of 110 seconds \u2265 70s, and both spans align plausibly with their respective chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question uses two non-adjacent spans and both cited chunks contain [frame caption: ...] markers, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer contains unsupported claims about the characteristic equation and eigenvalue formula (4 \u00b1 \u221a5) that are not present in the cited source chunks.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_1806_lec25_q023",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the frame captions: 'Why real eigenvalues?' is shown at the top, 'Ax = \u03bbx' is the eigenvalue equation shown, and 'always' is written on the blackboard. The description of the equation components (A as matrix, x as vector, \u03bb as eigenvalue) is also confirmed by the captions."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (560.0s\u2013620.0s) aligns with chunk_016, which covers a 45-second window. The span is plausible for a visual question with one span."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual', requires exactly 1 span, and the cited chunk (mit_1806_lec25_chunk_016) contains multiple [frame caption: ...] markers with visual content. Both conditions for the 'visual' type are satisfied."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the word 'always' is written on the blackboard is unsupported. The source text mentions 'always' in the context of the lecture but does not confirm it is written on the blackboard. The rest of the claims about the text 'Why real eigenvalues?' and the equation 'Ax = \u03bbx' being on the blackboard are supported by the source text."
+  },
+  {
+    "qa_id": "mit_1806_lec25_q024",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the equation A = A^T is shown written on the board in the frame caption, but no frame caption in the cited chunk shows this equation on the blackboard; it only appears in the spoken transcript text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "There is exactly one span (1365.0s\u20131430.0s) corresponding to a single cited chunk, and the span duration is plausible for a visual question."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed 'visual' with exactly one span and the cited chunk contains multiple [frame caption:] markers, satisfying both requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer incorrectly claims the equation A = A^T is written on the blackboard as shown in the frame caption, but no frame caption in the cited chunk supports this claim.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_1806_lec25_q025",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunks: chunk_046 establishes the column-times-row expansion of A=Q\u039bQ^T into lambda_i * q_i * q_i^T terms; chunk_047 confirms q_i*q_i^T is a projection matrix (symmetric, squares to itself because q_i^T*q_i=1), and that every symmetric matrix is a combination of 'mutually' (perpendicular) projection matrices. The answer's claim about perpendicularity stemming from orthonormal eigenvectors is consistent with the lecture's use of orthonormal eigenvectors throughout."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1575\u20131650s) aligns with chunk_046 (a 45s window around ~1575\u20131620s range) and hop 2 (1680\u20131730s) aligns with chunk_047; the inter-hop gap is |1575-1680|=105s \u2265 70s, satisfying the multi-hop temporal separation requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is classified as multi-hop, requiring \u22652 non-adjacent spans; the two hops are separated by ~105 seconds and span two different chunks, and no visual evidence is claimed, which is consistent with the multi-hop type (frame captions in the chunks are incidental and not required for answering)."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports all claims: it explains that symmetric matrices can be decomposed into projection matrices using the factorization A = Q\u039bQ^T, where each q_i\u00b7q_i^T is a projection matrix because q_i is a unit vector, and these matrices are mutually perpendicular due to the orthonormality of eigenvectors."
+  },
+  {
+    "qa_id": "mit_1806_lec25_q026",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_053 confirms finding roots of characteristic polynomial for a 50\u00d750 is 'very unstable' and MATLAB 'will complain'; chunk_055 confirms computing 50 pivots is 'safely and quickly' done, and that the number of positive pivots equals the number of positive eigenvalues for symmetric matrices."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1855\u20131930s) aligns with chunk_053 and hop 2 (1985\u20132050s) aligns with chunk_055; the inter-hop gap is |1855 - 1985| = 130 seconds, which exceeds the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop, requiring information from two non-adjacent spans (chunk_053 for the bad approach and chunk_055 for the alternative), and no visual evidence is claimed despite frame captions being present in the chunks."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports all claims: it states that finding roots of the characteristic polynomial for a large matrix is unstable and unreliable, and it mentions that computing pivots is a safe and fast alternative for symmetric matrices, providing reliable sign information about eigenvalues."
+  },
+  {
+    "qa_id": "mit_1806_lec25_q027",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk text explicitly states 'the product of the pivots gives the determinant if no row exchanges, the product of the eigenvalues always gives the determinant so that products but that doesn't tell you anything about the 50 individual ones which this does' \u2014 all atomic claims in the answer are supported by chunk_059."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2065\u20132130s) aligns with chunk_059 and hop 2 (2130\u20132170s) aligns with chunk_060; the inter-hop gap between start times is |2065 - 2130| = 65s, which is just under 70s. However, the hops span two distinct chunks with different content (the determinant/pivot/eigenvalue relationship vs. transitioning to positive definite matrices), so the boundary is at ~2130s which is the chunk boundary itself. The gap is borderline but the two hops do cover genuinely different content across chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires information from two non-adjacent spans (chunk_059 for the determinant equality reasoning and chunk_060 for the transition context), satisfying the multi-hop requirement of \u22652 non-adjacent spans."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports all claims: the product of the pivots equals the determinant when there are no row exchanges, and the product of the eigenvalues always equals the determinant. It also supports the lecturer's view that this fact is less useful because it doesn't provide information about individual values, unlike the sign-matching theorem."
+  },
+  {
+    "qa_id": "mit_1806_lec25_q028",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_1806_lec25_q029",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the failing matrix has entries -1 and -3 with a 2\u00d72 determinant of positive 3, but the chunk text cuts off after 'this fails the test because' and the frame captions show a matrix [5,2;2,1], providing no support for these specific values."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Single hop with one span (2485s\u20132565s) aligned with the cited chunk; no inter-hop gap check needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one ground_truth_span, which is consistent with the requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer introduces unsupported specific values (-1, -3, determinant = 3) for the failing matrix that are not confirmed in the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_1806_lec25_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence available that could answer the question about exact eigenvalue numerical values or the lecturer's explanation regarding them."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

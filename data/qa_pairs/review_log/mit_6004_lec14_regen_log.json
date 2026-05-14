@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6004_lec14_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_000 frame captions confirm MIT 6.004 Fall 2018, Lecture 14 (L14), titled 'Caches 2'; chunk_001 frame captions confirm the 'Internal Cache Organization' slide focuses first on 'Direct-Mapped Cache' with Tag, Index, and Offset fields, and the spoken text mentions direct-mapped cache before set-associative caches."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (0.0s\u201345.0s) aligns with chunk_000 (first 45-second window) and hop 2 (70.0s\u2013115.0s) aligns with chunk_001 (second 45-second window); the inter-hop gap is |0 - 70| = 70 seconds, which meets the \u226570s requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans (hop 1 for course/lecture identification, hop 2 for cache design details), and both cited chunks contain [frame caption: ...] markers providing visual evidence."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are explicitly supported by the source text: the lecture is from MIT 6.004 Fall 2018, Lecture 14, titled 'Caches 2,' and the 'Internal Cache Organization' slide focuses first on the Direct-Mapped Cache."
+  },
+  {
+    "qa_id": "mit_6004_lec14_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The claim that write-back 'saves bandwidth because you might just be overwriting the same location again shortly after' is not explicitly stated in the cited chunk text or frame captions; the chunks describe the policies but do not provide this specific bandwidth motivation."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans (490\u2013535s and 730\u2013775s) align with their respective chunk boundaries, and the inter-hop gap of 240 seconds exceeds the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop-visual: it requires two non-adjacent spans (240s apart) and both cited chunks contain [frame caption: ...] markers showing the 'Stores' slide."
+    },
+    "rejection_reason": "Criterion 1 failed: the bandwidth motivation claim in the answer is not explicitly supported by the cited chunk text or frame captions.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6004_lec14_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the slide states 'No choice (each address maps to exactly one cache line)' for direct-mapped cache (chunk_022 frame captions), and chunk_023 explicitly explains LRU as the common algorithm motivated by the locality principle\u2014recently used items are likely to be used again, so evicting the least recently used minimizes future misses."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 770\u2013815s and hop 2 spans 1005\u20131050s, giving a gap of |770-1005| = 235s which is \u2265 70s. However, both source chunks (chunk_022 and chunk_023) are adjacent/consecutive chunks covering the same slide content, and the transcript content in both chunks is clearly part of the same continuous explanation. The hop 1 span (770\u2013815s) and hop 2 span (1005\u20131050s) have a large temporal gap, but chunk_022 and chunk_023 appear to be consecutive 45-second windows covering overlapping content about the same slide, making the multi-hop claim questionable. That said, the 235s gap between hop starts does satisfy the \u226570s requirement, so this criterion technically passes."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires information from two non-adjacent spans (770\u2013815s and 1005\u20131050s, gap of 235s \u2265 70s), and both cited chunks contain multiple [frame caption: ...] markers with visual slide content."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that for a direct-mapped cache, there is no choice because each address maps to exactly one cache line. It also explains that for set-associative caches, the Least Recently Used (LRU) algorithm is common, motivated by the locality principle, which suggests that recently used items are likely to be used again."
+  },
+  {
+    "qa_id": "mit_6004_lec14_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: blocking cache has at most one outstanding miss, must wait for memory to respond, does not accept processor requests in the meantime (from frame captions in chunk_026/027); non-blocking cache handles multiple outstanding requests (from frame captions); non-blocking caches are much more complex and the class will focus on/implement blocking caches (from transcript in chunk_026)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (910\u2013955s) aligns with chunk_026 and hop 2 (1070\u20131115s) aligns with chunk_027; the inter-hop gap is |910 - 1070| = 160 seconds, which exceeds the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (910s and 1070s) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements; the visual information (slide properties) comes from frame captions while the implementation decision comes from the transcript."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text. The slide caption explicitly describes the properties of blocking and non-blocking caches, and the transcript confirms that the class will focus on implementing blocking caches due to the complexity of non-blocking caches."
+  },
+  {
+    "qa_id": "mit_6004_lec14_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the diagram shows a processor with rf and pc connected to SRAM-based cache, which connects to DRAM via lineReq and lineResp (supported by frame captions in both chunks); processor requests are word requests with 32-bit address and 32-bit response; SRAM requests to DRAM are line requests fetching 16 words at a time (all supported by chunk_037 transcript text)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1260\u20131305s) aligns with chunk_035 and hop 2 (1415\u20131460s) aligns with chunk_037; the inter-hop gap is |1260 - 1415| = 155 seconds, which exceeds the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires \u22652 non-adjacent spans (chunks 035 and 037, 155s apart) and both cited chunks contain [frame caption: ...] markers describing the 'Cached Memory Systems' diagram."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the diagram shows a processor with a register file (rf) and program counter (pc) connected to an SRAM-based cache, which is connected to a DRAM-based memory via lineReq and lineResp signals. The transcript confirms processor requests are word requests with a 32-bit address and response, while SRAM requests to DRAM are line requests fetching 16 words (64 bytes) at a time."
+  },
+  {
+    "qa_id": "mit_6004_lec14_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the cache interface has four methods (chunk_041 transcript), the methods are req, resp, lineReq, lineResp (chunk_041 transcript mentions 'request and response from the processor' and 'line request and deal with a line response from the DRAM'), req and resp are processor-side (chunk_042: 'the first two methods are the processor side methods'), and lineReq/lineResp are back-end/DRAM side (chunk_042: 'the other two methods are the backside methods which is how the cache makes requests and accept responses for a main memory')."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1475\u20131520s) aligns with chunk_041 (a 45s window around ~1497s), and hop 2 (1570\u20131615s) aligns with chunk_042; the inter-hop gap is |1475 - 1570| = 95 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans (chunks 041 and 042, ~95s apart) and both cited chunks contain [frame caption: ...] markers referencing the 'Cache Interface' slide."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text confirms the cache interface has four methods ('req', 'resp', 'lineReq', 'lineResp'), and specifies which are processor-side ('req', 'resp') and back-end side ('lineReq', 'lineResp')."
+  },
+  {
+    "qa_id": "mit_6004_lec14_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the frame captions: cache hit has 1-cycle latency with appropriate hitQ design and is directly related to L1 latency; miss with no evacuation has DRAM load latency + 2X SRAM latency; miss with evacuation has DRAM store latency + DRAM load latency + 2X SRAM latency."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 2975\u20133020s and hop 2 spans 3070\u20133115s; the inter-hop gap is |2975 - 3070| = 95s which is \u2265 70s, so that passes. However, both hops appear to cover the same 'Hit and miss performance' slide content that is progressively revealed, and chunk_085 and chunk_087 are only 2 chunks apart (chunk_086 is between them), meaning the temporal gap between the chunks is approximately 90 seconds (each chunk is 45s). The spans are plausible relative to their chunk boundaries, but the content in both hops is essentially the same slide shown at different stages of reveal, making this borderline. The gap of 95s is \u2265 70s so this technically passes."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question references \u2265 2 non-adjacent spans (chunk_085 and chunk_087) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are explicitly supported by the source text. The cache hit latency is described as 1-cycle with appropriate hitQ design, and the miss latency formulas for no evacuation and evacuation cases are correctly stated as DRAM load latency plus 2 times SRAM latency, and DRAM store latency plus DRAM load latency plus 2 times SRAM latency, respectively."
+  },
+  {
+    "qa_id": "mit_6004_lec14_q023",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims three arrays: Data Array (yellow), Tag Array (orange), and Status Array (blue). All three claims are explicitly supported by the first frame caption in chunk_046, which states exactly these arrays with these color representations."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop spans 1600.0s\u20131645.0s, and chunk_046 is the cited source. The span aligns plausibly with the chunk boundaries within the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual' requiring exactly 1 span and at least one frame caption marker. There is exactly one hop (1600.0s\u20131645.0s) and the cited chunk contains multiple [frame caption: ...] markers, satisfying both conditions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text explicitly states that the cache-array unit diagram shows a Data Array represented by yellow rectangles, a Tag Array represented by orange rectangles, and a Status Array represented by blue rectangles."
+  },
+  {
+    "qa_id": "mit_6004_lec14_q024",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the frame captions in the chunk: the module definition `module mkBlockingCache(Cache#(LogNLines));`, the CAU instantiation `CAU#(LogNLines) cau <- mkCAU();`, and the FIFO for the hit queue `FIFO#(Word) hitQ` are all explicitly present in the frame caption text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (2275.0s\u20132320.0s) aligns with chunk_065, which covers a 45-second window; the span falls within plausible chunk boundaries for this visual question."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual' with exactly 1 span and the cited chunk contains multiple [frame caption: ...] markers, satisfying the visual question type requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim about the FIFO for the hit queue as `FIFO#(Word) hitQ` is not fully supported by the source text, which only partially shows `FIFO#(Word) hit`. The rest of the claims about the module definition and CAU instantiation are supported."
+  },
+  {
+    "qa_id": "mit_6004_lec14_q025",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: Invalid (not valid), Clean (valid but not modified, consistent with main memory), and Dirty (valid but modified, inconsistent with main memory) are explicitly stated in chunk_015. Miss-allocate meaning bringing the missing line into cache before writing is explicitly stated in chunk_016."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (525-570s) aligns with chunk_015 and hop 2 (615-660s) aligns with chunk_016, both within \u00b115s of chunk boundaries. The inter-hop gap is |525-615| = 90 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunk_015 for the three states, chunk_016 for Miss-allocate policy), satisfying the multi-hop requirement. Both chunks contain [frame caption: ...] markers, but multi-hop classification only requires \u22652 non-adjacent spans which is met."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text. The three states of a cache line under a write-back policy (Invalid, Clean, Dirty) and their meanings are explicitly described. The Miss-allocate policy is also defined as bringing the missing line into the cache before performing the write on a write miss."
+  },
+  {
+    "qa_id": "mit_6004_lec14_q026",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_031 confirms 64-byte DRAM line size and 16 words fetched at a time; chunk_032 confirms SRAM allows specifying number of index bits (index_size), that 6 index bits means 2^6 lines, and that SRAM can hold any data type specified at instantiation."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1085\u20131130s) aligns with chunk_031 (a 45s window around that range), and hop 2 (1160\u20131205s) aligns with chunk_032; the inter-hop gap is |1085 - 1160| = 75 seconds, which meets the \u226570s requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop requiring two non-adjacent spans (chunk_031 for DRAM line size, chunk_032 for SRAM interface details), and the temporal gap is sufficient to confirm they are genuinely non-adjacent; no visual evidence is claimed, consistent with the multi-hop type."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claim that the class assumes a fixed DRAM line size of 64 bytes, corresponding to 16 words fetched at a time. It also supports the claim that the SRAM interface allows the user to specify the number of index bits, determining the number of lines the cache holds, and allows specification of the data type it stores."
+  },
+  {
+    "qa_id": "mit_6004_lec14_q027",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The store behavior in WaitDRAMResponse (modifying the line at word-offset, updating cache-array, marking dirty) is not explicitly described in the provided chunk text \u2014 chunk_082 only covers the load case in its visible text, and the store case details are not confirmed by the cited chunks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align with their respective chunk boundaries, and the inter-hop gap of ~485 seconds far exceeds the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop, requiring two non-adjacent spans (~485s apart), and the question_type 'multi-hop' is correctly assigned."
+    },
+    "rejection_reason": "Criterion 1 failed: the store-case behavior described in the answer is not explicitly supported by the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6004_lec14_q028",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk explicitly states that for a 2-way set-associative cache, you can implement LRU by adding one bit of state to each cache line. The answer's claim that one bit suffices because it's a binary choice between two ways is a reasonable inference directly supported by the chunk's context, though the chunk doesn't spell out the binary-choice reasoning explicitly \u2014 however, the core factual claims (2-way, LRU, one bit per cache line) are all directly supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (840.0s\u2013885.0s) aligns with chunk_024, which covers a 45-second window; the span falls within plausible chunk boundaries for this chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span (840.0s\u2013885.0s). Although the cited chunk contains [frame caption: ...] markers, the question type is 'text' not 'visual', which is acceptable since the answer is derived from the spoken lecture content rather than visual content."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that a 2-way set-associative cache can implement Least Recently Used replacement by adding just one bit of state to each cache line, which supports the claim that this is sufficient to track which of the two ways was used most recently."
+  },
+  {
+    "qa_id": "mit_6004_lec14_q029",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The third field's description ('tag-line field' carrying the 'entire evicted cache line' for dirty writeback) is not supported by the chunk text, which is truncated mid-sentence at 'if we have a Miss it's going to return the'."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span (1880.0s\u20131925.0s) covers exactly 45 seconds, consistent with a single chunk window for the cited source chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one span, which matches the requirement of a single-span text question."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer's claim about the third field (tag-line carrying the evicted cache line for dirty writeback) is not supported by the truncated chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6004_lec14_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the supplied content that gives a specific clock-cycle penalty for evacuating a dirty cache line during a miss."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

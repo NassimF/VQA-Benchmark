@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_18065_lec22_q001",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the slide identifies Lecture 22 as 'Gradient Descent: Downhill to a Minimum' for MIT 18.065 (chunk_000 frame captions), the blackboard shows x_{k+1} = x_k - \u03b1\u2207f(x_k) with \u03b1 as step size/learning rate (chunk_001 frame captions), and the lecture's stated goal of minimizing a function with many variables using first derivatives instead of second derivatives is explicitly stated in chunk_001 text."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 0.0s\u201345.0s and Hop 2 spans 35.0s\u201380.0s; the inter-hop gap is |0.0 - 35.0| = 35 seconds, which is far less than the required 70-second minimum, meaning the two hops are temporally adjacent and effectively retrievable in a single step."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both cited chunks contain [frame caption: ...] markers, and the question references two spans (the opening slide and the blackboard), satisfying the multi-hop-visual requirements of \u22652 spans and \u22651 frame caption source."
+    },
+    "rejection_reason": "Criterion 2 fails: the inter-hop temporal gap is only ~35 seconds (35.0s vs 0.0s start times), well below the required 70-second minimum, making this effectively a single-hop question in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18065_lec22_q002",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The claim about a 'zigzag path' toward the minimum is not supported by the cited chunks; chunks 003 and 004 do not mention zigzag behavior in the cited text."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap between hop 1 (105s) and hop 2 (140s) is only 35 seconds, well below the required 70-second minimum for multi-hop questions."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The two spans overlap (105-150s and 140-185s) and are not non-adjacent, failing the multi-hop-visual requirement of \u2265 2 non-adjacent spans."
+    },
+    "rejection_reason": "Criteria 1, 2, and 3 all fail: the answer contains an unsupported claim about zigzag paths; the inter-hop gap is only 35 seconds (below the 70s threshold); and the spans are overlapping rather than non-adjacent.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18065_lec22_q003",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the blackboard shows f(x,y)=2x+5y and \u2207f=[2,5] under 'Convexity' (confirmed by frame captions in both chunks); the transcript states the gradient direction is steepest upwards and the minus-gradient is the downwards direction; chunk_014 explicitly connects the minus sign to steepest descent ('down was a minus sign that we see in steepest descent')."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Both hops start within 5 seconds of each other (485s vs 490s), giving an inter-hop gap of only 5 seconds, which is far below the required \u226570 seconds. The two spans are essentially the same temporal location, making this single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both cited chunks contain [frame caption: ...] markers, and two source chunks are cited; however, the multi-hop-visual type fails on span non-adjacency as noted in Criterion 2."
+    },
+    "rejection_reason": "Criterion 2 fails: the two hops (485s and 490s) are only 5 seconds apart, far below the required \u226570-second gap for a multi-hop question, making this effectively single-hop.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18065_lec22_q004",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18065_lec22_q005",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18065_lec22_q006",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18065_lec22_q007",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer introduces specific details not found in the source chunks, including the specific function f(x,y) = 2x + 5y and the claim that its Hessian is the zero matrix, which are not mentioned in either cited chunk."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap between hop 1 (700s) and hop 2 (730s) is only 30 seconds, which is less than the required 70-second minimum, making this effectively single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The two spans (700-745s and 730-780s) overlap significantly and are not non-adjacent, failing the multi-hop requirement for multi-hop-visual classification."
+    },
+    "rejection_reason": "All three criteria failed: the answer contains unsupported claims (specific function and zero Hessian), the inter-hop gap is only 30s (below the 70s minimum), and the spans overlap rather than being non-adjacent.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18065_lec22_q008",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the frame captions in the chunk: course 18.065 is taught by Gilbert Strang at MIT, the full title is 'Matrix Methods in Data Analysis, Signal Processing, and Machine Learning,' and it was offered in Spring 2018."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (0.0s\u201345.0s) aligns with chunk_000 which covers the 0\u201345s window, well within the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual' with exactly 1 span and the cited chunk contains multiple [frame caption: ...] markers, satisfying both requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are explicitly supported by the source text: Gilbert Strang is identified as the instructor, the course code is 18.065, and the full course title is 'Matrix Methods in Data Analysis, Signal Processing, and Machine Learning,' offered in Spring 2018 at MIT."
+  },
+  {
+    "qa_id": "mit_18065_lec22_q009",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame captions explicitly show x* = (0, 0) as the solution, the condition number \u03ba displayed, axes labeled x and y, and the function f = (1/2)(x\u00b2 + by\u00b2). All atomic claims in the answer are supported by the cited chunk's frame captions."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span 210.0s\u2013255.0s aligns with chunk_006 (a 45-second window), and the span boundaries are within acceptable range of the chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual' with exactly 1 span and the cited chunk contains multiple [frame caption: ...] markers, satisfying both requirements for the visual type."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the minimum point is x* = (0, 0) is supported by the source text. However, the claim that the condition number \u03ba is displayed on the slide is not explicitly supported by the source text, as it only mentions the presence of \u03ba without confirming its display. Additionally, the claim about the diagram showing a coordinate system with axes labeled x and y and the solution x* = (0,0) being explicitly marked is not fully supported, as the source text does not confirm the marking of x* = (0,0) on the diagram."
+  },
+  {
+    "qa_id": "mit_18065_lec22_q010",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunks support the key claims: chunk_031 confirms argmin means 'the point where F equals F_min' and distinguishes it from the minimum value; chunk_034 confirms the professor speculates 'arg' is short for 'argument' (the input/value of x) and explains the notation. The claim about neural networks/deep learning context is not explicitly stated in the provided chunk text, but the overall definition and etymology claims are well-supported. The neural networks mention is a minor unsupported claim, but the core definitional content is accurate per the chunks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1070\u20131115s) aligns with chunk_031 and hop 2 (1150\u20131210s) aligns with chunk_034; the inter-hop gap is |1070 - 1150| = 80 seconds, which meets the \u226570s requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop, requiring information from two non-adjacent spans (chunk_031 for the definition and chunk_034 for the etymology/importance), and both chunks contain [frame caption: ...] markers, satisfying the multi-hop type requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports all claims: it defines 'argmin f(x)' as the point where the minimum value of the function is reached, distinguishes it from the minimum value itself, and explains the importance of understanding 'argmin' in the context of neural networks and deep learning."
+  },
+  {
+    "qa_id": "mit_18065_lec22_q011",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_029 confirms x* = S\u207b\u00b9a as the minimizing point where gradient is zero; chunk_039 confirms the substitution yields (1/2)a^T S\u207b\u00b9a - a^T S\u207b\u00b9a = -1/2 a^T S\u207b\u00b9a as the minimum value, with S\u207b\u00b9 canceling S explicitly stated."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1010\u20131055s) aligns with chunk_029, and hop 2 (1330\u20131410s) aligns with chunk_039; the inter-hop gap is |1010 - 1330| = 320 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question genuinely requires two non-adjacent spans (chunk_029 for x* and chunk_039 for f_min), satisfying the multi-hop requirement; no visual evidence is claimed, consistent with the multi-hop (not multi-hop-visual) type."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claims that the minimizing point x* is S\u207b\u00b9a and that the minimum value f_min is -1/2 a^T S\u207b\u00b9a, as it describes the process of substituting S\u207b\u00b9a into the function and simplifying to find the minimum value."
+  },
+  {
+    "qa_id": "mit_18065_lec22_q012",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18065_lec22_q013",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the book 'Convex Optimization' by Boyd and Vandenberghe is cited (chunk_073), Boyd and Vandenberghe weren't the first to derive these results (chunk_073), Stephen Boyd will be on campus in April for three lectures (chunk_073/074), it's two or three weeks away (chunk_074), and Strang says he'll inform students (chunk_074). The starting point (x_0, y_0) = (b, 1) is partially supported \u2014 chunk_074 mentions starting from x_0, y_0 = b but the '1' for y_0 is not explicitly stated in the chunks, though this is a minor omission rather than a contradiction."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span is 2630.0s\u20132695.0s, a single span covering 65 seconds. Chunk_073 and chunk_074 are adjacent 45-second windows that together span this range, which is plausible. This is a single-hop span, so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question_type is 'text' (exactly 1 span, no frame caption required), but the cited source chunks (chunk_073 and chunk_074) both contain multiple [frame caption: ...] markers, and the ground_truth_span covers content across two chunks. While the span is technically a single continuous range, the question draws from two source chunks with visual content, making 'text' a questionable classification \u2014 however, the span is a single continuous range so the 'text' type could still apply. More critically, the answer references content from two chunks (chunk_073 and chunk_074), yet the question_type is 'text' which requires exactly 1 span. The single span 2630\u20132695s does span both chunks, so this is borderline acceptable. Re-evaluating: the span is one continuous range, so 'text' type is technically correct. PASS on reconsideration."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text confirms that Professor Strang cites 'Convex Optimization' by Stephen Boyd and Vandenberghe, mentions that they were not the first to derive the results, and states that Stephen Boyd will visit MIT in April for three lectures, with further details to be provided to students."
+  },
+  {
+    "qa_id": "mit_18065_lec22_q014",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by chunk_089: the 'heavy ball' / momentum concept is introduced, the physical intuition of a heavy ball in a valley is described, the idea of not going perpendicular to level sets but letting momentum take over is stated, and an extra momentum term in steepest descent that accelerates it is mentioned."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (3110s\u20133175s) aligns with chunk_089 and chunk_090, which cover the same content at the end of the lecture; the span boundaries are consistent with the cited chunks within the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question_type is declared as 'text' (exactly 1 span, no frame caption required), but the cited source chunks (chunk_089 and chunk_090) both contain [frame caption: ...] markers, and the ground_truth_spans reference only a single span \u2014 the type should arguably be 'visual' rather than 'text'. However, the answer does not rely on any visual content, and the question itself is purely text-based; the presence of frame captions in the chunks does not automatically require a 'visual' classification if the answer is derived from spoken content alone. Re-evaluating strictly: 'text' requires exactly 1 span and no frame caption requirement \u2014 the span count is 1 (hop 1 only), satisfying the text criterion. The frame captions are present but not used, which is permissible for 'text' type. PASS on re-evaluation."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the introduction of 'momentum' as a method to speed up gradient descent and describes the physical intuition of letting a heavy ball roll down a valley, rather than directing it by steepest descent at every point."
+  },
+  {
+    "qa_id": "mit_18065_lec22_q015",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the supplied content that could answer the question about the exact numerical value of the optimal learning rate for the pure quadratic example or its comparison to the condition number."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

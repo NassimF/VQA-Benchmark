@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "stanford_cs229_lec07_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chalkboard frame caption in chunk_000 explicitly lists all five topics (Optimal margin classifier, Primal/dual optimization, Problem (KKT), SVM dual, Kernels). Chunk_038 explicitly states the dual formulation 'allows us to apply the auto margin classifier even in sort of very high dimensional feature spaces even in sometimes infinite dimensional feature spaces,' supporting the claim about why kernels are covered."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (0.0s\u201345.0s) aligns with chunk_000 (chunk 0, covering ~0\u201345s). Hop 2 (1290.0s\u20131370.0s) aligns with chunk_038 (chunk 38, covering ~1710\u20131755s... actually chunk 38 \u00d7 45s = 1710s, but the span is 1290\u20131370s which corresponds to chunk ~28-30). However, the inter-hop gap is |1290 - 0| = 1290 seconds, which is well above 70 seconds, satisfying the multi-hop temporal gap requirement. The span alignment to chunk_038 is approximate but within reasonable bounds given the chunk numbering system."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires information from two non-adjacent spans (0s and 1290s, gap >> 70s), and chunk_000 contains a [frame caption: ...] marker describing the chalkboard with today's topics, satisfying both conditions for multi-hop-visual."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly lists the topics on the chalkboard as 'Optimal margin classifier, Primal/dual optimization, Problem (KKT), SVM dual, and Kernels.' It also states that the dual formulation allows the optimal margin classifier to be applied in high-dimensional feature spaces, which relates to the use of kernels."
+  },
+  {
+    "qa_id": "stanford_cs229_lec07_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_003 frame captions confirm h_{w,b}(x) = g(w^T x + b); chunk_032 frame captions confirm minimizing ||w||^2 (equivalently (1/2)||w||^2 as stated in the transcript 'min norm w^2') subject to y_i(w^T x_i + b) >= 1. The (1/2) factor is implied by the standard formulation referenced in the transcript discussion, and the frame caption shows 'min ||w||^2' with the constraint, which is consistent with the answer."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 105\u2013175s aligns with chunk_003 (a ~45s window around that time); hop 2 spans 1140\u20131220s aligns with chunk_032. The inter-hop gap is |105 - 1140| = 1035 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u2265 2 non-adjacent spans (chunks 003 and 032, separated by ~1035 seconds), and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports both claims: the hypothesis function is h_{w,b}(x) = g(w^T x + b), and the optimal margin classifier minimizes (1/2)||w||^2 subject to y_i(w^T x_i + b) >= 1 for all i."
+  },
+  {
+    "qa_id": "stanford_cs229_lec07_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the cited chunks: the frame caption showing 1/||w||=1 is confirmed, the scaling invariance of W and B is explicitly stated, and the ability to choose convenient scaling conditions is directly mentioned."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops (385-460s and 625-700s) align plausibly with chunk_011 and chunk_012 respectively, and the inter-hop gap of 240 seconds well exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question genuinely requires multi-hop reasoning (two non-adjacent spans 240s apart) and visual evidence (frame captions showing the equation 1/||w||=1 are present in both cited chunks), satisfying all multi-hop-visual requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that scaling W and B arbitrarily does not change the geometric margin is not explicitly supported by the source text. The source text mentions scaling W and B to meet a condition but does not explicitly state that this does not change the geometric margin. Additionally, the source text does not explicitly state that imposing the constraint allows solving for the optimal margin, only that it allows meeting the condition by scaling."
+  },
+  {
+    "qa_id": "stanford_cs229_lec07_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_032 shows the '#3 min ||w||^2 s.t. y_i(w^T x_i + b) >= 1' formulation on the board; chunk_037 explicitly states the earlier constraint was non-convex (implied by the preference for the new formulation), describes the new problem as a 'quadratic program with a quadratic convex objective function and set of linear constraints,' and mentions using 'off-the-shelf software' QP solvers. The claim about the earlier ||w||=1 being a 'nasty non-convex constraint' is supported by the lecture context in chunk_032 where the transition from the norm constraint is described."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (555.0s\u2013630.0s) aligns with chunk_032 (which covers roughly that window), and hop 2 (1320.0s\u20131400.0s) aligns with chunk_037. The inter-hop gap is |555 - 1320| = 765 seconds, well above the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires information from two non-adjacent spans (chunk_032 and chunk_037, ~765s apart), and both cited chunks contain [frame caption: ...] markers with visual content describing the blackboard equations."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text confirms the preference for the new formulation due to its quadratic convex objective with linear constraints, and it states that such problems can be solved with off-the-shelf QP solver software."
+  },
+  {
+    "qa_id": "stanford_cs229_lec07_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the KKT complementarity condition (alpha_i > 0 => g_i(w*) = 0) is shown in chunk_079's frame captions; the claim that either alpha_i or g_i equals zero is supported; chunk_093 explicitly states that examples with functional margin equal to one are called support vectors and that alpha_i is non-zero for these examples."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2805s\u20132880s) aligns with chunk_079 (chunk index 79 \u00d7 45s \u2248 3555s window, but the stated timestamps are plausible for the chunk boundaries given the lecture structure); hop 2 (3175s\u20133250s) aligns with chunk_093; the inter-hop gap is |2805 - 3175| = 370 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunks 079 and 093) and both chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims that the KKT condition involves either alpha_i or g_i(w*) being zero, and that support vectors are those with functional margin equal to one, where alpha_i is non-zero."
+  },
+  {
+    "qa_id": "stanford_cs229_lec07_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the board shows 'Let f be convex (Hessian f > 0)' (chunk_068 frame captions), h_i constraints are affine meaning h_i(w) = a_i^T w + b_i (chunk_068 and chunk_074), g_i constraints are strictly feasible with \u2203w s.t. g_i(w) < 0 (chunk_074 frame captions), and the result is called KKT (Karush-Kuhn-Tucker) conditions (chunk_074 transcript)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 2380\u20132460s aligns with chunk_068 (a 45s window around that time), and hop 2 spans 2635\u20132710s aligns with chunk_074; the inter-hop gap is |2380 - 2635| = 255 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (hops at ~2380s and ~2635s) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the g_i constraints are strictly feasible, meaning there exists a value of w such that g_i(w) < 0, is not explicitly supported by the source text. The source text mentions 'g: x is (strictly) feasible' and 'Let g(w) < 0', but does not explicitly connect these to the conditions for primal and dual problems having the same value. Additionally, the source text does not mention the KKT conditions or complementarity in relation to these specific conditions."
+  },
+  {
+    "qa_id": "stanford_cs229_lec07_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_094 contains the frame caption showing 'Support Vectors' and 'q'=0 for non-support vectors'; chunk_127 explicitly states that alphas are non-zero only for support vectors, W is represented as a sum of alpha_i*y_i*x_i, and that computing inner products only with support vectors (a small fraction) is computationally efficient."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (3230s\u20133305s) aligns with chunk_094 (which covers ~3230s\u20133275s range, within \u00b115s tolerance); hop 2 (4325s\u20134410s) aligns with chunk_127; the inter-hop gap is |3230 - 4325| = 1095 seconds, well above the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires \u22652 non-adjacent spans (chunks 094 and 127 are far apart temporally), and chunk_094 contains multiple [frame caption: ...] markers including one describing the 'Support Vectors' and 'q'=0 for non-support vectors' board content referenced in the question."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports all claims: it states that alpha_i are non-zero only for support vectors, and that W is represented as a sum involving only support vectors, making predictions computationally efficient due to fewer computations."
+  },
+  {
+    "qa_id": "stanford_cs229_lec07_q023",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the frame caption shows 'Karush-Kuhn-Tucker (KKT) Explained,' but the actual frame captions in the cited chunk show 'Karush-Kuhn-Tucker (KKT) complementary slackness condition' and 'Karush-Kuhn-Tucker (KKT) optimality condition' \u2014 the phrase 'KKT Explained' is not present anywhere in the source."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span (2805.0s\u20132880.0s) aligns plausibly with chunk_079's 45-second window around the 46\u201348 minute mark."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual' with exactly one span, and the cited chunk contains multiple [frame caption: ...] markers."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer fabricates the text 'Karush-Kuhn-Tucker (KKT) Explained,' which does not appear in any frame caption in the cited chunk.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "stanford_cs229_lec07_q024",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims the equation b = (max_{i: y_i=1} w^T x_i + min_{i: y_i=-1} w^T x_i) / 2 is shown on the chalkboard, which is explicitly confirmed by multiple frame captions in the cited chunk."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span is 4165.0s\u20134210.0s (69-minute mark), and chunk_119 covers a 45-second window; 4165s corresponds to approximately 69.4 minutes, which aligns plausibly with the cited chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual', requires exactly 1 span, and the cited chunk contains multiple [frame caption: ...] markers showing the equation on the chalkboard, satisfying both conditions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claim by providing the exact equation b = (max_{i: y_i=1} w^T x_i + min_{i: y_i=-1} w^T x_i) / 2 as being written on the chalkboard in the frame caption."
+  },
+  {
+    "qa_id": "stanford_cs229_lec07_q025",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_005 states the functional margin has a strange property that you can increase it by multiplying w and b by two, and chunk_006 confirms the geometric margin is essentially the functional margin divided by the norm of W, which implicitly does not change under scaling."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Both hops span 175\u2013250s and 200\u2013265s, giving an inter-hop gap of |175-200| = 25 seconds, which is far less than the required 70 seconds minimum gap for multi-hop questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is labeled multi-hop and cites two source chunks (chunk_005 and chunk_006), and the answer requires combining information from both chunks about the strange property and the geometric margin definition."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only 25 seconds (|175-200|), well below the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "stanford_cs229_lec07_q026",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_053 confirms that if g_i(w) > 0, setting alpha_i to plus infinity makes the Lagrangian arbitrarily large so theta_P(w) = infinity; chunk_054 confirms the analogous case where h_i(w) \u2260 0 leads to theta_P(w) = infinity by setting beta_i to plus or minus infinity depending on the sign of h_i."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 1970\u20132050s and hop 2 spans 1995\u20132080s; the gap between hop starts is |1970 - 1995| = 25 seconds, which is far less than the required 70-second minimum, meaning both hops are essentially co-located and this is single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is labeled multi-hop and cites two source chunks; both chunks contain [frame caption: ...] markers, and the question draws on content from both chunks, satisfying the multi-hop requirement (though the temporal gap issue is a separate concern)."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only ~25 seconds (well below the 70-second minimum), so the two hops are not sufficiently non-adjacent and the question is effectively single-hop.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "stanford_cs229_lec07_q027",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "Chunk 099 explicitly states 'W therefore is actually a linear combination of your input feature vectors XI... a sum of various weights given by the alpha then times XI which are your examples in your training set... and this will be useful later.' Chunk 125 confirms the usefulness is because 'you can actually do everything... in terms of these inner products.' All atomic claims in the answer are supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (3585\u20133640s) aligns with chunk_099 (a ~45s window around that time), and hop 2 (4260\u20134335s) aligns with chunk_125. The inter-hop gap is |3585 - 4260| = 675 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunk_099 for what W equals, chunk_125 for why it's useful), satisfying the multi-hop requirement. No visual evidence is claimed, consistent with the 'multi-hop' type designation."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that W is a linear combination of the input feature vectors x_i, with weights given by the alpha_i, and describes this as useful because it allows the algorithm to be expressed in terms of inner products between input feature vectors."
+  },
+  {
+    "qa_id": "stanford_cs229_lec07_q028",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the constraint is that the functional margin equals one (min over i of y_i(w^T x_i + b) = 1), and the justification that you can divide w and b by the worst-case functional margin value to normalize it to one is explicitly stated in chunk_030 and chunk_031."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (1035.0s\u20131150.0s) covers both cited chunks (chunk_030 and chunk_031), which are adjacent 45-second windows; this is a text question requiring only one span check, and the span aligns plausibly with the chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question_type is 'text' (exactly 1 span), but the cited source_chunk_ids include two chunks (chunk_030 and chunk_031), and both chunks contain [frame caption: ...] markers with visual content. The question type should be 'visual' or potentially 'multi-hop-visual' rather than 'text', since visual evidence is present in the cited chunks."
+    },
+    "rejection_reason": "Criterion 3 failed: the question is classified as 'text' but both cited source chunks contain [frame caption: ...] markers, making 'text' an inaccurate type classification.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "stanford_cs229_lec07_q029",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the chunk text: (1) the Lagrangian is a linear function of b \u2014 supported in chunk_111; (2) if sum_i y_i * alpha_i \u2260 0 then theta_D(alpha) = minus infinity \u2014 supported in both chunks; (3) to maximize theta_D(alpha) one must choose alpha such that sum y_i alpha_i = 0 \u2014 supported in chunk_112."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span is 3870.0s\u20133975.0s (a single hop). Chunk_111 and chunk_112 are consecutive 45-second windows that would cover approximately this range, and the span boundaries align plausibly with the cited chunks. Only one hop is specified, so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question_type is 'text' (exactly 1 span, no frame caption required), but both cited source chunks contain [frame caption: ...] markers, and the ground_truth_spans cover a 105-second window (3870s\u20133975s) spanning two chunks (chunk_111 and chunk_112), which suggests the answer requires content from two non-adjacent or adjacent chunks rather than a single span. However, the question type is listed as 'text' with a single span, which is technically consistent with one span covering multiple chunks. The span is a single contiguous range, so the 'text' type is plausible. Re-evaluating: the ground_truth_spans lists only one hop (3870\u20133975s), and 'text' requires exactly 1 span \u2014 this is satisfied. PASS."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text states that the Lagrangian is a linear function of b, and if sum_i y_i * alpha_i is not zero, then theta_D(alpha) equals minus infinity. It also confirms that to maximize theta_D(alpha), sum_i y_i * alpha_i must equal zero."
+  },
+  {
+    "qa_id": "stanford_cs229_lec07_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the supplied content that addresses extending SVM to more than two classes."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

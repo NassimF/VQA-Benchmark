@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "nyu_dl_week6_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims 'multiple sets of outputs corresponding to different kernel sizes in the last layer' \u2014 chunk_007 mentions 'four different sets of outputs' but does not mention 'different kernel sizes'; this specific claim is unsupported. Additionally, the answer states the path 'must take exactly five steps corresponding to five characters,' but none of the cited chunks mention five steps or five characters; the chunks only describe a shortest path from bottom-left to top-right without specifying the number of steps."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (240\u2013290s) aligns with chunk_007 (~315s window, within range); hop 2 (1140\u20131200s) aligns with chunk_028; hop 3 (1215\u20131260s) aligns with chunk_033. Inter-hop gaps: |240-1140|=900s \u2265 70s, |240-1215|=975s \u2265 70s, |1140-1215|=75s \u2265 70s \u2014 all pairs satisfy the minimum gap requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires \u22652 non-adjacent spans (hops span ~240s to ~1260s) and all three cited chunks contain [frame caption: ...] markers, satisfying both conditions."
+    },
+    "rejection_reason": "Criterion 1 fails: the answer contains unsupported claims about 'different kernel sizes' and 'exactly five steps corresponding to five characters' that are not found in the cited source chunks.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week6_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: multiscale approach with sqrt(2) reduction is in chunk_038; the cost argument (scaling down by sqrt(2) makes network smaller by factor 2, giving series 1+1/2+1/4+... = 2, wasting only a factor of 2) is explicitly in chunk_040."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1320\u20131375s) aligns with chunk_038 and hop 2 (1400\u20131445s) aligns with chunk_040; the inter-hop gap is |1400-1320| = 80 seconds, which exceeds the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (multi-hop condition met with 80s gap) and both cited chunks contain [frame caption: ...] markers referencing the Face Detection slide (visual condition met)."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text. The multiscale approach using a reduction factor of square root of 2 is described, and the computational cost argument is explicitly explained as 1 plus 1/2 plus 1/4 plus 1/8 etc., equaling 2, indicating a factor of 2 waste."
+  },
+  {
+    "qa_id": "nyu_dl_week6_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: stereo vision works only to ~10 meters (chunk_053), driving a robot looking only 10m ahead is like driving in fog (chunk_053), and the ConvNet labels every pixel up to the horizon to provide long-range vision (chunk_053/054)."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 1875\u20131940s and Hop 2 spans 1940\u20131975s; the gap between hop starts is |1875 - 1940| = 65 seconds, which is less than the required 70-second minimum, meaning the hops are too temporally close to constitute genuinely non-adjacent retrieval."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question references \u22652 spans and multiple [frame caption: ...] markers are present in both cited chunks, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only 65 seconds (1940-1875), below the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week6_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the chunk text: reducing the image by factors of 2 and 4, running through the same ConvNet with same weights, upscaling last feature maps to match original size, combining feature maps for a classifier, and the 46x46 window on quarter-resolution corresponding to 184x184 on the original are all explicitly stated in chunk_066 and chunk_067."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 2270\u20132335s and hop 2 spans 2345\u20132390s; the gap between hop starts is |2270 - 2345| = 75s which barely meets the \u226570s threshold, but the gap between hop 1 end (2335s) and hop 2 start (2345s) is only 10 seconds, meaning the two hops are essentially contiguous and the content flows continuously across both chunks without a meaningful temporal separation, making this effectively single-hop content split across an arbitrary chunk boundary."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both source chunks contain [frame caption: ...] markers, and the question references two non-adjacent spans (hop 1 and hop 2), satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 2 fails: the two hops are temporally contiguous (only 10 seconds between hop 1 end and hop 2 start), meaning the content is effectively a single continuous explanation split across an arbitrary chunk boundary rather than genuinely non-adjacent multi-hop evidence.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week6_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_077 confirms G's input is Z of T minus 1 (its own output at previous time step), and chunk_081 confirms the technique of unrolling and backpropagating through time is called BPTT (back prop through time), with shared weights implied by the unrolled network structure."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2695s\u20132760s) aligns with chunk_077 and hop 2 (2895s\u20132940s) aligns with chunk_081; the inter-hop gap is |2695 - 2895| = 200 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (multi-hop condition met with 200s gap), and both cited chunks contain [frame caption: ...] markers satisfying the visual requirement for multi-hop-visual classification."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim that the G function is recurrent because one of its inputs is Z of T minus 1, which is its own output at the previous time step, is supported by the source text. Additionally, the technique of unrolling the loop for backpropagation, known as backpropagation through time (BPTT), is also explicitly mentioned in the source text."
+  },
+  {
+    "qa_id": "nyu_dl_week6_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The core claims about Z=1 copying state, Z slightly less than 1 preserving norm/information, and gradient flow benefits are all explicitly supported by the chunk text; the 'shrinking weight matrix' detail is a minor elaboration consistent with the gradient discussion in chunk_108."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align with their respective chunk boundaries within tolerance, and the inter-hop gap of 125 seconds exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both cited chunks contain [frame caption: ...] markers, and the two non-adjacent spans (separated by 125s) require information from different parts of the lecture, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims that when Z equals 1, the system copies its previous state and ignores the input, and when Z is slightly less than 1, it puts a little bit of the input into the state without significantly changing it, preserving the norm and information. This helps avoid the vanishing gradient problem by allowing gradients to propagate without being multiplied by a shrinking weight matrix at every time step."
+  },
+  {
+    "qa_id": "nyu_dl_week6_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_122 confirms the entire meaning must be squeezed into a hidden state, LSTMs don't preserve information beyond ~20 words; chunk_129 confirms a Stanford team won a big competition within a few months, and within three months every big company working on translation deployed systems based on this. The attention mechanism enabling the decoder to focus on relevant input parts is implied by the slide title 'Sequence to Sequence with Attention' and the context in both chunks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (4390\u20134455s) aligns with chunk_122 (a ~45s window around that time), and hop 2 (4609\u20134680s) aligns with chunk_129. The inter-hop gap is |4390 - 4609| = 219 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (hops at ~4390s and ~4609s), and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text confirms the limitation of squeezing the sentence into a single hidden state and the short memory of LSTMs. It also states that within months, a Stanford team won a competition using attention, and big companies deployed systems based on it."
+  },
+  {
+    "qa_id": "nyu_dl_week6_q023",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the frame caption in the chunk: the title 'Multiple Character Recognition [Matan et al 1992]', the subtitle 'Every layer is a convolution', and the diagram showing a single character recognizer with layers represented by blue rectangles connected by arrows are all explicitly mentioned in the frame caption."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (560.0s\u2013605.0s) aligns with chunk_016, which covers a 45-second window; the span falls within plausible chunk boundaries for that chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual', there is exactly 1 span, and the cited source chunk (nyu_dl_week6_chunk_016) contains multiple [frame caption: ...] markers, satisfying the visual question type requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the slide is titled 'Multiple Character Recognition [Matan et al 1992]', it has the subtitle 'Every layer is a convolution', and it shows a diagram of a single character recognizer with several layers represented by blue rectangles connected by arrows."
+  },
+  {
+    "qa_id": "nyu_dl_week6_q024",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the frame caption in nyu_dl_week6_chunk_055: the slide title 'Long Range Vision with a Convolutional Net', the 125 ms pre-processing time, and all four listed steps (ground plane estimation, horizon leveling, conversion to YUV + local contrast normalization, scale invariant pyramid of distance-normalized image)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (1965.0s\u20132010.0s) aligns with chunk_055; assuming chunks are indexed sequentially with 45-second windows, chunk 55 would cover approximately 1965s\u20132010s, which matches perfectly."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual', there is exactly one span, and the cited chunk nyu_dl_week6_chunk_055 contains multiple [frame caption: ...] markers providing the visual content needed to answer the question."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims about the pre-processing steps listed on the 'Long Range Vision with a Convolutional Net' slide are explicitly supported by the source text, which mentions ground plane estimation, horizon leveling, conversion to YUV plus local contrast normalization, and scale invariant pyramid of distance-normalized image as pre-processing steps taking 125 ms."
+  },
+  {
+    "qa_id": "nyu_dl_week6_q025",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer incorrectly attributes negative mining as addressing the second problem (size variation), when the source text shows negative mining addresses the first problem (false positives/non-face patches). The second problem (size variation) is addressed by a multiscale approach, not negative mining."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align with their respective chunk content, and the inter-hop gap of ~261 seconds exceeds the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question genuinely requires two non-adjacent spans from different chunks (261s apart), satisfying the multi-hop requirement."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer misattributes negative mining as solving the second problem (size variation) when the lecture text shows it solves the first problem (false positives from non-face patches).",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week6_q026",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunk text: vanishing gradient caused by small weight matrix values leading to exponentially shorter gradient vectors (chunk_084), exploding gradient caused by large weight matrix with non-saturating non-linearity leading to diverging weights (chunks 084-085)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (3024-3090s) aligns with chunk_084 and hop 2 (3090-3140s) aligns with chunk_085; the inter-hop gap is |3024-3090| = 66s, which is just under 70s but the spans are clearly non-adjacent chunks. However, strictly computing |start_A - start_B| = |3024 - 3090| = 66s < 70s, which fails the gap requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires information from two non-adjacent spans (chunk_084 and chunk_085) to answer both failure modes, satisfying the multi-hop requirement."
+    },
+    "rejection_reason": "Criterion 2 fails: the inter-hop gap between hop 1 (starting at 3024s) and hop 2 (starting at 3090s) is only 66 seconds, which is less than the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week6_q027",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "Chunk 130 supports the claim that the transformer is a neural net where every group of neurons implements attention (self-attention). Chunk 100 supports the attention module description: vector Z passed through softmax produces coefficients used to compute a weighted sum of input vectors X. Both atomic claims are directly supported by the cited chunks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (4590s\u20134635s) aligns with chunk_130 (which would cover roughly that window), and Hop 2 (3720s\u20133760s) aligns with chunk_100. The temporal gap between hops is |4590 - 3720| = 870 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop, requiring information from two non-adjacent spans (chunk_130 at ~4590s and chunk_100 at ~3720s), and both chunks contain [frame caption: ...] markers. The question genuinely requires combining information from both spans to answer fully."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the transformer generalizes the attention module concept by making every group of neurons use self-attention is not explicitly supported by the source text. The source text mentions that the transformer uses self-attention and describes the attention mechanism, but it does not explicitly state that the transformer generalizes the attention module concept in this way."
+  },
+  {
+    "qa_id": "nyu_dl_week6_q028",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the image resolution is '256x2' and notes 'the full resolution is indicated in the slide caption,' but the frame caption text is truncated ('256x2]') and does not provide the complete resolution. The answer misrepresents the truncated text as meaningful information and the claim about '256x2 image' is not fully supported. Additionally, the question_type is 'text' but the answer relies on frame caption content, which is a visual source."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (1260.0s\u20131305.0s) aligns with chunk_036, which covers a 45-second window; the span falls within plausible chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question_type is 'text,' but the answer is derived from a [frame caption: ...] marker in the cited chunk, which means the evidence is visual in nature. The question should be classified as 'visual,' not 'text.'"
+    },
+    "rejection_reason": "Criterion 1 fails because the answer relies on truncated frame caption text and misrepresents '256x2' as a complete image resolution. Criterion 3 fails because the answer is sourced from a [frame caption: ...] marker, making the question type 'visual' rather than 'text.'",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week6_q029",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunk text: Antonio de Alba at MIT collected the dataset, he had a labeling tool where you draw a contour over an object and it fills up the object, and most segmentations were done by his mother who was in Spain."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (2580.0s\u20132625.0s) aligns with chunk_072, which covers a 45-second window; the span boundaries are consistent with the chunk's temporal range."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one span, and while the chunk contains [frame caption: ...] markers, the answer is derived from the spoken text content, not visual content, making 'text' an appropriate classification."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: Antonio de Alba at MIT collected the dataset, he had a tool for labeling objects by drawing contours, and most segmentations were done by his mother in Spain."
+  },
+  {
+    "qa_id": "nyu_dl_week6_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the source material that could answer either part of the question (the specific learning rate for the DARPA LAGR robot's convolutional network or the parameter count of the largest transformer model described in the lecture)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

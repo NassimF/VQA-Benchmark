@@ -1,0 +1,498 @@
+[
+  {
+    "qa_id": "mit_6006sp20_lec17_q016",
+    "question": "According to the blackboard shown during the Bellman-Ford discussion, what is the subproblem definition for SSSP in general graphs, and how does the lecture explain that adding the index k makes the recurrence acyclic?",
+    "answer": "The blackboard shows the subproblem as delta_k(s,v) = weight of shortest s\u2192v path using at most k edges, for v in V and 0 \u2264 k \u2264 |V|. The lecture explains that by solving problems in order of increasing k, all references from delta_k are in terms of delta_{k-1}, making the recurrence magically acyclic even though the underlying graph may have cycles.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 480.0,
+        "end": 535.0,
+        "hop": 1,
+        "description": "Blackboard frame showing subproblem definition delta_k(s,v) for Bellman-Ford SSSP in general graphs"
+      },
+      {
+        "start": 630.0,
+        "end": 690.0,
+        "hop": 2,
+        "description": "Lecture explanation that solving in increasing k order makes the recurrence acyclic"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec17_chunk_014",
+      "mit_6006sp20_lec17_chunk_018"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Bellman-Ford",
+      "subproblem constraint",
+      "acyclic recurrence",
+      "edge count parameter k"
+    ],
+    "video_id": "mit_6006sp20_lec17",
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec17_q017",
+    "question": "The blackboard during the Floyd-Warshall discussion shows the subproblem d(u,v,k) and its recurrence relation. How does the lecture connect this specific subproblem definition to achieving V-cubed running time rather than V-squared-times-E?",
+    "answer": "The blackboard shows d(u,v,k) = weight of shortest u\u2192v path using only vertices in {u,v} \u222a {1,2,...,k}, with recurrence d(u,v,k) = min{d(u,v,k-1), d(u,k,k-1) + d(k,v,k-1)}. The lecture explains that this recurrence has only two terms in the min, giving constant non-recursive work per subproblem, and with V-cubed subproblems the total is V-cubed, converting the expensive degree-sum term E into a vertex-count term V.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1040.0,
+        "end": 1095.0,
+        "hop": 1,
+        "description": "Blackboard showing Floyd-Warshall subproblem d(u,v,k) using only vertex labels up to k"
+      },
+      {
+        "start": 1155.0,
+        "end": 1205.0,
+        "hop": 2,
+        "description": "Lecture explanation that constant non-recursive work times V-cubed subproblems yields V-cubed running time"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec17_chunk_029",
+      "mit_6006sp20_lec17_chunk_032"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Floyd-Warshall",
+      "subproblem definition",
+      "V-cubed time",
+      "constant non-recursive work"
+    ],
+    "video_id": "mit_6006sp20_lec17",
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec17_q018",
+    "question": "The blackboard visible during the arithmetic parenthesization discussion shows the subproblem X(i,j,opt). How does the lecture justify needing both min and max as the 'opt' parameter rather than only max?",
+    "answer": "The blackboard shows X(i,j,opt) as the opt value for the substring a_i through a_{j-1}, with opt being either min or max. The lecture justifies this because when integers can be negative, multiplying two very negative numbers yields a large positive product, so to maximize a product you may need the minimum of a sub-expression; thus solving only max is insufficient and both min and max must be tracked across subproblems.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2170.0,
+        "end": 2215.0,
+        "hop": 1,
+        "description": "Blackboard frame showing X(i,j,opt) subproblem definition with opt in {min,max}"
+      },
+      {
+        "start": 2100.0,
+        "end": 2160.0,
+        "hop": 2,
+        "description": "Lecture motivation that negative integers require tracking minimum as well as maximum"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec17_chunk_060",
+      "mit_6006sp20_lec17_chunk_062"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "arithmetic parenthesization",
+      "subproblem expansion",
+      "min and max",
+      "negative integers"
+    ],
+    "video_id": "mit_6006sp20_lec17",
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec17_q019",
+    "question": "Based on the blackboard content shown during the SSSP in DAG discussion and the lecture's explanation of why cycles cause problems, what happens if you apply the DAG relaxation recurrence S(s,v) = min{S(s,u) + w(u,v)} to a graph that contains a cycle?",
+    "answer": "The blackboard shows the DAG relaxation recurrence S(s,v) = min{S(s,u) + w(u,v) | u in Adj^-(v)} with topological order. The lecture explains that if the graph has a cycle, the recursive call from delta(s,v) to delta(s,u) will itself loop back, creating a cycle in the call graph so the recursion never terminates, memoization never completes, and the algorithm runs for infinite time.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 396.0,
+        "end": 430.0,
+        "hop": 1,
+        "description": "Blackboard showing SSSP in DAG recurrence S(s,v) with topological order requirement"
+      },
+      {
+        "start": 455.0,
+        "end": 508.0,
+        "hop": 2,
+        "description": "Lecture explanation that cycles in the graph cause the recursion to loop infinitely"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec17_chunk_012",
+      "mit_6006sp20_lec17_chunk_013"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "DAG relaxation",
+      "cycles",
+      "infinite recursion",
+      "topological order"
+    ],
+    "video_id": "mit_6006sp20_lec17",
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec17_q020",
+    "question": "The lecture's blackboard during the Floyd-Warshall section shows a base case definition, and the lecture also describes the original problem. What is the base case d(u,v,0) and what does the original problem d(u,v,|V|) represent?",
+    "answer": "The blackboard shows the base case d(u,v,0) equals 0 if u=v, w(u,v) if edge (u,v) exists in E, and infinity otherwise, because when k=0 the allowed intermediate vertex set is empty so only direct edges or trivial paths are permitted. The original problem d(u,v,|V|) represents all-pairs shortest paths because when k equals |V| all vertices are allowed as intermediates, giving the true shortest path between every pair u,v.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1260.0,
+        "end": 1305.0,
+        "hop": 1,
+        "description": "Blackboard showing Floyd-Warshall base case d(u,v,0) with three sub-cases"
+      },
+      {
+        "start": 1335.0,
+        "end": 1370.0,
+        "hop": 2,
+        "description": "Lecture explanation that d(u,v,|V|) is the original APSP problem with all vertices available"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec17_chunk_036",
+      "mit_6006sp20_lec17_chunk_037"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Floyd-Warshall",
+      "base case",
+      "original problem",
+      "all-pairs shortest paths"
+    ],
+    "video_id": "mit_6006sp20_lec17",
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec17_q021",
+    "question": "The blackboard shown during the piano fingering discussion displays the subproblem X(i,f) and a recurrence relation. How does the lecture use the subproblem constraint on finger f to enable computing the difficulty function d(t_i, f, t_{i+1}, f')?",
+    "answer": "The blackboard shows X(i,f) = min over f' in F of [X(i+1,f') + d(t_i, f, t_{i+1}, f')]. The lecture explains that the difficulty function d is parametrized by four things\u2014both notes and both fingers\u2014so to evaluate it you must know the finger for t_i simultaneously with the finger for t_{i+1}. By parameterizing X(i,f) with the starting finger f, the algorithm remembers what finger is used at position i, and the guess over f' provides the finger for position i+1, making both arguments of d known without additional subproblem expansion.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3200.0,
+        "end": 3255.0,
+        "hop": 1,
+        "description": "Blackboard showing piano fingering subproblem X(i,f) and recurrence with d(t_i,f,t_{i+1},f')"
+      },
+      {
+        "start": 3360.0,
+        "end": 3420.0,
+        "hop": 2,
+        "description": "Lecture explanation that knowing f from the subproblem definition and guessing f' gives both arguments needed for d"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec17_chunk_094",
+      "mit_6006sp20_lec17_chunk_096"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "piano fingering",
+      "subproblem constraint",
+      "difficulty function",
+      "finger parameter"
+    ],
+    "video_id": "mit_6006sp20_lec17",
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec17_q022",
+    "question": "The blackboard visible in the arithmetic parenthesization section shows the recurrence relation for X(i,j,opt) and a topological order. According to both the visual content and the lecture explanation, what is the topological order used and why does it guarantee the recurrence is acyclic?",
+    "answer": "The blackboard shows 'Topo: increasing j - i', meaning subproblems are solved in order of increasing substring length. The lecture explains that every recursive call X(i,k,opt) and X(k,j,opt) within the relation for X(i,j,opt) uses strictly smaller substrings (since i<k<j), so j-i for each recursive call is strictly less than j-i for the current problem, guaranteeing the subproblem DAG is acyclic.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2530.0,
+        "end": 2575.0,
+        "hop": 1,
+        "description": "Blackboard frame showing 'Topo: increasing j-i' for arithmetic parenthesization"
+      },
+      {
+        "start": 2490.0,
+        "end": 2535.0,
+        "hop": 2,
+        "description": "Lecture explanation that i<k<j ensures recursive calls are on strictly smaller substrings"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec17_chunk_071",
+      "mit_6006sp20_lec17_chunk_070"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "arithmetic parenthesization",
+      "topological order",
+      "increasing substring length",
+      "acyclic DAG"
+    ],
+    "video_id": "mit_6006sp20_lec17",
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec17_q023",
+    "question": "What does the frame caption describe as visible on the blackboard for the SSSP in DAG section that is labeled 'guessing'?",
+    "answer": "The frame caption for the SSSP in DAG section describes the blackboard as titled 'SSSP in DAG: (DAG relaxation) guessing', with subproblems S(s,v) for v in V, and the relation S(s,v) = min{S(s,u) + w(u,v) | u in Adj^-(v)}, along with the label 'guessing last edge (u,v) on shortest s\u2192v path'.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 385.0,
+        "end": 430.0,
+        "hop": 1,
+        "description": "Frame caption describing the SSSP in DAG blackboard with the 'guessing' annotation"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec17_chunk_011"
+    ],
+    "question_type": "visual",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "SSSP in DAG",
+      "guessing",
+      "last edge",
+      "frame caption"
+    ],
+    "video_id": "mit_6006sp20_lec17",
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec17_q024",
+    "question": "According to the frame caption describing the piano fingering subproblem dag diagram, what do the axes of the diagram represent and what is labeled on the edges?",
+    "answer": "The frame caption describes the piano fingering diagram as having the y-axis representing which finger is being used (labeled 1 through 5, where 5 equals F) and the x-axis representing which suffix is being considered or which note to start on. The edges between nodes are labeled with the difficulty of each transition.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 3500.0,
+        "end": 3545.0,
+        "hop": 1,
+        "description": "Frame caption describing the piano fingering subproblem DAG diagram axes and edge labels"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec17_chunk_101"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "piano fingering",
+      "subproblem DAG",
+      "axes",
+      "difficulty edges"
+    ],
+    "video_id": "mit_6006sp20_lec17",
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec17_q025",
+    "question": "According to the lecture, what is the running time of Floyd-Warshall and why does the choice of subproblem definition\u2014using a prefix of vertex labels rather than a count of edges\u2014lead to this improvement over the naive approach of running Bellman-Ford V times?",
+    "answer": "Floyd-Warshall runs in Theta(V^3) time. The subproblem d(u,v,k) restricts intermediate vertices to the labeled set {1,...,k}, so the recurrence has only two terms in the min, giving O(1) non-recursive work per subproblem. With V^3 subproblems the total is V^3. Running Bellman-Ford V times gives V^2*E which for dense graphs is V^4, so the Floyd-Warshall subproblem design reduces the exponent from 4 to 3 for dense graphs.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 840.0,
+        "end": 895.0,
+        "hop": 1,
+        "description": "Lecture explaining naive APSP via Bellman-Ford V times costs V^2*E or V^4 for dense graphs"
+      },
+      {
+        "start": 1155.0,
+        "end": 1210.0,
+        "hop": 2,
+        "description": "Lecture explaining Floyd-Warshall achieves V^3 due to constant work per subproblem"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec17_chunk_022",
+      "mit_6006sp20_lec17_chunk_033"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Floyd-Warshall",
+      "V-cubed",
+      "Bellman-Ford repeated",
+      "subproblem design"
+    ],
+    "video_id": "mit_6006sp20_lec17",
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec17_q026",
+    "question": "How does the lecture describe the subproblem expansion used in arithmetic parenthesization, and what is the resulting running time for finding the maximum parenthesization of an expression with n integers?",
+    "answer": "The lecture describes subproblem expansion by adding an 'opt' parameter (min or max) to each substring subproblem X(i,j,opt), doubling the number of subproblems to 2*n^2. For each subproblem the non-recursive work is O(j-i) choices for the guessed last operator k, giving O(n) work per subproblem. The total running time is Theta(n^3), which is polynomial despite there being exponentially many (roughly 4^n) possible parenthesizations.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2210.0,
+        "end": 2260.0,
+        "hop": 1,
+        "description": "Lecture explaining subproblem expansion by factor of 2 for min/max in parenthesization"
+      },
+      {
+        "start": 2590.0,
+        "end": 2640.0,
+        "hop": 2,
+        "description": "Lecture deriving n^3 running time from n^2 subproblems times O(n) work each"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec17_chunk_062",
+      "mit_6006sp20_lec17_chunk_073"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "arithmetic parenthesization",
+      "subproblem expansion",
+      "n-cubed",
+      "min and max"
+    ],
+    "video_id": "mit_6006sp20_lec17",
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec17_q027",
+    "question": "According to the lecture, why must the subproblems for arithmetic parenthesization use substrings rather than prefixes or suffixes, and how does the structure of the expression tree make this necessary?",
+    "answer": "The lecture explains that when you guess the last operator at the root of the expression tree, the left subtree corresponds to everything left of that operator and the right subtree to everything right, which are a prefix and suffix of the current expression. However, when you recurse into the suffix, you again guess a root and produce a prefix of that suffix, which is a prefix of a suffix\u2014in other words a general substring. Therefore, using only prefixes or only suffixes is insufficient; all substrings are needed.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1830.0,
+        "end": 1875.0,
+        "hop": 1,
+        "description": "Lecture explaining that guessing the root splits into prefix and suffix subtrees"
+      },
+      {
+        "start": 1965.0,
+        "end": 2010.0,
+        "hop": 2,
+        "description": "Lecture explaining that prefix of a suffix is a substring requiring all substrings"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec17_chunk_052",
+      "mit_6006sp20_lec17_chunk_055"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "substrings",
+      "expression tree",
+      "prefix of suffix",
+      "arithmetic parenthesization"
+    ],
+    "video_id": "mit_6006sp20_lec17",
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec17_q028",
+    "question": "According to the lecture, what specific historical reason did Bellman give for calling his technique 'dynamic programming'?",
+    "answer": "According to the lecture, Bellman called it 'dynamic programming' mostly because it sounded cool and he was trying to impress government agencies giving him grants. The word 'programming' references an old meaning of the word that means optimization, and 'dynamic' contrasts with a static approach, referring to the local brute force optimization done at each stage where each subproblem behaves differently.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 70.0,
+        "end": 115.0,
+        "hop": 1,
+        "description": "Lecture explaining why Bellman named his technique dynamic programming"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec17_chunk_002"
+    ],
+    "question_type": "text",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "dynamic programming",
+      "Bellman",
+      "naming",
+      "optimization"
+    ],
+    "video_id": "mit_6006sp20_lec17",
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec17_q029",
+    "question": "According to the lecture, what is the running time of the piano fingering dynamic program for one hand playing one note at a time, and what are the two factors that determine this bound?",
+    "answer": "According to the lecture, the running time is Theta(n*F^2), where n*F is the number of subproblems (n note positions times F finger choices) and for each subproblem the optimization loops over F choices for the next finger f', giving F work per subproblem, resulting in n*F^2 total. The lecture also notes that if F is a constant (such as 5 for humans) this is effectively linear time.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 3430.0,
+        "end": 3475.0,
+        "hop": 1,
+        "description": "Lecture stating the piano fingering DP runs in n*F^2 time with n*F subproblems and F work each"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec17_chunk_098"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "piano fingering",
+      "running time",
+      "nF^2",
+      "subproblem count"
+    ],
+    "video_id": "mit_6006sp20_lec17",
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec17_q030",
+    "question": "What is the exact number of strings a typical guitar has and what specific fret does the instructor use to demonstrate playing the same note on two different strings during the guitar fingering discussion?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "medium",
+    "answerable": false,
+    "key_concepts": [
+      "guitar",
+      "strings",
+      "fret",
+      "fingering"
+    ],
+    "video_id": "mit_6006sp20_lec17",
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  }
+]

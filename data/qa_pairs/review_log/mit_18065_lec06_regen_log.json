@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_18065_lec06_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The claim that the slide shows 'Compare with S = Q\u039bQ^T' is not supported by any cited chunk text; chunk_001 frame captions show blank blackboards, and chunk_009 does not explicitly mention this comparison formula on a slide."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The inter-hop gap is ~215 seconds (well above 70s), and the span timestamps are plausibly aligned with the cited chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both cited chunks contain [frame caption: ...] markers, and the two spans are non-adjacent (35s\u2013115s and 250s\u2013360s), satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the specific claim about the slide displaying 'Compare with S = Q\u039bQ^T' is not supported by the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18065_lec06_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the chunk text: the substitution u_i = Av_i/sigma_i, the reduction using A^T A v2 = sigma2^2 v2, and the conclusion v1^T v2 = 0 due to orthonormality are all explicitly present in chunks 041 and 043."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1380s\u20131455s) aligns with chunk_041 and Hop 2 (1480s\u20131570s) aligns with chunk_043; the inter-hop gap is 100 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it spans two non-adjacent time segments (100s apart) and both cited chunks contain [frame caption: ...] markers showing blackboard content that is referenced in the question."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text. The text confirms that u1^T u2 = (Av1/sigma1)^T (Av2/sigma2) = v1^T A^T A v2 / (sigma1 * sigma2), and since v2 is an eigenvector of A^T A with eigenvalue sigma2^2, A^T A v2 = sigma2^2 v2. The expression reduces to sigma2/sigma1 times v1^T v2, and since the V's are orthonormal, v1^T v2 = 0, giving u1^T u2 = 0."
+  },
+  {
+    "qa_id": "mit_18065_lec06_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: V^T as orthogonal matrix rotates (possibly reflects) the unit circle without changing length (chunk_051: 'it's a rotation could be a reflection but let's keep it as a rotation'); Sigma stretches the rotated circle into an ellipse by multiplying sigma1 in first component and sigma2 in second (chunk_051/052); convention sigma1 >= sigma2 >= ... >= sigma_rank with all positive (chunk_052)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 1745\u20131835s and hop 2 spans 1835\u20131925s, aligning with chunk_051 and chunk_052 boundaries respectively. The inter-hop gap between start times is |1745 - 1835| = 90 seconds, which is \u2265 70 seconds."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans (chunk_051 and chunk_052) and both chunks contain [frame caption: ...] markers describing circular diagrams with arrows indicating transformation. Both conditions for multi-hop-visual are satisfied."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims that multiplying by V^T rotates the unit circle and that multiplying by Sigma stretches it into an ellipse, with Sigma multiplying by sigma1 and sigma2, where sigma1 is greater than or equal to sigma2."
+  },
+  {
+    "qa_id": "mit_18065_lec06_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "Chunk 018 explicitly states 'I have orthogonal V's here and when I multiply by a then I get orthogonal U's over here orthogonal to orthogonal that's what makes the V's and the U's special,' supporting all atomic claims: V vectors are orthogonal in input space, U vectors are orthogonal in output space, and multiplying orthogonal V's by A yields orthogonal U's."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1085\u20131155s) aligns with chunk_018 and hop 2 (1155\u20131235s) aligns with chunk_019; the inter-hop gap is |1085 - 1155| = 70 seconds, which meets the \u226570s requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question references \u22652 non-adjacent spans (chunks 018 and 019) and both cited chunks contain multiple [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The source text does not explicitly state that the V vectors are in the input space (row space) or that the U vectors are in the output space (column space). It only mentions that orthogonal V's, when multiplied by A, result in orthogonal U's, but does not specify the spaces they belong to."
+  },
+  {
+    "qa_id": "mit_18065_lec06_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_061 confirms a 2\u00d72 rotation requires 1 parameter (the angle theta), chunk_062 confirms the count is 2 (Sigma) + 1 (U rotation) + 1 (V rotation) = 4, matching the four entries ABCD of A. The frame captions confirm the blackboard shows ATA = V\u039bV^T and AAT = U\u039bU^T."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Both hops span 2135.0s\u20132185.0s and 2135.0s\u20132215.0s, meaning hop 1 and hop 2 start at the same time (2135.0s), giving an inter-hop gap of |2135 - 2135| = 0 seconds, which is far below the required 70-second minimum. The two hops are not temporally separated."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both cited chunks contain [frame caption: ...] markers showing the blackboard equations, and the question references two non-adjacent spans (chunk_061 and chunk_062), satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 2 failed: both hops start at the same timestamp (2135.0s), yielding an inter-hop gap of 0 seconds, well below the required 70-second minimum for a multi-hop question.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18065_lec06_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are directly supported by chunk_015 text: the replacement of Ax=\u03bbx, the mapping of v's to u's, stopping at rank r due to zero sigmas, and null space membership."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops are at 915s and 510s, giving a gap of 405 seconds well above the 70s threshold, confirming genuine multi-hop retrieval."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans and references a frame caption explicitly; both cited chunks contain [frame caption: ...] markers confirming visual evidence."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claim that in SVD, the equation Av_i = sigma_i * u_i takes the place of the eigenvalue equation Ax = \u03bbx, and that the singular values stop at rank r because after that the sigma values are zero, meaning the remaining v's are in the null space and contribute nothing."
+  },
+  {
+    "qa_id": "mit_18065_lec06_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunks confirm that inserting U^T U into U\u03a3V^T yields S = U\u03a3U^T (symmetric) and Q = UV^T (orthogonal), consistent with the answer's claims."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap between hop 1 (starting at 2910s) and hop 2 (starting at 2955s) is only 45 seconds, which is less than the required 70 seconds, making this effectively single-hop content."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both cited chunks contain [frame caption: ...] markers, and two spans are cited, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only 45 seconds (below the 70-second minimum), meaning the two hops are too close to constitute genuinely non-adjacent multi-hop retrieval.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18065_lec06_q023",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the frame captions in the source chunk: the lecture title 'Singular Value Decomposition (SVD)', course number 18.065, course name 'Matrix Methods in Data Analysis, Signal Processing, and Machine Learning', Lecture 6, MIT, Gilbert Strang, and Spring 2018 are all confirmed in the frame captions."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (0.0s\u201345.0s) aligns with the chunk boundaries of mit_18065_lec06_chunk_000, which covers a 45-second window starting at 0s."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'visual', there is exactly 1 span, and the cited source chunk contains multiple [frame caption: ...] markers providing the visual evidence needed to answer the question."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are explicitly supported by the source text: the lecture is titled 'Singular Value Decomposition (SVD)', it is Lecture 6, and it is part of MIT course 18.065, 'Matrix Methods in Data Analysis, Signal Processing, and Machine Learning,' taught by Gilbert Strang in Spring 2018."
+  },
+  {
+    "qa_id": "mit_18065_lec06_q024",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims the frame caption shows 'u1^T u2 = 0', 'u1^T (A u2) = 0', and 'u1^T A^T A u2 = 0', all of which are explicitly present in the second and third frame captions of the cited chunk. The claim about setting up orthogonality verification is also supported by the caption context."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (1455.0s\u20131530.0s) corresponds to chunk_041, which covers a 45-second window; 1455s to 1530s is a 75-second window but aligns plausibly with the chunk boundaries within the \u00b115s tolerance for a single-hop visual question."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual', requires exactly 1 span, and the cited chunk (mit_18065_lec06_chunk_041) contains multiple [frame caption: ...] markers, satisfying both conditions for the visual type."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly lists the equations 'u1^T u2 = 0', 'u1^T (A u2) = 0', and 'u1^T A^T A u2 = 0' on the blackboard, supporting the claims in the answer."
+  },
+  {
+    "qa_id": "mit_18065_lec06_q025",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_001 explicitly states that for rectangular matrices 'ax equal lambda X is not even possible if a is rectangular' because multiplying an n-dimensional vector produces an m-dimensional result; chunk_004 explicitly states 'there are two sets of singular vectors not one' with 'left eigenvectors in m dimensions' and 'right eigenvectors in n dimensions' connected by 'singular values'. The relationship Av_i = sigma_i * u_i is implied by the SVD framework described, though not stated verbatim, the core claims are well-supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (35s\u2013115s) aligns with chunk_001 (a ~45s window starting around 0\u201345s or 45\u201390s range, plausible within \u00b115s); Hop 2 (240s\u2013310s) aligns with chunk_004 (a later chunk). The inter-hop gap is |35 - 240| = 205 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop, requiring information from two non-adjacent spans (chunk_001 for why eigenvalues fail for rectangular matrices, and chunk_004 for how SVD introduces two sets of vectors), and both chunks contain [frame caption: ...] markers though the question type is multi-hop (not multi-hop-visual), which is appropriate since the answer relies on spoken/text content rather than visual content."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports all claims: it states that for a rectangular matrix, the equation Ax = \u03bbx is not possible, and SVD introduces two sets of vectors, left singular vectors in m dimensions and right singular vectors in n dimensions, connected by singular values."
+  },
+  {
+    "qa_id": "mit_18065_lec06_q026",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_047 explicitly states computing A^T A is a mistake because 'its vulnerability to roundoff errors is squared' and 'its condition number gets squared'; chunk_048 confirms 'actual computational methods are quite different' and that 'a transpose a because it's symmetric positive-definite made the proof so nice.'"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap between hop 1 start (1670s) and hop 2 start (1730s) is only 60 seconds, which is less than the required 70-second minimum, meaning the two hops are too temporally close to constitute genuinely non-adjacent retrieval."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is labeled multi-hop and cites two source chunks; both chunks contain [frame caption: ...] markers, but the question type is multi-hop (not multi-hop-visual), which only requires \u22652 non-adjacent spans \u2014 the spans are in adjacent chunks covering consecutive 45s windows, which is borderline but the type claim itself is consistent with the structure."
+    },
+    "rejection_reason": "Criterion 2 fails: the inter-hop temporal gap between hop 1 (starting at 1670s) and hop 2 (starting at 1730s) is only 60 seconds, below the required 70-second minimum for a genuine multi-hop question.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18065_lec06_q027",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk text explicitly states 'the product of the Sigma's is also the determinant' and explains that orthogonal matrices have determinant 1, supporting all atomic claims in the answer about det(A) = product of singular values derived from SVD decomposition."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 2385\u20132440s and Hop 2 spans 2440\u20132510s; the gap between hop starts is |2385 - 2440| = 55 seconds, which is less than the required 70 seconds minimum inter-hop gap, making this effectively single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question claims multi-hop and cites two non-adjacent source chunks; both chunks contain [frame caption: ...] markers, but the question type is multi-hop (not multi-hop-visual), which only requires \u22652 non-adjacent spans, which is satisfied."
+    },
+    "rejection_reason": "Criterion 2 failed: the temporal gap between the two hops is only 55 seconds (2385s to 2440s), below the required 70-second minimum, indicating the information can be retrieved in a single step.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18065_lec06_q028",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk explicitly states 'either the eigenvectors are complex eigenvalues are complex or the eigen vectors are not orthogonal' for a general square matrix, and contrasts this with symmetric matrices having 'a full set of eigenvalues and eigenvectors and they're orthogonal.' All atomic claims in the answer are supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span 70.0s\u2013115.0s aligns with chunk_002 (a 45-second window); 70s is a plausible start boundary and 115s falls within \u00b115s of the chunk end. Only one hop is present, so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, which matches the single ground_truth_span provided. No frame caption requirement applies to text questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports both claims: that for a general square matrix, eigenvalues and eigenvectors may be complex, and even if they are real, the eigenvectors may not be orthogonal. It also confirms that only symmetric matrices guarantee real eigenvalues with orthogonal eigenvectors."
+  },
+  {
+    "qa_id": "mit_18065_lec06_q029",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk explicitly states 'u 1 Sigma 1 V 1 transpose is the the top principal part of the matrix a it's the leading part' and 'the biggest rank one part of the matrix,' and the claim that sigma1 is the largest singular value (making it the leading term while u's and v's are orthonormal so none is individually bigger) is supported by 'no one is bigger than another one but here I look here which is the most important number Sigma 1.'"
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span 3120.0s\u20133185.0s aligns with chunk_090, which covers a 45-second window; the span is plausible for a text question with one cited chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span; although the chunk contains [frame caption: ...] markers, the text type does not require their absence, and the answer is derivable from the spoken text alone."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claim that the most important rank-one piece is u1 * sigma1 * v1^T, where sigma1 is the largest singular value, making it the leading term. The text states that sigma1 is the biggest number and that u1 * sigma1 * v1^T is the top principal part of the matrix A."
+  },
+  {
+    "qa_id": "mit_18065_lec06_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the source material that could answer the question about the exact formula for rotation angles in four dimensions or how the lecture derives it."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

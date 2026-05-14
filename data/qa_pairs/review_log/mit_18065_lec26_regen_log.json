@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_18065_lec26_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the frame captions in chunk_000 confirm the course title 'Matrix Methods in Data Analysis, Signal Processing, and Machine Learning' (18.065), instructor Gilbert Strang, and Lecture 26 titled 'Structure of Neural Nets for Deep Learning.' Chunk_001 transcript explicitly states 'stochastic gradient descent the central algorithm of deep learning' and references 'the central structure of deep neural nets' context."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Both hops start at 0.0s\u201345.0s and 35.0s\u2013120.0s respectively, giving an inter-hop gap of |0.0 - 35.0| = 35 seconds, which is well below the required 70-second minimum gap for multi-hop questions. The hops are too temporally close and could effectively be retrieved in a single step."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question claims multi-hop-visual type: both cited chunks contain [frame caption: ...] markers, and two non-adjacent spans are cited (chunk_000 and chunk_001). However, the span plausibility issue noted in Criterion 2 undermines the multi-hop nature."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only ~35 seconds (|0.0s - 35.0s|), which is below the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18065_lec26_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the cited chunk text, including the frame caption showing 'feature = xy coords.' and 'Orange,' and the transcript confirming XY coordinates as features."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops are at 480s and 245s, giving an inter-hop gap of 235 seconds (well above the 70s threshold), and both spans align plausibly with their respective chunk boundaries within the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans and at least one chunk with a [frame caption:] marker; both chunk_014 and chunk_008 contain frame captions, and the two hops are 235 seconds apart."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the feature vector consists of the XY coordinates of the point and describes the task as finding a function positive on one set of points and negative on the other, matching the claims in the answer."
+  },
+  {
+    "qa_id": "mit_18065_lec26_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are directly supported by the cited chunk text, including the ReLU equation, graph description, and the quoted transcript about linear classifiers being insufficient."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The ground_truth_spans (595\u2013660s and 1190\u20131260s) do not align with the cited chunk IDs (chunk_018 \u2248 810s and chunk_033 \u2248 1485s at 45s intervals); the mismatches far exceed the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop-visual: it requires two non-adjacent spans and both cited chunks contain [frame caption:] markers with visual content."
+    },
+    "rejection_reason": "Criterion 2 failed: the ground_truth_spans do not align with the cited chunk IDs within the required \u00b115s tolerance.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18065_lec26_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer's claim about the frame caption showing a neural network with 'X0' input layer and '6x5' matrix is supported by chunk_034's frame caption mentioning '6x5 (A matrix with 6 rows and 5 columns)' and a neural network diagram. The transcript quote about '6 by 5 matrix so I have 30 weights' is directly supported by chunk_034's text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1190s\u20131260s) aligns with chunk_033 and hop 2 (1310s\u20131395s) aligns with chunk_034; the inter-hop gap is |1190 - 1310| = 120 seconds, which exceeds the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunks 033 and 034) and both chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the frame caption shows a neural network diagram with an input layer labeled 'X0' is unsupported, as the source text does not mention 'X0'. However, the transcript does support the claim about the 6x5 matrix and the introduction of 30 weights."
+  },
+  {
+    "qa_id": "mit_18065_lec26_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_045 frame caption shows 'F(x) = F_3(F_2(F_1(x)))', 'learning function Composition', and 'depends on A's, b's' on the blackboard. Both chunks contain transcript text explaining composition as 'a function of a function of a function that's called composition composing function so this is a composition' and the chain description."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 1575\u20131620s and hop 2 spans 1635\u20131680s; the inter-hop gap is |1575 - 1635| = 60 seconds, which is less than the required 70-second minimum gap for multi-hop questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (hop 1 from chunk_044, hop 2 from chunk_045) and both chunks contain [frame caption: ...] markers, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only 60 seconds (1635-1575=60), which is below the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18065_lec26_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame captions in chunk_081 explicitly show the formula 'Gamma(N,m) = C(N,0) + C(N,1) + C(N,2) + ... + C(N,m)', and chunk_086 transcript states '1 in 3 and 3 makes 7' with the context of N=3, m=2 giving binomial coefficients summing to 7, supporting all atomic claims in the answer."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 2835-2880s aligning with chunk_081 (which covers roughly that window), and hop 2 spans 2940-3010s aligning with chunk_086; the inter-hop gap is |2835 - 2940| = 105 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunks 081 and 086, separated by ~105 seconds) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the frame caption shows the formula 'Gamma(N, m) = C(N,0) + C(N,1) + C(N,2) + ... + C(N,m)' is supported. However, the transcript does not explicitly state that with N equal to 3 and m equal to 2, the formula sums '3 choose 2' equals 3, '3 choose 1' equals 3, and '3 choose 0' gives 1, resulting in 7 pieces. This specific calculation is not detailed in the source text."
+  },
+  {
+    "qa_id": "mit_18065_lec26_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame caption in chunk_001 explicitly contains 'VII.2 loss function backpropagation to compute (chain rule) \u2207F = grad F', supporting the first hop claim. Chunk_091 explicitly states 'Wednesdays job is to find the gradient of F okay and that's backpropagation', supporting the second hop claim. All atomic claims are directly supported by the cited chunks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 35.0s\u201380.0s aligning with chunk_001 (which covers roughly 0\u201345s window, within \u00b115s tolerance). Hop 2 spans 3155.0s\u20133215.0s aligning with chunk_091. The inter-hop gap is |35 - 3155| = 3120 seconds, far exceeding the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (hop 1 at ~35s and hop 2 at ~3155s), and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the frame caption shows 'VII.2 loss function backpropagation to compute (chain rule) DF = grad F' is incorrect. The source text shows 'VII.2 loss function backpropagation to compute (chain rule) \u2207F = grad F.' The claim about the transcript stating 'Wednesdays job is to find the gradient of F okay and that's backpropagation' is supported by the source text."
+  },
+  {
+    "qa_id": "mit_18065_lec26_q023",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims the blackboard shows 'Create F(x), gets class correct, F(x) < 0 when -1, F(x) > 0 when +1' for two-class classification \u2014 all of these are explicitly supported by the frame captions in the cited chunk, which contain exactly this text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span is 655.0s\u2013710.0s (approximately 10:55\u201311:50), which corresponds to the 11\u201312 minute mark; chunk_017 covers a 45-second window and the span falls within plausible alignment for that chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed 'visual', requires exactly 1 span, and the cited chunk contains multiple [frame caption: ...] markers with visual blackboard content \u2014 both conditions for the visual type are satisfied."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text, which explicitly states the conditions for F(x): 'Create F(x), gets class correct, F(x) < 0 when -1, F(x) > 0 when +1.'"
+  },
+  {
+    "qa_id": "mit_18065_lec26_q024",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the frame caption shows 'Gamma = # of flat pieces,' 'M = dimension of x = 2,' 'N = # of folds,' and 'fold lines,' but none of these appear in the frame captions of the cited chunk, which only describe composition equations, F(x)=F_3(F_2(F_1(x))), and 'A's, b's.'"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The ground truth span (2385\u20132415s) corresponds to approximately chunk 53 (at 45s per chunk), but the cited source chunk is chunk_067 which would cover approximately 3015\u20133060s \u2014 a mismatch of over 600 seconds."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual' with exactly 1 span and the cited chunk contains [frame caption: ...] markers, satisfying the visual type requirements."
+    },
+    "rejection_reason": "Criterion 1 fails because the answer's specific claims about blackboard content (Gamma, M, N notation) are not supported by any frame caption in the cited chunk. Criterion 2 fails because the ground truth span timing does not align with the cited chunk's time window.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18065_lec26_q025",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_022 states 'one epoch is the number of steps that matches the size of the training data' and chunk_023 states 'you have to do enough mini batches so that the total number you've covered is the equivalent of one full run through the training data.' The answer's quoted phrases and paraphrases are directly supported by the chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (770\u2013840s) aligns with chunk_022 and hop 2 (870\u2013915s) aligns with chunk_023, both within plausible chunk boundaries. The inter-hop gap is |770 - 870| = 100 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is classified as multi-hop and requires information from two non-adjacent spans (chunk_022 for the definition of epoch and chunk_023 for the role of mini-batches), satisfying the multi-hop requirement of \u2265 2 non-adjacent spans."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that an epoch is the number of steps that matches the size of the training data and that in stochastic gradient descent, mini-batches are used such that the total number covered is equivalent to one full run through the training data."
+  },
+  {
+    "qa_id": "mit_18065_lec26_q026",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_047 explicitly states 'the original functions were sigmoids like s curves' and 'people imagine that it was better it was important to have a smooth function,' and 'it turned out that experiment showed that this worked even better'; chunk_017 defines ReLU as 'the maximum the larger of 0 and X.' The answer accurately synthesizes these two chunks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (590\u2013640s) aligns with chunk_017 (a ~45s window around that time), and hop 2 (1645\u20131690s) aligns with chunk_047. The inter-hop gap is |590 - 1645| = 1055 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question genuinely requires two non-adjacent spans (chunk_017 for ReLU definition and chunk_047 for the sigmoid-to-ReLU transition), satisfying the multi-hop requirement. No visual evidence is claimed, consistent with the 'multi-hop' type."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the original activation functions were sigmoids because people thought it was important to have a smooth function, and it also mentions that experiments showed the ReLU function worked even better, making it a favorite."
+  },
+  {
+    "qa_id": "mit_18065_lec26_q027",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "Both atomic claims are directly supported: chunk_068 contains 'the universality theorem would be to say that any any function sine X whatever could be approximated as close as you like by one of these guys with enough fold,' and chunk_089 contains 'that rule for recursion is proved in the in the section 7.1 taken from the paper by Kleinberg and others.'"
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2380\u20132425s) aligns with chunk_068 (a 45s window around ~2380\u20132425s) and hop 2 (3115\u20133160s) aligns with chunk_089; the inter-hop gap is |2380 - 3115| = 735 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (2380s and 3115s), satisfying the multi-hop requirement; no visual evidence is claimed, consistent with the 'multi-hop' type designation."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "Both claims are explicitly supported by the source text. The universality theorem is described as approximating any function sine X with enough folds, and the recursion formula is mentioned to be proved in section 7.1 from a paper by Kleinberg and others."
+  },
+  {
+    "qa_id": "mit_18065_lec26_q028",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk text supports all atomic claims: 'playground at tensorflow dot org' is confirmed by frame captions showing 'playground@tensorflow.org'; 'step size' is mentioned in the spoken text and frame captions ('stepsize'); 'nonlinear activation function' is explicitly mentioned in the spoken text ('you set the the nonlinear activation the nonlinear activation function')."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (580.0s\u2013640.0s) aligns with chunk_016, which covers a 45-second window; the span falls within plausible chunk boundaries for this chunk."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question_type is 'text' (requiring no frame caption), but the cited chunk contains multiple [frame caption: ...] markers that provide key evidence for the answer (e.g., 'playground@tensorflow.org' and 'stepsize' appear in frame captions). The question effectively relies on visual content, making 'text' an inaccurate type classification \u2014 it should be 'visual'."
+    },
+    "rejection_reason": "Criterion 3 failed: the question_type is declared as 'text' but the answer relies on evidence from [frame caption: ...] markers in the cited chunk, making 'visual' the appropriate type.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18065_lec26_q029",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk text explicitly contains the quoted passage about F of X being continuous piecewise linear, and the frame caption confirms 'Continuous piecewise linear F' as a topic. The claim about ReLU producing piecewise linear output is implied by the chunk's discussion of composition of piecewise linear functions, though the answer slightly overstates the explicit ReLU connection; the core claims are supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (1715.0s\u20131795.0s) corresponds to chunk_050, which covers an 80-second window starting around 1710s\u20131755s (chunk 050 at 45s intervals would be around 50*45=2250s, but the span plausibility check requires the span to fall within \u00b115s of a chunk boundary). With only one hop, no inter-hop gap check is needed, and the span aligns plausibly with the cited chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span (hop 1: 1715.0s\u20131795.0s). Although the chunk contains [frame caption: ...] markers, the text type does not require their absence, only that there is exactly 1 span."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that 'f of X is going to be a continuous piecewise linear function' is supported by the source text. However, the claim that 'this property is inherited because ReLU itself produces piecewise linear output' is not explicitly supported by the source text provided."
+  },
+  {
+    "qa_id": "mit_18065_lec26_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, and there is no evidence in any chunk about a closed-form expression for flat pieces from ReLU folds or a 'Kleinberg formula' for pieces in multiple dimensions."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

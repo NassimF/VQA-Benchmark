@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6046_lec06_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame captions in chunk_002 explicitly show 'Matrix multiply verification' and 'Quicksort' on the blackboard, and also show 'Randomized or Probabilistic Algorithms' as the category label beneath them \u2014 all three atomic claims are directly supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (60\u2013115s) aligns with chunk_002 and hop 2 (165\u2013210s) aligns with chunk_004, both within acceptable boundaries; the inter-hop gap is |60 - 165| = 105s \u2265 70s, satisfying the multi-hop temporal separation requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunk_002 and chunk_004) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the blackboard shows 'Matrix multiply verification' and 'Quicksort' as topics, and these fall under 'Randomized or Probabilistic Algorithms' according to the frame caption."
+  },
+  {
+    "qa_id": "mit_6046_lec06_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the frame captions in the source chunks: 'Probably correct' and 'Monte Carlo' on the left, 'Probably fast' and 'Las Vegas' on the right, and 'MBTA' below 'Las Vegas' are all explicitly stated in the frame captions of chunk_013 and chunk_014."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The two ground_truth_spans are 490.0s\u2013535.0s and 535.0s\u2013580.0s, giving an inter-hop gap of |490 - 535| = 45 seconds, which is less than the required 70 seconds. The hops are too temporally close and could effectively be retrieved in a single step."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as multi-hop-visual, references two non-adjacent spans, and both cited chunks contain [frame caption: ...] markers with visual content describing the blackboard."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap between the two spans is only 45 seconds (490s to 535s), which is below the required minimum of 70 seconds, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec06_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_022 frame captions confirm O(n^3) multiplications for the simple algorithm, and chunk_025 frame captions explicitly state 'Strassen: Multiply two 2x2 matrices using 7 multiplications' with 'O(n^(log2 7)) = O(n^2.81)'."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (730\u2013775s) aligns with chunk_022 and hop 2 (850\u2013895s) aligns with chunk_025; the inter-hop gap is |730 - 850| = 120 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the simple matrix multiplication algorithm has a complexity of O(n^3) multiplications and that Strassen's algorithm involves multiplying two 2x2 matrices using 7 multiplications with a complexity of O(n^(log2 7)) = O(n^2.81)."
+  },
+  {
+    "qa_id": "mit_6046_lec06_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: 'Get a O(n^2) algorithm' appears in frame captions in chunk_029, and both probability conditions 'If AxB = C, then prob[output=YES] = 1' and 'If AxB \u2260 C, then prob[output=YES] \u2264 1/2' are explicitly shown in frame captions in chunk_031."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1020\u20131065s) aligns with chunk_029, and hop 2 (1115\u20131160s) aligns with chunk_031; the inter-hop gap is |1020 - 1115| = 95 seconds, which exceeds the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u2265 2 non-adjacent spans (chunks 029 and 031, separated by ~95s) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports both claims: the blackboard shows 'Get a O(n^2) algorithm' as the goal, and the probability conditions 'If AxB = C, then prob[output=YES] = 1' and 'If AxB \u2260 C, then prob[output=YES] \u2264 1/2' are written on the board."
+  },
+  {
+    "qa_id": "mit_6046_lec06_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "Both atomic claims are supported by frame captions in the cited chunks: 'Freivald's Algorithm' appears in chunk_037 captions, and the condition 'P[r_i=1]=1/2 independently for i=1...n' is confirmed in chunk_039 captions (with minor variable name difference c vs i)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops (1295\u20131340s and 1390\u20131435s) align with chunk_037 and chunk_039 respectively, and the inter-hop gap of 95 seconds exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop-visual: it requires two non-adjacent spans (chunks 037 and 039 with chunk 038 between them), and both cited chunks contain [frame caption: ...] markers providing the visual evidence needed to answer."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states 'Freivald's Algorithm' as the algorithm name and 'such that P[r_i = 1] = 1/2 independently' as the condition on r_i."
+  },
+  {
+    "qa_id": "mit_6046_lec06_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The claim about 'Prob[ABr \u2260 Cr] \u2265 1/2' is supported by chunk_053's frame caption showing '\u2265 1/2', and the definition 'Let D = AB - C' with hypothesis 'D \u2260 0' is explicitly supported by chunk_055's frame caption."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops are separated by ~95 seconds (1895s vs 1990s), which exceeds the 70-second minimum, and both spans align plausibly with their cited chunks."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans and both cited chunks contain [frame caption: ...] markers, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim about the correctness analysis is not fully supported. The source text shows 'Claim: If AB \u2260 C, then Prob[AB \u2260 C] > 1/2' instead of 'Prob[ABr \u2260 Cr] \u2265 1/2'. The definition of D as 'let D = AB - C' with the hypothesis that D \u2260 0 is supported by the source text."
+  },
+  {
+    "qa_id": "mit_6046_lec06_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims 'Pr[Dr \u2260 0] \u2265 1/2' appears on the blackboard after the counting argument, which is supported by multiple frame captions in chunk_081 and chunk_089. The answer also claims 'in place' and 'o(n) no auxiliary space' are quicksort properties shown on the board, which is supported by the frame caption in chunk_089 showing 'in place' and 'o(n) no auxiliary space'."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 2820\u20132870s, aligning with chunk_081 (which covers roughly that window). Hop 2 spans 3100\u20133150s, aligning with chunk_089. The inter-hop gap is |2820 - 3100| = 280 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u2265 2 non-adjacent spans (2820\u20132870s and 3100\u20133150s, separated by ~280s) and both cited chunks contain [frame caption: ...] markers with visual content, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim 'Pr[Dr \u2260 0] \u2265 1/2' is supported by the source text. However, the claim 'in place' and 'o(n) no auxiliary space' as properties of quicksort is not explicitly supported by the source text, which only mentions 'in place' and 'o(n) no aux' without specifying 'space'."
+  },
+  {
+    "qa_id": "mit_6046_lec06_q023",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims the blackboard shows 'Frievald's Algorithm' as the name of the matrix product verification algorithm. The frame captions in the chunk confirm the algorithm name appears on the whiteboard (spelled variously as 'Fr\u00e9vald's Algorithm', 'Frandsd's Algorithm', and 'Freivald's Algorithm'), supporting the core claim that this algorithm name appears on the blackboard."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span (1295.0s\u20131340.0s) corresponds to chunk_037, which covers a 45-second window. The span aligns plausibly with the chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual', requiring exactly 1 span and at least 1 source chunk with a [frame caption: ...] marker. There is exactly 1 span and the cited chunk (mit_6046_lec06_chunk_037) contains multiple [frame caption: ...] markers."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The source text shows 'Freivald's Algorithm' on the blackboard, not 'Frievald's Algorithm' as claimed in the answer. The spelling discrepancy means the claim is not explicitly supported by the source text."
+  },
+  {
+    "qa_id": "mit_6046_lec06_q024",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims the blackboard shows 'MBTA' written below 'Las Vegas', which is explicitly supported by the first frame caption in the cited chunk: 'Below \"Las Vegas,\" there is a handwritten note that says \"MBTA.\"'"
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span (535.0s\u2013580.0s) aligns with chunk_014, which covers a 45-second window; the span falls within plausible chunk boundaries for a single-hop visual question."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual', requires exactly 1 span, and the cited chunk contains multiple [frame caption: ...] markers with visual evidence \u2014 all conditions are satisfied."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim that 'MBTA' is written below 'Las Vegas' on the blackboard is explicitly supported by the source text, which states: 'Below 'Las Vegas,' there is a handwritten note that says 'MBTA.''"
+  },
+  {
+    "qa_id": "mit_6046_lec06_q025",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: Monte Carlo algorithms are 'probably correct' (chunk_009), Las Vegas algorithms are 'correct and probably fast' (chunk_011), and the distinction between correctness guarantees is explicitly stated in both chunks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (315\u2013395s) aligns with chunk_009 and hop 2 (385\u2013450s) aligns with chunk_011; the inter-hop gap |315-385|=70s meets the \u226570s requirement exactly."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires information from two non-adjacent spans (chunk_009 for Monte Carlo and chunk_011 for Las Vegas), satisfying the multi-hop requirement; both chunks contain [frame caption:] markers but visual content is not required for multi-hop type."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports both claims: Monte Carlo algorithms are 'probably correct' and may give incorrect output with some probability, while Las Vegas algorithms are 'correct and probably fast,' meaning they always produce the correct result but may take varying amounts of time."
+  },
+  {
+    "qa_id": "mit_6046_lec06_q026",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the recurrence T(n) = T(0) + T(n-1) + Theta(n) is explicitly stated in chunk_101, the Theta(n^2) complexity result is stated in chunk_102, and the worst case being caused by sorted or reverse-sorted input with one side having n-1 elements and the other zero is confirmed in both chunks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (3600\u20133640s) aligns with chunk_101 and hop 2 (3655\u20133720s) aligns with chunk_102; the inter-hop gap is |3600 - 3655| = 55s, which is less than 70s, making the hops too close for a genuine multi-hop question."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question is classified as multi-hop, but the inter-hop gap between the two spans is only ~55 seconds, which is below the required 70-second minimum, meaning the content could effectively be retrieved in a single step."
+    },
+    "rejection_reason": "Criterion 2 and Criterion 3 fail: the inter-hop gap between hop 1 (3600s) and hop 2 (3655s) is only 55 seconds, below the 70-second threshold required for a genuine multi-hop question.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec06_q027",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "Chunk 133 explicitly states 'T of n = t of n / 4 + T of 3n / 4 + 2 * CN', matching the recurrence claim. Chunk 132 explicitly states 'expected number of iterations... two right one / P all of them are independent so this is this is two', supporting the claim that expected iterations is two because p > 1/2 and expected trials = 1/p."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 4685\u20134740s aligns with chunk_132 (which covers ~4680\u20134725s range), and hop 2 spans 4745\u20134800s aligns with chunk_133 (which covers ~4725\u20134770s range), both within \u00b115s tolerance. The inter-hop gap is |4685 - 4745| = 60s, which is less than 70s, so this fails the multi-hop gap requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunk_132 for expected iterations, chunk_133 for the recurrence), satisfying the multi-hop requirement of \u22652 non-adjacent spans."
+    },
+    "rejection_reason": "Criterion 2 fails: the inter-hop gap between hop 1 (4685s) and hop 2 (4745s) is only 60 seconds, which is less than the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec06_q028",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk explicitly states 'order n auxiliary space,' that 'n could be large it could be in the billions or trillions,' and that 'quick sort ends up winning simply because of relatively mundane things like memory allocation in your computer.' The answer's claim about 'constant memory allocation' is slightly imprecise (the chunk says you don't have to constantly allocate), but the overall meaning is supported by the chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span is 3060.0s\u20133125.0s, which is a 65-second window. Chunk 087 covers a 45-second window; the span start at 3060s aligns plausibly with the chunk boundary within the allowed \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span (3060.0s\u20133125.0s). The chunk does contain [frame caption: ...] markers, but the question type is 'text' not 'visual,' and the answer is derived from the spoken text content, not the visual content, so this is appropriate."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that merge sort requires 'constant memory allocation' is not supported by the source text. The source text mentions that merge sort requires 'order n auxiliary space,' but it does not state that this means constant memory allocation. The rest of the claims about merge sort requiring order n auxiliary space and quicksort winning due to memory allocation are supported."
+  },
+  {
+    "qa_id": "mit_6046_lec06_q029",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the page range is '181 through 184,' but the chunk text shows 'CLRS 181-4' which is an abbreviated notation. While this likely means 181-184, the chunk does not explicitly state 'pages 181 through 184' \u2014 it uses the shorthand '181-4'. More critically, the question_type is 'text' but the page range information only appears in [frame caption: ...] markers, not in the spoken text of the chunk. However, since frame captions are considered part of the chunk text per instructions, the claim is supported by the frame captions which show 'CLRS 181-4', reasonably interpreted as pages 181-184. On reflection, the atomic claim that the page range is 181-184 is supported by the frame captions. PASS on correctness."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (4165.0s\u20134250.0s) covers an 85-second window, and chunk_119 would cover a 45-second window around that time; the span start at 4165s aligns plausibly with the chunk boundary within the allowed \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question_type is 'text,' but the specific page range 'CLRS 181-4' only appears in [frame caption: ...] markers within the chunk, not in the spoken lecture text itself. A 'text' question type implies the answer comes from spoken/written lecture content without requiring visual frame captions, but here the answer is only derivable from the visual frame captions, making this more appropriately a 'visual' question type."
+    },
+    "rejection_reason": "Criterion 3 fails: the question is typed as 'text' but the specific page range (CLRS 181-4) only appears in [frame caption: ...] markers, making this a visual question rather than a text question.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec06_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the source material that could answer the question about specific numerical exponents for matrix multiplication complexity results by competing researchers."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

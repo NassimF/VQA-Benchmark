@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6851_ses07_q001",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: cache-oblivious model invented at MIT in 1999 by Charles Leiserson and students (chunk_039), originally in context of 6.046 (chunk_039), opening slide identifies course as '6.851, Spring 2012: Advanced Data Structures' taught by Erik Demaine with MIT logo (chunk_000 frame captions)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (0.0s\u201345.0s) aligns with chunk_000 (first chunk, 0\u201345s window); Hop 2 (1380.0s\u20131425.0s) aligns with chunk_039 (chunk index 39, covering ~1755\u20131800s... actually 39\u00d745=1755s). Wait: chunk_039 starts at 39\u00d745=1755s, but span is 1380\u20131425s. However, chunk indices don't necessarily map to strict 45s windows by index number alone, and the span at 1380s could correspond to chunk_039 if chunks are not strictly sequential by index. Given the content match is clear and the inter-hop gap is |0 - 1380| = 1380s >> 70s, the temporal gap requirement is satisfied. The span plausibility is acceptable given the content alignment."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (0s and 1380s, gap of 1380s) and both cited chunks contain [frame caption: ...] markers, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the cache-oblivious model was invented at MIT in 1999 by Charles Leiserson and his students in the context of course 6.046, and the slide identifies the course as '6.851, Spring 2012: Advanced Data Structures,' taught by Erik Demaine at MIT."
+  },
+  {
+    "qa_id": "mit_6851_ses07_q002",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The three topics (external-memory model, cache-oblivious model, cache-oblivious B-trees) are explicitly listed in the frame caption of chunk_000. The quote about B-trees being 'kind of boring because we already know how to do be trees' and doing them 'in another model which is the cast biblus Cas oblivious model' is directly supported by chunk_038. All atomic claims are supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (0.0s\u201345.0s) aligns with chunk_000 (a 45-second window starting at 0s). Hop 2 (1330.0s\u20131415.0s) aligns with chunk_038. The inter-hop gap is |0 - 1330| = 1330 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (0s and 1330s) and chunk_000 contains multiple [frame caption: ...] markers including the board listing the three topics. Both conditions for multi-hop-visual are satisfied."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly lists the three topics on the board as the external-memory model, the cache-oblivious model, and cache-oblivious B-trees. It also confirms that the lecture will cover B-trees in the cache-oblivious model, which the lecturer describes as 'kind of boring because we already know how to do B-trees' but interesting because it is done in the cache-oblivious model."
+  },
+  {
+    "qa_id": "mit_6851_ses07_q003",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: upper bound = RAM running time (chunk_011: 'at most the running time on a ram...at most every operation you do on a ram data structure incurs one memory transfer'); lower bound = RAM running time / B (chunk_011: 'at least divided by B'); cell probe model counts word reads with free computation (chunk_012: 'all you count is...how many words did I have to read...computation is free'); cell probe establishes lower bound because external memory counts blocks not words, best improvement is factor B (chunk_012: 'cell probes you count word numbers here we're counting blocks and so at best we can improve by a factor of B so this is a lower bound')."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 375.0s\u2013430.0s and hop 2 spans 420.0s\u2013505.0s; the inter-hop gap is |375 - 420| = 45 seconds, which is less than the required 70 seconds, meaning the hops are too close together and effectively retrievable in a single step."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans and both cited chunks contain [frame caption: ...] markers indicating visual content."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only 45 seconds (375s vs 420s), which is below the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6851_ses07_q004",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6851_ses07_q005",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunks: chunk_031 establishes the external memory permuting bound (min of n and the sorting bound n/B log_{M/B}(n/B)), and chunk_055 confirms the negative result in the cache-oblivious model\u2014that one can achieve each bound individually but not their minimum simultaneously because knowing which to apply requires knowing how B and M relate to n, with a proven lower bound."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1020\u20131100s) aligns with chunk_031 (a 45s window around ~1020\u20131100s range), and hop 2 (1865\u20131970s) aligns with chunk_055; the inter-hop gap is |1020 - 1865| = 845 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u2265 2 non-adjacent spans (gap of ~845s), and both cited chunks contain [frame caption: ...] markers indicating visual content, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the external memory model's permuting cost is described as the minimum of n and the sorting bound, and the cache-oblivious model's limitation is that it cannot achieve this minimum due to lack of knowledge about B and M relative to n, as stated in the source text."
+  },
+  {
+    "qa_id": "mit_6851_ses07_q006",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_060 confirms M is Omega(B^(1+epsilon)) for tall cache assumption; chunk_057 confirms B-tree constant factor is 1, cache-oblivious best is log base 2 of e (~1.44), and there is a tiny separation between cache-oblivious and external memory. The claim about M=B^1.001 sufficing is a reasonable interpretation of 'B to the 1+epsilon' with small epsilon, consistent with the chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 2100-2185s aligning with chunk_060, and hop 2 spans 2015-2100s aligning with chunk_057; the inter-hop gap between start times is |2100-2015|=85 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires information from two non-adjacent spans (chunk_057 and chunk_060), and both chunks contain [frame caption: ...] markers indicating visual content, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim about the tall cache assumption requiring M to be at least Omega of B to the power (1 + epsilon) is not explicitly supported by the source text. The source text mentions M is Omega B to the 1 + Omega, but does not specify 'epsilon' or 'B to the 1.001'. The claim about the cache-oblivious B-tree constant factor being log base 2 of e (approximately 1.44) is supported by the source text."
+  },
+  {
+    "qa_id": "mit_6851_ses07_q007",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6851_ses07_q008",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims the blackboard shows 'Memory Hierarchies I' as the session title with three topics: external-memory model, cache-oblivious model, and cache-oblivious B-trees. All these claims are explicitly supported by the frame caption in chunk_000 which reads 'TODAY: Memory Hierarchies I - external-memory model - cache-oblivious model - cache-oblivious B-trees'."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (0.0s\u201345.0s) aligns with chunk_000 which covers the first 45-second window, well within the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual', requiring exactly 1 span and at least 1 source chunk with a [frame caption: ...] marker. There is exactly 1 span and chunk_000 contains multiple [frame caption: ...] markers including the blackboard caption that answers the question."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are explicitly supported by the source text, which lists the topics for today's session as 'external-memory model,' 'cache-oblivious model,' and 'cache-oblivious B-trees' under the title 'Memory Hierarchies I.'"
+  },
+  {
+    "qa_id": "mit_6851_ses07_q009",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims the course is '6.851, Spring 2012: Advanced Data Structures' taught by Erik Demaine at MIT \u2014 all of these claims are explicitly supported by the frame captions in the source chunk."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (0.0s\u201345.0s) aligns with chunk_000, which covers the 0\u201345 second window, well within the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual' with exactly 1 span and the cited chunk contains multiple [frame caption: ...] markers, satisfying both requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are explicitly supported by the source text. The course number '6.851', the semester 'Spring 2012', the course title 'Advanced Data Structures', and the instructor 'Erik Demaine' are all mentioned in the frame captions of the source text."
+  },
+  {
+    "qa_id": "mit_6851_ses07_q010",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the optimal sorting bound (n/B \u00d7 log_{M/B}(n/B)) is in chunk_026; the B-tree insertion giving n \u00d7 log_B(n) transfers, the two problems (base B vs M/B, and coefficient n vs n/B), and the emphasis that n vs n/B is the 'big' problem are all explicitly stated in chunk_028."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (915s\u2013985s) aligns with chunk_026 and hop 2 (985s\u20131060s) aligns with chunk_028; the inter-hop gap between start times is |915 - 985| = 70 seconds, which meets the \u226570s requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop requiring two non-adjacent spans (chunk_026 for the sorting bound, chunk_028 for the B-tree failure analysis), and both pieces of information are needed to answer the full question."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the optimal sorting bound is n/B times log base M/B of n/B, and inserting into a B-tree results in n times log base B of n memory transfers, which is suboptimal due to the n factor instead of n/B and the base difference, as stated in the source."
+  },
+  {
+    "qa_id": "mit_6851_ses07_q011",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "Several atomic claims are unsupported by the cited chunks: buffer trees being 'a dynamic version of sorting' is not in the chunks; the operations listed as 'insert, delete, and delayed successor queries' are not supported (chunks only mention insert and delete-min); and the flush operation 'returning answers to all previously asked queries' is not explicitly stated in the chunks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The spans align plausibly with the cited chunk boundaries, and the inter-hop gap of 70 seconds meets the minimum threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question genuinely requires information from two non-adjacent spans (chunk_034 and chunk_037), satisfying the multi-hop requirement."
+    },
+    "rejection_reason": "Criterion 1 failed: multiple atomic claims in the answer are not supported by the cited source chunks, including the characterization of buffer trees as a 'dynamic version of sorting,' the specific operations listed, and the description of flush behavior.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6851_ses07_q012",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All core factual claims (offline optimal evicts farthest-future block, crystal ball needed, LRU/FIFO constant-competitive, M/2 comparison, changing M by factor of two doesn't affect bounds) are explicitly supported by the cited chunks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The spans align with consecutive chunks (chunk_044 and chunk_045), and the inter-hop gap between hop start times is exactly 70 seconds, meeting the minimum threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question genuinely requires two non-adjacent spans from different chunks\u2014chunk_044 for the crystal ball/LRU/FIFO introduction and chunk_045 for the competitive ratio and M/2 argument\u2014satisfying the multi-hop requirement."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the cache-oblivious model requires analysis against the offline optimal strategy because the algorithm has no knowledge of B or M is not explicitly supported by the source text. The text does mention the offline optimal strategy and practical strategies like LRU and FIFO being constant-competitive, but it does not link this requirement to the lack of knowledge of B or M in the cache-oblivious model."
+  },
+  {
+    "qa_id": "mit_6851_ses07_q013",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the chunk text: there are Theta(n) outcomes (chunk_020), log n bits needed (chunk_021), each block transfer reads B items (chunk_021/022), comparing against B items yields at most log(B+1) bits (chunk_022/023), and the ratio gives log n / log(B+1) = log base B+1 of n transfers (chunk_023)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (735.0s\u2013870.0s) covers chunks 020\u2013023, which span a 45-second window each starting around that range; the span boundaries align plausibly with the cited chunk boundaries within the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span (735.0s\u2013870.0s); no visual evidence is claimed, consistent with the text type despite [frame caption] markers being present in the chunks (which are irrelevant for text type)."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text explains that there are Theta(n) outcomes for a search key among n items, requiring log n bits. Each block transfer reveals log(B+1) bits, leading to a lower bound of log n / log(B+1) transfers, equating to log base B+1 of n."
+  },
+  {
+    "qa_id": "mit_6851_ses07_q014",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the source chunks: post-order traversal is required (chunk_106, chunk_108), children must be processed before parents to compute maxima (chunk_108), internal nodes store maximum of subtree (chunk_107, chunk_108), and the direct quote 'I need to know what the max of this subtree is and this subtree before I can recompute the max of the root' appears verbatim in chunk_108."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (3900.0s\u20134015.0s) covers a 115-second window that plausibly aligns with chunks 106\u2013109, which are consecutive chunks in the same region of the lecture; the span boundaries fall within reasonable range of the cited chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span (3900.0s\u20134015.0s); the answer is derivable from a single contiguous region of the lecture without requiring visual evidence."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text. The text explicitly states that post-order traversal is necessary to ensure that each node's children are fully processed before the node itself is updated, as internal nodes store the maximum key of their subtree. This is necessary to correctly recompute the maximum at a parent node, as stated in the source text: 'I need to know what the max of this subtree is and this subtree before I can recompute the max of the root.'"
+  },
+  {
+    "qa_id": "mit_6851_ses07_q015",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the source material that could answer the question about the exact worst-case non-amortized number of block memory transfers for a single deletion in a cache-oblivious B-tree."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

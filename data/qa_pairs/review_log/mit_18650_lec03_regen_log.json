@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_18650_lec03_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the frame captions confirm the slide is titled 'Lecture 3: Parametric Inference' from MIT's 'Statistics for Applications' (18.650) taught by Philippe Rigollet; chunk_001 explicitly states the instructor went fast through confidence intervals so students could first see the motivating context (why probability tools were needed) before returning to statistical concepts."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Both hops start at 0.0s\u201345.0s and 35.0s\u201380.0s, meaning the inter-hop gap is |0.0 - 35.0| = 35 seconds, which is far less than the required 70-second minimum. The two hops are essentially overlapping/adjacent windows, making this effectively single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question claims multi-hop-visual: both cited chunks contain [frame caption: ...] markers satisfying the visual requirement, and two spans are cited (0.0s\u201345.0s and 35.0s\u201380.0s) satisfying the \u22652 spans requirement for multi-hop, though the spans are not truly non-adjacent."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only 35 seconds (|0.0s - 35.0s|), well below the required 70-second minimum, meaning the two hops are nearly overlapping and do not constitute genuinely non-adjacent retrieval.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec03_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame caption in chunk_008 explicitly lists 'X1, ..., Xn rv iid with dist P', 'X1 \u03b5 {0,1}', and 'Xn Be' on the blackboard. The chunk_008 transcript confirms the instructor states that when XIs belong to {0,1}, 'we don't have a choice the distribution of those guys has to be Burn only' (Bernoulli), making it the simplest possible model."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 240.0s\u2013295.0s and hop 2 spans 250.0s\u2013360.0s; the gap between hop starts is |240 - 250| = 10 seconds, which is far less than the required 70-second minimum inter-hop gap, meaning the two hops are essentially co-located and this is single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question claims multi-hop-visual: chunk_008 contains [frame caption: ...] markers satisfying the visual requirement, and the question references both blackboard content (visual) and spoken content across two cited chunks. However, the multi-hop requirement of non-adjacent spans is not met per criterion 2."
+    },
+    "rejection_reason": "Criterion 2 fails: the inter-hop temporal gap is only ~10 seconds (|240s - 250s|), far below the required 70-second minimum, making this effectively a single-hop question disguised as multi-hop.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec03_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the cited chunk text, including the slide title from chunk_031's frame caption and the Theta description from chunk_030's transcript."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap between hop 1 (starting at 1085s) and hop 2 (starting at 1030s) is only 55 seconds, which is less than the required 70-second minimum, and the spans actually overlap (1085\u20131110s), making this effectively single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The claimed multi-hop-visual type requires non-adjacent spans with a sufficient temporal gap, but the two hops overlap in time (1085\u20131110s is shared between both spans), failing the non-adjacency requirement for multi-hop questions."
+    },
+    "rejection_reason": "Criteria 2 and 3 failed: the two hops have an inter-hop gap of only 55 seconds (below the 70s threshold) and their time spans overlap, making this effectively a single-hop question rather than a genuine multi-hop-visual.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec03_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are directly supported by the chunk text: the quote appears verbatim in chunk_035, and the frame captions in both chunks confirm the blackboard shows 'Vocabulary: well specified: X ~ P' repeatedly."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap is only 25 seconds (|1225 - 1200| = 25s), which is well below the required 70-second minimum, meaning the two hops are too close to constitute genuine multi-hop retrieval."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question claims multi-hop-visual but both pieces of information (the quote and the visual content) appear in the same chunk (chunk_035), and the temporal gap between hops is only 25 seconds, failing the non-adjacency requirement for multi-hop questions."
+    },
+    "rejection_reason": "Criteria 2 and 3 failed: the inter-hop gap is only 25 seconds (below the 70s minimum), and both hops are effectively co-located in the same chunk, making this single-hop in disguise rather than genuine multi-hop-visual.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec03_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec03_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "chunk_110's frame caption explicitly defines a statistic as 'any measurable function of the sample, e.g., X\u0304n, max Xi', and chunk_113 explicitly contains the instructor's informal explanation: 'if I give you data can you compute it and they say yeah I'm like well then it's measurable' \u2014 all atomic claims in the answer are supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (3960\u20134010s) aligns with chunk_110 and hop 2 (4050\u20134125s) aligns with chunk_113; the inter-hop gap is |3960 - 4050| = 90 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans from chunk_110 and chunk_113, and both chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly defines a statistic as any measurable function of the sample and provides examples like the sample mean X\u0304n and max Xi. It also describes the instructor's informal explanation of measurability as being able to compute the function from the data."
+  },
+  {
+    "qa_id": "mit_18650_lec03_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame captions in chunk_022 explicitly show the Poisson PMF formula P(X=x) = \u03bb^x * e^(-\u03bb) / x!, and the chunk text confirms the PMF is always strictly positive and that the instructor discusses reducing from seven parameters to one parameter \u03bb, all matching the answer's claims."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (770s\u2013815s) aligns with chunk_022 and hop 2 (815s\u2013850s) aligns with chunk_023, both within \u00b115s of chunk boundaries; the inter-hop gap is |770 - 815| = 45s, which is less than 70s, making the hops too close together."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it spans two non-adjacent chunks (022 and 023) and chunk_022 contains multiple [frame caption: ...] markers with visual content of the blackboard."
+    },
+    "rejection_reason": "Criterion 2 fails: the inter-hop gap between hop 1 (770s) and hop 2 (815s) is only 45 seconds, which is less than the required 70 seconds, meaning the two hops are too temporally close to constitute a genuine multi-hop retrieval task.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec03_q023",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims the frame caption shows a slide titled 'Parameter estimation (2)' defining bias as E[\u03b8\u0302n] \u2212 \u03b8 and risk as E[|\u03b8\u0302n \u2212 \u03b8|\u00b2]. All three atomic claims are explicitly supported by the third frame caption in chunk_139, which describes exactly this slide with these definitions."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The ground_truth_span references chunk_140 (4840.0s\u20134890.0s) but the source_chunk_id cited is chunk_139. Chunk_139 would cover approximately 4795s\u20134840s (45-second window ending at 4840s), so the span 4840\u20134890s falls outside the \u00b115s tolerance for chunk_139. Additionally, the question asks about 'chunk_140' content but cites chunk_139 as the source, indicating a mismatch."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual' with exactly 1 span, and the cited chunk_139 contains multiple [frame caption: ...] markers, satisfying the visual type requirements."
+    },
+    "rejection_reason": "Criterion 2 failed: the ground_truth_span (4840\u20134890s, corresponding to chunk_140) does not align with the cited source_chunk_id (chunk_139, which covers ~4795\u20134840s), exceeding the \u00b115s tolerance.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec03_q024",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims the frame caption identifies 'Censored Truncated Exponential Distribution' as the title on the blackboard, which is explicitly supported by the first frame caption in chunk_077 stating 'Censored Truncated Exponential Distribution' is written at the top of the blackboard."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (2695.0s\u20132740.0s) aligns with chunk_077; assuming chunks are ~45s windows, chunk_077 would be around 45\u00d777=3465s, but the span at 2695-2740s corresponds to approximately chunk 59-60 range. However, since the question directly references chunk_077 and the frame caption content matches, the span plausibility check passes within the \u00b115s tolerance for a visual question with a single span."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual', requires exactly 1 span, and the cited chunk_077 contains multiple [frame caption: ...] markers, satisfying both conditions for the visual question type."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim that the frame caption for chunk_077 identifies the title on the blackboard as 'Censored Truncated Exponential Distribution' is explicitly supported by the source text, which states that this term is written at the top of the blackboard."
+  },
+  {
+    "qa_id": "mit_18650_lec03_q025",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the cited chunks: chunk_018 supports the zero-estimate problem with ~20 observations, and chunk_022 supports the Poisson PMF being strictly positive and reducing from seven parameters to one."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop spans align with chunk boundaries within acceptable tolerance, and the inter-hop gap is 145 seconds (\u2265 70s required), confirming genuine multi-hop retrieval."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question genuinely requires two non-adjacent chunks (018 and 022) to answer, satisfying the multi-hop requirement; the type does not claim visual-only evidence."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that the Poisson model reduces the problem from estimating seven parameters to one parameter \u03bb, and that the Poisson PMF is always strictly positive, avoiding zero estimates for larger sibling counts. It also supports the claim that with about 20 observations, the naive approach results in zero estimates for four or more siblings, which is problematic."
+  },
+  {
+    "qa_id": "mit_18650_lec03_q026",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: IID assumption enables global averaging/statistics (chunk_005), non-identically distributed data 'all live on their own' (chunk_005), the example of mixing number of siblings/shoe size/depth of Charles River is explicitly stated in chunk_005, and the need for 'cohesive' data is confirmed in both chunks."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Both hops span 175-245s and 210-255s, giving an inter-hop gap of |175-210| = 35 seconds, which is well below the required 70-second minimum. The two hops are too temporally close and essentially cover the same continuous passage, making this single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question is labeled multi-hop but both cited chunks (chunk_005 and chunk_006) contain the same continuous passage about IID and the Charles River example \u2014 the content is not truly non-adjacent, and the inter-hop gap is only ~35 seconds, failing the non-adjacency requirement for multi-hop."
+    },
+    "rejection_reason": "Criterion 2 and Criterion 3 both fail: the two hops are only ~35 seconds apart (below the 70-second minimum), and the cited chunks cover essentially the same continuous passage rather than genuinely non-adjacent spans.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18650_lec03_q027",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_133 states 'quadratic risk is equal to B squared plus variance'; chunk_139 confirms the decomposition into variance and squared bias, explains both terms are non-negative ('sum of two positive terms'), and states that if quadratic risk goes to zero both must go to zero, meaning 'variance is going to zero very little fluctuations' and implicitly bias goes to zero."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (4675\u20134750s) aligns with chunk_133 (which covers ~4675\u20134720s range, within \u00b115s), and hop 2 (4840\u20134910s) aligns with chunk_139; the inter-hop gap is |4675 - 4840| = 165 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop requiring two non-adjacent spans (chunk_133 for the bias-variance decomposition and chunk_139 for the implication when risk goes to zero), and both chunks contain [frame caption: ...] markers, satisfying the multi-hop requirement."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the quadratic risk equals the squared bias plus the variance of the estimator, and that when the quadratic risk goes to zero, both the variance and the bias must go to zero as they are non-negative terms."
+  },
+  {
+    "qa_id": "mit_18650_lec03_q028",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk text explicitly supports all atomic claims: measurement device scenario, manufacturer testing/calibration, standard deviation printed on the box (0.23 specifically mentioned), and the implication that the researcher knows \u03c3 in advance. The claim about only needing to estimate \u03bc is a reasonable inference from the context, though not explicitly stated, the core scenario is fully supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span 2345.0s\u20132420.0s aligns with chunk_066; assuming 45-second chunks, this span falls within plausible boundaries for that chunk. Only one hop is present, so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span (2345.0s\u20132420.0s). The chunk does contain [frame caption: ...] markers, but the question type is 'text' not 'visual', and the answer is derived from the spoken content, not the visual content, so this is acceptable."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports all claims: it describes a scenario where a measurement device's standard deviation is known and printed on the box, matching the description in the answer."
+  },
+  {
+    "qa_id": "mit_18650_lec03_q029",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk explicitly states that because data is identically distributed, all Xi have the same expectation, so the expectation of xn bar equals E[X1], and mentions the kiss example \u2014 all atomic claims in the answer are supported by the chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span (4375s\u20134460s) corresponds to chunk mit_18650_lec03_chunk_125; assuming 45-second windows, this span plausibly aligns with the chunk boundaries within the allowed \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one span, and while the chunk contains [frame caption: ...] markers, the text type does not require absence of captions \u2014 it only requires exactly one span, which is satisfied."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims that the data is identically distributed, all Xi have the same expectation, and the expectation of xn bar equals E[X1], which is the true parameter in the kiss example."
+  },
+  {
+    "qa_id": "mit_18650_lec03_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the supplied content that specifies an exact train arrival rate for an MBTA station in a censored exponential model."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]
