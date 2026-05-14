@@ -2,6 +2,10 @@
 
 ## 2026-05-14
 
+- fix: pre-regeneration fixes for Phase 7.3 QA review (20ff7b3)
+
+## 2026-05-14
+
 - docs: add question descriptions to all Q sections in phase 7.3 lit review (7b52d68)
 
 ## 2026-05-14
