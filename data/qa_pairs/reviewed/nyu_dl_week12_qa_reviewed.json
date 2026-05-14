@@ -1,0 +1,457 @@
+[
+  {
+    "qa_id": "nyu_dl_week12_q001",
+    "question": "What language model was used to generate the unicorn story shown in the lecture slides, and according to the neural language model diagram shown visually, what mathematical operation is applied to produce the probability of the next word?",
+    "answer": "The language model used was GPT-2, which came out in 2019. According to the neural language model diagram shown in the lecture slides, the softmax function is applied to the product of the word embedding matrix E and the context encoder output f, expressed as p(x_n | x_{0..n-1}) = softmax(E f(x_{0..n-1})), to produce the probability distribution over the next word.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 155.0,
+        "end": 220.0,
+        "hop": 1,
+        "description": "GPT-2 language model introduced in 2019 used to generate unicorn text example"
+      },
+      {
+        "start": 385.0,
+        "end": 450.0,
+        "hop": 2,
+        "description": "Frame caption showing neural language model equation with softmax(E f(x_{0..n-1}))"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week12_chunk_005",
+      "nyu_dl_week12_chunk_012"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "GPT-2",
+      "neural language model",
+      "softmax",
+      "context encoder",
+      "word embedding matrix"
+    ],
+    "video_id": "nyu_dl_week12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week12_q002",
+    "question": "What limitation of convolutional language models is illustrated in the convolutional language model diagram shown in the slides, and how does the transformer architecture shown in the subsequent diagram address this specific problem?",
+    "answer": "The convolutional language model diagram illustrates that words can only condition on a fixed number of previous words determined by the kernel width and number of layers, representing a bounded receptive field \u2014 for example, the word 'unicorn' in the diagram could only condition on the previous five words. The transformer architecture shown subsequently addresses this by using self-attention, where every word is directly connected to every other word, giving the model direct access to any position in the context regardless of distance, thus providing an effectively unbounded receptive field.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 510.0,
+        "end": 580.0,
+        "hop": 1,
+        "description": "Convolutional language model diagram showing fixed receptive field limitation with unicorn example conditioned on only five previous words"
+      },
+      {
+        "start": 1325.0,
+        "end": 1400.0,
+        "hop": 2,
+        "description": "Transformer diagram showing all words directly connected to all other words via self-attention"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week12_chunk_015",
+      "nyu_dl_week12_chunk_053"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "convolutional language model",
+      "receptive field",
+      "transformer",
+      "self-attention",
+      "unbounded context"
+    ],
+    "video_id": "nyu_dl_week12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week12_q005",
+    "question": "What does the word2vec slide diagram show about the relationship between the words king, queen, man, and woman, and how does the lecturer connect this to a fundamental limitation of word2vec embeddings discussed later in the lecture?",
+    "answer": "The word2vec slide diagram shows a square arrangement connecting king, queen, man, and woman with arrows, illustrating that king minus man plus woman equals approximately queen, demonstrating that word embeddings show surprising linear structure. However, the lecturer later connects this to a fundamental limitation: these word2vec representations are entirely independent of context, meaning each word gets the same single vector regardless of the sentence it appears in. This fails to capture that words can have multiple meanings or that the same word should be interpreted differently based on surrounding context, motivating the need for contextualized word representations as developed in ELMo, GPT, and BERT.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 4455.0,
+        "end": 4525.0,
+        "hop": 1,
+        "description": "Frame caption showing word2vec diagram with king-man+woman=queen relationship illustrated as square with arrows"
+      },
+      {
+        "start": 4590.0,
+        "end": 4650.0,
+        "hop": 2,
+        "description": "Discussion of word2vec limitation that word representations are independent of context and cannot capture polysemy"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week12_chunk_124",
+      "nyu_dl_week12_chunk_126"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "word2vec",
+      "word embeddings",
+      "king-queen analogy",
+      "context independence",
+      "polysemy"
+    ],
+    "video_id": "nyu_dl_week12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week12_q007",
+    "question": "What does the top-k sampling diagram shown in the lecture slides illustrate about truncating the word distribution, and how does this technique relate to the text generation quality problem identified when pure sampling was applied to the unicorn story?",
+    "answer": "The top-k sampling diagram shows two bar charts illustrating word probability distributions \u2014 one showing the full distribution over words like 'nice, dog, car, woman, guy, man, people, big, house, cat' given context, and the other showing the distribution truncated to only the top-k most probable words which are then renormalized before sampling. This directly addresses the problem identified with pure sampling on the unicorn story: pure sampling can select low-probability words from the long tail of the distribution, putting the model into states it never encountered during training, which then leads to increasingly degenerate outputs. By truncating to the top-k and renormalizing, top-k sampling maintains diversity while avoiding the low-probability bad choices that cascade into nonsensical text.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3585.0,
+        "end": 3650.0,
+        "hop": 1,
+        "description": "Frame caption showing top-k sampling bar charts illustrating truncated distribution over words"
+      },
+      {
+        "start": 3510.0,
+        "end": 3570.0,
+        "hop": 2,
+        "description": "Pure sampling on unicorn story resulting in increasingly degenerate outputs because model enters states not seen during training"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week12_chunk_099",
+      "nyu_dl_week12_chunk_098"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "top-k sampling",
+      "probability distribution truncation",
+      "pure sampling",
+      "degenerate outputs",
+      "text generation"
+    ],
+    "video_id": "nyu_dl_week12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week12_q008",
+    "question": "According to the frame captions describing the Self Supervised Learning slide, what image is shown alongside the slide title and subtitle, and what conceptual metaphor does it represent?",
+    "answer": "The Self Supervised Learning slide shows a photograph of a chocolate cake with a cherry on top, placed on a green cake stand, with chocolate shavings decorating it and a slice cut out revealing the layers inside. This image represents the metaphor that the large bulk of learning is unsupervised \u2014 represented by the cake itself \u2014 while supervised learning is just a small amount of icing on top of the cake, illustrating that most of what these models learn comes from unlabeled text rather than labeled examples.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 4185.0,
+        "end": 4250.0,
+        "hop": 1,
+        "description": "Frame caption describing chocolate cake image on Self Supervised Learning slide representing unsupervised learning as the cake and supervised learning as the icing"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week12_chunk_119"
+    ],
+    "question_type": "visual",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "self-supervised learning",
+      "unsupervised learning",
+      "cake metaphor",
+      "unlabeled text"
+    ],
+    "video_id": "nyu_dl_week12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week12_q011",
+    "question": "How does the backtranslation technique work for training a German-to-English translation model according to the lecture, and why does the quality of the initial reverse translation model not matter critically to the final result?",
+    "answer": "Backtranslation for German-to-English translation works in four steps: first, an English-to-German reverse translation model is trained using existing parallel bitext; then this reverse model is used to translate billions of words of monolingual English into German, creating a large synthetic dataset; finally, a German-to-English forward model is trained using this back-translated data. The quality of the initial reverse translation model does not matter critically because even if the reverse model makes mistakes, the final training data will just contain noisy German translations paired with clean English outputs \u2014 since the English sentences come directly from the internet and are naturally high quality. This noisy input to clean output pairing may even help regularize the model, and the final model's performance when given clean German input should not be substantially hurt by having been trained on some noisy synthetic German.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3990.0,
+        "end": 4060.0,
+        "hop": 1,
+        "description": "Description of backtranslation steps: train reverse model, translate monolingual English to German, train forward model on back-translated data"
+      },
+      {
+        "start": 4080.0,
+        "end": 4145.0,
+        "hop": 2,
+        "description": "Explanation that reverse model quality does not matter because noisy German paired with clean English may help regularize and clean output quality is maintained"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week12_chunk_111",
+      "nyu_dl_week12_chunk_112"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "backtranslation",
+      "machine translation",
+      "reverse translation model",
+      "monolingual data",
+      "regularization"
+    ],
+    "video_id": "nyu_dl_week12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week12_q015",
+    "question": "What specific BLEU score did the Transformer model achieve on the English-to-French translation benchmark when first introduced in the 2017 Attention is All You Need paper, and how did this compare to all previous models tested on the same benchmark?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "hard",
+    "answerable": false,
+    "key_concepts": [
+      "transformer",
+      "BLEU score",
+      "English-to-French translation",
+      "Attention is All You Need"
+    ],
+    "video_id": "nyu_dl_week12",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week12_q016",
+    "video_id": "nyu_dl_week12",
+    "question": "What visual demonstration of GPT-2's language generation ability is shown early in the lecture, and how does the transformer architecture's ability to directly connect all words relate to why such fluent text is achievable?",
+    "answer": "The lecture shows a slide with GPT-2's generated continuation of a passage about scientists discovering unicorns in the Andes Mountains that speak perfect English \u2014 the model was released in 2019 and produced fluent, grammatical text with invented details like scientist names. This fluency is enabled by the transformer's architecture where all words are directly connected to every other word, mitigating the vanishing gradient problem that plagued recurrent models, and allowing the model to compute all time-steps in parallel using self-attention rather than compressing history into a bottleneck vector.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 295.0,
+        "end": 340.0,
+        "hop": 1,
+        "description": "GPT-2 unicorn example shown on slide with frame caption describing the shocking finding narrative"
+      },
+      {
+        "start": 1650.0,
+        "end": 1720.0,
+        "hop": 2,
+        "description": "Transformer slide listing all words directly connected, mitigating vanishing gradients, and parallel time-step computation"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week12_chunk_005",
+      "nyu_dl_week12_chunk_053"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "GPT-2",
+      "language generation",
+      "transformer",
+      "vanishing gradients",
+      "self-attention"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week12_q021",
+    "video_id": "nyu_dl_week12",
+    "question": "What does the word2vec slide's diagram of word embedding structure show, and how does the lecture explain the fundamental limitation of this approach that motivated later contextual models?",
+    "answer": "The word2vec slide shows a diagram with four words \u2014 king, queen, man, and woman \u2014 connected in a square shape with arrows indicating the relationship that king minus man plus woman approximately equals queen, illustrating surprising linear structure in the learned embeddings. The fundamental limitation the lecture identifies is that word2vec assigns one fixed vector per word in the vocabulary regardless of context, meaning it cannot capture that words have different meanings in different contexts \u2014 for example, ambiguous words get only a superposition of all their meanings \u2014 which motivated the development of contextual models like GPT and BERT that produce different representations for the same word depending on surrounding context.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 4520.0,
+        "end": 4585.0,
+        "hop": 1,
+        "description": "word2vec slide showing king-man+woman=queen diagram with surprising structure subtitle"
+      },
+      {
+        "start": 4710.0,
+        "end": 4770.0,
+        "hop": 2,
+        "description": "Explanation of word2vec limitation: representations independent of context, but interpretation depends strongly on context"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week12_chunk_124",
+      "nyu_dl_week12_chunk_126"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "word2vec",
+      "word embeddings",
+      "context independence",
+      "analogical structure",
+      "contextual representations"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week12_q022",
+    "video_id": "nyu_dl_week12",
+    "question": "What does the BART pre-training slide show about its architecture for conditional generation, and how does the lecture describe the performance of BART on summarization compared to classification benchmarks?",
+    "answer": "The BART pre-training for conditional generation slide shows an architecture with a Bidirectional Encoder taking corrupted input such as 'Bart _ of Homer and _' and an Autoregressive Decoder producing the clean output, using a denoising objective on text with masking applied by a seq2seq model. The lecture states that BART achieves RoBERTa-level performance on classification benchmarks like SQuAD and GLUE, and also sets new state-of-the-art results on summarization, dialogue, and abstractive QA datasets \u2014 with the summarization capability demonstrated by feeding in a long document and getting a coherent summary that resolves co-reference across the whole document.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 5215.0,
+        "end": 5280.0,
+        "hop": 1,
+        "description": "BART pre-training slide showing Bidirectional Encoder and Autoregressive Decoder with Bart Simpson cartoon"
+      },
+      {
+        "start": 5285.0,
+        "end": 5330.0,
+        "hop": 2,
+        "description": "BART achieving RoBERTa-level performance on SQuAD/GLUE and new SOTA on summarization and dialogue"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week12_chunk_149",
+      "nyu_dl_week12_chunk_151"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "BART",
+      "denoising pre-training",
+      "seq2seq",
+      "summarization",
+      "conditional generation"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week12_q023",
+    "video_id": "nyu_dl_week12",
+    "question": "According to the lecture slide on neural language models, what is the mathematical formula for predicting the next word, and what role does the word embedding matrix play?",
+    "answer": "The neural language model slide shows the formula p(x_n | x_0..n-1) = softmax(E f(x_0..n-1)), where E is the word embedding matrix and f is the context encoder function. The word embedding matrix E contains a vector for every possible word the model knows how to output, and the likelihood of predicting the next word is computed by taking the dot product between the context vector produced by the encoder and each of these word vectors, then applying softmax to get a probability distribution over the vocabulary.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 385.0,
+        "end": 450.0,
+        "hop": 1,
+        "description": "Neural language model slide showing softmax formula with embedding matrix E and context encoder f"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week12_chunk_011"
+    ],
+    "question_type": "visual",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "neural language model",
+      "softmax",
+      "word embedding matrix",
+      "context encoder",
+      "dot product"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week12_q024",
+    "video_id": "nyu_dl_week12",
+    "question": "What specific tricks for training transformer language models are listed on the lecture slide, beyond the attention mechanism itself?",
+    "answer": "The transformer language models slide titled 'Lots of tricks' lists four specific training techniques: extensive use of layer normalization to stabilize training, a warmup plus inverse-square root training schedule, careful initialization, and label smoothing. These tricks are described in the lecture as being really important to make transformer training work, with the learning rate warmup being particularly emphasized as something transformers really need \u2014 linearly warming up from zero to the goal learning rate over several thousand steps.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1995.0,
+        "end": 2040.0,
+        "hop": 1,
+        "description": "Slide listing transformer training tricks: layer normalization, warmup schedule, careful initialization, label smoothing"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week12_chunk_057"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "layer normalization",
+      "learning rate warmup",
+      "label smoothing",
+      "initialization",
+      "transformer training"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week12_q028",
+    "video_id": "nyu_dl_week12",
+    "question": "What is the specific role of the guest lecturer Mike Lewis at the time of this lecture, and what institution did he complete his PhD at?",
+    "answer": "Mike Lewis is a research scientist at Facebook AI Research working on natural language processing at the time of this lecture. He completed his PhD at the University of Edinburgh, where his thesis was based on combining distributional and logical approaches to semantics.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 0.0,
+        "end": 45.0,
+        "hop": 1,
+        "description": "Introduction stating Mike Lewis is research scientist at Facebook AI Research and completed PhD at University of Edinburgh"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week12_chunk_000"
+    ],
+    "question_type": "text",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "Mike Lewis",
+      "Facebook AI Research",
+      "University of Edinburgh",
+      "NLP",
+      "distributional semantics"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week12_q030",
+    "video_id": "nyu_dl_week12",
+    "question": "What does the lecture claim about the number of parameters in the T5 model mentioned during the discussion of world knowledge memorization, and what experiment is described to test how much knowledge is stored in the model?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "medium",
+    "answerable": false,
+    "key_concepts": [
+      "T5",
+      "model parameters",
+      "world knowledge",
+      "memorization"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  }
+]

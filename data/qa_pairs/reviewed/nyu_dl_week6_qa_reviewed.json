@@ -1,0 +1,444 @@
+[
+  {
+    "qa_id": "nyu_dl_week6_q001",
+    "question": "According to the lecture, what technique is described on the slide titled 'Word-level training with weak supervision [Matan et al 1992]' for handling character recognition, and how does the subsampling ratio in the convolutional network affect the spacing of output windows on the input?",
+    "answer": "The slide on 'Word-level training with weak supervision [Matan et al 1992]' describes a method where no labeling of individual characters is required and a deformable parts model is needed for training. Regarding subsampling, when you have multiple pooling layers\u2014for example two layers each subsampling by a factor of two\u2014the overall subsampling ratio becomes four, meaning successive output units examine windows on the input that are separated by four pixels, as the stride equals the product of all subsampling layers in the network.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 245.0,
+        "end": 300.0,
+        "hop": 1,
+        "description": "Frame caption describing the 'Word-level training with weak supervision [Matan et al 1992]' slide with deformable parts model"
+      },
+      {
+        "start": 105.0,
+        "end": 150.0,
+        "hop": 2,
+        "description": "Transcript explanation of subsampling ratio and how successive outputs are separated by the product of subsampling layers"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week6_chunk_007",
+      "nyu_dl_week6_chunk_003"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "word-level training",
+      "subsampling ratio",
+      "convolutional networks",
+      "deformable parts model"
+    ],
+    "video_id": "nyu_dl_week6",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week6_q008",
+    "question": "What specific information is visible on the title slide of this NYU Deep Learning lecture, including the instructor's affiliations and the names of teaching assistants?",
+    "answer": "The title slide of this NYU Deep Learning course shows the following information: the course is titled 'Deep Learning' with URL http://bit.ly/DLSP20, it is from the Spring 2020 semester at New York University. The instructor is Yann LeCun, who is affiliated with NYU Courant Institute and Center for Data Science as well as Facebook AI Research, and his personal website is http://yann.lecun.com. The teaching assistants listed are Alfredo Canziani and Mark Goldstein.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 0.0,
+        "end": 45.0,
+        "hop": 1,
+        "description": "Frame caption describing the Deep Learning title slide with instructor Yann LeCun, NYU affiliations, Facebook AI Research, and TAs Alfredo Canziani and Mark Goldstein"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week6_chunk_000"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "NYU Deep Learning",
+      "Yann LeCun",
+      "teaching assistants",
+      "course information"
+    ],
+    "video_id": "nyu_dl_week6",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week6_q010",
+    "question": "How does the lecture explain the vanishing gradient problem in simple recurrent networks, and what specific technique called BPTT is mentioned as the standard training method for recurrent networks?",
+    "answer": "The lecture explains the vanishing gradient problem as follows: during backpropagation through time in a recurrent network, the gradient at each time step gets multiplied by the transpose of the weight matrix of the recurrent function G. If this weight matrix has small values, the gradient vector gets progressively shorter with each multiplication\u2014shrinking exponentially\u2014so that by the time you backpropagate to the earliest time steps (e.g., step 50 in a 50-step sequence), the gradient has essentially vanished to zero, making it impossible to learn long-range dependencies. Conversely, if the weight matrix has large values and the non-linearity is not saturating, the gradient can explode. The standard training method described is BPTT\u2014backpropagation through time\u2014which simply involves unrolling the recurrent network across all time steps to form a feedforward graph and then applying standard backpropagation through this unrolled network.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2945.0,
+        "end": 3000.0,
+        "hop": 1,
+        "description": "Transcript explaining vanishing gradient as gradient getting multiplied by weight matrix transpose at each time step, shrinking exponentially"
+      },
+      {
+        "start": 2830.0,
+        "end": 2890.0,
+        "hop": 2,
+        "description": "Transcript explaining BPTT as unrolling the loop in time and applying standard backpropagation through the unrolled network"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week6_chunk_083",
+      "nyu_dl_week6_chunk_081"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "vanishing gradient",
+      "exploding gradient",
+      "BPTT",
+      "backpropagation through time",
+      "recurrent networks"
+    ],
+    "video_id": "nyu_dl_week6",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week6_q012",
+    "question": "How does the lecture explain the negative mining procedure used to improve face detectors, and what does it say about the total computational cost of running the multi-scale face detection pyramid?",
+    "answer": "Negative mining is described as an iterative bootstrapping procedure: you run your current detector over a large collection of images known to contain no faces, collect all patches where the detector incorrectly fires (false positives), verify they contain no face, and add them to your negative training set. You then retrain the detector and repeat this process four or five times until the detector becomes robust to the non-face patterns that look like faces in natural images. Regarding computational cost of the multi-scale pyramid: when you reduce the image by the square root of two, the ConvNet you need to run is smaller by a factor of two (since cost scales quadratically with image dimensions). The total cost of the entire pyramid sums as a geometric series: 1 + 1/2 + 1/4 + 1/8 + ... which converges to 2. Therefore, running the full multi-scale pyramid only costs about twice as much as running the network once at the largest scale\u2014a very affordable factor of 2 overhead.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1585.0,
+        "end": 1650.0,
+        "hop": 1,
+        "description": "Transcript explaining negative mining procedure: run detector on face-free images, collect false positives, add to negative set, retrain 4-5 times"
+      },
+      {
+        "start": 1400.0,
+        "end": 1460.0,
+        "hop": 2,
+        "description": "Transcript explaining total pyramid cost as geometric series 1+1/2+1/4+... = 2, wasting only factor of 2"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week6_chunk_045",
+      "nyu_dl_week6_chunk_040"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "negative mining",
+      "face detection",
+      "multi-scale pyramid",
+      "computational cost",
+      "bootstrapping"
+    ],
+    "video_id": "nyu_dl_week6",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week6_q013",
+    "question": "In the lecture on the DARPA LAGR robot vision project, what specific online adaptation strategy was used for the neural network's layers as the robot was running in the field?",
+    "answer": "During the DARPA LAGR robot vision project, the neural network used an online adaptation strategy where only the last layer of the convolutional network was retrained as the robot operated. The N minus 1 earlier layers were kept fixed\u2014pre-trained in the lab\u2014while the final classification layer was continuously updated using newly collected stereo labels as the robot drove through its environment. This allowed the robot to adapt to terrains and visual environments it had never encountered before in the lab, without the computational expense of retraining the entire deep network in real time.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1930.0,
+        "end": 1975.0,
+        "hop": 1,
+        "description": "Transcript explaining only the last layer was retrained online while N-1 earlier layers were fixed, allowing adaptation to new environments"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week6_chunk_054"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "online adaptation",
+      "LAGR robot",
+      "last layer retraining",
+      "stereo labels",
+      "transfer learning"
+    ],
+    "video_id": "nyu_dl_week6",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week6_q015",
+    "question": "What is the exact error rate achieved by the sequence-to-sequence with attention model on the WMT English-to-French translation benchmark as reported in the Bahdanau et al. 2014 paper discussed in this lecture?",
+    "answer": "",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "hard",
+    "answerable": false,
+    "key_concepts": [
+      "sequence-to-sequence",
+      "attention mechanism",
+      "neural machine translation",
+      "BLEU score"
+    ],
+    "video_id": "nyu_dl_week6",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week6_q017",
+    "video_id": "nyu_dl_week6",
+    "question": "The face detection slide references Vaillant et al. 93/94 and mentions a specific processing time. How does the lecture explain handling faces of different sizes, and what computational cost argument is made for this multi-scale approach?",
+    "answer": "To handle size variation, a multiscale approach is used: the image is run through the detector, then reduced by a factor of square root of 2 and run again, and again reduced by another factor of square root of 2. The computational cost argument is that when you scale down the image by square root of 2, the network you have to run is smaller by a factor of 2, so the overall cost is 1 plus 1/2 plus 1/4 plus 1/8 etc., which equals 2\u2014meaning you only waste a factor of 2 by doing multiscale.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1320.0,
+        "end": 1375.0,
+        "hop": 1,
+        "description": "Multiscale approach: reduce image by square root of 2 repeatedly and run detector at each scale"
+      },
+      {
+        "start": 1400.0,
+        "end": 1445.0,
+        "hop": 2,
+        "description": "Cost argument: scaling down by sqrt(2) makes network smaller by factor 2; total cost sums to 2; slide titled Face Detection Vaillant et al 93/94"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week6_chunk_038",
+      "nyu_dl_week6_chunk_040"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "face detection",
+      "multiscale approach",
+      "computational cost",
+      "square root of 2 scaling"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week6_q020",
+    "video_id": "nyu_dl_week6",
+    "question": "The 'Recurrent Networks' slide shows a diagram with components labeled Enc, G, and Dec. According to the lecture, what is the key input that makes the G function recurrent, and what technique is used to perform backpropagation through this architecture?",
+    "answer": "The G function is recurrent because one of its inputs is Z of T minus 1, which is its own output at the previous time step. To perform backpropagation, the loop is unrolled in time, producing a regular network with no loops where every block at different time steps shares the same weights. This technique is called back propagation through time (BPTT).",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2695.0,
+        "end": 2760.0,
+        "hop": 1,
+        "description": "G function takes Z of T minus 1 as input\u2014its own output at previous time step\u2014making it recurrent"
+      },
+      {
+        "start": 2895.0,
+        "end": 2940.0,
+        "hop": 2,
+        "description": "Technique of unrolling and back-propagating through time is called BPTT; slide titled Recurrent Networks shows unrolled diagram"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week6_chunk_077",
+      "nyu_dl_week6_chunk_081"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "recurrent networks",
+      "backpropagation through time",
+      "BPTT",
+      "unrolling",
+      "hidden state"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week6_q021",
+    "video_id": "nyu_dl_week6",
+    "question": "The GRU slide lists 'explicit memory cells' as the solution and attributes the work to Cho. According to the lecture, what does the update gate Z do when its value equals 1, and what happens to the gradient flow that makes this architecture better than simple recurrent nets?",
+    "answer": "When Z equals 1, the system simply copies its previous state and ignores the input, acting like a memory. When Z is slightly less than 1, it puts a little bit of the input into the state but does not significantly change it, which preserves the norm and preserves information. This avoids the vanishing gradient problem because by default the system just copies its previous state, meaning gradients can propagate without being multiplied by a shrinking weight matrix at every time step.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3690.0,
+        "end": 3755.0,
+        "hop": 1,
+        "description": "Z equal to 1 means copy previous state and ignore input; Z slightly less than 1 preserves norm and information"
+      },
+      {
+        "start": 3815.0,
+        "end": 3860.0,
+        "hop": 2,
+        "description": "GRU slide attributes solution to Cho; preserves information by default unlike simple RNNs with vanishing gradient"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week6_chunk_108",
+      "nyu_dl_week6_chunk_109"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "GRU",
+      "update gate",
+      "memory cell",
+      "vanishing gradient",
+      "state preservation"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week6_q022",
+    "video_id": "nyu_dl_week6",
+    "question": "The 'Sequence to Sequence with Attention' slide references Bahdanau, Cho, and Bengio. According to the lecture, what fundamental limitation of the plain sequence-to-sequence model motivated the attention mechanism, and what happened in the field within months of the attention paper?",
+    "answer": "The plain sequence-to-sequence model requires squeezing the entire meaning of a sentence into a single hidden state vector between encoder and decoder, and despite LSTMs being memory cells they do not preserve information for more than about 20 words. The attention mechanism was introduced so the decoder can focus on the relevant part of the input sentence when producing each output word. Within a few months a team from Stanford won a big competition using this method, beating all other methods, and then within three months every big company working on translation had deployed systems based on this.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 4390.0,
+        "end": 4455.0,
+        "hop": 1,
+        "description": "Entire meaning squeezed into hidden state; LSTMs forget after about 20 words; attention as fix"
+      },
+      {
+        "start": 4609.0,
+        "end": 4680.0,
+        "hop": 2,
+        "description": "Slide titled Sequence to Sequence with Attention (Bahdanau Cho Bengio); Stanford team won big competition; every big company deployed within three months"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week6_chunk_122",
+      "nyu_dl_week6_chunk_129"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "sequence to sequence",
+      "attention mechanism",
+      "neural machine translation",
+      "Bahdanau",
+      "hidden state bottleneck"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week6_q023",
+    "video_id": "nyu_dl_week6",
+    "question": "What is shown in the slide titled 'Multiple Character Recognition [Matan et al 1992]' regarding the architecture used?",
+    "answer": "The slide is titled 'Multiple Character Recognition [Matan et al 1992]' and has the subtitle 'Every layer is a convolution.' It shows a diagram of a single character recognizer consisting of several layers represented by blue rectangles connected by arrows.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 560.0,
+        "end": 605.0,
+        "hop": 1,
+        "description": "Frame caption describes slide titled Multiple Character Recognition Matan et al 1992 with subtitle Every layer is a convolution and diagram of single character recognizer with blue rectangle layers"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week6_chunk_016"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "multiple character recognition",
+      "convolutional architecture",
+      "Matan 1992"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week6_q024",
+    "video_id": "nyu_dl_week6",
+    "question": "What information does the 'Long Range Vision with a Convolutional Net' slide list under its pre-processing steps?",
+    "answer": "The slide titled 'Long Range Vision with a Convolutional Net' lists the following pre-processing steps taking 125 ms: ground plane estimation, horizon leveling, conversion to YUV plus local contrast normalization, and scale invariant pyramid of distance-normalized image.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1965.0,
+        "end": 2010.0,
+        "hop": 1,
+        "description": "Frame caption for slide titled Long Range Vision with a Convolutional Net lists pre-processing steps: ground plane estimation, horizon leveling, conversion to YUV plus local contrast normalization, scale invariant pyramid of distance-normalized image, 125 ms"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week6_chunk_055"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "long range vision",
+      "pre-processing",
+      "LAGR",
+      "YUV",
+      "contrast normalization"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week6_q029",
+    "video_id": "nyu_dl_week6",
+    "question": "According to the lecture, who collected the street image dataset used for the scene parsing work, and what tool and arrangement was used to label the segmentations?",
+    "answer": "The dataset was collected mostly by Antonio de Alba at MIT. He had a tool for labeling where you could draw a contour over an object and label it, and the tool would fill up the object. Most of the segmentations were done by his mother, who was in Spain.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 2580.0,
+        "end": 2625.0,
+        "hop": 1,
+        "description": "Dataset collected mostly by Antonio de Alba at MIT; labeling tool where you draw contour over object; segmentations done by his mother in Spain"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week6_chunk_072"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "scene parsing dataset",
+      "Antonio de Alba",
+      "MIT",
+      "image labeling"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week6_q030",
+    "video_id": "nyu_dl_week6",
+    "question": "What is the specific learning rate used in the DARPA LAGR robot's convolutional network during field operation, and how many parameters does the largest transformer model described in this lecture have?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "medium",
+    "answerable": false,
+    "key_concepts": [
+      "learning rate",
+      "LAGR robot",
+      "transformer parameters"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  }
+]

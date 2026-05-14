@@ -1,0 +1,413 @@
+[
+  {
+    "qa_id": "mit_6006f11_lec09_q005",
+    "question": "The lecture visually shows the amortization definition on the blackboard as 'operation takes T(n) amortized if k operations take \u2264 k\u00b7T(n) time'. How does this definition apply to the table doubling insertion analysis, and what does this imply about the amortized cost per insertion?",
+    "answer": "The amortization definition states that if k operations in total take at most k times T(n), then each operation is said to take T(n) amortized. Applied to table doubling with insertions: k insertions using the doubling strategy incur a total cost that forms a geometric series summing to Theta(k), because rebuilds happen at sizes 1, 2, 4, 8, ..., k with each rebuild costing linear in the rebuild size, and these costs sum geometrically. Since k total insertions take Theta(k) total time, dividing by k gives Theta(1) amortized time per insertion, meaning each insert costs O(1) on average across all operations.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1005.0,
+        "end": 1070.0,
+        "hop": 1,
+        "description": "Blackboard shows amortization definition: operation takes T(n) amortized if k operations take \u2264 k\u00b7T(n) time"
+      },
+      {
+        "start": 2025.0,
+        "end": 2100.0,
+        "hop": 2,
+        "description": "Table doubling k inserts take Theta(k) total time implying Theta(1) amortized per insert"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec09_chunk_028",
+      "mit_6006f11_lec09_chunk_034"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "amortization",
+      "table doubling",
+      "amortized analysis",
+      "geometric series",
+      "constant time amortized"
+    ],
+    "video_id": "mit_6006f11_lec09",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q007",
+    "question": "The lecture slide titled 'Lecture 9: Table Doubling, Karp-Rabin' shown at the start introduces two major topics. How does the rolling hash ADT shown later on the blackboard \u2014 with operations r.append(c), r.skip(c), and r() \u2014 connect to implementing the Karp-Rabin algorithm for string matching?",
+    "answer": "The lecture slide at the start identifies the two main topics as table doubling and Karp-Rabin string matching. The rolling hash ADT shown later on the blackboard provides the key data structure for Karp-Rabin: r.append(c) adds a character to the end of the maintained string x, r.skip(c) deletes the first character of x assuming it is c, and r() returns the hash value h(x) of the current string. In Karp-Rabin, two rolling hashes rs and rt are created \u2014 rs stores the hash of the pattern s, and rt maintains the hash of the current window in t. By calling skip and append in each step, the window slides in O(1) time, enabling linear expected-time string matching by comparing hash values instead of full strings.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 0.0,
+        "end": 45.0,
+        "hop": 1,
+        "description": "Lecture slide shown at start: '6.006, Fall 2011 Lecture 9: Table Doubling, Karp-Rabin'"
+      },
+      {
+        "start": 2460.0,
+        "end": 2530.0,
+        "hop": 2,
+        "description": "Blackboard shows Rolling hash ADT with r.append(c), r.skip(c), r() operations and their use in Karp-Rabin algorithm"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec09_chunk_000",
+      "mit_6006f11_lec09_chunk_069"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Karp-Rabin",
+      "rolling hash ADT",
+      "append",
+      "skip",
+      "string matching",
+      "hash value"
+    ],
+    "video_id": "mit_6006f11_lec09",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q009",
+    "question": "What does the frame caption show is written on the blackboard about the Rolling hash ADT operations at the point where the data structure is being defined?",
+    "answer": "The frame caption shows the blackboard contains the following text describing the Rolling hash ADT: 'r.append(c): add char c to end of x', 'r.skip(c): delete first char of x (assuming it is c)', 'r maintains a string x', and 'r(): hash value of x = h(x)', defining all three core operations of the abstract data type along with the invariant that the data structure maintains a string x internally.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 2385.0,
+        "end": 2460.0,
+        "hop": 1,
+        "description": "Frame caption shows blackboard text defining Rolling hash ADT with r.append(c), r.skip(c), r maintains string x, r(): hash value of x=h(x)"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec09_chunk_069"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "rolling hash ADT",
+      "append",
+      "skip",
+      "hash value",
+      "abstract data type"
+    ],
+    "video_id": "mit_6006f11_lec09",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q014",
+    "question": "What does the lecture state about implementing all hash table operations in constant worst-case time per operation rather than constant amortized time, and what is the key insight behind the technique?",
+    "answer": "The lecture states that it is possible to achieve constant worst-case time per operation rather than merely constant amortized time, though it is described as tricky to implement and rarely done in practice because of its complexity. The key insight is that when you detect the table is getting full, instead of waiting until the table is completely full and then doing a linear-time rebuild all at once, you begin building a new table of twice the size on the side incrementally. Each time you insert into the actual table, you simultaneously move a small constant number of items \u2014 enough items so that by the time the old table is completely full, all items have already been moved to the new table, and you can switch over to the new table immediately.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1665.0,
+        "end": 1730.0,
+        "hop": 1,
+        "description": "Lecture describes constant worst-case time technique: build new table on side incrementally, moving a constant number of items per insert"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec09_chunk_047"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "constant worst-case time",
+      "incremental rebuilding",
+      "real-time systems",
+      "hash table resizing"
+    ],
+    "video_id": "mit_6006f11_lec09",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q015",
+    "question": "What is the exact worst-case time complexity for a single deletion operation in a hash table that uses chaining as analyzed in this lecture, accounting for both the hash table slot access and the chain traversal?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "hard",
+    "answerable": false,
+    "key_concepts": [
+      "deletion",
+      "worst-case complexity",
+      "hash table chaining"
+    ],
+    "video_id": "mit_6006f11_lec09",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q017",
+    "video_id": "mit_6006f11_lec09",
+    "question": "The lecture slide shown on the blackboard indicates the expected chain length formula for hashing with chaining. How does this formula connect to the condition required for the table size m when implementing table doubling?",
+    "answer": "The blackboard shows the expected chain length equals n/m = alpha. For table doubling, the lecture requires m to be Theta(n), specifically at least Omega(n) so that alpha remains a constant, ensuring constant expected operation time. This is why m must grow with n and never become much smaller or larger than n.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 35.0,
+        "end": 80.0,
+        "hop": 1,
+        "description": "Frame caption shows expected chain length = n/m = alpha on blackboard"
+      },
+      {
+        "start": 315.0,
+        "end": 360.0,
+        "hop": 2,
+        "description": "Lecture states m must be Theta n, Omega n, to keep alpha constant"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec09_chunk_001",
+      "mit_6006f11_lec09_chunk_009"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "expected chain length",
+      "load factor alpha",
+      "table doubling",
+      "Theta(n)"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q019",
+    "video_id": "mit_6006f11_lec09",
+    "question": "The blackboard shows 'Table doubling: k inserts take Theta(k) time => Theta(1) amortized/insert'. How does the lecture define amortized running time, and what economic analogy is used to explain it?",
+    "answer": "The blackboard shows table doubling achieves Theta(1) amortized per insert. The lecture defines amortized running time as: an operation takes T(n) amortized if k operations together take at most k*T(n) total time. The economic analogy given is paying rent: instead of a large monthly payment, you think of it as paying a small amount per day, spreading the high cost so it appears cheap on average.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1260.0,
+        "end": 1305.0,
+        "hop": 1,
+        "description": "Frame caption shows 'Table doubling: k inserts take Theta(k) time, Theta(1) amortized/insert' on blackboard"
+      },
+      {
+        "start": 1015.0,
+        "end": 1060.0,
+        "hop": 2,
+        "description": "Lecture defines amortized time and gives rent economic analogy"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec09_chunk_034",
+      "mit_6006f11_lec09_chunk_029"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "amortized running time",
+      "table doubling",
+      "economic analogy",
+      "Theta(1) amortized"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q021",
+    "video_id": "mit_6006f11_lec09",
+    "question": "The frame caption shows the slide titled '6.006, Fall 2011: Introduction to Algorithms, Lecture 9: Table Doubling, Karp-Rabin' taught by Erik Demaine. What does the lecture say about how Python lists implement their dynamic resizing, and what amortized complexity do list.append and list.pop achieve?",
+    "answer": "The slide title confirms this is Lecture 9 on Table Doubling and Karp-Rabin by Erik Demaine. The lecture explains that Python lists are implemented using arrays and use table doubling with some constant (possibly 2 or another constant) to support dynamic resizing. Both list.append and list.pop achieve Theta(1) amortized time, though in reality they are constant amortized rather than worst-case constant.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 0.0,
+        "end": 45.0,
+        "hop": 1,
+        "description": "Frame caption shows slide title 'Lecture 9: Table Doubling, Karp-Rabin' by Erik Demaine"
+      },
+      {
+        "start": 1685.0,
+        "end": 1755.0,
+        "hop": 2,
+        "description": "Lecture explains Python lists use table doubling and list.append/list.pop are constant amortized"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec09_chunk_000",
+      "mit_6006f11_lec09_chunk_046"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Python list",
+      "table doubling",
+      "list.append",
+      "list.pop",
+      "amortized constant time"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q022",
+    "video_id": "mit_6006f11_lec09",
+    "question": "The blackboard frame shows the Rolling hash ADT with operations r.append(c) and r.skip(c). How does the Karp-Rabin algorithm use two instances of this ADT, called rs and rt, to perform string matching?",
+    "answer": "The blackboard shows the Rolling hash ADT with append and skip operations. The Karp-Rabin algorithm creates two rolling hash instances: rs and rt. For rs, it appends every character of pattern s to obtain the hash of s. For rt, it appends the first len(s) characters of t. Then for each position in t, it checks if rs() equals rt(); if hashes match, it verifies character by character. It then advances by calling rt.skip(t[i-len(s)]) and rt.append(t[i]) to slide the window, achieving linear expected time overall.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2385.0,
+        "end": 2440.0,
+        "hop": 1,
+        "description": "Frame caption shows Rolling hash ADT with r.append(c) and r.skip(c) on blackboard"
+      },
+      {
+        "start": 2505.0,
+        "end": 2565.0,
+        "hop": 2,
+        "description": "Lecture describes Karp-Rabin using rs and rt rolling hashes to compare and slide window"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec09_chunk_068",
+      "mit_6006f11_lec09_chunk_071"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Karp-Rabin",
+      "rolling hash",
+      "rs and rt",
+      "string matching",
+      "sliding window"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q024",
+    "video_id": "mit_6006f11_lec09",
+    "question": "What does the frame caption describe as the content of the blackboard slide titled 'Simple algorithm' for string matching?",
+    "answer": "The frame caption describes the blackboard as showing the simple string matching algorithm written as the Python one-liner: any(s == t[i:i+len(s)] for i in range(len(t)-len(s))), along with a diagram illustrating the sliding comparison of s against substrings of t of the same length.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1985.0,
+        "end": 2050.0,
+        "hop": 1,
+        "description": "Frame caption shows simple algorithm any(s==t[i:i+len(s)] for i in range(len(t)-len(s))) on blackboard"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec09_chunk_057"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "simple string matching",
+      "Python one-liner",
+      "substring comparison",
+      "sliding window"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q026",
+    "video_id": "mit_6006f11_lec09",
+    "question": "Why must a new hash function be built when growing a hash table, and what is the cost of the grow-table operation in terms of n and m?",
+    "answer": "A new hash function must be built when growing because the hash function maps the universe of keys to a table of a specific size m; if m changes, the old hash function only uses the beginning of the table and new slots would never be used, so every key must be rehashed. The cost of the grow-table operation is order n plus m plus m-prime, because you pay order m to iterate over all slots, order n to visit all list entries, and order m-prime to initialize the new table; in the constructed scenario this is Theta(n).",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 630.0,
+        "end": 715.0,
+        "hop": 1,
+        "description": "Lecture explains why new hash function needed: old function only maps to old table size"
+      },
+      {
+        "start": 520.0,
+        "end": 610.0,
+        "hop": 2,
+        "description": "Lecture gives cost of grow-table as order n plus m plus m-prime, Theta(n)"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec09_chunk_018",
+      "mit_6006f11_lec09_chunk_017"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "grow table",
+      "new hash function",
+      "rehashing",
+      "cost analysis"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q028",
+    "video_id": "mit_6006f11_lec09",
+    "question": "According to the lecture, what specific condition triggers a false positive in the Karp-Rabin algorithm, and what does the algorithm do when a hash match is detected?",
+    "answer": "A false positive in Karp-Rabin occurs because of hash collisions: two distinct strings may map to the same hash value, so equal hash values do not guarantee the strings themselves are equal. When a hash match is detected (rs() equals rt()), the algorithm checks the actual substring character by character by comparing s to t[i-len(s)+1:i+1] to verify a true match, spending order |s| time only when a potential match is found.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 2625.0,
+        "end": 2710.0,
+        "hop": 1,
+        "description": "Lecture explains false positives from collisions and character-by-character verification when hash matches"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec09_chunk_075"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "Karp-Rabin",
+      "false positive",
+      "hash collision",
+      "character verification"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q030",
+    "video_id": "mit_6006f11_lec09",
+    "question": "What is the worst-case time complexity per individual operation when using table doubling, and what is the exact probability of a false positive per position in the Karp-Rabin algorithm as stated in this lecture?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "hard",
+    "answerable": false,
+    "key_concepts": [
+      "table doubling worst case",
+      "Karp-Rabin false positive probability"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  }
+]

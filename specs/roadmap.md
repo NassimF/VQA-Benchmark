@@ -270,12 +270,13 @@ Packages: chromadb 1.5.8, sentence-transformers 5.4.1
 
 ### 7.3 — LLM Review ✅
 
-**Status: Complete (2026-05-14). 819 accepted QA pairs across all 60 lectures.**
+**Status: Complete (2026-05-14). 810 accepted QA pairs across all 60 lectures.**
 
 First run results: 398/900 accepted (56% rejection rate). 53 lectures below floor.
 Regeneration complete (2026-05-14): 224 new pairs accepted across 53 lectures; 169 first-run
 pairs from those lectures retained. 426 pairs from 7 never-regenerated lectures.
-Final: 819 total (455 visual, 55.6%). 3 lectures under floor: mit_6046_lec13 (4),
+Post-validation: 9 pairs dropped (span gap 55–69s < 70s threshold, reviewer missed).
+Final: 810 total (455 visual, 56.2%). 3 lectures under floor: mit_6046_lec13 (4),
 mit_6042_lec18 (7), mit_6046_lec10 (7) — all retained per no-discard policy.
 No lectures are discarded — all 60 must appear in the benchmark (policy 2026-05-14).
 208 first-run rejections (23.1%) were reviewer parse errors caused by `max_tokens=1024`.
@@ -344,7 +345,7 @@ validate the tIoU@0.3 threshold before the evaluator is built.
 4. Report: mean span error, worst-case span error, % of spans where evidence
    falls within the inner 50% of the window vs. near the edges
 
-**Sample size justification:** 120 samples from a population of ~720 QA pairs.
+**Sample size justification:** 120 samples from a population of 810 QA pairs.
 For estimating a mean span error with σ ≈ 15s, n=120 gives a margin of error of
 ±σ/√120 ≈ ±1.4s — precise enough to distinguish the two decision-gate thresholds
 (≤20s vs >30s), which have a 10s buffer between them. Stratifying by question type

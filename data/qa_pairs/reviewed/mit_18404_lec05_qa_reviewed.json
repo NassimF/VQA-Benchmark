@@ -1,0 +1,634 @@
+[
+  {
+    "qa_id": "mit_18404_lec05_q002",
+    "question": "What does the lecture slide titled 'Equivalence of CFGs and PDAs' show as the two corollaries, and how does the professor use the concept of a single stack to explain why one of those corollaries does NOT extend to the intersection of two context-free languages?",
+    "answer": "The lecture slide shows two corollaries: (1) every regular language is a CFL, and (2) if A is a CFL and B is regular then A intersect B is a CFL. The professor explains that corollary 2 works because you can simulate the finite automaton for the regular language inside the PDA's finite control. However, this does not extend to the intersection of two context-free languages because you would need two pushdown automata, and you cannot simulate both with a single stack \u2014 a PDA only has one stack, so you cannot track both context-free constraints simultaneously.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 570.0,
+        "end": 650.0,
+        "hop": 1,
+        "description": "Frame caption shows slide with two corollaries: every regular language is a CFL, and CFL intersect regular is CFL"
+      },
+      {
+        "start": 1200.0,
+        "end": 1285.0,
+        "hop": 2,
+        "description": "Professor explains why intersection of two CFLs fails: two PDAs cannot be simulated with one stack"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_016",
+      "mit_18404_lec05_chunk_020"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "CFG-PDA equivalence",
+      "closure under intersection",
+      "single stack limitation",
+      "context-free languages"
+    ],
+    "video_id": "mit_18404_lec05",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q004",
+    "question": "The lecture slide for the 'Pumping Lemma \u2013 Proof' shows the formal statement of the pumping lemma for CFLs. What are the three conditions listed, and how does the professor's 'cutting and pasting' argument explain why condition 1 is satisfied?",
+    "answer": "The lecture slide shows the three conditions as: (1) uv^i xy^i z is in A for all i greater than or equal to 0, (2) vy is not the empty string, and (3) the length of vxy is at most p. The professor explains that condition 1 is satisfied through the cutting and pasting argument: since a long string forces a tall parse tree with a repeated variable R on some path, the larger subtree rooted at the first R can be substituted in for the smaller subtree rooted at the second R, generating u v v x y y z, and this substitution can be repeated arbitrarily many times or the smaller subtree can replace the larger to get u x z, corresponding to i equal to zero.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1140.0,
+        "end": 1210.0,
+        "hop": 1,
+        "description": "Frame caption shows slide with the three conditions of the pumping lemma: uv^ixy^iz in A, vy not epsilon, |vxy| <= p"
+      },
+      {
+        "start": 1440.0,
+        "end": 1525.0,
+        "hop": 2,
+        "description": "Professor explains cutting and pasting: substituting the larger subtree for the smaller generates u v v x y y z"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_031",
+      "mit_18404_lec05_chunk_040"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "pumping lemma for CFLs",
+      "parse tree",
+      "cutting and pasting",
+      "repeated variable"
+    ],
+    "video_id": "mit_18404_lec05",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q005",
+    "question": "What does the lecture slide titled 'TM - Formal Definition' show as the transition function signature for a Turing machine, and how does the professor use this to explain what happens at each computational step?",
+    "answer": "The lecture slide shows the transition function as delta: Q times Gamma maps to Q times Gamma times {L, R}, where L means left and R means right. The professor explains that this means when the machine is in a certain state and the head is reading a certain tape symbol, the transition function outputs a new state, a new symbol to write at that tape location, and a direction (left or right) for the head to move. As an example, if delta(q, a) equals (r, b, R), the machine moves from state q to state r, replaces the symbol a with b on the tape, and moves the head one square to the right.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3615.0,
+        "end": 3690.0,
+        "hop": 1,
+        "description": "Frame caption shows slide with formal definition of TM as 7-tuple and transition function delta: Q x Gamma -> Q x Gamma x {L,R}"
+      },
+      {
+        "start": 3700.0,
+        "end": 3775.0,
+        "hop": 2,
+        "description": "Professor explains the transition function: reads state and symbol, writes new symbol, moves head left or right, gives example delta(q,a)=(r,b,R)"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_103",
+      "mit_18404_lec05_chunk_106"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Turing machine formal definition",
+      "transition function",
+      "tape alphabet",
+      "head movement"
+    ],
+    "video_id": "mit_18404_lec05",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q006",
+    "question": "What does the frame caption for the Turing machine diagram show about the physical components of the machine, and how does the professor's description of the head's capabilities explain why Turing machines are more powerful than pushdown automata?",
+    "answer": "The frame caption for the Turing machine diagram shows a finite control box connected to a head that reads and writes on a tape labeled 'read/write input tape,' with symbols like a, b, and blank symbols on an infinite tape. The professor explains that the head can both read and write on the tape, unlike a PDA which can only read input, and critically the head is two-way, meaning it can move both left and right under control of the transition function. This means the machine can use the entire tape as flexible storage and return to read what it has previously written, giving it much greater power than a pushdown automaton which is limited to a last-in-first-out stack.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2895.0,
+        "end": 2970.0,
+        "hop": 1,
+        "description": "Frame caption shows Turing machine diagram with finite control, head, and read/write input tape with symbols"
+      },
+      {
+        "start": 3010.0,
+        "end": 3095.0,
+        "hop": 2,
+        "description": "Professor explains the head can read and write, move bidirectionally, making the tape flexible storage unlike a stack"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_082",
+      "mit_18404_lec05_chunk_085"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Turing machine",
+      "read/write head",
+      "bidirectional movement",
+      "tape storage",
+      "PDA comparison"
+    ],
+    "video_id": "mit_18404_lec05",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q007",
+    "question": "What does the slide shown at the end of the lecture titled 'Quick review of today' list as the three main accomplishments, and how does the professor's earlier discussion of language hierarchies connect the second and third items on that list?",
+    "answer": "The 'Quick review of today' slide lists three accomplishments: (1) proved the CFL Pumping Lemma as a tool for showing languages are not context-free, (2) defined Turing machines (TMs), and (3) defined TM deciders that halt on all inputs. The professor's earlier discussion explains that Turing-decidable languages are a proper subset of Turing-recognizable languages, because a decider is an additional restriction requiring the machine to always halt on every input, whereas a recognizer may reject by running forever. This hierarchy connects items 2 and 3: defining TMs established recognizers, and then defining deciders carved out the strictly more restricted class of languages where the machine always terminates.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 4326.0,
+        "end": 4395.0,
+        "hop": 1,
+        "description": "Frame caption shows 'Quick review of today' slide listing: proved CFL pumping lemma, defined TMs, defined TM deciders"
+      },
+      {
+        "start": 4185.0,
+        "end": 4250.0,
+        "hop": 2,
+        "description": "Professor explains that decidable languages are a proper subset of recognizable languages because deciders must always halt"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_122",
+      "mit_18404_lec05_chunk_120"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Turing decidable",
+      "Turing recognizable",
+      "language hierarchy",
+      "decider vs recognizer"
+    ],
+    "video_id": "mit_18404_lec05",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q008",
+    "question": "What does the frame caption for the 'TM \u2013 example' slide reveal about the specific steps of the Turing machine algorithm shown for recognizing language B?",
+    "answer": "The frame caption for the 'TM \u2013 example' slide reveals that the Turing machine algorithm for recognizing B = {a^k b^k c^k | k >= 0} proceeds through the following steps: (1) scan right until the blank symbol while checking if the input is in a* b* c*, and reject if not; (2) return the head to the left end; and (3) scan right, crossing off a single a, a single b, and a single c on each pass.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 3180.0,
+        "end": 3270.0,
+        "hop": 1,
+        "description": "Frame caption shows TM-example slide with steps: scan right checking a*b*c*, return head to left, scan crossing off single a, b, c"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_092"
+    ],
+    "question_type": "visual",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "Turing machine example",
+      "crossing off symbols",
+      "algorithm steps",
+      "language recognition"
+    ],
+    "video_id": "mit_18404_lec05",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q015",
+    "question": "What is the specific pumping length p that the professor derives for the context-free pumping lemma in terms of both the maximum branching factor of the grammar and the exact number of variables, and what inequality must hold for the height h of the parse tree to guarantee a repeated variable?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "hard",
+    "answerable": false,
+    "key_concepts": [
+      "pumping length",
+      "parse tree height",
+      "branching factor",
+      "repeated variable"
+    ],
+    "video_id": "mit_18404_lec05",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q017",
+    "video_id": "mit_18404_lec05",
+    "question": "The slide titled 'Pumping Lemma \u2013 Proof' states three conditions for the CFL pumping lemma decomposition s = uvxyz. What does the instructor call the argument used to show condition (1) holds, and where in the proof does he explain why condition (2) \u2014 that vy \u2260 \u03b5 \u2014 is guaranteed?",
+    "answer": "The slide shows conditions 1) uv^i xy^i z \u2208 A for all i \u2265 0, 2) vy \u2260 \u03b5, and 3) |vxy| \u2264 p. The instructor calls the argument for condition (1) the 'cutting and pasting argument,' because he cuts apart pieces of the parse tree and pastes them into other places. He explains condition (2) is guaranteed by requiring the smallest possible parse tree: if going from one repeated variable R to another generated nothing new, you could shorten the parse tree, contradicting minimality.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1485.0,
+        "end": 1530.0,
+        "hop": 1,
+        "description": "Instructor names the cutting and pasting argument for condition 1"
+      },
+      {
+        "start": 1830.0,
+        "end": 1900.0,
+        "hop": 2,
+        "description": "Instructor explains smallest parse tree guarantees vy \u2260 \u03b5"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_043",
+      "mit_18404_lec05_chunk_053",
+      "mit_18404_lec05_chunk_054"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "CFL pumping lemma",
+      "cutting and pasting",
+      "parse tree",
+      "vy not epsilon",
+      "conditions"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q018",
+    "video_id": "mit_18404_lec05",
+    "question": "The frame caption for the 'TM - example' slide lists four steps for the Turing machine recognizing B = {a^k b^k c^k | k \u2265 0}. What is step 1, and how does the instructor describe the acceptance condition at the end of the algorithm?",
+    "answer": "According to the frame caption, step 1 is to scan right until the blank symbol (\u223c) while checking if the input is in a*b*c*, and reject if not. The instructor explains that the machine accepts when the last one of each symbol type (the last a, the last b, and the last c) is crossed off on the same pass, because that guarantees the original counts were equal.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3210.0,
+        "end": 3265.0,
+        "hop": 1,
+        "description": "Frame caption listing step 1 of the TM algorithm"
+      },
+      {
+        "start": 3352.0,
+        "end": 3415.0,
+        "hop": 2,
+        "description": "Instructor explains acceptance condition when last of each symbol is crossed off"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_092",
+      "mit_18404_lec05_chunk_094"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Turing machine",
+      "B = a^k b^k c^k",
+      "scanning",
+      "acceptance condition",
+      "crossing off symbols"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q019",
+    "video_id": "mit_18404_lec05",
+    "question": "The slide visible during the Turing machine formal definition section shows the transition function \u03b4 as a mapping from Q \u00d7 \u0393 to Q \u00d7 \u0393 \u00d7 {L, R}. How does the instructor use this definition to explain what happens when the machine is in state q reading symbol a, and what does the instructor say about how to modify this definition to obtain a nondeterministic Turing machine?",
+    "answer": "The instructor explains that the transition function \u03b4(q, a) = (r, b, R) means: if in state q with head reading symbol a, the machine moves to state r, writes symbol b on the tape, and moves the head one square to the right. To make the machine nondeterministic, the instructor says the correct modification is to change the codomain so that \u03b4 maps to a power set of possibilities (option B in the poll), meaning there can be several different ways to proceed rather than exactly one.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3750.0,
+        "end": 3815.0,
+        "hop": 1,
+        "description": "Instructor explains transition function example \u03b4(q,a)=(r,b,R)"
+      },
+      {
+        "start": 3905.0,
+        "end": 3965.0,
+        "hop": 2,
+        "description": "Instructor explains power set modification makes TM nondeterministic"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_107",
+      "mit_18404_lec05_chunk_112"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "transition function",
+      "Turing machine",
+      "nondeterminism",
+      "power set",
+      "formal definition"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q022",
+    "video_id": "mit_18404_lec05",
+    "question": "The frame caption for the 'Pumping Lemma \u2013 Proof details' slide shows the formula p = b^|V| + 1 where b is the length of the longest right-hand side of a rule. What example grammar rule does the instructor use to illustrate the value of b, and what does the instructor say the pumping length p is set to in terms of b and the number of variables?",
+    "answer": "The instructor uses the arithmetic expression grammar rule E \u2192 E + T as an example, which has a right-hand side of length three, making b = 3 in that grammar. The instructor sets p to be b^|V| + 1, where |V| is the number of variables in the grammar, so that if s has length at least p (greater than b^|V|), the parse tree height h will exceed the number of variables, forcing a repeated variable on some path and enabling pumping.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1575.0,
+        "end": 1620.0,
+        "hop": 1,
+        "description": "Instructor gives E \u2192 E + T example to illustrate b"
+      },
+      {
+        "start": 1680.0,
+        "end": 1740.0,
+        "hop": 2,
+        "description": "Instructor sets p = b^|V| + 1 and explains the reasoning"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_045",
+      "mit_18404_lec05_chunk_048",
+      "mit_18404_lec05_chunk_049"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "pumping length",
+      "parse tree height",
+      "variables",
+      "grammar rules",
+      "proof details"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q023",
+    "video_id": "mit_18404_lec05",
+    "question": "What does the frame caption of the 'TM \u2013 Formal Definition' slide identify as the components of a Turing machine's 7-tuple?",
+    "answer": "According to the frame caption for the 'TM \u2013 Formal Definition' slide, a Turing Machine is a 7-tuple (Q, \u03a3, \u0393, \u03b4, q0, qacc, qrej), where Q is the set of states, \u03a3 is the input alphabet, \u0393 is the tape alphabet with \u03a3 \u2286 \u0393, \u03b4 is the transition function mapping Q \u00d7 \u0393 to Q \u00d7 \u0393 \u00d7 {L, R}, q0 is the start state, qacc is the accept state, and qrej is the reject state.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 3630.0,
+        "end": 3710.0,
+        "hop": 1,
+        "description": "Frame caption of TM Formal Definition slide listing the 7-tuple components"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_103",
+      "mit_18404_lec05_chunk_104"
+    ],
+    "question_type": "visual",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "Turing machine",
+      "7-tuple",
+      "formal definition",
+      "transition function",
+      "tape alphabet"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q024",
+    "video_id": "mit_18404_lec05",
+    "question": "What does the frame caption for the 'Quick review of today' slide at the end of the lecture list as the three items covered in Lecture 5?",
+    "answer": "According to the frame caption for the 'Quick review of today' slide, the three items covered in Lecture 5 are: (1) Proved the CFL Pumping Lemma as a tool for showing that languages are not context free, (2) Defined Turing machines (TMs), and (3) Defined TM deciders (halt on all inputs).",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 4270.0,
+        "end": 4335.0,
+        "hop": 1,
+        "description": "Frame caption of Quick review of today slide listing three covered topics"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_122",
+      "mit_18404_lec05_chunk_123"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "CFL pumping lemma",
+      "Turing machines",
+      "TM deciders",
+      "lecture review"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q025",
+    "video_id": "mit_18404_lec05",
+    "question": "In the proof of the CFL Pumping Lemma, the instructor explains why a long string forces a tall parse tree. Why does a tall parse tree then guarantee a repeated variable, and how does having two occurrences of the same variable R on a path enable the string to be pumped?",
+    "answer": "A tall parse tree guarantees a repeated variable because the grammar has only a fixed finite number of variables; once the path from the start variable down to a terminal is longer than the number of variables, by the pigeonhole principle some variable R must appear at least twice on that path. Having two occurrences of R means the upper R generates a larger subtree producing vxy, while the lower R generates a smaller subtree producing just x. By substituting the larger subtree in place of the smaller one (or vice versa), the parser produces uvvxyyz (pumping up) or uxz (pumping down to i=0), and both resulting strings are still in the language because the substitution uses valid parse tree structure.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1260.0,
+        "end": 1305.0,
+        "hop": 1,
+        "description": "Instructor explains tall parse tree forces repeated variable via pigeonhole"
+      },
+      {
+        "start": 1395.0,
+        "end": 1450.0,
+        "hop": 2,
+        "description": "Instructor explains how two R occurrences allow cutting and pasting to pump the string"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_036",
+      "mit_18404_lec05_chunk_038",
+      "mit_18404_lec05_chunk_040"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "parse tree",
+      "repeated variable",
+      "pigeonhole",
+      "pumping",
+      "cutting and pasting"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q026",
+    "video_id": "mit_18404_lec05",
+    "question": "The instructor argues that context-free languages are not closed under complement. What two closure properties does he use together with De Morgan's laws to reach this conclusion, and what is the key fact that makes the argument work?",
+    "answer": "The instructor argues that context-free languages are closed under union but not closed under intersection. Using De Morgan's laws, closure under union and closure under complement together would imply closure under intersection. Since the class of context-free languages is not closed under intersection (as demonstrated by the fact that A1 \u2229 A2 = B, which is not context-free), it follows by contrapositive that the context-free languages cannot be closed under complement.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 760.0,
+        "end": 810.0,
+        "hop": 1,
+        "description": "Instructor states CFLs are closed under union"
+      },
+      {
+        "start": 2400.0,
+        "end": 2460.0,
+        "hop": 2,
+        "description": "Instructor uses De Morgan's laws to conclude CFLs not closed under complement"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_021",
+      "mit_18404_lec05_chunk_069"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "closure properties",
+      "complement",
+      "union",
+      "De Morgan's laws",
+      "context-free languages"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q027",
+    "video_id": "mit_18404_lec05",
+    "question": "In Example 2 of proving a language non-context-free (the language F = {ww}), the instructor explains why the string 0^p 1^p 0^p 1^p is a better choice than 0^p 1 0^p 1. What is wrong with the first choice, and why does condition 3 of the pumping lemma create the contradiction when using the second choice?",
+    "answer": "The string 0^p 1 0^p 1 is a bad choice because there exists a valid way to cut it up that satisfies all pumping conditions: letting x be just the single '1' in the middle, with v and y being zeros on either side, pumping v and y adds equal zeros on both sides and the string remains of the form ww, so no contradiction arises. For the string 0^p 1^p 0^p 1^p, condition 3 says |vxy| \u2264 p, meaning vxy cannot span two different blocks (e.g., two runs of zeros or two runs of ones) because those blocks are p apart. Therefore, when v and y are pumped, one block grows while the other does not, producing runs of unequal length, so the resulting string cannot be written as ww.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2580.0,
+        "end": 2625.0,
+        "hop": 1,
+        "description": "Instructor explains why 0^p 1 0^p 1 is a bad choice \u2014 it can be pumped and stay in language"
+      },
+      {
+        "start": 2665.0,
+        "end": 2730.0,
+        "hop": 2,
+        "description": "Instructor explains condition 3 creates contradiction for 0^p 1^p 0^p 1^p"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_072",
+      "mit_18404_lec05_chunk_075",
+      "mit_18404_lec05_chunk_076"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "F = ww",
+      "pumping lemma",
+      "string choice",
+      "condition 3",
+      "contradiction"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q028",
+    "video_id": "mit_18404_lec05",
+    "question": "In Lecture 5 of 18.404/6.840, what is the regular expression described by the instructor that represents all strings whose length is a multiple of three, and what does he say about strings of length one plus a multiple of three?",
+    "answer": "The instructor describes the expression (\u03a3 \u03a3 \u03a3)* as a regular expression representing all strings whose length is a multiple of three. He says that if you put a single \u03a3 in front of that expression, giving \u03a3(\u03a3\u03a3\u03a3)*, you get all strings whose length is one plus a multiple of three.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 210.0,
+        "end": 275.0,
+        "hop": 1,
+        "description": "Instructor explains (\u03a3 \u03a3 \u03a3)* as strings of length multiple of three and \u03a3(\u03a3\u03a3\u03a3)* for length one plus multiple of three"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_006"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "regular expression",
+      "string length",
+      "multiple of three",
+      "sigma star"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q029",
+    "video_id": "mit_18404_lec05",
+    "question": "In this lecture, the instructor explains how the Turing machine recognizing B = {a^k b^k c^k | k \u2265 0} implements the 'crossing off' of symbols. What specific mechanism within the Turing machine model is used to achieve this, rather than adding a special erasing capability?",
+    "answer": "The instructor explains that the Turing machine implements crossing off not by adding a special eraser or new capability, but by using an expanded tape alphabet that includes new 'crossed-off' symbols. When the machine crosses off an a, b, or c, it writes a special crossed-off version of that symbol in its place on the tape. This is a standard technique when designing Turing machines: adding extra symbols to the tape alphabet to represent modified or marked versions of input symbols.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 3720.0,
+        "end": 3790.0,
+        "hop": 1,
+        "description": "Instructor explains crossed-off symbols are added to tape alphabet rather than using an eraser"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_18404_lec05_chunk_102"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "Turing machine",
+      "tape alphabet",
+      "crossing off",
+      "crossed-off symbols",
+      "implementation"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_18404_lec05_q030",
+    "video_id": "mit_18404_lec05",
+    "question": "Does this lecture provide a proof that every context-free language is Turing-decidable, and if so, what is that proof?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "hard",
+    "answerable": false,
+    "key_concepts": [
+      "context-free languages",
+      "Turing-decidable",
+      "proof"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  }
+]

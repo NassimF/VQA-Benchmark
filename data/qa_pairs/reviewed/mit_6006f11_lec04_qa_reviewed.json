@@ -1,0 +1,432 @@
+[
+  {
+    "qa_id": "mit_6006f11_lec04_q005",
+    "question": "The lecture introduces build-max-heap and max-heapify as the two main heap operations on the blackboard. What precondition must hold for max-heapify to run correctly, and why does the build-max-heap algorithm start from index n/2 rather than n?",
+    "answer": "The precondition for max-heapify(A, i) is that the subtrees rooted at left(i) and right(i) must already be max-heaps. Build-max-heap starts from index n/2 rather than n because elements from index n/2+1 through n are all leaves of the tree, and leaves trivially satisfy the max-heap property since they have no children to compare against. Starting at n/2 ensures the precondition is met for every call, as the children of each node processed are already valid max-heaps.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1250.0,
+        "end": 1320.0,
+        "hop": 1,
+        "description": "Frame caption showing 'Max-Heapify(A,i): Assume that the trees rooted at left(i) and right(i) are max-heaps'"
+      },
+      {
+        "start": 1965.0,
+        "end": 2050.0,
+        "hop": 2,
+        "description": "Frame caption and transcript showing elements A[n/2+1..n] are all leaves, and build-max-heap starts at n/2"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec04_chunk_035",
+      "mit_6006f11_lec04_chunk_055"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "max-heapify precondition",
+      "build-max-heap",
+      "leaves",
+      "n/2 starting index"
+    ],
+    "video_id": "mit_6006f11_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec04_q007",
+    "question": "The lecture's blackboard shows the Heap Sort algorithm steps and a small example with values 4, 2, 1. How does the swap-and-discard strategy shown in the diagram avoid needing a separate extract_max procedure, and what is the overall time complexity of Heap Sort?",
+    "answer": "The swap-and-discard strategy works by swapping the root element (the maximum) with the last element in the heap array, then decrementing the heap size to effectively discard the maximum from the heap without needing to physically remove it from the array. In the example shown, 4 is swapped with 1 to give array [1,2,4], then 4 is discarded by shrinking heap size, leaving [1,2] as the heap. Max-heapify is then called on the new root to restore the max-heap property. The overall time complexity of Heap Sort is O(n log n) because build-max-heap is O(n) but the n iterations of swap plus max-heapify each cost O(log n).",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3165.0,
+        "end": 3240.0,
+        "hop": 1,
+        "description": "Frame caption showing diagram of binary trees with values 4,2,1 and transformation steps in heap sort"
+      },
+      {
+        "start": 3290.0,
+        "end": 3380.0,
+        "hop": 2,
+        "description": "Transcript explaining swap of top element with bottom element, discard by decrement, and overall O(n log n) complexity"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec04_chunk_087",
+      "mit_6006f11_lec04_chunk_089"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "heap sort",
+      "swap-and-discard",
+      "extract_max",
+      "O(n log n)",
+      "heap size decrement"
+    ],
+    "video_id": "mit_6006f11_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec04_q008",
+    "question": "According to the frame caption describing the heap array example on the blackboard, what does the 'An array visualized as a nearly complete binary tree' slide show about why the array cannot be a perfect binary tree?",
+    "answer": "The frame caption explains that the array has only 10 elements, and visualizing it as a binary tree produces a nearly complete but not perfect binary tree. To be a perfect (complete) binary tree, the array would need exactly 15 elements, which would fill all levels entirely. Because there are only 10 elements, the bottom level of the tree is not completely filled, making it a nearly complete binary tree rather than a perfect one.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 420.0,
+        "end": 500.0,
+        "hop": 1,
+        "description": "Frame caption showing 'Heap: An array visualized as a nearly complete binary tree' and transcript explaining 10 elements cannot form a perfect binary tree requiring 15 elements"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec04_chunk_012"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "nearly complete binary tree",
+      "perfect binary tree",
+      "heap array",
+      "10 elements"
+    ],
+    "video_id": "mit_6006f11_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec04_q009",
+    "question": "What text does the blackboard frame caption show written on the board describing the max-heapify operation in terms of what it corrects?",
+    "answer": "The blackboard frame caption shows the text 'max-heapify: Correct a single violation of the heap property in a subtree's root,' indicating that max-heapify is specifically designed to fix exactly one violation of the max-heap property located at the root of a given subtree, with the precondition that the subtrees below that root are already valid max-heaps.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1125.0,
+        "end": 1200.0,
+        "hop": 1,
+        "description": "Frame caption showing 'max-heapify: Correct a single violation of the heap property in a subtree's root' written on blackboard"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec04_chunk_032"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "max-heapify",
+      "single violation",
+      "subtree root",
+      "heap property"
+    ],
+    "video_id": "mit_6006f11_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec04_q012",
+    "question": "The lecture explains how build-max-heap uses max-heapify as a building block and why calling max-heapify in a specific order satisfies its precondition at every step. What is the calling order and why does it guarantee the precondition is always met?",
+    "answer": "Build-max-heap calls max-heapify for i from n/2 down to 1, processing nodes from the bottom of the tree upward toward the root. This order guarantees the precondition because when max-heapify is called on node i, it requires that the subtrees rooted at left(i) and right(i) are already max-heaps. Since the algorithm works bottom-up, by the time any non-leaf node is processed, all nodes below it have already been processed and their subtrees converted to valid max-heaps. Leaves (indices n/2+1 through n) are trivially max-heaps since they have no children.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1890.0,
+        "end": 1960.0,
+        "hop": 1,
+        "description": "Transcript presenting build-max-heap pseudocode: for i = n/2 downto 1 do max-heapify(A,i)"
+      },
+      {
+        "start": 2010.0,
+        "end": 2090.0,
+        "hop": 2,
+        "description": "Transcript explaining leaves are automatically max-heaps and bottom-up order satisfies precondition at each step"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec04_chunk_054",
+      "mit_6006f11_lec04_chunk_057"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "build-max-heap",
+      "bottom-up order",
+      "precondition",
+      "leaves as max-heaps",
+      "calling order"
+    ],
+    "video_id": "mit_6006f11_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec04_q015",
+    "question": "What is the exact space complexity of the heap data structure as presented in this lecture, and how does it compare to the space complexity of merge sort?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "easy",
+    "answerable": false,
+    "key_concepts": [
+      "space complexity",
+      "heap",
+      "merge sort"
+    ],
+    "video_id": "mit_6006f11_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006f11_lec04_q016",
+    "video_id": "mit_6006f11_lec04",
+    "question": "The lecture slide shown at the start of the course identifies this lecture as being taught by a specific instructor. Later, the blackboard shows the formula for the parent of node i in a heap. What is the instructor's name and what is that parent formula?",
+    "answer": "The instructor's name is Srini Devadas, as shown on the opening lecture slide for MIT 6.006 Fall 2011. The parent formula shown on the blackboard is parent(i) = i/2, meaning the parent of node i is found at index i divided by 2.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 0.0,
+        "end": 45.0,
+        "hop": 1,
+        "description": "Opening lecture slide identifying the course as 6.006 Fall 2011 taught by Srini Devadas"
+      },
+      {
+        "start": 580.0,
+        "end": 625.0,
+        "hop": 2,
+        "description": "Blackboard frame showing parent(i) = i/2, left(i) = 2i, right(i) = 2i+1 for heap as a tree"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec04_chunk_000",
+      "mit_6006f11_lec04_chunk_016"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "course metadata",
+      "heap parent formula",
+      "heap as tree"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006f11_lec04_q018",
+    "video_id": "mit_6006f11_lec04",
+    "question": "A frame caption early in the lecture describes a heap as 'an array visualized as a nearly complete binary tree.' Later, during the MAX-HEAPIFY example, a frame caption shows specific exchange steps. What two exchanges are listed on the board for MAX-HEAPIFY(A, 2) with heap-size 10?",
+    "answer": "The frame caption showing the MAX-HEAPIFY steps lists: first, Exchange A[2] with A[4], then Call MAX-HEAPIFY(A, 4), then Exchange A[4] with A[8], followed by no more calls. So the two exchanges are A[2] with A[4] and A[4] with A[8].",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 385.0,
+        "end": 430.0,
+        "hop": 1,
+        "description": "Frame caption showing heap defined as an array visualized as a nearly complete binary tree"
+      },
+      {
+        "start": 1475.0,
+        "end": 1530.0,
+        "hop": 2,
+        "description": "Frame caption showing MAX-HEAPIFY(A,2) steps: Exchange A[2] with A[4], Call MAX-HEAPIFY(A,4), Exchange A[4] with A[8], No more calls"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec04_chunk_011",
+      "mit_6006f11_lec04_chunk_044"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "heap definition",
+      "MAX-HEAPIFY procedure",
+      "array exchanges"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006f11_lec04_q023",
+    "video_id": "mit_6006f11_lec04",
+    "question": "What does the frame caption for the Heap Sort steps say about the condition of the new root after discarding a node from the heap?",
+    "answer": "According to the frame caption showing the Heap Sort steps on the blackboard, after discarding the node from the heap by decrementing the heap size, the new root may violate the max-heap property, but its children are max-heaps.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 3000.0,
+        "end": 3050.0,
+        "hop": 1,
+        "description": "Frame caption showing Heap Sort step: new root may violate max-heap but children are max-heaps"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec04_chunk_086"
+    ],
+    "question_type": "visual",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "heap sort",
+      "max-heap property violation",
+      "new root after swap"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006f11_lec04_q025",
+    "video_id": "mit_6006f11_lec04",
+    "question": "The lecturer states that the complexity of Max-Heapify is O(log n). What are the two aspects of the argument he gives to justify this, as explained in the transcript?",
+    "answer": "The lecturer gives two aspects: first, the heap is visualized as a nearly complete binary tree, so its height is bounded by log n, which means algorithms that go level by level achieve logarithmic complexity. Second, the key assumption is that the subtrees rooted at left(i) and right(i) are already max-heaps, which means Max-Heapify only needs to descend one path through the tree, taking a number of steps equal to the number of levels, which is logarithmic.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1680.0,
+        "end": 1720.0,
+        "hop": 1,
+        "description": "Lecturer explains the nearly complete binary tree visualization bounds height by log n"
+      },
+      {
+        "start": 1750.0,
+        "end": 1795.0,
+        "hop": 2,
+        "description": "Lecturer explains the key assumption that subtrees rooted at left(i) and right(i) are max-heaps is the precondition enabling O(log n)"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec04_chunk_048",
+      "mit_6006f11_lec04_chunk_049"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Max-Heapify complexity",
+      "nearly complete binary tree",
+      "precondition"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006f11_lec04_q027",
+    "video_id": "mit_6006f11_lec04",
+    "question": "Why does the build-max-heap algorithm start the loop at i = n/2 rather than i = n, according to the lecturer?",
+    "answer": "The lecturer explains that elements A[n/2+1] through A[n] are all leaves of the heap. Leaves automatically satisfy the max-heap property because they have no children to check, so there is no need to call max-heapify on them. Starting at i = n/2 skips all the leaves and begins with the lowest-level internal nodes that actually have children.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1890.0,
+        "end": 1930.0,
+        "hop": 1,
+        "description": "Lecturer explains starting at n/2 because leaves are automatically max-heaps"
+      },
+      {
+        "start": 1960.0,
+        "end": 2010.0,
+        "hop": 2,
+        "description": "Lecturer states elements A[n/2+1..n] are all leaves and leaves satisfy max-heap property trivially"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec04_chunk_054",
+      "mit_6006f11_lec04_chunk_055"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "build-max-heap loop start",
+      "leaves in heap",
+      "max-heap property"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006f11_lec04_q028",
+    "video_id": "mit_6006f11_lec04",
+    "question": "According to the lecturer, what is the total time complexity of Heap Sort and why is it not dominated by the build-max-heap step?",
+    "answer": "The total time complexity of Heap Sort is O(n log n). Even though build-max-heap runs in O(n) time, the algorithm then repeatedly calls max-heapify n times (once for each element extracted), and each max-heapify call takes O(log n) time, giving O(n log n) for that repeated phase. The O(n) build step is dominated by the O(n log n) extraction phase.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 3115.0,
+        "end": 3160.0,
+        "hop": 1,
+        "description": "Lecturer explains Heap Sort is O(n log n) because max-heapify is O(log n) called n times, even though build-max-heap is O(n)"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec04_chunk_089"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "heap sort complexity",
+      "build-max-heap",
+      "max-heapify repetition"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006f11_lec04_q029",
+    "video_id": "mit_6006f11_lec04",
+    "question": "According to the lecturer, in the context of the abstract data type taught in 6.006, what was different about how abstract data types were treated in the prerequisite course 6.005 compared to 6.006?",
+    "answer": "According to the lecturer, in 6.005 students saw the concept of abstract data types and the associated operations, but did not really spend a lot of time on asymptotic complexity or the efficiency of those operations. In 6.006, the course specifies the ADT and its set of operations and explicitly discusses whether those operations run in O(n) or O(n log n) complexity, comparing and contrasting different ADTs.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 155.0,
+        "end": 220.0,
+        "hop": 1,
+        "description": "Lecturer compares 6.005 and 6.006 treatment of abstract data types and asymptotic complexity"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006f11_lec04_chunk_004"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "abstract data type",
+      "asymptotic complexity",
+      "6.005 vs 6.006"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006f11_lec04_q030",
+    "video_id": "mit_6006f11_lec04",
+    "question": "What is the specific worst-case time complexity of the increase_key operation on a max-heap, and how does it compare to the extract_max operation?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "hard",
+    "answerable": false,
+    "key_concepts": [
+      "increase_key complexity",
+      "extract_max complexity",
+      "heap operations"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  }
+]

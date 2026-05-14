@@ -2,6 +2,10 @@
 
 ## 2026-05-14
 
+- docs: update visual QA percentage from 60% target to 55.6% actual (9da02c4)
+
+## 2026-05-14
+
 - docs: add post-evaluation reminder notes to Phase 9 and 10 (4083589)
 - docs: mark Phase 7.3 complete, update roadmap with final QA counts (2f06abe)
 
