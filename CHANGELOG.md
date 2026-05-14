@@ -2,6 +2,10 @@
 
 ## 2026-05-14
 
+- feat: Phase 9 placeholder scripts and results tracker (11c157b)
+
+## 2026-05-14
+
 - docs: update changelog through Phase 7.3 pre-regen fixes (097babb)
 
 ## 2026-05-14
