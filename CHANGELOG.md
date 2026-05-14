@@ -2,6 +2,10 @@
 
 ## 2026-05-14
 
+- docs: rewrite README for LectureBench submission (2f5e959)
+
+## 2026-05-14
+
 - feat: Phase 10 paper sections complete with placeholders (a63d353)
 
 ## 2026-05-14

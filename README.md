@@ -51,30 +51,58 @@ System requirements: NVIDIA A100 80 GB (for Qwen2-VL-7B frame captioning), `ffmp
 
 ---
 
-## Usage
+## Reproducing the Results from a Clean Checkout
 
-### Part 1 — End-to-end RAG demo
-
-```bash
-python run_part1.py --question "What is the geometric interpretation of SVD?"
-python run_part1.py --question "..." --video_id mit_18065_lec06
-python run_part1.py   # runs 3 hardcoded demo questions
-```
-
-### Part 2 — Full benchmark evaluation (both configs)
+Run these steps in order. Each step saves output that the next step reads.
+Estimated total time: ~10–15 GPU-hours (dominated by frame captioning).
 
 ```bash
+# 1. Download all 60 videos and VTT captions (~20–40 GB, several hours)
+python scripts/download_videos.py --all
+
+# 2. Parse VTT captions into segment JSON
+python scripts/parse_vtt.py --all
+
+# 3. Chunk transcripts into 45-second windows (10-second overlap)
+python scripts/build_chunks.py --all
+
+# 4. Extract frames (every 15s) and caption with Qwen2-VL-7B  [A100 required]
+python scripts/build_frame_captions.py --all --device cuda
+
+# 5. Ingest all chunks into both ChromaDB collections
+python scripts/build_index.py --all
+
+# 6. Build the benchmark  (requires data/qa_pairs/reviewed/ — see below)
+python scripts/build_benchmark.py
+python scripts/validate_benchmark.py
+
+# 7. Run full evaluation — both configs, all QA pairs
 python run_part2.py
-python run_part2.py --limit 20   # smoke test
+
+# 8. Reproduce paper tables from evaluation output
+python scripts/reproduce_tables.py
 ```
 
-Results saved to `data/benchmark/evaluation_results.json`.
+> **Note on the benchmark file:** `data/benchmark/benchmark_v1.json` is committed to the
+> repo. Steps 6–8 only need to be re-run if you regenerate the QA pairs. To use the
+> pre-built benchmark directly, skip to step 7.
 
-### Reproduce paper tables
+**The improvement being measured:** Config 2 (transcript + Qwen2-VL-7B frame captions)
+vs Config 1 (transcript-only) on visual-dependent questions (multi-hop-visual and visual
+types). `run_part2.py` prints a side-by-side table; the Δ column isolates the visual
+contribution under identical embedding infrastructure.
+
+---
+
+## Quick Demo (no GPU required)
 
 ```bash
-python scripts/reproduce_tables.py          # all tables
-python scripts/reproduce_tables.py --table 1
+# Runs 3 hardcoded questions against pre-built ChromaDB index
+python run_part1.py
+
+# Or ask your own question
+python run_part1.py --question "What is the SVD geometric interpretation?" \
+                    --video_id mit_18065_lec06
 ```
 
 ---
@@ -92,13 +120,11 @@ scripts/build_frame_captions.py → data/chunks/{video_id}_chunks_augmented.json
         ↓
 scripts/build_index.py      → chroma_db/   (two collections)
         ↓
-scripts/generate_qa.py      → data/qa_pairs/raw/
-        ↓
-scripts/review_qa.py        → data/qa_pairs/reviewed/
-        ↓
-scripts/build_benchmark.py  → data/benchmark/benchmark_v1.json
+ [benchmark already in repo: data/benchmark/benchmark_v1.json]
         ↓
 run_part2.py                → data/benchmark/evaluation_results.json
+        ↓
+scripts/reproduce_tables.py → paper tables (Tables 1, 2, 3)
 ```
 
 ---
