@@ -185,6 +185,16 @@ time under prompt variation. Reporting Kappa directly addresses this concern. PC
 statistical power for the paper's central comparison (visual vs non-visual, Config 1 vs
 Config 2). With 60 lectures × ≥10 pairs each, even 5 discarded lectures leaves ≥550 pairs
 — sufficient for the reported metrics. The discard threshold of <8 is chosen to avoid
+
+**Paper reminder — if final accepted count < 500:** Strengthen the count justification in
+`overleaf/assets/sections/benchmark.tex`. Add: our pairs-per-video density exceeds
+LongVidSearch (6.7/video), and the high curation cost of multi-hop temporally grounded
+visual annotation makes each pair more diagnostic than single-hop pairs in larger benchmarks
+(EduVidQA: 5,252 pairs, no multi-hop, no temporal span evaluation). Minimum acceptable for
+BMVC: ~500 pairs with ≥300 visual-dependent pairs to preserve the Config 1 vs Config 2
+statistical comparison.
+
+**Backing (continued):** The discard threshold of <8 is chosen to avoid
 lectures that would underweight the per-lecture type mix.
 
 ---
