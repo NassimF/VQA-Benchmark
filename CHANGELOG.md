@@ -2,6 +2,10 @@
 
 ## 2026-05-14
 
+- docs: update roadmap for no-discard policy and check_coverage step (2d5cde8)
+
+## 2026-05-14
+
 - feat: add coverage check script, remove lecture discard threshold (1c7c8ae)
 
 ## 2026-05-14
