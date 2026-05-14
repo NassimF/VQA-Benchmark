@@ -2,6 +2,10 @@
 
 ## 2026-05-14
 
+- docs: fix 8 discrepancies in phase 7.3 lit review report (8e1ebce)
+
+## 2026-05-14
+
 - docs: rewrite abstract following top-venue benchmark paper conventions (03a2893)
 
 ## 2026-05-14
