@@ -2,6 +2,10 @@
 
 ## 2026-05-14
 
+- docs: clarify RAGAS and Ho et al. as partial support in curation table (09ff92a)
+
+## 2026-05-14
+
 - docs: add LLM-only curation gap section to lit review (f5f00b6)
 
 ## 2026-05-14

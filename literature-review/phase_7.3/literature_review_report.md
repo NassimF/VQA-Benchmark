@@ -352,6 +352,28 @@ The table below documents the benchmark curation technique for every paper in th
 
 ---
 
+### What Supports LLM-Only Curation
+
+Despite the absence of a direct precedent, several findings from the literature collectively support using an LLM-only approach in Phase 7.3:
+
+**Ho et al. (2025) — partial support with known failure modes addressed.** Ho et al.'s central question was: *can an LLM judge replace a human annotator when scoring whether a model's answer is correct?* Their finding is nuanced: LLM judges achieve high agreement with humans on clear-cut accept/reject decisions, but diverge significantly on borderline cases — particularly when answers are partially correct or phrased differently from the reference. They also found LLMs tend to be over-lenient and sensitive to surface form (wording, synonyms).
+
+Phase 7.3 directly mitigates both failure modes Ho et al. identified:
+- **Borderline cases / surface form:** Atomic fact decomposition (FActScore method) breaks each answer into discrete verifiable claims rather than scoring holistic answer quality. A claim either appears in the chunk text or it does not — eliminating the partial-correctness ambiguity that caused most of Ho et al.'s human-LLM disagreements.
+- **Over-leniency / knowledge conflicts:** The cross-family C1 check (GPT-4o) catches cases where Claude accepts a claim based on parametric knowledge rather than chunk evidence (Lee et al., 2026), directly addressing the systematic over-leniency Ho et al. observed.
+
+This framing turns Ho et al.'s identified limitations into a justification for two specific design choices in Phase 7.3, rather than a blanket citation of the paper.
+
+**Baysan et al. (Frontiers 2025) and DeCE/Yu et al. (EMNLP 2025) — peer-reviewed support for structured binary evaluation.** Both papers demonstrate that LLM judges achieve high human agreement (~90% and r=0.78 respectively) specifically on structured, criterion-based Pass/Fail tasks — the same format Phase 7.3 uses. The key condition: the task must be well-defined and verifiable against a reference, not open-ended. Chunk text provides exactly that reference.
+
+**RAGAS (Es et al., 2023) — LLM faithfulness scoring without human oversight.** RAGAS's faithfulness metric performs the same operation as Phase 7.3's C1 check (LLM verifies answer claims against retrieved context) and is widely deployed without human review in production RAG systems. While not a curation gate, it demonstrates the mechanism is reliable enough for consequential automated decisions.
+
+Together, these results support the following framing in the paper:
+
+> "No prior work uses LLM-only judgment as a permanent benchmark curation gate. However, Ho et al. (2025) validate that LLM judges closely approximate human decisions on clear-cut extractive QA tasks, and Baysan et al. (2025) and Yu et al. (2025) confirm high human agreement for structured Pass/Fail criteria. Phase 7.3 targets exactly this setting — verifiable claim-level checks against chunk text — and mitigates Ho et al.'s identified failure modes through atomic fact decomposition and cross-family C1 verification. A human spot-check (§D8b) provides additional validation."
+
+---
+
 ### Why LLM-Only Curation Is Still Defensible in Phase 7.3
 
 Despite the absence of direct precedent, the Phase 7.3 approach is structurally defensible for the following reason:
