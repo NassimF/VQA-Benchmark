@@ -80,7 +80,7 @@ a# Tech Stack
 **Status:** Resolved via Phase 7.3 literature review (`literature-review/phase_7.3/`).
 See `specs/2026-05-12-llm-review/requirements.md` for all locked decisions.
 
-**Decision: Claude Sonnet 4.6 primary reviewer + GPT-4o cross-family C1 check. No human review. No span tightening.**
+**Decision: Claude Sonnet 4.6 primary reviewer + GPT-4o cross-family C1 check. No span tightening. Human spot-check (~60–70 pairs, Cohen's κ) recommended post-run as validation (D8b), not as part of the curation gate.**
 
 - Same-model judging shows no self-preference bias for structured QA (Ho et al., 2025)
 - G-Eval form-filling rubric reduces SPB by 31.5% (Yang et al., 2026)

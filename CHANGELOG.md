@@ -2,6 +2,10 @@
 
 ## 2026-05-14
 
+- docs: remove duplicate CALCE entry from main Paper Dictionary (896d25c)
+
+## 2026-05-14
+
 - docs: add missing URLs and fix venues in main Paper Dictionary (ee6b9ff)
 
 ## 2026-05-14

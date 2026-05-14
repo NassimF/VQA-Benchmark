@@ -4,7 +4,8 @@
 
 Filter 900 raw LLM-drafted QA pairs (15/lecture × 60 lectures) into a final reviewed
 set of 720 accepted pairs (12/lecture × 60 lectures) using an automated Claude Sonnet 4.6
-reviewer. No human review of any kind. No span tightening.
+reviewer. No span tightening. A lightweight human spot-check (D8b) is recommended after
+the full run to validate the curation gate — see D8b for protocol.
 
 **Input:** `data/qa_pairs/raw/{video_id}_qa_raw.json`
 **Output:** `data/qa_pairs/reviewed/{video_id}_qa_reviewed.json`
@@ -52,8 +53,8 @@ Criterion 3 — Question Type Accuracy
 
 **Backing:** G-Eval (Liu et al., 2023) — decomposing evaluation into named criteria with
 step-by-step chain-of-thought before scoring achieves Spearman 0.514 with human judgments
-vs BLEU/ROUGE. Prometheus (Kim et al., 2023) — task-specific rubrics achieve Pearson 0.897
-with human evaluators, matching GPT-4. Binary PASS/FAIL (rather than 1–5 scale) is
+vs BLEU/ROUGE. Prometheus (Kim et al., ICLR 2024) — task-specific rubrics achieve Pearson
+0.897 with human evaluators, matching GPT-4. Binary PASS/FAIL (rather than 1–5 scale) is
 sufficient because Phase 7.3 output is an accept/reject decision, not a quality ranking.
 
 ### D3 — Multi-hop adjacency: ≥70s span gap required
@@ -121,7 +122,13 @@ as primary; tIoU@0.5 as secondary with limitation footnote; do not report tIoU@0
 
 ### D8 — Regeneration: 1 retry with failure-aware constraint carry-forward
 
-When a lecture falls below the floor after first review, regenerate only the rejected types
+**Update 2026-05-13:** After the full run (398/900 accepted, 56% rejection rate, 53 lectures
+below floor), type-targeted regeneration was replaced by **full regeneration** — regenerate
+all 15 pairs fresh per lecture below floor. The broad failure distribution across all question
+types and lectures makes type-targeted regeneration impractical. Failure-aware constraint
+carry-forward remains in effect.
+
+When a lecture falls below the floor after first review, regenerate all 15 pairs fresh
 with failure-specific constraints appended to the prompt.
 
 | Criterion failed | Constraint to add in regeneration prompt |
@@ -176,7 +183,7 @@ lectures that would underweight the per-lecture type mix.
 
 ## Out of Scope
 
-- Human review of any kind
+- Automated human review in the curation loop (D8b spot-check is post-hoc validation, not part of the accept/reject gate)
 - Span tightening (deferred to future work per Q6)
 - Phase 7.5 span precision audit (separate phase, runs after 7.4)
 - Phase 8 evaluation (separate phase)
