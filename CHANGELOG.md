@@ -2,6 +2,10 @@
 
 ## 2026-05-14
 
+- docs: add end-to-end reproduction steps to README (034db40)
+
+## 2026-05-14
+
 - docs: rewrite README for LectureBench submission (2f5e959)
 
 ## 2026-05-14
