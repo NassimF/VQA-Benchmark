@@ -2,6 +2,10 @@
 
 ## 2026-05-14
 
+- feat: Phase 7.4 build/validate benchmark, 810 final QA pairs (41e9c7a)
+
+## 2026-05-14
+
 - docs: update visual QA percentage from 60% target to 55.6% actual (9da02c4)
 
 ## 2026-05-14
