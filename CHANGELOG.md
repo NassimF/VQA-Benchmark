@@ -2,6 +2,11 @@
 
 ## 2026-05-14
 
+- docs: add post-evaluation reminder notes to Phase 9 and 10 (4083589)
+- docs: mark Phase 7.3 complete, update roadmap with final QA counts (2f06abe)
+
+## 2026-05-14
+
 - docs: add paper figures/tables and failure case example (451708d)
 
 ## 2026-05-14
