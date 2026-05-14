@@ -368,26 +368,11 @@ This framing turns Ho et al.'s identified limitations into a justification for t
 
 **RAGAS (Es et al., 2023) — LLM faithfulness scoring without human oversight.** RAGAS's faithfulness metric performs the same operation as Phase 7.3's C1 check (LLM verifies answer claims against retrieved context) and is widely deployed without human review in production RAG systems. While not a curation gate, it demonstrates the mechanism is reliable enough for consequential automated decisions.
 
+**Chunk text as local ground truth — why Phase 7.3 fits this setting.** Every QA pair in LectureBench is generated from a specific set of transcript chunks. The reviewer is not scoring open-ended generation quality; it is performing verifiable consistency checks against those chunks: does each answer claim appear in the cited text (C1), are the cited spans non-adjacent (C2), does the question type match the evidence structure (C3). The chunk text acts as a locally scoped ground truth, making Phase 7.3 structurally identical to extractive QA evaluation — exactly the setting where the papers above show the strongest LLM-judge reliability.
+
 Together, these results support the following framing in the paper:
 
-> "No prior work uses LLM-only judgment as a permanent benchmark curation gate. However, Ho et al. (2025) validate that LLM judges closely approximate human decisions on clear-cut extractive QA tasks, and Baysan et al. (2025) and Yu et al. (2025) confirm high human agreement for structured Pass/Fail criteria. Phase 7.3 targets exactly this setting — verifiable claim-level checks against chunk text — and mitigates Ho et al.'s identified failure modes through atomic fact decomposition and cross-family C1 verification. A human spot-check (§D8b) provides additional validation."
-
----
-
-### Why LLM-Only Curation Is Still Defensible in Phase 7.3
-
-Despite the absence of direct precedent, the Phase 7.3 approach is structurally defensible for the following reason:
-
-**Chunk text as local ground truth.** In LectureBench, every QA pair is generated from a specific set of transcript chunks. The reviewer's task is not to assess open-ended generation quality (where no ground truth exists) but to verify that:
-- Each factual claim in the answer is explicitly present in the cited chunk text (C1 — atomically verified).
-- The cited spans are temporally non-adjacent (C2 — deterministically checkable from timestamps).
-- The question type matches the evidence structure in the cited chunks (C3 — structural check).
-
-These checks are **verifiable against the chunk text itself**, which acts as a locally scoped ground truth. This is structurally identical to extractive QA evaluation — the task where peer-reviewed evidence most strongly supports LLM judges (Baysan et al., Frontiers 2025: ~90% agreement with humans on Pass/Fail structured tasks; DeCE/Yu et al., EMNLP 2025: decomposed criteria achieve r=0.78 with expert judgments vs. r=0.35 for pointwise scoring).
-
-The key distinction: Phase 7.3 is not generating subjective quality scores — it is performing verifiable consistency checks between an answer and a source text. This is a less ambiguous task than open-ended generation evaluation, reducing the risk of LLM hallucination or bias in the curation decision.
-
-An additional safeguard is the cross-family C1 check (Claude Sonnet 4.6 + GPT-4o): the most error-prone criterion (factual correctness) is verified by two models from different training lineages, directly addressing the knowledge-conflict failure mode identified by Lee et al. (2026).
+> "No prior work uses LLM-only judgment as a permanent benchmark curation gate. However, Ho et al. (2025) validate that LLM judges closely approximate human decisions on clear-cut extractive QA tasks, and Baysan et al. (2025) and Yu et al. (2025) confirm high human agreement for structured Pass/Fail criteria. In Phase 7.3, transcript chunk text serves as a locally scoped ground truth, making the curation task structurally equivalent to extractive QA evaluation. Phase 7.3 additionally mitigates Ho et al.'s identified failure modes through atomic fact decomposition (FActScore) and cross-family C1 verification (GPT-4o). A human spot-check (§D8b) provides final validation."
 
 ---
 
