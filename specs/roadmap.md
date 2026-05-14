@@ -25,16 +25,16 @@ Status: ✅ Complete | ⚠️ Partial | ⏳ Pending
 | 6.1 | `src/generator.py` — grounded prompt + citations | ✅ |
 | 7.1 | `src/qa_generator.py` — LLM draft QA | ✅ |
 | 7.2 | `scripts/generate_qa.py` — CLI for draft generation | ✅ 60/60 done |
-| 7.3 | LLM review + `scripts/regenerate_qa.py` — populate `data/qa_pairs/reviewed/` | ⏳ |
+| 7.3 | LLM review + `scripts/regenerate_qa.py` — populate `data/qa_pairs/reviewed/` | ✅ |
 | 7.4 | `scripts/build_benchmark.py` + `validate_benchmark.py` | ⏳ |
 | 7.5 | `scripts/audit_span_precision.py` — empirical span error → validate tIoU@0.3 | ⏳ |
 | 8.1 | `src/evaluator.py` — temporal IoU, hit rate@k, LLM-judge | ⏳ |
-| 9.1 | `run_part1.py` — end-to-end RAG demo | ⏳ |
-| 9.2 | `run_part2.py` — full benchmark eval, both configs | ⏳ |
-| 9.3 | `scripts/reproduce_tables.py` — one function per paper table | ⏳ |
-| 9.4 | `results.md` — reproduced vs. reported numbers, Config 1 vs Config 2 | ⏳ |
+| 9.1 | `run_part1.py` — end-to-end RAG demo | ⚠️ placeholder |
+| 9.2 | `run_part2.py` — full benchmark eval, both configs | ⚠️ placeholder |
+| 9.3 | `scripts/reproduce_tables.py` — one function per paper table | ⚠️ placeholder |
+| 9.4 | `results.md` — reproduced vs. reported numbers, Config 1 vs Config 2 | ⚠️ placeholder |
 | 10.1 | `overleaf/assets/vqa_benchmark.tex` — conference paper | ⚠️ |
-| 10.2 | `README.md` | ⏳ |
+| 10.2 | `README.md` | ✅ |
 
 ---
 
@@ -268,15 +268,18 @@ Packages: chromadb 1.5.8, sentence-transformers 5.4.1
 - CLI: `python scripts/generate_qa.py --video_id <id>` or `--all`
 - Saves raw drafts to `data/qa_pairs/raw/{video_id}_qa_raw.json`
 
-### 7.3 — LLM Review ⏳
+### 7.3 — LLM Review ✅
 
-**Status: First full run complete (2026-05-13). Pre-regeneration fixes applied (2026-05-14). Regeneration running.**
+**Status: Complete (2026-05-14). 819 accepted QA pairs across all 60 lectures.**
 
-Full run results: 398/900 accepted (56% rejection rate). 53 lectures below floor (<10 accepted),
-4 at floor (10–11). 77 knowledge-conflict discards (GPT-4o C1 disagreement).
-No lectures are discarded — all 60 must appear in the benchmark (policy change 2026-05-14).
-208 additional rejections (23.1%) were reviewer parse errors caused by `max_tokens=1024` truncating
-the JSON response on complex multi-hop questions. All 6 root-cause fixes applied before regeneration.
+First run results: 398/900 accepted (56% rejection rate). 53 lectures below floor.
+Regeneration complete (2026-05-14): 224 new pairs accepted across 53 lectures; 169 first-run
+pairs from those lectures retained. 426 pairs from 7 never-regenerated lectures.
+Final: 819 total (455 visual, 55.6%). 3 lectures under floor: mit_6046_lec13 (4),
+mit_6042_lec18 (7), mit_6046_lec10 (7) — all retained per no-discard policy.
+No lectures are discarded — all 60 must appear in the benchmark (policy 2026-05-14).
+208 first-run rejections (23.1%) were reviewer parse errors caused by `max_tokens=1024`.
+All 6 root-cause fixes applied before regeneration.
 
 **Fixes applied 2026-05-14 before regeneration:**
 

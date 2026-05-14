@@ -2,6 +2,10 @@
 
 ## 2026-05-14
 
+- docs: add paper figures/tables and failure case example (451708d)
+
+## 2026-05-14
+
 - docs: update roadmap for no-discard policy and check_coverage step (2d5cde8)
 
 ## 2026-05-14
