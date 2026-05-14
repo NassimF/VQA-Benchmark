@@ -325,6 +325,71 @@ Phase 8 uses an LLM judge to score generated answers on a 1–5 scale for answer
 
 ---
 
+## LLM-Only Benchmark Curation: Literature Gap and Justification Strategy
+
+### Finding: No Peer-Reviewed Precedent for LLM-Only Benchmark Curation
+
+A systematic review of all 26 papers in this literature review reveals that **none of them use an LLM-only approach for benchmark curation** — that is, for deciding algorithmically which QA pairs are accepted into a dataset without human involvement. Every paper in the dictionary falls into one of two categories:
+
+1. **Output scoring against existing ground truth** — LLM judges score model-generated answers against a pre-existing reference (G-Eval, FActScore, RAGAS, Prometheus, Baysan et al., DeCE, etc.). Ground truth was already established by humans before the LLM is involved.
+2. **Human-curated or hybrid-curated benchmarks** — The benchmark itself is assembled by humans, often with LLM assistance for adversarial question generation or consistency filtering, followed by human verification (EduVidQA, BRIDGE, VideoZeroBench, PCFJudge).
+
+The table below documents the benchmark curation technique for every paper in the literature review that is most structurally similar to LectureBench (video QA, long-document QA, or multi-hop factoid benchmarks):
+
+| Paper | Venue | QA Source | Curation Technique | Human Review? |
+|---|---|---|---|---|
+| EduVidQA (DAIR-IIT Delhi, 2025) | EMNLP 2025 | GPT-4o generates questions from lecture transcripts | GPT-4o adversarial filtering + human spot-checks on sampled pairs | Yes — human spot-check |
+| BRIDGE (Xiang et al., 2026) | arXiv 2026 | Human annotators create multi-hop chains over scientific papers | Human annotation throughout; LLM used only for step-level evidence alignment checks | Yes — fully human |
+| VideoZeroBench (2026) | arXiv 2026 | Human experts write questions over video clips | Human expert annotation; LLM not used in curation | Yes — fully human |
+| FActScore (Min et al., 2023) | EMNLP 2023 | Wikipedia passages as ground truth for biography generation | Human annotation of atomic facts; LLM verifies claims against human-labeled facts | Yes — human ground truth |
+| RAGAS (Es et al., 2023) | arXiv 2023 | LLM generates QA pairs from retrieved context | LLM faithfulness + context precision scoring; no human curation gate | No — LLM-only scoring, but pairs not filtered into a curated benchmark |
+| Ho et al. (2025) | arXiv preprint | LLM generates QA from documents | LLM judge scores answers; no benchmark curation (evaluation only) | No — but preprint only; evaluation not curation |
+| PCFJudge (Huang et al., 2026) | arXiv 2026 | Existing factuality benchmarks (FELM, FacTool) | Human-constructed benchmarks; PCFJudge only re-evaluates model outputs against them | Yes — human-built benchmarks |
+| Prometheus (Kim et al., 2024) | ICLR 2024 | Human-written feedback rubrics | Human feedback used to train evaluator; no LLM-only benchmark gate | Yes — human rubrics |
+| G-Eval (Liu et al., 2023) | EMNLP 2023 | SummEval, QAGS (human-annotated NLG benchmarks) | Human-annotated ground truth; G-Eval scores outputs against it | Yes — human ground truth |
+
+**Conclusion:** No paper in this review — and to the best of our knowledge, no published, peer-reviewed work — uses an LLM as the sole gating mechanism to decide which QA pairs enter a benchmark dataset.
+
+---
+
+### Why LLM-Only Curation Is Still Defensible in Phase 7.3
+
+Despite the absence of direct precedent, the Phase 7.3 approach is structurally defensible for the following reason:
+
+**Chunk text as local ground truth.** In LectureBench, every QA pair is generated from a specific set of transcript chunks. The reviewer's task is not to assess open-ended generation quality (where no ground truth exists) but to verify that:
+- Each factual claim in the answer is explicitly present in the cited chunk text (C1 — atomically verified).
+- The cited spans are temporally non-adjacent (C2 — deterministically checkable from timestamps).
+- The question type matches the evidence structure in the cited chunks (C3 — structural check).
+
+These checks are **verifiable against the chunk text itself**, which acts as a locally scoped ground truth. This is structurally identical to extractive QA evaluation — the task where peer-reviewed evidence most strongly supports LLM judges (Baysan et al., Frontiers 2025: ~90% agreement with humans on Pass/Fail structured tasks; DeCE/Yu et al., EMNLP 2025: decomposed criteria achieve r=0.78 with expert judgments vs. r=0.35 for pointwise scoring).
+
+The key distinction: Phase 7.3 is not generating subjective quality scores — it is performing verifiable consistency checks between an answer and a source text. This is a less ambiguous task than open-ended generation evaluation, reducing the risk of LLM hallucination or bias in the curation decision.
+
+An additional safeguard is the cross-family C1 check (Claude Sonnet 4.6 + GPT-4o): the most error-prone criterion (factual correctness) is verified by two models from different training lineages, directly addressing the knowledge-conflict failure mode identified by Lee et al. (2026).
+
+---
+
+### Recommended Human Spot-Check (D8b)
+
+To close the remaining gap — that no peer-reviewed paper directly validates LLM-only curation — a lightweight human spot-check is recommended:
+
+**Protocol:**
+- Randomly sample **60–70 QA pairs** from the final accepted set (≈ 1 pair per lecture, covering all question types proportionally).
+- For each sampled pair, a human annotator independently applies the same three-criterion rubric (C1/C2/C3) using the cited chunk text.
+- Compute **Cohen's Kappa** between human decisions and LLM decisions on this sample.
+- Report Kappa in the paper's methodology section. Target: κ ≥ 0.75 (substantial agreement).
+
+**Why 60–70 pairs?** At n=60–70, Cohen's Kappa has a 95% confidence interval of approximately ±0.13 at κ=0.80 (Wilson interval). This is sufficient precision to report a credible agreement figure in a conference paper. Sampling more than ~100 pairs yields diminishing returns in CI precision and is disproportionate to the scale of a single-submission benchmark paper.
+
+**Cost and effort:** Each pair requires ~3–5 minutes of human review (reading the chunk text, checking the three criteria). At 70 pairs, total effort is approximately 3.5–6 hours — feasible for a single annotator session.
+
+**Reporting template for the paper:**
+> "To validate the LLM-based curation approach, we randomly sampled 67 accepted QA pairs (≈1 per lecture) and applied the same three-criterion rubric manually. Cohen's Kappa between human and LLM decisions was κ = [VALUE] (C1: [VALUE], C2: [VALUE], C3: [VALUE]), indicating [substantial/near-perfect] agreement and supporting the reliability of the automated curation gate."
+
+If κ < 0.70, escalate: re-review all rejected pairs for the failing criterion manually and adjust the prompt accordingly before the final benchmark release.
+
+---
+
 ## Summary of Decisions
 
 | Question | Decision | Key Papers |

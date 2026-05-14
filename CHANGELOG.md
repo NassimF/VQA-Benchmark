@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-05-14
+
+- docs: update lit review Q1-Q6 with peer-reviewed citations (c257293)
+
 ## 2026-05-13
 
 - feat: add Phase 7.3 reviewer tests, 8/8 passing (Group 4) (f19f047)
