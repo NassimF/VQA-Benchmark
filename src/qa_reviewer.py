@@ -82,7 +82,7 @@ class QAReviewer:
     def _call_claude(self, system_prompt: str, user_prompt: str) -> str:
         response = self._anthropic.messages.create(
             model=self._cfg.primary_model,
-            max_tokens=1024,
+            max_tokens=4096,
             temperature=self._cfg.temperature,
             system=system_prompt,
             messages=[{"role": "user", "content": user_prompt}],

@@ -128,14 +128,22 @@ all 15 pairs fresh per lecture below floor. The broad failure distribution acros
 types and lectures makes type-targeted regeneration impractical. Failure-aware constraint
 carry-forward remains in effect.
 
+**Update 2026-05-14:** Root-cause analysis of first-run failures identified 6 fixes applied
+before regeneration. Key finding: 208/900 (23.1%) rejections were reviewer parse errors caused
+by `max_tokens=1024` truncating Claude's JSON response on complex multi-hop questions (now 4096).
+Additional generator fixes: span gap formula corrected to start-to-start ≥70s, frame caption
+marker pre-check added, answer atomicity rule added. Regeneration uses temperature=0.9 and
+qa_id offset q016–q030 to avoid collision with accepted first-run pairs.
+
 When a lecture falls below the floor after first review, regenerate all 15 pairs fresh
-with failure-specific constraints appended to the prompt.
+with failure-specific constraints appended to the prompt. Constraints injected when the
+criterion accounts for ≥30% of that lecture's rejections.
 
 | Criterion failed | Constraint to add in regeneration prompt |
 |---|---|
-| Criterion 1 — Correctness | Standard regeneration; no extra constraint |
-| Criterion 2 — Span plausibility | "ground_truth_spans must be ≥70s apart (≥2 chunk indices apart)" |
-| Criterion 3 — Type accuracy | Explicit type reminder (e.g. "multi-hop-visual requires ≥2 non-adjacent spans with ≥1 span citing a frame caption") |
+| Criterion 1 — Correctness | Atomicity constraint: every claim must trace to specific chunk text |
+| Criterion 2 — Span plausibility | "ground_truth_spans must be ≥70s apart (start-to-start)" |
+| Criterion 3 — Type accuracy | Explicit type reminder + frame caption marker check |
 
 Maximum 1 retry per lecture. If still below floor after retry, discard the lecture.
 

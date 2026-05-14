@@ -25,7 +25,7 @@ Status: ✅ Complete | ⚠️ Partial | ⏳ Pending
 | 6.1 | `src/generator.py` — grounded prompt + citations | ✅ |
 | 7.1 | `src/qa_generator.py` — LLM draft QA | ✅ |
 | 7.2 | `scripts/generate_qa.py` — CLI for draft generation | ✅ 60/60 done |
-| 7.3 | LLM review — populate `data/qa_pairs/reviewed/` | ⏳ |
+| 7.3 | LLM review + `scripts/regenerate_qa.py` — populate `data/qa_pairs/reviewed/` | ⏳ |
 | 7.4 | `scripts/build_benchmark.py` + `validate_benchmark.py` | ⏳ |
 | 7.5 | `scripts/audit_span_precision.py` — empirical span error → validate tIoU@0.3 | ⏳ |
 | 8.1 | `src/evaluator.py` — temporal IoU, hit rate@k, LLM-judge | ⏳ |
@@ -270,11 +270,26 @@ Packages: chromadb 1.5.8, sentence-transformers 5.4.1
 
 ### 7.3 — LLM Review ⏳
 
-**Status: First full run complete (2026-05-13). Regeneration in progress.**
+**Status: First full run complete (2026-05-13). Pre-regeneration fixes applied (2026-05-14). Regeneration running.**
 
 Full run results: 398/900 accepted (56% rejection rate). 53 lectures below floor (<10 accepted),
-40 at discard risk (<8). 77 knowledge-conflict discards (GPT-4o C1 disagreement).
-Full regeneration underway for all lectures below floor (all 15 pairs regenerated fresh).
+4 at floor (10–11). 77 knowledge-conflict discards (GPT-4o C1 disagreement).
+208 additional rejections (23.1%) were reviewer parse errors caused by `max_tokens=1024` truncating
+the JSON response on complex multi-hop questions. All 6 root-cause fixes applied before regeneration.
+
+**Fixes applied 2026-05-14 before regeneration:**
+
+| # | Fix | File |
+|---|-----|------|
+| 1 | Span gap formula corrected: `\|span_A.start - span_B.start\| ≥ 70s` (was end-to-start 60s) | `src/qa_generator.py` |
+| 2 | Frame caption marker pre-check: confirm `[frame caption:` present before assigning visual types | `src/qa_generator.py` |
+| 3 | Answer atomicity rule added: every claim must trace to specific chunk text | `src/qa_generator.py` |
+| 4 | qa_id offset: regenerated pairs use q016–q030 to avoid collision with first-run ids | `scripts/regenerate_qa.py` |
+| 5 | Temperature 0.9 + diversity instruction for regeneration (was 0.0 → identical pairs) | `scripts/regenerate_qa.py` |
+| 6 | Reviewer max_tokens 1024 → 4096 (root cause of 23.1% parse-error rejections) | `src/qa_reviewer.py` |
+
+Regeneration script: `scripts/regenerate_qa.py --all` — targets all 53 below-floor lectures,
+injects failure-aware constraints (C1/C2/C3 blocks) based on each lecture's per-criterion reject rate.
 See `specs/2026-05-12-llm-review/` for full spec and locked decisions.
 
 Review method: Claude Sonnet 4.6 (all 3 criteria) + GPT-4o C1 cross-check (knowledge-conflict

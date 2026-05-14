@@ -2,6 +2,10 @@
 
 ## 2026-05-14
 
+- docs: add question descriptions to all Q sections in phase 7.3 lit review (7b52d68)
+
+## 2026-05-14
+
 - docs: downgrade D8b human spot-check to optional note in all specs (6e62c34)
 
 ## 2026-05-14

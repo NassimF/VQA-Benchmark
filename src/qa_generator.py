@@ -67,15 +67,24 @@ SCHEMA — each item must be a JSON object with EXACTLY these fields:
 
 FIELD RULES:
 - "multi-hop-visual": num_hops ≥ 2, ≥2 ground_truth_spans from non-adjacent chunks
-  (span[1].start - span[0].end > 60s), ≥1 span's answer relies on a [frame caption]
-- "visual": num_hops = 1, answer must come from [frame caption] content, not transcript text
-- "multi-hop": num_hops ≥ 2, ≥2 spans from non-adjacent chunks, transcript-only
+  (|span_A.start - span_B.start| ≥ 70s for every pair of hops), ≥1 cited chunk whose
+  text contains a literal "[frame caption:" marker. Before assigning this type, confirm
+  the marker is present in the chunk text provided above.
+- "visual": num_hops = 1, answer must come from [frame caption] content, not transcript text.
+  Confirm a "[frame caption:" marker exists in the cited chunk before assigning this type.
+- "multi-hop": num_hops ≥ 2, ≥2 spans from non-adjacent chunks
+  (|span_A.start - span_B.start| ≥ 70s for every pair of hops), transcript-only
 - "text": num_hops = 1, lecture-specific fact (reject if answerable without retrieval)
 - "unanswerable": num_hops = 1, answerable = false, ground_truth_spans = [], source_chunk_ids = []
 - difficulty: multi-hop-visual → "hard"; multi-hop → "medium" or "hard"; others → "easy" or "medium"
-- ground_truth_spans: use chunk start/end times as float seconds
+- ground_truth_spans: use chunk start/end times as float seconds; list hops in temporal order
+  (ascending by start time)
 
-REJECTION CRITERIA (generate questions that pass all of these):
+ANSWER QUALITY RULES:
+- Decompose each answer into its atomic factual claims before writing it. Every claim must
+  trace directly to a specific sentence or [frame caption] in the cited chunk text. Do not
+  include any claim that is not explicitly stated in the chunk — no inference, no background
+  knowledge, no general facts about the topic.
 - Answer must be ≥ 10 words
 - Answer must NOT appear verbatim inside the question
 - "text" questions must be lecture-specific — cannot be answered by general knowledge
