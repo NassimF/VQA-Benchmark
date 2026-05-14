@@ -2,6 +2,10 @@
 
 ## 2026-05-14
 
+- docs: add Venue/Peer-Reviewed column to phase 7.3 Paper Dictionary (e9b1589)
+
+## 2026-05-14
+
 - docs: fix 8 discrepancies in phase 7.3 lit review report (8e1ebce)
 
 ## 2026-05-14
