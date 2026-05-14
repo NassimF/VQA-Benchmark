@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6042_lec02_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the base case P(0) equals 0 and that the inductive step algebraically yields (n+1)(n+2)/2, but neither of these specific details is explicitly supported in the cited chunk text (chunk_048 cuts off before showing the base case verification or the algebraic manipulation)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (21s\u201345s) aligns with chunk_036 and hop 2 (1710s\u20131755s) aligns with chunk_048; the inter-hop gap of ~1689 seconds far exceeds the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both cited chunks contain [frame caption: ...] markers and the two spans are non-adjacent (1689s apart), satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: specific claims about the base case P(0)=0 and the algebraic derivation of (n+1)(n+2)/2 in the inductive step are not explicitly supported by the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec02_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_005 contains the frame caption stating 'assume P is False (i.e., \u00acP is True) and then use that hypothesis to derive a contradiction'; chunk_013 supports the claims about 2b\u00b2=a\u00b2, a being even, 4|a\u00b2, 4|2b\u00b2, 2|b\u00b2, and b being even, with the contradiction that both a and b are even (contradicting lowest terms assumption)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (175\u2013220s) aligns with chunk_005 (a 45s window around ~175\u2013220s), and hop 2 (370\u2013430s) aligns with chunk_013; the inter-hop gap is |175 - 370| = 195 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans (chunks 005 and 013, ~195s apart) and chunk_005 contains multiple [frame caption: ...] markers showing the proof-by-contradiction definition on the blackboard."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims: the proof assumes \u221a2 is rational (\u00acP), derives a contradiction by showing both a and b must be even, contradicting the assumption that a/b is in lowest terms."
+  },
+  {
+    "qa_id": "mit_6042_lec02_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The claim that '2+' is 'closer to 1.8' is not supported by any cited chunk text, and the claim that 'the error is introduced right at the start by drawing it wrong' is not explicitly stated in the chunks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align with their respective chunk boundaries, and the inter-hop gap of ~260 seconds exceeds the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans and both cited chunks contain [frame caption: ...] markers, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer contains unsupported atomic claims (the '1.8' value and 'error introduced right at the start by drawing it wrong') not found in the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec02_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All major atomic claims are supported by the cited chunks: the theorem statement, inductive step structure, the rewriting into (n\u00b3-n)+3n\u00b2+3n, and the use of the inductive hypothesis to conclude divisibility by 3."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops are separated by 245 seconds (well above the 70s threshold), and the content of both chunks clearly matches the described spans; the inter-hop gap requirement is satisfied."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text confirms the expansion of (n+1)\u00b3-(n+1) and the use of the inductive hypothesis P(n) to show divisibility by 3 for each term."
+  },
+  {
+    "qa_id": "mit_6042_lec02_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims 'dot-dot-dot notation obscured this empty overlap' and that 'the two subsets share no common horse to bridge the color equality,' but neither of these specific claims is explicitly supported by the cited chunk text; chunk_096 only states that P1 implies P2 was not proved, without mentioning dot-dot-dot notation or the empty overlap mechanism."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops are separated by ~369 seconds (well above the 70s threshold), and both spans are plausibly associated with their respective source chunks."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop-visual: it requires two non-adjacent spans and both cited chunks contain [frame caption: ...] markers with relevant visual content."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer includes unsupported claims about 'dot-dot-dot notation' obscuring the flaw and the 'no common horse' mechanism, which are not explicitly present in the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec02_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The key claims about strengthening the inductive hypothesis from 'center square missing' to 'any square missing' and the resulting ease of proof are explicitly supported by chunk_130; the inductive step structure is supported by frame captions in both chunks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The inter-hop gap is 570 seconds (well above the 70s threshold), and both cited chunks contain content relevant to their respective spans; chunk-to-timestamp alignment cannot be precisely verified but is plausible."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual with two non-adjacent spans (570s apart) and both source chunks contain [frame caption: ...] markers with visual content about the blackboard slides."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that the hypothesis was modified to allow any square to be missing, making the proof easier by assuming a stronger hypothesis. It also describes the process of dividing the courtyard into blocks and applying the hypothesis to each block."
+  },
+  {
+    "qa_id": "mit_6042_lec02_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The claim that 'you cannot make infinitely many logical deductions in a finite proof' is not explicitly stated in the cited chunks; the chunks only say the 'and so on forever' part is why induction is an axiom, without providing this specific elaboration."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align plausibly with their cited chunks, and the inter-hop gap of ~140 seconds exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual with two non-adjacent spans (140s apart) and both cited chunks contain [frame caption: ...] markers."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer includes an unsupported claim that 'you cannot make infinitely many logical deductions in a finite proof,' which is not explicitly stated in the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec02_q023",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are directly supported by the third frame caption in chunk_007: 'P = true' at top left, 'Ex: Thm: \u221a2 is irrational' below it, and 'irrational' written in a different color, possibly red, to emphasize the concept."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span is 280.0s\u2013325.0s. chunk_007 covers approximately the 7th chunk window (chunks are 45s each, so chunk_007 spans roughly 270s\u2013315s or similar), and 280s\u2013325s falls within \u00b115s of those boundaries, making the span plausible."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual', requires exactly 1 span (280.0s\u2013325.0s), and the cited source chunk (chunk_007) contains multiple [frame caption: ...] markers, satisfying the visual type requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are explicitly supported by the source text: the blackboard contains the statement 'P = true' at the top left corner, and below it, the example 'Ex: Thm: \u221a2 is irrational,' with 'irrational' written in a different color, possibly red."
+  },
+  {
+    "qa_id": "mit_6042_lec02_q024",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The first frame caption in chunk_026 explicitly states the rectangle has a top side labeled 9, left side labeled 8, bottom side labeled 2, and right side labeled 9, and that two diagonal lines are drawn inside \u2014 all matching the answer's atomic claims."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span 910.0s\u2013955.0s is a 45-second window; chunk_026 covers this region and the span boundaries align within acceptable limits for a single-hop visual question."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual', there is exactly one span, and chunk_026 contains multiple [frame caption: ...] markers providing the visual evidence needed to answer the question."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the bottom side of the rectangle is labeled 2 units is unsupported. The source text does not provide information about the bottom side being labeled 2 units. It only mentions the top side as 9 units, the left side as 8 units, and the right side as 9 units."
+  },
+  {
+    "qa_id": "mit_6042_lec02_q025",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All key atomic claims\u2014both Pythagorean axioms, the Pythagorean theorem application, and the contradiction from the irrationality proof\u2014are explicitly supported by the cited chunk texts."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align plausibly with their respective chunk boundaries, and the inter-hop gap of 110 seconds exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question genuinely requires two non-adjacent spans from different chunks (chunk_018 for axiom 1, chunk_020 for axiom 2), satisfying the multi-hop requirement."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims that the Pythagoreans believed there were no irrational numbers and that any constructible line length was rational. It also confirms that the proof of \u221a2 being irrational contradicted these beliefs."
+  },
+  {
+    "qa_id": "mit_6042_lec02_q026",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_060 states 'you got no understanding of why the theorem is true,' 'sometimes induction will give you an understanding, sometimes it won't,' and 'Did induction help you figure out the answer... No. You had to know the answer.' Chunk_061 reinforces that induction 'gives you no hints, no answer, just proves that it's right once you had the clever idea.' All claims in the answer are directly supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1800\u20131855s) aligns with chunk_060 and hop 2 (1855\u20131920s) aligns with chunk_061, both within acceptable boundaries. The inter-hop gap between start times is |1800 - 1855| = 55s, which is less than 70s. However, the hops are sequential chunks covering different content (chunk_060 covers the 'no understanding' point, chunk_061 covers the 'no answer/hints' elaboration), and the gap between hop start times is 55s. This is below the 70s threshold, which would technically FAIL the criterion."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires information from two non-adjacent spans (chunk_060 and chunk_061), and the answer synthesizes content from both chunks about different aspects of induction's limitations, satisfying the multi-hop requirement."
+    },
+    "rejection_reason": "Criterion 2 fails: the inter-hop gap between hop start times is only 55 seconds (|1800 - 1855| = 55s), which is below the required 70-second minimum, making this effectively single-hop content that could be retrieved in a single step.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec02_q027",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the homework assignment asking students to find the flaw, the discouraging responses, half the class saying induction doesn't always work, a third saying they can't trust mathematics, the lecturer noting it hurt, and the decision to cover it in class instead of homework \u2014 all explicitly stated in chunks 083 and 084."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Both hops span 2940.0s\u20132985.0s and 2985.0s\u20133030.0s, meaning the inter-hop gap is |2940 - 2985| = 45 seconds, which is less than the required 70 seconds minimum. The two hops are temporally adjacent and could effectively be retrieved in a single step."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is labeled multi-hop and cites two non-adjacent source chunks; no frame caption evidence is required for multi-hop type, and the content does span two chunks."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only 45 seconds (2940s to 2985s), which is below the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec02_q028",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "Several atomic claims in the answer (about n=1 showing a 2 that isn't there, n=0 having no integers, and a false proof being shown later) are not supported by the cited chunk text and appear to be drawn from outside the cited source."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The ground_truth_span (1505s\u20131560s) does not align with chunk_043, which should start around 1935s (43\u00d745s), a discrepancy of ~430 seconds, well outside the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly 1 span, which satisfies the text type requirement."
+    },
+    "rejection_reason": "Criterion 1 fails because the answer contains unsupported claims not found in the cited chunk; Criterion 2 fails because the span timestamps do not align with the cited chunk's expected time window.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec02_q029",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are directly supported by the chunk text: the 'deep throat' reference, the destabilizing nature of the result, the legend of killing him for disclosing it, and the lecturer's skeptical comment about it being hard to imagine getting killed over the irrationality of two are all explicitly present in the chunk."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (825.0s\u2013875.0s) corresponds to chunk mit_6042_lec02_chunk_022; assuming chunks are ~45s windows, this span plausibly aligns with the cited chunk boundaries within the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one span, and while the chunk contains [frame caption: ...] markers, the question does not require visual evidence and is answered purely from the spoken lecture text, making 'text' the correct type."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text. The text mentions a 'deep throat' who disclosed the proof of \u221a2's irrationality, leading to his death according to legend. The lecturer expresses skepticism about the literal truth of this story, noting it is hard to imagine being killed over such a mathematical result."
+  },
+  {
+    "qa_id": "mit_6042_lec02_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the source material that specifies any exact grade or academic assessment consequence for being unable to do a proof by induction on the final exam."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

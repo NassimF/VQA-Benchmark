@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "stanford_cs229_lec12_q001",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer states K-means corresponds to 'coordinate descent' on J, but the source chunks explicitly state it is 'coordinate Ascent' on J \u2014 a direct factual contradiction."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops (489-670s and 750-870s) align with the cited chunk ranges, and the inter-hop gap of ~261 seconds exceeds the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question has two non-adjacent spans and all cited chunks contain [frame caption: ...] markers, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer incorrectly describes K-means as 'coordinate descent' on J, whereas the source material explicitly states it is 'coordinate ascent' on J.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q002",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_001 confirms the slide lists 'Mixture of Gaussians' under unsupervised learning; chunk_045 explicitly states the equations are 'almost the same as Gaussian Discriminant Analysis' with Z replacing y, and that Z is a latent/hidden random variable whose values are unknown; chunk_046 reinforces that if we knew the Z values we could use MLE as in GDA, making the supervised/unsupervised distinction clear."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (35\u201380s) aligns with chunk_001 (covering the lecture opening/outline slide); Hop 2 (1575\u20131680s) aligns with chunks_045\u2013046 (covering the GDA comparison discussion). The inter-hop gap is |35 - 1575| = 1540 seconds, well above the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (confirmed: ~35s and ~1575s), and multiple cited chunks (chunk_001, chunk_045, chunk_046) contain [frame caption: ...] markers, satisfying both conditions for multi-hop-visual."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text confirms that the mixture of Gaussians model uses equations similar to Gaussian Discriminant Analysis, with the class label variable Z analogous to y in GDA, and highlights the key difference of Z being latent in the mixture of Gaussians model, requiring inference through the EM algorithm."
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q003",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the whiteboard shows input X(1), X(2), ..., X(m) (chunk_009/010 frame captions), centroids mu_1 through mu_k in R^n are initialized randomly (chunk_010), green data points in two clusters are shown in the animation (chunk_015/016), points are painted blue or red based on proximity to colored cross markers (chunk_016/017), centroids are moved to the mean of assigned points (chunk_017), and the process repeats until convergence (chunk_009 frame caption)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (295\u2013400s) aligns with chunks 008\u2013010 (roughly 6\u20139 min range), and hop 2 (490\u2013640s) aligns with chunks 015\u2013017; the inter-hop gap is |295 - 490| = 195 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (hop 1: whiteboard content; hop 2: scatter plot animation) and multiple cited chunks contain [frame caption: ...] markers, satisfying both conditions for multi-hop-visual."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the input is an unlabeled dataset X(1), X(2), ..., X(m); centroids mu_1 through mu_k are initialized randomly; data points are assigned to the nearest centroid; centroids are updated to the mean of assigned points; and the process repeats until convergence."
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q004",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer's atomic claims are all supported: the whiteboard shows axes for Heat and Vibration for aircraft engines (chunk_033 frame captions mention 'Hut'/'Heat' and 'Vibration' axes), data points represent typical engine measurements (chunk_033), the lecturer describes modeling P(x) from unlabeled training examples (chunk_034, chunk_035), flagging new engines with very low P(x) as anomalous for further inspection (chunk_034), and this is called anomaly detection built from normal data (chunk_035)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1120\u20131200s) aligns with chunk_033 and hop 2 (1235\u20131330s) aligns with chunks_034/035; the inter-hop gap is |1120 - 1235| = 115 seconds, which exceeds the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires connecting visual evidence from the whiteboard (frame captions in chunk_033 showing Heat/Vibration axes) with the verbal explanation of anomaly detection across non-adjacent spans (chunks_033\u2013035), satisfying both the \u22652 non-adjacent spans and \u22651 frame caption conditions."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the whiteboard shows a scatter plot with axes for Heat and Vibration is unsupported; the source text mentions axes labeled 'Density' and 'Vibration' instead. Additionally, the source text does not explicitly mention 'Heat' as an axis label, only 'Vibration'."
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q005",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunks 077-080 confirm x=1 and x=6 with probability 1/2 each, E[X]=3.5, and the convex function illustration showing f(E[X]) \u2264 E[f(X)]; chunks 102-103 confirm the concave version of Jensen's inequality applied to log (log E[X] \u2265 E[log X]), moving log inside the expectation over Q_i to form a lower bound on log likelihood, with Q_i = P(z|x;theta) to tighten it."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2655s\u20132820s) aligns with chunks 077-080 (roughly 45s windows around that range), and hop 2 (3120s\u20133250s) aligns with chunks 102-103; the inter-hop gap is |2655-3120| = 465 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans (Jensen's inequality illustration and the EM derivation), and multiple cited chunks contain [frame caption: ...] markers with visual content describing the whiteboard diagrams."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the lecture uses the concave version of Jensen's inequality in the EM derivation is not explicitly supported by the source text. The source text does not mention the EM algorithm or the specific application of Jensen's inequality to derive a lower bound in this context."
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q006",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the ellipses slide shows clustered unlabeled data points (chunks 004/005 frame captions), the bell curves on the chalkboard represent Gaussian distributions in a mixture of Gaussians model (chunks 038/039 frame captions and text), each cluster corresponds to a Gaussian component (chunk 039: 'two separate Gans that generated this data set'), and the labels/cluster assignments are latent variables unknown to the learner (chunk 039: 'I don't actually have access to these labels')."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (150\u2013250s) aligns with chunks 004/005 (roughly 135\u2013225s range for a 45s window), and hop 2 (1350\u20131465s) aligns with chunks 038/039; the inter-hop gap is |150 - 1350| = 1200 seconds, well above the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (hop 1 ~150\u2013250s and hop 2 ~1350\u20131465s) and multiple cited chunks contain [frame caption: ...] markers describing both the ellipses slide and the bell curves on the chalkboard, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the ellipses represent clusters of unlabeled data points is supported, but the claim that the bell curves represent the mixture of Gaussians model and correspond to Gaussian components is not explicitly supported by the source text."
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q007",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer's atomic claims are supported by the chunks: chunks 094/095 describe the graphical illustration of EM starting at theta_0, constructing tight lower bounds, and iteratively jumping to theta_1, theta_2, converging to a local optimum; chunks 122/123 confirm the E-step sets Q(z) = P(z|x; theta) to make the lower bound tight, and the M-step maximizes the lower bound with respect to theta. The claim about Jensen's inequality tightness is implied by the tight lower bound language in the chunks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (3330\u20133450s) aligns with chunks 094/095 (each ~45s window around that range), and hop 2 (4320\u20134450s) aligns with chunks 122/123. The inter-hop gap is |3330 - 4320| = 990 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (hop 1 ~3330s and hop 2 ~4320s), and multiple cited chunks contain [frame caption: ...] markers with visual content (graphs and whiteboard images), satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text, which describes the EM algorithm's process of constructing a tight lower bound at the current parameter value and maximizing it to update the parameters, as depicted in the graphical illustration."
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q008",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: data points colored red/blue based on closest centroid (chunk_017 text), centroids marked by crosses (frame captions), centroids moved to mean of assigned points after first iteration (chunk_017 text), and attribution to Michael Jordan at Berkeley (frame captions in both chunks)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (590.0s\u2013680.0s) covers a 90-second window that aligns with chunk_017 and chunk_018, which are consecutive 45-second chunks; the span boundaries fall within acceptable range of the chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'visual', requiring exactly 1 span and at least one source chunk with a [frame caption: ...] marker; both conditions are met \u2014 there is one span and multiple frame captions appear in both cited chunks."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the scatter plot shows data points in two colors indicating cluster assignment, centroids move to the mean of assigned points, and the source is credited to Michael Jordan at Berkeley."
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q009",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the x-axis shows values '1, 3.5, and 6' but the frame caption explicitly states the x-axis is labeled with values '1, 2, 3, 4, 5, 6' \u2014 3.5 is not marked on the axis. Additionally, the answer claims there is 'a dashed line or chord connecting the points f(1) and f(6)' but the frame captions describe a 'dashed line representing the function' (i.e., the curve itself), not a chord between two points. The answer also states f(E[X]) lies below the chord, but the chunks do not explicitly confirm this visual detail with sufficient clarity to support the claim as stated."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (2790.0s\u20132890.0s) aligns with chunk_079 and chunk_080, which are consecutive 45-second windows in that time range. This is a visual question with one span, so only alignment needs to be checked."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual' with exactly one span and both cited source chunks contain [frame caption: ...] markers, satisfying the visual question type requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer contains unsupported or contradicted atomic claims, specifically that 3.5 appears on the x-axis (the caption shows 1\u20136 integer labels) and that a chord connects f(1) and f(6) (the dashed line in captions refers to the function curve, not a chord).",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q010",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunks support the key claims: chunk_083/084 confirm that for strictly convex f with f''(x)>0, E[f(X)]=f(E[X]) iff X=E[X] with probability 1; chunks 112/113/114 confirm that the lower bound needs to hold with equality at the current theta, and that Q_i is chosen to make Jensen's inequality hold with equality. The claim about Q_i(z)=P(z|x;theta) is not explicitly stated in the provided chunks but is implied by the derivation context; however, the core claims about the equality condition and its role in EM are well-supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 2930-3010s, aligning with chunks 083/084 (which cover the Jensen's equality condition discussion); Hop 2 spans 3960-4100s, aligning with chunks 112/113/114 (which cover the EM lower bound tightness). The inter-hop gap is |3960-2930|=1030 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop, requiring information from two non-adjacent temporal spans (Jensen's equality condition ~2930s and EM lower bound tightness ~3960s), with a gap of over 1000 seconds between hops. No visual evidence is claimed, and the question_type is correctly labeled as multi-hop."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that Jensen's inequality holds with equality if X is constant with probability 1 is supported. However, the explanation of the EM algorithm's convergence condition, specifically that Q_i(z) = P(z|x;theta) makes the lower bound tight, is not explicitly supported by the source text."
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q011",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunks: GDA uses (1/m)*sum of I{z_i=j} for phi_j (chunks 065-066), in EM the labels are unknown so hard indicators are replaced by soft weights w_ij = P(z=j|x_i) (chunks 069-070), the M-step formula becomes (1/m)*sum(w_ij) (chunks 069-070), and replacing w_ij with indicator functions recovers the GDA formula (chunk 070)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2285-2385s) aligns with chunks 065-066 (roughly ~2925-3015s range based on chunk IDs, but the chunk content matches the described content); hop 2 (2490-2590s) aligns with chunks 069-070. The inter-hop gap is |2285-2490|=205s \u2265 70s, satisfying the multi-hop temporal separation requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop: it requires connecting the GDA formula (chunks 065-066, hop 1) with the EM M-step formula (chunks 069-070, hop 2), which are non-adjacent spans separated by ~205 seconds, and no single span contains both pieces of information."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text. The lecturer explains that in GDA, phi_j is estimated as the fraction of examples in class j, and in the EM algorithm, the hard indicators are replaced by soft weights w_ij, which are posterior probabilities. The M-step formula for phi_j in the EM algorithm is given as (1/m) times the sum of w_ij, which aligns with the GDA formula when weights are zero or one."
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q012",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunk text: K-means is susceptible to local optima (chunk_028), multiple random initializations are recommended (chunk_028), pick the solution with lowest distortion function value (chunk_028), eliminating the cluster with no points is one option (chunk_028/029), and randomly reinitializing the centroid is another option (chunk_029). The claim about non-convexity of J is implied by 'local optima' susceptibility but the answer's framing is consistent with the source."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Both hops span 980-1060s and 1015-1080s, giving an inter-hop gap of |980 - 1015| = 35 seconds, which is well below the required 70-second minimum. The two hops are too temporally close and essentially cover the same content window, making this effectively single-hop."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is labeled multi-hop and does reference two spans from two different chunks; however, as noted in Criterion 2, the spans are not sufficiently non-adjacent temporally."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only ~35 seconds (980s vs 1015s), far below the required 70-second minimum, meaning the two hops are not genuinely non-adjacent and the question is effectively single-hop.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q013",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the chunk text: biology/gene clustering (chunk_005), market research/customer segmentation (chunk_005), news aggregation (chunk_006), and image segmentation (chunk_007) are all explicitly mentioned."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The ground_truth_spans list only one span (175.0s\u2013330.0s), but three source chunks are cited (chunk_005, chunk_006, chunk_007), and the question type is 'text' which requires exactly 1 span \u2014 however, the content spans multiple chunks covering a wide range, so the single span is plausible for a text question. Actually, the span 175s\u2013330s is a 155-second window covering chunks 005, 006, and 007, which is consistent with a single contiguous span. This is acceptable for a text question type."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question is labeled 'text' (exactly 1 span), but the answer draws from three separate source chunks (chunk_005, chunk_006, chunk_007), and all cited chunks contain [frame caption: ...] markers. The content requires information from multiple non-adjacent chunks, making this more accurately a multi-hop or multi-hop-visual question rather than a single-span text question."
+    },
+    "rejection_reason": "Criterion 3 fails: the question is labeled 'text' (implying a single span), but the answer synthesizes information from three separate source chunks, which is characteristic of a multi-hop question. Additionally, all cited chunks contain [frame caption: ...] markers, which would qualify it as multi-hop-visual.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q014",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the chunk text: the log likelihood equals sum over i of log P(x_i; theta), marginalization over z, multiplying/dividing by Q_i(z), Q_i(z) > 0 and sums to one, the expectation interpretation, log concavity, Jensen's inequality giving log(E[X]) >= E[log X], and the resulting ELBO lower bound are all explicitly present in the cited chunks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (3360s\u20133540s) covers a 180-second window that aligns with chunks 097\u2013103 (each ~45s), which fall within this range; the span boundaries are consistent with the cited chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question_type is 'text' (requiring exactly 1 span), but the ground_truth_spans covers a 180-second window and 6 source chunks are cited, suggesting multiple spans or a multi-hop structure; however, the ground_truth_spans field lists only one span (3360.0s\u20133540.0s), so technically there is one span. But all cited chunks contain [frame caption: ...] markers, which would make this more appropriate as a 'visual' type. The 'text' classification is inaccurate given the heavy reliance on visual frame captions in the source chunks."
+    },
+    "rejection_reason": "Criterion 3 fails: the question is classified as 'text' but all cited source chunks contain [frame caption: ...] markers with visual content that supports the answer, making 'visual' the more accurate type classification.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "stanford_cs229_lec12_q015",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the source material that addresses the computational complexity of K-means or a comparison to EM for mixture of Gaussians."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

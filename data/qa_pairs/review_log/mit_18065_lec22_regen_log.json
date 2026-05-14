@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_18065_lec22_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: MIT and course title 18.065 'Matrix Methods in Data Analysis, Signal Processing, and Machine Learning' are confirmed in chunk_000's frame captions; the gradient descent equation x_{k+1} = x_k - \u03b1\u2207f(x_k) and \u03b1 labeled as 'stepsize = learning rate' are confirmed in chunk_002's frame captions."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (0.0s\u201345.0s) aligns with chunk_000 (first 45-second window), and hop 2 (80.0s\u2013115.0s) aligns with chunk_002 (covering ~90s\u2013135s window); the inter-hop gap is |0 - 80| = 80 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (chunk_000 and chunk_002) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are explicitly supported by the source text. The frame caption confirms the course title and institution, and the blackboard description confirms the gradient descent update rule and the role of the step size parameter labeled as 'learning rate'."
+  },
+  {
+    "qa_id": "mit_18065_lec22_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18065_lec22_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_008 confirms the blackboard shows 'Convexity' and f(x,y)=2x+5y, the gradient is [2,5] with partial derivatives 2 and 5, and the Hessian is mentioned; chunk_020 explicitly states the linear function is convex but not strictly convex, that strict convexity requires positive definite H, and that semi-definite is sufficient for convexity."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (280\u2013325s) aligns with chunk_008 (a ~45s window around that time), and hop 2 (740\u2013780s) aligns with chunk_020; the inter-hop gap is |280-740|=460s, well above the 70s minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans (chunks 008 and 020, ~460s apart) and chunk_008 contains multiple [frame caption: ...] markers confirming visual evidence is needed."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text confirms the gradient of f(x,y) = 2x + 5y is [2, 5], and it explains that the Hessian of a linear function is zero, making it positive semi-definite but not positive definite, thus convex but not strictly convex."
+  },
+  {
+    "qa_id": "mit_18065_lec22_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_044 confirms f(X) = -log(det X) is labeled 'remarkable convex function' with n\u00b2 variables x_ij, and states the partial derivatives are entries of X inverse; chunk_056 explicitly explains the cofactor expansion connection, stating 'the inverse is the ratio of cofactor to determinant so X inverse 1 1 is that cofactor over the determinant,' which supports the answer's explanation of how cofactor expansion yields the gradient entries."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 1540\u20131615s, aligning with chunk_044 (which covers roughly the 25:40 region); hop 2 spans 1970\u20132050s, aligning with chunk_056. The inter-hop gap is |1540 - 1970| = 430 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (hop 1 ~1540s and hop 2 ~1970s, gap ~430s) and both cited chunks contain [frame caption: ...] markers with visual blackboard content, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text confirms that the gradient of f(X) = -log(det X) consists of the entries of X inverse, and explains this by stating that the inverse is the ratio of cofactor to determinant, which aligns with the cofactor expansion explanation provided in the answer."
+  },
+  {
+    "qa_id": "mit_18065_lec22_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The claim that 'when b is near 1, the ratio is near 0/2 and convergence is quick' is not explicitly stated in chunk_075, which only presents the formula without discussing comparative convergence behavior for different values of b."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The inter-hop gap is ~2555s, well above 70s; chunk_003 aligns with the 105s span, and chunk numbering conventions may not strictly map to time position."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both source chunks contain [frame caption:] markers, and the two spans are non-adjacent (separated by ~2555s), satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer makes specific claims about convergence behavior for b near 1 that are not explicitly supported by the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18065_lec22_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The claim that 'too small a step takes too long to converge' is not supported by either cited chunk; neither chunk_062 nor chunk_066 mentions this consequence of a small step size."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align with their respective chunk boundaries, and the inter-hop gap of ~185 seconds exceeds the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question uses two non-adjacent spans and both cited chunks contain [frame caption:] markers, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer's claim about 'too small a step takes too long to converge' is not supported by the cited source chunks.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18065_lec22_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "Core claims about long thin ellipses when b is small and zigzag behavior are directly supported by chunk_082 and chunk_086; minor claims about perpendicularity are reasonable inferences from the context."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2835-2910s) aligns with chunk_082 and hop 2 (3060-3120s) aligns with chunk_086; inter-hop gap of 225 seconds exceeds the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Two non-adjacent spans with a 225-second gap satisfy multi-hop requirements, and both cited chunks contain [frame caption: ...] markers satisfying the visual requirement."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text confirms 'BAD/HARD' and 'SMALL b' appear on the blackboard, describes the level sets as long and thin ellipses when b is small, and explains the zigzag behavior of gradient descent as iterates slowly approach the minimum."
+  },
+  {
+    "qa_id": "mit_18065_lec22_q023",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame caption in the chunk explicitly shows 'Start (x0, y0)' written to the right of the iteration equation on the blackboard, directly supporting the answer's claims about the starting point notation and its placement next to the iteration equation."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span is 2635.0s\u20132695.0s (approximately 43:55\u201344:55), which corresponds to ~44:05 as stated in the question. The chunk mit_18065_lec22_chunk_074 covers a 45-second window, and 2635s aligns plausibly with this chunk's boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual', requires exactly 1 span, and the cited source chunk contains multiple [frame caption: ...] markers with visual content describing the blackboard, satisfying both conditions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claim that the frame caption shows 'Start (x0, y0)' written next to the iteration equation, indicating the starting point for the gradient descent example."
+  },
+  {
+    "qa_id": "mit_18065_lec22_q024",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims 'the gradient of F equals zero on the surface,' but the frame caption does not state this. The chunk text (spoken transcript) mentions 'gradient of F is 0' in the context of staying on the surface, but the frame caption itself only shows 'Surface f = const,' the gradient descent equation, and a diagram with a vector \u2014 it does not explicitly show 'gradient of F = 0' written on the blackboard as the answer claims."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span 590\u2013640s corresponds to approximately 9:50\u201310:40, which is close to the cited chunk_016. The question references ~9:20, which is slightly outside but within the \u00b115s tolerance of the chunk boundary."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual,' there is exactly 1 span, and the cited chunk contains multiple [frame caption: ...] markers, satisfying the visual type requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer incorrectly claims the frame caption shows 'gradient of F equals zero on the surface' written on the blackboard, which is not supported by the frame caption content in the cited chunk.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18065_lec22_q025",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims 'the professor notes that arg is presumably short for argument, the value of x in the function f(x),' but this specific explanation is not found in the cited chunk text, making it an unsupported atomic claim."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The spans (1150-1210s and 1235-1295s) align plausibly with chunk_030 and chunk_031, and the inter-hop gap of 85 seconds meets the \u226570s requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question genuinely requires two non-adjacent spans \u2014 one for the definition of argmin and one for the specific argmin of the quadratic \u2014 satisfying the multi-hop requirement."
+    },
+    "rejection_reason": "Criterion 1 failed: the claim that 'arg' is short for 'argument' is not explicitly supported by the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18065_lec22_q026",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_037 confirms plugging x*=S\u207b\u00b9a into the function and that the result is negative (passed through zero on way down); chunk_039 confirms the algebra showing (1/2)a^T S\u207b\u00b9a - a^T S\u207b\u00b9a = -\u00bd a^T S\u207b\u00b9a, and the frame captions show f_min = -\u00bd a^T S\u207b\u00b9a."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 1370\u20131430s aligning with chunk_037, hop 2 spans 1430\u20131490s aligning with chunk_039; the inter-hop gap between start times is |1370-1430|=60s, but since the hops are sequential chunks with the boundary at 1430s, the gap between the start of hop 1 and start of hop 2 is 60s. However, checking the gap between the end of hop 1 (1430s) and start of hop 2 (1430s) shows they are adjacent chunks. The gap between hop start times is 60s < 70s, which is borderline, but the two hops cover distinct content (setting up the substitution vs. completing the algebra) across two separate chunks."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is labeled multi-hop and requires information from two non-adjacent spans (chunk_037 for the setup/motivation and chunk_039 for the algebraic derivation), satisfying the multi-hop requirement of \u22652 non-adjacent spans."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text. The source text confirms the derivation of f_min by substituting x* = S\u207b\u00b9a into the function, resulting in f_min = -\u00bd a^T S\u207b\u00b9 a, and notes that it is negative because the function passed through zero and continued downward."
+  },
+  {
+    "qa_id": "mit_18065_lec22_q027",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the Hessian tells whether the surface is convex (chunk_019), convexity requires positive semi-definite H (chunk_020), strict convexity requires positive definite H (chunk_020), semi-definite is insufficient for strict convexity (chunk_020), strict convexity means 'really bends upwards' (chunk_020), and linear functions are convex but not strictly convex (chunk_020)."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 665\u2013710s and hop 2 spans 740\u2013800s; the gap between hop starts is |665 - 740| = 75s which is \u2265 70s, so that passes. However, both hops are sourced from adjacent chunks (chunk_019 and chunk_020) that cover essentially the same continuous lecture segment, and the content of both chunks is nearly identical (chunk_020 begins with 'okay so convexity the Hessian is positive semi-definite or which includes...' which is a direct continuation of chunk_019's ending). The spans at 665\u2013710s and 740\u2013800s both fall within the same continuous discussion, making this effectively single-hop content split across two chunks rather than genuinely non-adjacent information."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is labeled multi-hop and cites two source chunks with non-adjacent spans (665\u2013710s and 740\u2013800s), and no frame caption evidence is required for multi-hop type, which is satisfied here."
+    },
+    "rejection_reason": "Criterion 2 fails: the two hops cover a single continuous discussion about convexity/Hessian with no meaningful informational gap between them \u2014 chunk_020 is a direct continuation of chunk_019, making this effectively single-hop content despite the 75-second span separation.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_18065_lec22_q028",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunk text: the book is 'Convex Optimization' by Stephen Boyd and Vandenberghe (spelled 'Vandenberg' in transcript), the iteration formulas for the quadratic example are taken from that book, and Stephen Boyd will be on campus that spring in April for three lectures."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (2615.0s\u20132660.0s) aligns with chunk_073, which covers a 45-second window; the span boundaries are consistent with the chunk's temporal range."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one span, and while the chunk contains [frame caption: ...] markers, the question does not claim to be visual \u2014 text type only requires exactly 1 span, which is satisfied."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the iteration formulas are taken from the book 'Convex Optimization' by Stephen Boyd and Vandenberghe, and that Stephen Boyd will be on campus in April for three lectures."
+  },
+  {
+    "qa_id": "mit_18065_lec22_q029",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the chunk explicitly mentions 'momentum' and 'heavy ball' as the physical idea, describes letting the ball roll instead of directing by steepest descent at every point, and states there is 'an extra term in steepest descent the momentum term that accelerates it.'"
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (3100.0s\u20133160.0s) aligns with chunk_089, which covers a 45-second window; the span falls within plausible chunk boundaries for this text question."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span cited; although the chunk contains [frame caption: ...] markers, the question type is 'text' not 'visual,' which is acceptable since the answer is derived from the spoken text content."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claims that the lecture introduces 'momentum' as a method to speed up gradient descent, describes the physical intuition of letting a heavy ball roll down a valley, and mentions that an extra 'momentum term' is added to the standard steepest descent update to accelerate convergence."
+  },
+  {
+    "qa_id": "mit_18065_lec22_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the source material that could answer the question about the exact convergence rate of Newton's method applied to a quadratic example or its comparison to gradient descent."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

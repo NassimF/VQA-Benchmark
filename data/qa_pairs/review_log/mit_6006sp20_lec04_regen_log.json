@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6006sp20_lec04_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame caption in chunk_010 explicitly lists =, <, >, >=, <= under 'Comparison Model', and chunk_021 confirms the lower bound of log n (\u03a9(log n)) for find(k) based on a binary decision tree needing at least n+1 leaves. The answer's claim about '\u2260' being 'sometimes' shown is supported by chunk_021's frame caption listing \u2260. All atomic claims are supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (305s\u2013395s) aligns with chunk_010 (a ~45s window around that range), and hop 2 (730s\u2013810s) aligns with chunk_021. The inter-hop gap is |305 - 730| = 425 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u2265 2 non-adjacent spans (chunks 010 and 021, separated by ~425s), and both cited chunks contain [frame caption: ...] markers with visual content about the blackboard/whiteboard showing comparison operators, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text confirms the operators =, <, >, >=, <=, and \u2260 are shown under 'Comparison Model'. It also supports the claim that the lecture proves a lower bound of \u03a9(log n) for a binary decision tree with at least n+1 leaves."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec04_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_035 confirms 'u' is the size of the largest key in the direct access array; chunk_037 confirms the constraint that u must be less than 2^w where w is the word size of the machine for constant-time operations."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (985s\u20131045s) aligns with chunk_035 and hop 2 (1295s\u20131375s) aligns with chunk_037; the inter-hop gap is |985 - 1295| = 310 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans (chunks 035 and 037), and both chunks contain [frame caption: ...] markers including one explicitly describing a 'Direct Access Array' blackboard diagram with 'X.key=10'."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that 'u' is the size of the largest key and that for constant time operations, 'u' must be less than 2 to the power of 'w', where 'w' is the word size of the machine."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec04_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The claim that the decision tree must have 'at least n+1 leaves' and that the word RAM allows 'branching to any memory location in constant time' are not explicitly stated in the cited chunks; chunk_023 only mentions constant branching factor of comparisons and an unspecified operation stronger than comparisons."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The inter-hop gap between spans (160s and 815s) is 655 seconds, well above the 70s threshold, and span placements are approximately plausible given chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop-visual: it requires two non-adjacent spans and both cited chunks contain [frame caption:] markers with visual blackboard content."
+    },
+    "rejection_reason": "Criterion 1 failed: key atomic claims ('n+1 leaves' for the decision tree lower bound and 'branching to any memory location in constant time' for the word RAM) are not explicitly supported by the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006sp20_lec04_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the frame caption in chunk_002 explicitly shows Sorted Array Container = n log n and Static = log n; chunk_002 and chunk_003 confirm n log n build via sorting (two n\u00b2 methods, one n log n); chunk_003 confirms log n is 'an exponential improvement' over linear scan."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 65\u2013120s and Hop 2 spans 105\u2013175s; the inter-hop gap is |65 - 105| = 40 seconds, which is less than the required 70-second minimum, meaning the two hops are too temporally close and effectively retrievable in a single step."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question references \u22652 non-adjacent spans and both cited chunks contain [frame caption: ...] markers with the Set Interface slide content, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only ~40 seconds (105s - 65s), below the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006sp20_lec04_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the blackboard shows h(k) = k mod m (confirmed by frame captions in both chunks), the function imposes distribution requirements on inputs (chunk_060), and if u is large there exist inputs that map everything to one place making a fixed deterministic hash function insufficient (chunk_064)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2100s\u20132155s) aligns with chunk_060 and hop 2 (2245s\u20132320s) aligns with chunk_064; the inter-hop gap is |2100 - 2245| = 145 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (multi-hop condition met with 145s gap) and both cited chunks contain [frame caption: ...] markers showing the blackboard with the division hash function formula (visual condition met)."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim that the formula for the division hash function is h(k) = k mod m is explicitly supported by the source text. Additionally, the lecturer's explanation that the function imposes distribution requirements and can lead to poor performance if inputs are not uniformly distributed is also supported by the source text."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec04_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame captions in chunk_071 explicitly show H(p,m) = {h_ab(k) | a, b \u2208 {0, ..., p-1} and a \u2260 0}, confirming the range and constraint on a and b. Chunk_075 explicitly states the universal hashing property: probability that h(k_i) = h(k_j) is less than or equal to 1/m for any two distinct keys, confirmed by both the transcript and frame captions."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 2485\u20132565s aligning with chunk_071 (which covers roughly that window), and hop 2 spans 2645\u20132710s aligning with chunk_075. The inter-hop gap is |2485 - 2645| = 160 seconds, which is well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunk_071 and chunk_075, separated by ~160s) and both cited chunks contain [frame caption: ...] markers with visual blackboard content, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that in the hash family H(p,m), parameters a and b are chosen from the range {0, ..., p-1} with the constraint that a \u2260 0. It also confirms that the family satisfies the universal hashing property: for any two distinct keys, the probability of collision is less than or equal to 1/m."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec04_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "Chunk 015 supports that internal nodes represent comparisons (branches with T/F outcomes), and chunk 017 explicitly supports that leaves are outputs, that n items require at least n outputs, and that one additional output is needed for the 'not found' case, making n+1 leaves total for correctness."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (490\u2013555s) aligns with chunk_015 and hop 2 (615\u2013680s) aligns with chunk_017, both within \u00b115s of chunk boundaries; the inter-hop gap is |490-615| = 125s, which exceeds the required 70s minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunks 015 and 017) and both cited chunks contain [frame caption: ...] markers showing the decision tree diagram, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims that internal nodes represent comparison operations and leaves represent outputs. It also confirms that a correct search algorithm must have at least n+1 leaves for n items, including one for a missing key."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec04_q023",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the equation shown is 'X.key = 10' but the frame caption actually shows 'X, keys=10' (with a comma, not a dot, and 'keys' plural). More critically, the answer claims this indicates the item is stored 'at index 10 in the direct access array,' but the frame caption describes a diagram with a horizontal line labeled '10' with an arrow pointing right labeled 'X, keys=10' \u2014 the caption itself says 'keys=10 indicates that there are 10 keys in the array,' not that X is stored at index 10. The answer misrepresents what the frame caption states."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span 985.0s\u20131025.0s aligns with chunk_028, which covers a 45-second window; the span falls within plausible chunk boundaries for this chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual' with exactly 1 span and the cited chunk contains multiple [frame caption: ...] markers, satisfying the visual type requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer misrepresents the frame caption content, claiming 'X.key = 10' as an equation when the caption shows 'X, keys=10' with a different interpretation, and incorrectly characterizes what the diagram illustrates.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006sp20_lec04_q024",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are directly supported by the third frame caption in the chunk: 'Comparison Model' written in white chalk in cursive style, and a small box labeled 'CLI CHARLES LEONARD, INC. #74512 CHINA' on the ledge below the blackboard."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (540.0s\u2013600.0s) aligns with chunk_008, which covers a 45-second window; 540s falls within the expected chunk boundary range."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual' with exactly 1 span and the cited chunk contains multiple [frame caption: ...] markers, satisfying both requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "Each atomic claim is explicitly supported by the source text: the blackboard has 'Comparison Model' written in cursive white chalk, and there is a small box labeled 'CLI CHARLES LEONARD, INC. #74512 CHINA' placed on the ledge below the blackboard."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec04_q025",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "Chunk 017 supports the claim that a correct algorithm needs n+1 leaves (n outputs for n items plus one more for the 'not found' case). Chunk 032 explicitly states 'u is the maximum size of any number that I'm storing' and 'the size of the universe of space of keys,' supporting the claim about variable u representing the space problem in direct access arrays."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (590s\u2013660s) aligns with chunk_017 (a 45s window around ~615s), and hop 2 (1185s\u20131255s) aligns with chunk_032 (a 45s window around ~1220s). The inter-hop gap is |590 - 1185| = 595 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is classified as multi-hop and requires information from two non-adjacent spans (590s\u2013660s and 1185s\u20131255s), which are separated by ~595 seconds, genuinely requiring retrieval from two distinct parts of the lecture. No visual evidence is claimed, consistent with the multi-hop (not multi-hop-visual) classification."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim that a correct comparison-based searching algorithm needs at least n+1 leaves is supported by the source text, which states that n outputs are needed for the items and one more if the item is not found. The claim about the variable 'u' representing the size of the universe of key space is also supported, as the source text explicitly mentions 'u' as the maximum size of any number being stored, causing the space problem in direct access arrays."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec04_q026",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: open addressing stores colliding items elsewhere in the existing array (chunk_051), chaining stores a pointer to another data structure like a linked list or dynamic array (chunk_052), Python uses open addressing (chunk_051), and open addressing is notoriously difficult to analyze so the lecture won't focus on it (chunk_051)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1795s\u20131870s) aligns with chunk_051 and hop 2 (1870s\u20131960s) aligns with chunk_052; the inter-hop gap between start times is |1795 - 1870| = 75 seconds, which meets the \u226570s requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop: hop 1 covers open addressing and Python's use of it (chunk_051), while hop 2 covers chaining as the alternative approach (chunk_052), requiring information from two non-adjacent spans to fully answer."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that Python uses open addressing is supported, but the claim that the lecture chooses not to focus on open addressing because it is notoriously difficult to analyze is supported. However, the claim that chaining involves storing a pointer to a separate data structure such as a linked list or dynamic array at each index is not explicitly supported by the source text."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec04_q027",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_087 shows the derivation summing 1/m for j\u2260i plus 1, yielding 1 + (n-1)/m; chunk_088 explicitly states 'one plus n minus one over m' and confirms that choosing m at least linear in n (order n) makes chain lengths constant."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (3050\u20133115s) aligns with chunk_087 and hop 2 (3165\u20133225s) aligns with chunk_088, both within \u00b115s of chunk boundaries; the inter-hop gap is |3050-3165|=115s \u2265 70s, satisfying the multi-hop requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop: hop 1 covers the derivation of the summation formula (chunk_087) and hop 2 covers the conclusion about m being order n (chunk_088), requiring two non-adjacent spans with no frame caption requirement for multi-hop type."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims that the expected size of a chain at h(k_i) is 1 + (n-1)/m and that the expected chain length becomes constant when m is at least order n."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec04_q028",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the class size is 'around 300 to 400 students,' but this specific claim is not supported by the cited chunk text, which only mentions 'this classroom' without specifying any student count. All other claims (MIT IDs, nine-digit numbers, 10^9 array size) are supported by the chunk."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (1085.0s\u20131155.0s) aligns with chunk_031, which covers a 45-second window; the span boundaries are plausible for this chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'text' with exactly one span, which is consistent with the single source chunk cited; the chunk does contain [frame caption: ...] markers but the type 'text' does not require their absence."
+    },
+    "rejection_reason": "Criterion 1 fails because the answer includes an unsupported atomic claim about class size (300\u2013400 students) that is not found in the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006sp20_lec04_q029",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: (1) if n grows too large relative to fixed m, the hash table is rebuilt with a new m \u2014 supported by 'if we get too far we rebuild the entire thing the entire hash table with the new m'; (2) the analogy to dynamic arrays is drawn \u2014 supported by 'just like we did with a dynamic array'; (3) the rebuild doesn't happen too often if resized correctly \u2014 supported by 'you can prove that you won't do that operation too often if you're resizing in the right way'."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span is 3195.0s\u20133275.0s (80s window), and chunk_089 covers a 45-second window; the span start/end times are plausible for this chunk. Only one hop is present, so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly 1 span, which is consistent with the single source chunk cited. No frame caption evidence is required for text type, and the question is answerable from a single span."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports both claims: it describes rebuilding the hash table with a new m when n grows too large relative to m, and it mentions the analogy to dynamic arrays, noting that resizing can be done in a way that the operation does not happen too often."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec04_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the source material that could answer the question about amortized time complexity proofs for insert and delete operations in chaining-based hash tables using universal hash families."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

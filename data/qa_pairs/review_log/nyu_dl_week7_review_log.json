@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "nyu_dl_week7_q001",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the frame captions confirm TAs are 'Alfredo Canziani, Mark Gold[stein]'; chunk_003 confirms feed-forward nets use a finite fixed number of calculations, recurrent nets have a limit on unfolding, and the two issues are complex computation for inference and multiple possible outputs (e.g., predicting future video frames)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (0.0s\u201345.0s) aligns with chunk_000 (first 45-second window); hop 2 (105.0s\u2013185.0s) aligns with chunk_003 (a later window); the inter-hop gap is |0 - 105| = 105 seconds, which exceeds the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunk_000 and chunk_003) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports both claims: the teaching assistants are Alfredo Canziani and Mark Gold, and the instructor explains the limitations of feed-forward models as using a finite number of steps, which is inappropriate for complex computations or when multiple outputs are possible."
+  },
+  {
+    "qa_id": "nyu_dl_week7_q002",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_018 frame captions confirm the slide title 'Energy-Based Model: implicit function' and the claim that 'Multiple y can be compatible with a single x'; chunk_044 explicitly states the system produces a blurry image because it doesn't know if the person will move left or right or where hands will be, producing the average of all possible outcomes, and that latent variables are needed for multiple predictions."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (630\u2013695s) aligns with chunk_018 (a 45s window around ~630\u2013675s range), and hop 2 (1540\u20131625s) aligns with chunk_044; the inter-hop gap is |630 - 1540| = 910 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (910s apart) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the slide explicitly states multiple y values can be compatible with a single x is supported. However, the explanation of why training with least squares fails in video prediction is not directly supported by the source text. The source text mentions the issue of producing a blurry image due to averaging possible outcomes, but it does not explicitly connect this to the failure of least squares training or mention latent variable models as a solution."
+  },
+  {
+    "qa_id": "nyu_dl_week7_q003",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the slide categorizes 'Text / symbol sequences (discrete, works great!)' and 'Image (continuous)' as shown in frame captions; chunk_094 states 'things seems to work in the discrete world they don't seem to work in the continuous world' and 'in the discrete world we know how to represent uncertainty by a big softmax vector over words'; chunk_095 confirms 'continuous spaces we don't' and 'I don't know how to represent the probability distribution over' for video prediction. The blurry results claim is a reasonable inference from the stated inability to represent uncertainty, though not explicitly stated \u2014 however the core claims are all supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 3325.0s\u20133410.0s and chunk_094 covers approximately that window; hop 2 spans 3395.0s\u20133475.0s aligning with chunk_095. The inter-hop gap between start times is |3325 - 3395| = 70 seconds, which meets the \u226570s requirement exactly."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it references \u22652 non-adjacent spans (chunks 094 and 095), and both chunks contain multiple [frame caption: ...] markers referencing the 'Learning Representations through Pretext SSL Tasks' slide, satisfying the visual evidence requirement."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text confirms that text is categorized as discrete and works well with self-supervised learning, while images are continuous. It also explains that uncertainty in text can be represented with a softmax vector, unlike in images, leading to different outcomes in self-supervised learning tasks."
+  },
+  {
+    "qa_id": "nyu_dl_week7_q004",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_027 confirms handwritten word recognition requires knowing character boundaries (latent variables never given), chunk_030 confirms speech recognition requires knowing word/phoneme boundaries with the French stress example, and both chunks together support the general principle that latent variables represent hidden structure that would simplify inference if known."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (960\u20131040s) aligns with chunk_027 and hop 2 (1055\u20131135s) aligns with chunk_030, both within \u00b115s of chunk boundaries; the inter-hop gap is |960-1055|=95s \u2265 70s, satisfying the multi-hop temporal separation requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (chunks 027 and 030 are separated by ~95s), and both cited chunks contain multiple [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims that latent variables capture information that would make inference easier if known, but are never directly observed. It provides examples of handwritten word recognition and speech recognition, explaining that knowing character or word boundaries would simplify the tasks, aligning with the general principle described in the answer."
+  },
+  {
+    "qa_id": "nyu_dl_week7_q005",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_040 confirms x\u2192Pred(x)\u2192h, z+h\u2192Dec(z,h)\u2192y-bar architecture and the gray region/ribbon metaphor for z varying over a set producing varied outputs; chunk_017 confirms feed-forward models are explicit functions producing only one prediction, the discrete classification 'cheat' of outputting one score per class, and that this trick fails for high-dimensional continuous or compositional outputs."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1400\u20131465s) aligns with chunk_040 (a 45s window around ~1400s), and hop 2 (600\u2013680s) aligns with chunk_017 (a 45s window around ~600s); the inter-hop gap is |1400 - 600| = 800 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (confirmed above) and both cited chunks contain [frame caption: ...] markers describing visual slide content, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text. The source text describes the architecture with Pred(x), Dec(z,h), and the variation of z over a set, which allows multiple predictions. It also explains the limitation of feed-forward models in producing only a single output, as they are explicit functions, and contrasts this with the latent variable model's ability to produce multiple outputs as z varies."
+  },
+  {
+    "qa_id": "nyu_dl_week7_q006",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the cited chunks: the slide lists contrastive vs. architectural methods (chunk_122), k-means uses a linear decoder with one-hot z selecting a prototype from W (chunk_144 frame captions), energy is squared distance to selected prototype, no pushing up occurs, only K points can have zero energy, and everything else grows quadratically \u2014 all explicitly stated in chunk_144."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (4740\u20134825s) aligns with chunk_122 (a 45s window around ~4740\u20134825s), and hop 2 (5040\u20135085s) aligns with chunk_144; the inter-hop gap is |4740 - 5040| = 300 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (hops 1 and 2 are 300s apart) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text confirms that architectural methods limit low-energy regions, k-means is explained as a latent-variable EBM with a linear decoder and one-hot vector, and it does not involve explicit pushing up of energy, aligning with the architectural approach."
+  },
+  {
+    "qa_id": "nyu_dl_week7_q007",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week7_q008",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer makes specific claims about module names 'Pred(x)' and 'Dec(z, h)' and a box labeled 'Latent Variables' that are not explicitly supported by the truncated frame captions or the spoken text in the chunk; the frame captions are cut off at 'Latent' and do not confirm these specific labels."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span (3720.0s\u20133780.0s) aligns plausibly with chunk nyu_dl_week7_chunk_103, and this is a single-hop visual question so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual' with exactly 1 span and the cited chunk contains multiple [frame caption: ...] markers, satisfying both requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer includes specific unsupported claims about module names 'Pred(x)' and 'Dec(z, h)' and a 'Latent Variables' box that are not explicitly confirmed in the truncated frame captions or spoken text of the cited chunk.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week7_q009",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer makes specific claims about 'black dots representing data points' and 'red arrows pointing toward data points' that are not supported by any frame caption in the cited chunk; the frame captions do not describe these visual elements."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The ground truth span (840-900s) does not align with chunk_022, which at 45-second windows would start around 990s, far outside the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual' with exactly 1 span and the cited chunk contains multiple [frame caption: ...] markers, satisfying both requirements."
+    },
+    "rejection_reason": "Criterion 1 failed due to unsupported claims about black dots and red arrows not mentioned in frame captions; Criterion 2 failed due to span timing mismatch with the cited chunk.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week7_q010",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week7_q011",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week7_q012",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The core atomic claims are supported by the chunk text: the two roles of latent variables, the character recognition example (knowing where characters are simplifies recognition), the video prediction example (z parameterizes possible outputs, information about future movement not present in observable input), and the frame caption confirming 'latent variables allows system to make multiple predictions.'"
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops (3780s and 3900s) align with chunk_108 and chunk_109 respectively, and the inter-hop gap of 120 seconds exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is correctly typed as multi-hop: it requires two non-adjacent spans (120s apart) covering the character recognition and video prediction examples from different chunks, and no visual evidence requirement applies to the multi-hop type."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The source text does not explicitly mention character recognition or the role of latent variables in simplifying inference by determining character boundaries. It only discusses latent variables in the context of video prediction, where they parameterize possible outputs and capture information not present in the observable input."
+  },
+  {
+    "qa_id": "nyu_dl_week7_q013",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk text supports the key claims: beta calibrates probability as a function of energy, large beta makes the distribution more binary/peaked at the lowest energy y, small beta gives a smoother distribution, and beta is the inverse temperature in physics terms. The claim about the limit as beta approaches infinity converging to argmin is implied by 'the delayed was to infinity is equal to zero' (likely 'the limit as beta goes to infinity, temperature equals zero') and the description of large beta concentrating mass on the lowest energy y."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span is 1870.0s\u20131960.0s, and chunk_053 covers a 45-second window; the span start at 1870s aligns plausibly with the chunk boundaries within the allowed \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span (1870.0s\u20131960.0s); the chunk contains [frame caption: ...] markers but the question type is 'text' not 'visual', which is acceptable since the answer is derived from the spoken lecture content, not the visual content."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports all claims: beta is described as inverse temperature, large beta leads to a peaked distribution, and as beta approaches infinity, the distribution converges to the y with the lowest energy."
+  },
+  {
+    "qa_id": "nyu_dl_week7_q014",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "Multiple atomic claims in the answer are not supported by the source chunk: the specific percentages (10-15-20%), replacing tokens with blank indicators, training with a softmax classifier, and discarding the final layer to use the penultimate layer as a representation are all absent from the cited chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground truth span (5760s\u20135835s) is plausible for the cited chunk_166, and this is a single-hop question requiring no inter-hop gap check."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one span, which is consistent with the type requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer contains numerous atomic claims (specific masking percentages, blank token replacement, softmax classifier details, discarding the final layer) that are not supported by the cited source chunk.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week7_q015",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, and there is no evidence of specific numerical accuracy benchmarks or performance metrics for energy-based models trained with contrastive divergence on standard vision datasets anywhere in the provided content."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

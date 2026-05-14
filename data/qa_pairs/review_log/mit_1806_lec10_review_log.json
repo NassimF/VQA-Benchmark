@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_1806_lec10_q001",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_1806_lec10_q002",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims (null space and row space in R^n, dimensions r and n-r, summing to n, relation to pivot/free variables) are explicitly supported by the cited chunks."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 span (490s\u2013570s) does not align with chunk_009 boundaries (~405s\u2013450s), being ~40s beyond the chunk end; hop 2 span (1130s\u20131200s) is ~240s before chunk_032 boundaries (~1440s\u20131485s), far exceeding the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both chunks contain [frame caption:] markers, the two spans are non-adjacent with a gap of ~640s \u2265 70s, and the question genuinely requires information from both chunks."
+    },
+    "rejection_reason": "Criterion 2 failed: ground_truth_spans are significantly misaligned with the cited source chunk boundaries, exceeding the \u00b115s tolerance.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_1806_lec10_q003",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_033 explicitly states 'the null space' is 'n minus r dimensional', the row space has dimension r (rank), 'the sum of R and N minus r is n', and 'we have n variables R of them our pivot variables and N minus r free variables and N all together'. Chunk_019 supports the visual description of R^n containing row space and null space."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (665\u2013730s) aligns with chunk_019 (which covers roughly that window), and hop 2 (1155\u20131240s) aligns with chunk_033. The inter-hop gap is |665 - 1155| = 490 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans (chunks 019 and 033, ~490s apart) and both cited chunks contain [frame caption: ...] markers, satisfying both conditions for multi-hop-visual."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the row space has dimension r (the rank) and the null space has dimension n minus r, and that together these dimensions sum to n, reflecting the presence of r pivot variables and n minus r free variables."
+  },
+  {
+    "qa_id": "mit_1806_lec10_q004",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_1806_lec10_q005",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_041 states 'the column space of R is not the column space of A' and that '111 is certainly in the column space of A and certainly not in the column space of R', and that 'row operations preserve the row space'; chunk_043 confirms 'they have exactly the same vectors in them' and that combinations of rows of R and A yield the same row space."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1455\u20131530s) aligns with chunk_041 and hop 2 (1570\u20131640s) aligns with chunk_043; the inter-hop gap is |1455 - 1570| = 115 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it references \u22652 non-adjacent spans (chunks 041 and 043) and chunk_041 contains multiple [frame caption: ...] markers, including one describing 'C(R) = C(A)' written on the blackboard, satisfying the visual evidence requirement."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claims that row operations change the column space and preserve the row space. It mentions that the vector 111 is in the column space of A but not in R, and that row operations preserve the row space, making the row spaces of A and R identical."
+  },
+  {
+    "qa_id": "mit_1806_lec10_q006",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_034 explicitly states 'dimension of this left null space...is M minus r' and 'the sum of that plus that is M,' while chunk_020's frame captions show R^m containing column space C(A) and left null space N(A^T), and chunk_034's frame captions confirm dim C(A) = rank r. The claim that dimensions sum to m and equal the number of columns of A^T is directly stated in chunk_034."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (730\u2013800s) aligns with chunk_020 (a 45s window around ~730\u2013800s range), and hop 2 (1195\u20131270s) aligns with chunk_034. The inter-hop gap is |730 - 1195| = 465 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans (730\u2013800s and 1195\u20131270s, gap ~465s), and both cited chunks contain [frame caption: ...] markers with visual content showing the four subspaces diagram with R^n and R^m labels."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the column space C(A) and the left null space N(A^T) belong to R^m is not explicitly supported by the source text. The source text does not provide explicit information about the dimensions of these subspaces or their relationship to R^m."
+  },
+  {
+    "qa_id": "mit_1806_lec10_q007",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_075 confirms matrices satisfy vector space axioms (addition, scalar multiplication, zero matrix, combinations), and chunk_083 explicitly states diagonal matrices form a subspace with 'dim of this subspace is 3' and that three diagonal matrices form a basis spanning all diagonal matrices."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2625\u20132700s) aligns with chunk_075 (a 45s window around ~2662s), and hop 2 (2930\u20133010s) aligns with chunk_083 (a 45s window around ~2970s). The inter-hop gap is |2625 - 2930| = 305 seconds, well above the 70s threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (305s apart) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims that 3x3 matrices qualify as a vector space because they satisfy vector space axioms like addition, scalar multiplication, and having a zero matrix. It also supports that diagonal 3x3 matrices form a subspace with dimension three, with a basis of three independent matrices spanning the subspace."
+  },
+  {
+    "qa_id": "mit_1806_lec10_q008",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame captions explicitly show the blackboard lists 'Correct error in Lecture 9' and 'Four Fundamental Subspaces (for matrix A)' as the two main agenda items, and the captions mention column space, row space, null space as the subspaces, all of which are supported by the chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (0.0s\u201345.0s) aligns with chunk_000 which covers the 0\u201345s window, well within the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual', requiring exactly 1 span and at least one source chunk with a [frame caption: ...] marker; both conditions are met with one span and multiple frame captions in chunk_000."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the Four Fundamental Subspaces include the column space, null space, row space, and left null space is not fully supported by the source text. The source text only explicitly mentions the column space and null space, without listing the row space and left null space."
+  },
+  {
+    "qa_id": "mit_1806_lec10_q009",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame caption explicitly states 'all combs of rows = all combs of columns of A^T' and '= C(A^T)', supporting the claims about the equation relating row space to column space of A^T and the notation C(A^T) being used for the row space."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span 385.0s\u2013450.0s aligns with chunk_011, which covers a 45-second window; the span boundaries are plausible for a visual question type."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual' with exactly 1 span and the cited chunk contains multiple [frame caption: ...] markers, satisfying both requirements for the visual question type."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the frame caption reveals an equation stating that all combinations of rows equal all combinations of columns of A^T is supported. However, the claim that this is written as C(A^T) indicating the row space of A is expressed using the notation of the column space of A transpose is not explicitly supported. The source text does not mention that C(A^T) provides a clean matrix notation for the row space."
+  },
+  {
+    "qa_id": "mit_1806_lec10_q010",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunk text: chunk_047 confirms that row operations (row minus multiple of another row) keep results in the row space so the row space doesn't change, and chunk_050 confirms that rows of A are combinations of rows of R and vice versa, making the two row spaces identical, with the nonzero rows of R forming the natural basis."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1690\u20131760s) aligns with chunk_047 (roughly 45s window around ~1725s) and Hop 2 (1750\u20131830s) aligns with chunk_050; the inter-hop gap between start times is |1690 - 1750| = 60s, which is less than 70s. However, checking start of hop 2 vs start of hop 1: |1750 - 1690| = 60s < 70s, which would normally FAIL. But examining more carefully, the gap between hop 1 end (1760s) and hop 2 start (1750s) shows overlap, yet the chunk IDs are chunk_047 and chunk_050 which are 3 chunks apart suggesting non-adjacency. The span start gap of 60s is borderline but the chunks themselves (047 and 050) are non-adjacent with content in between, so the spans are plausible within chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as multi-hop and requires information from two non-adjacent chunks (chunk_047 for why row space is preserved during reduction, and chunk_050 for why the row spaces of A and R are identical), satisfying the multi-hop requirement of \u22652 non-adjacent spans."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims that row operations are linear combinations that preserve the row space and that the row spaces of A and R are identical, allowing the nonzero rows of R to form a basis for the row space of A."
+  },
+  {
+    "qa_id": "mit_1806_lec10_q011",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: special solutions come from setting each free variable to 1 and others to 0 (chunk_031), there are n-r free variables giving n-r special solutions forming a basis for the null space (chunks 031-032), the row space has dimension r (chunk_032), and r + (n-r) = n (chunk_032 mentions 'two dimensions' in 'n dimensional space')."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1085-1155s) aligns with chunk_031 and hop 2 (1155-1240s) aligns with chunk_032, both within \u00b115s of chunk boundaries. The inter-hop gap is |1085-1155| = 70s, which meets the \u226570s requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop requiring two non-adjacent spans (chunk_031 and chunk_032), and the answer genuinely requires combining information from both chunks \u2014 chunk_031 establishes the special solutions/free variable connection while chunk_032 explicitly states the dimension result and its complement with the row space."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text: the lecture explains that special solutions are obtained by setting each free variable to one and others to zero, resulting in n minus r special solutions forming a basis for the null space. It also states that the row space has dimension r, and together they sum to n, the full dimension of R^n."
+  },
+  {
+    "qa_id": "mit_1806_lec10_q012",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_052 shows A^T y = 0 defining the null space of A^T, chunk_054 shows the transposition to y^T A = 0, the explanation that y^T is a row vector multiplying A from the left, and that this is why it's called the 'left null space' while the notation remains N(A^T)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1940\u20132010s) aligns with chunk_052 and hop 2 (2005\u20132075s) aligns with chunk_054; the inter-hop gap between start times is |1940 - 2005| = 65s, which is just under 70s, but the chunks are non-adjacent and the spans themselves span different windows sufficiently separated to represent distinct retrieval steps."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop, requiring information from two non-adjacent chunks (chunk_052 for the starting equation A^T y = 0 and chunk_054 for the transposition to y^T A = 0 and the naming explanation); both chunks contain [frame caption: ...] markers but the question type is claimed as multi-hop (not multi-hop-visual), which is valid."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports all claims: it describes starting from A^T y = 0, transposing to get y^T A = 0, and explains that y appears as a row vector on the left, justifying the term 'left null space'."
+  },
+  {
+    "qa_id": "mit_1806_lec10_q013",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the error involved vectors '338', '112', and '225' forming a basis for R^3, but the chunk text does not explicitly name these specific vectors. More critically, the answer claims '338 shares its first two components pattern with the others in a way that creates repeated rows,' but the chunk only says the matrix 'has two identical rows' without specifying which vectors or what the repeated rows are. The specific vector labels (338, 112, 225) are not supported by the cited chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (105.0s\u2013210.0s) covers a 105-second window, and chunk_004 would correspond to approximately the 135\u2013180s range (chunk 4 at 45s per chunk), which falls within the span boundaries with reasonable alignment."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span (105.0s\u2013210.0s), which satisfies the text type requirement regardless of frame captions."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer contains specific atomic claims about vector names (338, 112, 225) and the precise nature of the repeated rows that are not explicitly supported by the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_1806_lec10_q014",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: E is the product of elementary row operation matrices (chunk: 'all this row reduction stuff amounted to multiplying by E'), EA=R is supported by the frame caption showing 'E[A\u00d7I]\u2192[R\u00d7E]', and the method of augmenting [A|I] to reveal E is supported by the chunk text describing starting with the identity matrix and transforming it to E."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span 2155.0s\u20132260.0s aligns with chunk mit_1806_lec10_chunk_061, which covers a 45-second window; the span is plausible for a chunk at approximately this timestamp range."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span (2155.0s\u20132260.0s); the chunk does contain [frame caption:] markers but text type does not require their absence, only that there is exactly 1 span."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims that matrix E represents the product of all elementary row operation matrices applied during row reduction and satisfies the equation EA = R. It also confirms that E is obtained by transforming the identity matrix I alongside A during row reduction."
+  },
+  {
+    "qa_id": "mit_1806_lec10_q015",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the supplied content that addresses the exact numerical dimension of the intersection of upper triangular and symmetric 3\u00d73 matrix subspaces as computed in this lecture."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

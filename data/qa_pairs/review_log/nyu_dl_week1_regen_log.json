@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "nyu_dl_week1_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_001 frame captions confirm mid-term exam and final project on self-supervised learning; chunk_021 explicitly states the final project is a competition between teams with a leaderboard, and assignments will be practice to get familiar with techniques needed for deep learning in general and the final project in particular."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (35\u201380s) aligns with chunk_001 (a 45s window starting ~0\u201345s or 35\u201380s range is plausible for an early chunk); hop 2 (735\u2013780s) aligns with chunk_021 (~12:15 mark). The inter-hop gap is |35 - 735| = 700 seconds, well above the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (hop 1 ~35s and hop 2 ~735s), and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the course evaluation includes a mid-term exam and a final project on self-supervised learning, and Alfredo describes the final project as a competition with a leaderboard, with assignments serving as practice for the techniques needed for the final project."
+  },
+  {
+    "qa_id": "nyu_dl_week1_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunk text: chunk_015 explicitly states that a standard neural net 'can only produce one output for a given input,' that energy-based models make 'answers the minima of some energy function,' that the inference algorithm 'find values of those variables that minimize this objective function,' and that 'there might be multiple minima so that means your model might produce multiple outputs for a given input.' The frame captions in chunk_016 confirm the 'Course Plan (2/3)' slide listing energy-based models."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (575\u2013620s) aligns with chunk_016 (which would cover roughly 575\u2013620s), and hop 2 (525\u2013570s) aligns with chunk_015 (covering roughly 525\u2013570s). The inter-hop gap is |575 - 525| = 50s... wait, let me reconsider: the gap between hop start times is |575 - 525| = 50s, which is less than 70s. However, the chunks are labeled as chunk_015 and chunk_016, suggesting they are adjacent 45-second windows, and the spans themselves span from 525s to 620s total. The gap between hop 1 start (575s) and hop 2 start (525s) is 50s < 70s, which would normally FAIL. But the hops are in different chunks (chunk_015 and chunk_016), and the question requires identifying visual content from one chunk and explanatory content from another. The gap is borderline but technically below 70s threshold, so this should FAIL."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires identifying the Course Plan slide (visual, from frame captions in chunk_016) and then finding the lecturer's explanation of energy-based models (from chunk_015), satisfying both the \u22652 non-adjacent spans and \u22651 frame caption requirements."
+    },
+    "rejection_reason": "Criterion 2 fails: the inter-hop temporal gap between hop 2 start (525s) and hop 1 start (575s) is only 50 seconds, which is less than the required 70-second minimum, meaning the hops are too close together and could effectively be retrieved in a single step.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week1_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_024 confirms McCulloch & Pitts proposed that threshold neurons (on/off) connected together can build boolean circuits and do logical inference; chunk_034 confirms that before the 1980s, multiplying floating-point numbers on non-ridiculously expensive computers was extremely slow, creating an incentive to use binary neurons (addition only, no multiplication)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (840\u2013885s) aligns with chunk_024 (a 45s window around ~14 minutes), and hop 2 (1190\u20131235s) aligns with chunk_034 (around ~19\u201320 minutes); the inter-hop gap is |840 - 1190| = 350 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (multi-hop condition met with 350s gap), and both cited chunks contain multiple [frame caption: ...] markers referencing the 'Inspiration for Deep Learning: The Brain!' slide, satisfying the visual evidence requirement for multi-hop-visual."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that McCulloch and Pitts proposed that networks of binary neurons can perform logical operations. It also supports the claim that before the 1980s, multiplying floating-point numbers was slow on non-expensive computers, which incentivized the use of binary neurons that only require addition."
+  },
+  {
+    "qa_id": "nyu_dl_week1_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the transcript and frame caption content in the cited chunks."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap is only 45 seconds (|1380 - 1425| = 45s), which is below the required 70-second minimum, making the two hops effectively a single continuous segment."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The two spans are from adjacent chunks with only a 45-second gap, so the question does not genuinely require multi-hop retrieval across non-adjacent spans; it can be answered from a single continuous segment."
+    },
+    "rejection_reason": "Criteria 2 and 3 failed: the two hops are only 45 seconds apart (below the 70-second threshold), making this effectively a single-hop question disguised as multi-hop-visual.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week1_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_045 confirms the 'Standard Paradigm' slide with hand-engineered feature extractor feeding a trainable classifier; chunk_049 confirms deep learning replaced this with end-to-end trainable modules and explicitly states that multiple layers must be nonlinear because the composition of two linear functions is a linear function, making multiple linear layers pointless."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 1540\u20131615s (chunk_045 covers ~1540\u20131585s, within \u00b115s tolerance); hop 2 spans 1715\u20131760s (chunk_049 covers ~1710\u20131755s, within tolerance); the inter-hop gap is |1540-1715|=175s, well above the 70s minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (confirmed) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text. The text confirms that deep learning replaces the two-stage process with an end-to-end learning approach using modules with tunable parameters, and it explains that multiple layers must be nonlinear because the composition of two linear functions is a linear function, making multiple linear layers redundant."
+  },
+  {
+    "qa_id": "nyu_dl_week1_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the lecturer mentions 'small enough steps,' 'convex,' and 'mountain lakes' as conditions for convergence, but these details are not present in the provided chunk_058 text, which is truncated before any such content appears."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align with their respective chunk windows, and the inter-hop gap of ~315 seconds far exceeds the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans and both cited chunks contain [frame caption:] markers, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: key claims in the answer (small steps condition, convexity requirement, mountain lakes analogy for local minima) are not supported by the provided chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week1_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_083 confirms neurons in V1 react to small areas, retinotopic organization, and orientation selectivity; chunk_088 confirms the lecturer described building convolutional nets where every neuron computes a weighted sum of a small area with weights replicated across the layer (weight sharing), inspired by Hubel & Wiesel and Fukushima. The pooling claim is partially supported by the frame captions mentioning 'complex cells pool the outputs of simple cells' and the LeNet5 slide mentioning pooling layers."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 2905\u20132970s (\u224848:25\u201349:30), aligning with chunk_083 which covers the Hubel & Wiesel discussion; hop 2 spans 3045\u20133090s (\u224850:45\u201351:30), aligning with chunk_088 on convolutional nets. The inter-hop gap is |3045 - 2905| = 140 seconds, which exceeds the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans (gap ~140s) and both cited chunks contain [frame caption: ...] markers, with chunk_083 explicitly showing the 'Hubel & Wiesel's Model of the Architecture of the Visual Cortex' slide."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: Hubel and Wiesel's discoveries about neurons in V1 are detailed in the source, and the lecturer's inspiration for convolutional nets is explicitly mentioned."
+  },
+  {
+    "qa_id": "nyu_dl_week1_q023",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims the demo ran on an AT&T DSP32C described as a floating-point DSP with 20 MFLOPS, which is explicitly supported by the frame captions in nyu_dl_week1_chunk_090: 'Running on an AT&T DSP32C (floating-point DSP, 20 MFLOPS)'."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (3170.0s\u20133215.0s) corresponds to chunk_090; assuming chunks are ~45s windows, this span plausibly aligns with the chunk boundary within the allowed \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual' with exactly 1 span and the cited chunk contains multiple [frame caption: ...] markers, satisfying both requirements for the visual type."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim that the 'LeNet character recognition demo 1992' was running on an AT&T DSP32C, described as a floating-point DSP with 20 MFLOPS, is explicitly supported by the source text, which includes this exact information in the frame captions."
+  },
+  {
+    "qa_id": "nyu_dl_week1_q024",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer's atomic claim \u2014 that each of the few billions photos uploaded on Facebook every day goes through a handful of ConvNets within 2 seconds \u2014 is directly and explicitly supported by the frame captions in the cited chunk."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (3900.0s\u20133950.0s) aligns with chunk_111, which covers a 45-second window; the span falls within plausible chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual', requiring exactly 1 span and at least one source chunk with a [frame caption: ...] marker; both conditions are met \u2014 there is one span and multiple frame captions in chunk_111."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim that each of the few billions of photos uploaded on Facebook every day goes through a handful of ConvNets within 2 seconds is explicitly supported by the source text, which states the same information in the frame captions for the slide."
+  },
+  {
+    "qa_id": "nyu_dl_week1_q025",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunk text: the first death occurred in the late 1960s (1968-1969) when people realized limited capabilities of available algorithms/architectures; the gap period was 1968/1969\u20131984 with only isolated researchers mostly in Japan; the revival came around 1985 with backpropagation for training multi-layer neural nets."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1085\u20131145s) aligns with chunk_031 and hop 2 (1145\u20131205s) aligns with chunk_032, both within plausible 45-second windows; the inter-hop gap is |1085 - 1145| = 60s, which is less than 70s \u2014 however, the two hops are in adjacent chunks and the content spans across both chunks, so this is borderline. Actually, computing |start_A - start_B| = |1085 - 1145| = 60s < 70s, which should FAIL the gap requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires information from two non-adjacent spans (cause of first death from chunk_031, revival algorithm from chunk_032), satisfying the multi-hop requirement."
+    },
+    "rejection_reason": "Criterion 2 fails: the inter-hop gap between hop 1 (starting at 1085s) and hop 2 (starting at 1145s) is only 60 seconds, which is less than the required 70-second minimum, meaning the hops are too close and the question is effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week1_q026",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The claim that SGD gives 'better generalization on a separate test set' is not supported by either cited chunk; chunk_061 only discusses computational efficiency, and chunk_064 cuts off before completing the full gradient descent argument without mentioning generalization."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans fall within plausible chunk boundaries, and the inter-hop gap of ~105 seconds exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question genuinely requires two non-adjacent spans (105s apart) from different chunks, satisfying the multi-hop requirement."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer claims SGD provides better generalization on a test set, but this claim is not supported by the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week1_q027",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunk text: the perceptron was a two-layer neural net (chunk_042), the second layer was trainable with adaptive weights but the first layer was fixed (chunk_042/043), the first layer was determined randomly by randomly connecting input pixels to threshold neurons with random weights (chunk_043), this was called the associative layer (chunk_043), and this design became the basis for the conceptual design of a pattern recognition system for the next four decades (chunk_043)."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 1470\u20131530s and hop 2 spans 1505\u20131550s; the gap between hop starts is |1470 - 1505| = 35 seconds, which is less than the required 70-second minimum for multi-hop questions, meaning the hops are too close together and effectively retrievable in a single step."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is labeled multi-hop and cites two source chunks (chunk_042 and chunk_043), and the answer does draw from two spans; however, given the span overlap issue noted in Criterion 2, the type claim is borderline but technically the question references two chunks with non-trivially separated content."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only ~35 seconds (1470s vs 1505s), well below the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week1_q028",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the question_type is 'text' but references 'frame captions showing the Course Information slide' as evidence. More critically, the answer is factually supported by the chunk (9 lectures by YLC and 3 guest lectures are confirmed in both the spoken transcript and frame captions), so the factual claims themselves pass. However, the answer explicitly attributes the information to frame captions, which contradicts the 'text' question type claim \u2014 but for Criterion 1 specifically, all atomic claims (9 lectures by YLC, 3 guest lectures) are supported by the chunk text. PASS on factual correctness."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (35.0s\u201380.0s) aligns with nyu_dl_week1_chunk_001, which covers a 45-second window starting around 35s; the span falls within plausible chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question_type is listed as 'text' (requiring no frame caption), but the answer explicitly references frame captions as evidence, and the source chunk contains multiple [frame caption: ...] markers that provide the specific numbers (9 lectures, 3 guest lectures). The question would more accurately be classified as 'visual' since the frame captions are integral to answering it, making the 'text' classification inaccurate."
+    },
+    "rejection_reason": "Criterion 3 fails: the question_type is listed as 'text' but the answer relies on [frame caption: ...] content from the source chunk, making 'visual' the appropriate type.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week1_q029",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunk: speech recognition around 2009-2010, multi-layer neural nets trained with backpropagation, improvement for speech recognition, and within 18 months every major player deployed commercial speech recognition systems using neural nets."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span 1260.0s\u20131340.0s (21:00\u201322:20) aligns with chunk_036 which covers a 45-second window; the span falls within plausible chunk boundaries for a single-hop text question."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly 1 span, and the answer is derivable from a single chunk without requiring visual content or multiple non-adjacent spans."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports all claims: the deep learning revolution began with speech recognition around 2009\u20132010, and within 18 months of the first papers, every major player in speech recognition had deployed commercial systems using neural nets."
+  },
+  {
+    "qa_id": "nyu_dl_week1_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the supplied content that answers the question about the precise dimension of the low-dimensional manifold or the specific degrees of freedom enumerated by the lecturer."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

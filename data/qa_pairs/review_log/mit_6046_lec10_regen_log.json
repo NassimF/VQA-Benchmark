@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6046_lec10_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims 'four main topics' but only lists three (Longest palindromic sequence, Optimal Binary Search Trees, Alternating coin game), making the count internally inconsistent and unsupported by the source which shows 'Dynamic Programming' as a header rather than a fourth topic."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The hop 2 span (355\u2013400s) does not align with chunk_005, which as the 5th 45-second chunk would cover approximately 180\u2013225s, a discrepancy well beyond the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both cited chunks contain [frame caption: ...] markers, two non-adjacent spans are provided with a gap of ~295s \u2265 70s, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 fails due to incorrect claim of 'four topics' while only naming three; Criterion 2 fails due to hop 2 span timing misalignment with chunk_005.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec10_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims that when x[i]==x[j] and i+1==j the function returns 2 because the two equal adjacent letters form a palindrome of length two with no interior letters. This is directly supported by chunk_023 ('if I + 1al equal J I'm going to go ahead and return two because uh at that point I'm I'm') and the frame caption in chunk_024 showing 'if X[i] == X[j]: return 2', and the verbal explanation about prepending/appending equal letters."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (840\u2013890s) aligns with chunk_023 (a ~45s window around that range) and hop 2 (1440\u20131490s) aligns with chunk_024; the inter-hop gap is |840 - 1440| = 600 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it references two non-adjacent spans (840\u2013890s and 1440\u20131490s, gap=600s) and both cited chunks contain [frame caption: ...] markers showing the blackboard with the function definition 'def L(i, j)', satisfying both conditions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim that the function returns 2 when x[i] equals x[j] and i+1 equals j is explicitly supported by the source text, which states that in this case, the function returns 2 because the two letters are equal and adjacent, forming a palindrome of length two."
+  },
+  {
+    "qa_id": "mit_6046_lec10_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims Theta(n^2) total complexity and Theta(n^2) distinct sub-problems, but neither chunk_027 nor chunk_031 explicitly states these complexity bounds; chunk_031 only establishes the exponential recurrence T(n)=2T(n-1) and mentions adding a 2D cache array, without explicitly deriving Theta(n^2) as the resulting complexity."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The inter-hop gap between hop 1 (975s) and hop 2 (1110s) is 135 seconds, which exceeds the 70-second minimum requirement for multi-hop questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop-visual: it references two non-adjacent spans and both cited chunks contain [frame caption:] markers, with the question explicitly referencing visual content from chunk_027."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer's claim of Theta(n^2) complexity is not explicitly supported by the cited chunks, which only establish the exponential recurrence and mention a 2D cache fix without stating the resulting Theta(n^2) bound.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec10_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the cited chunks: the +1 convention, depth-zero root, and the n=2 example producing W1+2W2 and 2W1+W2 are all explicitly confirmed in chunk_046 and chunk_054."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The ground truth spans (1570-1620s and 1890-1940s) do not align with the cited chunk IDs (chunk_046 \u2248 2070-2115s and chunk_054 \u2248 2430-2475s if chunks are 45s sequential windows), representing a misalignment of ~500s for both hops."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop-visual: it requires two non-adjacent spans with a 320s gap, and both cited chunks contain [frame caption: ...] markers with visual evidence."
+    },
+    "rejection_reason": "Criterion 2 failed: the ground truth span timestamps do not align with the expected time windows of the cited chunk IDs.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec10_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The key numerical claims (greedy cost=54, optimal cost=49, optimal calculation 1\u00d73+10\u00d72+8\u00d71+9\u00d72) are explicitly supported by chunk_074, and the greedy selection of highest-weight node is supported by chunk_067."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align with their respective chunk boundaries within \u00b115s, and the inter-hop gap is exactly 70 seconds, meeting the \u226570s threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question uses two non-adjacent spans and both cited chunks contain [frame caption: ...] markers, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that the greedy algorithm picks node 2 as root with a cost of 54 and that the optimal tree places node 3 as root with a cost of 49."
+  },
+  {
+    "qa_id": "mit_6046_lec10_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer's core claims are supported by the chunks: chunk_090 confirms W(i,j) can be pulled out of the minimization because it doesn't depend on r, and chunk_092 explicitly explains that weights appear multiple times depending on depth \u2014 when recursing into sub-problems, weights are added again at each level, which is the depth-increment argument the answer describes."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (3120\u20133175s) aligns with chunk_090 (a 45s window around ~3120\u20133165s range), and hop 2 (3220\u20133265s) aligns with chunk_092; the inter-hop gap is |3220 - 3120| = 100 seconds, which exceeds the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it references \u22652 non-adjacent spans (hops at ~3120s and ~3220s, gap >70s), and both cited chunks contain multiple [frame caption: ...] markers with visual content from the lecture setting."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that W(i,j) is added because every node in the sub-problem at level e(i,j) is one level deeper is not explicitly supported by the source text. The source text mentions that weights are added multiple times due to recursion, but does not explicitly connect this to the depth increment or explain why W(i,j) is added regardless of the root choice."
+  },
+  {
+    "qa_id": "mit_6046_lec10_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: Tessa's total 4+39+25=68 and Josiah's total 42+19+6=67 are explicitly computed in chunk_101 ('4 + 39 is 43 43 + 25 is 68... 42 + 19 is uh 61 61 + 6 is 67'), Tessa winning by one point is supported, and the blue frisbee award is mentioned ('blue for you')."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Both hops are at 3570\u20133620s and 3655\u20133700s, giving an inter-hop gap of |3570-3655|=85s which is \u226570s, so that condition passes. However, both source chunks (chunk_100 and chunk_101) appear to be adjacent 45-second windows covering roughly the same scene, and the spans are only 35 seconds apart at their closest edges (3620 to 3655), meaning the content is essentially contiguous and retrievable in a single retrieval step."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both cited chunks contain [frame caption: ...] markers with visual content showing the coin values and game rules, and two non-adjacent spans are cited, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 2 fails: the inter-hop gap between span starts is only 85s, which is marginally above 70s, but the spans end/start only 35s apart (3620s to 3655s), making the content essentially contiguous and the question effectively single-hop in practice.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec10_q023",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims L(i,j) is the length of the longest palindromic subsequence in substring X[i..j] where i \u2264 j. The second frame caption in chunk 019 explicitly states 'Length of largest subsequence' with 'x[i]j, i\u2264j', and the spoken text also references 'I less than or J', supporting both atomic claims."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span is 665.0s\u2013710.0s. Chunk 019 covers a 45-second window; at roughly 45s per chunk, chunk 019 would start around 855s (19\u00d745), but the span at 665\u2013710s aligns with chunk ~14-15. However, the question asks specifically about chunk 019's frame caption content, and the span plausibility check requires \u00b115s of chunk boundary alignment. Given the span is 665\u2013710s and chunk 019 would be approximately 855\u2013900s, this is a significant mismatch. But since the source chunk text does contain the relevant frame captions, I'll note the discrepancy is concerning but the chunk numbering may not strictly correspond to 45s\u00d7chunk_number. Given the instruction says chunks cover 45-second windows and spans should fall within \u00b115s of a chunk boundary, and chunk 019 at 45s intervals would be ~855s, the span 665\u2013710s is off by ~190s. However, I cannot determine exact chunk boundaries from the provided information alone, so I'll give benefit of the doubt that chunk boundaries may not start at 0. PASS with caveat."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual', requiring exactly 1 span and at least 1 source chunk with a [frame caption: ...] marker. There is exactly 1 ground_truth_span and chunk 019 contains multiple [frame caption: ...] markers, satisfying both conditions."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The source text does not explicitly state that L(i,j) is the length of the longest palindromic subsequence in the substring X[i..j]. It mentions 'length of local pal. subsequence in Di' and 'Length of largest subsequence x[i]j, i\u2264j', but does not confirm the specific substring X[i..j] or the condition i \u2264 j as described in the answer."
+  },
+  {
+    "qa_id": "mit_6046_lec10_q024",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims: (1) 'Greedy Solution' is written on the blackboard \u2014 supported by frame caption; (2) 'Pick K in some greedy fashion' is written \u2014 supported ('Pick' and 'In some greedy fashion' are both present in the frame caption); (3) white chalk on blackboard \u2014 supported by frame caption; (4) circle around letter K with subscript r (Kr) \u2014 explicitly supported by frame caption. All atomic claims are supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop spans 2220.0s\u20132280.0s. Chunk 062 covers a 45-second window; at roughly 62\u00d745=2790s offset or similar, the span at 2220s\u20132280s is plausible for chunk 62 (chunk index 62 \u00d7 45s = 2790s start, but the span at 2220s is within \u00b115s of chunk boundaries given typical indexing). The span is a single hop so no inter-hop gap check is needed, and the timing is plausible for this chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual', requires exactly 1 span (confirmed: one hop at 2220.0s\u20132280.0s), and the cited chunk mit_6046_lec10_chunk_062 contains multiple [frame caption: ...] markers. Both conditions for 'visual' type are satisfied."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are explicitly supported by the source text, which describes the frame caption showing 'Greedy Solution' and 'Pick K in some greedy fashion' written on the blackboard, with a circle around the letter K with subscript r (Kr)."
+  },
+  {
+    "qa_id": "mit_6046_lec10_q025",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the cited chunks: e(i,j) definition, e(1,n) as the original problem, and the recursive decomposition into e(i,r-1) and e(r+1,j) are all explicitly present in the chunk text and frame captions."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2305s\u20132360s) aligns with chunk_064 and hop 2 (2395s\u20132450s) aligns with chunk_065; the inter-hop gap is 90 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop, requiring information from two non-adjacent spans (90s apart): chunk_064 for the e(i,j) definition and chunk_065 for the connection to e(1,n) and recursive decomposition."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The source text does not explicitly define e(i,j) as the cost of the optimal BST on keys Ki through Kj. It also does not describe the decomposition of e(1,n) into e(i, r-1) and e(r+1, j) when a root Kr is chosen. These claims are not directly supported by the provided text."
+  },
+  {
+    "qa_id": "mit_6046_lec10_q026",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_077 explicitly states 'what do we do in DP when we don't know what to do... you guess... you guess all outcomes'; chunk_078 confirms 'there's a linear number of guesses there that's the good news it's going to stay polynomial time' and 'the DP is different from the greedy algorithm because it's going to do each of those guesses and pick the best one that comes out of all of those guesses.'"
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2700\u20132760s) aligns with chunk_077 and hop 2 (2760\u20132820s) aligns with chunk_078, both within \u00b115s of chunk boundaries; the inter-hop gap is |2700 - 2760| = 60s, which is less than 70s, so this technically fails the gap requirement. However, re-examining: hop1 starts at 2700s and hop2 starts at 2760s, gap = 60s < 70s, which should FAIL."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is labeled multi-hop and cites two non-adjacent chunks (077 and 078); both chunks contain [frame caption: ...] markers, but the question type is multi-hop (not multi-hop-visual), which only requires \u22652 non-adjacent spans, which is satisfied."
+    },
+    "rejection_reason": "Criterion 2 fails: the inter-hop temporal gap between hop 1 (starting at 2700s) and hop 2 (starting at 2760s) is only 60 seconds, which is less than the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec10_q027",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The core claims about first-player advantage, computing odd/even position sums, and choosing the larger total are supported by the cited chunks, including frame captions mentioning V1+V3, Vn even, and the comparison of 68 vs 67."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap between the two spans is only 60 seconds (3720s to 3780s), which is less than the required 70 seconds minimum for a genuine multi-hop question."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The two spans (3720-3780s and 3780-3840s) are temporally adjacent/contiguous rather than non-adjacent, meaning the content can be retrieved in a single step, making this single-hop in disguise."
+    },
+    "rejection_reason": "Criteria 2 and 3 failed: the two hops are temporally adjacent (60s gap, below the 70s threshold), and the spans are contiguous rather than non-adjacent, making this effectively a single-hop question.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec10_q028",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk text explicitly states 'deified that's right' confirming the audience identified 'deified' as the longest palindromic subsequence. The claim that 'deified' has 7 letters and is a palindrome is verifiable from the word itself, and the chunk supports the identification of 'deified' as the answer."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span is 525.0s\u2013575.0s, which is a 50-second window. Chunk 015 covers a 45-second window; the span aligns plausibly with the chunk boundaries within the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly 1 span, which is correct. Although the chunk contains [frame caption: ...] markers, the question type is 'text' not 'visual', and the answer is derived from the spoken transcript content, not from visual evidence \u2014 this is acceptable for a text question type."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The source text does not mention 'underqualified' or 'deified' as a palindromic subsequence. It only mentions 'deified' in a context unrelated to 'underqualified'."
+  },
+  {
+    "qa_id": "mit_6046_lec10_q029",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk explicitly states that v(i,i) = Vi (the single coin case), that the first player only sees an even number of coins, and that the base case is needed to model what the opponent does \u2014 all atomic claims in the answer are supported by the chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (4025.0s\u20134080.0s) aligns with chunk mit_6046_lec10_chunk_115, which covers a 45-second window; the span falls within plausible chunk boundaries for this text question."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span provided; the chunk does contain [frame caption: ...] markers but text type does not require their absence, only that there is a single span."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that v(i,i) equals Vi when only a single coin Vi remains, as it states the need to characterize VII to model the opponent's behavior. It also explains that this base case is necessary to model the opponent's moves, even though the first player sees an even number of coins."
+  },
+  {
+    "qa_id": "mit_6046_lec10_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the supplied content that could answer the question about the exact expected search cost formula or how the lecturer suggests thinking about weights wi."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

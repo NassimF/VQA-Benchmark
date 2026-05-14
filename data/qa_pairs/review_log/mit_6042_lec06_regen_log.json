@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6042_lec06_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims E is 'a set of 2-item subsets of V' but the chunk says 'a set of pairs of elements called edges'; additionally, the answer claims a 'bipartite graph' is formed, but the term 'bipartite' does not appear in chunk_028."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans fall within their respective chunk windows, and the inter-hop gap between chunks 016 and 028 is approximately 540 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual with two non-adjacent source chunks (016 and 028), both containing [frame caption: ...] markers, and the question genuinely requires visual evidence from the blackboard."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer introduces unsupported specific formulations ('2-item subsets of V' instead of 'pairs of elements') and uses the term 'bipartite graph' which is not present in the cited chunks.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec06_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: degree is defined as the number of edges incident to a node (frame caption in chunk_025), degree of x5 equals 3 and degree of x7 is 1 (chunk_025 transcript), and nodes with degree 0 have no edges incident to them making them isolated (chunk_025/026 transcript)."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Both hops (14.35s\u201315.2s and 15.1s\u201315.55s) fall within chunk_025 and are nearly overlapping, with an inter-hop gap of only |14.35 - 15.1| = 0.75 seconds, far below the required 70-second minimum for multi-hop questions."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question claims multi-hop-visual requiring \u22652 non-adjacent spans, but both ground_truth_spans (14.35s\u201315.2s and 15.1s\u201315.55s) are essentially the same moment in time and are not non-adjacent; the information can be retrieved from a single continuous segment."
+    },
+    "rejection_reason": "Criterion 2 and Criterion 3 both fail: the two hops are separated by less than 1 second (far below the 70-second minimum), making this effectively single-hop rather than multi-hop, and the spans are not non-adjacent as required for multi-hop-visual classification.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec06_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the chromatic number problem is 'NP-complete,' but this term does not appear in chunk_062; the chunk only mentions checking 'a number of possibilities' without explicitly labeling it NP-complete."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The spans fall within plausible chunk boundaries, and the inter-hop gap between chunk_056 and chunk_062 is approximately 270 seconds, well exceeding the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question references two non-adjacent chunks (056 and 062), both containing [frame caption: ...] markers, and requires visual evidence from the blackboard, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer introduces the unsupported claim that the chromatic number problem is 'NP-complete,' which is not stated in the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec06_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the frame captions and text in the cited chunks (chunk_035 and chunk_041), including the definitions of Am/Aw and the derivation that Am/Aw equals |Vw|/|Vm| via edge cancellation."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The ground_truth_spans (20.25s\u201321.1s and 23.55s\u201324.4s) are implausibly early for chunks 035 and 041, and the inter-hop gap of ~3.3 seconds is far below the required 70 seconds minimum for multi-hop questions."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The two hops are only ~3.3 seconds apart, failing the non-adjacent span requirement for multi-hop-visual questions (minimum 70-second gap required)."
+    },
+    "rejection_reason": "Criterion 2 and Criterion 3 both fail: the ground_truth_spans are implausibly early for the cited chunks, and the inter-hop gap of ~3.3 seconds is far below the 70-second minimum required for multi-hop questions.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec06_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "Several atomic claims are unsupported by the chunk text: the color assignment step ('assigns the lowest legal color'), the explicit construction of G' by removing Vn+1, and re-adding Vn+1 are not evidenced in the provided chunks."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap between hop 1 (43.1s) and hop 2 (56.0s) is only ~13 seconds, far below the required 70-second minimum, making this effectively single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both cited chunks contain [frame caption: ...] markers and the chunks are non-adjacent (074 and 096), satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 fails due to unsupported claims about algorithm details and inductive step construction; Criterion 2 fails because the inter-hop temporal gap (~13s) is well below the 70-second threshold.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec06_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the cited chunk text, including the 300M total, 147.6M male nodes, 152.4M female nodes, and unknown edge set size."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap is only ~0.35 seconds (18.05s vs 18.4s), far below the required 70-second minimum, meaning the hops are not temporally separated and the question is single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "Multi-hop-visual requires \u2265 2 non-adjacent spans, but the two spans (18.05s\u201318.5s and 18.4s\u201319.25s) overlap and are essentially the same moment, failing the non-adjacent requirement."
+    },
+    "rejection_reason": "Criteria 2 and 3 both fail: the two hops have overlapping timestamps (~0.35s gap vs. required 70s minimum), making this effectively a single-hop question rather than a genuine multi-hop-visual.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec06_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims chunk_086 states the theorem uses 'd+1 colors,' but chunk_086's frame captions consistently show 'at most d colors for G,' not d+1; the d+1 formulation appears only in chunk_112."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 span (49:35\u201350:20) does not align with chunk_086 which at 45s intervals would be around 64\u201365 minutes into the lecture, not 49\u201350 minutes."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both cited chunks contain [frame caption:] markers and the two hops reference non-adjacent chunks (086 and 112), satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 fails because the answer misattributes 'd+1 colors' to chunk_086 when that chunk shows 'd colors'; Criterion 2 fails because the hop 1 timestamp does not align with chunk_086's expected position in the lecture.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec06_q023",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims the blackboard displays 'Graph Coloring Problem: Given a graph G and K colors, assign a color to each node so that adjacent nodes have different colors.' This is explicitly supported by the third frame caption in chunk_054, which contains exactly that text. The answer accurately synthesizes the complete statement from the progressive captions in the chunk."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span is 30.55s\u201331.4s, which is a single span. Chunk_054 is a 45-second window; the span at ~30-31 seconds plausibly falls within the chunk boundaries (within \u00b115s tolerance). Only one span is present, so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual' requiring exactly 1 span and at least one source chunk with a [frame caption: ...] marker. There is exactly one ground_truth_span and chunk_054 contains multiple [frame caption: ...] markers, satisfying both conditions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claim that the blackboard displays the text 'Graph Coloring Problem: Given a graph G and K colors, assign a color to each node so that adjacent nodes have different colors.' This matches the description in the answer."
+  },
+  {
+    "qa_id": "mit_6042_lec06_q024",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims chi(G) is written as 'chi(G)' but the frame caption shows 'Z(G) = 2' (not chi notation) in the first frame caption, while the third frame caption shows '\u03c7(G) = 2'. More critically, the answer states 'd = n/2 with chi(G) = 2, and d = n-1 with chi(G) = 2' which is supported by the chunk, but the answer also claims these correspond to 'bipartite-style graph' and 'star graph' \u2014 the chunk text does not explicitly identify these as a bipartite-style graph or star graph, making those interpretive claims unsupported by the cited chunk text."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The ground_truth_span is 69.25s\u201370.1s, which is extremely early in the lecture. Chunk_119 would correspond to a much later time window (chunk 119 \u00d7 ~45s \u2248 ~5355s into the lecture), so the span at ~69s does not align with chunk_119's boundaries at all \u2014 it is off by thousands of seconds, far exceeding the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual', requires exactly 1 span, and chunk_119 contains multiple [frame caption: ...] markers, satisfying the visual type requirements."
+    },
+    "rejection_reason": "Criterion 1 fails because the answer includes unsupported interpretive claims (bipartite-style graph, star graph) not found in the chunk text. Criterion 2 fails because the ground_truth_span (69.25s\u201370.1s) is implausibly misaligned with chunk_119, which would correspond to a much later time in the lecture.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec06_q025",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "Several atomic claims in the answer \u2014 specifically the Am/Aw ratio formula equaling Nw/Nm, the computed ratio of 1.0325, and the '3.25% more partners' conclusion \u2014 are not explicitly stated in the cited chunk text; they are inferred beyond what the chunks directly support."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops are in chunk_010 and chunk_043, which are ~33 chunks (~1485 seconds) apart, well exceeding the 70-second minimum inter-hop gap requirement; relative span timestamps within each chunk are plausible."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is labeled multi-hop and genuinely requires two non-adjacent spans from chunk_010 and chunk_043, satisfying the \u22652 non-adjacent spans requirement."
+    },
+    "rejection_reason": "Criterion 1 failed: key mathematical claims in the answer (Am/Aw = Nw/Nm ratio formula, ratio of 1.0325, 3.25% figure) are not explicitly supported by the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec06_q026",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims an audience member suggested 'invariant' (unsupported by chunk text) and that inducting on d leads to 'removing nodes and reattaching them' (not mentioned in chunk_092). Also, the answer references chunk_093 but source_chunk_ids cite chunk_092."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap between the two spans is only ~3 seconds (|50.45 - 53.4| = 2.95s), far below the required 70-second minimum, making this effectively single-hop."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The claimed multi-hop type requires non-adjacent spans, but the two spans are only ~3 seconds apart, meaning they can be retrieved in a single step; also the question references chunk_093 while source_chunk_ids cite chunk_092."
+    },
+    "rejection_reason": "All three criteria failed: unsupported atomic claims in the answer, inter-hop gap of ~3s (below 70s threshold), and the spans are effectively adjacent making the multi-hop classification invalid.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec06_q027",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the lecture explicitly explains the Boston Globe asymmetry as a mathematical artifact of group sizes, but chunk_045 only poses the question without providing the explanation; the atomic claims about the explanation being given are unsupported by the chunk text."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap is only ~1.1 seconds (|25.05 - 26.15|), far below the required 70-second minimum, meaning the two hops are essentially co-located and not genuinely non-adjacent."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The claimed multi-hop type requires \u2265 2 non-adjacent spans, but the two ground_truth_spans are only ~1 second apart, making this effectively single-hop rather than a genuine multi-hop question."
+    },
+    "rejection_reason": "All three criteria failed: the answer's explanation is not supported by the chunk text (Criterion 1); the inter-hop gap is ~1 second, far below the 70-second minimum (Criterion 2); and the question is not genuinely multi-hop given the spans are essentially co-located (Criterion 3).",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec06_q028",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims the person is holding a book titled 'The Art of Computer Programming' by Donald E. Knuth, positioned vertically with the title clearly visible \u2014 all of which are explicitly supported by the first frame caption in chunk_007."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The ground_truth_span is 4.05s\u20134.5s, which falls within chunk_007 (roughly 0\u201345s window), so the timing is plausible. However, the question references 'chunk_008' in its text while the source_chunk_ids cite 'chunk_007' \u2014 this is an internal inconsistency, but more critically the span at ~4s aligns with chunk_007 boundaries, so the span itself is plausible. That said, the question explicitly asks about 'chunk_008' while the source is chunk_007, creating a mismatch that undermines span plausibility."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question is labeled 'text' but it explicitly asks about a [frame caption: ...] marker in the chunk, meaning it requires visual evidence from a frame caption \u2014 this should be classified as 'visual', not 'text'."
+    },
+    "rejection_reason": "Criterion 2 fails because the question references 'chunk_008' while the source_chunk_id is chunk_007, creating an internal inconsistency. Criterion 3 fails because the question relies on frame caption content, making it a 'visual' type rather than 'text'.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec06_q029",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "Multiple atomic claims in the answer \u2014 including '75,000 servers,' 'eight colors suffice,' 'eight waves of installs,' and 'came out of MIT' \u2014 are not supported by the truncated chunk text, which cuts off before mentioning any specific number of colors or servers."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The ground_truth_span (78.1s\u201379.3s) falls near the very beginning of the lecture, while chunk_135 would correspond to approximately 6075s into the lecture (135 \u00d7 45s), making the span implausible for the cited chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span provided, satisfying the type requirement."
+    },
+    "rejection_reason": "Criterion 1 fails because key claims (75,000 servers, eight colors, MIT origin) are unsupported by the chunk text; Criterion 2 fails because the ground_truth_span timestamps (~78s) are inconsistent with chunk_135's expected time range (~6075s).",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec06_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the source material that could answer the question about a proof's validity or verification duration for an HP Labs researcher's claimed solution to NP-complete problems."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

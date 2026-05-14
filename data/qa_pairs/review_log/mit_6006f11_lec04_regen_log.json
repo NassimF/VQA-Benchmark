@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6006f11_lec04_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_000 frame captions confirm the instructor is Srini Devadas teaching MIT 6.006 Fall 2011 Lecture 4; chunk_016 frame captions explicitly show 'parent(i) = i/2' written on the blackboard."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (0.0s\u201345.0s) aligns with chunk_000 (a 45-second window starting at 0s); Hop 2 (580.0s\u2013625.0s) aligns with chunk_016; the inter-hop gap is |0 - 580| = 580 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u2265 2 non-adjacent spans (0s and 580s), and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim that the instructor's name is Srini Devadas is supported by the source text, which states that the course is taught by Srini Devadas. The claim that the parent formula is parent(i) = i/2 is also supported, as the source text explicitly mentions this formula."
+  },
+  {
+    "qa_id": "mit_6006f11_lec04_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer states increase_key 'increases the value of element x's key to a new value k,' but the frame caption in chunk_008 says 'Increase the value of x by k' \u2014 not 'to a new value k.' This is a subtle but meaningful difference (incrementing by k vs. setting to k), and the answer's phrasing is not explicitly supported by the cited text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 280\u2013325s, aligning with chunk_008 (which covers roughly that window); hop 2 spans 1890\u20131935s, aligning with chunk_053. The inter-hop gap is |280 - 1890| = 1610s, well above the 70s threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunk_008 and chunk_053), and both chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 fails: the answer claims increase_key sets x's key 'to a new value k,' but the frame caption says 'Increase the value of x by k,' which implies incrementing by k rather than setting to k \u2014 the answer's phrasing is not accurately supported by the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec04_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the cited chunks: chunk_011 contains a frame caption stating 'An array visualized as a nearly complete binary tree,' and chunk_044 contains a frame caption explicitly listing 'Exchange A[2] with A[4]', 'Call MAX-HEAPIFY (A, 4)', 'Exchange A[4] with A[8]', and 'No more calls' for MAX-HEAPIFY(A, 2) with heap-size 10."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (385\u2013430s) aligns with chunk_011 (a 45s window around ~407s), and hop 2 (1475\u20131530s) aligns with chunk_044 (a 45s window around ~1502s). The inter-hop gap is |385 - 1475| = 1090 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u2265 2 non-adjacent spans (hop 1 at ~385\u2013430s and hop 2 at ~1475\u20131530s), and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports both claims: the exchange of A[2] with A[4] and the exchange of A[4] with A[8] during the MAX-HEAPIFY(A, 2) process with heap-size 10."
+  },
+  {
+    "qa_id": "mit_6006f11_lec04_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims chunk_017 contains a frame caption explicitly stating 'key of a node >= keys of its children,' but chunk_017's frame captions only describe tree structure equations (parent(i)=i/2, left(i)=2i, etc.) and do not contain the Max-Heap property text cited in the answer."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The inter-hop temporal gap is approximately 2310 seconds (|630-2940|), well exceeding the 70-second minimum, and both chunks contain relevant content for their respective hops."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop-visual: it requires two non-adjacent spans and both cited chunks contain [frame caption:] markers with visual blackboard content."
+    },
+    "rejection_reason": "Criterion 1 failed: the cited chunk_017 frame captions do not explicitly contain the Max-Heap property statement 'key of a node >= keys of its children,' making the first hop's claim unsupported by the cited source.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec04_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims Max-Heapify takes O(1) for nodes one level above the leaves and O(l) for nodes l levels above the leaves. The third frame caption in chunk_068 explicitly states 'Max-Heapify takes O(l) for nodes that are one level above the leaves and in general O(l) time for nodes that are l levels above the leaves,' and the second frame caption states 'O(1) for nodes that are one level above the leaves and in general O(CE) time for nodes that are l levels above' \u2014 combining these captions supports the answer's claims."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 210\u2013255s aligning with chunk_006 (a 45s window around ~210\u2013255s), and hop 2 spans 2380\u20132425s aligning with chunk_068. The inter-hop gap is |2380 - 210| = 2170 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans (chunk_006 at ~210s and chunk_068 at ~2380s), and both cited chunks contain [frame caption: ...] markers. Both conditions for multi-hop-visual are satisfied."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that Max-Heapify takes O(1) time for nodes one level above the leaves is not supported by the source text. The source text states that Max-Heapify takes O(l) time for nodes one level above the leaves, which contradicts the claim. The claim about O(l) time for nodes l levels above is supported by the source text."
+  },
+  {
+    "qa_id": "mit_6006f11_lec04_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer's claim that max-heapify 'corrects a single violation of the heap property in a subtree's root' is directly supported by chunk_031's frame caption. The claim about the total work expression 'n/4*(1c) + n/8*(2c) + n/16*(3c) + ...' is directly supported by chunk_072's frame caption showing 'Total amount of work in the for loop n/4 (1 c) + n/8 (2 c) + n/16 (3 c)'."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 1105\u20131150s aligns with chunk_031 (which covers roughly that window), and hop 2 spans 2520\u20132565s aligns with chunk_072. The inter-hop gap is |2520 - 1105| = 1415 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (hop 1 ~1105s and hop 2 ~2520s) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the expression is 'n/4*(1c) + n/8*(2c) + n/16*(3c) + ...' is not supported. The source text shows '1/4 (1 c) + 1/8 (2 c) + 1/16 (3 c) + ...' without the 'n' factor in the expression."
+  },
+  {
+    "qa_id": "mit_6006f11_lec04_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_055 contains a frame caption stating 'elements A[n/2+1..n] are all leaves'; chunk_081 contains a frame caption showing the summation from i=0 to k of (i+1)/2^i enclosed in an oval; and the surrounding text in chunk_081 confirms this series is convergent and bounded by a constant, used to prove build-max-heap runs in O(n) time."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1970\u20132010s) aligns with chunk_055 (which covers around that window), and hop 2 (2895\u20132940s) aligns with chunk_081; the inter-hop gap is |1970 - 2895| = 925 seconds, well above the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u2265 2 non-adjacent spans (hops at ~1990s and ~2917s) and both cited chunks contain [frame caption: ...] markers with visual content, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the summation from i=0 to k of (i+1)/2^i represents the convergent series used to prove the build-max-heap algorithm runs in Theta(n) time is not explicitly supported by the source text. The source text mentions the summation but does not directly link it to the analysis of the build-max-heap algorithm's time complexity."
+  },
+  {
+    "qa_id": "mit_6006f11_lec04_q023",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims that after discarding the node by decrementing the heap size, the new root may violate the max-heap property but its children are max-heaps. This is directly supported by the frame captions in the cited chunk, which state 'new root may violate max-heap, but children are max-heaps-maxheap' and similar phrasings."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (3000.0s\u20133050.0s) corresponds to chunk_086, which covers a 45-second window around that time range, well within the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual', requires exactly 1 span, and the cited chunk (mit_6006f11_lec04_chunk_086) contains multiple [frame caption: ...] markers, satisfying both conditions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that after discarding the node from the heap by decrementing the heap size, the new root may violate the max-heap property, but its children are max-heaps."
+  },
+  {
+    "qa_id": "mit_6006f11_lec04_q024",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims the frame caption states 'build_max_heap produces a max heap from an unordered array,' which is directly supported by the third frame caption in chunk_029: 'build_max_heap: produces a max heap from an unordered array.'"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The ground_truth_span references chunk_030 (1010.0s\u20131055.0s), but the source_chunk_id cited is chunk_029. The question also asks about 'chunk_030' in its text, yet the source chunk provided is chunk_029, creating a mismatch between the span, the question reference, and the cited chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual,' requiring exactly 1 span and at least one frame caption in the cited chunk; chunk_029 contains multiple [frame caption: ...] markers, satisfying the visual requirement."
+    },
+    "rejection_reason": "Criterion 2 fails: the ground_truth_span cites chunk_030 (1010.0s\u20131055.0s) but the source_chunk_id is chunk_029, and the question text itself references 'chunk_030' while the evidence is in chunk_029, indicating a span/chunk mismatch.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec04_q025",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "Both atomic claims are supported: chunk_048 explicitly states the heap is a nearly complete binary tree with height bounded by log n, enabling logarithmic complexity by going level by level; chunk_049 explicitly states the key assumption that 'trees rooted at left(i) and right(i) are max-heaps' is the other aspect, meaning Max-Heapify descends one path logarithmically."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1680\u20131720s) aligns with chunk_048 and hop 2 (1750\u20131795s) aligns with chunk_049, both within plausible chunk boundaries; the inter-hop gap is |1680 - 1750| = 70 seconds, which meets the \u2265 70s requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop, requiring two non-adjacent spans from two different chunks (chunk_048 and chunk_049), and the answer cannot be derived from a single span alone since the two aspects are split across the two chunks."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports both claims: the heap is visualized as a nearly complete binary tree with height bounded by log n, and the assumption that subtrees rooted at left(i) and right(i) are max-heaps allows Max-Heapify to descend one path, resulting in logarithmic complexity."
+  },
+  {
+    "qa_id": "mit_6006f11_lec04_q026",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer's atomic claims \u2014 nodes near the bottom require constant operations, there are many such nodes, nodes near the top require logarithmic operations, there is only one root node, and these trends cancel to yield Theta(n) \u2014 are all explicitly supported by chunk_065 ('there's only one node that is the highest level node the root node that node has logarithmic number of operations but it's only one node' and 'the ones down at the bottom have a constant number of operations') and chunk_066 (careful accounting yields a better bound)."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The two hops span 2240.0s\u20132285.0s and 2285.0s\u20132330.0s, giving an inter-hop gap of |2240 - 2285| = 45 seconds, which is less than the required 70 seconds; the hops are effectively adjacent and could be retrieved in a single step."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is labeled multi-hop and cites two non-adjacent source chunks; no frame caption evidence is required for multi-hop, and the chunks do contain [frame caption:] markers (though not needed for this type)."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only 45 seconds (2240s to 2285s), below the required 70-second minimum, making this effectively single-hop.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec04_q027",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_055 explicitly states 'elements a of n/2 + 1 through n are all leaves' and that 'leaves are good because they automatically satisfy uh the the max [heap property]'; chunk_054 confirms the algorithm starts at i = n/2 downto 1. The claim about leaves having no children to check is implicit in the definition of leaves but consistent with the frame caption stating 'leaves are the nodes with no children.'"
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1890\u20131930s) aligns with chunk_054 and hop 2 (1960\u20132010s) aligns with chunk_055, both within plausible chunk boundaries. The inter-hop gap is |1890 - 1960| = 70 seconds, which meets the \u2265 70s requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is classified as multi-hop with two non-adjacent spans (1890\u20131930s and 1960\u20132010s); the answer requires combining information from chunk_054 (the algorithm starts at n/2) and chunk_055 (why: elements A[n/2+1..n] are all leaves satisfying the heap property), confirming genuine multi-hop reasoning."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that elements A[n/2+1] through A[n] are all leaves, which automatically satisfy the max-heap property, thus justifying starting the loop at i = n/2 to skip the leaves and begin with nodes that have children."
+  },
+  {
+    "qa_id": "mit_6006f11_lec04_q028",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk explicitly states build-max-heap is O(n), max-heapify runs in O(log n) time, there are n steps, giving O(n log n) overall, and the first step was O(n) \u2014 all atomic claims in the answer are supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (3115.0s\u20133160.0s) aligns with chunk_089, which covers a 45-second window; the span boundaries are consistent with the chunk's temporal range."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one span, and while the chunk contains [frame caption: ...] markers, the question type only requires a single span with no visual requirement \u2014 this is correctly classified as text."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that the total time complexity of Heap Sort is O(n log n) due to the max-heapify step being called n times, each taking O(log n) time, which dominates the O(n) build-max-heap step."
+  },
+  {
+    "qa_id": "mit_6006f11_lec04_q029",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk explicitly states that in 6.005 students 'didn't really spend a lot of time on asmic complexity or the efficiency of operations on the abstract data type,' and that in 6.006 the course specifies operations and discusses complexity (order n, order log n, etc.). All atomic claims in the answer are supported by the chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span 155.0s\u2013220.0s aligns with chunk_004, which covers a 45-second window; the span falls within plausible chunk boundaries for this content."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span (155.0s\u2013220.0s). Although the chunk contains [frame caption: ...] markers, the question type is 'text' not 'visual,' which is acceptable since the answer is derived from spoken content, not visual content."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that in 6.005, students saw the concept of abstract data types and associated operations but did not focus on asymptotic complexity or efficiency. It also supports that in 6.006, the course specifies the ADT and its operations, discussing their complexity."
+  },
+  {
+    "qa_id": "mit_6006f11_lec04_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the source material that could answer the question about the specific worst-case time complexity of increase_key or its comparison to extract_max."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

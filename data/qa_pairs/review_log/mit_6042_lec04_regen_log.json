@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6042_lec04_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_022 frame caption confirms start state is (0,0) representing empty jugs; chunk_039 explicitly states 'all integers actually divides zero so in particular m divides 0' and 'the very initial State 0 comma 0 is indeed complying to this particular invariance' and 'P0 is true', supporting the base case connection."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (720\u2013810s) aligns with chunk_022 (a 45s window around ~720\u2013810s range), and hop 2 (1365\u20131410s) aligns with chunk_039; the inter-hop gap is |720 - 1365| = 645 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (720s and 1365s, gap of 645s) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports both claims: the start state is shown as (0, 0) representing empty jugs, and the lecture connects this to the divisibility invariant by stating that any integer M divides zero, establishing the base case P(0) as true."
+  },
+  {
+    "qa_id": "mit_6042_lec04_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the cited chunks: the emptying transitions are shown in chunk_023 frame captions, and chunk_048 contains the list of gallon amounts (0, a, b, x, y, x+y, x+y-a, x+y-b) and the divisibility assumptions M|a, M|b, M|x, M|y."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops are separated by 870 seconds (|840-1710|), well above the 70-second threshold, confirming genuine multi-hop retrieval; content of both chunks matches the cited spans."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop-visual: it requires two non-adjacent spans (840s and 1710s) and both cited chunks contain [frame caption: ...] markers providing visual evidence."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the lecture uses the assumptions that M divides a and M divides b, together with the inductive hypothesis that M divides x and M divides y, to conclude via linear combination facts that M divides all of these quantities is not explicitly supported by the source text. The source text mentions assumptions about M dividing a and b but does not detail the use of linear combination facts or the inductive hypothesis in the way described."
+  },
+  {
+    "qa_id": "mit_6042_lec04_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are explicitly supported by the cited chunks: chunk_027 shows (x,y)\u2192(0,x+y) with x+y\u2264b, and chunk_030 shows the symmetric (x,y)\u2192(x+y,0) when x+y\u2264a."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (975\u20131020s) aligns with chunk_027 and Hop 2 (1050\u20131095s) aligns with chunk_030; the inter-hop gap is 75 seconds, meeting the \u226570s requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans and references visual frame caption evidence; both cited chunks contain [frame caption: ...] markers satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that the transition (x,y) \u2192 (0, x+y) occurs when x+y \u2264 b, and by symmetry, the transition (x,y) \u2192 (x+y, 0) occurs when x+y \u2264 a, as both transitions are explicitly mentioned in the source text."
+  },
+  {
+    "qa_id": "mit_6042_lec04_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_035 shows the theorem 'If m|a and m|b, then m|any result' on the blackboard with a=3, b=5; chunk_054 confirms the Die Hard 5 scenario with a=33, b=55, a student explains both are divisible by 11 so any result must be divisible by 11, 4 is not divisible by 11, and the lecture mentions 'the whole cast got blown up in Die Hard number five' and 'no Die Hard number six.'"
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1050\u20131095s) aligns with chunk_035 (a 45s window around that time), and hop 2 (1935\u20131980s) aligns with chunk_054; the inter-hop gap is |1050 - 1935| = 885 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans (chunks 035 and 054, ~885s apart), and both cited chunks contain [frame caption: ...] markers with visual blackboard content."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text confirms that 11 divides both 33 and 55, so any result must be divisible by 11, and since 4 is not divisible by 11, it is impossible to measure exactly 4 gallons, leading to the scenario described in the answer."
+  },
+  {
+    "qa_id": "mit_6042_lec04_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims a specific corollary that 'the result of any jug operation is always divisible by gcd(a,b)' and that 'gcd divides both a and b, therefore divides any jug result,' but neither chunk_057 nor chunk_061 explicitly states this corollary or the connection between gcd divisibility and jug results."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The ground truth spans (2025-2070s and 2100-2145s) do not align with the expected chunk boundaries for chunk_057 and chunk_061 (which at 45s per chunk would be around 2565s and 2745s respectively), indicating a significant mismatch."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual with two non-adjacent spans and chunk_057 contains multiple [frame caption: ...] markers, satisfying both conditions."
+    },
+    "rejection_reason": "Criterion 1 fails because the answer's claims about the corollary connecting gcd to jug results are not explicitly supported by the cited chunk text. Criterion 2 fails because the ground truth span timestamps do not align with the expected chunk boundaries for the cited source chunks.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec04_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims (r = s'\u00b7a - u\u00b7b, range constraints, algebraic rewriting, t'+u=0, R=L) are explicitly supported by the frame captions and lecture text in the cited chunks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops are separated by 135 seconds (\u226570s required), and the content of each chunk matches the described mathematical steps at those timestamps."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans and relies on frame caption visual evidence (blackboard equations), satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text. The text confirms the equations r = s'\u00b7a - u\u00b7b and L = s'\u00b7a + t'\u00b7b, and explains that t' + u = 0, leading to r = L."
+  },
+  {
+    "qa_id": "mit_6042_lec04_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The major atomic claims (blackboard showing Euclid's Algorithm, the lemma gcd(a,b)=gcd(rem(b,a),a), 224=2\u00b7105+14, gcd(105,224)=gcd(14,105), gcd(14,105)=gcd(7,14), and gcd(7,14)=7) are all supported by frame captions and lecture text in the cited chunks, though the claim about 105=7\u00b714+7 is implicit rather than explicit."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops span 3690-3735s (chunk_112) and 3780-3825s (chunk_114), with an inter-hop gap of 90 seconds, satisfying the \u226570s requirement for genuine multi-hop retrieval."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop-visual: it requires two non-adjacent spans (90s apart) and both cited chunks contain [frame caption: ...] markers showing blackboard content essential to the answer."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that 'since 224 = 2\u00b7105 + 14, gcd(105,224) = gcd(14,105)' is supported by the source text. However, the claim 'since 105 = 7\u00b714 + 7, gcd(14,105) = gcd(7,14)' is not explicitly supported by the source text, as the source text does not provide this specific equation. Additionally, the claim 'since 14 = 2\u00b77 + 0, gcd(7,14) = gcd(0,7) = 7' is not explicitly supported by the source text, as the source text does not provide this specific equation or explanation."
+  },
+  {
+    "qa_id": "mit_6042_lec04_q023",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims two transparent containers filled with clear liquid/water, but frame caption 2 describes a jar containing a green apple and a pink object, directly contradicting this. Additionally, the microphone is described as attached to the person, not on the podium."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span 350.0s\u2013395.0s aligns with the 45-second chunk window for mit_6042_lec04_chunk_010."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as visual with exactly one span and the cited chunk contains multiple [frame caption: ...] markers."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer incorrectly claims the containers hold clear liquid/water, contradicted by frame caption 2 which describes a jar with a green apple and pink object, and incorrectly places the microphone on the podium.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec04_q024",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame caption in chunk_022 explicitly states 'States: pairs (x, y), where x = # gallons in the \"a-jug\" y = # gallons in the \"b-jug\"', which directly supports all atomic claims in the answer: states are pairs (x,y), x denotes gallons in a-jug, y denotes gallons in b-jug."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (765.0s\u2013810.0s) aligns with chunk_022; assuming chunks are ~45s windows, this span plausibly falls within the chunk boundaries cited."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed 'visual', requires exactly 1 span, and the cited chunk_022 contains a [frame caption: ...] marker describing the blackboard content \u2014 both conditions for 'visual' are satisfied."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the states are represented as pairs (x, y), where x denotes the number of gallons in the 'a-jug' and y denotes the number of gallons in the 'b-jug'."
+  },
+  {
+    "qa_id": "mit_6042_lec04_q025",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_015 defines m|a as existence of integer k with a=k\u00b7m; chunk_039 explicitly states 'm divides 0' for all integers m (k=0 case implied), and that the initial state (0,0) satisfies the invariant 'm divides x and m divides y', making P(0) true."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 span (525\u2013600s) aligns with chunk_015 (a 45s window around ~562s), and hop 2 span (1365\u20131410s) aligns with chunk_039; the inter-hop gap is |525 - 1365| = 840s, well above the 70s minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop: it requires information from two non-adjacent spans (divisibility definition at ~525\u2013600s and its use in the base case at ~1365\u20131410s), and both cited chunks contain [frame caption: ...] markers, though multi-hop (not multi-hop-visual) is claimed, which is valid since visual evidence is not required for multi-hop."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports all claims: it defines m divides a as there exists an integer k such that a = k\u00b7m, and it states that any integer m divides zero, which is used to establish the base case in the induction proof."
+  },
+  {
+    "qa_id": "mit_6042_lec04_q026",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_013 confirms that with a 3-gallon and 6-gallon jug, all operations yield multiples of 3 (since both are multiples of 3), so 4 gallons is impossible. Chunk_019 confirms the general theorem that if m divides both a and b, then m divides any achievable result, and that this requires formal proof via a proper model (state machine and induction)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (455\u2013500s) aligns with chunk_013 (which covers roughly 450\u2013495s range), and hop 2 (695\u2013740s) aligns with chunk_019 (covering roughly 690\u2013735s range), both within \u00b115s of chunk boundaries. The inter-hop gap is |455 - 695| = 240 seconds, well above the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is classified as multi-hop and requires information from two non-adjacent spans (455\u2013500s and 695\u2013740s, gap of 240s), with no visual evidence required \u2014 the question type multi-hop is correctly applied and both cited chunks are needed to construct the full answer."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text confirms that operations with the 3-gallon and 6-gallon jugs result in multiples of 3, and since 4 is not a multiple of 3, it cannot be measured. It also supports the general theorem about divisibility being motivated by this example."
+  },
+  {
+    "qa_id": "mit_6042_lec04_q027",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_097 explicitly states the algorithm repeats something S' times and that a negative S' makes this impossible; chunk_072 and its frame captions show the rewriting L = sa+tb = (s+mb)a + (t-ma)b to get s' > 0; chunk_097 confirms adding multiples of b\u00b7a and subtracting a\u00b7b to make s' positive without changing L's value."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 at 2580\u20132625s aligns with chunk_072 (a 45s window around that time), and Hop 2 at 3360\u20133405s aligns with chunk_097; the inter-hop gap is |2580 - 3360| = 780 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is classified as multi-hop and requires information from two non-adjacent spans (chunk_072 at ~2580s and chunk_097 at ~3360s), which are 780 seconds apart; no visual-only evidence is required, so multi-hop (not multi-hop-visual) is the correct type."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the need for s' to be positive because the algorithm involves repeating a procedure s' times, which cannot be done if s' is negative. It also describes how to adjust the linear combination to make s' positive without changing the value of L."
+  },
+  {
+    "qa_id": "mit_6042_lec04_q028",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: number theory is used in cryptography (~40 years ago), cryptography is described as 'the study and practice of hiding numbers,' and the lecture mentions discussing one specific application at the end of the second lecture \u2014 all explicitly present in the chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (105.0s\u2013150.0s) aligns with chunk_003, which covers a 45-second window; the span falls within plausible chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span provided; the chunk does contain frame captions but text type does not require their absence."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that number theory was used in cryptography about 40 years ago and mentions that the lecture will discuss one specific application of number theory in cryptography."
+  },
+  {
+    "qa_id": "mit_6042_lec04_q029",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk explicitly states the notation 'RM of B comma a' for the remainder, and the lemma 'the greatest common divisor of A and B is equal to the greatest common divisor of the remainder of b and a with a' \u2014 both atomic claims in the answer are directly supported by the chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span 3675.0s\u20133720.0s corresponds to chunk mit_6042_lec04_chunk_105, which covers a 45-second window; the span aligns within acceptable boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one span, and while the chunk contains [frame caption: ...] markers, the question type 'text' only requires exactly 1 span with no frame caption requirement, which is satisfied here."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the remainder is denoted as rem(b,a) is unsupported; the source text states it is denoted as RM(B, a). The lemma's statement is supported, as the source text confirms that gcd(a, b) is equal to gcd(remainder of b and a, a)."
+  },
+  {
+    "qa_id": "mit_6042_lec04_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the source material that could answer the question about the exact steps for the Die Hard 3 water jug puzzle or the mathematical reason involving GCD/divisibility with specific jug sizes."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

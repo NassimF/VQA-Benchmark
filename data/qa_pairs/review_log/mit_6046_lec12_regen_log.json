@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6046_lec12_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer's claim about four subtopics (optimal substructure, greedy-choice property, Prim's algorithm, Kruskal's algorithm) is directly supported by the frame caption in chunk_000. The claim about the blackboard note stating 'a greedy algorithm repeatedly makes locally best choice/decision, ignoring effect on future' is also directly supported by the same frame caption in chunk_000."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (0.0s\u201345.0s) aligns with chunk_000 which covers the start of the lecture. Hop 2 (1105.0s\u20131150.0s) aligns with chunk_019. The inter-hop gap is |0 - 1105| = 1105 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "Both pieces of information (the four topics list AND the blackboard note about greedy algorithms) appear in the same frame caption within chunk_000. The answer does not actually require two non-adjacent spans \u2014 both atomic facts can be retrieved from chunk_000 alone, making this effectively single-hop despite the multi-hop-visual claim. chunk_019 is not needed to answer the question."
+    },
+    "rejection_reason": "Criterion 3 failed: both the slide listing four topics and the blackboard note about greedy decisions are found in the same frame caption in chunk_000, so the question does not genuinely require two non-adjacent spans as claimed for multi-hop-visual.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec12_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the frame caption in chunk_005 explicitly states 'Spanning tree of graph G = subset of edges of G that form a tree & hit all vertices of G', and chunk_006 explicitly states 'if G is disconnected, this is impossible' and 'you could define a spanning forest' and 'we'll focus on the case here G is connected'."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 175.0s\u2013220.0s and hop 2 spans 390.0s\u2013435.0s, giving an inter-hop gap of |175 - 390| = 215 seconds, which is \u2265 70s. However, both cited source chunks (chunk_005 and chunk_006) appear to be adjacent/consecutive chunks covering overlapping content (chunk_006 begins with the same text as chunk_005's ending), and the frame captions showing the spanning tree definition appear in both chunks \u2014 the definition content is essentially the same across both chunks. More critically, chunk_005 covers roughly 175s\u2013220s and chunk_006 covers roughly 220s\u2013265s based on standard 45s windows, yet hop 2 is claimed at 390s\u2013435s, which does not align with chunk_006's expected time window (220s\u2013265s), falling outside the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires information from two non-adjacent spans (175s and 390s), and both cited chunks contain [frame caption: ...] markers with visual blackboard content."
+    },
+    "rejection_reason": "Criterion 2 fails: the second hop's ground_truth_span (390s\u2013435s) does not align with chunk_006's expected time window (approximately 220s\u2013265s for a 45s chunk following chunk_005), falling well outside the \u00b115s tolerance.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec12_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_009 frame captions confirm the MST objective as 'minimum weight = \u03a3 e\u2208T w(e)', and chunk_011 explicitly describes the complete bipartite graph example with two vertices on one side and n vertices on the other, where each of the n vertices can independently connect to either left or right vertex, yielding 2^n different spanning trees."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (490\u2013535s) aligns with chunk_009 (a 45s window around ~490\u2013535s), and hop 2 (650\u2013730s) aligns with chunk_011; the inter-hop gap is |490 - 650| = 160s, which is well above the 70s minimum threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (\u226570s apart) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements; the first hop retrieves visual information about the MST objective formula and the second hop retrieves the exponential spanning tree example."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the frame caption describes the objective of finding a spanning tree T of minimum weight as the sum of w(e) for e in T, and the lecturer gives the example of a complete bipartite graph with two vertices on one side and n vertices on the other, resulting in 2^n different spanning trees."
+  },
+  {
+    "qa_id": "mit_6046_lec12_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The claim that the greedy-choice property states 'a least-weight crossing edge is in some MST' is not explicitly supported by the cited chunk text; the frame captions only show 'consider any cut (S, V-S)' and 'Proof:' without stating the conclusion about least-weight crossing edges."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align plausibly with their cited chunks, and the inter-hop gap of ~1375 seconds far exceeds the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question references two non-adjacent spans and both cited chunks contain [frame caption: ...] markers, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer's claim about the greedy-choice property conclusion ('a least-weight crossing edge is in some MST') is not explicitly supported by the cited frame captions in the source chunks.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec12_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame caption in chunk_076 explicitly shows 'v.key = min{w(v, u) | u \u2208 Q}' supporting the invariant claim, and chunk_081 explicitly states 'we remove vertex U from Q... This means that we're adding U to S' and 'we need to update this invariant that all the key values are correct,' supporting the claims about what happens when U is extracted."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 2660-2705s aligns with chunk_076 (covering ~2655-2700s range), and hop 2 spans 2895-2940s aligns with chunk_081 (covering ~2880-2925s range); the inter-hop gap is |2660 - 2895| = 235 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (235 seconds apart) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim that each vertex v's key equals the minimum of w(v,u) for u in Q is supported by the source text, which states 'v.key = min{w(v, u) | u \u2208 Q}'. The claim that when vertex U is extracted from Q, it is added to S and the algorithm updates neighbors' key values is supported by the text stating 'when we move we remove vertex U from the Q Q. This means that we're adding U to S' and 'we need to update this invariant that all the key values are correct.'"
+  },
+  {
+    "qa_id": "mit_6046_lec12_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the frame caption in chunk_037/038 explicitly lists 'guess edge e in a MST, contract e, recurse, decontract, add e to MST' as the dynamic programming approach; chunk_037 and chunk_038 both state the running time is exponential because 'at every step we're guessing an arbitrary edge,' there's 'no structure,' and 'there's exponentially many subsets 2 to the e.'"
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2220\u20132265s) aligns with chunk_037 (which covers ~2220\u20132265s), and hop 2 (2330\u20132375s) aligns with chunk_038 (which covers ~2330\u20132375s); the inter-hop gap is |2220 - 2330| = 110s, which exceeds the 70s minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (hops 1 and 2) and both cited chunks contain [frame caption: ...] markers describing the dynamic programming slide, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports all claims: the frame caption describes the dynamic programming approach as involving guessing an edge in an MST, contracting it, recursing, decontracting, and adding the edge to the MST. The lecturer explains the exponential time complexity is due to guessing an arbitrary edge, leading to exponentially many subsets of edges to consider."
+  },
+  {
+    "qa_id": "mit_6046_lec12_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_120 shows frame captions with Kruskal's algorithm including 'sort E by weight'; chunk_127 explicitly states that when weights are integers, radix sort enables linear-time sorting making the algorithm 'linear time and I'm only paying e times alpha', and that otherwise Prim's algorithm is preferred."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (4380-4425s) aligns with chunk_120 (a 45s window around ~4380-4425s) and hop 2 (4485-4530s) aligns with chunk_127; the inter-hop gap is |4380 - 4485| = 105 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans (chunks 120 and 127, ~105s apart) and chunk_120 contains multiple [frame caption: ...] markers showing the Kruskal's algorithm pseudocode with the sort step, satisfying both conditions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports all claims: Kruskal's algorithm includes sorting edges by weight, it is better when edge weights are integers allowing for linear-time sorting with radix sort, and Prim's algorithm is preferred if weights require n-log-n sorting."
+  },
+  {
+    "qa_id": "mit_6046_lec12_q023",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims the blackboard shows 'greedy-choice property: locally optimal choices lead to globally optimal solution.' The second frame caption in the chunk explicitly states 'greedy-choice property: locally optimal choices lead to globally optimal solutions,' which directly supports this claim (minor plural difference is negligible)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span is 1145.0s\u20131190.0s. Chunk 019 covers a 45-second window; at roughly 1145s this aligns plausibly with the chunk boundaries within the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual,' requires exactly 1 span, and the cited chunk contains multiple [frame caption: ...] markers with visual content, satisfying the visual question type requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim that the frame caption shows the blackboard text stating 'greedy-choice property: locally optimal choices lead to globally optimal solution' is explicitly supported by the source text, which includes this exact phrase in the middle section of the lecture slide or whiteboard frame."
+  },
+  {
+    "qa_id": "mit_6046_lec12_q024",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the blackboard shows 'two circles labeled u and v being merged into a single vertex,' but the frame captions describe 'two overlapping circles with lines connecting them' and diagrams with multiple labeled nodes \u2014 not specifically a single merged vertex. Additionally, the answer states the text says 'contract e: merge u and v' but the captions show 'contract e. merge u,v' or 'contract' and 'merge u,v' as separate items, and the colon format is not explicitly supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (2040.0s\u20132085.0s) aligns with chunk_034, which covers a 45-second window; the span falls within plausible chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual' with exactly 1 span and the cited chunk contains multiple [frame caption: ...] markers, satisfying the visual type requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer contains unsupported claims about 'two circles labeled u and v being merged into a single vertex' and uses a colon format ('contract e: merge u and v') not explicitly present in the frame captions.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec12_q025",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The core atomic claims about cut-and-paste starting from T star, removing E prime and adding E, E being least-weight crossing the cut, and w(E) \u2264 w(E') are all explicitly supported by the cited chunks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align plausibly with their respective chunk windows, and the inter-hop gap of ~345 seconds far exceeds the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question genuinely requires combining information from two non-adjacent spans (chunk_057 for the cut-and-paste setup and chunk_067 for the weight comparison conclusion), satisfying the multi-hop requirement."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the explanation of the cut-and-paste argument and the condition that E must be a least-weight edge crossing the cut for the proof to conclude E is in some MST."
+  },
+  {
+    "qa_id": "mit_6046_lec12_q026",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_111 states 'Time: Same as Dijkstra' and 'v log v plus e' with Fibonacci heaps; chunk_112 explains the for loop over adjacency lists, the sum of degrees equals twice the number of edges (handshaking lemma), and that for every edge potentially one decrease-key operation is performed."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (3905\u20133960s) aligns with chunk_111 and hop 2 (3980\u20134025s) aligns with chunk_112; the inter-hop gap is |3905 - 3980| = 75 seconds, which meets the \u226570s requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop, requiring information from two non-adjacent spans (chunk_111 for the running time claim and chunk_112 for the handshaking lemma explanation), and no visual-only evidence is required."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the running time of Prim's algorithm is the same as Dijkstra's, which is O(V log V + E) with Fibonacci heaps. It also explains that the number of decrease-key operations equals the number of edges because the sum of the degrees of all vertices is twice the number of edges, aligning with the handshaking lemma."
+  },
+  {
+    "qa_id": "mit_6046_lec12_q027",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_123 explicitly states 'The union find data structure was invented in order to implement Crus's algorithm faster'; chunk_122 confirms Find-Set is called twice on u and v, returns the same identifier for the same set, and if Find-Set(u) \u2260 Find-Set(v) the edge is added (they're in different connected components), otherwise skipped to avoid a cycle."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (4335\u20134380s) aligns with chunk_123 and hop 2 (4265\u20134310s) aligns with chunk_122; the inter-hop gap is |4335 - 4265| = 70 seconds, which meets the \u226570s requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop requiring two non-adjacent spans (chunk_122 at ~4265s and chunk_123 at ~4335s), and no visual evidence is claimed \u2014 the question type 'multi-hop' is correctly assigned."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the union-find data structure was invented to implement Kruskal's algorithm faster and describes how Find-Set is used to determine if two vertices are in different connected components, which aligns with the answer's claims."
+  },
+  {
+    "qa_id": "mit_6046_lec12_q028",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk text explicitly states 'I'm going to define the weight of a tree t to be uh the sum over all edges in t because I'm viewing a spanning tree as a set of edges of the weight of that edge,' which directly supports all atomic claims in the answer."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span 280.0s\u2013325.0s aligns with chunk_008, which covers a 45-second window; the span falls within plausible chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span provided; no frame caption requirement applies to text questions, and the chunk does contain frame captions but that is irrelevant for this type."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the weight of a tree T is defined as the sum over all edges in T of the weight of that edge, viewing the spanning tree as a set of edges."
+  },
+  {
+    "qa_id": "mit_6046_lec12_q029",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the operation is called 'edge contraction' and that the result is called 'G slash E', and that adding E back recovers the MST of the original graph. While the chunk text supports merging endpoints U and V and the concept of contracting, the specific name 'edge contraction' is not explicitly stated in the chunk (the text cuts off: 'this is what we call edge. Uh it just means merge the end points'), and the claims about 'G slash E' and recovering the MST by adding E back are not supported by the cited chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (1015.0s\u20131060.0s) aligns with chunk_029 which covers a 45-second window; the span falls within plausible chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one span, which is consistent with the single source chunk cited; the question does not require visual evidence."
+    },
+    "rejection_reason": "Criterion 1 failed: key claims in the answer (the operation being called 'edge contraction', the contracted graph being called 'G slash E', and recovering the MST by adding E back) are not explicitly supported by the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec12_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the supplied content that addresses the running time complexity of Kruskal's algorithm in terms of sorting and union-find operations."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

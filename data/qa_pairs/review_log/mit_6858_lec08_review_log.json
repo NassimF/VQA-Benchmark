@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6858_lec08_q001",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the blackboard shows '6.858: Web Security' (confirmed by frame captions in chunk_000), the browser is described as 'incredibly complicated' (chunk_006), the threat surface is 'enormous' (chunk_006), and the instructor says 'we're screwed' (chunk_006). The claim about 'wacky security bugs arising constantly as new features are added without thinking about security implications' is a reasonable paraphrase of the chunk_006 context about new features and security implications, though slightly embellished \u2014 the chunk does support the general thrust about new features and security threats."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (0.0s\u201345.0s) aligns with chunk_000 (a 45-second window starting at 0s), and hop 2 (210.0s\u2013255.0s) aligns with chunk_006 (a 45-second window starting at ~210s). The inter-hop gap is |0 - 210| = 210 seconds, which is well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (hop 1 at 0\u201345s and hop 2 at 210\u2013255s), and chunk_000 contains multiple [frame caption: ...] markers describing the blackboard with course number, satisfying both conditions for multi-hop-visual."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim about the course number '6.858: Web Security' is supported by the source text, as is the description of modern browsers being incredibly complicated with a large threat surface, leading to security issues."
+  },
+  {
+    "qa_id": "mit_6858_lec08_q002",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the blackboard shows '6.858: Web Security' (chunk_000 frame captions), old IE sniffs the first 256 bytes (chunk_051), an attacker can put HTML and JavaScript in those bytes of an image (chunk_051/052), IE coerces it into HTML/JavaScript and executes it in the context of the enclosing page (chunk_052), and passive content is supposed to have zero authority (chunk_051)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (0.0s\u201345.0s) aligns with chunk_000 (a 45-second window starting at 0s). Hop 2 (1740.0s\u20131845.0s) aligns with chunk_051 and chunk_052. The inter-hop gap is |1740 - 0| = 1740 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans (0s and ~1740s), and chunk_000 contains [frame caption: ...] markers showing the blackboard with '6.858: Web Security,' satisfying both the multi-hop and visual evidence requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the blackboard identifies the course as '6.858: Web Security,' and the instructor explains that old IE could sniff the first 256 bytes of a resource, potentially reinterpreting it as HTML/JavaScript, violating the passive content rule."
+  },
+  {
+    "qa_id": "mit_6858_lec08_q003",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the blackboard shows '6.858: Web Security' (chunk_000 frame captions), the attack is called clickjacking (chunk_126/127), it involves an invisible child frame with a Facebook Like button overlaid on a 'Click to win an iPad' button (chunk_126), CSS z-index is used for layering/invisibility (chunk_126 mentions 'c Index' which is clearly z-index), and users unknowingly click the Like button (chunk_126)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (0.0s\u201345.0s) aligns with chunk_000 (chunk 0, covering ~0\u201345s). Hop 2 (4380.0s\u20134455.0s) aligns with chunks 126/127 (each 45s window). The inter-hop gap is |4380 - 0| = 4380 seconds, well above the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (hop 1 at 0s and hop 2 at 4380s) and chunk_000 contains [frame caption: ...] markers showing the blackboard with '6.858: Web Security,' satisfying both multi-hop-visual conditions."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the z-index CSS property is used for layering is not explicitly supported by the source text. The text mentions making the frame invisible and layering it on top, but does not specify the use of the z-index property."
+  },
+  {
+    "qa_id": "mit_6858_lec08_q004",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the blackboard shows '6.858: Web Security' (chunk_000 frame captions), multiple language contexts (HTML, CSS, JavaScript, MySQL) are mentioned in chunk_012, the closing quote/script tag attack vector is described in chunk_012, and content standardization requiring careful analysis of untrusted input is confirmed in chunks_012 and _013."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (0.0s\u201345.0s) aligns with chunk_000 (chunk 0, ~0\u201345s window); Hop 2 (375.0s\u2013465.0s) aligns with chunks_012 and _013 (~360\u2013450s window, within \u00b115s). The inter-hop gap is |375 - 0| = 375 seconds, well above the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (0\u201345s and 375\u2013465s, gap of 375s) and chunk_000 contains [frame caption: ...] markers with visual evidence of the blackboard text, satisfying both multi-hop-visual conditions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports all claims: the course is '6.858: Web Security' as shown on the blackboard, and the instructor discusses the issue of multiple language contexts (HTML, CSS, JavaScript, MySQL) and the need for content standardization to prevent attacks by analyzing untrusted input and escaping context-sensitive characters."
+  },
+  {
+    "qa_id": "mit_6858_lec08_q005",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The detailed DNS rebinding attack description (attacker registers domain, short TTL, luring users, Ajax requests reaching internal network) is not found in any of the cited source chunks; those chunks only contain the defenses and a brief mention that 'that's the DNS rebinding attack.'"
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (0\u201345s) aligns with chunk_000, hop 2 (4290\u20134395s) aligns with chunks 121\u2013122, and the inter-hop gap of ~4290s far exceeds the 70s minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans and chunk_000 contains [frame caption] markers showing the blackboard, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the detailed DNS rebinding attack mechanism described in the answer is not supported by the cited source chunks.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6858_lec08_q006",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the course title '6.858: Web Security' is visible in frame captions in chunk_000; HTML5 screen sharing API allowing pixels to be shared is in chunk_137; same origin policy not considered in API design is in chunk_137; any frame with screenshot permission can capture the entire screen regardless of origin is in chunk_138; the fix of restricting to the frame's bounding box and competitive pressure explanation are in chunk_138."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (0.0s\u201345.0s) aligns with chunk_000 (first chunk); Hop 2 (4795.0s\u20134900.0s) aligns with chunks_137 and _138 (each ~45s window around that timestamp). The inter-hop gap is approximately 4795 seconds, well above the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (hop 1 at ~0s and hop 2 at ~4795s) and at least one cited chunk contains [frame caption: ...] markers (chunk_000 has multiple frame captions including the blackboard text), satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the course title '6.858: Web Security' is visible on the blackboard, the HTML5 screen sharing API flaw is explained in relation to the same origin policy, and the competitive pressure to ship features is mentioned as a reason for the oversight."
+  },
+  {
+    "qa_id": "mit_6858_lec08_q007",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the blackboard shows '6.858: Web Security' and instructor is visible (chunk_000 frame captions), JavaScript uses a single-threaded event-driven model with an event loop polling for key presses, network events, timers, and firing registered handlers (chunk_024/025), and the security question about whether google.com's analytics script should be able to define event handlers for food.com's HTML elements is explicitly raised (chunk_024/025)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (0.0s\u201345.0s) aligns with chunk_000 (first chunk, ~0\u201345s window); Hop 2 (870.0s\u2013960.0s) aligns with chunk_024/025 (~870\u2013960s window). The inter-hop gap is |0 - 870| = 870 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (hop 1 at 0\u201345s and hop 2 at 870\u2013960s), and chunk_000 contains multiple [frame caption: ...] markers describing the blackboard and instructor, satisfying both multi-hop-visual conditions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text confirms the instructor explains JavaScript's single-threaded event-driven model and raises the security question about whether Google Analytics should be allowed to define event handlers on food.com."
+  },
+  {
+    "qa_id": "mit_6858_lec08_q008",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims the blackboard displays '6.858: Web Security' in white chalk, which is explicitly supported by the frame captions in the chunk. The minor discrepancy (one caption shows '6858:' without a period, another shows '6.858:') is resolved by the third caption which confirms '6.858: Web Security'."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (0.0s\u201345.0s) aligns with chunk_000, which covers the first 45-second window of the lecture, well within the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual', requiring exactly 1 span and at least one source chunk with a [frame caption: ...] marker. Both conditions are met: there is one span and the cited chunk contains multiple frame captions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claim that the classroom blackboard displays '6.858: Web Security' written in white chalk, indicating the lecture is part of course 6.858 and the topic is web security."
+  },
+  {
+    "qa_id": "mit_6858_lec08_q009",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the instructor wearing a white shirt and black pants is confirmed in the second frame caption, and the instructor holding a piece of paper while gesturing with one hand is confirmed in the third frame caption. The classroom with students seated in rows of desks is also confirmed in the second frame caption."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (0.0s\u201345.0s) aligns with chunk_000, which covers the first 45-second window of the lecture, well within the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual' with exactly 1 span and the cited source chunk (mit_6858_lec08_chunk_000) contains multiple [frame caption: ...] markers, satisfying both requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text. The instructor is described as wearing a white shirt and black pants, standing in front of the blackboard, holding a piece of paper, and gesturing with one hand, as stated in the frame captions."
+  },
+  {
+    "qa_id": "mit_6858_lec08_q010",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6858_lec08_q011",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the cited chunks: the browser automatically includes cookies (chunk_092/094), the attacker creates a child frame pointing to bank.com with a transfer command for 500 dollars to the attacker's account (chunk_092/093), the bank processes it as a legitimate request (chunk_094), the attack works because the command is deterministic/no randomness (chunk_094/095), the solution is embedding a random token in the form as a hidden input field generated server-side (chunk_096/097), and the attacker cannot forge the URL without knowing the token (chunk_095)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (3240\u20133360s) aligns with chunks 092\u2013094 (each ~45s window starting around that range), and hop 2 (3395\u20133480s) aligns with chunks 095\u2013097. The inter-hop gap is |3240 - 3395| = 155 seconds, which is well above the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop, requiring information from two non-adjacent spans (the CSRF attack description and the token-based solution), and all cited chunks contain [frame caption: ...] markers though the question type is multi-hop (not multi-hop-visual), which is correctly classified since the answer relies on spoken content rather than visual frame content."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text, including the automatic inclusion of cookies in requests, the attacker's ability to craft URLs for CSRF, and the solution involving a server-generated random token embedded in a hidden form field."
+  },
+  {
+    "qa_id": "mit_6858_lec08_q012",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunk text: frames can shorten document.domain to a proper suffix (chunk_057), cannot extend to a longer domain like a.y.z.com (chunk_058), cannot set to .com (chunk_058), and the browser distinguishes between explicitly written vs. unwritten document.domain to prevent malicious subdomains from attacking parent domains (chunks_065, 066)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1995-2040s) aligns with chunks 057-058 (roughly 45s windows around that time), and Hop 2 (2210-2285s) aligns with chunks 065-066. The inter-hop gap is |1995 - 2210| = 215 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop requiring information from two non-adjacent spans (1995-2040s and 2210-2285s), and the answer genuinely requires combining information from both spans about how document.domain manipulation works and why the browser distinguishes opt-in status."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text explains that a frame can shorten its document.domain to a suffix of its original domain, and the browser distinguishes between explicitly set and unset document.domain values to prevent unauthorized access by ensuring both parties opt-in."
+  },
+  {
+    "qa_id": "mit_6858_lec08_q013",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: quirksmode.org (referred to as 'quirks mod.org' in transcript) is mentioned as documenting browser inconsistencies, key press events are used as the specific example, the instructor notes there should be one key press event but browsers differ, and browser vendors implement something that 'somewhat resembles' the specs rather than following them precisely."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span 490.0s\u2013555.0s covers a 65-second window that aligns with chunk_014 and chunk_015 boundaries; this is a single-span text question so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and the ground_truth_spans contains a single span (490.0s\u2013555.0s); although the cited chunks contain [frame caption: ...] markers, the question type is text (not visual), and the answer is derived entirely from spoken content, so this is correctly classified."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports both claims: it mentions quirksmode.org as a site documenting browser inconsistencies and uses the example of key press events to illustrate how browsers diverge from specifications."
+  },
+  {
+    "qa_id": "mit_6858_lec08_q014",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6858_lec08_q015",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence of any specific JavaScript API or method demonstrated live on a whiteboard for cross-origin communication. The question cannot be answered from the available content."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

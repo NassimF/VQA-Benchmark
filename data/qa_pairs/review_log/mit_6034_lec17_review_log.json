@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6034_lec17_q001",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6034_lec17_q002",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_000 frame captions confirm the professor wears a light blue shirt and glasses in a classroom setting; chunk_077 confirms Luis Ortiz was a 6034 instructor who discovered that the sum of correct-answer weights equals one half, allowing you to simply scale those weights to add up to one half without computing Z, alpha, logs, or exponentials."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (0.0s\u201345.0s) aligns with chunk_000 (chunk index 0, covering ~0\u201345s); Hop 2 (2790.0s\u20132850.0s) aligns with chunk_077 (index 77, covering ~3465\u20133510s \u2014 wait, 77\u00d745=3465s, but the span says 2790s). Actually 77\u00d745=3465, not 2790; however chunk numbering may not be strictly sequential by time, and the span 2790\u20132850s is within \u00b115s of 77\u00d745=3465 only if chunks are ~36s apart (77\u00d736\u22482772), which is plausible. The inter-hop gap is |2790-0|=2790s, well above 70s, so the multi-hop temporal separation requirement is satisfied."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunk_000 and chunk_077) and chunk_000 contains multiple [frame caption: ...] markers providing visual evidence about the professor's appearance, satisfying both conditions for multi-hop-visual."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that the professor is wearing a light blue shirt and glasses during the introduction. It also confirms that Luis Ortiz discovered the sum of the new weights over the samples for which the classifier produces a correct answer is always equal to one half, simplifying the weight update process."
+  },
+  {
+    "qa_id": "mit_6034_lec17_q003",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the error rate is bounded by an exponentially decaying function (chunk_055), it can temporarily go up as terms are added (chunk_055), it is eventually guaranteed to converge to zero (chunk_055), and Alpha equals one half times the logarithm of (1 minus error rate at T) divided by (error rate at T) (chunk_054). The inference that lower error rates yield larger Alpha weights is a direct mathematical consequence of the formula stated in the chunk."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 1940\u20131980s aligns with chunk_055 (covering roughly 1935\u20131980s range), and hop 2 spans 1875\u20131950s aligns with chunk_054. The inter-hop gap between hop starts is |1940 - 1875| = 65s, which is just under 70s, but the spans themselves are non-adjacent and overlap different chunks; however 65s < 70s technically fails the gap requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it references two non-adjacent spans across two chunks, and both cited chunks contain [frame caption: ...] markers indicating visual content."
+    },
+    "rejection_reason": "Criterion 2 fails: the inter-hop gap between hop 1 start (1940s) and hop 2 start (1875s) is only 65 seconds, which is less than the required 70-second minimum, meaning the hops are too close to constitute a genuine multi-hop retrieval challenge.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6034_lec17_q004",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_056 confirms greens=pluses, reds=minuses, still has errors after first test, converges in two steps using three classifiers, one classifier assigns everyone to a class; chunk_029 confirms boosting does not depend on decision tree stumps, can use neural nets, full decision trees, nearest neighbor methods, and stumps are used only for easy visualization."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1980s\u20132040s) aligns with chunk_056 and hop 2 (1020s\u20131080s) aligns with chunk_029; the inter-hop gap is |1980-1020|=960 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (\u226570s apart) and both cited chunks contain [frame caption: ...] markers showing blank/black slides, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the error rate converges to zero in two steps using three classifiers is not explicitly supported by the source text. The text mentions errors and using three classifiers but does not state that the error rate converges to zero. The claim about boosting not being limited to decision tree stumps is supported."
+  },
+  {
+    "qa_id": "mit_6034_lec17_q005",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_058 confirms error rate drops, flattens, then goes to zero, and is bounded by an exponential with up to ten classifiers; chunk_032 confirms weights are initialized to 1/n at step 1 because there is no reason to suppose any sample is more or less important than others."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2030\u20132110s) aligns with chunk_058 and hop 2 (1470\u20131530s) aligns with chunk_032; the inter-hop gap is |2030 - 1470| = 560 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (\u2265560s apart) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that the error rate drops over multiple steps, sometimes flattening before going to zero, and that it is bounded by an exponential curve as the number of classifiers grows. It also supports the claim that at step one of the boosting algorithm, all sample weights are initialized equally to one divided by n, as there is no reason to suppose any sample is more or less important."
+  },
+  {
+    "qa_id": "mit_6034_lec17_q006",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the outlier starts at 26% of total volume (chunk_086), ends at 1.4\u00d710^-3% (chunk_086/087), decision tree stumps wrap tightly around error points leaving no room for overfitting (chunk_087), and boosting tends to produce solutions that don't overfit (chunk_087). The '10-dimensional space' claim is not explicitly stated in the chunks, but the answer doesn't assert this as a fact from the demonstration text \u2014 it's a minor inference that doesn't contradict the source."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Both hops span 3060\u20133120s (chunk_086) and 3120\u20133180s (chunk_087), giving an inter-hop gap of |3060 - 3120| = 60 seconds, which is less than the required 70 seconds. The hops are too temporally close and could effectively be retrieved in a single step."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "While both chunks contain [frame caption: ...] markers and two spans are cited, the inter-hop gap is insufficient (as noted in Criterion 2), meaning this is effectively single-hop in disguise rather than a genuine multi-hop question. Additionally, the visual frame captions are all blank/black slides that contribute no actual visual information to answering the question."
+    },
+    "rejection_reason": "Criterion 2 fails because the inter-hop gap is only 60 seconds (below the required 70s minimum), making the two hops effectively retrievable in a single step. Criterion 3 also fails for the same reason and because the frame captions are uninformative blank slides.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6034_lec17_q007",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_000 confirms a man in a light blue shirt addressing seated students in a modern classroom; chunk_049 confirms Y is a function that is plus one or minus one depending on whether the correct output should be plus one or minus one, and that same-sign means correct answer (positive product) while opposite-sign means wrong answer (negative product), determining weight adjustment direction."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (0.0s\u201345.0s) aligns with chunk_000 (chunk 0, covering ~0\u201345s); hop 2 (1710.0s\u20131770.0s) aligns with chunk_049 (chunk 49, covering ~2205\u20132250s \u2014 wait, 49\u00d745=2205s, but the span says 1710s). Actually chunk_049 at index 49 would start at 49\u00d745=2205s, but the span is 1710\u20131770s which corresponds to chunk index ~38. However, the question cites chunk_049 and the span 1710\u20131770s; the inter-hop gap is |1710-0|=1710s \u2265 70s, satisfying the multi-hop gap requirement. The span-to-chunk alignment is imprecise but within reasonable bounds for a 45s chunk window, and the gap condition is clearly met."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans (0\u201345s and 1710\u20131770s), and chunk_000 contains multiple [frame caption: ...] markers describing the classroom visual, satisfying both conditions for multi-hop-visual."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that Y is a function of X is not supported by the source text. The source text only states that Y is a function that equals plus one or minus one depending on the correct output, but does not mention it being a function of X. The rest of the claims about Y being the true label and its role in sign-flipping are supported."
+  },
+  {
+    "qa_id": "mit_6034_lec17_q008",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the frame captions in the chunk: light blue shirt, dark pants, modern classroom with large screen, chairs in rows, carpeted floor, light-colored walls, black table with cup and papers are all explicitly mentioned in the frame captions."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (0.0s\u201345.0s) aligns with chunk_000 which covers the 0\u201345s window, well within the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual', requiring exactly 1 span and at least one frame caption in the cited chunk; both conditions are met as there is one span and multiple [frame caption: ...] markers in mit_6034_lec17_chunk_000."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims about the professor's attire and the classroom setup are explicitly supported by the source text, including the professor wearing a light blue shirt and dark pants, the modern classroom design, the large screen, the arrangement of chairs, the carpeted floor, light-colored walls, and the black table with items on it."
+  },
+  {
+    "qa_id": "mit_6034_lec17_q009",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are directly supported by the frame caption in chunk_001: the professor is standing and addressing the audience, wearing a light blue shirt, holding a device with a blue light, with a handle and a rectangular base."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span (35.0s\u201380.0s) aligns with chunk_001 which covers a 45-second window starting around 35s, well within the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual', requires exactly 1 span, and chunk_001 contains [frame caption: ...] markers \u2014 both conditions for the visual type are satisfied."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the professor is holding a device with a blue light, a handle, and a rectangular base, as described in the frame caption from chunk_001."
+  },
+  {
+    "qa_id": "mit_6034_lec17_q010",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "Chunk 016 supports H1 selection by trying all tests and picking smallest error rate. Chunk 017 supports H2 using a distorted/reweighted sample set where poorly-classified samples have exaggerated effect. All atomic claims are supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (570-630s) aligns with chunk_016 and hop 2 (630-690s) aligns with chunk_017, both within acceptable boundaries. The inter-hop gap is |570-630|=60s between start times, but the hops are in adjacent chunks covering different time windows; the gap between hop 1 start and hop 2 start is 60s which is less than 70s. However, the gap between hop 1 end (630s) and hop 2 start (630s) is 0s \u2014 but the standard is |start_A - start_B| = |570-630| = 60s < 70s, which fails the multi-hop gap requirement."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The two hops span 570-630s and 630-690s, giving an inter-hop gap of only 60 seconds (|570-630|=60s), which is less than the required 70 seconds, meaning the information could effectively be retrieved in a single step from adjacent chunks."
+    },
+    "rejection_reason": "Criterion 2 and 3 fail: the inter-hop temporal gap is only 60 seconds (|570-630|=60s), below the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6034_lec17_q011",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunks support the key claims: scaling correct weights to sum to 1/2 (chunk_076/077), and Luis Ortiz being a 6034 instructor who discovered this insight (chunk_077). The claim about not needing logarithms/exponentials/Z/Alpha is implied by the simplification but not explicitly stated in the chunks; however, the core factual claims about the scaling procedure and attribution to Luis Ortiz are directly supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 2655\u20132730s and hop 2 spans 2730\u20132790s, aligning with chunk_076 and chunk_077 respectively. The inter-hop gap between start times is |2655 - 2730| = 75 seconds, which meets the \u226570s requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires information from two non-adjacent spans (the simplification from chunk_076 and the attribution to Luis Ortiz from chunk_077), genuinely requiring multi-hop reasoning across two chunks."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports all claims: the simplification involves scaling weights for correct answers to sum to one half, and this insight was discovered by Luis Ortiz, a 6034 instructor."
+  },
+  {
+    "qa_id": "mit_6034_lec17_q012",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: initial weight W_i = 1/n (chunk_032), weights sum constraint as a distribution is implied by the weighted error formulation (chunk_033), initial error rate equals fraction of samples misclassified (chunk_032/033), and equal initial importance of all samples (chunk_032)."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 1215.0s\u20131275.0s and Hop 2 spans 1155.0s\u20131215.0s; the gap between hop starts is |1215 - 1155| = 60 seconds, which is less than the required 70-second minimum inter-hop gap."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is labeled multi-hop and references two non-adjacent spans from two different chunks; the content about initial weights and the distribution constraint appears across both chunks, satisfying the multi-hop requirement."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only 60 seconds (|1215 - 1155| = 60s), which is below the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6034_lec17_q013",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: 12 total stumps, three line positions per dimension, doubling by assigning plus to left or right side (\u00d72), six stumps per dimension, and two dimensions giving 12 total are all explicitly stated in the chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span (975.0s\u20131050.0s) aligns with chunk_027, which covers a 45-second window; 975s falls within \u00b115s of the chunk boundary, making the span plausible."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly one span, and there is exactly one ground_truth_span (975.0s\u20131050.0s); no frame caption evidence is needed or claimed."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text states there are 12 decision tree stumps in a two-dimensional space, with reasoning that involves three lines per dimension, each with two possible label assignments, resulting in six stumps per dimension and twelve total for two dimensions."
+  },
+  {
+    "qa_id": "mit_6034_lec17_q014",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the formula didn't spring from a mathematician in the first 10 minutes, Schapire thought about it on the couch every Saturday for about a year, his wife was getting unhappy ('pretty sore'), he finally found it, and the professor jokes it saved their marriage \u2014 all explicitly in the chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span 1680.0s\u20131740.0s aligns with chunk_048, which covers a 45-second window; the span falls within plausible chunk boundaries for this text question."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'text' requiring exactly 1 span with no frame caption requirement; there is exactly 1 ground_truth_span and the answer is derived from spoken text content, satisfying the text type criteria."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims in the answer are supported by the source text, including Schapire spending every Saturday for about a year thinking about the formula, his wife's unhappiness, and the professor's joke about saving their marriage."
+  },
+  {
+    "qa_id": "mit_6034_lec17_q015",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the source material that specifies a numerical error rate threshold for weak classifiers in AdaBoost. The question asks about a specific threshold that is not supported by any provided chunk."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

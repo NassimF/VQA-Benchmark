@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6006f11_lec01_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the cited chunks: the blackboard content (6.006, URL, three topics) is confirmed by chunk_001's frame caption, and the one-sentence summary is confirmed by chunk_004's text, with the logical connection between 'Course overview' and the summary being a reasonable inference."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (35\u201380s) aligns with chunk_001 and hop 2 (175\u2013220s) aligns with chunk_004; the inter-hop gap is 140 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u2265 2 non-adjacent spans (140s apart) and relies on visual frame caption evidence from chunk_001 for the blackboard content, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the blackboard shows '6.006', the course URL, and three topics is supported by the source text. However, the claim that the instructor's one-sentence summary directly corresponds to the 'Course overview' topic is not explicitly supported, as the source text does not provide a direct connection between the summary and the 'Course overview' topic listed on the board."
+  },
+  {
+    "qa_id": "mit_6006f11_lec01_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "Chunk 059 explicitly states the complexity is 'theta log 2 of n' for the divide-and-conquer algorithm, and chunk 060 explicitly states 'the or theta n algorithm takes 13 seconds' when run on 'n being 10 million or so'. Both atomic claims in the answer are directly supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1980-2045s) aligns with chunk_059 and hop 2 (2100-2145s) aligns with chunk_060, both within plausible chunk boundaries. The inter-hop gap is |1980 - 2100| = 120 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunks 059 and 060) and both chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements of \u22652 non-adjacent spans and \u22651 frame caption."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the final complexity of the divide-and-conquer 1D peak finder is Theta(log base 2 of n) and that the Theta(n) algorithm takes 13 seconds on an input of 10 million elements."
+  },
+  {
+    "qa_id": "mit_6006f11_lec01_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The blackboard content ('Efficient procedures for solving large-scale problems' and 'Scalability') is explicitly supported by the frame caption in chunk_009. The human genome having 'a billion letters' is explicitly stated in chunk_005, and the connection to large-scale problems and scalability is directly supported by both chunks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (295.0s\u2013360.0s) aligns with chunk_009 (which covers roughly 270s\u2013315s range based on chunk numbering, but within \u00b115s tolerance is plausible); Hop 2 (175.0s\u2013240.0s) aligns with chunk_005. The inter-hop gap is |295 - 175| = 120 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (chunks 005 and 009) and at least one chunk contains [frame caption: ...] markers (both chunks do), satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim that the blackboard lists 'Efficient procedures for solving large-scale problems' and 'Scalability' under Course Overview is supported by the source text. Additionally, the instructor's description of the human genome as having a billion letters is used as an example of a large input, which relates to the course focus on scalability and efficient procedures for large-scale problems, as mentioned in the source text."
+  },
+  {
+    "qa_id": "mit_6006f11_lec01_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the cited chunk text, including the blackboard listing of modules and the genome comparison description."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap between hop 1 start (630s) and hop 2 start (690s) is only 60 seconds, which is less than the required 70-second minimum, making this effectively single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The claimed multi-hop-visual type requires non-adjacent spans with \u226570s gap, but the two spans (630-700s and 690-750s) overlap and are only 60s apart, failing the non-adjacency requirement for multi-hop questions."
+    },
+    "rejection_reason": "Criteria 2 and 3 fail: the inter-hop temporal gap is only 60 seconds (below the 70-second minimum), and much of the answer content is contained within a single chunk, making this single-hop in disguise rather than a genuine multi-hop question.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec01_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the frame captions and transcript text in the cited chunks, including the blackboard content and the instructor's explanation of the 2D peak condition."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops (2925-2970s and 3000-3045s) align with chunk_083 and chunk_084 respectively, and the inter-hop gap of 75 seconds meets the \u226570s requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop-visual: it requires two non-adjacent spans (75s apart) and both cited chunks contain [frame caption: ...] markers that are integral to answering the question."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the blackboard lists the steps of the algorithm, including picking the middle column, finding the global max, comparing adjacent elements, and picking left if the left element is greater. The instructor confirms that if neither condition fires, (i,j) is a 2D peak."
+  },
+  {
+    "qa_id": "mit_6006f11_lec01_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame caption in chunk_028 explicitly shows 'Peak finder', 'One-dimensional version', and a sequence of letters a-i with numbers 1-9, supporting the first hop. Chunk_029 explicitly states 'position two is a peak if and only if B greater than or equal to a and B greater than or equal to C', supporting the second hop."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 975-1025s and hop 2 spans 1015-1060s. The inter-hop gap is |975 - 1015| = 40 seconds, which is less than the required 70 seconds, meaning the hops are too close and effectively retrievable in a single step."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both cited chunks contain [frame caption: ...] markers, and the question requires information from two separate spans (visual diagram description and the formal peak condition), satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only ~40 seconds (975s vs 1015s), well below the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec01_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The claim that 'when N equals M this becomes Theta(n log n)' is not explicitly stated in the cited chunk text; the chunks show Theta(n log_2 m) but do not explicitly make the N=M substitution."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap is only ~50 seconds (|3170-3120|=50s), which is less than the required 70 seconds, making the two hops effectively adjacent rather than non-adjacent."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The two hops are separated by only ~50 seconds, falling below the 70-second threshold required for a genuine multi-hop question."
+    },
+    "rejection_reason": "Criteria 1, 2, and 3 all fail: the N=M claim is unsupported by the cited chunks, the inter-hop gap is only ~50s (below the 70s threshold), and the question type is therefore not genuinely multi-hop.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec01_q023",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the first frame caption in the chunk: 'Peak finder' written in white chalk, centered on the board, 'Peak' in larger font than 'finder', no other visible text or diagrams, black background contrasting with white chalk."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span 955.0s\u20131010.0s aligns with chunk_027, which covers a 45-second window; the span falls within plausible boundaries for this chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual', requires exactly 1 span, and the cited chunk contains multiple [frame caption: ...] markers providing visual evidence about the blackboard content."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "Each atomic claim is explicitly supported by the source text. The text confirms that the blackboard has 'Peak finder' written in white chalk, with 'Peak' in a larger font size compared to 'finder', and there is no other visible text or diagrams on the blackboard, which is described as having a black background."
+  },
+  {
+    "qa_id": "mit_6006f11_lec01_q024",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are directly supported by the third frame caption in the cited chunk: 'Content' at the top, a horizontal line below it, '8 modules' written underneath, in white chalk, in a casual handwritten style, with no other text on the board."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span 510.0s\u2013570.0s aligns with chunk_014, which covers a 45-second window; the span falls within plausible chunk boundaries for a single-hop visual question."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual', requiring exactly 1 span and at least one frame caption in the cited chunk; both conditions are met as there is one span and multiple [frame caption: ...] markers in chunk_014."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims about the blackboard content are explicitly supported by the source text, which describes the word 'Content' at the top, a horizontal line below it, and '8 modules' written in a casual handwritten style, with no other text mentioned."
+  },
+  {
+    "qa_id": "mit_6006f11_lec01_q025",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_006 states '21st century definition of large is a trillion' and 'back when I was your age large was like a thousand'; chunk_007 states that cubic complexity on a billion-element input means '10 raise to 27' instead of '10 raise to 9' and 'even current computers can't really handle that kind of those kinds of numbers', and that 'efficiency is a concern'."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (210s\u2013255s) aligns with chunk_006 and hop 2 (245s\u2013305s) aligns with chunk_007, both within plausible 45-second windows; the inter-hop gap between start times is |210 - 245| = 35s, but since the hops overlap in time and span different chunks, we check the gap between the start of hop 1 and start of hop 2: 35s < 70s. However, the relevant comparison for non-adjacency is whether the spans cover different content requiring separate retrieval steps \u2014 but strictly by the rule, |210 - 245| = 35s < 70s, which would FAIL the temporal gap requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is labeled multi-hop and requires information from two separate chunks (definition of 'large' from chunk_006 and cubic complexity scalability from chunk_007), with no frame caption evidence required, which is consistent with the multi-hop type."
+    },
+    "rejection_reason": "Criterion 2 fails: the inter-hop temporal gap between hop 1 start (210s) and hop 2 start (245s) is only 35 seconds, which is less than the required 70 seconds, meaning the hops are too close together and could effectively be retrieved in a single step.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec01_q026",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the recurrence T(n) = T(n/2) + Theta(1) is shown in chunk_057 frame captions, the Theta(1) term corresponding to two comparisons is stated in chunk_057 text, the base case T(1) = Theta(1) is shown in chunk_058 frame captions, and the explanation that a single-element array is immediately returned as a peak is in chunk_058 text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1995\u20132040s) aligns with chunk_057 and hop 2 (2050\u20132100s) aligns with chunk_058; the inter-hop gap is |1995 - 2050| = 55s, which is less than 70s, so the hops are too close together."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as multi-hop and both cited chunks contain [frame caption: ...] markers, with two non-adjacent spans cited; however, the span gap issue is a Criterion 2 concern."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop gap between hop 1 (starting at 1995s) and hop 2 (starting at 2050s) is only 55 seconds, which is less than the required 70 seconds, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec01_q027",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_080 confirms the algorithm is incorrect because '2D peak may not exist on row 14,' that the algorithm returns 14, and that '14 is not a 2D peak.' Chunk_077 confirms the algorithm is efficient but incorrect. The claim about '19' in adjacent positions is not explicitly stated in the chunks, but the core claims about 14 being returned and not being a 2D peak are supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2715\u20132760s) aligns with chunk_077 and hop 2 (2805\u20132850s) aligns with chunk_080; the inter-hop gap is |2715 - 2805| = 90 seconds, which exceeds the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop requiring two non-adjacent spans: chunk_077 covers why the algorithm is incorrect (general reasoning) and chunk_080 covers the specific numerical example with 14, satisfying the multi-hop requirement with \u22652 non-adjacent spans."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that the algorithm is incorrect because a 2D peak may not exist on the row selected by the algorithm, and it provides the specific example of 14 being identified as a peak on a row, but not being a 2D peak due to larger values like 19 in adjacent positions."
+  },
+  {
+    "qa_id": "mit_6006f11_lec01_q028",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The spoken text in the chunk explicitly states 'real implementations of these data structures and algorithms in Python' and that each problem set has 'both a theory part and a programming part,' supporting all atomic claims in the answer."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The ground_truth_span of 420.0s\u2013465.0s does not align with chunk_012; at 45-second intervals, chunk_012 would cover approximately 540\u2013585s (0-indexed) or similar, making the span off by multiple chunk windows from the cited source chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span provided, which is consistent with the type."
+    },
+    "rejection_reason": "Criterion 2 failed: the ground_truth_span (420.0s\u2013465.0s) does not plausibly align with the cited source chunk mit_6006f11_lec01_chunk_012, which should cover a later time window at 45-second chunk intervals.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec01_q029",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the instructor describes image compression as a dynamic programming application, but the cited chunk (chunk_020) contains no mention of dynamic programming or image compression \u2014 it only discusses numerics and RSA encryption."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span (840\u2013900s) aligns plausibly with chunk_020's approximate time window."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one span, which matches the requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer's claims about dynamic programming and image compression are not supported by the cited source chunk, which only covers numerics and RSA encryption.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec01_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks are provided, so there is no textual evidence available to answer the question about the worst-case time complexity of the greedy ascent algorithm."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

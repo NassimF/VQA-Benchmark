@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6006f11_lec01_q001",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the blackboard shows the URL 'http://courses.csail.mit.edu/6.006', but the frame caption in chunk_000 shows the URL as 'http://www.csail.mit.edu/6.006' (not 'courses.csail.mit.edu'). This is a factual discrepancy between the answer and the cited chunk text. Additionally, the answer states the human genome has 'a billion letters in its alphabet,' which is supported by chunk_005, but the URL claim is contradicted by the source."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (0.0s\u201345.0s) aligns with chunk_000 (a 45-second window starting at 0s), and hop 2 (175.0s\u2013220.0s) aligns with chunk_005. The inter-hop gap is |0 - 175| = 175 seconds, which is well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunk_000 and chunk_005, separated by ~175s) and chunk_000 contains multiple [frame caption: ...] markers describing visual blackboard content, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer states the URL is 'http://courses.csail.mit.edu/6.006' but the cited frame caption in chunk_000 shows 'http://www.csail.mit.edu/6.006', making the URL claim factually unsupported by the source text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec01_q002",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by chunk_010: binary search trees, hash tables (dictionaries in Python), and balanced binary search trees are explicitly named; the description of them being 'invented many decades ago' that 'stood the test of time and continue to be useful' is verbatim; and augmenting them for efficiency is also stated. The blackboard showing 'Classic data structures' is confirmed by the frame caption in chunk_010."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 is 600.0s\u2013660.0s (chunk_010 covers ~600s) and Hop 2 is 350.0s\u2013415.0s (chunk_011 covers ~660s based on chunk numbering, but the cited chunk_011 starts around 660s). The inter-hop gap between 350s and 600s is 250s which would be fine, but chunk_011 (the second source) actually contains content that overlaps heavily with chunk_010 \u2014 both chunks contain nearly identical text about augmenting data structures. More critically, the span 350.0s\u2013415.0s does not align with chunk_011 (which should be around 660s\u2013705s based on sequential chunking), making the span assignment implausible and inconsistent with the cited chunk IDs."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (600s and 350s) and both cited chunks contain [frame caption: ...] markers, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 2 fails: the ground_truth_span for hop 2 (350.0s\u2013415.0s) does not align with the cited source chunk mit_6006f11_lec01_chunk_011, which based on sequential chunk numbering should cover content around 660s\u2013705s, not 350s\u2013415s. The span timestamps are inconsistent with the cited chunk IDs.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec01_q003",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the blackboard shows 'Shortest paths: Caltech - MIT' (confirmed by frame captions), the professor suggests giving students a map of Boston and having them figure out if Paul Revere used a shortest path (supported by chunk_023 transcript), and dynamic programming is listed alongside shortest paths as a module described as an important algorithm design technique used in many problems including image compression (supported by both chunks and frame captions)."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The two hops are at 800.0s\u2013860.0s and 805.0s\u2013870.0s, giving an inter-hop gap of |800 - 805| = 5 seconds, which is far less than the required 70 seconds. The hops are essentially the same temporal location and can be retrieved in a single step."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both cited chunks contain [frame caption: ...] markers, and the question claims to require two spans; however, as noted in Criterion 2, the spans are not truly non-adjacent."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only ~5 seconds (800s vs 805s), far below the required 70-second minimum, making this effectively single-hop rather than multi-hop.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec01_q004",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the cited chunks: the recurrence and base case are shown in chunk_058 frame captions, and the 13-second vs 0.001-second comparison and the '2 raised to n and n' quote are explicitly in chunk_060."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align with their respective chunk windows (chunk_058 at ~1980s, chunk_060 at ~2100s), and the inter-hop gap of 120 seconds exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question has two non-adjacent spans (120s apart) and both cited chunks contain [frame caption: ...] markers, satisfying multi-hop-visual requirements; the question genuinely requires visual evidence from the blackboard plus the spoken timing comparison."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the professor derives a total complexity of \u0398(log\u2082n) is not explicitly supported by the source text. Additionally, the statement that the difference between \u0398(n) and \u0398(log n) is essentially the difference between 2 raised to n and n is incorrect and not supported by the source text."
+  },
+  {
+    "qa_id": "mit_6006f11_lec01_q005",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the 2D version uses n rows and m columns (chunk_063 frame captions), the 2D peak condition uses a \u2265 b, a \u2265 c, a \u2265 d, a \u2265 e (chunk_063 text and chunk_069 frame captions), greedy ascent has \u0398(nm) complexity (chunk_069 text and frame captions), and when N=M it reduces to \u0398(n\u00b2) (chunk_069 text and frame captions)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2205\u20132270s) aligns with chunk_063 (a 45s window around ~2205\u20132250s range), and hop 2 (2415\u20132460s) aligns with chunk_069; the inter-hop gap is |2205 - 2415| = 210 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (hops at ~2205s and ~2415s), and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports all claims: the greedy ascent algorithm has \u0398(nm) complexity in the worst case, and this reduces to \u0398(n\u00b2) when n equals m."
+  },
+  {
+    "qa_id": "mit_6006f11_lec01_q006",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec01_q007",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by chunk_018: the blackboard lists 'Hashing' and 'Genome comparison' (frame caption), the professor uses human genome vs. rat genome comparison, cites 99% similarity, calls it 'kind of amazing,' and emphasizes efficiency is essential. Chunk_019 supports the claim about the program not finishing by the problem set due date."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 1140.0s\u20131200.0s (chunk_018) and Hop 2 spans 1030.0s\u20131090.0s (chunk_019). The inter-hop gap is |1140 - 1030| = 110 seconds, which is \u2265 70s. However, the chunk assignment appears reversed: chunk_018 contains the earlier content about genome comparison (which should map to the earlier span 1030\u20131090s) and chunk_019 continues the same thought (mapping to 1140\u20131200s). More critically, both hops cover content that is part of a single continuous discussion about genome comparison and efficiency \u2014 the two hops are not truly non-adjacent in topic, and the span labels appear mismatched to their chunks. Additionally, chunk_019 (labeled as hop 2 at 1030\u20131090s) actually appears to be a continuation of chunk_018, suggesting the spans may be inverted relative to the chunks, raising plausibility concerns."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires combining visual information from the blackboard (frame captions in chunk_018 listing 'Hashing' and 'Genome comparison') with spoken content about the biological example and percentage, and spans two non-adjacent chunks. Both conditions for multi-hop-visual are met."
+    },
+    "rejection_reason": "Criterion 2 fails: the ground_truth_spans appear to be assigned in reverse order relative to the source chunks (chunk_018 contains the earlier genome comparison content but is labeled as hop 1 at 1140\u20131200s, while chunk_019 continues the same thought but is labeled as hop 2 at 1030\u20131090s), indicating a span plausibility issue with mismatched chunk-to-span assignments.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec01_q008",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the frame caption in the chunk: 'Peak finder' is written in white chalk, 'Peak' is in a larger font size than 'finder,' and the board is otherwise blank with a black background. The claim about signaling transition is interpretive but consistent with the context."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (940.0s\u2013980.0s) corresponds to chunk mit_6006f11_lec01_chunk_026, which as a 45-second window would plausibly fall within \u00b115s of these boundaries. This is a visual question with only one span, so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual,' there is exactly one span, and the cited chunk contains multiple [frame caption: ...] markers including one describing the 'Peak finder' blackboard image."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the text 'Peak finder' is written on the blackboard, with 'Peak' in a larger font size than 'finder,' and the board is otherwise blank, as described in the source text."
+  },
+  {
+    "qa_id": "mit_6006f11_lec01_q009",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec01_q010",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_006 confirms 21st-century 'large' is a trillion, that the professor's student days had 'large' as ~1000, and Erik (Demaine)'s student days had ~1 million. Chunk_009 confirms the speculation that by the time current students are professors, a trillion will seem small and 10^18 will be the concern."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (210\u2013260s) aligns with chunk_006 (which covers roughly 210\u2013255s range), and hop 2 (315\u2013360s) aligns with chunk_009. The inter-hop gap is |210 - 315| = 105 seconds, which exceeds the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop: it requires information from two non-adjacent spans (chunk_006 for the contrast with past decades, chunk_009 for the future speculation), and both pieces of information are needed to fully answer the question as posed."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the professor defines 'large' as a trillion in the 21st century, contrasts it with a thousand when he was a student, a million when Erik Demaine was a student, and speculates about 10^18 in the future."
+  },
+  {
+    "qa_id": "mit_6006f11_lec01_q011",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the straightforward algorithm has \u0398(n) worst-case complexity (chunk_040), it starts from the left (chunk_039), the peak may be at the rightmost position requiring looking at all n elements (chunk_040), and if the peak is in the middle approximately n/2 elements are examined (chunk_039)."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The two hops span 1380.0s\u20131425.0s and 1425.0s\u20131465.0s, giving an inter-hop gap of |1380 - 1425| = 45 seconds, which is less than the required 70 seconds. The hops are temporally adjacent and could effectively be retrieved in a single step."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is labeled multi-hop and cites two non-adjacent source chunks; both chunks contain [frame caption: ...] markers, and the question does require information from both chunks (complexity definition from chunk_040, reasoning about worst case from chunk_039)."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only 45 seconds (1380s to 1425s), below the required minimum of 70 seconds, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec01_q012",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec01_q013",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The claim that students will be 'augmenting them, running them, and figuring out whether they work well on large inputs' is not supported by the chunk text, which only mentions real implementations and theory/programming parts."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The ground_truth_span (420-480s) does not align with chunk_012; if chunks are ~45s each, chunk_012 would be around 540-585s, making the span fall outside the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly 1 span, which matches the requirement for a text question type."
+    },
+    "rejection_reason": "Criterion 1 failed due to unsupported claims about augmenting/running algorithms; Criterion 2 failed due to span timing mismatch with the cited chunk.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec01_q014",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the chunk text: RSA encryption is used in SSL, HTTPS websites use RSA at the back end, prime numbers with thousands of bits are used in RSA, 32/64 bits are insufficient, and the numerics module covers handling such large 'infinite precision' numbers in Python."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (1260.0s\u20131320.0s) corresponds to chunk_020, which covers a 45-second window starting around 1260s, well within the \u00b115s tolerance. This is a single-hop question so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one span, and while the cited chunk does contain [frame caption: ...] markers, the question type 'text' only requires exactly 1 span with no frame caption requirement, so this is consistent."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text: RSA encryption is used in SSL and HTTPS, involves prime numbers with thousands of bits, and motivates the numerics module for handling large numbers."
+  },
+  {
+    "qa_id": "mit_6006f11_lec01_q015",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, and there is no evidence in any chunk identifying a specific student who suggested divide-and-conquer for 1D peak finding or any prize they received."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

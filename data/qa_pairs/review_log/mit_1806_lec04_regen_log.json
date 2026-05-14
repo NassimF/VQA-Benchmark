@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_1806_lec04_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_000 introduces the inverse of AB question, chunk_005 contains the socks/shoes analogy (though slightly garbled as 'take off shoes then socks, invert by putting socks back on first then shoes'), and the formula (AB)^{-1} = B^{-1}A^{-1} with the collapsing identity argument (B\u00b7B^{-1}=I, then A\u00b7A^{-1}=I) is explicitly described in chunk_005."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2.0s\u201380.0s) aligns with chunk_000 (a ~45s window starting near 0s), and hop 2 (175.0s\u2013220.0s) aligns with chunk_005; the inter-hop gap is |2.0 - 175.0| = 173 seconds, which is well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (hops 1 and 2) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the analogy of putting on socks and shoes to explain the inverse order of a product, and it confirms the formula (AB)^{-1} = B^{-1}A^{-1} by describing the multiplication process that results in the identity matrix."
+  },
+  {
+    "qa_id": "mit_1806_lec04_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_007 shows the derivation starting from AA^{-1}=I and taking transposes, chunk_010 explicitly states '(A^T)^{-1}' is the inverse and that 'transposing and inversing you can do in either order,' and the frame captions confirm the equations (A^{-1})^T A^T = I and the conclusion (A^T)^{-1} = (A^{-1})^T."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (245\u2013300s) aligns with chunk_007 (a ~45s window around that range) and hop 2 (350\u2013395s) aligns with chunk_010; the inter-hop gap is |245-350|=105s, which exceeds the required 70s minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (hops 1 and 2) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that the inverse of the transpose of A is the transpose of A^{-1}, and that transposing and inverting can be done in either order. The text explicitly states that if you know the inverse of A, you can transpose that to find the inverse transpose, confirming the claim (A^T)^{-1} = (A^{-1})^T."
+  },
+  {
+    "qa_id": "mit_1806_lec04_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_1806_lec04_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_020 confirms L stands for lower triangular with ones on diagonal and U has pivots on diagonal (A=LU); chunk_022 confirms the LDU variant separates pivots into diagonal matrix D leaving ones on diagonals of both L and modified U, described as 'more balanced'."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (735-795s) aligns with chunk_020 (which covers ~720-765s range, within \u00b115s tolerance); Hop 2 (770-835s) aligns with chunk_022. The inter-hop gap |735-770|=35s is less than 70s, which would normally FAIL, but checking chunk boundaries: chunk_020 and chunk_022 are non-adjacent chunks (chunk_021 exists between them), and the spans do overlap/are close. However, the gap between hop starts is only 35s < 70s, which fails the multi-hop temporal gap requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both cited chunks contain [frame caption: ...] markers, and two non-adjacent source chunks are cited, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 2 fails: the inter-hop temporal gap between hop 1 start (735s) and hop 2 start (770s) is only 35 seconds, which is less than the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_1806_lec04_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_1806_lec04_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer includes unsupported claims about 'cross-contamination' and 'inverses of elimination matrices taken in reverse order' that are not explicitly stated in the cited chunks; only the basic statement that multipliers go into L is supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The inter-hop gap is 90 seconds (\u226570s required), and the spans roughly align with the cited chunk boundaries within the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both cited chunks contain [frame caption: ...] markers, and two non-adjacent spans are provided with sufficient temporal separation."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer makes atomic claims (about 'cross-contamination' and 'inverses in reverse order') that are not explicitly supported by the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_1806_lec04_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "Chunk 059 supports the operation count formula (n^2 + (n-1)^2 + ... + 1^2) via the frame caption showing S = 3(n^2 + (n-1)^2 + ...). Chunk 064 explicitly supports the calculus analogy: integrating x^2 gives (1/3)x^3, and the professor explains that summing is like integrating, yielding the 1/3 coefficient. All atomic claims are supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2090\u20132135s) aligns with chunk_059 (a ~45s window around that time), and hop 2 (2220\u20132280s) aligns with chunk_064. The inter-hop gap is |2090 - 2220| = 130 seconds, which exceeds the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (hops 1 and 2 are 130s apart) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the blackboard shows the operation count formula as n^2 + (n\u22121)^2 + ... + 1^2 is supported, but the claim that it sums to approximately n^3/3 is not explicitly supported. The calculus analogy about integrating x^2 from 0 to n to get (1/3)n^3 is supported, but the explanation that this integral gives the leading term of the discrete sum is not explicitly mentioned in the source text."
+  },
+  {
+    "qa_id": "mit_1806_lec04_q023",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the blackboard shows 'Cost of b' associated with n^2 operations and contrasts it with 'n^3/3 cost for factoring the matrix A itself.' While the frame caption does mention 'Cost of b' with n^2, the chunk text shows 'Count' with 'n^2/3' (not n^3/3), and there is no explicit mention of n^3/3 as the cost for factoring matrix A in the cited chunk. The claim about n^3/3 is unsupported by the chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span is 2520.0s\u20132590.0s (a 70s window), and chunk_071 would correspond to approximately that time range given the chunk numbering; the span is plausible for a single-hop visual question."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual' with exactly 1 span, and the cited chunk (mit_1806_lec04_chunk_071) contains multiple [frame caption: ...] markers, satisfying the visual type requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer's claim that the n^3/3 cost for factoring matrix A is shown on the blackboard is not supported by the cited chunk text, which only mentions 'Count' with 'n^2/3', not n^3/3.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_1806_lec04_q024",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame caption explicitly mentions '6 P's' supporting the claim of six 3\u00d73 permutation matrices, and the transcript text 'six six p' and 'multiply two of these matrices together' supports the claims about the group property and multiplying matrices together. The 'group' label claim is partially supported by the transcript context about multiplying two matrices together staying within the collection, though the word 'group' itself isn't explicitly in the chunk \u2014 however, the answer's core factual claims about '6 P's' and the multiplication property are supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (2850.0s\u20132930.0s) aligns with chunk_077, which covers a 45-second window; the span is plausible given the chunk content about six permutation matrices. Only one hop is present, so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'visual,' requiring exactly 1 span and at least one source chunk with a [frame caption: ...] marker. There is exactly one span and chunk_077 contains multiple [frame caption: ...] markers explicitly showing '6 P's' on the blackboard."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the blackboard caption shows '3x3 6 P's' is not explicitly supported by the source text. The source text mentions '6 P's' but does not provide the exact phrase '3x3 6 P's.' Additionally, the claim that the professor describes this collection as a 'group' is not supported by the source text, which does not mention the term 'group' or discuss properties like closure or inverses."
+  },
+  {
+    "qa_id": "mit_1806_lec04_q025",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_008 confirms starting from AA^{-1}=I, transposing both sides, identity transposes to itself, product reverses order giving (A^{-1})^T A^T = I; chunk_010 confirms (A^{-1})^T is the inverse of A^T and that transposing and inverting can be done in either order."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (245\u2013310s) aligns with chunk_008 and hop 2 (350\u2013415s) aligns with chunk_010, both within \u00b115s of chunk boundaries; the inter-hop gap is |245-350|=105s \u2265 70s, satisfying the multi-hop requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop, requiring information from two non-adjacent spans (chunk_008 for the derivation steps and chunk_010 for the final result/conclusion), and no visual-only evidence is required, consistent with the multi-hop type."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text confirms that the professor starts from AA^{-1} = I, transposes both sides, and explains that the product transposes with reversed order, leading to (A^{-1})^T A^T = I. It also states that transposing and inverting can be done in either order."
+  },
+  {
+    "qa_id": "mit_1806_lec04_q026",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "Chunk 033 explicitly supports the claim that the 10 arises because 'I subtracted two of Row one from row two and then I subtracted five of that new row two from Row three,' causing cross-contamination. Chunk 035 supports the claim about taking inverses in opposite order, where each multiplier sits in its own position without interference."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1155\u20131210s) aligns with chunk_033 and hop 2 (1250\u20131325s) aligns with chunk_035; the inter-hop gap is |1155 - 1250| = 95 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop: hop 1 covers why the 10 appears in the forward product (chunk_033), and hop 2 covers why the inverse reverse-order product avoids this (chunk_035), with the two spans being non-adjacent and separated by ~95 seconds."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that computing the product of the elimination matrices E in forward order produces an undesirable entry like the value 10 is supported by the source text. However, the claim that using their inverses in reverse order avoids this problem by having each multiplier sit in its own position in the lower triangular matrix without interfering with other multipliers is not explicitly supported by the source text."
+  },
+  {
+    "qa_id": "mit_1806_lec04_q027",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "Chunk 067 explicitly states 'the cost for every right hand side is n\u00b2', and chunk 068 confirms the strategy of paying the higher price on A to get LU factorization and then processing each right-hand side at low cost. The n^3/3 figure for LU factorization is referenced in the frame caption context (n^2, n^3 sequence visible on board), and the overall narrative matches the answer's claims."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 2380\u20132440s and hop 2 spans 2440\u20132510s, aligning with chunk_067 and chunk_068 boundaries respectively. The inter-hop gap between start times is |2380 - 2440| = 60s, which is less than 70s, making the hops temporally adjacent and potentially retrievable in a single step."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The two hops are temporally adjacent (gap of 60s between start times, below the 70s threshold), meaning the information could effectively be retrieved in a single step rather than requiring genuine multi-hop reasoning across non-adjacent spans."
+    },
+    "rejection_reason": "Criterion 2 and 3 fail: the inter-hop temporal gap is only 60 seconds (2380s to 2440s), below the required 70-second minimum, making this effectively single-hop rather than a genuine multi-hop question.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_1806_lec04_q028",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims (2\u00d72 matrix with 2 and 8 in first row, 1 in (2,1), avoiding 4 in (2,2) because it would eliminate the second pivot and make the matrix singular) are explicitly supported by the chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span 525\u2013575s aligns plausibly with chunk_015's 45-second window boundaries (within \u00b115s), and no inter-hop gap check is needed for a single-hop question."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, which is satisfied; the answer is derivable from a single spoken-text span without requiring visual evidence."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The source text does not explicitly mention the matrix A having 2 and 8 in the first row. It only mentions 'two and an eight' without specifying their positions. Additionally, the source text does not confirm the matrix's (2,1) position as 1. The claim about avoiding placing a 4 in the (2,2) position is supported, as the text states that a 4 would make the matrix singular and eliminate the second pivot."
+  },
+  {
+    "qa_id": "mit_1806_lec04_q029",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk explicitly states 'the inverse is the transpose there's a curious fact about permutation matrices that the inverses are the transposed' and mentions that exchanging rows one and two gives a matrix that 'is its own inverse,' supporting all atomic claims in the answer."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span (2815.0s\u20132870.0s) aligns with chunk mit_1806_lec04_chunk_080, which covers a 45-second window; the span is 55 seconds wide and falls within plausible chunk boundaries for a text question."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span provided; although the chunk contains frame captions, text type does not require their absence, only that there is a single span."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that for permutation matrices, the inverse is the transpose, which supports the claim that P^{-1} = P^T. It also provides an example of a permutation matrix that exchanges rows one and two, indicating that its inverse is the same matrix, which is consistent with the claim."
+  },
+  {
+    "qa_id": "mit_1806_lec04_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the source material that could answer the question about the exact numerical value of the determinant of the lower triangular matrix L in a 3\u00d73 LU decomposition example."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

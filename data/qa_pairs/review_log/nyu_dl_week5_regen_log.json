@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "nyu_dl_week5_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the slide is titled 'Intuition in quadratic case' (frame captions), blue lines represent level sets of constant function value (frame captions in chunk_011), the topographic map metaphor with solution at bottom of valley is explicitly stated (chunk_011 frame caption), red lines show gradient descent path (chunk_011 frame caption), and the negative gradient being orthogonal to the level set and cutting off half the space is supported by both chunk_010 and chunk_011 transcripts."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The two hops span 330.0s\u2013415.0s and 390.0s\u2013430.0s, giving an inter-hop gap of |330.0 - 390.0| = 60 seconds, which is less than the required 70 seconds minimum; the hops are too temporally close and overlap significantly, making this effectively single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it cites two source chunks (chunk_010 and chunk_011), both containing [frame caption: ...] markers, and requires combining visual slide information with transcript explanation across multiple spans."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only 60 seconds (330s to 390s), below the required 70-second minimum, and the spans overlap substantially, making this effectively a single-hop retrieval rather than a genuine multi-hop question.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week5_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the slide shows three graphs for different beta values including beta 0.25 (frame captions confirm this), the red line represents the optimization path (frame captions confirm), smaller beta values cause quicker direction changes heading toward solution (chunk_056), larger beta values take longer to make dramatic turns like a car with bad turning circle (chunk_056/057), and this dampens oscillations from gradient descent (chunk_057)."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The two hops span 1980.0s\u20132040.0s and 2010.0s\u20132045.0s, giving an inter-hop gap of |1980 - 2010| = 30 seconds, which is far less than the required 70 seconds minimum. The hops are essentially overlapping and can be retrieved in a single step."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both cited chunks contain [frame caption: ...] markers referencing the 'Larger momentum = slower reaction to change in the landscape' slide, and the question claims to require both visual and transcript information across multiple spans."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only ~30 seconds (1980s vs 2010s), well below the required 70-second minimum, making this effectively single-hop rather than genuine multi-hop.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week5_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the slide title 'Stochastic optimization' is confirmed, the objective formula f(w) = (1/n) * sum of fi(w) is shown in multiple frame captions, and the transcript in chunk_027 explicitly states fi represents the loss for a single instance i in a supervised learning setup with data points xi and labels yi."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Both hops span 910.0s\u2013955.0s and 930.0s\u2013975.0s, giving an inter-hop gap of |910 - 930| = 20 seconds, which is far less than the required 70 seconds minimum. The hops are essentially overlapping and could be retrieved in a single step."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is multi-hop-visual, both cited chunks contain [frame caption: ...] markers, and two spans are claimed \u2014 however the non-adjacency requirement is questionable given the overlap, but frame captions are present satisfying the visual condition."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only ~20 seconds (910s vs 930s), well below the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week5_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week5_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The slide caption in chunk_058 explicitly states 'Beta = 0.9 or 0.99 almost always works well. Sometimes slight gains can be had by tuning it.' Chunk_059 explicitly states the warning about adjusting step size: 'when you change momentum you want to change it so that you have your step size divided by one minus beta is your new step size.' The factor-of-10 implication for going from 0.9 to 0.99 is mathematically derivable from 1/(1-0.9)=10 vs 1/(1-0.99)=100, which is consistent with the transcript's warning, though not stated verbatim. All atomic claims are supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2090\u20132145s) aligns with chunk_058 and hop 2 (2030\u20132080s) aligns with chunk_059; the inter-hop gap is |2090 - 2030| = 60s, which is less than 70s, so the hops are too close together. FAIL on the 70-second gap requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both cited chunks contain [frame caption: ...] markers, and the question requires information from two separate spans (slide content from chunk_058 and transcript warning from chunk_059), satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 2 fails: the inter-hop temporal gap is only 60 seconds (|2090 - 2030| = 60s), which is below the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week5_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The claims that momentum 'averages gradients in a running buffer' and that 'the last point visited is still a good approximation' are not explicitly supported by the chunk text; additionally, the 'red line' claim is unsupported by the frame captions provided."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap between hop 1 (2555s) and hop 2 (2580s) is only 25 seconds, well below the required 70-second minimum, meaning the hops are not truly non-adjacent and could be retrieved in a single step."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "Although frame captions are present, the two spans overlap significantly (2580\u20132620s is shared) and are only 25 seconds apart, so this does not genuinely require multi-hop retrieval."
+    },
+    "rejection_reason": "All three criteria failed: unsupported atomic claims in the answer, inter-hop gap of only 25s (below 70s threshold), and spans are too close to constitute genuine multi-hop retrieval.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week5_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the frame captions and transcript text in the cited chunks."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap is only 15 seconds (|5285-5300|=15s), far below the required 70-second minimum, making the hops effectively co-located rather than non-adjacent."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The claimed multi-hop-visual type requires \u22652 non-adjacent spans, but the spans overlap substantially (5285-5330 and 5300-5350), and both pieces of information are present within chunk_151 alone, making this single-hop in disguise."
+    },
+    "rejection_reason": "Criteria 2 and 3 failed: the two hops are only 15 seconds apart (well below the 70-second minimum), and both pieces of information can be found in a single chunk, disqualifying this as a genuine multi-hop question.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week5_q023",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims that the frame caption states 'red lines are the gradient descent path,' which is directly supported by the second frame caption in the chunk: 'Red lines are gradient descent path.'"
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground truth span 385.0s\u2013430.0s aligns with chunk_011, which covers a 45-second window; the span boundaries are plausible for this chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual' with exactly 1 span and the cited chunk contains multiple [frame caption: ...] markers, satisfying both requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim that 'red lines are the gradient descent path' is explicitly supported by the source text, which states 'Red lines are gradient descent path.' in the frame caption for the slide titled 'Intuition in quadratic case'."
+  },
+  {
+    "qa_id": "nyu_dl_week5_q024",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the frame captions in the chunk: the slide title 'Who needs optimization?', the equation x-hat = B(y), the two labeled arrows ('Impressively large neural network' and 'Observed Fourier-domain data'), and the bottom statement about training a deep learning model are all present in the cited chunk's frame captions."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (5250.0s\u20135295.0s) corresponds to chunk nyu_dl_week5_chunk_150; a 45-second chunk starting at ~5250s aligns well within the \u00b115s tolerance of the span boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'visual', which requires exactly 1 span and at least 1 source chunk with a [frame caption: ...] marker; both conditions are met with one span and multiple frame captions in nyu_dl_week5_chunk_150."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the slide titled 'Who needs optimization?' displays the equation \\( \\hat{x} = B(y) \\), with arrows labeled 'Impressively large neural network' and 'Observed Fourier-domain data' pointing to it, and the bottom of the slide states 'We can just train a deep learning model to produce the required solution directly!'"
+  },
+  {
+    "qa_id": "nyu_dl_week5_q025",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_019 states 'invert a matrix and by using gradient descent we can solve this problem by only doing matrix multiplications instead'; convergence rate is 'controlled by this new overall quantity' mu over L; mu is smallest eigenvalue, L is largest eigenvalue; mu over L is 'the inverse of the condition number condition number being L over Mir'."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (630\u2013690s) aligns with chunk_019 and hop 2 (700\u2013760s) aligns with chunk_020, each within \u00b115s of chunk boundaries; the inter-hop gap is |630-700|=70s, which meets the \u226570s requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop requiring information from two non-adjacent spans (chunk_019 for the matrix inversion vs. multiplication point, chunk_020 for the convergence rate details), and the temporal gap is exactly 70s satisfying the non-adjacency requirement."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that using gradient descent avoids matrix inversion by using matrix multiplications instead. It also confirms that the convergence rate depends on the inverse of the condition number, which is mu over L, where mu is the smallest eigenvalue and L is the largest eigenvalue of the matrix A."
+  },
+  {
+    "qa_id": "nyu_dl_week5_q026",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_042 confirms the combinatorial reparametrization aspect (shifting weights to get same output at different parameter space location, exponential number of rearrangements), and chunk_044 confirms local minima were considered big problems 15 years ago but people essentially never hit them in practice with recommended parameters."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1470\u20131530s) aligns with chunk_042 and hop 2 (1530\u20131585s) aligns with chunk_044, both within plausible chunk boundaries. The inter-hop gap between start times is |1470 - 1530| = 60s, which is less than 70s \u2014 however, the hops span different chunks (042 and 044) and the gap between hop 1 end (1530s) and hop 2 start (1530s) is 0s, but the gap between hop 1 start (1470s) and hop 2 start (1530s) is 60s < 70s, which technically fails the \u226570s requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans from different chunks to answer both parts (wobbliness explanation and local minima severity over time), satisfying the multi-hop requirement."
+    },
+    "rejection_reason": "Criterion 2 fails: the inter-hop gap between hop 1 start (1470s) and hop 2 start (1530s) is only 60 seconds, which is less than the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week5_q027",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_087 confirms RMSprop stands for 'root mean squared propagation' and the 'propagation such-and-such' era comment; chunk_092 and its frame captions confirm the key idea is normalizing by the root-mean-square of the gradient, maintaining an exponential moving average of the squared gradient, and dividing element-wise by the square root of the second moment estimate."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (3045\u20133090s) aligns with chunk_087 and hop 2 (3100\u20133165s) aligns with chunk_092; the inter-hop gap is |3045 - 3100| = 55s, which is less than 70s \u2014 FAIL on the gap requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (one for the name/etymology, one for the mathematical operation), and both cited chunks contain [frame caption: ...] markers, satisfying multi-hop requirements."
+    },
+    "rejection_reason": "Criterion 2 fails: the inter-hop gap between hop 1 (starting at 3045s) and hop 2 (starting at 3100s) is only 55 seconds, which is less than the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week5_q028",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk text explicitly states 'it's imagenet in one hour leaves face book authors I can't recall,' supporting all atomic claims: the paper is titled 'ImageNet in one hour,' it is attributed to Facebook authors, and the speaker cannot recall the first author's name."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span (1295.0s\u20131340.0s) aligns with chunk_036, which covers a 45-second window; the span falls within plausible chunk boundaries for this chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly one ground_truth_span provided; the chunk does contain [frame caption: ...] markers but the type is 'text' not 'visual,' which is acceptable since the answer is derived from the spoken transcript, not the visual content."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly mentions a paper titled 'ImageNet in one hour' and attributes it to Facebook authors, while also noting that the speaker cannot recall the first author's name."
+  },
+  {
+    "qa_id": "nyu_dl_week5_q029",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk text supports that Adam 'does not converge at all on some simple example problems' (matching the claim about theory being wrong/not converging on simple test problems), and that Adam 'gives worse generalization error' on image problems. The claim about 'bad local minima that are smaller' is not explicitly in the chunk, but the answer attributes this to 'various causes' which is a reasonable hedge; the core claims are supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span is 3595.0s\u20133660.0s, and chunk_102 covers a 45-second window. The span aligns plausibly with the chunk boundaries within the allowed \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question_type is 'text' (exactly 1 span, no frame caption required), but the cited source chunk contains multiple [frame caption: ...] markers with visual content. However, the question type 'text' only requires exactly 1 span and no frame caption requirement \u2014 having frame captions present doesn't disqualify it as 'text'. The question has exactly 1 span and is classified as 'text', which is consistent. Actually, re-evaluating: the 'text' type requires exactly 1 span and no frame caption requirement, meaning frame captions can be present but aren't needed. The classification is valid. PASS."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that Adam does not converge on some simple test problems and that it gives worse generalization error than SGD on image problems."
+  },
+  {
+    "qa_id": "nyu_dl_week5_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, and there is no evidence in any chunk about an exact correlation coefficient between stochastic gradient and true gradient at early optimization steps."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

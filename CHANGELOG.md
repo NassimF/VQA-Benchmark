@@ -1,5 +1,179 @@
 # Changelog
 
+## 2026-05-14
+
+- feat: Phase 7.5 span precision audit, update paper limitation (fcd93d5)
+
+## 2026-05-14
+
+- feat: Phase 7.4 build/validate benchmark, 810 final QA pairs (41e9c7a)
+
+## 2026-05-14
+
+- docs: update visual QA percentage from 60% target to 55.6% actual (9da02c4)
+
+## 2026-05-14
+
+- docs: add post-evaluation reminder notes to Phase 9 and 10 (4083589)
+- docs: mark Phase 7.3 complete, update roadmap with final QA counts (2f06abe)
+
+## 2026-05-14
+
+- docs: add paper figures/tables and failure case example (451708d)
+
+## 2026-05-14
+
+- docs: update roadmap for no-discard policy and check_coverage step (2d5cde8)
+
+## 2026-05-14
+
+- feat: add coverage check script, remove lecture discard threshold (1c7c8ae)
+
+## 2026-05-14
+
+- docs: add paper reminder for low QA count fallback defense (a9a2b35)
+- docs: add cross-benchmark density defense to benchmark section (f954e10)
+
+## 2026-05-14
+
+- docs: add end-to-end reproduction steps to README (034db40)
+
+## 2026-05-14
+
+- docs: rewrite README for LectureBench submission (2f5e959)
+
+## 2026-05-14
+
+- feat: Phase 10 paper sections complete with placeholders (a63d353)
+
+## 2026-05-14
+
+- feat: Phase 9 placeholder scripts and results tracker (11c157b)
+
+## 2026-05-14
+
+- docs: update changelog through Phase 7.3 pre-regen fixes (097babb)
+
+## 2026-05-14
+
+- fix: pre-regeneration fixes for Phase 7.3 QA review (20ff7b3)
+
+## 2026-05-14
+
+- docs: add question descriptions to all Q sections in phase 7.3 lit review (7b52d68)
+
+## 2026-05-14
+
+- docs: downgrade D8b human spot-check to optional note in all specs (6e62c34)
+
+## 2026-05-14
+
+- docs: sync specs with Phase 7.3 run results and lit review updates (91537dd)
+
+## 2026-05-14
+
+- docs: remove duplicate CALCE entry from main Paper Dictionary (896d25c)
+
+## 2026-05-14
+
+- docs: add missing URLs and fix venues in main Paper Dictionary (ee6b9ff)
+
+## 2026-05-14
+
+- docs: add Venue/Peer-Reviewed column to main Paper Dictionary (f7bc72f)
+
+## 2026-05-14
+
+- docs: correct RAGAS venue to EACL 2024 System Demonstrations track (318e1a3)
+
+## 2026-05-14
+
+- docs: add Venue/Peer-Reviewed column to phase 7.3 Paper Dictionary (e9b1589)
+
+## 2026-05-14
+
+- docs: fix 8 discrepancies in phase 7.3 lit review report (8e1ebce)
+
+## 2026-05-14
+
+- docs: rewrite abstract following top-venue benchmark paper conventions (03a2893)
+
+## 2026-05-14
+
+- docs: update benchmark.tex LLM Review section for Phase 7.3 (da18882)
+
+## 2026-05-14
+
+- docs: merge chunk-as-ground-truth argument into curation support section (60ab5d7)
+
+## 2026-05-14
+
+- docs: add 'What Supports LLM-Only Curation' subsection (aaa4829)
+
+## 2026-05-14
+
+- docs: clarify RAGAS and Ho et al. as partial support in curation table (09ff92a)
+
+## 2026-05-14
+
+- docs: add LLM-only curation gap section to lit review (f5f00b6)
+
+## 2026-05-14
+
+- docs: update lit review Q1-Q6 with peer-reviewed citations (c257293)
+
+## 2026-05-13
+
+- feat: add Phase 7.3 reviewer tests, 8/8 passing (Group 4) (f19f047)
+
+## 2026-05-13
+
+- feat: implement Phase 7.3 core reviewer and review script (Group 3) (838e7d5)
+
+## 2026-05-13
+
+- feat: add reviewer prompt templates for Phase 7.3 (Group 2) (b24d775)
+
+## 2026-05-13
+
+- docs: sync all specs with D1 two-call reviewer design (830329e)
+
+## 2026-05-13
+
+- docs: adopt simplified Option C (cross-family C1 check) for Phase 7.3 (67e055d)
+
+## 2026-05-13
+
+- fix: convert Figure 1 PNG to RGB, set 300 DPI (3720b7d)
+
+## 2026-05-13
+
+- feat: add Figure 1 pipeline diagram to paper (31dcd04)
+
+## 2026-05-13
+
+- docs: clarify tIoU@0.3 source in Q6 answer (04c4406)
+
+## 2026-05-12
+
+- docs: add Option C criterion-targeted reliability to lit review (c561800)
+
+## 2026-05-12
+
+- docs: add Lee et al. 2026 to multi-judge lit review (145773a)
+
+## 2026-05-12
+
+- docs: add multi-judge lit review to Phase 7.3 report (331177e)
+
+## 2026-05-12
+
+- feat: add Phase 7.3 LLM review spec (fcbcd2b)
+
+## 2026-05-11
+
+- docs: define Phase 8 LLM judge criteria, add lit review TODO (0524d15)
+
 ## 2026-05-11
 
 - docs: add Phase 7.5 span precision audit to roadmap (0cfbaf3)

@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6041_lec16_q001",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the frame captions in the cited chunks: the four topics (checkout counter example, Markov process definition, n-step transition probabilities, classification of states) and the readings (Sections 7.1-7.2) are explicitly listed in the frame captions of both chunk_000 and chunk_004."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 0.0s\u201345.0s (chunk_000, covering 0\u201345s) and Hop 2 spans 300.0s\u2013385.0s (chunk_004, covering ~270\u2013315s or similar). The inter-hop gap is |0.0 - 300.0| = 300 seconds, which is \u2265 70s, so that condition passes. However, both hops reference the same lecture outline slide content (the same slide appears in both chunks), meaning the question can effectively be answered from a single visual source rather than requiring genuinely distinct information from two non-adjacent spans. More critically, the same slide content (lecture outline with four topics and readings) is present in chunk_000 alone, making the second hop redundant rather than providing additional necessary information for answering the question."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "While both cited chunks contain [frame caption:] markers and the spans are non-adjacent, the question asks only about the lecture outline slide content which is fully answerable from chunk_000 alone \u2014 the second hop (chunk_004) merely shows the same slide again and does not contribute unique information required to answer the question, so the multi-hop requirement is not genuinely satisfied."
+    },
+    "rejection_reason": "Criteria 2 and 3 fail: the question is answerable from a single span (chunk_000 alone contains all the information about the four topics and readings), and the second hop merely repeats the same slide content rather than providing distinct necessary information, making this effectively single-hop despite the non-adjacent spans.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6041_lec16_q002",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims customer service times follow a geometric distribution with parameter q, but the cited chunk only mentions geometric interarrival times for customer arrivals (Bernoulli(p)), not service times; parameter q is not mentioned anywhere in the cited chunks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The inter-hop gap is 260 seconds (well above 70s threshold), and both spans fall within plausible ranges of their respective chunks."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans and both cited chunks contain [frame caption:] markers, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer incorrectly states that service times follow a geometric distribution with parameter q; the cited chunks only reference geometric interarrival times for arrivals with parameter p, and parameter q is not mentioned.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6041_lec16_q003",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "Chunk 010's frame caption explicitly states 'State X_n: number of customers at time n', supporting the first claim. Chunk 013 explicitly states 'our Supermarket building is not too big so it can only hold 10 people... truncate our model at 10 so we have 11 possible States corresponding to' zero through ten, supporting all remaining claims."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (350s\u2013435s) aligns with chunk_010 and hop 2 (490s\u2013535s) aligns with chunk_013; the inter-hop gap is |350 - 490| = 140 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunks 010 and 013), and both chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim that X_n represents the number of customers at time n is supported by the source text. Additionally, the instructor's statement about the supermarket building holding only 10 people, resulting in 11 possible states, is also explicitly mentioned in the source text."
+  },
+  {
+    "qa_id": "mit_6041_lec16_q004",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_024 confirms the Markov property states 'given current state, the past does not matter' formalized as p_ij = P(X_{n+1} = j | X_n = i); chunk_029 confirms the ball-flying-through-air example, that position alone is insufficient, and that one needs both position and velocity, with past positions needed to deduce velocity if only position is known."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (700\u2013785s) aligns with chunk_024 and hop 2 (1015\u20131100s) aligns with chunk_029; the inter-hop gap is |700 - 1015| = 315 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (\u226570s apart) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim about the Markov property is supported by the source text, which states that given the current state, the past does not matter, formalized as p_ij = P(X_{n+1} = j | X_n = i). The physics analogy of a ball flying through the air, requiring both position and velocity to predict future trajectory, is also explicitly mentioned in the source text."
+  },
+  {
+    "qa_id": "mit_6041_lec16_q005",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "Chunk 035 explicitly supports r_ij(n) = P(X_n = j | X_0 = i) via the frame caption. Chunk 043 supports the recursion r_ij(n) = sum_k r_ik(n-1) * p_kj through the transcript describing conditioning on state at time n-1 and multiplying by transition probability p_kj, then summing over intermediate states."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1220\u20131305s) aligns with chunk_035 and hop 2 (1580\u20131650s) aligns with chunk_043; the inter-hop gap is |1220 - 1580| = 360 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunks 035 and 043, ~360s apart), and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim that r_ij(n) = P(X_n = j | X_0 = i) is supported by the source text, which explicitly defines r_ij(n) as such. The recursive formula r_ij(n) = sum over all k of r_ik(n-1) times p_kj is also supported by the explanation in the source text, which describes the process of summing over intermediate states k to compute the probability of transitioning from state i to state j."
+  },
+  {
+    "qa_id": "mit_6041_lec16_q006",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6041_lec16_q007",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the chunk text and frame captions, including the three-node structure, transition probabilities, and the alternating behavior of r_22(n)."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap is |2580 - 2630| = 50 seconds, which is less than the required 70 seconds, making this effectively single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "Although frame captions are present, the two hops are only 50 seconds apart (below the 70-second threshold), so the multi-hop-visual classification is not justified as the content can be retrieved in a single step."
+    },
+    "rejection_reason": "Criteria 2 and 3 failed: the inter-hop temporal gap is only 50 seconds, below the required 70-second minimum, making the question effectively single-hop rather than genuinely multi-hop-visual.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6041_lec16_q008",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame captions explicitly state: 'State i is recurrent if: Starting from i, and from wherever you can go, there is a way of returning to i' and under Transience: 'P(X_n = i) \u2192 0' and 'i visited finite number of times' \u2014 all three atomic claims in the answer are directly supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (2960.0s\u20133010.0s) corresponds to chunk_082; with 45-second windows, chunk_082 would cover approximately 2960s\u20133005s (or similar), which aligns within the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual' with exactly 1 span and the cited chunk contains multiple [frame caption: ...] markers, satisfying both requirements for the visual type."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claim that a state is recurrent if, starting from it and from wherever you can go, there is a way of returning to it. It also supports the claims about transient states: that P(X_n = i) approaches 0 as n grows, and that state i is visited only a finite number of times."
+  },
+  {
+    "qa_id": "mit_6041_lec16_q009",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the frame caption explicitly states 'Customer arrivals: Bernoulli(p)' and 'geometric interarrival times', matching the answer's claims about Bernoulli distribution with parameter p and geometric interarrival times."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (330.0s\u2013415.0s) aligns with chunk_005, which covers a 45-second window; the span falls within plausible chunk boundaries for this chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual' with exactly 1 span, and the cited chunk (mit_6041_lec16_chunk_005) contains multiple [frame caption: ...] markers, satisfying the visual type requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that customer arrivals follow a Bernoulli distribution with parameter p and that the resulting time between arrivals is described by geometric interarrival times."
+  },
+  {
+    "qa_id": "mit_6041_lec16_q010",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the cited chunks: chunk_027 supports the 'past is irrelevant, only current state matters' claim, and chunk_044 supports the claims about the fixed transition probability regardless of path, the need to track trajectories without Markov, and the recursion structure."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align plausibly with their respective chunk boundaries, and the inter-hop gap of ~630 seconds far exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question genuinely requires two non-adjacent spans (960s and 1590s, 630s apart) to answer, satisfying the multi-hop requirement; no visual evidence is claimed."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims that the Markov assumption allows the one-step transition probability to remain constant regardless of the path taken to reach a state, and that without this assumption, all past trajectories would need to be considered. The text explicitly states that the past path is irrelevant and only the current state matters for transition probabilities."
+  },
+  {
+    "qa_id": "mit_6041_lec16_q011",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "Chunk 075 explicitly supports the periodicity claim ('if your chain has a periodic structure... convergence fails'), and chunk 089 explicitly supports the multiple recurrent classes claim ('for the initial state to not matter we should not have multiple recurrent classes'). All atomic claims in the answer are supported by the cited chunks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 2580\u20132665s aligning with chunk_075, and hop 2 spans 2840\u20132920s aligning with chunk_089; the inter-hop gap is |2580 - 2840| = 260 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is correctly typed as multi-hop since it requires information from two non-adjacent spans (chunk_075 at ~2580s and chunk_089 at ~2840s); no visual evidence is claimed, and the chunks do contain frame captions but the question type is multi-hop (not multi-hop-visual), which is appropriate."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports both claims: periodicity causing oscillation in transition probabilities is mentioned as a mechanism for convergence failure, and the existence of multiple recurrent classes affecting the dependence on the initial state is also discussed."
+  },
+  {
+    "qa_id": "mit_6041_lec16_q012",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: at state zero no departures occur (chunk_017), probability p moves state to one (chunk_017), probability 1-p nothing happens (chunk_017/018); at maximum state no arrivals (chunk_018), probability q causes departure dropping state by one (chunk_018), probability 1-q nothing happens (chunk_018). The answer correctly characterizes both boundary conditions."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (595\u2013680s) aligns with chunk_017 and hop 2 (630\u2013715s) aligns with chunk_018, both within plausible chunk boundaries. The inter-hop gap between start times is |595-630|=35s, but since the hops overlap in time and span different chunks, we check the gap between the start of hop 1 and start of hop 2: 35s < 70s. However, the two hops span different chunks (chunk_017 and chunk_018), and the content is distributed across both chunks, so the multi-hop nature is justified by the content distribution across chunks even if the temporal gap is small."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question is claimed as multi-hop, but the inter-hop temporal gap between the two spans is only 35 seconds (|595-630|=35s), which is less than the required 70 seconds, meaning the information could effectively be retrieved in a single retrieval step rather than requiring genuinely non-adjacent hops."
+    },
+    "rejection_reason": "Criterion 2 and 3 fail: the inter-hop gap between the two spans is only 35 seconds (595s vs 630s), well below the 70-second threshold required for a genuine multi-hop question, meaning the hops are too temporally close to require non-adjacent retrieval.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6041_lec16_q013",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6041_lec16_q014",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6041_lec16_q015",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the source material that could answer the question about the exact numerical eigenvalue of the dominant eigenvector of a two-state Markov chain transition matrix from Lecture 16."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

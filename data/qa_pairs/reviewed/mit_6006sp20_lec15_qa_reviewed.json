@@ -1,0 +1,412 @@
+[
+  {
+    "qa_id": "mit_6006sp20_lec15_q002",
+    "question": "The lecture uses merge sort as an example of the SRTBOT paradigm. Based on the board shown for merge sort, what is the subproblem definition and topological order, and how does the running time analysis using the memoization formula compare to the standard merge sort analysis?",
+    "answer": "The subproblem S(i,j) is defined as the sorted array on A[i:j], and the topological order is increasing j minus i, meaning shorter subarrays are solved before longer ones. When analyzing merge sort using the memoization formula, summing the non-recursive work over all theta n-squared subproblems, each costing theta(j-i) time, yields an upper bound of O(n cubed), which is weaker than the standard O(n log n) result. The lecture notes that this memoization formula gives a polynomial upper bound but is not tight for merge sort, which already runs in theta(n log n) time.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 660.0,
+        "end": 730.0,
+        "hop": 1,
+        "description": "Frame caption showing merge sort subproblems S(i,j)=sorted array on A[i:j], topo order increasing j-i, time T(n)=2T(n/2)+O(n)=O(n log n)"
+      },
+      {
+        "start": 1505.0,
+        "end": 1585.0,
+        "hop": 2,
+        "description": "Analysis showing theta n-squared subproblems, time per subproblem theta(j-i), sum gives n cubed upper bound versus actual theta(n log n)"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec15_chunk_011",
+      "mit_6006sp20_lec15_chunk_044"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "merge sort",
+      "SRTBOT",
+      "memoization formula",
+      "running time analysis"
+    ],
+    "video_id": "mit_6006sp20_lec15",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec15_q008",
+    "question": "What specific items are listed on the TODAY slide visible on the board at the start of the lecture under the topic Dynamic Programming I (of 4)?",
+    "answer": "The TODAY slide shown on the board lists the following items under Dynamic Programming I of 4: SRTBOT recursive algorithm paradigm, DP approximately equals recursion plus memoization, subproblems with relation via guessing and bottom-up approach, and three examples which are Fibonacci, DAG shortest paths, and bowling.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 0.0,
+        "end": 45.0,
+        "hop": 1,
+        "description": "Frame caption showing the TODAY slide with Dynamic Programming I (of 4) listing SRTBOT, DP=recursion+memoization, subproblems, Fibonacci, DAG shortest paths, bowling"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec15_chunk_000"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "Dynamic Programming I",
+      "SRTBOT",
+      "lecture outline",
+      "today slide"
+    ],
+    "video_id": "mit_6006sp20_lec15",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec15_q009",
+    "question": "What does the board show as the complete set of SRTBOT steps with their full descriptions as listed in the recursive algorithm design paradigm slide?",
+    "answer": "The board shows the recursive algorithm design paradigm SRTBOT with six steps: first, Subproblem definition; second, Relate subproblem solutions recursively; third, Topological order on subproblems to guarantee acyclic subproblem call DAG; fourth, Base cases of relation; fifth, Original problem: solve via subproblems; and sixth, Time analysis.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 245.0,
+        "end": 310.0,
+        "hop": 1,
+        "description": "Frame caption showing the complete SRTBOT slide with all six steps: Subproblem definition, Relate subproblem solutions recursively, Topological order on subproblems to guarantee acyclic, Base cases of relation, Original problem: solve via subproblems, Time analysis"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec15_chunk_007"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "SRTBOT",
+      "recursive algorithm paradigm",
+      "six steps"
+    ],
+    "video_id": "mit_6006sp20_lec15",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec15_q013",
+    "question": "What is the exact running time for the Fibonacci DP when accounting for the word RAM model and the fact that Fibonacci numbers require theta(n) bits to represent, and why does this differ from the naive O(n) addition count?",
+    "answer": "In the word RAM model with machine word size w bits, additions of numbers that fit in w bits take constant time. However, Fibonacci numbers grow exponentially—approximately as the golden ratio to the n—so writing down F_n requires theta(n) bits. Since n bits exceed the word size w for large n, each addition of two Fibonacci numbers near F_n takes ceiling(n over w) time rather than constant time. With n such additions needed, the total running time becomes n times ceiling(n over w), which equals n plus n squared over w. This differs from the naive O(n) addition count because it accounts for the actual cost of big-number arithmetic in the word RAM model.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1315.0,
+        "end": 1400.0,
+        "hop": 1,
+        "description": "Fibonacci numbers require theta(n) bits because they grow exponentially; n-bit addition costs ceiling(n/w) time; total time is n + n^2/w"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec15_chunk_037"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "word RAM model",
+      "Fibonacci bits",
+      "big-number arithmetic",
+      "running time"
+    ],
+    "video_id": "mit_6006sp20_lec15",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec15_q015",
+    "question": "What is the exact space complexity of the bottom-up bowling DP algorithm described in this lecture, and can it be reduced below O(n) by observing that only a constant number of previous values are needed at each step?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "medium",
+    "answerable": false,
+    "key_concepts": [
+      "space complexity",
+      "bowling DP",
+      "rolling array optimization"
+    ],
+    "video_id": "mit_6006sp20_lec15",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec15_q016",
+    "video_id": "mit_6006sp20_lec15",
+    "question": "According to the slide shown on screen, what are the six steps listed under the SRTBOT recursive algorithm design paradigm, and how does the lecture describe the hardest of these steps?",
+    "answer": "The slide lists six steps under SRTBOT: Subproblem definition, Relate subproblem solutions recursively, Topological order on subproblems to guarantee acyclic, Base cases of relation, Original problem (solve via subproblems), and Time analysis. The lecture describes the subproblem definition and the relate steps as the hardest and most interrelated of the six steps.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 240.0,
+        "end": 310.0,
+        "hop": 1,
+        "description": "Frame captions listing the six SRTBOT steps on the slide"
+      },
+      {
+        "start": 360.0,
+        "end": 420.0,
+        "hop": 2,
+        "description": "Lecture audio describing subproblem definition and relate as the hardest steps"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec15_chunk_007",
+      "mit_6006sp20_lec15_chunk_009"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "SRTBOT",
+      "recursive algorithm design",
+      "subproblem definition"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec15_q017",
+    "video_id": "mit_6006sp20_lec15",
+    "question": "The lecture introduces memoization as a 'big idea.' According to the slide caption visible on screen at that moment, what two bullet-point mechanisms does memoization rely on, and what does the lecture say about the word 'memoization' itself?",
+    "answer": "The slide shows that memoization relies on two mechanisms: remembering and re-using solutions to subproblems, and maintaining a dictionary mapping subproblems to their solutions. The lecture explains that 'memoization' is a funny word probably made up by a computer scientist, derived from the idea of writing things down in a memo pad rather than 'memorization.'",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 840.0,
+        "end": 900.0,
+        "hop": 1,
+        "description": "Frame caption showing BIG IDEA: Memoization slide with two bullet points"
+      },
+      {
+        "start": 1440.0,
+        "end": 1510.0,
+        "hop": 2,
+        "description": "Lecture audio explaining etymology of memoization as memo pad idea"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec15_chunk_029",
+      "mit_6006sp20_lec15_chunk_023"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "memoization",
+      "dynamic programming",
+      "memo table"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec15_q018",
+    "video_id": "mit_6006sp20_lec15",
+    "question": "The frame caption for the merge sort example shows the recurrence written on the board as T(n) = 2T(n/2) + O(n). What topological order does the lecture specify for merge sort's subproblems, and what base case is stated?",
+    "answer": "The frame caption shows the recurrence T(n) = 2T(n/2) + O(n) on the board. The lecture specifies that the topological order for merge sort's subproblems is increasing j minus i, meaning problems are solved in order of increasing subarray length. The base case stated is S(i, i) equals the empty array, representing sorting zero elements.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 660.0,
+        "end": 730.0,
+        "hop": 1,
+        "description": "Frame caption showing merge sort recurrence T(n) = 2T(n/2) + O(n) on board"
+      },
+      {
+        "start": 835.0,
+        "end": 900.0,
+        "hop": 2,
+        "description": "Lecture audio explaining topological order as increasing j-i and base case S(i,i) = empty array"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec15_chunk_011",
+      "mit_6006sp20_lec15_chunk_014"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "merge sort",
+      "SRTBOT",
+      "topological order",
+      "base case"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec15_q019",
+    "video_id": "mit_6006sp20_lec15",
+    "question": "The frame captions show the Fibonacci subproblem slide listing F(i) = F(i-1) + F(i-2). According to the lecture, why does the naive recursive Fibonacci algorithm run in exponential time, and what single tweak makes it polynomial?",
+    "answer": "The frame captions show the relation F(i) = F(i-1) + F(i-2) on screen. The lecture explains that the naive recursive algorithm runs in exponential time because the recurrence T(n) = T(n-1) + T(n-2) + 1 has a solution bigger than the nth Fibonacci number, which grows as approximately the golden ratio to the n, making it exponential. The single tweak that makes it polynomial is memoization, which stores solutions so each subproblem is solved at most once.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1040.0,
+        "end": 1100.0,
+        "hop": 1,
+        "description": "Frame caption showing Fibonacci recurrence F(i) = F(i-1) + F(i-2) on board"
+      },
+      {
+        "start": 1250.0,
+        "end": 1330.0,
+        "hop": 2,
+        "description": "Lecture audio explaining exponential growth and memoization as the fix"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec15_chunk_021",
+      "mit_6006sp20_lec15_chunk_023"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Fibonacci",
+      "exponential time",
+      "memoization",
+      "golden ratio"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec15_q020",
+    "video_id": "mit_6006sp20_lec15",
+    "question": "The board shown in the frame captions for DAG shortest paths writes S(s,v) = min{S(s,u) + w(u,v) | u in Adj-(v)}. What topological order does the lecture specify for this DP, what is the base case, and what is the total running time derived?",
+    "answer": "The frame caption shows the recurrence S(s,v) = min{S(s,u) + w(u,v) | u in Adj-(v)} on the board. The lecture specifies that the topological order is the topological order of the DAG graph G itself, computed via DFS. The base case is S(s,s) = 0. The total running time derived is O(V + E), obtained by summing over all vertices the size of their incoming adjacency lists plus one for infinity.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1860.0,
+        "end": 1930.0,
+        "hop": 1,
+        "description": "Frame caption showing DAG shortest paths recurrence and topo order on board"
+      },
+      {
+        "start": 1970.0,
+        "end": 2060.0,
+        "hop": 2,
+        "description": "Lecture audio deriving V+E running time from summing incoming edge sizes"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec15_chunk_054",
+      "mit_6006sp20_lec15_chunk_056"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "DAG shortest paths",
+      "topological order",
+      "base case",
+      "running time"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec15_q021",
+    "video_id": "mit_6006sp20_lec15",
+    "question": "The frame captions show a slide listing prefixes X[:i], suffixes X[i:], and substrings X[i:j] as good subproblems when input is a sequence. According to the lecture, why are subsequences explicitly excluded from this list, and which of the three listed options does the lecturer prefer and why?",
+    "answer": "The frame captions show prefixes, suffixes, and substrings listed as good subproblems for sequence inputs. The lecture explicitly excludes subsequences because there are exponentially many of them — 2 to the n — since for every item you can either choose it or not, which would guarantee an exponential number of subproblems. The lecturer prefers suffixes because, as stated, they like to work from left to right from the beginning to the end.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2630.0,
+        "end": 2700.0,
+        "hop": 1,
+        "description": "Frame caption showing slide listing prefixes, suffixes, substrings as good subproblems"
+      },
+      {
+        "start": 2700.0,
+        "end": 2760.0,
+        "hop": 2,
+        "description": "Lecture audio excluding subsequences due to exponential count and expressing preference for suffixes"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec15_chunk_075",
+      "mit_6006sp20_lec15_chunk_077"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "subproblem design",
+      "subsequences",
+      "suffixes",
+      "polynomial subproblems"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec15_q025",
+    "video_id": "mit_6006sp20_lec15",
+    "question": "What does the lecture say about why the generic memoized DP algorithm implicitly performs a depth-first search, and how does this connect to solving DAG shortest paths without explicitly computing a topological order?",
+    "answer": "The lecture explains that the generic memoized DP algorithm — which checks whether a subproblem is in the memo table and otherwise recurses — is actually performing a depth-first search through the subproblem graph, with the memo table serving as the 'have I visited this vertex already' check in DFS. For DAG shortest paths, this means the algorithm automatically computes a topological order through the DFS traversal without needing to explicitly compute one beforehand, since it processes subproblems in the reverse finishing order of the DFS.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2060.0,
+        "end": 2130.0,
+        "hop": 1,
+        "description": "Lecture explains memo table serves as DFS visited check in subproblem graph"
+      },
+      {
+        "start": 2130.0,
+        "end": 2200.0,
+        "hop": 2,
+        "description": "Lecture connects DFS finishing order to topological order for DAG shortest paths"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_6006sp20_lec15_chunk_059",
+      "mit_6006sp20_lec15_chunk_061"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "depth-first search",
+      "memoization",
+      "topological order",
+      "subproblem graph"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_6006sp20_lec15_q030",
+    "video_id": "mit_6006sp20_lec15",
+    "question": "What is the worst-case number of recursive calls made during the execution of the bottom-up bowling DP algorithm described in this lecture?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "medium",
+    "answerable": false,
+    "key_concepts": [
+      "bowling DP",
+      "bottom-up",
+      "recursive calls"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  }
+]

@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6006f11_lec09_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the rolling hash append operation multiplies u by alphabet base a, but the frame captions in chunk_088 show 'u -> u + ord(c)' or 'u + a + ord(c)' (addition, not multiplication), so the multiplication claim is not explicitly supported by the chunk text."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 2 span (3120\u20133165s) does not align with chunk_088's expected time window (~3960\u20134005s based on 88\u00d745s), a discrepancy far exceeding the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual with two non-adjacent spans and both cited chunks contain [frame caption: ...] markers, satisfying both conditions."
+    },
+    "rejection_reason": "Criterion 1 fails because the answer's claim of multiplying u by alphabet base a is not supported by chunk text (captions show addition). Criterion 2 fails because the hop 2 span (3120\u20133165s) does not align with chunk_088's expected time window (~3960s).",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The key claims\u2014expected chain length formula, m=Theta(n), Omega(n) requirement, alpha being constant, and constant expected time\u2014are all explicitly supported by the cited chunks, with chunk_001 covering hashing with chaining and chunk_009 covering the table size requirements."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (35\u201380s) aligns with chunk_001 and hop 2 (315\u2013360s) aligns with chunk_009; the inter-hop gap of 280 seconds far exceeds the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop-visual: it requires two non-adjacent spans and both cited chunks contain [frame caption: ...] markers with visual blackboard content."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim that the expected chain length equals n/m = alpha is supported by the source text, which discusses the expected chain length in the context of hashing with chaining. The requirement for m to be Theta(n) and at least Omega(n) to keep alpha constant is also supported by the source text, which states that m should be Omega(n) to maintain a constant alpha."
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the blackboard shows 'if m > n: grow table' with both strategies (chunk_020 frame captions), m' = m+1 gives cost \u0398(1+2+3+...+n) = \u0398(n\u00b2), and m' = 2m gives cost \u0398(1+2+4+8+...+n) = \u0398(n) as a geometric series (chunk_024 frame captions explicitly show these equations)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (745s\u2013830s) aligns with chunk_020 and hop 2 (800s\u2013900s) aligns with chunk_024; the inter-hop gap between start times is |745 - 800| = 55s, which is less than 70s, making the hops too close together."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it references \u22652 non-adjacent spans and both cited chunks contain [frame caption: ...] markers with visual blackboard content."
+    },
+    "rejection_reason": "Criterion 2 fails: the inter-hop gap between hop 1 start (745s) and hop 2 start (800s) is only 55 seconds, which is less than the required 70 seconds, meaning the hops are too temporally close and the question is effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_034 shows the blackboard with 'Table doubling: k inserts take \u0398(k) time => \u0398(1) amortized/insert'; chunk_029 defines amortized as 'k operations take \u2264 k*T(n) time' and gives the rent analogy ('paying $50 a day' instead of monthly rent to spread high costs so it's cheap on average)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1260\u20131305s) aligns with chunk_034 (which covers ~1260\u20131305s), and hop 2 (1015\u20131060s) aligns with chunk_029 (which covers ~1015\u20131060s); the inter-hop gap is |1260 - 1015| = 245 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunks 034 and 029, ~245s apart) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the definition of amortized running time as T(n) amortized if k operations take at most k*T(n) total time, and it uses the economic analogy of spreading high costs to appear cheap on average, similar to paying rent daily instead of monthly."
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the cited chunks: the n/2 threshold being labeled SLOW with \u0398(n) per op, the insert/delete pathological sequence, and the n/4 threshold leading to half-full state requiring many insertions before regrowth."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The inter-hop temporal gap is |1635 - 1470| = 165 seconds, well above the 70-second minimum; both spans align with content in their respective cited chunks."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop-visual: it requires two non-adjacent spans (165s apart) and both cited chunks contain [frame caption: ...] markers with relevant blackboard content."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The source text does not explicitly mention the n/2 threshold causing a pathological sequence or alternating insert/delete operations costing Theta(n) per op. It also does not explicitly state that the n/4 threshold ensures amortized constant time for any combination of insertions and deletions."
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_000 confirms the slide title, course, and instructor (Erik Demaine, Lecture 9, Table Doubling/Karp-Rabin); chunk_046 explicitly states Python lists use table doubling with 'two or some other constant,' and that list.append and list.pop are 'constant amortized' rather than worst-case constant."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (0.0s\u201345.0s) aligns with chunk_000 (chunk index 000, covering ~0\u201345s); Hop 2 (1685.0s\u20131755.0s) aligns with chunk_046 (index 046, covering ~1685\u20131730s, within \u00b115s). The inter-hop gap is |0 - 1685| = 1685 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunk_000 at ~0s and chunk_046 at ~1685s), and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the lecture is indeed Lecture 9 on Table Doubling and Karp-Rabin by Erik Demaine, Python lists use table doubling with an unspecified constant for dynamic resizing, and list.append and list.pop achieve constant amortized time as stated in the source text."
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the cited chunks: the Rolling hash ADT with append and skip operations is shown in chunk_068's frame captions; chunk_071 explicitly shows rs.append(c) for each c in s, rt.append(c) for first len(s) chars of t, and the lecture text describes checking rs() equals rt() and sliding the window with skip/append operations."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2385\u20132440s) aligns with chunk_068, and hop 2 (2505\u20132565s) aligns with chunk_071; the inter-hop gap is |2385 - 2505| = 120 seconds, which exceeds the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (chunk_068 and chunk_071, separated by ~120s) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text. The text describes the use of two rolling hash instances, rs and rt, in the Karp-Rabin algorithm, including the operations of appending characters to compute hashes and checking for equality, as well as the sliding window mechanism using append and skip operations."
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q023",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims 'start small with m equals 8' but the source chunk text mentions starting with 'm equal to some constant' with examples of 20 and 7, never mentioning 8; this atomic claim is unsupported by the cited chunk."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span (315.0s\u2013360.0s) aligns plausibly with chunk_009's 45-second window boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed 'visual' with exactly 1 span and the cited chunk contains multiple [frame caption: ...] markers, satisfying both requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer incorrectly states 'm equals 8' as the starting constant, which is not supported by the source chunk (which mentions 20 and 7 as example constants, not 8).",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q024",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer's atomic claims \u2014 that the frame caption describes the blackboard showing the Python one-liner 'any(s == t[i:i+len(s)] for i in range(len(t)-len(s)))' and a diagram illustrating sliding comparison of s against substrings of t \u2014 are all explicitly supported by the second and third frame captions in the cited chunk."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (1985.0s\u20132050.0s) aligns with chunk_057, which covers a 45-second window; 1985s falls within plausible chunk boundaries for this chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual', there is exactly one span, and the cited chunk contains multiple [frame caption: ...] markers, satisfying both requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the frame caption describes the blackboard as showing the Python one-liner 'any(s == t[i:i+len(s)] for i in range(len(t)-len(s)))' and mentions a diagram illustrating the sliding comparison of 's' against substrings of 't'."
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q025",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_003 states 'total size of this structure is n plus M, there's M to store the table, there's n to store the sum of the lengths of all the lists'; chunk_004 states 'the operation time to do an insert delete or search was order 1 Alpha' and 'as long as Alpha is a constant we get constant time', with Alpha defined as n/m (the load factor)."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 105.0s\u2013150.0s and Hop 2 spans 140.0s\u2013185.0s; the inter-hop gap is |105 - 140| = 35 seconds, which is less than the required 70 seconds, meaning the two hops are too close together and effectively retrievable in a single step."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is labeled multi-hop and cites two source chunks; both chunks contain [frame caption: ...] markers, and the question requires information from both chunks (total size from chunk_003, operation time/load factor from chunk_004)."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only 35 seconds (|105 - 140|), well below the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q026",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the hash function maps keys to a table of specific size m (chunk_018), old hash function only uses beginning of table if m changes (chunk_018), every key must be rehashed (chunk_018), cost is O(m) to iterate slots + O(n) to visit list entries + O(m') to initialize new table (chunk_017), and in the constructed scenario this is Theta(n) (chunk_017)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 630-715s aligning with chunk_018, and hop 2 spans 520-610s aligning with chunk_017; the inter-hop gap is |630-520|=110s which exceeds the required 70s minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunk_017 at ~520-610s and chunk_018 at ~630-715s) to answer both why a new hash function is needed and what the cost breakdown is, satisfying the multi-hop requirement."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the need for a new hash function when the table size changes, as the old function would not utilize new slots. It also supports the cost of the grow-table operation as order n plus m plus m-prime, with a constructed scenario cost of Theta(n)."
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q027",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk text explicitly supports the running time Theta(|s| * (|t| - |s|)) = O(|s| * |t|), the observation that it can be quadratic, and the motivation to use hashing to get linear time. The specific claim about O(|s| + |t|) expected time and 'rolling hash' is supported by the frame caption mentioning 'Rolling hash' and 'Karp-Rabin' topics, and the chunk text stating 'use hashing to get this down to linear'."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 2050\u20132110s and hop 2 spans 2100\u20132170s. The gap between the start of hop 1 (2050s) and the start of hop 2 (2100s) is only 50 seconds, which is less than the required 70-second minimum inter-hop gap, making this effectively single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is labeled multi-hop and cites two source chunks with non-adjacent spans; both chunks contain [frame caption: ...] markers, and the question requires combining information from both spans about running time and motivation for Karp-Rabin."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop gap between hop 1 (2050s) and hop 2 (2100s) is only 50 seconds, below the required 70-second minimum, making this effectively a single-hop question.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q028",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk explicitly states that hash collisions cause false positives ('just because the hash function of two strings comes out equal doesn't mean the strings themselves are equal because there are collisions even distinct strings May map to the same slot'), and describes checking the actual substring with the index expression 'I minus length of s + 1 to I + 1', supporting all atomic claims in the answer."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (2625.0s\u20132710.0s) aligns with chunk_075, which covers a 45-second window; the span boundaries are plausible for this chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span with no frame caption requirement; there is exactly 1 ground_truth_span, satisfying the criterion (frame captions present in the chunk do not disqualify a text question)."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that a false positive in Karp-Rabin occurs due to hash collisions, as it mentions that equal hash values do not guarantee string equality because distinct strings may map to the same hash value. It also supports the claim that the algorithm checks the actual substring character by character when a hash match is detected, as it describes checking whether the hash of s equals the hash of a substring of t."
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q029",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the skip operation requires 'multiplying that character by a raised to the power of (length of x minus one)' \u2014 this specific detail about the skip operation mechanics is not explicitly supported by the chunk text. The chunk only states that R stores 'the current hash value and it stores a to the power length of U' and that 'it can do these in constant number of operations,' without explaining the skip operation's subtraction mechanism in the detail the answer describes."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span (3115.0s\u20133165.0s) aligns with chunk_089, which covers a 45-second window; the span falls within plausible chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one span, which is consistent with a single-span text question; the chunk does contain [frame caption: ...] markers but the type is 'text' not 'visual,' which is acceptable since the answer is derived from the spoken content."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer includes unsupported atomic claims about the skip operation's subtraction mechanism (multiplying by a^(len-1)) that are not explicitly stated in the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec09_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence available to answer either part of the question (worst-case time complexity per operation for table doubling or the exact probability of a false positive per position in Karp-Rabin)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

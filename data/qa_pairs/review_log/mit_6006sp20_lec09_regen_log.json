@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6006sp20_lec09_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006sp20_lec09_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: G=(V,E) with V=vertices and E=edges\u2286V\u00d7V is confirmed by frame captions in chunk_003; the distinction between parentheses (ordered, directed) and curly-brace/set notation (unordered, undirected) making W\u2192V distinct from V\u2192W in directed graphs is explicitly stated in chunk_006."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (225\u2013305s) aligns with chunk_003 (a 45s window around ~225\u2013305s range) and hop 2 (390\u2013455s) aligns with chunk_006; the inter-hop gap is |225-390|=165s, well above the 70s threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (chunks 003 and 006, separated by ~165s) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text confirms that G = (V, E) with V as vertices and E as edges, a subset of V \u00d7 V. It also explains the use of parentheses for ordered pairs in directed graphs and curly braces for unordered sets in undirected graphs."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec09_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_016 frame captions confirm 'no self-loops,' 'every edge is distinct,' and |E|=O(|V|\u00b2); chunk_022 frame captions and text confirm the directed bound uses 2\u00b7C(|V|,2)=O(n\u00b2) and the undirected bound uses C(|V|,2), with the instructor explaining source/target can be flipped."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (975\u20131045s) aligns with chunk_016 (a ~45s window around that range) and hop 2 (1330\u20131410s) aligns with chunk_022; the inter-hop gap is |975-1330|=355s, well above the 70s threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunks 016 and 022, ~355s apart) and both chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the instructor uses 'V-choose-2' to derive the edge bound for a directed simple graph is supported, but the claim that the final big-O expression shown on the slide is O(|V|\u00b2) is not explicitly supported by the source text. The source text mentions O(n\u00b2) for directed graphs, but does not confirm that this is the final expression shown on the slide."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec09_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer's claims about the Rubik's cube (nodes as configurations, edges as rotations/twists) are not supported by any text in the provided source chunks; neither chunk_013 nor chunk_014 mentions Rubik's cube at all."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops are separated by ~395 seconds (|420-815|), well above the 70-second threshold, and the spans plausibly align with the cited chunks."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans and both cited chunks contain [frame caption: ...] markers, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the Rubik's cube claims in the answer are not supported by the provided source chunk text, which never mentions Rubik's cube.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006sp20_lec09_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the cited chunks: chunk_037 establishes edge list scanning complexity up to O(V\u00b2), and chunk_041 explicitly confirms that storing Adj(u) as a hash table yields expected O(1) lookup with two O(1) steps, reducing from V\u00b2 to O(1)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops span 2175-2260s and 2430-2490s, giving an inter-hop gap of 255 seconds well above the 70s threshold; both chunks contain content matching their respective spans."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop-visual: it requires two non-adjacent spans (255s apart) and both cited chunks contain [frame caption: ...] markers with visual content."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims: it lists edge list, adjacency list, and adjacency matrix as graph representations. It also states that checking for an edge in an edge list requires scanning all edges, taking time proportional to the number of edges, potentially up to O(V\u00b2). Additionally, storing Adj(u) as a hash table allows for expected O(1) lookup time, reducing edge-existence checking to expected O(1) time."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec09_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The atomic claims are supported: chunk_051 confirms the three problems (SINGLE_PAIR_REACHABILITY, SINGLE_PAIR_SHORTEST_PATH, SINGLE_SOURCE_SHORTEST_PATHS) are listed on the slide; chunk_053 explicitly states that if shortest path returns infinity then reachability is false, otherwise true, and names this 'reduction'; chunk_053 also introduces SINGLE_SOURCE_SHORTEST_PATHS as computing shortest paths from s to all vertices, supporting the chain of reductions described in the answer."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (3060\u20133120s) aligns with chunk_051 (a ~45s window around that time), and hop 2 (3175\u20133280s) aligns with chunk_053; the inter-hop gap is |3175 - 3060| = 115 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans (chunks 051 and 053, ~115s apart) and both cited chunks contain [frame caption: ...] markers describing the slide content."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that SINGLE_SOURCE_SHORTEST_PATHS can solve SINGLE_PAIR_SHORTEST_PATH and by extension SINGLE_PAIR_REACHABILITY is not explicitly supported by the source text. The source text only supports the reduction from SINGLE_PAIR_SHORTEST_PATH to SINGLE_PAIR_REACHABILITY, not the full chain involving SINGLE_SOURCE_SHORTEST_PATHS."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec09_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: L_k is defined as {v\u2208V: d(s,v)=k} (chunk_072 frame caption), BFS computes level sets incrementally with L_i built from L_{i-1} to give shortest distances and shortest path tree (chunk_075), and L_0 must contain only the source s because the only vertex at distance zero from the source is the source itself (both chunks explicitly state this)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2520\u20132580s) aligns with chunk_072 and hop 2 (2655\u20132760s) aligns with chunk_075; the inter-hop gap is |2520-2655|=135s, which exceeds the 70s minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (\u226570s apart) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the definition of L_k using a distance function is given, BFS is described as computing level sets incrementally, and L_0 is stated to contain only the source vertex because it is the only vertex at distance zero from the source."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec09_q023",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims vertices labeled w and v, an edge labeled e, and notation e=(w,v) are shown in the frame caption, but the frame caption in the chunk is truncated ('The diagram shows a graph with four') and does not explicitly mention these specific labels, making these claims unsupported."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The ground_truth_span of 225s\u2013305s does not align with chunk_003, which at 45s windows would cover approximately 135s\u2013180s, well outside the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed 'visual' with exactly 1 span and the cited chunk contains [frame caption: ...] markers, satisfying both requirements."
+    },
+    "rejection_reason": "Criterion 1 fails because key claims about vertex labels (w, v) and edge notation (e=(w,v)) are not supported by the truncated frame caption in the chunk. Criterion 2 fails because the ground_truth_span (225s\u2013305s) does not align with chunk_003's expected time window.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006sp20_lec09_q024",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims the frame caption reveals: base case (i=1), L_0 = {s}, \u03b4(s,s) = 0, and P = {} (empty set). All these claims are explicitly supported by the frame captions in the cited chunk, which state 'Base case (i = 1): L_0 = {s}, \u03b4(s, s) = 0, P = { }'."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (2655.0s\u20132730.0s) aligns with chunk mit_6006sp20_lec09_chunk_075, which covers a 45-second window; the span boundaries are plausible for this chunk. Only one span is present, so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual', requiring exactly 1 span and at least 1 source chunk with a [frame caption: ...] marker. There is exactly 1 span and the cited chunk contains multiple [frame caption: ...] markers, satisfying both conditions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims about the base case initialization (i=1) are explicitly supported by the source text, which states that L_0 = {s}, \u03b4(s,s) = 0, and P = {}."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec09_q025",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_033 shows the formula \u03a3 deg(v) = 2|E| with the justification that each edge contributes to two vertices' degrees; chunk_087's frame captions confirm both the undirected (2|E|) and directed (|E|) formulas, and the text explicitly connects iterating over all nodes and their neighbors to the degree-sum formula for O(|V|+|E|) BFS runtime."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1155\u20131200s) aligns with chunk_033 (a 45s window around ~1177s), and hop 2 (3120\u20133185s) aligns with chunk_087 (a 45s window around ~3152s); the inter-hop gap is |1155 - 3120| = 1965 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is correctly typed as multi-hop: it requires two non-adjacent spans (one for the degree-sum justification and one for the BFS runtime application), and both cited chunks contain [frame caption: ...] markers, though multi-hop (not multi-hop-visual) is claimed, which is valid since the visual content is supplementary rather than required to answer the question."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claim that in an undirected graph, the sum of degrees over all vertices equals 2|E| because each edge is counted twice. It also supports the application of this formula to bound the runtime of algorithms iterating over vertices and their neighbors, resulting in an O(|V|+|E|) runtime for BFS."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec09_q026",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_062 explicitly describes the subpath optimality property (shortest path A\u2192B\u2192C\u2192D implies A\u2192B\u2192C is shortest path to C, with the splice-in contradiction argument), and chunk_064 explicitly describes storing a predecessor pointer P(v) for each vertex pointing to the previous vertex on the shortest path, requiring only O(V) space and enabling path reconstruction by tracing backwards."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2170\u20132230s) aligns with chunk_062 and hop 2 (2205\u20132280s) aligns with chunk_064; the inter-hop gap between start times is |2170 - 2205| = 35s, but the chunks themselves are non-adjacent (chunk_062 and chunk_064 with chunk_063 between them), and the spans overlap/are close. However, checking the gap between hop starts: |2170 - 2205| = 35s < 70s. This is below the 70-second threshold required for multi-hop questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is classified as multi-hop and requires information from two separate chunks (subpath optimality from chunk_062 and predecessor storage from chunk_064), with no frame caption requirement needed for plain multi-hop."
+    },
+    "rejection_reason": "Criterion 2 fails: the inter-hop temporal gap between the two hops is only 35 seconds (|2170 - 2205| = 35s), which is below the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006sp20_lec09_q027",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_025 confirms that an algorithm with runtime proportional to edges could also be expressed as O(|V|\u00b2) for dense graphs, and that sparse graphs are common in practice; chunk_089 explicitly states that O(|V|+|E|) is 'a more informative expression than just saying at worst this is V\u00b2 time,' and explains that if there are no edges the vertex term dominates while adding edges can push it to V\u00b2."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (870\u2013960s) aligns with chunk_025 (a 45s window around ~870\u2013960s range), and hop 2 (3180\u20133260s) aligns with chunk_089; the inter-hop gap is |870 - 3180| = 2310 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is classified as multi-hop and requires information from two non-adjacent spans (chunk_025 at ~870s and chunk_089 at ~3180s); no visual-only evidence is required, and both chunks contain [frame caption:] markers but the question type is correctly labeled multi-hop (not multi-hop-visual), which is acceptable since multi-hop does not require frame captions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the preference for O(|V|+|E|) due to its informativeness in distinguishing between vertex and edge contributions, especially in sparse graphs, as stated in the answer."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec09_q028",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the chunk explicitly states that path length equals number of vertices minus one (or edges traversed), gives the example of path length two, and warns that 'a very common coding bug that I encounter a lot is adding one to that number by accident' because 'there's one more vertex in your path than there are edges.'"
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (1680.0s\u20131725.0s) aligns with chunk_048, which covers a 45-second window; the span falls within plausible chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one span, and while the chunk contains [frame caption: ...] markers, the question does not claim to be visual \u2014 text type only requires exactly one span, which is satisfied."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claim that a common coding bug is accidentally adding one to the path length because there is one more vertex than edges in a path."
+  },
+  {
+    "qa_id": "mit_6006sp20_lec09_q029",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the instructor attended a conference on political redistricting where most discussions involved graph theory, but the chunk text contains no mention of any conference; this is an unsupported fabrication not found in the source."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span (525s\u2013610s) is plausible for chunk_015, and this is a single-hop question so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one span, which matches the requirements for a text question."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer fabricates details about the instructor attending a political redistricting conference, which is not supported by the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006sp20_lec09_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence available to answer either part of the question (BFS runtime breakdown or effect of adding one edge on shortest paths)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

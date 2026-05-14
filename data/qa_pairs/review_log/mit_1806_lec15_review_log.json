@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_1806_lec15_q001",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_001 frame captions confirm two arrows labeled 'a' and 'b' on the blackboard with projection geometry; chunk_007 frame captions explicitly show the equations x = a^T b / a^T a and the perpendicularity condition leading to that formula. The answer's description of the right-angle indicator and projection geometry is supported by the frame captions describing a projection diagram."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (35s\u2013115s) aligns with chunk_001 (a 45s window starting around ~0\u201345s or similar boundary, within \u00b115s tolerance for a chunk covering early lecture content). Hop 2 (245s\u2013295s) aligns with chunk_007. The inter-hop gap is |35 - 245| = 210 seconds, well above the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (hop 1 at ~35\u2013115s and hop 2 at ~245\u2013295s, gap >70s), and both cited chunks contain [frame caption: ...] markers with visual content. Both conditions for multi-hop-visual are satisfied."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that the blackboard shows two arrows labeled 'a' and 'b' representing vectors, and the equation x = a-transpose times b divided by a-transpose times a is explicitly mentioned as the result of the perpendicularity condition."
+  },
+  {
+    "qa_id": "mit_1806_lec15_q002",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: (1) doubling b doubles p because b appears linearly in the numerator \u2014 supported by chunk_011 ('if I put in an extra Factor two then then P's got that factor'); (2) doubling a leaves p unchanged \u2014 supported by chunk_012 ('the projection doesn't change at all'); (3) doubling a gives factor 4 in numerator and factor 4 in denominator that cancel \u2014 supported by chunk_012 ('if I double A I get a four up above and I get a four extra four below they cancel out')."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 385\u2013445s and hop 2 spans 420\u2013495s; the inter-hop gap is |385 - 420| = 35 seconds, which is well below the required minimum of 70 seconds, meaning the two hops are temporally adjacent and effectively retrievable in a single step."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question references \u22652 non-adjacent source chunks and both cited chunks contain [frame caption: ...] markers showing the equation p = a^T b / a^T a, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only ~35 seconds (385s vs 420s), far below the required 70-second minimum, making this effectively single-hop rather than genuinely multi-hop.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_1806_lec15_q003",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The geometric explanation (projecting a point already on the line leaves it unchanged, so P\u00b2=P) is directly supported by chunk_023. The algebraic explanation (a^T a cancels with denominator when squaring P = aa^T/(a^T a)) is consistent with the formula shown in chunk_021's frame captions, and the claim about rank(P)=1 and C(P)=line through a is supported by chunk_021's frame caption and text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (740\u2013810s) aligns with chunk_021 and hop 2 (820\u2013885s) aligns with chunk_023; the inter-hop gap is |820-740|=80 seconds, which meets the \u226570s requirement for multi-hop questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (chunk_021 and chunk_023) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the explanation that applying the projection matrix once moves a vector onto the line, and applying it again keeps it there, thus P squared equals P. This is explained geometrically in the source text, and the algebraic verification is also mentioned with the cancellation of terms in the formula."
+  },
+  {
+    "qa_id": "mit_1806_lec15_q004",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the best solution x-hat is found by the normal equations 'A-transpose A x = A-transpose b', but this specific formula is not stated or supported in either cited chunk."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops are separated by 100 seconds (\u226570s), and the spans align plausibly with chunks 029 and 031 which are non-adjacent."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual with two non-adjacent spans and both cited chunks contain [frame caption: ...] markers with visual evidence."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer includes an unsupported claim about the normal equations (A^T A x = A^T b) that is not present in the cited source chunks.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_1806_lec15_q005",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The atomic claims in the answer are supported by the chunks: chunk_035 shows the geometric setup with vectors a1, a2, b and the plane (column space of A), and chunk_053 explicitly states that e is perpendicular to the column space of A, that e is in the null space of A^T, and derives A^T A x = A^T b as the normal equations. The derivation logic connecting perpendicularity to individual basis vectors and stacking into matrix form is consistent with the chunk content."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1215\u20131290s) aligns with chunk_035 (which covers roughly 1215\u20131260s window, within \u00b115s tolerance), and hop 2 (1590\u20131645s) aligns with chunk_053. The inter-hop gap is |1215 - 1590| = 375 seconds, well above the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u2265 2 non-adjacent spans (hops at ~1215s and ~1590s), and both cited chunks contain [frame caption: ...] markers with visual content (blackboard diagrams showing vectors and equations), satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the error vector e = b - A x-hat must be perpendicular to each basis vector individually is not explicitly supported by the source text. The source text mentions that the error E is perpendicular to the column space of A, but it does not specify that this results in individual perpendicularity to each basis vector a1 and a2."
+  },
+  {
+    "qa_id": "mit_1806_lec15_q006",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_062 shows the lecturer considering splitting (A^T A)^{-1} into A^{-1}(A^T)^{-1}, chunk_064 explicitly states 'a is not a square Matrix it doesn't have an inverse so I have to leave it that way' and describes A as having 'too many rows' with 'just a couple of columns,' confirming the non-square nature and invalidity of the simplification. The frame captions in chunk_064 show the result A^T(A^T)^{-1}A = I (identity), consistent with the claim that improper simplification yields the identity."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1955\u20132040s) aligns with chunk_062 (which covers roughly that window), and Hop 2 (2205\u20132245s) aligns with chunk_064. The inter-hop gap is |1955 - 2205| = 250 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans (gap ~250s) and both cited chunks contain multiple [frame caption: ...] markers showing blackboard equations, satisfying both conditions for multi-hop-visual."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that the lecturer warns against splitting (A^T A)^{-1} into A^{-1} times (A^T)^{-1} because A is not a square matrix and does not have an inverse. This is explicitly mentioned in the source text, which states that A has many more rows than columns, making it non-square and lacking a regular inverse."
+  },
+  {
+    "qa_id": "mit_1806_lec15_q007",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_1806_lec15_q008",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are directly supported by the frame captions in the chunk: the blackboard shows 'Linear Algebra Lecture 15' at the top, 'Projections!' in a larger font with an exclamation mark, 'Least Squares', and 'PROJECTION MATRIX', all written in white chalk."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (0.0s\u201345.0s) aligns with chunk_000 which covers the 0\u201345s window, well within the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual' with exactly 1 span and the cited chunk contains multiple [frame caption: ...] markers describing the blackboard content, satisfying both requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text, which explicitly lists 'Linear Algebra Lecture 15', 'Projections!', 'Least Squares', and 'PROJECTION MATRIX' as the topics on the blackboard at the opening of the lecture."
+  },
+  {
+    "qa_id": "mit_1806_lec15_q009",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the frame captions in the cited chunk: 'Why project? Because Ax=b may have no solution', 'Solve Ax=p instead', and 'proj of b onto col space' (the third caption mentions 'proj of b' and the chunk text mentions 'projection of B onto the column space'). The answer accurately summarizes what is written on the blackboard."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (1010.0s\u20131085.0s) is a 75-second window that aligns with chunk_030; the span boundaries are consistent with a 45-second chunk window centered around that time range, within the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'visual', requiring exactly 1 span and at least one source chunk with a [frame caption: ...] marker. There is exactly 1 span and the cited chunk (mit_1806_lec15_chunk_030) contains multiple [frame caption: ...] markers."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text: the blackboard text includes 'Why project? Because Ax=b may have no solution' and 'Solve Ax=p instead', and it mentions 'proj of b', indicating projection onto the column space."
+  },
+  {
+    "qa_id": "mit_1806_lec15_q010",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_015 confirms P = aa^T/(a^Ta) where a^Ta is a scalar and aa^T is a column times a row producing a matrix; chunk_020 explicitly states the rank is one, it is a rank-one matrix (column times a row), and the column space of P is the line through a, confirming the geometric projection meaning."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (500\u2013560s) aligns with chunk_015 (chunk index 15, ~500\u2013545s window) and hop 2 (700\u2013760s) aligns with chunk_020 (~675\u2013720s window), both within \u00b115s tolerance; the inter-hop gap is |500-700|=200s, well above the 70s minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is correctly typed as multi-hop: it requires information from two non-adjacent spans (chunk_015 for the rank-one form explanation and chunk_020 for the column space and rank conclusion), and the temporal gap between hops is 200s, confirming genuine multi-hop retrieval is needed."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports all claims: the projection matrix P is described as a rank-one matrix formed by a column times a row, and its column space is the line through vector a, confirming the geometric interpretation of projection."
+  },
+  {
+    "qa_id": "mit_1806_lec15_q011",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_050 shows A^T e = 0 and 'e in N(A^T)', chunk_052 explicitly states 'e in the null space of A^T is saying e is perpendicular to the column space' with frame captions showing 'e in N(A^T)', 'e \u22a5 C(A)', and 'YES!' confirming the geometric-algebraic correspondence."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1740\u20131810s) aligns with chunk_050 and hop 2 (1875\u20131960s) aligns with chunk_052; the inter-hop gap is |1740 - 1875| = 135 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is correctly typed as multi-hop: it requires information from two non-adjacent spans (chunk_050 for the derivation of A^T e = 0, and chunk_052 for the geometric confirmation), and both chunks contain [frame caption: ...] markers though visual evidence is not required for multi-hop classification."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims that the error vector e is in the null space of A-transpose (A^T e = 0) and that this implies e is perpendicular to the column space of A, confirming the geometric picture of orthogonality between e and the column space of A."
+  },
+  {
+    "qa_id": "mit_1806_lec15_q012",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the three data points (t=1,b=1), (t=2,b=2), (t=3,b=2) are confirmed in chunk_074; the three equations C+D=1, C+2D=2, C+3D=2 and the 'no solution' conclusion are confirmed in chunk_079 frame captions; the overdetermined 3-by-2 system description is consistent with the source material."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 2620\u20132695s aligns with chunk_074 (a 45s window around that time), and hop 2 spans 2795\u20132870s aligns with chunk_079; the inter-hop gap is |2620-2795|=175s, which is well above the 70s threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop, requiring information from two non-adjacent spans (chunk_074 for the data points and chunk_079 for the equations and no-solution reasoning), with a 175s gap between hops; no visual evidence is claimed, consistent with the multi-hop type."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the data points (t=1, b=1), (t=2, b=2), (t=3, b=2) and the system of equations C + D = 1, C + 2D = 2, C + 3D = 2 are explicitly mentioned, as well as the fact that the system has no solution due to the inconsistency of the right-hand side values."
+  },
+  {
+    "qa_id": "mit_1806_lec15_q013",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk text explicitly states 'I'm not allowed to just divide because because I don't have a number I have to put inverse because I have an N byn' and references the 1D formula with 'little a little a transpose over a transpose a', supporting all atomic claims in the answer about scalar vs. matrix distinction and the need for inverse."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span (2065.0s\u20132135.0s) aligns with chunk_059, which covers a 45-second window; the span is plausible given chunk boundaries, and this is a single-hop question requiring only one span check."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question_type is 'text' (requiring no frame caption), but the cited source chunk (mit_1806_lec15_chunk_059) contains multiple [frame caption: ...] markers. While the answer can be derived from the text portion, the chunk does contain frame captions, making 'visual' a more appropriate type; however, the question itself does not require visual evidence to answer, so the type claim of 'text' is technically inaccurate given the chunk contains frame captions \u2014 but more critically, the chunk text alone (non-caption portion) does support the answer, so 'text' is defensible. On reflection, 'text' type only requires exactly 1 span and no frame caption requirement \u2014 it does NOT prohibit frame captions from being present in the chunk. The criterion states 'No frame caption required' not 'No frame caption allowed.' Therefore this PASSES."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that in one dimension, a^T a is a scalar, allowing for division, while in higher dimensions, A^T A is an n-by-n matrix, requiring multiplication by its inverse instead of division."
+  },
+  {
+    "qa_id": "mit_1806_lec15_q014",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk text supports the key claims: square invertible matrix has column space equal to all of R^n, the projection matrix becomes the identity, and projecting onto the whole space leaves B unchanged. The frame caption shows the algebraic cancellation A\u00b7A^{-1}\u00b7(A^T)^{-1}\u00b7A^T = I, supporting the simplification claim."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (2310.0s\u20132395.0s) covers an 85-second window; chunk_066 at 45s per chunk would be around chunk index 66 \u00d7 45 = 2970s, but the span plausibility check requires alignment within \u00b115s of chunk boundaries. The span 2310\u20132395s aligns with chunk_066 (approximately 2310\u20132355s window), which is within acceptable range."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly 1 ground_truth_span, which matches the text type requirement. Although the chunk contains [frame caption: ...] markers, the text type does not require their absence \u2014 it only requires exactly 1 span, which is satisfied."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims that if A is a square invertible matrix, its column space is all of R^n, and the projection matrix simplifies to the identity matrix, implying that projecting onto the entire space leaves every vector unchanged."
+  },
+  {
+    "qa_id": "mit_1806_lec15_q015",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the supplied content that could answer the question about numerical values for C, D, or the minimized squared error."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

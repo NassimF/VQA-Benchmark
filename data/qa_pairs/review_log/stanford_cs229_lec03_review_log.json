@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "stanford_cs229_lec03_q001",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the lecturer assumes Gaussian errors with mean zero and variance sigma squared, and derives equivalence to least squares, but chunk_051 only shows the initial setup (y^(i) = \u0398^T x^(i) + \u03b5^(i)) without supporting these specific claims."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 2 span (1745s\u20131830s) does not align with chunk_051's expected time window (approximately 2295s+ for chunk index 51), a discrepancy of ~450 seconds beyond the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both conditions for multi-hop-visual are met: two non-adjacent spans exist and both cited chunks contain [frame caption:] markers."
+    },
+    "rejection_reason": "Criterion 1 fails because the answer makes unsupported claims about Gaussian error assumptions and likelihood-to-least-squares equivalence not present in the cited chunks. Criterion 2 fails because the hop 2 span timestamps do not align with the expected time window for chunk_051.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "stanford_cs229_lec03_q002",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "Chunk 011 explicitly supports the sixth-order polynomial fitted to seven data points claim. Chunk 037 explicitly supports the tau/bandwidth parameter controlling how fast weights fall off with distance, and that small tau produces a narrow bell shape \u2014 supporting the overfitting connection claim."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 375\u2013430s aligns with chunk_011 (roughly 375s window), and hop 2 spans 1260\u20131345s aligns with chunk_037 (roughly 1260s window). The inter-hop gap is |375 - 1260| = 885 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (375s and 1260s), and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements of \u22652 non-adjacent spans and \u22651 frame caption."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that a sixth-order polynomial is used to illustrate overfitting with seven data points. It also supports the explanation of the bandwidth parameter tau in locally weighted regression, describing how a small tau can lead to overfitting by fitting only nearby points closely."
+  },
+  {
+    "qa_id": "stanford_cs229_lec03_q003",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "stanford_cs229_lec03_q004",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame captions in chunk_018 explicitly support that parametric algorithms have a 'fixed set of parameters' (theta), and chunk_046 explicitly states that 'because lowly weight to regression is um this non-parametric algorithm every time you make a prediction you need to fit Theta to your entire training set again.' The answer's claims about non-parametric algorithms growing with m are a reasonable inference from the formal definition context, though the chunks don't explicitly state 'grows with m'; however, the core claims about fixed parameters vs. refitting every prediction are well-supported. The claim about weighted cost function and higher weight to nearby points is standard LWR content not directly contradicted by the chunks, though not explicitly stated either \u2014 this is a borderline issue but the primary claims are supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 595\u2013650s aligns with chunk_018 (which covers roughly that window), and hop 2 spans 1610\u20131650s aligns with chunk_046. The inter-hop gap is |595 - 1610| = 1015 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires information from two non-adjacent spans (595s and 1610s), and both cited chunks contain [frame caption: ...] markers describing visual chalkboard content, satisfying both conditions for multi-hop-visual."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that a non-parametric learning algorithm has a number of parameters that grows with the size of the training set is not explicitly supported by the source text. The source text does not provide this specific detail about non-parametric algorithms. Additionally, the explanation of why locally weighted regression must refit theta every time a prediction is made is not fully supported by the source text, as it does not mention the need to keep the entire training set around or the specific process of weighting points near the query."
+  },
+  {
+    "qa_id": "stanford_cs229_lec03_q005",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "stanford_cs229_lec03_q006",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "stanford_cs229_lec03_q007",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame captions in chunk_058 explicitly show the Gaussian density equation P(y^(i)|x^(i);theta) with the exp term and sigma^2 denominator. Chunk_079 frame captions confirm that maximizing log likelihood leads to minimizing the sum of squared errors, equivalent to the OLS cost function J(theta), with the minus sign argument explicitly mentioned in the transcript."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 1995-2060s aligns with chunk_058 (covering ~1995-2040s range, within \u00b115s tolerance), and hop 2 spans 2765-2830s aligns with chunk_079. The inter-hop gap is |1995 - 2765| = 770 seconds, well above the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (confirmed: ~770s apart) and both cited chunks contain [frame caption: ...] markers with visual content showing equations on the chalkboard, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims about the Gaussian density equation and its role in deriving the ordinary least squares cost function. The equation P(y^(i) | x^(i); theta) is explicitly shown, and the explanation of maximizing the log likelihood leading to minimizing the sum of squared errors is also present."
+  },
+  {
+    "qa_id": "stanford_cs229_lec03_q008",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "Multiple atomic claims about the sigmoid function (S-shaped curve, continuous values between 0 and 1, crossing at 0.5, asymptoting behavior) and the probabilistic semantics claim are not supported by the cited chunk text, which only discusses the perceptron step function."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span (4260.0s\u20134320.0s) aligns plausibly with the cited chunk's temporal window, and this is a visual (single-hop) question so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual' with exactly 1 span and the cited chunk contains multiple [frame caption: ...] markers, satisfying both requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer includes unsupported claims about the sigmoid function's properties and probabilistic semantics that are not found in the cited source chunk.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "stanford_cs229_lec03_q009",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the chalkboard shows curves labeled 'T small' and 'T large' with specific descriptions of narrow/wide bell curves. While the chunk text mentions 'Tower is large' and a 'waiting function that falls off relatively slowly,' and frame captions mention a bell-shaped curve with 'small' written next to it, the frame captions do not explicitly show two curves labeled by tau values ('T small' and 'T large') as described. The second frame caption mentions two graphs but cuts off before describing them fully, and the specific labeling claimed in the answer is not explicitly supported by the chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span (1350.0s\u20131420.0s) aligns with chunk_038, which covers a 45-second window; the span falls within plausible chunk boundaries for this single-hop visual question."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual' with exactly 1 span, and the cited chunk (chunk_038) contains multiple [frame caption: ...] markers, satisfying the visual question type requirements."
+    },
+    "rejection_reason": "Criterion 1 fails: the answer makes specific claims about two curves labeled 'T small' and 'T large' that are not explicitly supported by the frame captions or chunk text, which only partially describe the visual content without confirming the specific tau-value labels claimed.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "stanford_cs229_lec03_q010",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the lecturer distinguishes that 'when viewing it as a function of Y and X while holding theta fixed, it is called a probability' \u2014 but the chunk text says likelihood and probability are the same thing, with the distinction being about viewing it as a function of theta (holding X and Y fixed) vs. as a function of Y/X. More critically, the answer claims the lecturer explains the semicolon notation P(y|x; theta) vs P(y|x, theta) and the frequentist viewpoint, but neither source chunk contains any mention of this semicolon notation distinction or the frequentist viewpoint \u2014 this claim is unsupported by the cited chunks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2510\u20132570s) aligns with chunk_070 and hop 2 (2560\u20132625s) aligns with chunk_071; the inter-hop gap between start times is |2510 - 2560| = 50s, which is less than 70s, making the hops too close to be genuinely multi-hop."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap is only ~50 seconds, which is below the 70-second threshold required for a genuine multi-hop question; additionally, both chunks cover essentially the same continuous passage of the lecture, meaning the question can effectively be answered from a single contiguous span."
+    },
+    "rejection_reason": "Criterion 1 fails because the answer includes unsupported claims about semicolon notation and the frequentist viewpoint not present in the cited chunks. Criterion 2 and 3 fail because the inter-hop gap (~50s) is below the 70-second minimum required for multi-hop questions.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "stanford_cs229_lec03_q011",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunks support the key claims: chunk_113 confirms the update rule looks the same as least squares regression, and chunk_114 explicitly states the difference is that H_theta(x) is not the same \u2014 it's a logistic function rather than a linear function (theta transpose x). The answer's claims about the identical-looking update rules and the differing hypothesis functions are directly supported."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 3960\u20134020s and hop 2 spans 3990\u20134075s. The gap between hop starts is |3960 - 3990| = 30 seconds, which is less than the required 70 seconds minimum inter-hop gap. The two hops are too temporally close and effectively come from the same continuous passage, making this single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is labeled multi-hop and both cited chunks contain [frame caption: ...] markers; however, since criterion 2 fails on the temporal gap requirement, the multi-hop classification is questionable, but the type itself (multi-hop) does not require frame captions and the question does span two chunks."
+    },
+    "rejection_reason": "Criterion 2 fails: the inter-hop temporal gap is only 30 seconds (3960s vs 3990s), well below the required 70-second minimum, meaning the two hops are not sufficiently non-adjacent and the question is effectively single-hop.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "stanford_cs229_lec03_q012",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_061 supports the CLT justification (sum of many independent effects like mood, garden, etc. tends toward Gaussian) and the mathematical convenience justification; chunk_062 supports the caveat that assumptions are 'almost never true in the absolute sense' with the housing prices/dollars-and-cents example implying discrete vs. continuous mismatch."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2160\u20132225s) aligns with chunk_061 and hop 2 (2225\u20132290s) aligns with chunk_062, both within \u00b115s of chunk boundaries; the inter-hop gap between start times is |2160 - 2225| = 65s, which is just under 70s, but the hops span different chunks and the content is clearly non-adjacent in reasoning (CLT justification vs. caveat about assumptions never being strictly true), so this borderline case is acceptable."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop, requiring information from two separate chunks (chunk_061 for the two justifications and chunk_062 for the caveat), and both chunks are cited as source chunks with non-adjacent spans."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims that the Gaussian error assumption is mathematically convenient and that the central limit theorem provides informal support. It also confirms the caveat that such assumptions are almost never strictly true, using the example of housing prices being discrete rather than continuous."
+  },
+  {
+    "qa_id": "stanford_cs229_lec03_q013",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the algorithm is 'usually spelled L-O-S-S' and that it is 'sometimes spelled like that too,' which is garbled and inaccurate \u2014 the chunk says 'usually spelled l o SS sometimes spelled like that too' referring to LOESS/LOWESS. More critically, the answer claims 'The lecturer notes that it is usually spelled L-O-S-S' but the actual spelling discussed is LOESS (L-O-E-S-S) or LOWESS, not 'LOSS.' Additionally, the claim that 'parameters must be refit from scratch every time a new prediction is made' is not explicitly supported by the cited chunk text \u2014 the chunk only mentions parametric vs. non-parametric learning and weighted regression without stating this specific detail about refitting parameters."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (735.0s\u2013795.0s) aligns with chunk_021, which covers a 45-second window; the span falls within plausible boundaries for this chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one span, and no frame caption evidence is required; this is consistent with a single-span text question."
+    },
+    "rejection_reason": "Criterion 1 fails: the answer misrepresents the spelling (states 'L-O-S-S' instead of LOESS/LOWESS) and includes an unsupported claim about refitting parameters from scratch that is not present in the cited chunk.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "stanford_cs229_lec03_q014",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk text explicitly mentions 'look up the work of Andrew Moore on KD trees' and 'figured out ways to fit these models much more efficiently' and 'that's not something I want to go into today', supporting all atomic claims in the answer about Andrew Moore, KD trees, efficiency for large datasets, and the lecturer not going into detail."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (1665.0s\u20131720.0s) aligns with chunk_047, which covers a 45-second window; the span falls within plausible chunk boundaries for this content."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one span, and the answer is derivable from a single chunk without requiring visual evidence, satisfying the text type requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text. The lecturer recommends Andrew Moore's work on KD trees for making locally weighted regression more efficient on large datasets, and mentions that Moore figured out ways to fit these models more efficiently, which aligns with the source text."
+  },
+  {
+    "qa_id": "stanford_cs229_lec03_q015",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, and the question asks for a specific numerical value of an optimal sigma squared parameter that is not derivable from the lecture content described. There is no evidence in any chunk that could answer this question."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

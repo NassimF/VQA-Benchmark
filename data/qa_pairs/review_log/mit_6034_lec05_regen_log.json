@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6034_lec05_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame captions in chunk_007 confirm a tree diagram with nodes S, A, B, C, D, E, G and a weighted graph. Chunk_007 text explicitly states that 'euristic' distance refers to crow-flies (airline) distance, that being close to goal G is generally advantageous, and that node E illustrates a case where being close is a dead end. All atomic claims are supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (4.0s\u201350.0s) aligns with chunk_000 (covering roughly 0\u201345s, within \u00b115s tolerance). Hop 2 (245.0s\u2013295.0s) aligns with chunk_007 (covering roughly 270\u2013315s, within \u00b115s). The inter-hop gap is |4 - 245| = 241 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (hop 1 from chunk_000 for the visual diagram type, hop 2 from chunk_007 for the heuristic distance explanation), and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the blackboard shows a tree diagram with nodes labeled S, A, B, C, D, E, and G is supported. However, the claim that 'heuristic distance' refers to the airline distance between nodes is not explicitly supported by the source text. The text mentions 'euristic' in the context of being close to the goal node G, but does not define it as airline distance."
+  },
+  {
+    "qa_id": "mit_6034_lec05_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The blackboard list (Oracle, Branch & Bound, Extended List, Enqueued List, Admissible Heuristic, A*) is explicitly supported by the frame caption in chunk_013. The description of extended list as 'a layering on top of branch and bound' that is 'not a different algorithm' but 'an adjustment an improvement' is directly quoted in chunk_042."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (420\u2013475s) aligns with chunk_013 (a 45s window around ~420-475s), and hop 2 (1470\u20131535s) aligns with chunk_042. The inter-hop gap is |420 - 1470| = 1050 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (420s and 1470s) and at least one chunk contains [frame caption: ...] markers (chunk_013 has multiple frame captions including the blackboard list), satisfying both conditions for multi-hop-visual."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly lists the algorithms under 'The Best Path vs A Good Path' as Oracle, Branch & Bound, + Extended List, + Enqueued List, + Admissible Heuristic, and A*. It also describes the extended list as a layering on top of branch and bound, not a different algorithm but an improvement or adjustment."
+  },
+  {
+    "qa_id": "mit_6034_lec05_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the cited chunk text and frame captions, including the flowchart steps and the explanation of when the algorithm can stop."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The two hops start at 1020s and 1015s respectively, giving an inter-hop gap of only 5 seconds, which is far below the required 70-second minimum for multi-hop questions."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "Although frame captions are present, the two spans are only 5 seconds apart and are not non-adjacent, meaning the question does not genuinely require multi-hop retrieval across distinct temporal locations."
+    },
+    "rejection_reason": "Criteria 2 and 3 failed: the two hops are only 5 seconds apart (well below the 70-second minimum), making this effectively single-hop rather than multi-hop, and thus the multi-hop-visual classification is invalid.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6034_lec05_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_041 mentions '830 5 extensions' (835) for branch and bound alone and '38' for branch and bound with extended list; chunk_042 confirms the same numbers and explicitly states the 'dead horse Principle' with the explanation that paths to a particular place that can't possibly be the winning path are discarded and not extended further."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1175\u20131230s) aligns with chunk_041 and hop 2 (1505\u20131555s) aligns with chunk_042; the inter-hop gap is |1175 - 1505| = 330 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunks 041 and 042, ~330s apart), and both chunks contain [frame caption: ...] markers showing the computer interface, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claim that branch and bound alone performed 835 extensions, while branch and bound with an extended list performed only 38 extensions. It also confirms the use of the 'dead horse principle' to explain why paths are discarded."
+  },
+  {
+    "qa_id": "mit_6034_lec05_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_065 frame captions confirm the flowchart steps (Initialize Queue, Test First Path, Extend First Path, Sort by A* Dist + Admissible H, If Not Already Extended), and chunk_062 explicitly states 'a star is just branch and bound plus an extended list plus an admissible heuristic' with the blackboard listing Branch & Bound, + Extended List, + Admissible Heuristic, A*."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2375s\u20132420s) aligns with chunk_065 (which covers ~2375s\u20132420s window), and hop 2 (2170s\u20132215s) aligns with chunk_062; the inter-hop gap is |2375 - 2170| = 205 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u2265 2 non-adjacent spans (205s apart) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims about the final form of the flowchart and the description of A*. The flowchart includes 'Initialize Queue', 'Test First Path', 'Extend First Path', 'Sort by A* distance plus admissible heuristic', and 'If Not Already Extended'. A* is described as branch and bound combined with an extended list plus an admissible heuristic."
+  },
+  {
+    "qa_id": "mit_6034_lec05_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The consistency equation form |H(x,G) - H(y,G)| \u2264 D(x,y) is not clearly supported by the frame captions, which show inconsistent variable forms (x,y,z) and one caption even duplicates the admissibility equation for consistency; the exact equation claimed is not confirmed."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap between hop 1 (starting 2790s) and hop 2 (starting 2765s) is only 25 seconds, well below the required 70-second minimum for multi-hop questions."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The two hops overlap temporally (2765-2810 and 2790-2835) with only a 25-second gap, meaning both hops fall within essentially the same segment and can be retrieved in a single step, disqualifying this as a genuine multi-hop question."
+    },
+    "rejection_reason": "Criteria 1, 2, and 3 all fail: the consistency equation is not clearly supported by source text, the inter-hop temporal gap is only 25s (below the 70s minimum), and the question is not genuinely multi-hop given the overlapping spans.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6034_lec05_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The claim that 'one only needs to track the minimum' is not explicitly stated in the cited chunks; chunk_064 only says 'we don't actually need to sort' without specifying that tracking the minimum is the alternative approach."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops (2205-2250s and 2280-2330s) have a gap of 75 seconds, meeting the \u226570s requirement, and both spans plausibly align with the cited chunks' content."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both cited chunks contain [frame caption: ...] markers, and the two hops are non-adjacent (75s apart), satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer's claim that efficiency comes from 'only needing to track the minimum' is not explicitly supported by the cited chunk text, which only states that a full sort is unnecessary.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6034_lec05_q023",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are directly supported by the second frame caption in the chunk: the blackboard divided into three sections, the left section title 'THE BEST PATH VERSUS A GOOD PATH', the diagram/flowchart with paths labeled 'ORACLE' and 'BRANCH & BOUND', and the 'EXTENDED LIST' entry below them."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (0.0s\u201345.0s) aligns with the chunk boundaries of mit_6034_lec05_chunk_000, which covers a 45-second window starting at 0s."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual', requiring exactly 1 span and at least one source chunk with a [frame caption: ...] marker. Both conditions are met: there is one span and the cited chunk contains multiple [frame caption: ...] markers."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text, which describes the blackboard as having a left section with the title 'THE BEST PATH VERSUS A GOOD PATH' and a diagram with paths labeled 'ORACLE' and 'BRANCH & BOUND', along with an 'EXTENDED LIST' entry."
+  },
+  {
+    "qa_id": "mit_6034_lec05_q024",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the smiley face is above the 'TEST FIRST PATH' step, but the frame caption explicitly states it is above the 'EXTEND FIRST PATH & SORT' step, directly contradicting the answer."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The ground_truth_span (1225s\u20131270s) does not align with chunk_034, which at 45s windows would start around 1530s; the span falls approximately 305 seconds before the chunk boundary, well outside the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual' with exactly 1 span and the cited chunk contains [frame caption: ...] markers, satisfying the visual type requirements."
+    },
+    "rejection_reason": "Criterion 1 fails because the answer incorrectly places the smiley face above 'TEST FIRST PATH' when the frame caption says it is above 'EXTEND FIRST PATH & SORT'. Criterion 2 fails because the ground_truth_span timestamps do not align with the cited chunk's expected time window.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6034_lec05_q025",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the Oracle is introduced as someone who knows the answer (Wana), she claims the shortest path is S-A-D-G with length 11, and the verification procedure is to develop all other possible paths and confirm they are all longer than or equal to 11 \u2014 all explicitly stated in chunks 010 and 011."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (350\u2013420s) aligns with chunk_010 and hop 2 (420\u2013475s) aligns with chunk_011, both within acceptable boundaries; the inter-hop gap is |350-420| = 70s, which meets the \u226570s requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop, requiring information from two non-adjacent chunks (chunk_010 for the Oracle introduction and chunk_011 for the verification procedure), and no visual-only evidence is claimed."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that the lecture uses the concept of an Oracle, represented by a student named Wana, who claims the shortest path is S-A-D-G with a length of 11. It also supports the verification procedure of developing all other possible paths to confirm that they are longer than 11."
+  },
+  {
+    "qa_id": "mit_6034_lec05_q026",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the cited chunks, which explicitly state the enqueued list doesn't work for optimal paths and recommend tracking extended nodes instead."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap is only 50 seconds (|1215 - 1165| = 50s), which is below the required 70-second minimum, making the two hops effectively adjacent and retrievable in a single step."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The claimed multi-hop type requires \u2265 2 non-adjacent spans, but the two spans are only 50 seconds apart (adjacent chunks), failing the non-adjacency requirement."
+    },
+    "rejection_reason": "Criteria 2 and 3 failed: the inter-hop gap is only 50 seconds, below the 70-second minimum required for multi-hop questions, meaning the hops are not genuinely non-adjacent.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6034_lec05_q027",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The claim that branch and bound with admissible heuristic performed 70 extensions in Case 1 is not explicitly supported by the chunk text; the chunks mention 38 for extended list and 35 for admissible in Case 2, but the specific figure of 70 for Case 1 admissible heuristic cannot be verified from the provided text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops are separated by approximately 630 seconds (|1470-2100|), well above the 70-second threshold, and the spans plausibly align with the cited chunks."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question genuinely requires two non-adjacent spans (630s apart) and both cited chunks contain [frame caption: ...] markers, satisfying multi-hop requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the specific claim of 70 extensions for branch and bound with admissible heuristic in Case 1 is not explicitly supported by the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6034_lec05_q028",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunk text: Eisenhower observed the German Army could move troops rapidly despite bombed railroads due to their autobahn; he conceived the US would need to move forces on a highway system in case of invasion; the consequence was a pretty good highway system and a pretty awful railroad system."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span (70.0s\u2013115.0s) aligns with chunk_002, which covers a 45-second window; 70s falls within \u00b115s of a plausible chunk boundary, and this is a single-hop text question so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one span, and the answer is derivable from a single chunk without requiring visual evidence, satisfying the text type requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claim that Eisenhower created the interstate highway system because he observed the German Army's ability to move troops rapidly using the autobahn, even after railroads were bombed. It also supports the claim that the consequence was a good highway system and a poor railroad system in the United States."
+  },
+  {
+    "qa_id": "mit_6034_lec05_q029",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk explicitly states 'we're going to choose the one that's lexically least so B comes before D so we'll expand B,' directly supporting the claims about the tie-breaking rule (lexically least/alphabetically earlier) and the specific example of B being chosen over D."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (1785.0s\u20131830.0s) aligns with chunk_051, which covers a 45-second window; the span boundaries are consistent with the chunk's temporal range."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span provided; the question can be answered from this single span without requiring visual evidence."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that when two paths have a tie score, the path whose terminal node is lexically least is chosen for extension, and it provides the example of node B coming before node D alphabetically, leading to the expansion of the path terminating at B."
+  },
+  {
+    "qa_id": "mit_6034_lec05_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, and there is no evidence in any chunk about monetary costs related to Caterpillar tractor factories or a specific highway route number discussed at the start of the lecture."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

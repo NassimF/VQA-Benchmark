@@ -1,0 +1,513 @@
+[
+  {
+    "qa_id": "nyu_dl_week6_q016",
+    "video_id": "nyu_dl_week6",
+    "question": "The slide shown during the discussion of word-level training lists a need for a 'deformable parts model.' According to the lecture, what problem does the sliding window approach face when recognizing characters in a zip code image, and what technique is used to find the best sequence interpretation?",
+    "answer": "When applying the convolutional net to an entire string like a zip code, the characters touch so you don't know how to separate them in advance. The system produces multiple sets of outputs corresponding to different kernel sizes in the last layer. To find the best interpretation, a shortest path algorithm computed via dynamic programming is used to find a path through a score array from bottom-left to top-right, where the path must take exactly five steps corresponding to five characters.",
+    "num_hops": 3,
+    "ground_truth_spans": [
+      {
+        "start": 240.0,
+        "end": 290.0,
+        "hop": 1,
+        "description": "Characters in zip code touch so separation is unknown; convolutional net applied to entire string"
+      },
+      {
+        "start": 1140.0,
+        "end": 1200.0,
+        "hop": 2,
+        "description": "Slide titled 'Word-level training with weak supervision [Matan et al 1992]' showing deformable parts model requirement"
+      },
+      {
+        "start": 1215.0,
+        "end": 1260.0,
+        "hop": 3,
+        "description": "Shortest path algorithm via dynamic programming finds path with exactly five steps"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week6_chunk_007",
+      "nyu_dl_week6_chunk_028",
+      "nyu_dl_week6_chunk_033"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "word-level training",
+      "zip code recognition",
+      "shortest path",
+      "dynamic programming",
+      "deformable parts model"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week6_q017",
+    "video_id": "nyu_dl_week6",
+    "question": "The face detection slide references Vaillant et al. 93/94 and mentions a specific processing time. How does the lecture explain handling faces of different sizes, and what computational cost argument is made for this multi-scale approach?",
+    "answer": "To handle size variation, a multiscale approach is used: the image is run through the detector, then reduced by a factor of square root of 2 and run again, and again reduced by another factor of square root of 2. The computational cost argument is that when you scale down the image by square root of 2, the network you have to run is smaller by a factor of 2, so the overall cost is 1 plus 1/2 plus 1/4 plus 1/8 etc., which equals 2\u2014meaning you only waste a factor of 2 by doing multiscale.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1320.0,
+        "end": 1375.0,
+        "hop": 1,
+        "description": "Multiscale approach: reduce image by square root of 2 repeatedly and run detector at each scale"
+      },
+      {
+        "start": 1400.0,
+        "end": 1445.0,
+        "hop": 2,
+        "description": "Cost argument: scaling down by sqrt(2) makes network smaller by factor 2; total cost sums to 2; slide titled Face Detection Vaillant et al 93/94"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week6_chunk_038",
+      "nyu_dl_week6_chunk_040"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "face detection",
+      "multiscale approach",
+      "computational cost",
+      "square root of 2 scaling"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week6_q018",
+    "video_id": "nyu_dl_week6",
+    "question": "The slide titled 'ConvNet for Long Range Adaptive Robot Vision (DARPA LAGR program 2005-2008)' shows columns of images including stereo labels. According to the lecture, why is stereo vision insufficient for long-range robot navigation, and what role does the convolutional net play as a result?",
+    "answer": "Stereo vision only works out to about ten meters, so past ten meters you cannot reliably estimate distance using binocular vision. Driving a robot by only looking ten meters ahead is like driving a car in the fog\u2014not very efficient. Therefore the convolutional net is used to label every pixel in the image up to the horizon, providing long-range vision beyond what stereo can achieve.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1875.0,
+        "end": 1940.0,
+        "hop": 1,
+        "description": "Stereo vision works only to about ten meters; driving with only ten meters visibility is inefficient"
+      },
+      {
+        "start": 1940.0,
+        "end": 1975.0,
+        "hop": 2,
+        "description": "ConvNet used to label every pixel up to the horizon; slide shows DARPA LAGR program columns including stereo labels"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week6_chunk_053",
+      "nyu_dl_week6_chunk_054"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "stereo vision",
+      "long-range vision",
+      "semantic segmentation",
+      "DARPA LAGR",
+      "robot navigation"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week6_q019",
+    "video_id": "nyu_dl_week6",
+    "question": "The 'Scene Parsing/Labeling: Multiscale ConvNet Architecture' slide states that each output sees a large input context with specific window sizes at different resolutions. How does the lecture explain the multiscale architecture achieves an effective context of 184x184 pixels?",
+    "answer": "The same image is reduced by a factor of 2 and a factor of 4, and those extra images are run through the same convolutional net with the same weights. The last feature maps from the downscaled versions are then upscaled so they have the same size as the original, and those combined feature maps are sent to a classifier. Because a 46x46 window on the quarter-resolution image corresponds to a 184x184 window on the original, the effective context becomes 184 by 184.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2270.0,
+        "end": 2335.0,
+        "hop": 1,
+        "description": "Image reduced by factor 2 and 4, run through same ConvNet, feature maps upscaled to same size"
+      },
+      {
+        "start": 2345.0,
+        "end": 2390.0,
+        "hop": 2,
+        "description": "Slide states 184x184 window at quarter resolution; effective context is 184x184 because coarse-scale network looks at more of the image"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week6_chunk_066",
+      "nyu_dl_week6_chunk_067"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "scene parsing",
+      "multiscale architecture",
+      "feature map upsampling",
+      "context window",
+      "184x184"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week6_q020",
+    "video_id": "nyu_dl_week6",
+    "question": "The 'Recurrent Networks' slide shows a diagram with components labeled Enc, G, and Dec. According to the lecture, what is the key input that makes the G function recurrent, and what technique is used to perform backpropagation through this architecture?",
+    "answer": "The G function is recurrent because one of its inputs is Z of T minus 1, which is its own output at the previous time step. To perform backpropagation, the loop is unrolled in time, producing a regular network with no loops where every block at different time steps shares the same weights. This technique is called back propagation through time (BPTT).",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2695.0,
+        "end": 2760.0,
+        "hop": 1,
+        "description": "G function takes Z of T minus 1 as input\u2014its own output at previous time step\u2014making it recurrent"
+      },
+      {
+        "start": 2895.0,
+        "end": 2940.0,
+        "hop": 2,
+        "description": "Technique of unrolling and back-propagating through time is called BPTT; slide titled Recurrent Networks shows unrolled diagram"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week6_chunk_077",
+      "nyu_dl_week6_chunk_081"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "recurrent networks",
+      "backpropagation through time",
+      "BPTT",
+      "unrolling",
+      "hidden state"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week6_q021",
+    "video_id": "nyu_dl_week6",
+    "question": "The GRU slide lists 'explicit memory cells' as the solution and attributes the work to Cho. According to the lecture, what does the update gate Z do when its value equals 1, and what happens to the gradient flow that makes this architecture better than simple recurrent nets?",
+    "answer": "When Z equals 1, the system simply copies its previous state and ignores the input, acting like a memory. When Z is slightly less than 1, it puts a little bit of the input into the state but does not significantly change it, which preserves the norm and preserves information. This avoids the vanishing gradient problem because by default the system just copies its previous state, meaning gradients can propagate without being multiplied by a shrinking weight matrix at every time step.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3690.0,
+        "end": 3755.0,
+        "hop": 1,
+        "description": "Z equal to 1 means copy previous state and ignore input; Z slightly less than 1 preserves norm and information"
+      },
+      {
+        "start": 3815.0,
+        "end": 3860.0,
+        "hop": 2,
+        "description": "GRU slide attributes solution to Cho; preserves information by default unlike simple RNNs with vanishing gradient"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week6_chunk_108",
+      "nyu_dl_week6_chunk_109"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "GRU",
+      "update gate",
+      "memory cell",
+      "vanishing gradient",
+      "state preservation"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week6_q022",
+    "video_id": "nyu_dl_week6",
+    "question": "The 'Sequence to Sequence with Attention' slide references Bahdanau, Cho, and Bengio. According to the lecture, what fundamental limitation of the plain sequence-to-sequence model motivated the attention mechanism, and what happened in the field within months of the attention paper?",
+    "answer": "The plain sequence-to-sequence model requires squeezing the entire meaning of a sentence into a single hidden state vector between encoder and decoder, and despite LSTMs being memory cells they do not preserve information for more than about 20 words. The attention mechanism was introduced so the decoder can focus on the relevant part of the input sentence when producing each output word. Within a few months a team from Stanford won a big competition using this method, beating all other methods, and then within three months every big company working on translation had deployed systems based on this.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 4390.0,
+        "end": 4455.0,
+        "hop": 1,
+        "description": "Entire meaning squeezed into hidden state; LSTMs forget after about 20 words; attention as fix"
+      },
+      {
+        "start": 4609.0,
+        "end": 4680.0,
+        "hop": 2,
+        "description": "Slide titled Sequence to Sequence with Attention (Bahdanau Cho Bengio); Stanford team won big competition; every big company deployed within three months"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week6_chunk_122",
+      "nyu_dl_week6_chunk_129"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "sequence to sequence",
+      "attention mechanism",
+      "neural machine translation",
+      "Bahdanau",
+      "hidden state bottleneck"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week6_q023",
+    "video_id": "nyu_dl_week6",
+    "question": "What is shown in the slide titled 'Multiple Character Recognition [Matan et al 1992]' regarding the architecture used?",
+    "answer": "The slide is titled 'Multiple Character Recognition [Matan et al 1992]' and has the subtitle 'Every layer is a convolution.' It shows a diagram of a single character recognizer consisting of several layers represented by blue rectangles connected by arrows.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 560.0,
+        "end": 605.0,
+        "hop": 1,
+        "description": "Frame caption describes slide titled Multiple Character Recognition Matan et al 1992 with subtitle Every layer is a convolution and diagram of single character recognizer with blue rectangle layers"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week6_chunk_016"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "multiple character recognition",
+      "convolutional architecture",
+      "Matan 1992"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week6_q024",
+    "video_id": "nyu_dl_week6",
+    "question": "What information does the 'Long Range Vision with a Convolutional Net' slide list under its pre-processing steps?",
+    "answer": "The slide titled 'Long Range Vision with a Convolutional Net' lists the following pre-processing steps taking 125 ms: ground plane estimation, horizon leveling, conversion to YUV plus local contrast normalization, and scale invariant pyramid of distance-normalized image.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1965.0,
+        "end": 2010.0,
+        "hop": 1,
+        "description": "Frame caption for slide titled Long Range Vision with a Convolutional Net lists pre-processing steps: ground plane estimation, horizon leveling, conversion to YUV plus local contrast normalization, scale invariant pyramid of distance-normalized image, 125 ms"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week6_chunk_055"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "long range vision",
+      "pre-processing",
+      "LAGR",
+      "YUV",
+      "contrast normalization"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week6_q025",
+    "video_id": "nyu_dl_week6",
+    "question": "According to the lecture, what are the two problems that arise when applying a convolutional net as a face detector on a large image, and how is the second problem specifically addressed through iterative training?",
+    "answer": "The first problem is that there are many ways a patch can be a non-face and the training set likely has not seen a representative set of all non-face patches, leading to many false positives. The second problem is that not all faces are the same size in a picture. The second problem is addressed by doing negative mining: running the detector on a large collection of images known to contain no faces, keeping patches where the detector fires, verifying no faces are present, adding them to the negative set, retraining the detector, and repeating this four or five times.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1315.0,
+        "end": 1370.0,
+        "hop": 1,
+        "description": "First problem: many ways to be non-face, training set not representative, lots of false positives; second problem: not all faces are 30x30 pixels"
+      },
+      {
+        "start": 1576.0,
+        "end": 1620.0,
+        "hop": 2,
+        "description": "Negative mining: run detector on images with no faces, add false positives to negative set, retrain four or five times"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week6_chunk_037",
+      "nyu_dl_week6_chunk_045"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "face detection",
+      "false positives",
+      "negative mining",
+      "hard negative mining",
+      "iterative training"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week6_q026",
+    "video_id": "nyu_dl_week6",
+    "question": "According to the lecture, what are the two distinct failure modes described for simple recurrent networks during backpropagation through time, and what causes each of them?",
+    "answer": "The first failure mode is the vanishing gradient problem: if the weight matrix of the G function has small values, then every time you back-propagate gradients you multiply by the transpose of this matrix, and the gradient vector gets shorter and shorter exponentially until it vanishes. The second failure mode is the exploding gradient problem: if the weight matrix is large and the non-linearity in the recurrent layer is not saturating, gradients get larger and larger at every time step until they explode, causing weights to diverge during gradient steps.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 3024.0,
+        "end": 3090.0,
+        "hop": 1,
+        "description": "Vanishing gradient: weight matrix with small values causes gradient to shrink exponentially at each time step"
+      },
+      {
+        "start": 3090.0,
+        "end": 3140.0,
+        "hop": 2,
+        "description": "Exploding gradient: large weight matrix with non-saturating nonlinearity causes gradient to grow and explode"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week6_chunk_084",
+      "nyu_dl_week6_chunk_085"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "vanishing gradient",
+      "exploding gradient",
+      "recurrent networks",
+      "backpropagation through time",
+      "weight matrix"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week6_q027",
+    "video_id": "nyu_dl_week6",
+    "question": "According to the lecture, what is the key architectural property that distinguishes the transformer from earlier sequence models, and what earlier module concept does the transformer generalize?",
+    "answer": "The transformer is a neural net in which every group of neurons is implementing attention, specifically a form called self-attention. It generalizes the attention module concept introduced earlier\u2014where a vector Z passed through a softmax produces coefficients used to compute a weighted sum of input vectors\u2014by making every group of neurons in the network use this mechanism, rather than using it only in a single attention layer.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 4590.0,
+        "end": 4635.0,
+        "hop": 1,
+        "description": "Transformer: every group of neurons implementing attention called self-attention; paper titled attention is all you need"
+      },
+      {
+        "start": 3720.0,
+        "end": 3760.0,
+        "hop": 2,
+        "description": "Attention module: vector Z through softmax produces coefficients for weighted sum of input vectors; used in NLP"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week6_chunk_130",
+      "nyu_dl_week6_chunk_100"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "transformer",
+      "self-attention",
+      "attention mechanism",
+      "natural language processing",
+      "attention is all you need"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week6_q028",
+    "video_id": "nyu_dl_week6",
+    "question": "According to the lecture, what specific processing time is stated for the face detection system from the early 1990s when run on the hardware mentioned in the slide?",
+    "answer": "According to the slide titled 'Face Detection [Vaillant et al. 93, 94],' the processing time is 6 seconds on a Sparcstation for a 256x2 image (the full resolution is indicated in the slide caption).",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1260.0,
+        "end": 1305.0,
+        "hop": 1,
+        "description": "Frame caption for Face Detection slide states 6 second on a Sparcstation for 256x2 image"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week6_chunk_036"
+    ],
+    "question_type": "text",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "face detection",
+      "Vaillant",
+      "Sparcstation",
+      "processing time"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week6_q029",
+    "video_id": "nyu_dl_week6",
+    "question": "According to the lecture, who collected the street image dataset used for the scene parsing work, and what tool and arrangement was used to label the segmentations?",
+    "answer": "The dataset was collected mostly by Antonio de Alba at MIT. He had a tool for labeling where you could draw a contour over an object and label it, and the tool would fill up the object. Most of the segmentations were done by his mother, who was in Spain.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 2580.0,
+        "end": 2625.0,
+        "hop": 1,
+        "description": "Dataset collected mostly by Antonio de Alba at MIT; labeling tool where you draw contour over object; segmentations done by his mother in Spain"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week6_chunk_072"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "scene parsing dataset",
+      "Antonio de Alba",
+      "MIT",
+      "image labeling"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week6_q030",
+    "video_id": "nyu_dl_week6",
+    "question": "What is the specific learning rate used in the DARPA LAGR robot's convolutional network during field operation, and how many parameters does the largest transformer model described in this lecture have?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "medium",
+    "answerable": false,
+    "key_concepts": [
+      "learning rate",
+      "LAGR robot",
+      "transformer parameters"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  }
+]

@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6006f11_lec14_q001",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_000 confirms a graph diagram with nodes/edges and a topic list including depth-first search, edge classification, cycle detection, and topological sort; chunk_010 confirms the DFS algorithm checks 'if v not in parent' to skip already-visited vertices, sets parent[v]=s for new vertices, and recurses, ensuring each vertex is visited at most once."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (0.0s\u201345.0s) aligns with chunk_000 (a 45-second window starting at 0s); hop 2 (305.0s\u2013360.0s) aligns with chunk_010 (a 45-second window starting at ~305s); the inter-hop gap is |0 - 305| = 305 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (0\u201345s and 305\u2013360s, gap >70s) and both cited chunks contain [frame caption: ...] markers with visual content, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text confirms that the introductory lecture slide includes a graph diagram with nodes and edges alongside the topic list, which includes depth-first search, edge classification, cycle detection, and topological sort. It also describes the DFS algorithm as checking if a vertex is in the parent dictionary to determine if it has been visited, and if so, it skips it, ensuring each vertex is visited at most once."
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q002",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q003",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q004",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_013 explicitly states the top-level DFS iterates over all vertices and tries all starting points for disconnected/not strongly connected graphs; chunk_053 explicitly states running the top-level DFS explores the whole graph and that a cycle exists iff DFS has a back edge, covering all components."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (490\u2013555s) aligns with chunk_013 (a 45s window around ~490\u2013555s), and hop 2 (1870\u20131935s) aligns with chunk_053; the inter-hop gap is |490 - 1870| = 1380 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it references two non-adjacent spans (490s and 1870s, gap ~1380s), and both cited chunks contain [frame caption: ...] markers with visual content from slides/blackboards."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that the top-level DFS loop iterates over every vertex in V and calls DFS-Visit on unvisited vertices, ensuring all components are explored. It also supports that this approach detects cycles by finding back edges in any component of the graph."
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q005",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the chunk text, including the specific order G, A, H, D, B, E, C, F, I and the property that all edges point from lower to higher order."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap between the two spans is only 40 seconds (|2620 - 2660| = 40s), which is less than the required 70 seconds, making this effectively single-hop in disguise. The spans also overlap significantly."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The two spans overlap (2620-2685 and 2660-2725) and come from adjacent chunks, so they are not truly non-adjacent as required for multi-hop-visual; the content is essentially continuous and retrievable in a single step."
+    },
+    "rejection_reason": "Criteria 2 and 3 failed: the inter-hop gap is only 40 seconds (below the 70-second threshold), and the two spans overlap significantly, making this effectively single-hop rather than genuine multi-hop.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q006",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer's atomic claims are supported: chunk_008 shows 'if v not in parent' condition ensuring v is unvisited when traversed from u, and chunk_081 confirms 'for any edge e=(u,v), v finishes before u finishes' as the correctness property, with the reverse finishing order used for topological sort. The logical connection drawn (unvisited v gets fully explored before u finishes) follows directly from the DFS recursion described."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 245\u2013310s aligning with chunk_008 (a 45s window around that range), and hop 2 spans 2835\u20132900s aligning with chunk_081. The inter-hop gap is |245 - 2835| = 2590 seconds, far exceeding the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it references two non-adjacent spans (245s and 2835s, gap ~2590s) and both cited chunks contain [frame caption: ...] markers with visual content describing blackboard frames."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that 'if v not in parent' ensures v is unvisited when starting from u is supported, but the explanation of how this leads to v finishing before u in topological sort is not explicitly detailed in the source text. The source text mentions the reverse of finishing order but does not directly connect this to the DFS-Visit condition or topological sort correctness."
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q007",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q008",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame caption in the chunk explicitly states 'Analysis: \u0398(V+E) (linear time)' and 'visit each vertex once in DFS alone O(V)', supporting the time complexity claim. The answer's claim about O(E) for adjacency list entries summing by handshaking lemma is supported by the surrounding chunk text discussing DFS-Visit being called once per vertex and the work inside it."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground truth span is 945.0s\u20131005.0s (60s window), and chunk_027 covers a 45-second window. The span aligns plausibly with the chunk boundaries within the \u00b115s tolerance. Only one hop is present, so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual', requires exactly 1 span and at least one source chunk with a [frame caption: ...] marker. There is exactly 1 ground truth span and the cited chunk mit_6006f11_lec14_chunk_027 contains multiple [frame caption: ...] markers with relevant blackboard content."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states the time complexity of DFS as \u0398(V+E) and breaks it down into O(V) for visiting each vertex once and O(E) for the work done inside DFS-Visit, matching the claims in the answer."
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q009",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame caption explicitly states 'run DFS, output reverse or finishing time of vertices', supporting the claim about running DFS and outputting the reverse of finishing times. The answer's description of adding vertices to a list as they finish and reversing it is a reasonable interpretation of the caption content, and the claim about edges pointing from lower-order to higher-order vertices is supported by the frame caption describing job scheduling on a DAG."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span (2750.0s\u20132810.0s) covers a 60-second window, and chunk_078 is a single-hop visual question with one span. The chunk boundaries align plausibly with the cited span within the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual', requiring exactly 1 span and at least 1 source chunk with a [frame caption: ...] marker. There is exactly 1 span (hop 1) and the cited chunk mit_6006f11_lec14_chunk_078 contains multiple [frame caption: ...] markers, satisfying both conditions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim that the algorithm runs DFS and outputs the reverse of the finishing times of vertices is explicitly supported by the source text, which states 'run DFS, output reverse or finishing time of vertices.'"
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q010",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_042 explicitly describes setting inprocess=true at start and inprocess=false at end, and that following an edge to an in-process node means it's an ancestor and thus a backward edge. Chunk_056 explicitly describes that a back edge combined with tree edges (path from ancestor to current node) forms a directed cycle."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1475s\u20131540s) aligns with chunk_042 (which covers ~1475s\u20131540s window), and hop 2 (1955s\u20132020s) aligns with chunk_056. The inter-hop gap is |1475 - 1955| = 480 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop requiring two non-adjacent spans (480s apart), and both chunks contain [frame caption: ...] markers. However, since the question_type is 'multi-hop' (not 'multi-hop-visual'), the presence of frame captions is not required, and the two non-adjacent spans satisfy the multi-hop requirement."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims: the in-process marking tracks nodes on the recursion stack, detecting backward edges when an edge leads to an already in-process node, and a back edge implies a cycle by connecting a node to its ancestor, forming a cycle with tree edges."
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q011",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_002 explicitly states BFS explores from a single source s and gives infinite distance for unreachable vertices; chunk_013 explicitly describes the outer loop iterating over all vertices V and calling DFS-Visit on unvisited vertices to handle disconnected/not strongly connected graphs."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (65s\u2013130s) aligns with chunk_002 (a ~45s window starting around 65s); Hop 2 (490s\u2013555s) aligns with chunk_013; the inter-hop gap is |65 - 490| = 425 seconds, well above the 70s threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop requiring two non-adjacent spans (chunk_002 and chunk_013), and both chunks contain [frame caption: ...] markers, though the question type is claimed as multi-hop (not multi-hop-visual), which is valid since multi-hop only requires \u22652 non-adjacent spans."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that BFS only explores vertices reachable from a single source vertex and gives infinite distance for unreachable vertices. It also supports the claim that DFS can explore the entire graph by iterating over all vertices and restarting the search at each new component, making it useful for graphs that are not strongly connected."
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q012",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q013",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunk: the sum of adjacency list lengths equals E for directed graphs and 2E for undirected graphs, it is called the Handshaking Lemma from last time, and it is used to justify O(V+E) linear time complexity for DFS."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (1015.0s\u20131060.0s) aligns with chunk_029, which covers a 45-second window; the span falls within plausible chunk boundaries. This is a text question with one span, so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly one ground_truth_span provided. Although the chunk contains [frame caption: ...] markers, the text type does not require their absence, and the question is answerable from the spoken/written content alone."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the sum over all vertices V of the length of the adjacency list for each vertex equals E for directed graphs and 2E for undirected graphs, and this relationship is referred to as the Handshaking Lemma."
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q014",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk explicitly mentions recording a start time and finish time for each vertex, and describes incrementing a counter every time a step occurs as the mechanism for measuring time. All atomic claims in the answer are supported by the chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (1540.0s\u20131605.0s) aligns with chunk mit_6006f11_lec14_chunk_044, which covers a 45-second window; the span falls within plausible boundaries for this chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one span, and while the chunk contains [frame caption: ...] markers, the text type only requires exactly 1 span with no frame caption requirement, which is satisfied here."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims that two timestamps are recorded for each vertex: a start time when DFS begins visiting the vertex and a finish time when DFS completes visiting the vertex. It also supports the claim that these times are measured by incrementing a counter with each step of the algorithm."
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q015",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence that could answer the question about a recurrence relation used by DFS to compute shortest path distances. Furthermore, DFS does not inherently compute shortest path distances, making this question unanswerable by design."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

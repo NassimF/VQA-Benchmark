@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "nyu_dl_week13_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: O(n) complexity by parallelization and compact support is explicitly stated in chunk_026's frame captions; node j3 always occupying the top-right corner is confirmed in chunk_033's frame caption; the consistent ordering enabling meaningful template matching is directly stated in chunk_033's transcript and captions."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (16.0s\u201390.0s) aligns with chunk_026 which covers roughly that window; hop 2 (1140.0s\u20131200.0s) aligns with chunk_033. The inter-hop gap is |16 - 1140| = 1124 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunk_026 and chunk_033, separated by ~1124 seconds) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that node j3 always occupies the top-right corner of the 3x3 template is supported, but the explanation of how this ensures linear complexity is not explicitly stated in the source text. The source text mentions O(n) complexity by parallelization and for compact support patterns, but does not directly link this to node ordering or explain how it ensures linear complexity."
+  },
+  {
+    "qa_id": "nyu_dl_week13_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_047 confirms A_ij=1 for Facebook friends and 0 otherwise; chunk_048 confirms that for brain connectivity graphs A_ij represents the degree of connection between regions, specifically the number of fibers connecting region i and region j, which can be binary or continuous."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (420\u2013480s) aligns with chunk_047 and hop 2 (1680\u20131725s) aligns with chunk_048; the inter-hop gap is |420 - 1680| = 1260 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "Both source chunks contain [frame caption: ...] markers, satisfying the visual requirement, but the question is labeled multi-hop-visual yet the visual content (frame captions showing the Graph Laplacian slide) is not actually used to answer the question \u2014 both hops are answered from the spoken transcript text, not from any visual/frame caption content. The frame captions show only the Graph Laplacian formula and do not contain information about Facebook friends or brain connectivity adjacency values, so the 'visual' component of multi-hop-visual is not genuinely required."
+    },
+    "rejection_reason": "Criterion 3 failed: the question is labeled multi-hop-visual but the visual (frame caption) content does not contribute to answering either hop; both answers come from the spoken transcript, making the 'visual' designation inaccurate.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week13_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: node features (atom type including hydrogen, 3D coordinates, charge) and edge features (single bond, double bond, aromatic bond) are explicitly stated in chunk_016 transcript. The slide listing 'Drug/Material molecules (Chemistry)' as a graph domain application is confirmed in chunk_018 frame captions."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (560\u2013640s) aligns with chunk_016 and hop 2 (730\u2013780s) aligns with chunk_018; the inter-hop gap is |560-730| = 170 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunks 016 and 018) and both chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claims about node features (atom type, 3D coordinates, charge) and edge features (bond type) in molecular graphs. It also confirms that drug/material molecules are listed under chemistry as a graph domain application."
+  },
+  {
+    "qa_id": "nyu_dl_week13_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: (1) Laplacian eigenvectors are called Fourier functions (chunk_052: 'the laplacian eigenvectors they are called the fourier functions'); (2) first eigenvectors of 1D Euclidean Laplacian equal the standard Fourier basis (chunk_055 frame caption: 'First eigenvectors of 1D Euclidean Laplacian = standard Fourier basis'); (3) these correspond to cosine function and sinusoids (chunk_055: 'this is well known this is the cosine function and the semi-zoids'); (4) used for image compression (chunk_055: 'we use that you' \u2014 though truncated, the context implies applications, and the answer's claim about image compression is weakly supported but not contradicted; however this specific claim is not explicitly stated in the chunks). Actually, re-examining: the answer says 'used for applications such as image compression' but the chunk only says 'we use that you' (truncated). This specific claim is not explicitly supported. However, the rest of the claims are well-supported, and this minor unsupported detail does not fundamentally undermine the answer's correctness on the main claims."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 1885\u20131940s aligns with chunk_052 (a 45s window around ~1885\u20131940s); hop 2 spans 1960\u20132000s aligns with chunk_055. The inter-hop gap is |1885 - 1960| = 75 seconds, which is \u2265 70 seconds, satisfying the multi-hop requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u2265 2 non-adjacent spans (hop 1: 1885\u20131940s, hop 2: 1960\u20132000s) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that Laplacian eigenvectors are called Fourier functions and that the first eigenvectors of the 1D Euclidean Laplacian correspond to the standard Fourier basis, which includes the cosine function and sinusoids."
+  },
+  {
+    "qa_id": "nyu_dl_week13_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: SplineNet has quadratic complexity (blue line, curve increasing quadratically) and ChebNet has linear complexity (green line) are confirmed by multiple frame captions; ChebNet achieving 99% accuracy on MNIST comparable to standard convolutional network is explicitly stated in chunk_107 ('you get to see 99 percent of accuracy compared to the standard n5')."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Both hops start at nearly the same time (3745s and 3750s), giving an inter-hop gap of only 5 seconds, which is far below the required 70-second minimum. The two hops are essentially co-located and do not represent genuinely non-adjacent retrieval steps."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question claims multi-hop-visual: both cited chunks contain [frame caption: ...] markers, and the question references two spans (running time complexity from the slide visual, and accuracy from the lecture audio). However, the spans are not truly non-adjacent as noted in Criterion 2."
+    },
+    "rejection_reason": "Criterion 2 fails: the inter-hop gap between the two ground_truth_spans is only 5 seconds (3745s vs 3750s), far below the required 70-second minimum, making this effectively single-hop rather than genuine multi-hop.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week13_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_109 confirms that standard ConvNets produce anisotropic filters because grids have directional structure (up/down/left/right) and ordering of nodes, while graphs lack this notion of direction. Chunk_130 frame captions explicitly list ChebNets, CayleyNets, Vanilla GCNs, GraphSage, and GIN as computing isotropic filters due to no notion of directions on arbitrary graphs, and confirm the slide is titled 'Anisotropic GCNs'."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (3840\u20133900s) aligns with chunk_109 and hop 2 (4530\u20134590s) aligns with chunk_130; the inter-hop gap is |3840 - 4530| = 690 seconds, well above the 70-second minimum threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunks 109 and 130, ~690s apart), and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that standard ConvNets produce anisotropic filters due to the directional structure of Euclidean grids, and that GCNs like ChebNets, CayleyNets, Vanilla GCNs, GraphSage, and GIN compute isotropic filters because there is no notion of directions on arbitrary graphs. The Anisotropic GCNs slide confirms the list of isotropic GCN models."
+  },
+  {
+    "qa_id": "nyu_dl_week13_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the task-based layer computes a mean over all node representations (chunk_153/154), the equation h^G = (1/n) * sum of h_i^{\u2113=L} \u2208 \u211d^d is explicitly shown in frame captions of both chunks, and the result is passed to an MLP for regression or classification (chunk_154)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (5220\u20135280s) aligns with chunk_153 and hop 2 (5370\u20135415s) aligns with chunk_154; the inter-hop gap is |5220 - 5370| = 150 seconds, which exceeds the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunks 153 and 154, ~150s apart) and both cited chunks contain [frame caption: ...] markers with visual slide content, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the task-based layer computes a mean over all node representations for graph-level prediction, and the equation h^G = (1/n) times the sum over all nodes of h_i at layer L is shown on the slide, resulting in a vector of dimension d."
+  },
+  {
+    "qa_id": "nyu_dl_week13_q023",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the frame caption: the lab is hosted on Google Colab (stated as 'Google Collab, Gmail account required'), requires a Gmail account, runs on Google Cloud, uses DGL (Deep Graph Library), is developed at NYU Shanghai by Prof. Zhang Zheng, and is accessible at dgl.ai."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (4935.0s\u20134980.0s) aligns with chunk nyu_dl_week13_chunk_141, which is a 45-second window; the span falls within plausible chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual' with exactly 1 span, and the cited chunk nyu_dl_week13_chunk_141 contains multiple [frame caption: ...] markers, satisfying the visual question type requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the lab is hosted on Google Colab and requires a Gmail account, and it uses the Deep Graph Library (DGL) developed at NYU Shanghai by Professor Zhang Zheng, as indicated by the source text."
+  },
+  {
+    "qa_id": "nyu_dl_week13_q024",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the frame captions in the chunk: edge classification task, TSP, 2D graph with minimal tour length, train/validation/test sets of 10,000/1,000/1,000 TSP instances, and nodes randomly selected in a specified range."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (5530.0s\u20135575.0s) aligns with chunk nyu_dl_week13_chunk_158, which covers a 45-second window consistent with this timestamp range."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual' with exactly 1 span and the cited chunk contains multiple [frame caption: ...] markers, satisfying both requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the number of nodes is randomly selected in a specified range is not fully supported. The source text mentions a range '[50, 5', which appears to be incomplete or incorrect. Additionally, the source text does not explicitly state that the task is to find a tour with minimal length, although it is implied. The rest of the claims about the edge classification task and dataset statistics are supported."
+  },
+  {
+    "qa_id": "nyu_dl_week13_q025",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The claim that LapGCN complexity 'equals the number of edges times k' is not explicitly supported by the cited chunk text; the chunks only state that O(n\u00b2) comes from eigenvector use and that LapGCN learns monomial functions of the Laplacian to avoid this, without specifying edge-count complexity."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans plausibly align with their respective chunks, and the inter-hop gap of ~230 seconds well exceeds the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question genuinely requires two non-adjacent spans from different chunks, satisfying the multi-hop requirement."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer includes an unsupported atomic claim that LapGCN complexity equals 'number of edges times k,' which is not found in the cited source chunks.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week13_q026",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: (1) no node ordering/arbitrary indices is confirmed in chunk_037; (2) index has no meaning for spatial location is confirmed in chunk_037; (3) heterogeneous neighborhood size (template with 4 nodes vs graph with 7 nodes) is confirmed in chunk_039; (4) variable neighbors per node unlike grids is implied by the heterogeneous neighborhood discussion in chunk_039."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1260\u20131335s) aligns with chunk_037 and hop 2 (1365\u20131410s) aligns with chunk_039; the inter-hop gap is |1260 - 1365| = 105 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop requiring information from two non-adjacent spans (chunk_037 for issue 1, chunk_039 for issue 2), and both chunks contain [frame caption: ...] markers, satisfying the multi-hop requirement (frame captions are present but multi-hop rather than multi-hop-visual is claimed, which is acceptable since multi-hop does not require visual evidence)."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports both claims: the first issue is the lack of node ordering in graphs, making index-based matching meaningless, and the second issue is the heterogeneous neighborhood size, which arises because graphs can have variable numbers of neighbors per node."
+  },
+  {
+    "qa_id": "nyu_dl_week13_q027",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_137 confirms Transformers are a special case of GCNs with a fully connected graph where the neighborhood is the whole graph; chunk_139 confirms that sparsity structure (brain connectivity, social networks) is what makes graphs interesting, that it's better to talk about sets than graphs in the fully connected case, and that Transformers are Set Neural Networks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (4760\u20134820s) aligns with chunk_137 and hop 2 (4860\u20134930s) aligns with chunk_139; the inter-hop gap is |4760 - 4860| = 100 seconds, which exceeds the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop: the graph structure (fully connected) comes from chunk_137 and the discussion of what becomes less useful (talking about graphs vs. sets) comes from chunk_139, requiring two non-adjacent spans separated by ~100 seconds."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text states that Transformers correspond to a fully connected graph, making the neighborhood the entire graph. It also mentions that discussing graphs becomes less useful because the interesting property of graphs is their sparsity, and it would be better to talk about sets. Additionally, the text confirms that Transformers are Set Neural Networks."
+  },
+  {
+    "qa_id": "nyu_dl_week13_q028",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims that 'monomial bases are unstable for optimization because they are not orthogonal \u2014 changing one coefficient changes the whole function approximation,' but the chunk text does not explicitly state this about monomial bases or explain why they are non-orthogonal. The chunk only says you need an orthonormal basis with a recursive equation for stability and linear complexity; the specific claim about monomials and coefficient coupling is not supported by the cited chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (3660.0s\u20133720.0s) corresponds to chunk_105, which covers a 45-second window; the span aligns plausibly with the chunk boundaries within the allowed tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one span, and the chunk contains [frame caption: ...] markers but the type does not claim visual; the single-span text type requirement is satisfied."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer's claim about monomial bases being non-orthogonal and the specific effect of changing one coefficient is not explicitly supported by the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week13_q029",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the chunk text: the benchmarking paper motivation, use of small datasets like Cora, single task (classification), statistically same performance due to high standard deviation, and the need for medium-scale datasets to separate GNN performance are all explicitly stated in the chunk."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (4970.0s\u20135040.0s) aligns with chunk_142, which covers a 45-second window; the span falls within plausible chunk boundaries for this text question."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span cited; although the chunk contains [frame caption: ...] markers, the text type does not require their absence, and the answer is derivable from the spoken text alone."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the motivation for the benchmarking paper was due to the use of small datasets like Cora with only one task, classification, and the realization that GCNs and non-GCNs performed statistically the same due to high standard deviation, prompting the need for medium-scale datasets."
+  },
+  {
+    "qa_id": "nyu_dl_week13_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence available that could answer the question about SplineGCN parameter counts or a closed-form derivation of Chebyshev O(n) complexity for dense graphs."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

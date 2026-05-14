@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6046_lec01_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the cited chunk text, including the blackboard modules listed in frame captions and the instructor's statement about number theory and cryptography."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The inter-hop gap is ~447 seconds, well above the 70s threshold; span alignment is plausible given chunk content clearly matches the described timestamps, with hop 1 borderline but within acceptable range."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (61s and 508s) and relies on frame caption evidence for the blackboard content, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim about the blackboard listing 'Advanced Topics' is unsupported as the source text does not explicitly mention it. The claim about the connection between number theory and cryptography is supported by the source text."
+  },
+  {
+    "qa_id": "mit_6046_lec01_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the blackboard shows 'Very similar problems can have very different complexity' (chunk_018 frame captions), interval scheduling has a greedy linear-time solution, weighted interval scheduling uses DP yielding O(n^2) (chunk_137 mentions 'interval scheduling there was greedy linear time weighted interval scheduling is order n square'), and non-identical machine constraints make the problem NP-complete is implied by 'non-ident.' on the chalkboard in chunk_137 combined with the instructor's discussion of complexity differences."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (620.0s\u2013675.0s) aligns with chunk_018 (a ~45s window around that time), and Hop 2 (4775.0s\u20134840.0s) aligns with chunk_137; the inter-hop gap is |620 - 4775| = 4155 seconds, well above the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (620s and 4775s) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports all claims: the blackboard shows 'Very similar problems can have very different complexity,' and the instructor discusses interval scheduling problems with varying complexities, including greedy linear time, dynamic programming O(n^2), and NP-completeness with non-identical machines."
+  },
+  {
+    "qa_id": "mit_6046_lec01_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: NP is defined as 'class of problems verifiable in poly time' (chunk_022 frame captions), Hamiltonian cycle is given as an example of a problem in NP not known to be in P (chunk_022 transcript), it involves finding a simple cycle in a directed graph containing each vertex (chunk_023 frame captions), and verification is done by traversing the cycle and checking all vertices are touched exactly once in polynomial time (chunk_023 transcript)."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 770.0s\u2013810.0s and hop 2 spans 805.0s\u2013850.0s. The inter-hop gap is |770 - 805| = 35 seconds, which is far less than the required 70 seconds minimum, meaning the two hops are temporally adjacent and effectively retrievable in a single step."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as multi-hop-visual: both cited chunks contain [frame caption: ...] markers, and the question requires combining information from two spans (the blackboard definition of NP and the Hamiltonian cycle example). However, criterion 2 fails due to insufficient temporal gap."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only ~35 seconds (805s - 770s), well below the required 70-second minimum, making this effectively a single-hop retrieval in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec01_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The blackboard caption in chunk_026 explicitly shows 'NP-complete: problem is in NP and as hard as any problem in NP' (matching the answer's quote), and chunk_026's transcript states 'if you can solve any one of them gives you everything' supporting the claim that solving one NP-complete problem in polynomial time lets you solve all NP problems in polynomial time."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The two hops span 910.0s\u2013955.0s and 955.0s\u20131015.0s; the inter-hop gap is |910 - 955| = 45 seconds, which is less than the required 70 seconds, meaning the hops are too close together and effectively retrievable in a single step."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both cited chunks contain [frame caption: ...] markers with visual blackboard content, and the question references two spans (chunk_026 and chunk_027), satisfying the multi-hop-visual requirements of \u22652 non-adjacent spans and \u22651 frame caption."
+    },
+    "rejection_reason": "Criterion 2 fails: the inter-hop temporal gap is only 45 seconds (910s to 955s), which is below the required minimum of 70 seconds, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec01_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the frame captions and transcript text in the cited chunks."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap between hop 1 (starting 1730s) and hop 2 (starting 1715s) is only 15 seconds, far below the required 70-second minimum; the spans are essentially overlapping, making this single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "Although frame captions are present, the two hops are not non-adjacent (gap of only 15 seconds), so the multi-hop-visual classification is not justified."
+    },
+    "rejection_reason": "Criteria 2 and 3 failed: the inter-hop temporal gap is only ~15 seconds (well below the 70-second minimum), meaning the question is effectively single-hop rather than multi-hop-visual.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec01_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The claim about 'proof by induction' is not explicitly supported in the cited chunks; chunk_068 only vaguely references '046' without mentioning induction, and chunk_064 says 'I'm not going to do this' without specifying the proof method."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap between hop 1 (2385s) and hop 2 (2360s) is only 25 seconds, well below the required 70-second minimum, making this effectively single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "Although frame captions are present in both chunks, the two spans overlap temporally (2360-2430s range) with only a 25-second gap, failing the non-adjacency requirement for multi-hop classification."
+    },
+    "rejection_reason": "All three criteria failed: unsupported 'proof by induction' claim (C1), inter-hop gap of only 25s below the 70s threshold (C2), and spans are not sufficiently non-adjacent for multi-hop classification (C3).",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec01_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the cited chunks: the recursion formula, DP guessing strategy, n subproblems, O(n) per subproblem, and O(n^2) overall complexity are all explicitly present in the chunk text and frame captions."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (4620s\u20134670s) aligns with chunk_134's window, hop 2 (4736s\u20134805s) aligns with chunk_136's window, and the inter-hop gap of ~116 seconds exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop-visual: it requires two non-adjacent spans (116s apart) and both cited chunks contain [frame caption: ...] markers showing blackboard content essential to answering the question."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims: the blackboard shows the recursion 'opt(R) = max (Wi + opt(Rf(i)))' and the instructor derives a complexity of O(n^2) from having n subproblems, each requiring O(n) time to solve."
+  },
+  {
+    "qa_id": "mit_6046_lec01_q023",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims the blackboard displays 'Please read Course Information document on website,' which is directly supported by the frame caption in chunk_005. The claim about grading policy and collaboration policy is also supported by the spoken content in the chunk."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span (155.0s\u2013205.0s) corresponds to chunk_005, which covers a 45-second window. Chunk_005 is the 5th chunk, starting around 180s (4\u00d745=180), so the span falls within \u00b115s of the chunk boundary, making it plausible."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual' with exactly 1 span, and the cited chunk contains a [frame caption: ...] marker describing the blackboard text, satisfying both requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim that the blackboard displays the text 'Please read Course Information document on website' is explicitly supported by the source text. The source text also mentions that the course information document contains details on grading policy and collaboration policy, which aligns with the answer's mention of course logistics."
+  },
+  {
+    "qa_id": "mit_6046_lec01_q024",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer's atomic claims are all supported by the frame captions in the chunk: the definition 'A greedy algorithm is a myopic algorithm that processes the input one piece at a time with no apparent lookahead' appears verbatim in multiple frame captions, and the context of greedy interval scheduling is consistent with the chunk content."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span 1635.0s\u20131700.0s aligns with chunk_053, which covers a 45-second window; the span falls within plausible chunk boundaries for this chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual', requiring exactly 1 span and at least one source chunk with a [frame caption: ...] marker; both conditions are met as there is one span and multiple frame captions in chunk_053."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the blackboard shows the definition: 'A greedy algorithm is a myopic algorithm that processes the input one piece at a time with no apparent lookahead.'"
+  },
+  {
+    "qa_id": "mit_6046_lec01_q025",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: 6.006 is mentioned as prerequisite, students should know data structures, classical algorithms like sorting, dynamic programming algorithms, and shortest paths algorithms, and the warning about checking in with course staff for those who skipped 6.006 is explicitly stated in chunk_002."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The two hops span 70.0s\u2013115.0s and 115.0s\u2013165.0s, giving an inter-hop gap of |70.0 - 115.0| = 45 seconds, which is less than the required 70 seconds minimum gap. The hops are too close together and could effectively be retrieved in a single step."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is labeled multi-hop and uses two non-adjacent spans (chunk_002 and chunk_003), and no frame caption evidence is required for multi-hop type, which is satisfied here."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop gap between the two spans is only 45 seconds (115s - 70s), which is below the required minimum of 70 seconds, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec01_q026",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the cited chunk text, including compatibility definition, the non-overlap condition, the equality allowance, and open-ended intervals."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap is |1250 - 1195| = 55 seconds, which is less than the required 70-second minimum, making this effectively single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The claimed multi-hop type requires non-adjacent spans with a gap \u2265 70s, but the two hops are only 55 seconds apart, meaning the question could plausibly be answered from a single retrieval step."
+    },
+    "rejection_reason": "Criteria 2 and 3 failed: the inter-hop temporal gap (55s) is below the 70s minimum required for a genuine multi-hop question.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec01_q027",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec01_q028",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk text explicitly states 'attempting problems and not turning problem sets in that is way more than 30%' and 'please read the collaboration policy as well as the grading policy carefully,' which supports all atomic claims in the answer about the penalty being more than 30% and the urging to read the policies."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span 247.0s\u2013310.0s aligns with chunk_007, which covers a 45-second window; the span falls within plausible chunk boundaries for this text question."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span (247.0s\u2013310.0s); the question can be answered from this single span without requiring visual evidence."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that there is a penalty for not attempting problem sets that is more than 30% is supported. However, the claim that the instructor urges students to read the collaboration policy and grading policy to understand this requirement is not explicitly supported, as the source text does not mention understanding a requirement, only that students should read the policies and can ask questions."
+  },
+  {
+    "qa_id": "mit_6046_lec01_q029",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6046_lec01_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the source material that could answer the question about the exact running time of the smarter dynamic programming formulation for weighted interval scheduling."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

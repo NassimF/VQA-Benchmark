@@ -1,0 +1,541 @@
+[
+  {
+    "qa_id": "nyu_dl_week3_q001",
+    "question": "The lecture shows a network with two neurons per layer using 2x2 matrices. According to the visual diagrams shown during the affine transformation demonstrations, what geometric operations does a 2x2 matrix perform, and how does the ReLU operation visually affect the space after each affine transformation?",
+    "answer": "According to the transcript, a 2x2 matrix performs rotation, scaling, shearing, and reflection on the plane. The visual diagrams show that the ReLU operation kills all the negative sides of the space \u2014 after each affine transformation, the negative subspaces are erased and set to zero, so only one quadrant survives every time. The frame captions confirm this with diagrams showing colored spiral curves being transformed through successive layers with regions being zeroed out.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 35.0,
+        "end": 80.0,
+        "hop": 1,
+        "description": "2x2 matrix operations: rotation, scaling, shearing, reflection"
+      },
+      {
+        "start": 295.0,
+        "end": 375.0,
+        "hop": 2,
+        "description": "Visual frame captions showing ReLU zeroing negative subspaces after affine transformations"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week3_chunk_001",
+      "nyu_dl_week3_chunk_006"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "affine transformation",
+      "2x2 matrix operations",
+      "ReLU",
+      "negative subspace zeroing"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week3_q002",
+    "question": "The lecture explains that training the two-neuron-per-layer network was very hard. What specific reason is given for why bias placement causes training difficulty, and how does the visual diagram of the 'Detecting Motifs in Images' slide illustrate a related concept of shift invariance that avoids such fragility?",
+    "answer": "The transcript explains that if any of the four biases places points away from the top right quadrant, the ReLU will kill everything and collapse activations to zero, making the network untrainable. The 'Detecting Motifs in Images' visual slide illustrates shift invariance by showing that when a letter D is shifted by a couple of pixels, the detectors still fire at the corresponding shifted location \u2014 the output shifts equivalently with the input but is otherwise unchanged, demonstrating a more robust approach through shared-weight convolution.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 370.0,
+        "end": 430.0,
+        "hop": 1,
+        "description": "Bias placement killing activations causing training difficulty"
+      },
+      {
+        "start": 2430.0,
+        "end": 2550.0,
+        "hop": 2,
+        "description": "Visual slide showing shift invariance in motif detection with shifted letter D"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week3_chunk_010",
+      "nyu_dl_week3_chunk_043"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "bias placement",
+      "ReLU collapse",
+      "shift invariance",
+      "equivariance"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week3_q003",
+    "question": "The parameter transformation framework introduced in the lecture uses a function H(u) to produce weights w. According to the visual slide on 'Parameter transformations' and the explanation of weight sharing, what does the function H(u) do in the simple weight-sharing case, and how does back-propagation work through this scheme?",
+    "answer": "According to the visual 'Parameter transformations' slide, H(u) takes an input u and produces output w = H(u), which is then used in G(x,w). In the simple weight-sharing case, H(u) replicates one component of u into multiple components of w \u2014 for example, w1=w2=u1 and w3=w4=u2. During back-propagation, gradients flow through G to get gradients with respect to w, then continue through H to get gradients with respect to u. The gradient with respect to u1 becomes the sum of gradients with respect to w1 and w2, because multiple weights share the same parameter.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 830.0,
+        "end": 930.0,
+        "hop": 1,
+        "description": "Visual slide showing H(u) producing w for G(x,w) in parameter transformation diagram"
+      },
+      {
+        "start": 1215.0,
+        "end": 1380.0,
+        "hop": 2,
+        "description": "Weight sharing: H replicates u components, gradients are summed during backprop"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week3_chunk_015",
+      "nyu_dl_week3_chunk_022"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "parameter transformation",
+      "weight sharing",
+      "H(u)",
+      "backpropagation",
+      "gradient accumulation"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week3_q004",
+    "question": "The lecture introduces the concept of a hypernetwork. According to the visual 'Hypernetwork' slide and the transcript, what is the key idea of a hypernetwork, and how does it differ from simple weight sharing in terms of what determines the weights of the main network?",
+    "answer": "According to the visual 'Hypernetwork' slide showing the diagram with H(x,u) and G(x,w), a hypernetwork is a network where the weights of one network G are computed as the output of another network H. The key distinction from simple weight sharing is that in a hypernetwork, H can take both the input x and its own parameters u to dynamically compute w = H(x,u), making the weights a complex function of the input itself. In simple weight sharing, H(u) only copies components of u into multiple positions of w without any dependence on the input x.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1390.0,
+        "end": 1450.0,
+        "hop": 1,
+        "description": "Hypernetwork visual slide showing H(x,u) outputting w to G(x,w)"
+      },
+      {
+        "start": 1100.0,
+        "end": 1200.0,
+        "hop": 2,
+        "description": "Simple weight sharing: H(u) just replicates components, no input dependence"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week3_chunk_023",
+      "nyu_dl_week3_chunk_021"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "hypernetwork",
+      "weight sharing",
+      "dynamic weights",
+      "input-dependent parameters"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week3_q005",
+    "question": "The lecture explains how shared weights enable motif detection. The visual slide titled 'Shared Weights for Motif Detection' shows multiple G(x,w) functions connected to a MAX function. According to both the visual and the Alexa wake-word example in the transcript, why is the MAX function used at the output, and what is the training challenge it helps address?",
+    "answer": "The visual 'Shared Weights for Motif Detection' slide shows multiple copies of G(x,w) each analyzing a different window of the input sequence, all sharing the same weight w, and their outputs feed into a MAX function. The MAX function is used because the system needs to detect whether a motif \u2014 such as the wake word 'Alexa' \u2014 occurs anywhere in the input window, without knowing exactly where it occurs. The training challenge is that labelers only know the keyword was spoken somewhere within a few-second segment, not its exact position. The MAX function enables end-to-end training despite this location uncertainty by firing when any of the replicated detectors fires.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1570.0,
+        "end": 1640.0,
+        "hop": 1,
+        "description": "Visual slide showing G(x,w) copies connected to MAX function for motif detection"
+      },
+      {
+        "start": 1790.0,
+        "end": 1910.0,
+        "hop": 2,
+        "description": "Alexa wake-word example: labelers only know keyword occurred somewhere, MAX enables training"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week3_chunk_027",
+      "nyu_dl_week3_chunk_031"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "shared weights",
+      "motif detection",
+      "MAX pooling",
+      "wake-word detection",
+      "location-unknown training"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week3_q006",
+    "question": "The lecture describes the Hubel and Wiesel model of the visual cortex. According to the visual slide titled 'Hubel and Wiesel's Model of the Architecture of the Visual Cortex' and the transcript discussion, what do simple cells and complex cells respectively do, and how does this map onto the operations in a convolutional neural network?",
+    "answer": "According to the visual slide and the transcript, simple cells detect local features \u2014 they are sensitive to oriented edges or contours within a small receptive field and are selective for orientation. Complex cells pool the outputs of multiple simple cells that share the same orientation preference within a small region, performing an aggregation such as max or sum that is invariant to the order of inputs. This maps directly onto convolutional nets: simple cells correspond to the convolutional filter bank that detects local features at each spatial location, while complex cells correspond to the pooling operation that aggregates nearby simple-cell responses to build local shift invariance.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 4640.0,
+        "end": 4720.0,
+        "hop": 1,
+        "description": "Visual slide: simple cells detect local features, complex cells pool outputs of simple cells"
+      },
+      {
+        "start": 4790.0,
+        "end": 4890.0,
+        "hop": 2,
+        "description": "Transcript: complex cells integrate outputs of simple cells via max/sum, building shift invariance"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week3_chunk_076",
+      "nyu_dl_week3_chunk_079"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "simple cells",
+      "complex cells",
+      "receptive field",
+      "pooling",
+      "convolution",
+      "shift invariance"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week3_q008",
+    "question": "According to the visual frame caption for the 'Parameter transformations' slide, what are the specific components shown in the diagram and what update rule is displayed for the parameter u?",
+    "answer": "According to the frame captions for the 'Parameter transformations' slide, the diagram shows the following components: an input u flowing through a function H(u) to produce w, then w is used as an input to another function G(x,w) to produce y, and y is compared to y-bar and fed into a cost function C(y, y-bar). The parameter update rule shown is u \u2190 u minus some update term, indicating gradient descent on the elementary parameter u rather than directly on the weights w.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 830.0,
+        "end": 930.0,
+        "hop": 1,
+        "description": "Visual frame caption of Parameter transformations slide showing u\u2192H(u)\u2192w\u2192G(x,w)\u2192y\u2192C(y,y-bar) and update rule u\u2190u\u2212..."
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week3_chunk_015"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "parameter transformation",
+      "H(u)",
+      "G(x,w)",
+      "cost function",
+      "parameter update rule"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week3_q012",
+    "question": "The lecture explains the mathematical difference between convolution and cross-correlation and why it matters. What is the key indexing convention that distinguishes the two operations, and why does the lecture say this distinction largely does not matter in practice for deep learning frameworks like PyTorch?",
+    "answer": "The key indexing convention that distinguishes the two operations is that in true mathematical convolution, the index j in the input window x goes backwards \u2014 specifically x is indexed as x_{i-j} \u2014 while in cross-correlation both the weight index and the input index go forwards as x_{i+j}. The lecture explains this distinction largely does not matter in practice because you can interpret a cross-correlation as a convolution simply by reading the weights in reverse order. Since the weights are learned anyway, the network will learn the reversed weights if needed, so deep learning frameworks like PyTorch implement what is technically cross-correlation but call it convolution without any loss of generality.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2935.0,
+        "end": 3010.0,
+        "hop": 1,
+        "description": "Convolution uses x_{i-j} index going backwards; cross-correlation uses x_{i+j} going forwards"
+      },
+      {
+        "start": 3010.0,
+        "end": 3075.0,
+        "hop": 2,
+        "description": "Reading weights backwards converts cross-correlation to convolution; distinction irrelevant in practice"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week3_chunk_049",
+      "nyu_dl_week3_chunk_050"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "convolution",
+      "cross-correlation",
+      "indexing convention",
+      "weight reversal",
+      "PyTorch"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week3_q015",
+    "question": "What is the exact error rate achieved by the first convolutional network trained at Bell Labs on the USPS zipcode dataset, and how does it compare to the error rate of a random forest trained on the same data?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "hard",
+    "answerable": false,
+    "key_concepts": [
+      "Bell Labs ConvNet",
+      "USPS zipcode",
+      "error rate",
+      "random forest comparison"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "nyu_dl_week3_q018",
+    "question": "What does the 'Shared Weights for Motif Detection' slide depict, and how does the lecturer describe using this architecture for wake-word detection like Alexa?",
+    "answer": "The 'Shared Weights for Motif Detection' slide shows a series of identical functions G(x,w) connected to a MAX function, with input x represented by vertical bars and shared weights w. The lecturer describes that for wake-word detection, you have replicated detectors that all share the same weight, their outputs go to a max function, and the system is trained with examples where the keyword has been pronounced somewhere in a segment without knowing the exact location.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 795.0,
+        "end": 840.0,
+        "hop": 1,
+        "description": "Frame caption for 'Shared Weights for Motif Detection' slide showing G(x,w) functions connected to MAX function"
+      },
+      {
+        "start": 1030.0,
+        "end": 1080.0,
+        "hop": 2,
+        "description": "Lecturer describes replicated detectors sharing same weight, output going to max function, training with Alexa wake-word examples"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week3_chunk_026",
+      "nyu_dl_week3_chunk_030"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "shared weights",
+      "motif detection",
+      "wake-word detection",
+      "max pooling"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week3_q019",
+    "question": "What does the slide titled 'Detecting Motifs in Images' show as the method for template matching, and how does the lecturer explain the dot product computation for determining if templates match?",
+    "answer": "The 'Detecting Motifs in Images' slide shows swiping templates over the input image to detect motifs, with three detectors applied to an input image labeled 'C'. The lecturer explains that you think of black pixels as plus one and white pixels as minus one, and when you compute the dot product of a little window with a template, if they are similar you get a large positive value, and if dissimilar you get zero or a negative or smaller value.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1250.0,
+        "end": 1290.0,
+        "hop": 1,
+        "description": "Frame caption for 'Detecting Motifs in Images' slide showing templates swiped over image C with three detectors"
+      },
+      {
+        "start": 1330.0,
+        "end": 1375.0,
+        "hop": 2,
+        "description": "Lecturer explains black pixels as plus one minus one for white, dot product gives large positive value if similar"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week3_chunk_037",
+      "nyu_dl_week3_chunk_038"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "template matching",
+      "dot product",
+      "convolution",
+      "motif detection"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week3_q020",
+    "question": "What does the slide titled 'Hubel & Wiesel's Model of the Architecture of the Visual Cortex' describe about simple cells and complex cells, and how does the lecturer connect complex cells to shift invariance?",
+    "answer": "The 'Hubel & Wiesel's Model' slide states that simple cells detect local features and complex cells pool the outputs of simple cells. The lecturer explains that a complex cell integrates the output of multiple simple cells within a certain area, all detecting edges at a particular orientation, and will turn on if any of those simple cells turns on, thereby building a little bit of shift invariance with respect to small variations of feature positions in the input.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2700.0,
+        "end": 2730.0,
+        "hop": 1,
+        "description": "Frame caption for Hubel & Wiesel slide stating simple cells detect local features and complex cells pool outputs of simple cells"
+      },
+      {
+        "start": 2790.0,
+        "end": 2850.0,
+        "hop": 2,
+        "description": "Lecturer explains complex cell integrates output of multiple simple cells, turns on if any simple cell turns on, builds shift invariance"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week3_chunk_079",
+      "nyu_dl_week3_chunk_080"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "Hubel and Wiesel",
+      "simple cells",
+      "complex cells",
+      "shift invariance",
+      "pooling"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week3_q025",
+    "question": "According to the lecture, why was the 2-neuron-per-layer network hard to train, and what happens when one of the biases puts points away from the top right quadrant?",
+    "answer": "The lecture states the 2-neuron-per-layer network was really hard to train because the optimization is actually quite hard. When one of the four biases puts initial points away from the top right quadrant, the ReLUs are going to be completely killing everything and everything gets collapsed into zero, after which nothing more can be done.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 240.0,
+        "end": 305.0,
+        "hop": 1,
+        "description": "Lecturer says training took a lot of effort because optimization is quite hard, mentions midterm question about why"
+      },
+      {
+        "start": 371.0,
+        "end": 430.0,
+        "hop": 2,
+        "description": "Lecturer explains if bias puts point away from top right quadrant, ReLUs kill everything and everything collapses to zero"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week3_chunk_004",
+      "nyu_dl_week3_chunk_011"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "training difficulty",
+      "bias",
+      "ReLU",
+      "gradient vanishing",
+      "optimization"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week3_q027",
+    "question": "According to the lecture, what are the two key characteristics that a signal must have for convolutional networks to be advantageous, and why does each characteristic justify a specific design choice in ConvNets?",
+    "answer": "The lecture states the two characteristics are: first, there must be strong local correlations between values, which justifies local connections because nearby pixels are likely to have similar colors; second, features may appear anywhere on the image meaning the statistics of the signal are uniform, which justifies shared weights so that repeated feature detectors are used for every location.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 5760.0,
+        "end": 5830.0,
+        "hop": 1,
+        "description": "Lecturer says first characteristic is strong local correlations between values, justifying local connections"
+      },
+      {
+        "start": 5905.0,
+        "end": 5950.0,
+        "hop": 2,
+        "description": "Lecturer says second characteristic is features can appear anywhere meaning uniform statistics, justifying shared weights"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week3_chunk_163",
+      "nyu_dl_week3_chunk_164"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "local correlations",
+      "shared weights",
+      "ConvNet design",
+      "translation invariance",
+      "feature detectors"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week3_q028",
+    "question": "According to the lecture, what is the specific reason why you must zero the gradients before doing backpropagation in PyTorch when using weight sharing?",
+    "answer": "According to the lecture, when you have weight sharing implemented with multiple copies of the same network, back-propagating through the five copies gives five gradients that get added up for the parameter. This accumulation of gradients in a single parameter is done implicitly in PyTorch and other deep learning frameworks, which is why before you do a backprop you have to zero the gradient \u2014 because there is sort of implicit accumulation of gradients when you do back-propagation.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1155.0,
+        "end": 1225.0,
+        "hop": 1,
+        "description": "Lecturer explains five copies of network give five gradients added up, implicit gradient accumulation in PyTorch is why you zero gradients before backprop"
+      }
+    ],
+    "source_chunk_ids": [
+      "nyu_dl_week3_chunk_033"
+    ],
+    "question_type": "text",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "gradient accumulation",
+      "weight sharing",
+      "backpropagation",
+      "PyTorch",
+      "zero gradients"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "nyu_dl_week3_q030",
+    "question": "What is the exact number of spectral bands that the mantis shrimp is described as having in this lecture, and what does the lecturer say about their resolution and brain size?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "easy",
+    "answerable": false,
+    "key_concepts": [
+      "mantis shrimp",
+      "spectral bands",
+      "hyperspectral imaging"
+    ],
+    "video_id": "nyu_dl_week3",
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  }
+]

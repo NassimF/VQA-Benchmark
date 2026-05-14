@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "nyu_dl_week7_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "Hop 1: The TAs 'Alfredo Canziani and Mark Goldstein' are supported by chunk_000's frame captions (truncated as 'Mark Gold' but clearly referring to Mark Goldstein). Hop 2: The claim that F(x,y) 'represents the set of constraints that y must satisfy' is explicitly stated in chunk_004's third frame caption."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (0.0s\u201345.0s) aligns with chunk_000 (a 45-second window starting at 0s). Hop 2 (240.0s\u2013305.0s) aligns with chunk_004 (starting around 180s\u2013225s, within \u00b115s tolerance for a chunk covering ~180\u2013225s). The inter-hop gap is |0 - 240| = 240 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (0\u201345s and 240\u2013305s) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the TAs for the course are Alfredo Canziani and Mark Gold, and it describes F(x, y) as representing the set of constraints that y must satisfy."
+  },
+  {
+    "qa_id": "nyu_dl_week7_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_025 frame captions confirm the three cases where inference is hard (high-dimensional structured output, compositional structure, long chain of reasoning), and chunk_006 transcript explicitly states that softmax cannot be used in high-dimensional continuous spaces because you cannot list all possible outputs and normalize over them, and binning into discrete bins doesn't work well in high dimensions."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (195s\u2013255s) aligns with chunk_006 (a ~45s window around that range), and hop 2 (875s\u2013935s) aligns with chunk_025; the temporal gap between hops is |195 - 875| = 680 seconds, well above the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunks 006 and 025, separated by ~680 seconds), and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text. The cases where inference is hard are listed in the frame caption of the lecture slide titled 'When inference is hard'. The transcript passage explains why high-dimensional continuous output spaces prevent the use of softmax."
+  },
+  {
+    "qa_id": "nyu_dl_week7_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the frame caption in chunk_020 explicitly states 'Low energy near the data points. Higher energy everywhere else.' as properties of the energy function, and chunk_021's transcript states 'it's nice when y is continuous that F be smooth and differentiable so that we can use gradient based inference algorithms,' which supports the answer's claim about why F should be smooth and differentiable."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 670.0s\u2013745.0s and Hop 2 spans 735.0s\u2013800.0s; the inter-hop gap is |670 - 735| = 65 seconds, which is less than the required 70-second minimum, meaning the hops are too close together and could effectively be retrieved in a single step."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires information from two spans (frame caption for properties, transcript for the smoothness rationale) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 2 failed: the temporal gap between hops is only 65 seconds (|670 - 735| = 65s), which is below the required 70-second minimum for multi-hop questions.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week7_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the frame captions (latent variable, z varies, F(x,y)=min_z E(x,y,z)) and transcript text (least squares produces blurry average image) in the cited chunks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops start at 1395s and 1560s, giving an inter-hop gap of 165 seconds which exceeds the required 70s minimum, and both spans align plausibly with their respective chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans and both cited chunks contain [frame caption: ...] markers; the question genuinely requires combining frame caption content from one span with transcript explanation from another."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports all claims: the frame caption mentions allowing multiple predictions through a latent variable and that as z varies, y varies over possible predictions with F(x,y) = min_z E(x,y,z). The transcript explains that least squares training results in a blurry image because it averages possible outcomes due to uncertainty."
+  },
+  {
+    "qa_id": "nyu_dl_week7_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the frame caption in chunk_094/095 explicitly states 'Text / symbol sequences (discrete, works great!)' with 'Future word(s) prediction (NLM)' and 'Masked words prediction (BERT et al.)'; the transcript in chunk_094 explicitly states the difference is 'things seems to work in the discrete world they don't seem to work in the continuous world' and 'in the discrete world we know how to represent uncertainty by a big softmax vector over words you continuous spaces we don't'."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (3205\u20133260s) and Hop 2 (3325\u20133370s) align with chunk_094 and chunk_095 respectively; the inter-hop gap is |3205 - 3325| = 120 seconds, which exceeds the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (one from the transcript about why SSL disappoints for images, another from the frame caption about text/symbol sequences), and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports both claims: the frame caption mentions text/symbol sequences as discrete and effective with tasks like future word(s) prediction and masked words prediction, and the transcript explains that self-supervised learning works for NLP because it is discrete, allowing uncertainty to be represented by a softmax vector, unlike continuous spaces for images."
+  },
+  {
+    "qa_id": "nyu_dl_week7_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame caption in chunk_103 explicitly states 'Latent variables allows system to make multiple predictions' supporting the first claim. The transcript in chunk_103 explicitly states 'Z will have the complimentary variable here is the direction in which the pen actually fell' and that this is information 'you cannot' extract from observation, supporting the second claim about Z holding complementary information not present in x."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (3625\u20133650s) aligns with chunk_103 and hop 2 (3905\u20133970s) aligns with chunk_109; the inter-hop gap is |3625 - 3905| = 280 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunks 103 and 109, ~280s apart) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim that the frame caption states latent variables allow the system to make multiple predictions is supported by the source text. The transcript's explanation that Z holds the complementary variable, specifically the direction in which the pen actually fell, is also supported by the source text."
+  },
+  {
+    "qa_id": "nyu_dl_week7_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the frame caption in chunk_125 explicitly states C1 involves 'push down of the energy of data points, push up everywhere else: Max likelihood (needs tractable partition function or variational approximation)'; the transcript in chunk_125 explicitly states 'maximum likelihood pushes down the energy of data points to minus infinity and pushes up the energy of other points to plus infinity which is the problem that we were just talking about earlier.'"
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 4365\u20134440s and hop 2 spans 4460\u20134530s; chunk_124 covers approximately 4365\u20134410s and chunk_125 covers approximately 4410\u20134455s, which are within \u00b115s of the chunk boundaries. The inter-hop gap is |4460 - 4365| = 95 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires information from two non-adjacent spans (chunk_124 and chunk_125), and both chunks contain [frame caption: ...] markers referencing the 'Seven Strategies to Shape the Energy Function' slide, satisfying both conditions for multi-hop-visual."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports both claims: the frame caption describes C1 as pushing down the energy of data points and pushing up everywhere else, and the transcript explains that maximum likelihood pushes energies to minus and plus infinity, which is the problem discussed."
+  },
+  {
+    "qa_id": "nyu_dl_week7_q023",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame captions in the cited chunk explicitly state the slide is titled 'Self-Supervised Learning = Filling in the Blanks' and list 'Predict any part of the input from any other part.' as the first and main point, supporting the answer's claim about the subtitle/descriptive phrase."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span of 2880.0s\u20132940.0s aligns with chunk_080, which covers a 45-second window; 2880s falls within the expected chunk boundary range for chunk_080."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual' with exactly 1 span, and the cited chunk (nyu_dl_week7_chunk_080) contains multiple [frame caption: ...] markers, satisfying the visual question type requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim that the subtitle or descriptive phrase shown on the slide is 'Predict any part of the input from any other part.' is explicitly supported by the source text, which lists this exact phrase as a point on the slide."
+  },
+  {
+    "qa_id": "nyu_dl_week7_q024",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The frame captions in the cited chunk explicitly state 'Simultaneous minimization with respect to y and z' as a main point of the 'Latent-Variable EBM: inference' slide, directly supporting the answer's claim."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (1195.0s\u20131270.0s) aligns with chunk_034, which covers a 45-second window; the span boundaries are plausible for this chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual' with exactly 1 span and the cited chunk contains multiple [frame caption: ...] markers, satisfying both requirements for the visual type."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim that the inference procedure involves simultaneous minimization with respect to y and z is explicitly supported by the source text, which states 'Simultaneous minimization with respect to y and z.'"
+  },
+  {
+    "qa_id": "nyu_dl_week7_q025",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims k-means is given as a specific example of an architectural method, but neither cited chunk (chunk_118 or chunk_119) mentions k-means at all."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align with their respective chunk boundaries, and the inter-hop gap is exactly 70 seconds, meeting the minimum threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question genuinely requires information from two separate non-adjacent chunks (contrastive methods from chunk_118 and architectural methods from chunk_119), satisfying the multi-hop requirement."
+    },
+    "rejection_reason": "Criterion 1 failed: the claim that k-means is the specific example of an architectural method is not supported by any text in the cited source chunks.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week7_q026",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the model would require 'a neural net with infinite weights' and that 'all values of y except a set of zero probability would have probability zero,' but neither claim is explicitly supported by the cited chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The spans align with the cited chunks and the inter-hop gap is approximately 115 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is labeled multi-hop and genuinely requires information from two non-adjacent spans (chunk_071 and chunk_073) with a sufficient temporal gap."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer includes unsupported atomic claims ('infinite weights' requirement and the specific claim about zero probability for all y values) not found in the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week7_q027",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are directly supported by the chunk text: Z is not a parameter/weight but a value that changes per sample (chunk_045); during training given X and Y you find Z that minimizes the energy function with current parameter values (chunk_045); that Z is your best guess and is fed to a loss function optimized w.r.t. network parameters (chunk_045/046); Z has a different value for every sample so 'learned' is inappropriate and 'inferred' is used instead (chunk_046)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1575\u20131640s) aligns with chunk_045 and hop 2 (1645\u20131715s) aligns with chunk_046; the inter-hop gap is |1575 - 1645| = 70 seconds, which meets the \u226570s requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is classified as multi-hop and requires information from two non-adjacent spans (chunk_045 and chunk_046); the distinction between 'inferred' vs 'learned' requires combining information from both chunks, satisfying the multi-hop requirement."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text: Z is not a parameter or weight and changes for every sample; during training, Z is inferred by minimizing the energy function; Z is used in a loss function optimized with respect to network parameters; Z is inferred, not learned, because it varies per sample."
+  },
+  {
+    "qa_id": "nyu_dl_week7_q028",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk text explicitly mentions 'this famous quit by the famous statistician box that said all models are wrong but some are useful,' which directly supports the answer's claim about Box's quote being mentioned in the context of arguing against insisting on probabilistic models."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span (2345.0s\u20132390.0s) corresponds to chunk_067, which covers a 45-second window; the span aligns plausibly with the chunk boundaries within the allowed \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is only one hop (2345.0s\u20132390.0s) with one source chunk cited, satisfying the text type requirement."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly mentions the quote by the statistician Box: 'All models are wrong but some are useful.' This supports the claim in the answer."
+  },
+  {
+    "qa_id": "nyu_dl_week7_q029",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the variant is called a 'masked rotary encoder,' which matches the chunk text. However, the answer states the corruption technique is 'masking some of the words in the text,' while the chunk says 'masking pieces of the input' \u2014 this is a minor paraphrase but acceptable. The bigger issue is that the chunk text says 'masked rotary encoder' which appears to be a mishearing/mistranscription of 'masked autoencoder' or similar, but the answer faithfully reproduces what the chunk says. Actually, re-examining: the chunk explicitly states 'it's actually called a masked rotary encoder because the type of corruption you do is masking pieces of the input' \u2014 both atomic claims in the answer are directly supported by the chunk text. PASS on correctness."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span is 5810.0s\u20135855.0s (45-second window), and chunk_166 covers a 45-second window. The span aligns with the chunk boundaries within the expected range."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span provided. The chunk contains [frame caption: ...] markers but the type is 'text' not 'visual,' which is acceptable since the answer is derived from the spoken content, not the visual."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week7_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the lecture content about the precise computational cost or training time for the k-means algorithm described in the lecture."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

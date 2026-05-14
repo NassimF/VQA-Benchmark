@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6004_lec14_q001",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: MIT 6.004 Fall 2018, Lecture 14 titled 'Caches 2,' presenter Silvina Hanono Wachman from CSAIL at MIT are confirmed in chunk_000 frame captions. The direct-mapped cache dividing a 32-bit address into tag, index, and offset, with K index bits selecting 2^K cache lines, and offset bits B-1 down to 2 selecting words with bottom two bits zero for word alignment, are supported by chunk_002 text and frame captions."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (0.0s\u201345.0s) aligns with chunk_000 (first 45-second window), and hop 2 (70.0s\u2013185.0s) aligns with chunk_002 (which starts around 90s). The inter-hop gap between hop starts is |0.0 - 70.0| = 70 seconds, which meets the \u226570s requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires information from two non-adjacent spans (chunk_000 for course/lecture title and chunk_002 for cache diagram), and both cited chunks contain multiple [frame caption: ...] markers providing visual evidence."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text: the course is MIT 6.004 Fall 2018, Lecture 14 titled 'Caches 2,' and the direct-mapped cache divides a 32-bit address into tag, index, and offset, with K index bits and offset bits B-1 down to 2 for word alignment."
+  },
+  {
+    "qa_id": "mit_6004_lec14_q002",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the source chunks: index bits select a set checked across all n ways (chunk_008, chunk_011), tags are compared against all n ways (chunk_010, chunk_011), a hit in more than one way is impossible because the cache design ensures a particular address only lives in one way at a time (chunk_010: 'generally when we're designing our cash we're going to make sure that a particular address only lives in one way of our cash'), and chunk_011 confirms 'we're guaranteed that if we found a hit then that's the only place we're gonna find the hit'."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (485s\u2013565s) aligns with chunk_010/chunk_011 (which cover the ~485\u2013565s range), and hop 2 (310s\u2013420s) aligns with chunk_008 (covering ~310\u2013420s). The inter-hop gap is |485 - 310| = 175 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans (310s\u2013420s and 485s\u2013565s, gap of 175s) and all cited chunks contain [frame caption: ...] markers describing the n-way set-associative cache diagram, satisfying both conditions for multi-hop-visual."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the index bits select a set, the tag is compared across all ways, and a hit in more than one way is impossible because each address lives in only one way at a time, as stated in the source text."
+  },
+  {
+    "qa_id": "mit_6004_lec14_q003",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: direct-mapped cache has no replacement choice (chunk_023 frame captions), N-way set-associative has N choices (chunk_023/024 frame captions), 2-way LRU requires one bit of state per cache line (chunk_024 transcript), and LRU is preferred due to locality principle\u2014recently used data likely to be used again (chunk_023 transcript)."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Both hops fall within the same 60-second window (840s\u2013900s and 840s\u2013945s), and the inter-hop gap between hop 1 start (840s) and hop 2 start (840s) is 0 seconds, which is far below the required 70-second minimum gap between hops."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question claims multi-hop-visual: both cited chunks contain [frame caption: ...] markers, and two spans are cited (840\u2013900s and 840\u2013945s), satisfying the visual evidence requirement; however the non-adjacency requirement is questionable given the overlapping spans."
+    },
+    "rejection_reason": "Criterion 2 fails: the two hops share the same start time (840s), giving an inter-hop gap of 0 seconds, well below the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6004_lec14_q004",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: processor makes word-level requests with 32-bit address expecting 32-bit response (chunk_036, chunk_037), SRAM makes line requests to DRAM fetching 16 words at a time (chunk_037), and the rationale about incremental cost of nearby bytes is stated in chunk_036."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 starts at 1260s and Hop 2 starts at 1295s; the inter-hop gap is only 35 seconds (|1260 - 1295| = 35s), which is well below the required minimum of 70 seconds, making this effectively single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both source chunks contain [frame caption: ...] markers showing the 'Cached Memory Systems' diagram, and the question references two spans (chunk_036 and chunk_037), satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only 35 seconds (1260s to 1295s), below the required 70-second minimum for multi-hop questions.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6004_lec14_q005",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the four methods (req, resp, lineReq, lineResp) are confirmed by chunk_041/042/043; req/resp as processor-side and lineReq/lineResp as back-side methods are explicitly stated in chunk_042; req accepts a MemReq and resp returns a single word is consistent with chunk_041/042; lineReq/lineResp deal with 64-byte lines is confirmed in chunk_042."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Both hops share the same time range (1505.0s\u20131560.0s and 1505.0s\u20131590.0s), meaning the inter-hop gap is |1505 - 1505| = 0 seconds, which is far below the required 70-second minimum. The hops are not temporally separated and can be retrieved in a single step."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question claims multi-hop-visual: multiple source chunks contain [frame caption: ...] markers, and the question references both the visual diagram and the lecture explanation. However, criterion 2 fails due to insufficient temporal gap between hops."
+    },
+    "rejection_reason": "Criterion 2 fails: the two hops start at the same timestamp (1505.0s), giving an inter-hop gap of 0 seconds, well below the required 70-second minimum for a multi-hop question.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6004_lec14_q006",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: three SRAMs (dataArray, tagArray, statusArray) are confirmed in chunks 044/045/046 and frame captions; lineReqQ and lineRespQ for back-end memory communication are confirmed in chunks 045/046; hitQ for processor side is confirmed in chunk 046; registers for current request and current status are confirmed in chunk 046 ('two pieces of state... a status of where I am... and a copy of the current request')."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1665\u20131740s) aligns with chunks 045\u2013046 (each ~45s window), and hop 2 (1575\u20131680s) aligns with chunks 044\u2013045; the inter-hop gap between hop starts is |1665-1575|=90s \u2265 70s, satisfying the multi-hop temporal separation requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires information from at least two non-adjacent spans (1575\u20131680s and 1665\u20131740s, gap=90s), and multiple cited chunks contain [frame caption: ...] markers describing the Cache Organization diagram with visual components."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text: the cache array unit contains three SRAMs (dataArray, tagArray, statusArray), and the queues (lineReqQ, lineRespQ, hitQ) are used for communication with the processor and back-end memory."
+  },
+  {
+    "qa_id": "mit_6004_lec14_q007",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: (1) miss with no evacuation costs DRAM load latency + 2\u00d7SRAM latency \u2014 confirmed by frame captions in both chunks; (2) miss with evacuation costs DRAM store latency + DRAM load latency + 2\u00d7SRAM latency \u2014 confirmed by chunk_087 frame caption; (3) one SRAM access detects the miss and one retrieves after DRAM fetch \u2014 supported by chunk_086 verbal explanation; (4) double SRAM cost is inconsequential compared to main memory access time and simplifies implementation \u2014 explicitly stated in chunk_087."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Both hops span 2975\u20133090s and 3010\u20133090s respectively, giving an inter-hop gap of |2975 - 3010| = 35 seconds, which is well below the required 70-second minimum. The two hops are too temporally close to constitute genuinely non-adjacent retrieval steps."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both source chunks contain [frame caption: ...] markers, and the question claims two hops (visual slide content + verbal explanation); however, as noted in Criterion 2, the hops are not sufficiently non-adjacent temporally."
+    },
+    "rejection_reason": "Criterion 2 fails: the inter-hop temporal gap is only ~35 seconds (2975s vs 3010s), far below the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6004_lec14_q008",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the chunk text: write-back policy writes only to cache and updates next level memory on eviction (chunk_014 frame captions), write-through writes to both cache and next level memory simultaneously (chunk_014), write-back requires three states (chunk_015): Invalid (data not present), Clean (valid but not modified), and Dirty (valid but modified, inconsistent with main memory)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (490.0s\u2013580.0s) covers a 90-second window that aligns with chunk_014 and chunk_015, each covering 45-second windows within this range; the span boundaries are plausible for the cited chunks."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'visual', which requires exactly 1 span and at least 1 source chunk with a [frame caption: ...] marker; there is exactly 1 ground_truth_span and both cited chunks contain multiple [frame caption: ...] markers."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are explicitly supported by the source text, which describes the write-back and write-through policies and the three-state status system required for the write-back policy."
+  },
+  {
+    "qa_id": "mit_6004_lec14_q009",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims specific FSM state names (Ready, WaitCAUResp, WaitDramResp) and FIFO instantiation details that are not present in any of the cited chunk texts or frame captions; these appear to be from outside knowledge."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (1400.0s\u20131465.0s) is plausible for the cited chunks, and the visual question type requires only one span check."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is visual with exactly one ground_truth_span and both cited chunks contain [frame caption: ...] markers."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer includes unsupported claims about specific FSM state names (Ready, WaitCAUResp, WaitDramResp) that do not appear in the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6004_lec14_q010",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the cited chunks: write-back means writing to main memory only on eviction (chunk_014), write-miss allocate means fetching the line into cache on a miss before writing (chunk_016), the line is marked dirty after modification (chunk_016 frame captions mention Invalid/Clean/Dirty status), and the combination of write-back with write-miss allocate is explicitly stated as the policy being used (chunk_017)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (490s\u2013605s) aligns with chunk_014 and chunk_016 which cover write-back policy and write-miss allocate concepts; Hop 2 (595s\u2013680s) aligns with chunk_016 and chunk_017. The inter-hop gap between hop starts is |490 - 595| = 105 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop, requiring information from chunk_014 (write-back definition) and chunk_016/chunk_017 (write-miss allocate definition and their combination), which are non-adjacent spans separated by more than 70 seconds; no visual evidence is claimed, consistent with the 'multi-hop' type."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text: the write-back policy involves writing to main memory only upon eviction, and the write-miss allocate scheme involves bringing the line into the cache on a miss before writing."
+  },
+  {
+    "qa_id": "mit_6004_lec14_q011",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6004_lec14_q012",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6004_lec14_q013",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunk text: chunk_051 confirms three response types (load hit, store hit, miss); chunk_052 confirms the hitMiss enumeration and that load hit returns the word in loadValue; chunk_053 confirms miss returns the entire line in tagLine. The store hit returning no data is supported by chunk_051 ('nothing when I have a store hit')."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (1865.0s\u20131960.0s) covers a 95-second window. Chunk_051, _052, and _053 are consecutive chunks in a 45-second window system, and the span plausibly aligns with these chunks. Only one hop is present, so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question_type is 'text' (exactly 1 span, no frame caption required), but all three cited source chunks contain [frame caption: ...] markers, and the answer draws from content spread across chunks 051-053. However, the ground_truth_spans lists only one span (1865.0s\u20131960.0s), which is consistent with 'text' type. The presence of frame captions does not disqualify a 'text' question. Actually, re-evaluating: 'text' requires exactly 1 span \u2014 there is exactly 1 span listed. The question type 'text' is appropriate. PASS."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text: the CAUResp can indicate a load hit returning a word in the loadValue parameter, a store hit with no data returned, and a miss returning the entire line in the tagLine parameter."
+  },
+  {
+    "qa_id": "mit_6004_lec14_q014",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk text explicitly states 'your address is everything from your original address - the offset bits' and 'you're going to take your tag from your initial request and your index bits and concatenate them together and that will make up your line address,' which directly supports all atomic claims in the answer about using tag and index bits, excluding offset bits, and concatenating them to form the line address."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (2840.0s\u20132900.0s) aligns with chunk_080 (which would cover approximately that window), and the cited source chunks 080 and 081 are adjacent/nearby chunks that contain the relevant content. Only one hop is specified, so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span (2840.0s\u20132900.0s). Although the source chunks contain [frame caption: ...] markers, the question type is 'text' not 'visual,' and the answer is derivable from the spoken lecture text in chunk_080 without requiring visual evidence."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claim that the line address is constructed by concatenating the tag and index bits from the original processor's address, excluding the offset bits, for a DRAM line request during a cache miss."
+  },
+  {
+    "qa_id": "mit_6004_lec14_q015",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, and there is no evidence in any chunk about specific SRAM or DRAM clock frequencies used in a cache implementation. The question asks for specific technical details that are not present in the provided content."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

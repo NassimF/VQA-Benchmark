@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "nyu_dl_week3_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the slide shows u\u2192H(u)\u2192w\u2192G(x,w)\u2192y\u2192cost (confirmed by frame captions in both chunks); back-propagating through G gives gradients w.r.t. w, then through H gives gradients w.r.t. u (chunk_015); this yields the product of two Jacobians automatically (chunk_016)."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 508\u2013535s and hop 2 spans 555\u2013605s; the gap between hop starts is |555-508|=47 seconds, which is less than the required 70-second minimum inter-hop gap, making this effectively single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both cited chunks contain [frame caption: ...] markers, and two non-adjacent spans are claimed, satisfying the multi-hop-visual requirements structurally (though the temporal gap fails Criterion 2)."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only 47 seconds (508s to 555s), below the required 70-second minimum, so the two hops are too close to constitute a genuine multi-hop question.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week3_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: H(u) replicates one component of u into multiple components of w (frame captions in both chunks), the two-dimensional example with w1=w2=u1 and w3=w4=u2 (chunk_020 transcript and frame captions), only two free parameters (chunk_020), and changing one component of u changes two components of w (chunk_020)."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The two hops are 735.0s\u2013760.0s and 700.0s\u2013745.0s, giving an inter-hop gap of |735-700|=35 seconds, which is well below the required 70-second minimum. The hops are too temporally close to constitute genuine multi-hop retrieval."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both source chunks contain [frame caption: ...] markers, and two non-adjacent spans are cited, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only ~35 seconds (700s vs 735s), far below the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week3_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the slide shows G(x,w) functions connected to a MAX function with input x as vertical bars and shared weights w (supported by frame captions in chunk_026); the wake-word detection description including replicated detectors sharing the same weight, outputs going to a max function, and training with examples where the keyword is pronounced somewhere in a segment without knowing exact location (supported by chunk_030)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (795\u2013840s) aligns with chunk_026 and hop 2 (1030\u20131080s) aligns with chunk_030; the inter-hop gap is |795 - 1030| = 235 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunks 026 and 030, ~235s apart) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the slide depicts identical functions G(x,w) connected to a MAX function with input x as vertical bars and shared weights w. The lecturer describes using replicated detectors with shared weights for wake-word detection, with outputs going to a max function, trained with examples where the keyword is pronounced somewhere in a segment."
+  },
+  {
+    "qa_id": "nyu_dl_week3_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_037 confirms swiping templates over input image, three detectors applied to input image labeled 'C', and thinking of black/white pixels as plus one/minus one; chunk_038 confirms that similar dot products yield large positive values and dissimilar yield zero or negative/smaller values."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1250-1290s) aligns with chunk_037 and hop 2 (1330-1375s) aligns with chunk_038; the inter-hop gap is |1250-1330| = 80 seconds, which exceeds the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunks 037 and 038) and both chunks contain multiple [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the slide shows swiping templates over an image to detect motifs, and the lecturer explains the dot product computation using black pixels as plus one and white pixels as minus one, resulting in a large positive value if similar, and zero or negative if dissimilar."
+  },
+  {
+    "qa_id": "nyu_dl_week3_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the slide states simple cells detect local features and complex cells pool outputs of simple cells (confirmed in frame captions of both chunks); the lecturer explains a complex cell turns on if any simple cell in its input group turns on, detecting a particular orientation regardless of position, building shift invariance with respect to small variations of feature positions (all confirmed in chunk_079 transcript text)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (2700\u20132730s) aligns with chunk_079 (which covers ~2700\u20132745s) and hop 2 (2790\u20132850s) aligns with chunk_080 (which covers ~2745\u20132790s, with the span starting at 2790s within \u00b115s of the chunk boundary); the inter-hop gap is |2700 - 2790| = 90 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (hop 1 at ~2700s and hop 2 at ~2790s) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that simple cells detect local features and complex cells pool the outputs of simple cells. It also describes that a complex cell will turn on if any of the simple cells within its input group turns on, thereby building a little bit of shift invariance with respect to small variations of feature positions in the input."
+  },
+  {
+    "qa_id": "nyu_dl_week3_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the slide shows single layer networks and two layers FC networks (confirmed by frame captions), the baby convolutional net is the top curve in generalization performance, fully connected networks work worse, and a linear network works worse and over-trains so test error goes down after a while (all confirmed in chunk_085 and chunk_086 text)."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 2975\u20133010s and hop 2 spans 3035\u20133105s; the gap between hop starts is |2975 - 3035| = 60 seconds, which is less than the required 70-second minimum inter-hop gap, making this effectively single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only 60 seconds (2975s to 3035s), which is below the required 70-second minimum, making the multi-hop claim invalid.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week3_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the slide shows a CNN with input layer, filter bank plus non-linearity, and pooling layers (supported by frame captions); the pooling computes an average over a 2x2 window shifting by 2 (chunk_092); 28x28 divided by 2 gives 14x14 output at half resolution (chunk_092)."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 3180\u20133215s and hop 2 spans 3220\u20133265s; the gap between hop starts is |3220 - 3180| = 40 seconds, which is less than the required 70-second minimum inter-hop gap, making this effectively single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question references two spans and both cited chunks contain [frame caption: ...] markers describing the 'Convolutional Network Architecture' slide, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only 40 seconds (3220s - 3180s), below the required 70-second minimum, so the two hops are not sufficiently non-adjacent.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week3_q023",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims the slide shows stages: Normalization, Filter Bank, Non-Linearity, and Pooling \u2014 all supported by the frame captions. The claim about normalization involving 'variations on whitening' with subtractive and divisive operations is partially supported by the truncated frame caption ('This stage involves variations on whit[ening]'), though the divisive/subtractive details are not fully visible; however, the core architectural claims are clearly supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span is 3745.0s\u20133790.0s (45-second window), and chunk_107 covers a 45-second window; the span aligns plausibly with the cited chunk boundaries. This is a single-hop visual question, so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'visual', requiring exactly 1 span and at least 1 source chunk with a [frame caption: ...] marker. There is exactly 1 span (3745.0s\u20133790.0s) and chunk_107 contains multiple [frame caption: ...] markers, satisfying both conditions."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the normalization stage involves variations on whitening, including subtractive operations such as average removal and high pass filtering, as well as divisive operations, is not explicitly supported by the source text. The source text only mentions the stages: Normalization, Filter Bank, Non-Linearity, and Pooling, without detailing the specific operations involved in the normalization stage."
+  },
+  {
+    "qa_id": "nyu_dl_week3_q024",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer (input dimensions, layer 1 specs, layer 2 specs, MNIST reference, LeCun 1998) are explicitly supported by the frame captions in the cited chunk."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "There is exactly one span (3900\u20133960s) corresponding to a single source chunk, and the span window is plausible for a visual chunk boundary."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual', there is exactly one span, and the cited chunk contains multiple [frame caption: ...] markers providing the visual evidence needed to answer the question."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that 'layer 1 has 6 feature maps at 28x28 using 5x5 convolution' is incorrect; the source text states '8 filters, 5x5 convolution'. The rest of the claims are supported by the source text."
+  },
+  {
+    "qa_id": "nyu_dl_week3_q025",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_004 states the 2-neuron network 'really really took a lot of effort' because 'the optimization is actually quite hard'; chunk_011 states that 'one of the four biases putting my initial point away from the top right quadrant then the ReLUs are going to be completely killing everything and everything gets collapsed into zero' and 'you can't do any more or anything.'"
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (240\u2013305s) aligns with chunk_004 (a ~45s window around that range) and hop 2 (371\u2013430s) aligns with chunk_011; the inter-hop gap is |240 - 371| = 131 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop, requiring two non-adjacent spans from different chunks (chunk_004 and chunk_011), and the answer genuinely requires combining information from both spans; no visual evidence is claimed, which is consistent with the multi-hop type."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports both claims: the 2-neuron-per-layer network was hard to train due to difficult optimization, and when biases put points away from the top right quadrant, the ReLUs collapse everything to zero, preventing further progress."
+  },
+  {
+    "qa_id": "nyu_dl_week3_q026",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_047 confirms the weighted sum definition with a sliding window; chunk_049 explicitly states the index goes backwards in convolution vs. both going forward in cross-correlation, and that you can interpret one as the other by reading weights backwards."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 1680\u20131730s and hop 2 spans 1715\u20131780s; the gap between hop starts is |1680 - 1715| = 35 seconds, which is less than the required 70-second minimum, making this effectively single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is labeled multi-hop and cites two non-adjacent source chunks (chunk_047 and chunk_049), and no frame caption is required for multi-hop type, which is correctly applied here."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only ~35 seconds (1715s - 1680s), well below the required 70-second minimum for a genuine multi-hop question.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week3_q027",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunks support both atomic claims: (1) local correlations justify local connections (chunk_163: 'The correlation justifies local connections'), and (2) features appearing anywhere / uniform statistics justify shared weights / repeated feature detectors (chunk_163-164: 'the statistics of images or the signal is uniform means that you need to have repeated feature detectors for every location'). The claim about 'nearby pixels likely to have similar colors' is implied by the locality/correlation discussion, though not stated verbatim; the core claims are well-supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (5760\u20135830s) aligns with chunk_163 and hop 2 (5905\u20135950s) aligns with chunk_164; the inter-hop gap is |5760 - 5905| = 145 seconds, which exceeds the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (hop 1 in chunk_163, hop 2 in chunk_164) with a 145-second gap, satisfying the multi-hop requirement; no visual evidence is claimed, consistent with the 'multi-hop' type designation."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports both claims: strong local correlations justify local connections, and uniform signal statistics justify shared weights."
+  },
+  {
+    "qa_id": "nyu_dl_week3_q028",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the chunk text: weight sharing sends one weight vector to five network instances, backpropagating through five copies yields five gradients that get added up, this accumulation is done implicitly in PyTorch and other deep learning frameworks, and this is why you must zero the gradient before backprop."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span (1155.0s\u20131225.0s) covers a 70-second window; chunk_033 is a 45-second chunk, and the span boundaries fall within plausible alignment (\u00b115s) of the chunk boundaries. Only one hop is present, so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one ground_truth_span, which matches the requirement for a text question. Although the source chunk contains [frame caption: ...] markers, the question type 'text' does not require their absence, only that there is exactly one span."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text. The text explicitly states that back-propagating through multiple copies of a network results in multiple gradients that get added up for a parameter, and this accumulation is done implicitly in PyTorch, necessitating zeroing the gradients before backpropagation."
+  },
+  {
+    "qa_id": "nyu_dl_week3_q029",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the question_type is 'text' but the chunk contains multiple [frame caption: ...] markers that provide key evidence (USPS Zipcode digits: 7300 training, 2000 test; Convolution with stride. No separate pooling). More critically, the answer is factually supported by the chunk, but Criterion 3 is the issue. For Criterion 1 specifically: all atomic claims (USPS zip code digits, 7300 training/2000 test, convolution with stride, no separate pooling layer, window shifted by more than one pixel, smaller output resolution) are supported by the chunk text and frame captions. PASS for factual correctness."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (3074.0s\u20133130.0s) covers a 56-second window, and chunk_087 is cited as the source. The span aligns plausibly with the chunk boundaries within the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question_type is declared as 'text', but the cited source chunk contains multiple [frame caption: ...] markers that provide essential evidence for the answer (dataset name, training/test counts, and the 'no separate pooling' architectural feature). Since the answer relies on visual/frame caption content, the type should be 'visual' rather than 'text'."
+    },
+    "rejection_reason": "Criterion 3 fails: the question_type is declared as 'text' but the cited chunk contains [frame caption: ...] markers that provide key evidence for the answer, making 'visual' the appropriate type.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week3_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the lecture content that addresses mantis shrimp spectral bands, resolution, or brain size."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

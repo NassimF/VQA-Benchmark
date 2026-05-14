@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6042_lec18_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer cites 'chunk_096' which doesn't match the listed source chunk_095, and the explicit '6/18 = 2/3' calculation is not supported by the text in chunk_095's content."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The span timestamps (18.05s and 56.0s) are implausibly early for chunks 031 and 095, and the inter-hop gap of ~38 seconds is less than the required 70 seconds."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The inter-hop temporal gap (~38 seconds) is below the 70-second threshold required for multi-hop questions, making this effectively single-hop in disguise."
+    },
+    "rejection_reason": "All three criteria failed: the answer contains unsupported claims (wrong chunk reference, unverified calculation), the span timestamps are implausible and the inter-hop gap is <70s, and the question type is not genuinely multi-hop given the insufficient temporal separation.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec18_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer incorrectly references 'chunk_080' (not a cited chunk), and the third assumption ('if Carol has a choice, she picks a box at random') is not explicitly shown in the frame captions of chunk_079, which only display assumptions 1 and 2."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap between the two spans (46.05s and 48.25s) is only ~2.2 seconds, far below the required 70-second minimum, making this effectively single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The two ground_truth_spans are only ~2 seconds apart and thus not non-adjacent, failing the multi-hop requirement despite frame captions being present in the cited chunks."
+    },
+    "rejection_reason": "All three criteria fail: the answer misattributes the chunk reference and the third assumption isn't shown in cited frame captions (C1); the inter-hop gap is ~2 seconds, far below the 70-second threshold (C2); and the spans are not non-adjacent, invalidating the multi-hop-visual classification (C3).",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec18_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the cited chunk texts, including the frame caption description of Carol Merill and the prize descriptions with 'much much better' quote."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap between hop 1 (starting ~10:30) and hop 2 (starting ~11:05) is only ~35 seconds, well below the required 70-second minimum, making this effectively single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The two spans (10:30\u201311:15 and 11:05\u201311:50) overlap significantly and are not non-adjacent as required for multi-hop-visual; the content is essentially contiguous and could be retrieved in a single step."
+    },
+    "rejection_reason": "Criterion 2 and Criterion 3 both fail: the inter-hop gap is only ~35 seconds (below the 70-second minimum), and the spans overlap rather than being non-adjacent, undermining the multi-hop-visual classification.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec18_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the frame captions in chunk_063 (tree diagram title and branch labels) and the spoken content in chunk_067 (12 sample points)."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop temporal gap is only ~2.6 seconds (36.45s vs 39.05s), far below the required minimum of 70 seconds, making this effectively single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question claims multi-hop-visual requiring \u22652 non-adjacent spans, but the two spans are only ~2.6 seconds apart and thus not non-adjacent; the multi-hop requirement is not genuinely satisfied."
+    },
+    "rejection_reason": "Criteria 2 and 3 both fail: the inter-hop gap is only ~2.6 seconds (far below the 70-second minimum), meaning the hops are not temporally non-adjacent and the question does not genuinely require multi-hop retrieval.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec18_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The claim '(i.e., box 3)' interpreting the revealed number '7' as 'box 3' is not supported by the chunk text, which only states the number 7 is written in the Revealed column without any mapping to box 3."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap between hop 1 (13.25s) and hop 2 (14.0s) is only 0.75 seconds, far below the required 70-second minimum, making this effectively single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question claims multi-hop-visual but the two spans are only ~0.75 seconds apart and not non-adjacent, so the multi-hop requirement is not genuinely satisfied."
+    },
+    "rejection_reason": "Criteria 1, 2, and 3 all fail: the answer contains an unsupported interpretive claim ('i.e., box 3'), the inter-hop temporal gap is only ~0.75s (far below the 70s minimum), and the question therefore does not genuinely require multi-hop reasoning.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec18_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer misrepresents die faces (claiming 3 faces each when the caption lists 6 per die) and the 5/9 probability is not explicitly stated in chunk_129's text."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap between hop 1 (65.55s) and hop 2 (75.15s) is only ~9.6 seconds, far below the required 70-second minimum, making this effectively single-hop."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The two spans are only ~10 seconds apart and thus not non-adjacent, failing the multi-hop requirement for multi-hop-visual classification."
+    },
+    "rejection_reason": "All three criteria failed: the answer contains unsupported claims about die faces and probability; the inter-hop gap (~9.6s) is far below the 70s minimum; and the spans are not non-adjacent as required for multi-hop-visual.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec18_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by frame captions in chunk_097 and chunk_098, including the probability equation and the definition of an event."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap between hop 1 (56.35s) and hop 2 (57.1s) is only ~0.75 seconds, far below the required 70-second minimum, making this single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The two spans overlap temporally and both pieces of information appear on the same blackboard frame, so the question does not genuinely require two non-adjacent hops as claimed for multi-hop-visual."
+    },
+    "rejection_reason": "Criteria 2 and 3 both fail: the inter-hop gap is ~0.75 seconds (far below the 70-second requirement), and both hops reference the same moment/frame, making this single-hop rather than genuine multi-hop-visual.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec18_q023",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the frame captions in chunk_000: MIT course 'Mathematics for Computer Science' (6.042/18.062J), Fall 2010, 'Lecture 18: Probability Introduction,' instructor Tom Leighton, MIT OpenCourseWare, and Creative Commons Attribution-NonCommercial-ShareAlike license."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (0.0s\u201345.0s) aligns with chunk_000's 45-second window, which is within the acceptable boundary."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual,' requires exactly 1 span, and chunk_000 contains multiple [frame caption: ...] markers providing the visual evidence needed to answer the question."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are explicitly supported by the source text, which confirms the course title, lecture topic, instructor, and licensing details as described in the answer."
+  },
+  {
+    "qa_id": "mit_6042_lec18_q024",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims the frame caption shows a blackboard listing reminders including '11/17 is DROP DATE' meaning November 17th is the drop date. The first frame caption in chunk_001 explicitly lists '11/17 is DROP DATE' among the reminders on the blackboard, fully supporting all atomic claims."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span (0.35s\u20131.2s) falls at the very beginning of chunk_001, which covers a 45-second window starting at 0s; this is well within the \u00b115s tolerance of the chunk boundary."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual' requiring exactly 1 span and at least 1 source chunk with a [frame caption: ...] marker; chunk_001 contains multiple frame captions, and there is exactly one ground truth span, satisfying both conditions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim that '11/17 is DROP DATE' is explicitly supported by the source text, which states this information in the blackboard frame caption."
+  },
+  {
+    "qa_id": "mit_6042_lec18_q025",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims (IQ of 228, Guinness record, MIT letter confirming correctness, colleagues initially wrong, controversy ended) are explicitly supported by the cited chunks."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop temporal gap is only |19.5 - 27.25| = 7.75 seconds, far below the required 70-second minimum for multi-hop questions, meaning the hops are not genuinely non-adjacent."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The claimed multi-hop type requires \u2265 2 non-adjacent spans, but the two spans are only ~7.75 seconds apart, making them effectively co-located and not requiring true multi-hop retrieval."
+    },
+    "rejection_reason": "Criteria 2 and 3 fail: the inter-hop gap between the two spans is only ~7.75 seconds, well below the 70-second minimum required for a genuine multi-hop question.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec18_q026",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_071 confirms the definition of a probability space as consisting of a sample space and a probability function P; chunk_073 explicitly states the two conditions: (1) for every outcome w in S, 0 \u2264 P(w) \u2264 1, and (2) the sum over all w in S of P(w) equals 1."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The ground_truth_spans are 41.25s\u201342.1s (hop 1) and 42.35s\u201343.2s (hop 2), giving an inter-hop gap of only about 1.1 seconds (|41.25 - 42.35| \u2248 1.1s), which is far below the required 70-second minimum for a multi-hop question. The two hops are essentially adjacent and could be retrieved in a single step."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is labeled multi-hop and cites two source chunks (chunk_071 and chunk_073); both chunks contain [frame caption: ...] markers, and the question requires information from both chunks to answer fully."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is approximately 1.1 seconds, far below the required 70-second minimum, making this effectively a single-hop question in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec18_q027",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The factual claims about die reversal when rolled twice and the cycle A < B < C < A are explicitly supported by chunk_140 text, despite a minor chunk label error in the answer."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap between hop 1 (80.3s) and hop 2 (81.4s) is only ~1.1 seconds, far below the required 70-second minimum for multi-hop questions."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The two spans are essentially consecutive (1.1 seconds apart), meaning the question can be answered from a single continuous passage rather than requiring genuinely non-adjacent multi-hop retrieval."
+    },
+    "rejection_reason": "Criteria 2 and 3 both fail: the two hops are only ~1.1 seconds apart, far below the 70-second minimum required for multi-hop questions, making this effectively a single-hop question in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec18_q028",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer states the information is in 'chunk_009' but the source chunk is 'mit_6042_lec18_chunk_008'. Additionally, the chunk text supports that probability trips up PhD qualifying exam students, but the specific detail about 'causing panic when they are asked to do a probabilistic analysis at the board' is not explicitly stated in the provided chunk text (the chunk cuts off mid-sentence)."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The ground_truth_span is 4.4s\u20135.25s, which appears to be at the very beginning of the lecture (near 0s), but the cited chunk is mit_6042_lec18_chunk_008, which would cover a much later time window (roughly chunk 8 \u00d7 45s \u2248 360s). The span timestamps do not align with the chunk boundaries within \u00b115s."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' and there is exactly one ground_truth_span, which is consistent with the text type requirement."
+    },
+    "rejection_reason": "Criterion 1 fails because the answer incorrectly references 'chunk_009' and includes an unsupported claim about 'panic at the board'; Criterion 2 fails because the ground_truth_span timestamps (4.4s\u20135.25s) do not plausibly align with chunk_008's time window.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec18_q029",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by chunk_008: the lecturer mentions debunking a famous published research paper by famous computer scientists at Berkeley, that they reached a conclusion using a very standard method that is completely fallacious, and the stated purpose is framed as teaching how to lie with statistics / how not to be taken in by incorrect arguments using probability theory."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The ground_truth_spans cite 4.4s\u20135.25s, which is essentially the very beginning of the lecture, but the source_chunk_id is chunk_008. Chunk_008 is the 8th chunk (roughly covering ~315s\u2013360s in a 45-second window scheme), so the span timestamps (4.4s\u20135.25s) do not align with chunk_008's boundaries \u2014 they are far outside the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one span, and the chunk does not require visual evidence; this is consistent with a text question type."
+    },
+    "rejection_reason": "Criterion 2 failed: the ground_truth_span timestamps (4.4s\u20135.25s) are inconsistent with the cited source chunk (chunk_008), which would correspond to a much later time window in the lecture.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec18_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, and there is no evidence in any chunk about a specific research finding by researchers in San Diego regarding non-transitive dice with more than three sides."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_1806_lec01_q001",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_000 confirms the course is '18.06 Linear Algebra' taught by Gilbert Strang; chunk_016 confirms the column picture seeks 'the right linear combination' of columns to produce the right-hand side vector B, described as 'the most fundamental operation in the whole course.'"
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (0.0s\u201345.0s) aligns with chunk_000 (a 45-second window starting at 0s); Hop 2 (570.0s\u2013645.0s) aligns with chunk_016; the inter-hop gap is |0 - 570| = 570 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans (0\u201345s and 570\u2013645s), and both cited chunks contain [frame caption: ...] markers with visual content (blackboard/slide images)."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the course is MIT 18.06 Linear Algebra taught by Gilbert Strang, and it describes the column picture method as finding the right linear combination of the columns of the coefficient matrix to produce the right-hand side vector B, which is noted as the most fundamental operation of the course."
+  },
+  {
+    "qa_id": "mit_1806_lec01_q002",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_013 explicitly states 'the point X equal 1 and Y was two' as the solution, and verifies the second equation with 'minus 1 plus 4 equals 3'; chunk_007 and chunk_013 both show the two-equation system 2x-y=0 and -x+2y=3; the row picture interpretation is also mentioned in chunk_007."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (245s\u2013330s) aligns with chunk_007 (a 45s window around ~270s), and hop 2 (490s\u2013535s) aligns with chunk_013 (a 45s window around ~510s); the inter-hop gap is |245-490|=245 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunks 007 and 013, ~245s apart), and both cited chunks contain multiple [frame caption: ...] markers with visual content, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the solution point is x equals 1 and y equals 2, and verifies it in the second equation by substituting: negative 1 plus 4 equals 3, confirming the point satisfies both equations."
+  },
+  {
+    "qa_id": "mit_1806_lec01_q003",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_1806_lec01_q004",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_031 discusses points on a plane in 3D (implying each equation is a plane), chunk_035 explicitly states 'two equations in three dimensions give me a line the line where those two planes meet' confirming each equation is a plane, and 'those three things meet at a point' confirming the three planes intersect at a single point. The claim about row picture being harder to visualize in higher dimensions is supported by the lecture context in chunk_035."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1005s\u20131080s) aligns with chunk_031 (which covers roughly that window), and hop 2 (1200s\u20131270s) aligns with chunk_035. The inter-hop gap is |1005 - 1200| = 195 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans (chunks 031 and 035, ~195s apart) and both cited chunks contain multiple [frame caption: ...] markers showing blackboard content with equations."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that each equation represents a plane in three dimensions and that the intersection of the three planes is a single point, which is the solution to the system."
+  },
+  {
+    "qa_id": "mit_1806_lec01_q005",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the matrix is 3x3 (supported by frame caption showing a 3x3 matrix), the answer is yes (explicitly stated in chunk_051 frame caption 'For this A, answer is YES'), the matrix is described as good, non-singular, and invertible (stated in both chunks), and Ax=b can be solved for every b (stated in the frame captions)."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 1790\u20131840s and Hop 2 spans 1820\u20131870s. The inter-hop gap is |1790 - 1820| = 30 seconds, which is far less than the required 70 seconds minimum. The two hops are temporally adjacent and could be retrieved in a single step."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both source chunks contain [frame caption: ...] markers, and the question references visual content from the blackboard. However, criterion 2 fails due to insufficient temporal gap between hops."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only 30 seconds (1790s vs 1820s), well below the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_1806_lec01_q006",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims (column method using 1\u00d7[2,1]+2\u00d7[5,3], first component 2+10=12, second component 1+6=7, result [12,7]) are explicitly supported by the chunk text in chunk_062 and chunk_064."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align with their respective chunk boundaries within \u00b115s, and the inter-hop gap is 80 seconds (\u226570s required), confirming genuine multi-hop separation."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question has \u22652 non-adjacent spans (80s gap) and both cited chunks contain [frame caption: ...] markers, satisfying multi-hop-visual requirements; the question explicitly references visual blackboard content."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text, which describes the column method of matrix-vector multiplication and confirms the resulting vector [12,7]."
+  },
+  {
+    "qa_id": "mit_1806_lec01_q007",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk_043 text explicitly states 'we would get an answer 0 0 1' and 'this column 3 is actually the made it work that way just so we would get an answer 0 0 1', supporting the solution x=0, y=0, z=1. The reason it was obvious (B was chosen to equal the third column) is supported by 'made it work that way' and the frame captions showing x=0, y=0. Chunk_002 supports the starred Column picture claim."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (65s\u2013115s) aligns with chunk_002 (which covers roughly 45s\u2013115s range), and hop 2 (1505s\u20131570s) aligns with chunk_043. The inter-hop gap is |65 - 1505| = 1440 seconds, well above the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (hop 1 at ~65s and hop 2 at ~1505s), and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim that the solution is x equals 0, y equals 0, and z equals 1 is supported by the source text, which states that the column picture was made to work that way to get the answer 0 0 1. The explanation that it was immediately obvious because the right-hand side vector B was chosen to match the third column is also supported by the text, which mentions that column 3 was made to work that way to get the answer 0 0 1."
+  },
+  {
+    "qa_id": "mit_1806_lec01_q008",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the frame caption in the cited chunk: 'Linear Algebra', 'Strang', 'Introduction to Linear Algebra', and 'www.math.umd.edu' are listed, and the two equations '2x - y = 0' and '-x + 2y = 3' are explicitly shown. Note: the answer says 'website address' rather than the specific URL, which is a minor generalization but not a contradiction."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (170.0s\u2013225.0s) aligns with chunk_005, which covers a 45-second window; 170s falls within plausible chunk boundaries for this chunk, and this is a single-hop visual question so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'visual', requiring exactly 1 span and at least one source chunk with a [frame caption: ...] marker; both conditions are met \u2014 there is one span and the cited chunk contains multiple frame captions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text, which explicitly lists the text on the blackboard and the two linear equations."
+  },
+  {
+    "qa_id": "mit_1806_lec01_q009",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are directly supported by the frame captions in the cited chunk: 'Can I solve Ax = b for every b?' appears on the blackboard, 'Do the linear combs. of the columns fill 3-D space?' is present, and 'For this A, answer is YES' is explicitly shown in the third frame caption."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (1790.0s\u20131840.0s) aligns with chunk_051, which covers a 45-second window; the span falls within plausible chunk boundaries for this visual question type."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual' with exactly 1 span and the cited chunk (mit_1806_lec01_chunk_051) contains multiple [frame caption: ...] markers, satisfying both requirements for the visual type."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text, which explicitly states the blackboard text: 'Can I solve Ax = b for every b?', 'Do the linear combs. of the columns fill 3-D space?', and 'For this A, answer is YES'."
+  },
+  {
+    "qa_id": "mit_1806_lec01_q010",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_002 explicitly lists 'Row picture', 'Column picture', and 'Matrix form' as the three ways to view a system; chunk_054 explicitly states that if column 3 is the sum of columns 1 and 2, all combinations lie in the same plane, making many right-hand sides unreachable, which supports the singularity condition described in the answer."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 65\u2013120s, aligning with chunk_002 (a 45s window starting around 67.5s); hop 2 spans 1955\u20132010s, aligning with chunk_054 (a 45s window starting around 1957.5s). The inter-hop gap is |65 - 1955| = 1890 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (65\u2013120s and 1955\u20132010s), satisfying the multi-hop requirement; both cited chunks contain [frame caption: ...] markers, but multi-hop (not multi-hop-visual) is claimed, which is valid since the question can be answered from text content alone without requiring visual interpretation."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claims that the three ways to view a system of linear equations are the row picture, the column picture, and the matrix form, and that a matrix becomes singular in the 3x3 case when all three columns lie in the same plane, such as when column 3 is a linear combination of columns 1 and 2."
+  },
+  {
+    "qa_id": "mit_1806_lec01_q011",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer's key claims are supported by the chunks: chunk_057 discusses nine columns and whether all right-hand sides can be reached, and chunk_060 explicitly states 'it would be a sort of plain an eight dimensional plane inside nine dimensional space,' supporting the claim about filling only an eight-dimensional plane. The singularity/non-invertibility claim is implied by the context of the columns being dependent (ninth equals eighth contributing nothing new)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 2020\u20132090s aligning with chunk_057, and hop 2 spans 2100\u20132165s aligning with chunk_060. The inter-hop gap between start times is |2020 - 2100| = 80 seconds, which is \u2265 70 seconds, satisfying the multi-hop requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is classified as multi-hop and requires information from two non-adjacent spans (chunk_057 for the setup about nine columns and chunk_060 for the eight-dimensional plane conclusion), and the gap between hops is sufficient to confirm they are genuinely non-adjacent."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim that when nine columns exist in nine-dimensional space but the ninth column is identical to the eighth column, they form an eight-dimensional plane inside nine-dimensional space is supported by the source text. The text explicitly mentions that such a configuration results in an eight-dimensional plane within nine-dimensional space, making the matrix singular and non-invertible."
+  },
+  {
+    "qa_id": "mit_1806_lec01_q012",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_008 shows two equations (2x-y=0, -x+2y=3) representing lines in the XY plane; chunk_036 explicitly states 'the row picture was a cinch when we looked at two lines meeting,' confirms three planes meet in one point in 3D, notes it's 'getting a little hard to see,' and says 'can I quit on the row picture... I'll quit on the row picture before I've successfully found the point,' supporting the preference for the column picture in higher dimensions."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (280-360s) aligns with chunk_008 (chunk 8 at ~315-360s window); Hop 2 (1260-1330s) aligns with chunk_036 (chunk 36 at ~1575-1620s... actually chunk 36 \u00d7 45s = ~1620s, but the span at 1260s is plausible within the lecture flow). The inter-hop gap is |280 - 1260| = 980 seconds, well above the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop, requiring information from two non-adjacent spans (chunk_008 at ~280-360s and chunk_036 at ~1260-1330s), with a gap of ~980 seconds between hops, satisfying the multi-hop requirement."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that the row picture for two equations in two unknowns consists of two lines meeting at a point, and that the row picture becomes harder to visualize in three dimensions with planes. The professor's preference to stop using the row picture in higher dimensions is also supported."
+  },
+  {
+    "qa_id": "mit_1806_lec01_q013",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk explicitly states that on the x-axis y=0, and in this case x=0, making the origin (0,0) the first point on the line. The second point (x=1, y=2) is not explicitly mentioned in the chunk text, but the core claim about starting at the origin is well-supported. The second point claim is a minor addition that doesn't contradict the chunk, though it's not directly verified; however, the primary atomic claims about the origin and the reasoning are all supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span is 295.0s\u2013375.0s, which is an 80-second window. Chunk mit_1806_lec01_chunk_008 covers a 45-second window; the span boundaries at 295s and 375s are plausible chunk boundaries (within \u00b115s tolerance), and this is a single-hop text question so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text', which requires exactly 1 span and no frame caption requirement. There is exactly one ground_truth_span (295.0s\u2013375.0s), satisfying the text type requirement."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the professor starts plotting the equation 2x - y = 0 at the origin (0, 0) because when y is zero, x is also zero, satisfying the equation. This supports the claim about the starting point and reasoning."
+  },
+  {
+    "qa_id": "mit_1806_lec01_q014",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk explicitly states 'it's asking us to find the right linear combination this is called a linear combination and it's the most fundamental operation in the whole course,' supporting the core claims. The context of the column picture discussion and combining column vectors to produce the right-hand side is also supported by the chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span 575.0s\u2013640.0s aligns with chunk_016, which covers a 45-second window; the span falls within plausible chunk boundaries. This is a text question with one span, so no inter-hop gap check is needed."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' requiring exactly 1 span, and there is exactly 1 ground_truth_span provided. Although the chunk contains [frame caption: ...] markers, the text type does not require their absence, and the answer is derivable from the spoken text content alone."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the linear combination of columns is the most fundamental operation in the whole course and describes it in the context of the column picture discussion of the equation Ax = B."
+  },
+  {
+    "qa_id": "mit_1806_lec01_q015",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence of Professor Strang assigning a numerical value to a determinant or using it to explain a unique solution in any two-equation example."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

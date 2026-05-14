@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6006f11_lec14_q016",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The opening slide (chunk_000) lists four topics: depth-first search, edge classification, cycle detection, and topological sort. Chunk_053 explicitly discusses cycle detection and the claim that G has a cycle if and only if DFS produces a back edge, directly supporting all atomic claims in the answer."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (0.0s\u201345.0s) aligns with chunk_000 (a 45-second window starting at 0s). Hop 2 (3055.0s\u20133100.0s) aligns with chunk_053. The inter-hop gap is |0 - 3055| = 3055 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (chunk_000 for the opening slide topics and chunk_053 for the cycle detection explanation), and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly lists 'cycle detection' as one of the topics for the lecture and confirms that a graph has a cycle if and only if DFS produces a back edge, directly addressing the cycle detection topic."
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q017",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q018",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the board shows O(V+E) linear time complexity (chunk_028 frame captions), the sum of adjacency list lengths equals E for directed graphs (chunk_029), this is called the handshaking lemma from last time (chunk_029), and the V term comes from visiting each vertex once in the outer DFS loop (chunk_028 frame captions). The answer says 'Theta' while the source says 'O', which is a minor discrepancy but the core claims are supported."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1680s\u20131745s) aligns with chunk_028 and chunk_029 which cover the DFS complexity analysis. Hop 2 (1015s\u20131080s) references the handshaking lemma from a previous lecture section. The inter-hop gap is |1680 - 1015| = 665 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires two non-adjacent spans (1680s and 1015s, gap of 665s), and both cited chunks contain multiple [frame caption: ...] markers with visual board content. Both conditions for multi-hop-visual are satisfied."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claim that the time complexity of DFS is Theta(V+E) and justifies the edge contribution using the handshaking lemma, stating that the sum over all vertices of the length of their adjacency lists equals E for directed graphs."
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q019",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk text explicitly states that a forward edge 'goes from the root of this tree to a descendant' and a backward edge 'goes from a node in the tree to an ancestor in the tree,' which directly supports both atomic claims in the answer."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The two hops start at 2160s and 2255s, giving a gap of only 95 seconds, which is \u2265 70s. However, chunk_036 covers roughly 2160\u20132205s and chunk_037 covers 2205\u20132250s (45s windows), but the second hop span starts at 2255s which is 50s after chunk_037's start \u2014 this is within \u00b115s of chunk_037's end boundary. More critically, both chunks contain nearly identical content (the forward/backward edge explanation is repeated across both chunks as the transcript overlaps), suggesting the information is essentially co-located. The inter-hop gap of 95s (2255-2160) is \u2265 70s, so this check passes. Span alignment: hop1 at 2160s aligns with chunk_036 start, hop2 at 2255s aligns with chunk_037 end boundary (2205+45=2250, within \u00b115s). Both checks pass."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question claims multi-hop-visual, requires \u2265 2 non-adjacent spans (2160\u20132225s and 2255\u20132320s, gap of 95s \u2265 70s) and both cited chunks contain [frame caption: ...] markers describing blackboard/whiteboard content with graph theory diagrams."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claim that a forward edge goes from a node to a descendant, and a backward edge goes from a node to an ancestor."
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q020",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: Erik Demaine is named as presenter in chunk_000's frame captions; the corn maze analogy, central Massachusetts location, breadcrumbs metaphor, and the connection to DFS edge-tracking are all explicitly present in chunk_004's transcript."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (0.0s\u201345.0s) aligns with chunk_000 (a 45-second window starting at 0s); Hop 2 (260.0s\u2013325.0s) aligns with chunk_004; the inter-hop gap is |0 - 260| = 260 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (chunks 000 and 004, separated by ~260s) and both cited chunks contain [frame caption: ...] markers, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports all claims: Erik Demaine is named as the presenter on the lecture slide, and the instructor uses a corn maze analogy to explain DFS, mentioning a personal story about visiting a corn maze in central Massachusetts without breadcrumbs."
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q021",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer's atomic claims are all supported by chunk_019: D has one outgoing edge to B, B has already been visited, the algorithm skips it (the else case does nothing), there are no more edges from D, and DFS finishes and backtracks. All claims are explicitly stated in the chunk text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (625\u2013690s) aligns with chunk_010 (a ~45s window around that range), and hop 2 (1165\u20131230s) aligns with chunk_019. The inter-hop gap is |625 - 1165| = 540 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires information from two non-adjacent spans (chunk_010 for the DFS-Visit pseudocode shown on the board, and chunk_019 for the traversal explanation), and both cited chunks contain [frame caption: ...] markers with visual content."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text: DFS examines D's outgoing edge to B, finds B already visited, skips the edge, and since there are no more edges, backtracks from D."
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q022",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the textbook example is 'getting dressed' with constraints like socks-before-shoes and underwear-before-pants, but neither cited chunk contains any mention of getting dressed or clothing items; these appear to be from outside knowledge not supported by the source chunks."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops (2625s and 2780s) align with their respective chunk boundaries, and the inter-hop gap of 155 seconds exceeds the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (155s apart) and both cited chunks contain [frame caption:] markers, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer introduces unsupported claims about a 'getting dressed' example with socks/shoes and underwear/pants constraints that are not present in the cited source chunks.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q023",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer claims the blackboard shows 'Cycle detection: has a cycle' and a line drawn on the blackboard, both of which are explicitly supported by the first frame caption in chunk_053 which reads 'Cycle detection: has a cycle' and mentions 'There is a line drawn on the blackboard, possibly indicating a separation or a continuation of the text.'"
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span (3055.0s\u20133115.0s) covers a 60-second window, and chunk_053 is a 45-second chunk; the span aligns plausibly with the chunk boundaries within the allowed \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual' with exactly 1 span and the cited chunk contains multiple [frame caption: ...] markers, satisfying the visual question type requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The claim that the blackboard has the text 'Cycle detection: has a cycle' is supported by the source text. However, the claim about a line drawn on the blackboard possibly indicating a separation or continuation of the text is not explicitly supported by the source text, as it only mentions the presence of a line without specifying its purpose."
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q024",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the board shows a 'Topological sort' heading with text 'run DFS, output reverse or finishing time of vertices' and a DAG diagram, but none of the frame captions in chunk_079 mention a topological sort heading, that specific text, or a directed acyclic graph diagram \u2014 the captions describe DFS algorithm pseudocode and proof content instead."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "There is exactly one span (2765.0s\u20132830.0s) for a visual question type, and the span duration is plausible for a single chunk window."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual' with exactly 1 source chunk cited, and the chunk text contains multiple [frame caption: ...] markers, satisfying the visual type requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the specific claims about a 'Topological sort' heading and the text 'run DFS, output reverse or finishing time of vertices' are not supported by any frame caption in the cited chunk.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q025",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_046 confirms tree and backward edges exist while cross edges don't, and chunk_051 explains that what would be a cross edge becomes a tree edge in undirected graphs."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Both spans align plausibly with their cited chunks, and the inter-hop gap of 200 seconds (|1970-1770|) well exceeds the 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question genuinely requires two non-adjacent spans (200s apart) \u2014 one for identifying which edge types exist and another for the reasoning about cross edges \u2014 satisfying the multi-hop requirement."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The source text does not explicitly state that backward edges can exist in undirected graphs. It only confirms that tree edges can exist and implies that cross edges cannot exist by stating that a cross edge would actually be a tree edge."
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q026",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the chunk text and frame captions, including Case 2 mechanics, the DAG/no-cycle argument, and v finishing before u."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap between hop 1 (starts 2910s) and hop 2 (starts 2975s) is only 65 seconds, which is less than the required 70 seconds minimum, meaning the hops are too close and effectively retrievable in a single step."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The two cited chunks (085 and 086) are consecutive with only a 65-second gap, making the question effectively single-hop rather than genuinely multi-hop requiring non-adjacent spans."
+    },
+    "rejection_reason": "Criteria 2 and 3 failed: the inter-hop temporal gap is only 65 seconds (below the 70-second threshold), and the two source chunks are consecutive/adjacent, meaning this is not a genuine multi-hop question.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q027",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: (1) DFS-Visit is called at most once per vertex because the parent is set immediately before calling it and wasn't set before (chunk_027); (2) the total cost is order of the sum of adjacency list lengths over all vertices (chunk_029); (3) this equals E by the handshaking lemma (chunk_029)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1580s\u20131645s) aligns with chunk_027 and hop 2 (1695s\u20131760s) aligns with chunk_029; the inter-hop gap is |1580 - 1695| = 115 seconds, which exceeds the required 70-second minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is genuinely multi-hop, requiring information from two non-adjacent spans (chunk_027 for the 'called at most once' explanation and chunk_029 for the handshaking lemma/total cost), with a gap of 115 seconds between hops."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The claim that DFS-Visit is called at most once per vertex is supported by the source text, which states that a vertex's parent is set for the first time right before DFS-Visit is called. The claim about the total cost of adjacency list iterations being the order of the sum of adjacency list lengths, equating to E by the handshaking lemma, is also supported by the source text."
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q028",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the chunk text: marking vertices with 'inprocess' flag, setting s.inprocess=true at start of DFS-Visit, setting it to false at end, and using this to detect backward edges when following an edge to a neighbor already in the recursion stack (an ancestor)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span (1490.0s\u20131555.0s) covers a 65-second window; chunk_042 at 45s per chunk would start around 1890s (42*45=1890) \u2014 however, the exact chunk timing isn't provided, but the span aligns with a single cited chunk, which is consistent with a text question requiring exactly 1 span."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text', requiring exactly 1 span, and there is exactly 1 ground_truth_span (1490.0s\u20131555.0s); the chunk contains [frame caption: ...] markers but text type does not require their absence, and the answer is derivable from the spoken text content."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports all claims: it describes marking vertices with an 'in process' flag at the start and end of DFS-Visit, and using this flag to detect backward edges when a neighbor is already marked as 'in process'."
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q029",
+    "question_type": "text",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunk text: F's parent pointer is set to C, DFS examines F's only outgoing edge which goes to F itself, F already has a parent pointer so the edge is skipped, and DFS finishes with F and backtracks to C."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span 1370.0s\u20131435.0s aligns with chunk_022's 45-second window, and this is a text question requiring only one span check."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' with exactly one span, and while the chunk contains [frame caption: ...] markers, the text type only requires exactly 1 span with no frame caption requirement, which is satisfied here."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text confirms that when DFS visits F from C, it sets F's parent pointer to C, examines F's outgoing edge back to F, recognizes F as already visited, and does nothing further with F."
+  },
+  {
+    "qa_id": "mit_6006f11_lec14_q030",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the source material that could answer the question about a specific recurrence relation or closed-form formula for DFS timing, nor about distinguishing forward edges from cross edges using such timing."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

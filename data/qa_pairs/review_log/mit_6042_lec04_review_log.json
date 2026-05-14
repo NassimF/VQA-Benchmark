@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "mit_6042_lec04_q001",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The chunk text supports: (1) physical jugs (transparent containers) on the podium \u2014 confirmed by frame captions describing 'a clear glass container' and 'a transparent jar'; (2) tennis balls representing gallons of water \u2014 explicitly stated in chunk_010 ('each tennis ball is one gallon of water'); (3) the jug-pouring demonstration \u2014 confirmed by chunk_010's description of filling and pouring; (4) the theorem that if M divides both jug capacities then M divides any achievable result \u2014 explicitly stated in chunk_019 ('if M divides a and well then M should divide any result that I can get with the pouring and emptying and filling those jugs'); (5) formalized using a state machine model \u2014 confirmed by chunk_020 ('the state machine')."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (305s\u2013400s) aligns with chunk_010 (which covers roughly the 305\u2013400s window based on chunk numbering), and Hop 2 (1105s\u20131210s) aligns with chunks_019/020. The inter-hop gap is |305 - 1105| = 800 seconds, well above the 70-second threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop-visual: it requires \u22652 non-adjacent spans (305s\u2013400s and 1105s\u20131210s, gap of 800s), and multiple cited chunks contain [frame caption: ...] markers with visual evidence of the physical demonstration and blackboard content."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The source text does not mention the use of tennis balls representing gallons of water or the use of a state machine model to prove the theorem. It only describes the use of jugs and the theorem related to divisibility by M, but lacks details on the demonstration specifics and the state machine model."
+  },
+  {
+    "qa_id": "mit_6042_lec04_q002",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the Die Hard clip shows a 5-gallon and 3-gallon jug, the goal is exactly 4 gallons on a scale to stop a bomb timer (chunks 007/008); the theorem explanation that results must be divisible by gcd is supported by the student's explanation in chunk 054 ('A and B are both divisible by 11... any other configuration will also have to be divisible by 11, four is not divisible by 11'); the 33 and 55 gallon jugs are confirmed in chunks 053/054 via frame captions and transcript."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (245s\u2013360s) aligns with chunks 007/008 (Die Hard clip content); Hop 2 (1930s\u20132010s) aligns with chunks 053/054 (theorem application). The inter-hop gap is |245 - 1930| = 1685 seconds, well above the 70-second minimum requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (Die Hard clip at ~245-360s and theorem application at ~1930-2010s, gap >70s), and multiple cited chunks contain [frame caption: ...] markers, satisfying both conditions for multi-hop-visual."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported: the source text confirms the use of 5-gallon and 3-gallon jugs to measure four gallons, and explains that with 33-gallon and 55-gallon jugs, any result must be divisible by 11, making four gallons unobtainable."
+  },
+  {
+    "qa_id": "mit_6042_lec04_q003",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec04_q004",
+    "question_type": "multi-hop-visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the cited chunks: the transition equation (x,y)\u2192(x+y-b,b) with x+y\u2265b is shown in chunk_028/029 frame captions, and the induction proof details (m divides x, y, b, and hence x+y-b) are confirmed in chunk_049/050."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops span 980s\u20131065s and 1750s\u20131855s, giving an inter-hop gap of ~770 seconds, well above the 70-second threshold, and both spans align with their cited chunk windows."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires two non-adjacent spans (gap ~770s) and all cited chunks contain [frame caption: ...] markers, satisfying both multi-hop-visual requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly supports the claim that the blackboard shows the transition (x, y) \u2192 (x+y-b, b) when x+y \u2265 b, and the induction proof verifies that this transition preserves the divisibility invariant by showing that x+y-b is a linear combination of quantities divisible by m."
+  },
+  {
+    "qa_id": "mit_6042_lec04_q005",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the cited chunks: the divisibility definition (m|a iff a=km) is in chunk_015, the gcd divides both a and b is in chunk_060, and the corollary that only multiples of gcd can be reached is in chunk_060."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops are at 525-610s and 2100-2185s, giving an inter-hop gap of ~1575 seconds, well above the 70-second threshold, and both spans align with their respective cited chunks."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question requires \u22652 non-adjacent spans (525-610s and 2100-2185s) and all cited chunks contain [frame caption: ...] markers, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "c1_knowledge_conflict",
+    "c1_cross_check_result": "FAIL",
+    "c1_cross_check_reason": "The source text does not provide a definition for gcd(a,b) as the greatest common divisor of a and b. It also does not explicitly connect the definitions of divisibility and gcd through the corollary derived from the jug theorem. The text mentions that the gcd divides any result achievable with the jugs, but it does not state that only multiples of gcd(a,b) can be reached in the jug game."
+  },
+  {
+    "qa_id": "mit_6042_lec04_q006",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec04_q007",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec04_q008",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "The answer's atomic claims \u2014 'State machine' at top, 'States: pairs (x, y)', x = # gal. in the a-jug, y = # gal. in the b-jug, and 'Start-state: (0, 0)' \u2014 are all explicitly supported by the frame captions in chunk_021 and chunk_022, which show exactly this blackboard text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (745.0s\u2013835.0s) covers a 90-second window that aligns with chunk_021 and chunk_022 (each 45s), and the span boundaries fall within acceptable range of the chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed 'visual', requires exactly 1 span, and both cited source chunks contain multiple [frame caption: ...] markers showing blackboard content, satisfying the visual type requirements."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "All claims are supported by the source text, which explicitly states the labels for the state variables x and y, and the start state (0, 0) for the jugs."
+  },
+  {
+    "qa_id": "mit_6042_lec04_q009",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims 'the gcd equals the smallest positive linear combination of a and b' but this specific claim is not supported by the cited chunk text. The chunks show the theorem states 'gcd(a,b) is a linear combination of a and b' and the invariant about Euclid's algorithm, but there is no mention of 'smallest positive linear combination' in the source chunks. Additionally, the answer's description of the invariant P(n) slightly misrepresents what's in the chunks (chunks say 'if Euclid's Alg reaches gcd(a,b) at step n, x and y are combinations of a and b', not exactly as stated in the answer)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The ground_truth_span (4460.0s\u20134550.0s) covers a 90-second window that aligns with chunks 125 and 126, which are adjacent chunks covering this time range. For a visual question with a single span, only alignment check (a) is needed, and the span plausibly covers the cited chunks."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is typed as 'visual' with exactly 1 ground_truth_span, and both cited source chunks contain multiple [frame caption: ...] markers describing blackboard content, satisfying the visual type requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer includes an unsupported claim that 'the gcd equals the smallest positive linear combination of a and b,' which is not present in the cited source chunks.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec04_q010",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec04_q011",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunk text: R = s'*a - u*b (chunk_088), L = s'*a + t'*b (chunk_088), the algebraic rewriting R = L - (t'+u)*b (chunks_090, 091), the range argument that both R and L lie in (0,b) so t'+u must equal zero (chunk_091, 094), and the conclusion that u = -t' leads to R = L (chunk_094)."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (3130s\u20133215s) aligns with chunks 088-089 (each ~45s window around that range), and Hop 2 (3265s\u20133360s) aligns with chunks 090-091/094. The inter-hop gap is |3130 - 3265| = 135s \u2265 70s, satisfying the multi-hop temporal separation requirement."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is classified as multi-hop and requires information from two non-adjacent spans (3130s\u20133215s and 3265s\u20133360s), with a gap of 135 seconds between them, genuinely requiring retrieval from multiple non-adjacent parts of the lecture."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims that R is expressed as s'*a - u*b and L as s'*a + t'*b, and that R = L - (t'+u)*b. It also supports the conclusion that t'+u must equal zero to keep R within the range (0, b), leading to R = L."
+  },
+  {
+    "qa_id": "mit_6042_lec04_q012",
+    "question_type": "multi-hop",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunks: the proof shows both directions by demonstrating common divisors of (a,b) and (rem(b,a),a) are identical; rem(b,a)=b-q*a is used as a linear combination; b=q*a+rem(b,a) is used for the reverse direction; and chunk_120 explicitly states item three on the handout says 'if a divides b and a divides c then a divides any linear combination of b and c,' which is used repeatedly."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 spans 4035-4120s and hop 2 spans 4155-4240s, aligning with chunks 116-120 (each ~45s window); the inter-hop gap is |4155-4035|=120s, which exceeds the required 70s minimum."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is multi-hop, requiring information from chunks 116-117 (first direction of proof) and chunks 119-120 (second direction and the handout fact), which are non-adjacent spans; no visual evidence is claimed and the type is correctly labeled multi-hop."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text supports the claims that the proof shows the sets of common divisors are identical and uses the fact that if m divides two quantities, it divides any linear combination of them. This is explicitly mentioned in the source text as item three on the divisibility handout."
+  },
+  {
+    "qa_id": "mit_6042_lec04_q013",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims 'a equals three and b equals six' and 'm equals three', but the source chunks never explicitly state a=3, b=6, or m=3 as variable assignments. The chunks mention a six-gallon jug and three-gallon jug and note '1*3' and '2*3', but the answer also claims a theorem was proved about 'if m divides both a-gallon jug capacity and b-gallon jug capacity, then m must divide any achievable result' \u2014 this theorem is not stated or proved in the cited chunks (chunk_014 only begins a definition). The answer over-extends beyond what the cited text supports."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The ground_truth_spans list only one hop (455.0s\u2013540.0s), but two source_chunk_ids are cited (chunk_013 and chunk_014). For a text question with a single span, this is plausible, but the span covers ~85 seconds across two chunks, which is acceptable. However, the single hop label is inconsistent with citing two chunks spanning different time windows."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question_type is 'text' and there is exactly one ground_truth_span provided, which is consistent with the text type requirement."
+    },
+    "rejection_reason": "Criterion 1 fails: the answer makes specific variable assignments (a=3, b=6, m=3) and references a proved theorem that are not explicitly supported by the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec04_q014",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "parse error"
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "mit_6042_lec04_q015",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the source material that could answer the question about the exact number of steps for Euclid's algorithm on gcd(3,5) or the pulverizer representation."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

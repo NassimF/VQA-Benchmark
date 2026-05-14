@@ -1,0 +1,302 @@
+[
+  {
+    "qa_id": "nyu_dl_week1_q001",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims 'Mark Goldstein' is a TA (supported), but also states he 'runs Tuesday practical sessions' \u2014 the chunk text says Tuesday practical sessions are run by 'Alfredo' (per frame captions: 'Tuesday evenings with Alfredo'), not both TAs jointly running them. Additionally, the answer claims the sessions cover 'PyTorch tutorials' but the chunk text only mentions 'math refreshers' and 'practical questions/mathematics'; PyTorch tutorials are not explicitly mentioned in the cited chunks."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 0.0s\u201345.0s and Hop 2 spans 35.0s\u2013115.0s; the inter-hop gap is |0.0 - 35.0| = 35 seconds, which is less than the required 70-second minimum, meaning the hops are too temporally close to constitute genuinely non-adjacent retrieval."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question claims multi-hop-visual type; both cited chunks contain [frame caption: ...] markers, and two spans are referenced, satisfying the requirements."
+    },
+    "rejection_reason": "Criterion 1 fails due to unsupported claims about PyTorch tutorials and misattribution of Tuesday session leadership; Criterion 2 fails because the inter-hop temporal gap (35s) is below the required 70s minimum.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week1_q002",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are explicitly supported by the cited chunk text, including NLP dominance, computer vision papers three months prior, and the 'take over the world' prediction."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Both hops share the same start time (595.0s), giving an inter-hop gap of 0 seconds, which is far below the required 70-second minimum for multi-hop questions."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question claims multi-hop-visual requiring \u2265 2 non-adjacent spans, but both hops start at 595.0s and are not temporally non-adjacent, making this effectively single-hop."
+    },
+    "rejection_reason": "Criteria 2 and 3 failed: the two hops have identical start times (595.0s), providing zero temporal separation, which disqualifies this as a genuine multi-hop question.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week1_q003",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_086 confirms complex cells pool simple cell outputs building shift invariance; chunk_087 explicitly states this led the instructor ('me') to develop convolutional nets in the 'mid 80s or late eighties' with local connections replicated across the visual field and feature detection layers interspersed with pooling operations."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 3025\u20133100s and Hop 2 spans 3070\u20133135s; the inter-hop gap is |3025 - 3070| = 45 seconds, which is less than the required 70 seconds, meaning the two hops are too temporally close and effectively retrievable in a single step."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both cited chunks contain [frame caption: ...] markers, and the question requires combining visual slide content (Hubel & Wiesel slide with Fukushima 1982 and LeCun 1989 references) with spoken explanation across two chunks, satisfying multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only ~45 seconds (3025s vs 3070s), below the required 70-second minimum, making this effectively single-hop rather than genuinely multi-hop.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week1_q004",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: 28.2% for ILSVRC 2010 and 25.8% for ILSVRC 2011 are confirmed by frame captions; 16.4% for 2012 by Geoff Hinton's team (referred to as 'Jeff and his team') is confirmed in chunk_107; the watershed moment description and beating competing systems by a large margin are confirmed in chunks 107 and 108. The answer attributes the team to 'Geoff Hinton' while the transcript says 'Jeff' \u2014 this is a reasonable interpretation of the same person, supported by context."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Both hops are specified as 3780.0s\u20133830.0s and 3750.0s\u20133840.0s, giving an inter-hop gap of |3780 - 3750| = 30 seconds, which is far below the required 70-second minimum. The two hops are essentially co-located in time, making this single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both cited chunks contain [frame caption: ...] markers, and the question references both visual content (bar graph values) and transcript explanation, satisfying the multi-hop-visual requirements for visual evidence; however, the multi-hop temporal separation requirement is not met."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only ~30 seconds (3780s vs 3750s), well below the required 70-second minimum, meaning the two hops are not sufficiently non-adjacent to constitute a genuine multi-hop question.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week1_q005",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: chunk_048 confirms the slide shows traditional ML with hand-engineered feature extractor vs. deep learning with low/mid/higher-level trainable modules; chunk_049 explicitly states that the composition of two linear functions is linear, that multiplying a vector by two matrices is equivalent to pre-computing their product and applying a single matrix, and that there is no point having multiple linear layers."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The two hops are at 1680s\u20131740s and 1715s\u20131800s, giving an inter-hop gap of |1680 - 1715| = 35 seconds, which is well below the required 70-second minimum; the hops are temporally adjacent and effectively retrievable in a single step."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question references \u22652 spans and both cited chunks contain [frame caption: ...] markers describing the slide, satisfying the multi-hop-visual requirements."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only ~35 seconds (1680s vs. 1715s), far below the required 70-second minimum, making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week1_q006",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the traffic light labeled 'traffic light: -1' appears in frame captions of both chunks; the fog/mountain/night analogy for gradient descent is in chunk_058; the condition of small steps not jumping to the other side is in chunk_059; and convexity (no mountain lakes/local minima) as necessary for global convergence is explicitly stated in chunk_059."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 spans 1995\u20132040s and hop 2 spans 2030\u20132110s; the gap between hop starts is |1995 - 2030| = 35 seconds, which is less than the required 70-second minimum inter-hop gap, making this effectively single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question claims multi-hop-visual: both cited chunks contain [frame caption: ...] markers with visual content (traffic light), and two spans are cited \u2014 though they overlap significantly, the type requirements (\u22652 spans, \u22651 frame caption) are formally met."
+    },
+    "rejection_reason": "Criterion 2 fails: the temporal gap between the two hops is only ~35 seconds (1995s vs 2030s), well below the required 70-second minimum, meaning the content can be retrieved in a single step.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week1_q007",
+    "question_type": "multi-hop-visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported: the slide states billions of photos go through ConvNets within 2 seconds (chunk_111 frame captions), the instructor states Facebook runs ConvNets tens of billions of times per day (chunk_112), and entire teams at Google/Facebook work on quantizing and compressing networks (chunk_111/112). The ResNet50/ResNet100 attribution to Canziani 2016 is also confirmed in the frame captions."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "Hop 1 starts at 3915s and Hop 2 starts at 3920s, giving an inter-hop gap of only 5 seconds, which is far below the required 70-second minimum. The two hops are essentially the same temporal location, making this single-hop in disguise."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Both source chunks contain [frame caption: ...] markers, and the question references both visual slide content and transcript explanation across two cited chunks, satisfying the multi-hop-visual requirements in principle."
+    },
+    "rejection_reason": "Criterion 2 fails: the inter-hop temporal gap is only 5 seconds (3915s vs 3920s), well below the required 70-second minimum, meaning the two hops are not genuinely non-adjacent and the question is single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week1_q008",
+    "question_type": "visual",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims in the answer are supported by the frame captions in the chunk: the slide is titled 'LeNet character recognition demo 1992', the system ran on an AT&T DSP32C, it is described as a floating-point DSP, and it is rated at 20 MFLOPS."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single span (3175.0s\u20133235.0s) aligns with chunk_090, which covers a 45-second window; 3175s falls within plausible chunk boundaries for this chunk."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual', there is exactly one span, and the cited chunk contains multiple [frame caption: ...] markers providing the visual evidence needed to answer the question."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "PASS",
+    "c1_cross_check_reason": "The source text explicitly states that the 'LeNet character recognition demo 1992' was running on an AT&T DSP32C, which is described as a floating-point digital signal processor capable of 20 MFLOPS."
+  },
+  {
+    "qa_id": "nyu_dl_week1_q009",
+    "question_type": "visual",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the diagram includes 'ego-motion and coupling constraints' components, but these specific terms are not mentioned in any of the frame captions in the source chunk. The frame captions mention image processing, depth estimation, motion segmentation, and graphical path planning, but not ego-motion or coupling constraints."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single hop span (4305.0s\u20134360.0s) aligns with chunk nyu_dl_week1_chunk_122, which covers a 45-second window; the span falls within plausible chunk boundaries."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question type is 'visual' with exactly 1 span and the source chunk contains multiple [frame caption: ...] markers describing the MobilEye diagram, satisfying both visual type requirements."
+    },
+    "rejection_reason": "Criterion 1 failed: the answer includes unsupported claims about 'ego-motion and coupling constraints' that are not present in the cited frame captions.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week1_q010",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the first winter ended due to backpropagation around 1985 and computers becoming fast enough for floating-point multiplications, but neither claim is supported by the cited chunk text \u2014 chunk_031 cuts off before explaining what ended the first winter, and no cited chunk mentions floating-point multiplications."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The two hops (1125s and 1260s) align with their respective chunks and have an inter-hop gap of 135s, well above the 70s threshold."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question genuinely requires \u2265 2 non-adjacent spans covering distinct periods of neural network history, satisfying the multi-hop requirement."
+    },
+    "rejection_reason": "Criterion 1 failed: key claims about what ended the first winter (backpropagation, floating-point computation speed) are not supported by the cited chunk text.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week1_q011",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunk text: (1) researchers used McCulloch-Pitts binary neurons, (2) backpropagation requires continuous/differentiable activation functions, (3) researchers didn't consider continuous neurons, (4) binary neurons only require additions while continuous neurons require multiplying activation by weight, and (5) before the 1980s floating-point multiplication on affordable computers was extremely slow, creating an incentive to avoid continuous neurons \u2014 all explicitly stated in chunks 033 and 034."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Hop 1 (1155\u20131215s) aligns with chunk_033 and hop 2 (1190\u20131270s) aligns with chunk_034, both within plausible chunk boundaries. The inter-hop gap |1155 - 1190| = 35s is less than 70s, but the hops span different chunks and the second reason begins in chunk_034 which starts around 1190s; however, the gap between hop start times is only 35s which is below the 70s threshold \u2014 FAIL on inter-hop gap criterion."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is labeled multi-hop and requires information from two non-adjacent spans across two chunks; no frame caption evidence is needed and none is claimed, consistent with the multi-hop type."
+    },
+    "rejection_reason": "Criterion 2 fails: the inter-hop gap between hop 1 start (1155s) and hop 2 start (1190s) is only 35 seconds, which is below the required 70-second minimum, meaning both hops can effectively be retrieved in a single step and the question is multi-hop in name only.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week1_q012",
+    "question_type": "multi-hop",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All core atomic claims\u2014parity problem definition, exponential complexity for two-layer architectures, linear complexity with log-n layers, and the breadth-for-depth trade-off\u2014are explicitly supported by the cited chunk text and frame captions."
+    },
+    "criterion_2": {
+      "result": "FAIL",
+      "reason": "The inter-hop gap between hop 1 (starting at 5110s) and hop 2 (starting at 5175s) is only 65 seconds, which is less than the required minimum of 70 seconds, meaning the hops are too close and could be retrieved in a single step."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "The question is labeled multi-hop and references two source chunks; both chunks contain [frame caption: ...] markers, and the answer requires information from both chunks."
+    },
+    "rejection_reason": "Criterion 2 failed: the inter-hop temporal gap is only 65 seconds (below the 70-second minimum), making this effectively single-hop in disguise.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week1_q013",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "All atomic claims are supported by the chunk text: weights were potentiometers, potentiometers had motors on them for the learning algorithm to rotate, Rosenblatt is holding a module of eight weights with motorized potentiometers that can be counted in the image."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (1030.0s\u20131095.0s) aligns with chunk_030, which is a 45-second window; the span falls within plausible chunk boundaries for this content."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question_type is 'text' (requiring no frame caption), but the chunk contains multiple [frame caption: ...] markers and the question explicitly asks about a photograph shown during the lecture, which is visual evidence; this should be classified as 'visual' rather than 'text'."
+    },
+    "rejection_reason": "Criterion 3 failed: the question references a photograph shown during the lecture and the source chunk contains [frame caption: ...] markers, making this a visual question rather than a text question.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week1_q014",
+    "question_type": "text",
+    "overall": "REJECT",
+    "criterion_1": {
+      "result": "FAIL",
+      "reason": "The answer claims the technology was 'later licensed to Tesla for their first driving assistance features,' but this claim is not supported by either source chunk. The chunks only state Mobileye was the first company to deploy a vision system for cars that could keep a car in a highway lane and brake for pedestrians/cyclists; no mention of Tesla licensing is present in the cited text."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "The single ground_truth_span (3585.0s\u20133660.0s) aligns with chunks 099 and 100, which would cover approximately that 75-second window, consistent with the \u00b115s tolerance."
+    },
+    "criterion_3": {
+      "result": "FAIL",
+      "reason": "The question_type is 'text' requiring exactly 1 span, but the answer draws from two source chunks (nyu_dl_week1_chunk_099 and nyu_dl_week1_chunk_100), and the ground_truth_spans covers a 75-second window spanning both chunks; however, the frame captions in both cited chunks contain [frame caption: ...] markers, which would make this more appropriately a visual type. Additionally, the content spans two chunks, suggesting multi-hop rather than text type."
+    },
+    "rejection_reason": "Criterion 1 fails because the answer includes an unsupported claim about Tesla licensing; Criterion 3 fails because the question_type 'text' is inconsistent with the answer drawing from two chunks containing frame captions.",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  },
+  {
+    "qa_id": "nyu_dl_week1_q015",
+    "question_type": "unanswerable",
+    "overall": "ACCEPT",
+    "criterion_1": {
+      "result": "PASS",
+      "reason": "No source chunks were provided, so there is no evidence in the lecture content about the exact number of parameters in ResNet-50 or a comparison to human visual cortex neuron count."
+    },
+    "criterion_2": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "criterion_3": {
+      "result": "PASS",
+      "reason": "Not applicable for unanswerable questions."
+    },
+    "rejection_reason": "",
+    "c1_cross_check_result": "SKIPPED",
+    "c1_cross_check_reason": ""
+  }
+]

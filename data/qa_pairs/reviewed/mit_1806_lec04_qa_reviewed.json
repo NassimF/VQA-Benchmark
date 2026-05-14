@@ -1,0 +1,346 @@
+[
+  {
+    "qa_id": "mit_1806_lec04_q001",
+    "question": "What visual formula is shown on the blackboard at the start of the lecture connecting A and its inverse, and how does the lecture later use this relationship to derive the LU decomposition?",
+    "answer": "The blackboard at the start of the lecture shows the formula AA^(-1) = I = A^(-1)A, establishing that a matrix times its inverse gives the identity. The lecture later uses this relationship by showing that elimination steps represented as E matrices can be inverted and placed on the right side of the equation, so that the product of inverse elimination matrices forms L, yielding the factorization A = LU where L is lower triangular and U is upper triangular.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 35.0,
+        "end": 80.0,
+        "hop": 1,
+        "description": "Blackboard shows AA^(-1) = I = A^(-1)A at start of lecture"
+      },
+      {
+        "start": 1545.0,
+        "end": 1630.0,
+        "hop": 2,
+        "description": "Lecture derives A = LU from inverse elimination matrices"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_1806_lec04_chunk_001",
+      "mit_1806_lec04_chunk_028"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "matrix inverse",
+      "identity matrix",
+      "LU decomposition",
+      "elimination matrices"
+    ],
+    "video_id": "mit_1806_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_1806_lec04_q005",
+    "question": "The frame caption for the permutations section shows a blackboard labeled 'Permutations 3x3.' How many 3\u00d73 permutation matrices exist according to the lecture, and what key property do their inverses satisfy that is mentioned later?",
+    "answer": "The blackboard labeled 'Permutations 3x3' leads into the lecture's enumeration of all permutation matrices for a 3\u00d73 case. According to the lecture, there are exactly six 3\u00d73 permutation matrices, corresponding to all possible rearrangements of rows of the identity matrix. The key property mentioned later is that the inverse of each permutation matrix equals its transpose, meaning P^(-1) = P^T for any permutation matrix.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2520.0,
+        "end": 2565.0,
+        "hop": 1,
+        "description": "Blackboard caption shows 'Permutations 3x3' on the board"
+      },
+      {
+        "start": 2800.0,
+        "end": 2865.0,
+        "hop": 2,
+        "description": "Lecture states inverse of permutation matrix equals its transpose, and there are six 3x3 permutation matrices"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_1806_lec04_chunk_072",
+      "mit_1806_lec04_chunk_080"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "permutation matrices",
+      "matrix inverse",
+      "transpose",
+      "row exchanges"
+    ],
+    "video_id": "mit_1806_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_1806_lec04_q009",
+    "question": "Based on the frame caption for chunk 43, what exact statement is written on the blackboard regarding the LU decomposition and the behavior of multipliers?",
+    "answer": "According to the frame caption for chunk 43, the blackboard states: 'A = LU' and 'If no row exchanges multipliers go directly into L.' This statement captures the key insight that when Gaussian elimination proceeds without any row exchanges, the multipliers used at each elimination step populate the lower triangular matrix L directly, without any additional computation or rearrangement being required.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 1505.0,
+        "end": 1550.0,
+        "hop": 1,
+        "description": "Frame caption shows 'If no row exchanges multipliers go directly into L' on the blackboard"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_1806_lec04_chunk_043"
+    ],
+    "question_type": "visual",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "LU decomposition",
+      "multipliers",
+      "lower triangular matrix",
+      "row exchanges"
+    ],
+    "video_id": "mit_1806_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_1806_lec04_q011",
+    "question": "In the 3\u00d73 elimination example, the lecture explains why multiplying the E matrices together in the order they are applied produces an unwanted entry of 10, but taking their inverses in reverse order avoids this problem. What specific row operations caused the 10 to appear, and why does reversing the order prevent it?",
+    "answer": "The unwanted entry of 10 appeared because during forward elimination, E21 subtracted 2 times row one from row two, and then E32 subtracted 5 times the modified row two from row three. Since the modified row two already contained contributions from row one, the effect of row one on row three was 5 times 2, which equals 10. When the inverses are taken in reverse order to form L, each inverse matrix independently adds back only its own multiplier without any cascading interaction. The inverse of E21 simply places the multiplier 2 in its position in L, and the inverse of E32 places the multiplier 5 in its position, so the 10 never appears and the multipliers sit cleanly in L.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 1155.0,
+        "end": 1240.0,
+        "hop": 1,
+        "description": "Lecture explains how subtracting 2 of row one then 5 of row two caused entry of 10"
+      },
+      {
+        "start": 1380.0,
+        "end": 1450.0,
+        "hop": 2,
+        "description": "Lecture explains taking inverses in reverse order places multipliers cleanly in L"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_1806_lec04_chunk_033",
+      "mit_1806_lec04_chunk_036"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "elimination matrices",
+      "matrix multiplication order",
+      "multipliers",
+      "LU decomposition"
+    ],
+    "video_id": "mit_1806_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_1806_lec04_q012",
+    "question": "The lecture discusses the computational cost of Gaussian elimination and separately the cost of processing the right-hand side vector b. How does the lecture relate these two costs, and what practical advantage does the LU factorization provide when there are multiple right-hand sides?",
+    "answer": "The lecture establishes that Gaussian elimination on an n\u00d7n matrix A costs approximately (1/3)n\u00b3 operations, which is the dominant cost. Processing each right-hand side vector b through forward and back substitution costs approximately n\u00b2 operations, which is far smaller. The practical advantage of LU factorization is that the expensive work of factoring A into L and U is done once, and then every additional right-hand side can be solved cheaply at n\u00b2 cost rather than repeating the full n\u00b3 elimination. This makes the approach highly efficient when the same matrix A must be solved with many different right-hand side vectors.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2210.0,
+        "end": 2270.0,
+        "hop": 1,
+        "description": "Lecture states total elimination cost is approximately 1/3 n^3"
+      },
+      {
+        "start": 2345.0,
+        "end": 2420.0,
+        "hop": 2,
+        "description": "Lecture states cost of each right-hand side b is n^2 and explains the practical advantage"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_1806_lec04_chunk_063",
+      "mit_1806_lec04_chunk_067"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "computational cost",
+      "LU decomposition",
+      "n^3 operations",
+      "right-hand side"
+    ],
+    "video_id": "mit_1806_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_1806_lec04_q015",
+    "question": "What is the exact numerical value of the determinant of the lower triangular matrix L produced in the 2\u00d72 LU decomposition example shown in this lecture?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "medium",
+    "answerable": false,
+    "key_concepts": [
+      "determinant",
+      "lower triangular matrix",
+      "LU decomposition"
+    ],
+    "video_id": "mit_1806_lec04",
+    "reviewed_by": "llm_draft",
+    "review_date": "2026-05-10"
+  },
+  {
+    "qa_id": "mit_1806_lec04_q016",
+    "video_id": "mit_1806_lec04",
+    "question": "What visual example does the professor use to explain why the inverse of a product AB reverses the order, and what is the correct formula for (AB)^{-1}?",
+    "answer": "The professor uses the analogy of putting on socks and shoes: you put on socks first then shoes, so to invert the process you must put socks back on first, then shoes. The correct formula for the inverse of AB is B inverse times A inverse, i.e., (AB)^{-1} = B^{-1}A^{-1}, because multiplying AB by B^{-1}A^{-1} collapses to the identity by first resolving B times B^{-1} and then A times A^{-1}.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 2.0,
+        "end": 80.0,
+        "hop": 1,
+        "description": "Introduction of the inverse of a product AB and the formula (AB)^{-1} = B^{-1}A^{-1}"
+      },
+      {
+        "start": 175.0,
+        "end": 220.0,
+        "hop": 2,
+        "description": "Socks-and-shoes analogy explaining why inverse order is reversed, visible on chalkboard with blank board frame caption"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_1806_lec04_chunk_000",
+      "mit_1806_lec04_chunk_005"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "inverse of product",
+      "reverse order",
+      "socks-and-shoes analogy"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_1806_lec04_q017",
+    "video_id": "mit_1806_lec04",
+    "question": "According to the lecture, what is the inverse of the transpose of a matrix A, and how is this derived from the equation AA^{-1} = I by taking transposes of both sides?",
+    "answer": "The inverse of the transpose of A is the transpose of A^{-1}, that is, (A^T)^{-1} = (A^{-1})^T. This is derived by transposing both sides of AA^{-1} = I: the identity transposes to itself, and the product transposes with reversed order, giving (A^{-1})^T A^T = I, which directly shows that (A^{-1})^T is the inverse of A^T. The professor notes that transposing and inverting can be done in either order.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 245.0,
+        "end": 300.0,
+        "hop": 1,
+        "description": "Derivation of inverse-transpose formula from AA^{-1}=I by transposing both sides"
+      },
+      {
+        "start": 350.0,
+        "end": 395.0,
+        "hop": 2,
+        "description": "Conclusion that (A^T)^{-1} = (A^{-1})^T and that transpose and inverse commute, shown on blackboard with equations"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_1806_lec04_chunk_007",
+      "mit_1806_lec04_chunk_010"
+    ],
+    "question_type": "multi-hop-visual",
+    "difficulty": "hard",
+    "answerable": true,
+    "key_concepts": [
+      "inverse of transpose",
+      "matrix transpose",
+      "commuting operations"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_1806_lec04_q025",
+    "video_id": "mit_1806_lec04",
+    "question": "How does the professor derive the formula for the inverse of a transpose from the basic identity AA^{-1} = I, and what does the final result state about the relationship between inverting and transposing?",
+    "answer": "The professor starts from AA^{-1} = I and takes the transpose of both sides. The identity matrix transposes to itself, and the product transposes with reversed order, yielding (A^{-1})^T A^T = I. This equation directly reveals that (A^{-1})^T is the inverse of A^T, i.e., (A^T)^{-1} = (A^{-1})^T. The final result states that transposing and inverting can be performed in either order for a single matrix.",
+    "num_hops": 2,
+    "ground_truth_spans": [
+      {
+        "start": 245.0,
+        "end": 310.0,
+        "hop": 1,
+        "description": "Transposing both sides of AA^{-1}=I to get (A^{-1})^T A^T = I"
+      },
+      {
+        "start": 350.0,
+        "end": 415.0,
+        "hop": 2,
+        "description": "Conclusion that (A^T)^{-1}=(A^{-1})^T and that the two operations commute for a single matrix"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_1806_lec04_chunk_008",
+      "mit_1806_lec04_chunk_010"
+    ],
+    "question_type": "multi-hop",
+    "difficulty": "medium",
+    "answerable": true,
+    "key_concepts": [
+      "inverse of transpose",
+      "matrix identity",
+      "commutativity of inverse and transpose"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_1806_lec04_q029",
+    "video_id": "mit_1806_lec04",
+    "question": "According to the lecture, what curious property do permutation matrices have regarding their inverses and transposes?",
+    "answer": "The professor states a curious fact that for permutation matrices, the inverse is equal to the transpose, i.e., P^{-1} = P^T. This means that to invert a permutation matrix, one simply transposes it. For example, if a permutation matrix exchanges rows one and two, its inverse is the same matrix again, which is also its own transpose.",
+    "num_hops": 1,
+    "ground_truth_spans": [
+      {
+        "start": 2815.0,
+        "end": 2870.0,
+        "hop": 1,
+        "description": "Professor states the curious fact that inverses of permutation matrices equal their transposes, P^{-1}=P^T"
+      }
+    ],
+    "source_chunk_ids": [
+      "mit_1806_lec04_chunk_080"
+    ],
+    "question_type": "text",
+    "difficulty": "easy",
+    "answerable": true,
+    "key_concepts": [
+      "permutation matrix",
+      "inverse equals transpose",
+      "P^{-1}=P^T"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  },
+  {
+    "qa_id": "mit_1806_lec04_q030",
+    "video_id": "mit_1806_lec04",
+    "question": "What is the exact numerical value of the determinant of the lower triangular matrix L produced in the 3\u00d73 LU decomposition example worked out in this lecture?",
+    "answer": "This question cannot be answered from the provided lecture content.",
+    "num_hops": 1,
+    "ground_truth_spans": [],
+    "source_chunk_ids": [],
+    "question_type": "unanswerable",
+    "difficulty": "hard",
+    "answerable": false,
+    "key_concepts": [
+      "determinant",
+      "LU decomposition",
+      "lower triangular matrix"
+    ],
+    "reviewed_by": "llm_draft_regen",
+    "review_date": "2026-05-14"
+  }
+]

@@ -84,6 +84,17 @@ class QAGenerationConfig:
 
 
 @dataclass
+class QAReviewConfig:
+    primary_model: str
+    c1_crosscheck_model: str
+    temperature: float
+    floor_accepted: int
+    discard_threshold: int
+    max_retries: int
+    min_span_gap_seconds: float
+
+
+@dataclass
 class Config:
     data: DataConfig
     embedding: EmbeddingConfig
@@ -94,6 +105,7 @@ class Config:
     frame_captioner: FrameCaptionerConfig
     generator: GeneratorConfig
     qa_generation: QAGenerationConfig
+    qa_review: QAReviewConfig
 
 
 def load_config(config_path: Path | None = None) -> Config:
@@ -168,6 +180,17 @@ def load_config(config_path: Path | None = None) -> Config:
         target_accepted=int(qa["target_accepted"]),
     )
 
+    qr = raw["qa_review"]
+    qa_review = QAReviewConfig(
+        primary_model=qr["primary_model"],
+        c1_crosscheck_model=qr["c1_crosscheck_model"],
+        temperature=float(qr["temperature"]),
+        floor_accepted=int(qr["floor_accepted"]),
+        discard_threshold=int(qr["discard_threshold"]),
+        max_retries=int(qr["max_retries"]),
+        min_span_gap_seconds=float(qr["min_span_gap_seconds"]),
+    )
+
     cfg = Config(
         data=data,
         embedding=embedding,
@@ -178,6 +201,7 @@ def load_config(config_path: Path | None = None) -> Config:
         frame_captioner=frame_captioner,
         generator=generator,
         qa_generation=qa_generation,
+        qa_review=qa_review,
     )
     logger.debug(f"Config loaded from {config_path}")
     return cfg
