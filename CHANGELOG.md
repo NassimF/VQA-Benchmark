@@ -2,6 +2,10 @@
 
 ## 2026-05-14
 
+- docs: update benchmark.tex LLM Review section for Phase 7.3 (da18882)
+
+## 2026-05-14
+
 - docs: merge chunk-as-ground-truth argument into curation support section (60ab5d7)
 
 ## 2026-05-14
