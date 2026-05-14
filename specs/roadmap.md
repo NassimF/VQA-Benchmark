@@ -492,6 +492,11 @@ Fill these in after Phase 8. Both configs side by side, split by question type.
 
 ## Phase 9 — Deliverable Scripts ⏳
 
+> **Post-evaluation reminder:** All Phase 9 files are currently placeholders. After Phase 8
+> (evaluation) is complete, revisit every file in this phase: fill in real results in
+> `run_part2.py` output, populate `reproduce_tables.py` from `evaluation_results.json`,
+> and update `results.md` with reproduced vs. reported numbers side by side.
+
 ### 9.1 — Demo script
 **File:** `run_part1.py`
 
@@ -527,6 +532,11 @@ improvement on visual-dependent questions. Update whenever evaluation results ch
 ---
 
 ## Phase 10 — Report & README ⏳
+
+> **Post-evaluation reminder:** After Phase 8, replace all `\textcolor{red}{TBD}` placeholders
+> in the paper sections (results.tex, benchmark.tex) with real numbers, update the
+> benchmark comparison table QA pair count if final total differs from ~720, and re-sync
+> to Overleaf via `push_to_overleaf.sh`.
 
 ### 10.1 — Report
 **File:** `overleaf/assets/vqa_benchmark.tex` (git submodule → Overleaf; sections in `overleaf/assets/sections/`)
