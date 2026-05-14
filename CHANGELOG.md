@@ -2,6 +2,10 @@
 
 ## 2026-05-14
 
+- docs: sync specs with Phase 7.3 run results and lit review updates (91537dd)
+
+## 2026-05-14
+
 - docs: remove duplicate CALCE entry from main Paper Dictionary (896d25c)
 
 ## 2026-05-14

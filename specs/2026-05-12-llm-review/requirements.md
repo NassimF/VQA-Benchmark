@@ -4,8 +4,8 @@
 
 Filter 900 raw LLM-drafted QA pairs (15/lecture × 60 lectures) into a final reviewed
 set of 720 accepted pairs (12/lecture × 60 lectures) using an automated Claude Sonnet 4.6
-reviewer. No span tightening. A lightweight human spot-check (D8b) is recommended after
-the full run to validate the curation gate — see D8b for protocol.
+reviewer. No span tightening. Note: a human spot-check (D8b) is documented as optional
+future validation but is not planned for the current submission.
 
 **Input:** `data/qa_pairs/raw/{video_id}_qa_raw.json`
 **Output:** `data/qa_pairs/reviewed/{video_id}_qa_reviewed.json`
