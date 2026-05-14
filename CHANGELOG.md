@@ -2,6 +2,10 @@
 
 ## 2026-05-14
 
+- docs: update changelog through Phase 7.3 pre-regen fixes (097babb)
+
+## 2026-05-14
+
 - fix: pre-regeneration fixes for Phase 7.3 QA review (20ff7b3)
 
 ## 2026-05-14
