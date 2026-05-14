@@ -2,6 +2,10 @@
 
 ## 2026-05-14
 
+- docs: merge chunk-as-ground-truth argument into curation support section (60ab5d7)
+
+## 2026-05-14
+
 - docs: add 'What Supports LLM-Only Curation' subsection (aaa4829)
 
 ## 2026-05-14
