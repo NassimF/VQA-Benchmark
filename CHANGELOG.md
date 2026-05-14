@@ -2,6 +2,10 @@
 
 ## 2026-05-14
 
+- docs: add LLM-only curation gap section to lit review (f5f00b6)
+
+## 2026-05-14
+
 - docs: update lit review Q1-Q6 with peer-reviewed citations (c257293)
 
 ## 2026-05-13
