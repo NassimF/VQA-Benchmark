@@ -2,6 +2,10 @@
 
 ## 2026-05-14
 
+- docs: add Venue/Peer-Reviewed column to main Paper Dictionary (f7bc72f)
+
+## 2026-05-14
+
 - docs: correct RAGAS venue to EACL 2024 System Demonstrations track (318e1a3)
 
 ## 2026-05-14
