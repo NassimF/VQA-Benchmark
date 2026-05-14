@@ -2,6 +2,11 @@
 
 ## 2026-05-14
 
+- docs: add paper reminder for low QA count fallback defense (a9a2b35)
+- docs: add cross-benchmark density defense to benchmark section (f954e10)
+
+## 2026-05-14
+
 - docs: add end-to-end reproduction steps to README (034db40)
 
 ## 2026-05-14

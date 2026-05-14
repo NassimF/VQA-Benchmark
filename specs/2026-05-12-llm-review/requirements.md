@@ -179,12 +179,14 @@ time under prompt variation. Reporting Kappa directly addresses this concern. PC
 | Drafted per lecture | 15 |
 | Target accepted | 12 |
 | Floor (acceptable shortfall) | 10 |
-| Discard threshold (after 1 retry) | <8 → discard lecture |
+| Discard threshold | None — all 60 lectures included regardless of count |
 
-**Backing:** Mission.md target: ~720 QA pairs (12 × 60). The floor of 10 preserves
-statistical power for the paper's central comparison (visual vs non-visual, Config 1 vs
-Config 2). With 60 lectures × ≥10 pairs each, even 5 discarded lectures leaves ≥550 pairs
-— sufficient for the reported metrics. The discard threshold of <8 is chosen to avoid
+**Backing:** Mission.md target: ~720 QA pairs (12 × 60). All 60 lectures must appear in
+the benchmark — no lecture is discarded regardless of accepted pair count.
+Full corpus coverage is enforced by `scripts/check_coverage.py`:
+- Pass 1: any lecture with 0 accepted pairs gets one additional retry.
+- Pass 2: if total accepted < 500 or visual pairs < 300 after Pass 1, the script reports
+  the lowest-count lectures and asks the user whether to run another pass manually.
 
 **Paper reminder — if final accepted count < 500:** Strengthen the count justification in
 `overleaf/assets/sections/benchmark.tex`. Add: our pairs-per-video density exceeds
@@ -193,9 +195,6 @@ visual annotation makes each pair more diagnostic than single-hop pairs in large
 (EduVidQA: 5,252 pairs, no multi-hop, no temporal span evaluation). Minimum acceptable for
 BMVC: ~500 pairs with ≥300 visual-dependent pairs to preserve the Config 1 vs Config 2
 statistical comparison.
-
-**Backing (continued):** The discard threshold of <8 is chosen to avoid
-lectures that would underweight the per-lecture type mix.
 
 ---
 
