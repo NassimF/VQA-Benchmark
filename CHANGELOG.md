@@ -2,6 +2,10 @@
 
 ## 2026-05-14
 
+- docs: add missing URLs and fix venues in main Paper Dictionary (ee6b9ff)
+
+## 2026-05-14
+
 - docs: add Venue/Peer-Reviewed column to main Paper Dictionary (f7bc72f)
 
 ## 2026-05-14
