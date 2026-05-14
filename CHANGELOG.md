@@ -2,6 +2,10 @@
 
 ## 2026-05-14
 
+- feat: add coverage check script, remove lecture discard threshold (1c7c8ae)
+
+## 2026-05-14
+
 - docs: add paper reminder for low QA count fallback defense (a9a2b35)
 - docs: add cross-benchmark density defense to benchmark section (f954e10)
 

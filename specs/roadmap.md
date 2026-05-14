@@ -274,6 +274,7 @@ Packages: chromadb 1.5.8, sentence-transformers 5.4.1
 
 Full run results: 398/900 accepted (56% rejection rate). 53 lectures below floor (<10 accepted),
 4 at floor (10–11). 77 knowledge-conflict discards (GPT-4o C1 disagreement).
+No lectures are discarded — all 60 must appear in the benchmark (policy change 2026-05-14).
 208 additional rejections (23.1%) were reviewer parse errors caused by `max_tokens=1024` truncating
 the JSON response on complex multi-hop questions. All 6 root-cause fixes applied before regeneration.
 
@@ -317,10 +318,12 @@ the paper. No human tightening of spans.
 | **Total** | **15** | 10 multi-hop (67%) / 9 visual (60%) / 2 text / 1 unanswerable |
 
 ### 7.4 — Benchmark merge and validation
-**Files:** `scripts/build_benchmark.py`, `scripts/validate_benchmark.py`
+**Files:** `scripts/check_coverage.py`, `scripts/build_benchmark.py`, `scripts/validate_benchmark.py`
 
-- `build_benchmark.py`: merges all reviewed JSON files → `data/benchmark/benchmark_v1.json`
-- `validate_benchmark.py`: checks schema completeness, span validity, `num_hops` consistency, unanswerable count per lecture
+Run in this order:
+1. `python scripts/check_coverage.py --fix` — zero-pair retry (Pass 1) + total/visual count check vs 500/300 minimums (Pass 2, user-confirmed). All 60 lectures must be present; no lecture is discarded.
+2. `build_benchmark.py`: merges all reviewed JSON files → `data/benchmark/benchmark_v1.json`
+3. `validate_benchmark.py`: checks schema completeness, span validity, `num_hops` consistency, unanswerable count per lecture
 
 ### 7.5 — Span precision audit (required before Phase 8)
 **File:** `scripts/audit_span_precision.py`
