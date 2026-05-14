@@ -141,8 +141,34 @@
 
 ## Group 5 — Full Run and Validation
 
-5.1 Run `python scripts/review_qa.py --all` on all 60 lectures
-5.2 Run `python scripts/validate_benchmark.py` readiness pre-check (counts, types, spans)
-5.3 Check: every lecture has ≥ 10 accepted pairs; total ≥ 720
-5.4 Flag any lecture at floor (10–11 accepted) in the review log for paper footnote
-5.5 Run `/changelog`, commit results, push branch
+5.1 Run `python scripts/review_qa.py --all` on all 60 lectures (live Claude + GPT-4o calls)
+
+    > **Approval gate (3.3a):** Review `data/qa_pairs/review_log/review_summary.json`.
+    > Confirm regeneration strategy before proceeding to 5.2.
+
+5.2 Run regeneration for lectures below floor (3.3b):
+    - Build regeneration prompt with failure-aware constraints (D8)
+    - Re-run reviewer on regenerated pairs; merge with accepted set
+    - If a lecture is still < 8 after regeneration: write discard flag; log as excluded
+
+5.3 Validate output files and counts:
+    - `data/qa_pairs/reviewed/` has exactly 60 files (or 60 − discarded)
+    - `data/qa_pairs/review_log/` has exactly 60 files
+    - Total accepted ≥ 720; every lecture has ≥ 10 accepted pairs
+    - Every lecture has ≥ 1 unanswerable pair and ≥ 60% visual-type pairs
+
+5.4 Validate D1 cross-check logging:
+    - Every non-unanswerable pair where Claude passed C1 has `c1_cross_check_result`
+      logged as PASS or FAIL in the review log
+    - Any knowledge-conflict discard has `rejection_reason = "c1_knowledge_conflict"`
+
+5.5 Validate quality checks:
+    - No accepted `multi-hop*` pair has span gap < 70s
+    - All accepted `multi-hop-visual` pairs cite ≥ 1 chunk with `[frame caption:]` marker
+    - No accepted pair has `answer` length < 10 words
+    - All `qa_id` values are unique and follow `{video_id}_q{index:03d}`
+
+5.6 If any lecture is at floor (10–11 accepted), add a footnote to
+    `overleaf/assets/sections/results.tex` disclosing the per-lecture distribution
+
+5.7 Run `/changelog`, commit results, push branch, open PR against `main`

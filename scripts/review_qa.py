@@ -201,6 +201,8 @@ def main() -> None:
     group.add_argument("--all", action="store_true", help="Review all lectures")
     parser.add_argument("--stats_only", action="store_true",
                         help="Print summary from existing review logs without re-running")
+    parser.add_argument("--skip_existing", action="store_true",
+                        help="Skip lectures that already have a reviewed file (safe resume after interruption)")
     args = parser.parse_args()
 
     cfg = load_config()
@@ -223,6 +225,12 @@ def main() -> None:
     else:
         raw_files = sorted(raw_dir.glob("*_qa_raw.json"))
         video_ids = [f.stem.replace("_qa_raw", "") for f in raw_files]
+        if args.skip_existing:
+            existing = {f.stem.replace("_qa_reviewed", "") for f in reviewed_dir.glob("*_qa_reviewed.json")}
+            skipped = [v for v in video_ids if v in existing]
+            video_ids = [v for v in video_ids if v not in existing]
+            if skipped:
+                logger.info(f"Skipping {len(skipped)} already-reviewed lectures: {skipped}")
         logger.info(f"Reviewing {len(video_ids)} lectures...")
         all_stats = []
         for vid in video_ids:

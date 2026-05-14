@@ -38,9 +38,26 @@ The most directly relevant paper for our setting is **LLM-as-a-Judge: Reassessin
 
 ### Answer to Q1
 
-**Same-model review with a structured checklist is accepted in the literature, and the 2026 literature further supports it.** Ho et al. (2025) provides direct empirical evidence that same-model judging shows no SPB for structured QA. Yang et al. (2026) shows that structured multi-dimensional prompting reduces SPB by 31.5% — and our form-filling rubric already implements this. Wataoka et al. (2024) explains *why* SPB is lower in our setting: the perplexity familiarity mechanism requires stylistic similarity, which does not apply when verifying factual claims against chunk text.
+**Same-model review with a structured checklist is supported by the literature.** Ho et al. (2025) provides direct empirical evidence that same-model judging shows no SPB for structured QA (0.85 correlation with human, no SPB detected). Yang et al. (2026) shows that structured multi-dimensional prompting reduces SPB by 31.5% — our G-Eval form-filling rubric implements this directly. Wataoka et al. (2024) explains *why* SPB is lower in our setting: the perplexity familiarity mechanism requires stylistic similarity, which does not apply when verifying factual claims against a fixed source text.
 
-**Recommendation: Use Claude Sonnet 4.6 as reviewer (same model, structured checklist). Cross-family review (GPT-4o) remains optional — it adds ~$10–30 in cost and one extra API dependency, with marginal additional protection given the structured prompt already mitigates SPB.**
+**Note on Ho et al. (2025) publication status (updated 2026-05-13):** Ho et al. (2025) "LLM-as-a-Judge: Reassessing the Performance of LLMs in Extractive QA" (corrected arXiv ID: 2504.11972) is an **arXiv preprint only** — not yet published at any peer-reviewed venue. The arXiv ID previously listed (2501.09775) was a different paper. This weakens its use as a primary citation. Two peer-reviewed published alternatives are added below (Baysan et al. 2025, Yu et al./DeCE 2025).
+
+**Note on EduVidQA as precedent (updated 2026-05-13):** EduVidQA (EMNLP 2025) was previously cited here as a precedent for LLM-only review. Upon reading the full paper, EduVidQA uses a hybrid approach: automated filtering + GPT-4o adversarial refinement + human spot-checks by two graduate students on 10% of pairs (Cohen's Kappa = 0.83). It does NOT use LLM-only review, so it cannot support the single-judge decision. EduVidQA remains valid only for Q6 (span tightening precedent).
+
+**Peer-reviewed support added (2026-05-13):**
+- **Baysan et al. (2025)** — *Frontiers in Big Data* (peer-reviewed). LLM-as-judge for structured Pass/Fail evaluation of structured outputs achieves ~90% agreement with human judgments. Contextual prompt routing reduces hallucinations. Supports same-model structured evaluation reliability for Q1.
+- **Yu et al. / DeCE (EMNLP 2025 Industry Track)** — "Beyond Pointwise Scores: Decomposed Criteria-Based Evaluation of LLM Responses." Decomposed criteria-based LLM evaluation achieves r=0.78 with expert judgments vs r=0.35 for pointwise scoring. Directly validates our G-Eval form-filling rubric design for Q2.
+
+**Note on Yang et al. (2026) publication status:** Also an arXiv preprint only (arXiv:2604.22891), no venue confirmed yet.
+
+**Decision (adopted 2026-05-13 — Simplified Option C):** Claude Sonnet 4.6 as primary reviewer for all three criteria. GPT-4o cross-family rerun for Criterion 1 only when Claude passes — if GPT-4o disagrees, discard the pair. This is motivated by Lee et al. (2026): knowledge-conflict failure is systematic and silent for C1 on cutting-edge ML content. C2 and C3 remain Claude-only (C2 is near-deterministic via the ≥70s threshold; C3 is a structural type check).
+
+**Papers backing this decision:**
+- Ho et al. (2025) — same-model SPB = 0 for structured QA, 0.85 human correlation (arXiv preprint, unreviewed — treat as supporting evidence, not primary citation)
+- Baysan et al. (2025) — **peer-reviewed**, Frontiers in Big Data — LLM Pass/Fail evaluation achieves ~90% human agreement for structured output evaluation; validates structured single-judge reliability
+- Yang et al. (2026) — structured multi-dimensional prompting reduces SPB 31.5% → G-Eval rubric mitigates residual bias (arXiv preprint, unreviewed)
+- Wataoka et al. (2024) — **NeurIPS 2024 Workshop** — perplexity mechanism explains why SPB is lower in criteria-grounded settings
+- Lee et al. (2026) — knowledge-conflict failure mode for C1 → GPT-4o cross-check specifically for C1
 
 ---
 
@@ -57,6 +74,11 @@ For LectureBench Phase 7.3, the three review criteria are: (a) answer correctnes
 ### Answer to Q2
 
 **Use binary pass/fail per sub-criterion (correctness, span plausibility, type accuracy), with an overall accept/reject decision.** Prompt the reviewer with a structured form (G-Eval paradigm): present each criterion explicitly, ask for a chain-of-thought rationale, then a PASS/FAIL for each. A pair is accepted only if all three criteria pass. Do not use a 1–5 holistic scale — it introduces unnecessary ambiguity for a binary filtering decision.
+
+**Papers backing this decision:**
+- Liu et al. / G-Eval (2023) — **EMNLP 2023** — form-filling with named criteria + CoT achieves Spearman 0.514 with human judgment; decomposed criteria outperform holistic scoring
+- Kim et al. / Prometheus (2023) — **ICLR 2024** — task-specific rubrics achieve Pearson 0.897 with human evaluators; binary PASS/FAIL is sufficient for accept/reject filtering
+- Yu et al. / DeCE (2025) — **EMNLP 2025 Industry Track** — decomposed criteria-based LLM evaluation achieves r=0.78 with expert judgments vs r=0.35 for pointwise scoring; directly validates our rubric design approach
 
 **Recommended rubric structure:**
 ```
@@ -82,7 +104,15 @@ Ho et al. (2025) reinforces that LLM judges achieve 0.85 correlation with human 
 
 ### Answer to Q4
 
-**Answer correctness is operationalized as: every key factual claim in the answer is verifiable from the cited chunk text (including frame captions).** The reviewer does not need video access. Frame captions from Qwen2-VL-7B convert visual content to text, so all evidence is available in the chunk data. The reviewer should decompose the answer into its main claims (FActScore-style) and verify each against the source chunks. Reject if any claim is unsupported or contradicted.
+**Answer correctness is operationalized as atomic fact verification against cited chunk text.** The reviewer decomposes each answer into its smallest indivisible factual claims and checks each claim individually against the cited chunk text (including `[frame caption: ...]` content). Reject if any single claim is unsupported or contradicted — whole-answer holistic judgment is too coarse. The reviewer does not need video access: frame captions from Qwen2-VL-7B convert visual content to natural language, making all evidence available in text form.
+
+Additionally, for C1 specifically, a GPT-4o cross-family rerun is applied when Claude passes C1, to catch knowledge-conflict failures (see Q1 decision).
+
+**Papers backing this decision:**
+- Min et al. / FActScore (2023) — atomic fact decomposition + per-claim source verification achieves <2% error vs. human annotation; holistic correctness misses single hallucinated details
+- Ho et al. (2025) — LLM judges achieve 0.85 correlation with human correctness assessments for structured QA when working from source text
+- Es et al. / RAGAS (2023) — faithfulness criterion (answer claims grounded in retrieved context) validates reference-free correctness checking against chunk text
+- Lee et al. (2026) — knowledge-conflict failure mode: judge may override chunk text with parametric knowledge → GPT-4o cross-check for C1 on cutting-edge ML content
 
 ---
 
@@ -122,6 +152,11 @@ For LectureBench's chunk structure (45s window, 35s stride):
 
 **Reviewer rubric Criterion 2 should include:** "For multi-hop questions: are the ground_truth_spans separated by at least 70 seconds (|start_A - start_B| ≥ 70s)? If not, FAIL — this is single-hop in disguise."
 
+**Papers backing this decision:**
+- Min et al. (2019) — 67% of HotpotQA multi-hop questions answerable by single-hop model; root cause is adjacent/redundant evidence; non-adjacency is necessary for genuine multi-hop
+- Xiang et al. / BRIDGE (2026) — span-level evaluation needed to detect single-hop shortcuts hidden under compositional phrasing; answer-only metrics miss these cases
+- Li et al. / Tree of Reviews (2024) — genuine multi-hop requires sequential separate retrieval decisions; co-locatable evidence is effectively single-hop
+
 ---
 
 ## Q5: Rejection and Replacement Policy
@@ -149,7 +184,13 @@ The overall floor/count logic:
 3. **Discard floor:** If a lecture yields < 8 accepted pairs after regeneration, discard it from the benchmark entirely. With 60 lectures, losing 1–2 is acceptable; the paper reports "N lectures included."
 4. **Preserve 60% visual ratio per lecture**, not just corpus-wide. This is the primary constraint for the paper's central comparison.
 
-**Updated decision (2026-05-12):** The regeneration strategy (type-targeted vs. full regeneration of all rejected pairs) is deferred until after the review pass produces actual failure statistics. The review pass will generate a per-lecture report (failure rate by criterion, by type, lectures below floor). The user reviews this report and decides scope of regeneration before it runs. The failure-aware constraint carry-forward policy above remains in effect regardless of which regeneration scope is chosen. See `specs/2026-05-12-llm-review/plan.md` task 3.3a/3.3b for implementation details.
+**Updated decision (2026-05-12):** Regeneration strategy deferred until after review pass statistics.
+
+**Updated decision (2026-05-13):** Full run completed. Results: 398 accepted / 502 rejected (56% rejection rate) across 60 lectures. 53 lectures below floor (<10 accepted), 40 at discard risk (<8 accepted). Dominant failure modes: C1 (hallucinated atomic claims, 77 knowledge-conflict discards from GPT-4o), C2 (adjacent multi-hop spans < 70s), C3 (type misclassification — text labeled as visual). Given the broad failure distribution across all types and lectures, **full regeneration** (regenerate all 15 pairs fresh per lecture below floor) is more appropriate than type-targeted regeneration. Failure-aware constraint carry-forward remains in effect.
+
+**Papers backing this decision:**
+- Min et al. (2019) — quality over quantity: smaller set of genuinely valid multi-hop pairs is more valuable than inflating counts with borderline pairs → floor and discard thresholds
+- No paper directly addresses QA regeneration policy; floor/retry design is engineering judgment backed by the quality-over-quantity principle
 
 ---
 
@@ -167,7 +208,11 @@ LectureBench's ±15–30s precision at 45s chunk boundaries is actually **better
 
 ### Answer to Q6
 
-**Span tightening is not required.** EduVidQA (EMNLP 2025) establishes a direct precedent: a lecture video QA benchmark at similar scale was accepted without sub-chunk span precision. LectureBench's ±15–30s precision is comparable to or better than this accepted baseline.
+**Span tightening is not required.** EduVidQA (EMNLP 2025) establishes a direct precedent for span precision: auto-generated timestamps with ±35.4s average error were accepted at EMNLP without tightening. LectureBench's ±15–30s precision is better than this accepted baseline. Note: EduVidQA's precedent here is strictly about *span precision tolerance*, not about QA review methodology (see Q1 note).
+
+**Papers backing this decision:**
+- EduVidQA (EMNLP 2025) — accepted at EMNLP with ±35.4s auto-generated timestamps, no tightening; LectureBench ±15–30s is a stricter baseline than this accepted work
+- VideoZeroBench (2026) — uses tIoU@0.3 as Level 4 threshold; a ±20s error on a 45s chunk still yields IoU ≈ 0.4–0.6, confirming @0.3 is robust to chunk-level precision
 
 However, span precision *does* affect which temporal IoU thresholds are meaningful:
 
@@ -238,7 +283,7 @@ For **Phase 7.3** (binary filtering), multi-judge is not required but one lightw
 
 > **Option A (recommended if paper needs stronger credibility claim):** Run the reviewer twice on each pair with different prompt seeds; compute Cohen's Kappa. Report Kappa in the paper's methodology section. If Kappa > 0.8 (near-perfect agreement), single-judge review is justified. If Kappa < 0.7, escalate to cross-family review for the disagreement cases only. Cost: ~2× review calls = ~$6–16 total, vs ~$3–8 for single-run.
 
-> **Option B (original plan):** Single-judge, structured G-Eval rubric, report it as a limitation. Acceptable per EduVidQA and Ho et al. (2025) precedent. Cheapest and simplest.
+> **Option B (original plan):** Single-judge, structured G-Eval rubric, report it as a limitation. Acceptable per Ho et al. (2025) precedent. Cheapest and simplest. Note: EduVidQA cannot be cited here — it uses human spot-checks + GPT-4o adversarial filtering, not LLM-only review.
 
 > **Option C (criterion-targeted reliability):** Run the reviewer once for all three criteria. Then apply targeted reliability checks per criterion:
 > - **C1 (answer correctness / Q4):** Rerun C1 only with a cross-family judge (GPT-4o) to catch knowledge-conflict overrides (Lee et al., 2026). If the two judges disagree on C1, mark the pair as borderline and discard.
@@ -282,14 +327,14 @@ Phase 8 uses an LLM judge to score generated answers on a 1–5 scale for answer
 
 ## Summary of Decisions
 
-| Question | Decision |
-|---|---|
-| Q1: Same-model circularity | Use Claude Sonnet 4.6 as reviewer — no bias for structured QA (Ho et al. 2025). Cross-family (GPT-4o) optional. |
-| Q2: Scoring rubric | Binary PASS/FAIL per criterion (correctness, span plausibility, type accuracy); accept if all 3 pass. G-Eval form-filling paradigm. |
-| Q3: Multi-hop adjacency | Reject if spans are < 70s apart (< 2 chunk strides). Reject if span gap ≤ 0s. |
-| Q4: Correctness without video | Verify each answer claim against cited chunk text (incl. frame captions). Frame captions convert visual content to verifiable text. |
-| Q5: Rejection/replacement | Floor ≥ 10 accepted per lecture; failure-aware type-targeted regeneration (prompt carries forward specific failure constraint); discard lecture if < 8 accepted after retry. |
-| Q6: Span tightening | Not required. EduVidQA (EMNLP 2025) accepted at ±35.4s without tightening. LectureBench ±15–30s is better. Report tIoU@0.3 as primary, tIoU@0.5 as secondary with limitation note. |
+| Question | Decision | Key Papers |
+|---|---|---|
+| Q1: Same-model circularity | Claude Sonnet 4.6 primary (all 3 criteria) + GPT-4o cross-check for C1 only. C2/C3 Claude-only. | Baysan et al. (2025) ✓peer-reviewed, Wataoka et al. (NeurIPS 2024) ✓peer-reviewed, Ho et al. (2025) preprint, Yang et al. (2026) preprint, Lee et al. (2026) |
+| Q2: Scoring rubric | Binary PASS/FAIL per criterion (correctness, span plausibility, type accuracy); accept if all 3 pass. G-Eval form-filling with CoT per criterion. | G-Eval/Liu et al. (EMNLP 2023) ✓, Prometheus/Kim et al. (ICLR 2024) ✓, DeCE/Yu et al. (EMNLP 2025) ✓ |
+| Q3: Multi-hop adjacency | Reject if spans are < 70s apart (< 2 chunk strides). | Min et al. (2019), Xiang et al./BRIDGE (2026), Li et al. (2024) |
+| Q4: Correctness without video | Atomic fact decomposition per answer; verify each claim against cited chunk text incl. frame captions. GPT-4o cross-check for C1. | Min et al./FActScore (2023), Ho et al. (2025), Es et al./RAGAS (2023), Lee et al. (2026) |
+| Q5: Rejection/replacement | Floor ≥ 10 per lecture; full regeneration for lectures below floor (decided after 56% rejection rate observed); discard if < 8 after retry. | Min et al. (2019) — quality over quantity principle |
+| Q6: Span tightening | Not required. ±15–30s acceptable per EduVidQA precedent (±35.4s, EMNLP 2025). Report tIoU@0.3 primary, tIoU@0.5 secondary. | EduVidQA (2025) — span precision only, VideoZeroBench (2026) — @0.3 threshold |
 
 ---
 
@@ -298,7 +343,7 @@ Phase 8 uses an LLM judge to score generated answers on a 1–5 scale for answer
 1. Zheng, L., Chiang, W., Sheng, Y., et al. (2023). *Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena*. arXiv:2306.05685.
 2. Liu, Y., Iter, D., Xu, Y., et al. (2023). *G-Eval: NLG Evaluation using GPT-4 with Better Human Alignment*. arXiv:2303.16634.
 3. Kim, S., Shin, J., Cho, Y., et al. (2023). *Prometheus: Inducing Fine-grained Evaluation Capability in Language Models*. arXiv:2310.08491.
-4. Ho, X., Huang, J., Boudin, F., Aizawa, A. (2025). *LLM-as-a-Judge: Reassessing the Performance of LLMs in Extractive QA*. arXiv:2504.11972.
+4. Ho, X., Huang, J., Boudin, F., Aizawa, A. (2025). *LLM-as-a-Judge: Reassessing the Performance of LLMs in Extractive QA*. arXiv:2504.11972. **[Preprint only — not peer-reviewed. Corrected from earlier wrong arXiv ID 2501.09775.]**
 5. Zhou, Y., Xu, A., Wang, P., Xiong, C., Joty, S. (2025). *Evaluating Judges as Evaluators: The JETTS Benchmark*. arXiv:2504.15253.
 6. Min, S., Krishna, K., Lyu, X., et al. (2023). *FActScore: Fine-grained Atomic Evaluation of Factual Precision in Long Form Text Generation*. arXiv:2305.14251.
 7. Es, S., James, J., Espinosa-Anke, L., Schockaert, S. (2023). *Ragas: Automated Evaluation of Retrieval Augmented Generation*. arXiv:2309.15217.
@@ -316,3 +361,5 @@ Phase 8 uses an LLM judge to score generated answers on a 1–5 scale for answer
 19. Wei, H., He, S., Xia, T., Liu, F., Wong, A. (2024). *Systematic Evaluation of LLM-as-a-Judge in LLM Alignment Tasks*. arXiv:2408.13006.
 20. Huang, T., Huang, N., Tang, J., Chen, W., Fan, E. (2026). *PCFJudge: Permutation-Consensus Listwise Judging for Robust Factuality Evaluation*. arXiv:2603.20562.
 21. Lee, D., Hwang, Y., Kang, T., Lee, M., Chae, Y. (2026). *Judging Against the Reference: Uncovering Knowledge-Driven Failures in LLM-Judges on QA Evaluation*. arXiv:2601.07506.
+22. Baysan, M. S., Uysal, S., Islek, I., Karaman, C. C., Gungor, T. (2025). *LLM-as-a-Judge: Automated Evaluation of Search Query Parsing Using Large Language Models*. Frontiers in Big Data. DOI:10.3389/fdata.2025.1611389. **[Peer-reviewed journal.]**
+23. Yu, F., Seedat, N., Herrmannova, D., Schilder, F., Schwarz, J. R. (2025). *Beyond Pointwise Scores: Decomposed Criteria-Based Evaluation of LLM Responses*. EMNLP 2025 Industry Track. https://aclanthology.org/2025.emnlp-industry.136/ **[Peer-reviewed, published.]**
