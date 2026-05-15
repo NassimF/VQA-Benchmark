@@ -29,10 +29,10 @@ Status: ✅ Complete | ⚠️ Partial | ⏳ Pending
 | 7.4 | `scripts/build_benchmark.py` + `validate_benchmark.py` | ✅ 810 pairs, 60 lectures |
 | 7.5 | `scripts/audit_span_precision.py` — empirical span error → validate tIoU@0.3 | ✅ mean 25.8s, tIoU@0.3 valid |
 | 8.1 | `src/evaluator.py` — temporal IoU, hit rate@k, LLM-judge | ✅ |
-| 9.1 | `run_part1.py` — end-to-end RAG demo | ⚠️ placeholder |
+| 9.1 | `run_part1.py` — end-to-end RAG demo | ✅ |
 | 9.2 | `run_part2.py` — full benchmark eval, both configs | ✅ 1620 pairs evaluated |
-| 9.3 | `scripts/reproduce_tables.py` — one function per paper table | ⚠️ placeholder |
-| 9.4 | `results.md` — reproduced vs. reported numbers, Config 1 vs Config 2 | ⚠️ placeholder |
+| 9.3 | `scripts/reproduce_tables.py` — one function per paper table | ✅ |
+| 9.4 | `results.md` — reproduced vs. reported numbers, Config 1 vs Config 2 | ✅ |
 | 10.1 | `overleaf/assets/vqa_benchmark.tex` — conference paper | ⚠️ |
 | 10.2 | `README.md` | ✅ |
 
@@ -472,7 +472,7 @@ Fill these in after Phase 8. Both configs side by side, split by question type.
 
 ---
 
-## Phase 9 — Deliverable Scripts ⏳
+## Phase 9 — Deliverable Scripts ✅
 
 > **Phase 8 complete (2026-05-15).** Full evaluation results are in
 > `data/benchmark/evaluation_results.json`. Key results:
