@@ -1,6 +1,16 @@
 # Changelog
 
-## 2026-05-15
+## 2026-05-15 (Phase 9)
+
+### Deliverable Scripts
+
+- `run_part1.py` — rewrote stale placeholder to use correct API: `Retriever(mode, cfg=cfg)`, `retriever.query()`, module-level `generate()` function, `GeneratorResult.answer`/`.citations`. Verified end-to-end with real ChromaDB + OpenAI calls across 3 demo questions.
+- `scripts/reproduce_tables.py` — rewrote stale placeholder (wrong aggregated-dict format) to read flat `results` array from `evaluation_results.json`, joined with `benchmark_v1.json` for question types. Three functions: `reproduce_table_1` (overall, n=810), `reproduce_table_2` (tIoU by type), `reproduce_table_3` (HR@k by type).
+- `results.md` — filled all TBD cells from `evaluation_results.json`. Added narrative per table. Discovered Config 2 is marginally lower on multi-hop tIoU (0.223 vs 0.236) and HR@3 for text — disclosed and explained.
+- Both scripts gained `--output <path>` flag to tee stdout to a file; default is stdout only.
+- `tests/test_run_part1.py` — 7 new tests; full suite 111/111 passing.
+
+## 2026-05-15 (Phase 8)
 
 ### Evaluation (Phase 8)
 
