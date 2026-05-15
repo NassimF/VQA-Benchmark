@@ -1,11 +1,11 @@
-"""Reproduce all paper tables from evaluation artifacts.
+"""Reproduce all results tables from evaluation_results.json.
 
-Each function regenerates one paper table from data/benchmark/evaluation_results.json.
+Each function regenerates one results table from data/benchmark/evaluation_results.json.
 A single top-level call regenerates every table.
 
 Usage:
     python scripts/reproduce_tables.py
-    python scripts/reproduce_tables.py --table 1
+    python scripts/reproduce_tables.py --results path/to/evaluation_results.json
 """
 
 from __future__ import annotations
@@ -15,140 +15,141 @@ import json
 import sys
 from pathlib import Path
 
+import numpy as np
+
 PROJECT_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-_RESULTS_PATH = PROJECT_ROOT / "data" / "benchmark" / "evaluation_results.json"
+from src.config import load_config
+
+_VISUAL_TYPES = {"multi-hop-visual", "visual"}
 
 
-def _load_results() -> dict:
-    if not _RESULTS_PATH.exists():
-        print(f"ERROR: evaluation_results.json not found at {_RESULTS_PATH}")
-        print("Run python run_part2.py first.")
+def _load(results_path: Path, benchmark_path: Path) -> tuple[list[dict], dict[str, str]]:
+    if not results_path.exists():
+        print(f"ERROR: {results_path} not found. Run python run_part2.py first.")
         sys.exit(1)
-    return json.loads(_RESULTS_PATH.read_text())
+    results = json.loads(results_path.read_text())["results"]
+    qa_type = {qa["qa_id"]: qa["question_type"]
+               for qa in json.loads(benchmark_path.read_text())["qa_pairs"]}
+    return results, qa_type
 
 
-def _filter_by_type(per_pair: list[dict], question_types: list[str]) -> list[dict]:
-    return [r for r in per_pair if r.get("question_type") in question_types]
-
-
-def _mean(vals: list[float]) -> float:
-    return sum(vals) / len(vals) if vals else 0.0
-
-
-def reproduce_table_1() -> None:
-    """Table 1 — Overall retrieval metrics, both configs side by side."""
-    results = _load_results()
-    c1 = results["transcript_only"]
-    c2 = results["transcript_plus_frames"]
-
-    rows = [
-        ("Mean Temporal IoU",
-            c1["aggregate"]["mean_temporal_iou"],
-            c2["aggregate"]["mean_temporal_iou"]),
-        ("IoU@0.3",
-            c1["aggregate"]["iou_at_03"],
-            c2["aggregate"]["iou_at_03"]),
-        ("IoU@0.5",
-            c1["aggregate"]["iou_at_05"],
-            c2["aggregate"]["iou_at_05"]),
-        ("Hit Rate@1",
-            c1["aggregate"].get("hit_rate_at_1", 0),
-            c2["aggregate"].get("hit_rate_at_1", 0)),
-        ("Hit Rate@3",
-            c1["aggregate"].get("hit_rate_at_3", 0),
-            c2["aggregate"].get("hit_rate_at_3", 0)),
-        ("Hit Rate@5",
-            c1["aggregate"].get("hit_rate_at_5", 0),
-            c2["aggregate"].get("hit_rate_at_5", 0)),
-        ("LLM-Judge Score (1–5)",
-            c1["aggregate"]["llm_judge_mean"],
-            c2["aggregate"]["llm_judge_mean"]),
-        ("Citation Accuracy",
-            c1["aggregate"]["citation_accuracy"],
-            c2["aggregate"]["citation_accuracy"]),
-    ]
-
-    print("\nTable 1 — Overall Results (all question types)")
-    print(f"{'Metric':<30}  {'Config 1':<12}  {'Config 2':<12}  {'Δ (C2−C1)':<12}")
-    print("-" * 70)
-    for metric, v1, v2 in rows:
-        delta = v2 - v1
-        sign = "+" if delta >= 0 else ""
-        print(f"{metric:<30}  {v1:<12.3f}  {v2:<12.3f}  {sign}{delta:.3f}")
-
-
-def reproduce_table_2() -> None:
-    """Table 2 — Retrieval metrics by question type."""
-    results = _load_results()
-    c1_pairs = results["transcript_only"]["per_pair"]
-    c2_pairs = results["transcript_plus_frames"]["per_pair"]
-
-    type_groups = {
-        "multi-hop-visual": ["multi-hop-visual"],
-        "visual": ["visual"],
-        "multi-hop": ["multi-hop"],
-        "text": ["text"],
-        "all visual": ["multi-hop-visual", "visual"],
+def _agg(subset: list[dict]) -> dict:
+    if not subset:
+        return {k: 0.0 for k in ("tIoU", "iou03", "iou05", "hr1", "hr3", "hr5", "llm", "cit")}
+    return {
+        "n":     len(subset),
+        "tIoU":  round(float(np.mean([r["temporal_iou"]      for r in subset])), 3),
+        "iou03": round(float(np.mean([r["iou_at_03"]         for r in subset])), 3),
+        "iou05": round(float(np.mean([r["iou_at_05"]         for r in subset])), 3),
+        "hr1":   round(float(np.mean([r["hit_rate_at_1"]     for r in subset])), 3),
+        "hr3":   round(float(np.mean([r["hit_rate_at_3"]     for r in subset])), 3),
+        "hr5":   round(float(np.mean([r["hit_rate_at_5"]     for r in subset])), 3),
+        "llm":   round(float(np.mean([r["llm_judge_score"]   for r in subset])), 2),
+        "cit":   round(float(np.mean([r["citation_accuracy"] for r in subset])), 3),
     }
 
+
+def reproduce_table_1(results_path: Path, benchmark_path: Path) -> None:
+    """Table 1 — Overall results across all 810 pairs, both configs."""
+    results, _ = _load(results_path, benchmark_path)
+
+    c1 = _agg([r for r in results if r["config"] == "transcript_only"])
+    c2 = _agg([r for r in results if r["config"] == "transcript_plus_frames"])
+
+    w = 28
+    sep = "=" * (w * 3 + 6)
+    print(f"\nTable 1 — Overall Results (n={c1['n']}, all question types)")
+    print(sep)
+    print(f"{'Metric':<{w}}  {'Config 1: Transcript-Only':<{w}}  {'Config 2: +Frames':<{w}}")
+    print("-" * (w * 3 + 6))
+    rows = [
+        ("Mean Temporal IoU", f"{c1['tIoU']:.3f}",  f"{c2['tIoU']:.3f}"),
+        ("IoU@0.3",           f"{c1['iou03']:.3f}", f"{c2['iou03']:.3f}"),
+        ("IoU@0.5",           f"{c1['iou05']:.3f}", f"{c2['iou05']:.3f}"),
+        ("Hit Rate@1",        f"{c1['hr1']:.3f}",   f"{c2['hr1']:.3f}"),
+        ("Hit Rate@3",        f"{c1['hr3']:.3f}",   f"{c2['hr3']:.3f}"),
+        ("Hit Rate@5",        f"{c1['hr5']:.3f}",   f"{c2['hr5']:.3f}"),
+        ("LLM-Judge (1–5)",   f"{c1['llm']:.2f}",   f"{c2['llm']:.2f}"),
+        ("Citation Accuracy", f"{c1['cit']:.3f}",   f"{c2['cit']:.3f}"),
+    ]
+    for metric, v1, v2 in rows:
+        print(f"{metric:<{w}}  {v1:<{w}}  {v2:<{w}}")
+    print(sep)
+
+
+def reproduce_table_2(results_path: Path, benchmark_path: Path) -> None:
+    """Table 2 — Mean temporal IoU broken down by question type."""
+    results, qa_type = _load(results_path, benchmark_path)
+
+    type_rows = [
+        ("multi-hop-visual", {"multi-hop-visual"}),
+        ("visual",           {"visual"}),
+        ("all visual",       _VISUAL_TYPES),
+        ("multi-hop",        {"multi-hop"}),
+        ("text",             {"text"}),
+    ]
+
+    w = 20
+    sep = "=" * (w * 3 + 20)
     print("\nTable 2 — Mean Temporal IoU by Question Type")
-    print(f"{'Type':<22}  {'N':<6}  {'Config 1':<12}  {'Config 2':<12}  {'Δ':<10}")
-    print("-" * 65)
-    for label, types in type_groups.items():
-        p1 = _filter_by_type(c1_pairs, types)
-        p2 = _filter_by_type(c2_pairs, types)
-        v1 = _mean([r["temporal_iou"] for r in p1])
-        v2 = _mean([r["temporal_iou"] for r in p2])
-        delta = v2 - v1
+    print(sep)
+    print(f"{'Question Type':<{w}}  {'N':>5}  {'Config 1':>{w}}  {'Config 2':>{w}}  {'Δ':>8}")
+    print("-" * (w * 3 + 20))
+    for label, types in type_rows:
+        c1 = _agg([r for r in results if r["config"] == "transcript_only"
+                   and qa_type.get(r["qa_id"]) in types])
+        c2 = _agg([r for r in results if r["config"] == "transcript_plus_frames"
+                   and qa_type.get(r["qa_id"]) in types])
+        delta = round(c2["tIoU"] - c1["tIoU"], 3)
         sign = "+" if delta >= 0 else ""
-        print(f"{label:<22}  {len(p1):<6}  {v1:<12.3f}  {v2:<12.3f}  {sign}{delta:.3f}")
+        print(f"{label:<{w}}  {c1['n']:>5}  {c1['tIoU']:>{w}.3f}  {c2['tIoU']:>{w}.3f}  {sign}{delta:>7.3f}")
+    print(sep)
 
 
-def reproduce_table_3() -> None:
-    """Table 3 — Hit Rate@k by question type."""
-    results = _load_results()
-    c1_pairs = results["transcript_only"]["per_pair"]
-    c2_pairs = results["transcript_plus_frames"]["per_pair"]
+def reproduce_table_3(results_path: Path, benchmark_path: Path) -> None:
+    """Table 3 — Hit Rate@k broken down by question type."""
+    results, qa_type = _load(results_path, benchmark_path)
 
-    qtypes = ["multi-hop-visual", "visual", "multi-hop", "text"]
-    k_vals = [1, 3, 5]
+    type_rows = [
+        ("multi-hop-visual", {"multi-hop-visual"}),
+        ("visual",           {"visual"}),
+        ("multi-hop",        {"multi-hop"}),
+        ("text",             {"text"}),
+    ]
 
-    print("\nTable 3 — Hit Rate@k by Question Type (Config 2 / Config 1)")
-    header = f"{'Type':<22}"
-    for k in k_vals:
-        header += f"  {'HR@' + str(k) + ' C1':<10}  {'HR@' + str(k) + ' C2':<10}"
-    print(header)
-    print("-" * (22 + len(k_vals) * 24))
-
-    for qt in qtypes:
-        p1 = _filter_by_type(c1_pairs, [qt])
-        p2 = _filter_by_type(c2_pairs, [qt])
-        row = f"{qt:<22}"
-        for k in k_vals:
-            v1 = _mean([r.get(f"hit_rate_at_{k}", 0) for r in p1])
-            v2 = _mean([r.get(f"hit_rate_at_{k}", 0) for r in p2])
-            row += f"  {v1:<10.3f}  {v2:<10.3f}"
-        print(row)
+    w = 7
+    sep = "=" * 80
+    print("\nTable 3 — Hit Rate@k by Question Type")
+    print(sep)
+    print(f"{'Question Type':<22}  {'HR@1 C1':>{w}}  {'HR@1 C2':>{w}}  "
+          f"{'HR@3 C1':>{w}}  {'HR@3 C2':>{w}}  {'HR@5 C1':>{w}}  {'HR@5 C2':>{w}}")
+    print("-" * 80)
+    for label, types in type_rows:
+        c1 = _agg([r for r in results if r["config"] == "transcript_only"
+                   and qa_type.get(r["qa_id"]) in types])
+        c2 = _agg([r for r in results if r["config"] == "transcript_plus_frames"
+                   and qa_type.get(r["qa_id"]) in types])
+        print(f"{label:<22}  {c1['hr1']:>{w}.3f}  {c2['hr1']:>{w}.3f}  "
+              f"{c1['hr3']:>{w}.3f}  {c2['hr3']:>{w}.3f}  "
+              f"{c1['hr5']:>{w}.3f}  {c2['hr5']:>{w}.3f}")
+    print(sep)
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Reproduce paper tables from evaluation results")
+    cfg = load_config()
+    parser = argparse.ArgumentParser(description="Reproduce results tables from evaluation artifacts")
+    parser.add_argument("--results",   type=Path, default=cfg.evaluator.output_path)
+    parser.add_argument("--benchmark", type=Path, default=cfg.data.benchmark_dir / "benchmark_v1.json")
     parser.add_argument("--table", type=int, choices=[1, 2, 3],
                         help="Reproduce only one table (default: all)")
     args = parser.parse_args()
 
-    if args.table == 1:
-        reproduce_table_1()
-    elif args.table == 2:
-        reproduce_table_2()
-    elif args.table == 3:
-        reproduce_table_3()
-    else:
-        reproduce_table_1()
-        reproduce_table_2()
-        reproduce_table_3()
+    fns = {1: reproduce_table_1, 2: reproduce_table_2, 3: reproduce_table_3}
+    targets = [fns[args.table]] if args.table else list(fns.values())
+    for fn in targets:
+        fn(args.results, args.benchmark)
 
 
 if __name__ == "__main__":

@@ -19,8 +19,8 @@ PROJECT_ROOT = Path(__file__).parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.config import load_config
+from src.generator import generate
 from src.retriever import Retriever
-from src.generator import Generator
 
 
 _DEMO_QUESTIONS = [
@@ -38,45 +38,43 @@ _DEMO_QUESTIONS = [
     },
 ]
 
+_CONFIGS = [
+    ("transcript_only",        "Config 1: Transcript-Only"),
+    ("transcript_plus_frames", "Config 2: Transcript + Frames"),
+]
 
-def run_demo(question: str, video_id: str | None, cfg) -> None:
-    retriever = Retriever(cfg)
-    generator = Generator(cfg)
 
+def _fmt_time(seconds: float) -> str:
+    t = int(seconds)
+    return f"{t // 60:02d}:{t % 60:02d}"
+
+
+def run_demo(question: str, video_id: str | None, retrievers: dict, cfg) -> None:
     print("=" * 70)
     print(f"QUESTION: {question}")
     if video_id:
         print(f"FILTER:   video_id = {video_id}")
     print("=" * 70)
 
-    for config_name, use_frames in [
-        ("Config 1: Transcript-Only", False),
-        ("Config 2: Transcript + Frames", True),
-    ]:
-        print(f"\n--- {config_name} ---")
-        chunks = retriever.retrieve(
-            query=question,
-            video_id=video_id,
-            use_frames=use_frames,
-        )
+    for mode, label in _CONFIGS:
+        print(f"\n--- {label} ---")
+        chunks = retrievers[mode].query(question, video_id=video_id)
+
         print(f"Retrieved {len(chunks)} chunks:")
         for i, chunk in enumerate(chunks, 1):
-            print(f"  [{i}] {chunk['chunk_id']}  "
-                  f"({_fmt_time(chunk['start_time'])}–{_fmt_time(chunk['end_time'])})")
+            preview = chunk["text"][:80].replace("\n", " ")
+            start = _fmt_time(chunk["start_time"])
+            end = _fmt_time(chunk["end_time"])
+            print(f"  [{i}] {chunk['video_id']} @ {start}–{end}  {preview!r}")
 
-        answer = generator.generate(
-            question=question,
-            chunks=chunks,
-            video_id=video_id,
-        )
-        print(f"\nAnswer:\n{answer}")
+        result = generate(question, chunks, mode=mode, cfg=cfg)
+        print(f"\nAnswer:\n  {result.answer}")
+        if result.citations:
+            print("\nCitations:")
+            for citation in result.citations:
+                print(f"  {citation}")
 
     print()
-
-
-def _fmt_time(seconds: float) -> str:
-    t = int(seconds)
-    return f"{t // 60:02d}:{t % 60:02d}"
 
 
 def main() -> None:
@@ -86,13 +84,14 @@ def main() -> None:
     args = parser.parse_args()
 
     cfg = load_config()
+    retrievers = {mode: Retriever(mode, cfg=cfg) for mode, _ in _CONFIGS}
 
     if args.question:
-        run_demo(args.question, args.video_id, cfg)
+        run_demo(args.question, args.video_id, retrievers, cfg)
     else:
         print("No question provided — running 3 demo questions.\n")
         for demo in _DEMO_QUESTIONS:
-            run_demo(demo["question"], demo["video_id"], cfg)
+            run_demo(demo["question"], demo["video_id"], retrievers, cfg)
 
 
 if __name__ == "__main__":
