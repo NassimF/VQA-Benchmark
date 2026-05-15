@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 import logging
+import re
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Literal
@@ -113,8 +114,14 @@ def _parse_llm_output(raw: str, chunks: list[dict]) -> tuple[str, list[dict]]:
 
     try:
         parsed = json.loads(raw_stripped)
-    except json.JSONDecodeError as exc:
-        raise ValueError(f"Malformed LLM output (not valid JSON): {raw!r}") from exc
+    except json.JSONDecodeError:
+        # Fix isolated invalid escape sequences (e.g. LaTeX \( \mathbf \times).
+        # (?<!\\) ensures we don't touch \\ sequences that are already valid JSON.
+        sanitized = re.sub(r'(?<!\\)\\(?!["\\/bfnrtu])', r'\\\\', raw_stripped)
+        try:
+            parsed = json.loads(sanitized)
+        except json.JSONDecodeError as exc:
+            raise ValueError(f"Malformed LLM output (not valid JSON): {raw!r}") from exc
 
     if "answer" not in parsed:
         raise ValueError(f"Malformed LLM output (missing 'answer'): {raw!r}")

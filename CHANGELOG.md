@@ -2,6 +2,11 @@
 
 ## 2026-05-14
 
+- chore: ignore literature-review/, untrack Excel and MD files (da7777c)
+- docs: update roadmap Phase 7.4/7.5 complete, add regen raw + review logs (0350d12)
+
+## 2026-05-14
+
 - feat: Phase 7.5 span precision audit, update paper limitation (fcd93d5)
 
 ## 2026-05-14

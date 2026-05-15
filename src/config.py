@@ -95,6 +95,14 @@ class QAReviewConfig:
 
 
 @dataclass
+class EvaluatorConfig:
+    judge_1_model: str
+    judge_2_model: str
+    iou_hit_threshold: float
+    output_path: Path
+
+
+@dataclass
 class Config:
     data: DataConfig
     embedding: EmbeddingConfig
@@ -106,6 +114,7 @@ class Config:
     generator: GeneratorConfig
     qa_generation: QAGenerationConfig
     qa_review: QAReviewConfig
+    evaluator: EvaluatorConfig
 
 
 def load_config(config_path: Path | None = None) -> Config:
@@ -191,6 +200,14 @@ def load_config(config_path: Path | None = None) -> Config:
         min_span_gap_seconds=float(qr["min_span_gap_seconds"]),
     )
 
+    ev = raw["evaluator"]
+    evaluator = EvaluatorConfig(
+        judge_1_model=ev["judge_1_model"],
+        judge_2_model=ev["judge_2_model"],
+        iou_hit_threshold=float(ev["iou_hit_threshold"]),
+        output_path=p(ev["output_path"]),
+    )
+
     cfg = Config(
         data=data,
         embedding=embedding,
@@ -202,6 +219,7 @@ def load_config(config_path: Path | None = None) -> Config:
         generator=generator,
         qa_generation=qa_generation,
         qa_review=qa_review,
+        evaluator=evaluator,
     )
     logger.debug(f"Config loaded from {config_path}")
     return cfg
