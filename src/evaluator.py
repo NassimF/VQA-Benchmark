@@ -290,24 +290,58 @@ def build_judge_prompt(
 
 
 def _parse_judge_response(raw: str) -> dict:
-    """Extract JSON dict from judge response, stripping markdown fences if present."""
+    """Extract JSON dict from judge response, stripping markdown fences if present.
+
+    Falls back through three strategies before raising:
+      1. json.loads on the extracted {...} block
+      2. Fix unquoted keys (e.g. {C1: 4}) then json.loads
+      3. Regex extraction of individual score values
+    """
+    import re as _re
+
     text = raw.strip()
     if text.startswith("```"):
         lines = text.split("\n")
         inner = lines[1:-1] if lines[-1].strip() == "```" else lines[1:]
         text = "\n".join(inner)
-    # Find the JSON object
+
+    def _validate(parsed: dict) -> dict:
+        for key in ("C1", "C2", "C3", "aggregate"):
+            if key not in parsed:
+                raise ValueError(f"Missing key '{key}' in judge response: {raw!r}")
+            val = parsed[key]
+            if not isinstance(val, int) or not (1 <= val <= 5):
+                raise ValueError(f"Invalid value for '{key}' ({val!r}) in judge response: {raw!r}")
+        return parsed
+
     start = text.find("{")
     end = text.rfind("}") + 1
-    if start == -1 or end == 0:
-        raise ValueError(f"No JSON object found in judge response: {raw!r}")
-    parsed = json.loads(text[start:end])
+    if start != -1 and end > 0:
+        candidate = text[start:end]
+
+        # Strategy 1: standard json.loads
+        try:
+            return _validate(json.loads(candidate))
+        except (json.JSONDecodeError, ValueError):
+            pass
+
+        # Strategy 2: quote unquoted keys (handles {C1: 4, C2: 3, ...})
+        try:
+            fixed = _re.sub(r'(?<=[{,])\s*(\w+)\s*:', r' "\1":', candidate)
+            return _validate(json.loads(fixed))
+        except (json.JSONDecodeError, ValueError):
+            pass
+
+    # Strategy 3: regex extraction — works with or without braces
+    scores: dict = {}
     for key in ("C1", "C2", "C3", "aggregate"):
-        if key not in parsed:
-            raise ValueError(f"Missing key '{key}' in judge response: {raw!r}")
-        if not isinstance(parsed[key], int) or not (1 <= parsed[key] <= 5):
-            raise ValueError(f"Invalid value for '{key}' in judge response: {parsed[key]!r}")
-    return parsed
+        m = _re.search(rf'"?{key}"?\s*:\s*([1-5])', text)
+        if m:
+            scores[key] = int(m.group(1))
+    if len(scores) == 4:
+        return _validate(scores)
+
+    raise ValueError(f"Could not parse judge scores from response: {raw!r}")
 
 
 def call_judge(prompt: str, model: str) -> dict:
