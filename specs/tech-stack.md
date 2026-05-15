@@ -72,7 +72,7 @@ a# Tech Stack
 | Component | Tool | Version Pin | Reason |
 |-----------|------|-------------|--------|
 | Draft QA generation | Claude / GPT-4 (strong model) | — | 15 drafts per lecture; stronger model produces better question diversity than gpt-4o-mini |
-| LLM judge | Claude / GPT-4 | — | Scores generated answers 1–5 for accuracy and grounding; more reliable than ROUGE for long-form answers |
+| LLM judge (Phase 8) | Claude Sonnet 4.6 (judge 1) + GPT-4o (judge 2) | anthropic `≥0.28`, openai `≥1.30` | Cross-family pair; per-judge scores saved separately for Krippendorff's α; low-α handling deferred post-run. See `specs/2026-05-15-evaluator/requirements.md` |
 | Numeric evaluation | NumPy | `≥1.26` | Temporal IoU, hit rate@k computations |
 
 ### ✅ Resolved Decision — Phase 7.3 QA Review Method

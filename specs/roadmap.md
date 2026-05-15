@@ -28,7 +28,7 @@ Status: ✅ Complete | ⚠️ Partial | ⏳ Pending
 | 7.3 | LLM review + `scripts/regenerate_qa.py` — populate `data/qa_pairs/reviewed/` | ✅ |
 | 7.4 | `scripts/build_benchmark.py` + `validate_benchmark.py` | ✅ 810 pairs, 60 lectures |
 | 7.5 | `scripts/audit_span_precision.py` — empirical span error → validate tIoU@0.3 | ✅ mean 25.8s, tIoU@0.3 valid |
-| 8.1 | `src/evaluator.py` — temporal IoU, hit rate@k, LLM-judge | ⏳ |
+| 8.1 | `src/evaluator.py` — temporal IoU, hit rate@k, LLM-judge | ✅ |
 | 9.1 | `run_part1.py` — end-to-end RAG demo | ⚠️ placeholder |
 | 9.2 | `run_part2.py` — full benchmark eval, both configs | ⚠️ placeholder |
 | 9.3 | `scripts/reproduce_tables.py` — one function per paper table | ⚠️ placeholder |
@@ -339,9 +339,9 @@ Output: `data/benchmark/benchmark_v1.json`
 
 ---
 
-## Phase 8 — Evaluation ⏳
+## Phase 8 — Evaluation ✅
 
-### 8.1 — Evaluator module
+### 8.1 — Evaluator module ✅ (2026-05-15)
 **File:** `src/evaluator.py`
 
 Implements all required metrics:
@@ -357,27 +357,34 @@ def temporal_iou(pred_start, pred_end, gt_start, gt_end) -> float:
 - **Hit Rate@k** (k=1,3,5) — ≥1 of top-k chunks has IoU > 0.3 with GT span
 - **Hit Rate@k multi-hop (per-hop recall)** — fraction of GT hops covered by ≥1 top-k chunk (IoU > 0.3)
 - **Hit Rate@k multi-hop (complete retrieval)** — fraction of questions where ALL hops covered by top-k
-- **LLM-judge score (1–5)** — feed `question + generated_answer + reference_answer` to LLM.
-  Candidate scoring criteria (to be confirmed via literature review before implementing):
-  1. Factual correctness — does the answer match the reference answer's key claims?
-  2. Completeness — for multi-hop questions, does it address all hops?
-  3. Groundedness — are claims supported by cited chunks, not hallucinated from general knowledge?
-  Use G-Eval form-filling paradigm (sub-score per criterion, then aggregate to 1–5).
-  **⚠️ TODO before Phase 8: conduct a targeted literature review of how similar RAG
-  benchmarks (RAGAS, EduVidQA, NA-VQA, ActivityNet-QA) define their LLM judge criteria.
-  Confirm which of the three candidate criteria above are standard, and whether
-  groundedness (chunk-only) vs. correctness (reference answer) should be the primary
-  signal. This decision must be made before `src/evaluator.py` is written.**
+- **LLM-judge score (1–5)** — G-Eval form-filling paradigm (Liu et al., EMNLP 2023).
+  Three criteria, each scored 1–5 separately, then averaged to aggregate score:
+  1. C1 (Correctness) — reference-based: does the answer match the gold reference answer's key claims?
+  2. C2 (Completeness) — for multi-hop: does the answer address all hops? (equals C1 for single-hop)
+  3. C3 (Groundedness) — reference-free: are all claims supported by retrieved chunks only?
+  Chain-of-thought reasoning before scoring; JSON output `{C1, C2, C3, aggregate}` per judge.
+  **✅ Literature review complete (2026-05-15) — see `literature-review/phase8/`.
+  Decisions locked: C1 reference-based (Sheng et al., NAACL 2024; Prometheus, ICLR 2024),
+  C3 reference-free (RAGAS, EACL 2024), criteria confirmed against RAGAS/ARES/ActivityNet-QA.**
 
-  **Multi-judge protocol (decided via Phase 7.3 lit review, 2026-05-12):**
+  **Multi-judge protocol (updated 2026-05-15):**
   Phase 8 LLM-judge scoring is subjective (1–5 scale) — the scenario where multi-judge
-  literature shows the largest gains. Recommended protocol:
-  - 2 judges: Claude Sonnet 4.6 + GPT-4o-mini (cross-family, cost-effective)
+  literature shows the largest gains. Protocol:
+  - 2 judges: Claude Sonnet 4.6 (strong structured reasoning, consistent with Phase 7.3
+    lineage) + GPT-4o (cross-family, stronger than mini — no literature precedent for
+    weak fallback judge on hard disagreement cases)
+  - Output: save per-judge scores separately per question (`judge_1_C1`, `judge_2_C1`,
+    etc.) — do NOT only save the average; raw scores are needed for α computation and
+    any post-hoc handling of low-agreement pairs
   - Aggregation: averaged score across both judges
-  - Reliability: report Krippendorff's alpha between the two judges; if α < 0.6, escalate
-    to a third judge (GPT-4o) for tie-breaking on low-agreement pairs
-  - Backing: PRD (Li et al., 2023), ChatEval (Chan et al., 2023), Chen et al. (2025)
-  - See `literature-review/phase_7.3/literature_review_report.md` — Phase 8 section
+  - Reliability: report Krippendorff's α between the two judges
+  - Low-α handling: deferred decision after evaluation run — if α ≥ 0.6, average and
+    report; if α < 0.6, decide then whether to flag as limitation or run PRD-style
+    debate on disagreement cases (PRD: Li et al., 2023; ChatEval: Chan et al., 2023)
+  - No fallback third judge pre-planned — no paper in the Phase 8 lit review uses
+    escalation to a third model; adding one has no literature backing
+  - Backing: ChatEval (Chan et al., ICLR 2024), Chen et al. (2025), Gu et al. (2024)
+  - See `literature-review/phase8/literature_review_report.md` — Section 6
 - **Citation accuracy** — fraction of cited chunks that actually contained the answer; for multi-hop, check ≥1 citation per hop
 
 **Multi-hop metric implementations:**
