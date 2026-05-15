@@ -4,74 +4,93 @@
 
 Three remaining deliverables from the assignment spec (mission.md):
 
-| Task | File | Status |
-|------|------|--------|
-| 9.1 | `run_part1.py` | ⏳ placeholder exists |
-| 9.3 | `scripts/reproduce_tables.py` | ⏳ placeholder exists |
-| 9.4 | `results.md` | ⏳ does not exist |
+| Task | File | Current state |
+|------|------|---------------|
+| 9.1 | `run_part1.py` | Exists — stale API, needs rewrite |
+| 9.3 | `scripts/reproduce_tables.py` | Does not exist |
+| 9.4 | `results.md` | Exists — correct structure, all cells TBD |
 
-9.2 (`run_part2.py`) is already complete (✅, 1620 pairs evaluated, results in `evaluation_results.json`).
+9.2 (`run_part2.py`) is complete (✅, 1620 pairs evaluated, results in `evaluation_results.json`).
 
 ---
 
 ## run_part1.py
 
-### Purpose
-End-to-end RAG demo that a grader or reader can run to see the system in action.
+### What exists
+A placeholder with the right skeleton (argparse, 3 demo questions, per-config loop) but
+using a stale API surface that was never aligned with the implemented modules.
+
+### Stale vs correct API
+
+| Placeholder (wrong) | Actual API |
+|---------------------|------------|
+| `Retriever(cfg)` | `Retriever(mode, cfg=cfg)` |
+| `retriever.retrieve(query, video_id, use_frames)` | `retriever.query(question, video_id=None)` |
+| `Generator(cfg)` | no class — module-level `generate()` function |
+| `generator.generate(question, chunks, video_id)` | `generate(question, chunks, mode, cfg)` |
+| prints raw answer string | must use `GeneratorResult.answer` and `.citations` |
 
 ### Decisions
-- **Input:** `--question` CLI arg. If omitted, 3 hardcoded questions are used (drawn from `benchmark_v1.json`, one per question type: visual, multi-hop, text).
-- **Output:** Print only (`logging` is for modules; `run_part1.py` is a demo entrypoint per CLAUDE.md).
-- **Both configs shown:** Retrieved chunks and generated answer printed for both `transcript_only` and `transcript_plus_frames` so the visual contribution is visible.
-- **No metrics:** Temporal IoU and LLM-judge are not computed — this is a qualitative demo. Metrics are the job of `run_part2.py`.
-- **Citation format:** `[video_id @ mm:ss to mm:ss](https://youtu.be/YOUTUBE_ID?t=T)` per CLAUDE.md spec.
-
-### Constraints
-- Must work from a clean environment (no GPU required for retrieval + generation).
-- All paths from `config.yaml` via `load_config()` — no hardcoded paths.
-- `top_k` from config (currently 4).
+- Keep `--question` and `--video_id` argparse args unchanged.
+- Keep 3 hardcoded demo questions (good representative coverage: visual, multi-hop, text).
+- Instantiate both retrievers up front; reuse across demo questions to avoid reloading embedder.
+- Print retrieved chunk summaries: `[video_id @ mm:ss–mm:ss] <first 80 chars of text>`.
+- Print `result.answer` then `result.citations` (one citation per line).
+- Use `print` throughout — no `logging` per CLAUDE.md.
+- All paths and model config from `load_config()` — no hardcoded values.
 
 ---
 
 ## scripts/reproduce_tables.py
 
 ### Purpose
-Audit tool and paper reproducibility artifact. A single `python scripts/reproduce_tables.py` regenerates every results table from `evaluation_results.json`.
+Audit tool and paper reproducibility artifact. Single `python scripts/reproduce_tables.py`
+regenerates all three tables from results.md.
 
 ### Decisions
-- **Three functions:** `reproduce_table_1` (single-hop, n=238), `reproduce_table_2` (multi-hop, n=460), `reproduce_table_3` (overall, n=810). Named by table number matching the paper.
-- **Question type filters:**
-  - Single-hop: `question_type in {visual, text}`
-  - Multi-hop: `question_type in {multi-hop-visual, multi-hop}`
-  - Overall: all 810 pairs (including unanswerable)
-- **Output:** Plain-text formatted tables to stdout. No LaTeX, no file output. Numbers must match `evaluation_results.json` exactly.
-- **No new API calls.** Reads only from `evaluation_results.json` and `benchmark_v1.json`.
-- **Default path:** `cfg.evaluator.output_path` from `load_config()`. Accepts optional `--results` CLI arg to override.
+- Three functions matching results.md table structure: `reproduce_table_1` (overall),
+  `reproduce_table_2` (tIoU by type), `reproduce_table_3` (Hit Rate@k by type).
+- Question type filter for "all-visual" row in Table 2: `{multi-hop-visual, visual}`.
+- No LaTeX output. Plain-text stdout only.
+- No new API calls — reads only `evaluation_results.json` and `benchmark_v1.json`.
+- Default paths from `load_config()`. Optional `--results` and `--benchmark` CLI args.
 
-### Metrics reproduced (per table)
-Mean tIoU, IoU@0.3, IoU@0.5, Hit Rate@1/3/5, LLM-Judge (1–5), Citation Accuracy.
+### Metrics
+- Table 1: mean tIoU, IoU@0.3, IoU@0.5, HR@1/3/5, LLM-judge, citation accuracy — per config.
+- Table 2: mean tIoU per question type — per config, with Δ column.
+- Table 3: HR@1, HR@3, HR@5 per question type — per config.
 
 ---
 
 ## results.md
 
-### Purpose
-Side-by-side comparison of Config 1 vs Config 2 across all question type slices. Required deliverable per mission.md and CLAUDE.md.
+### What exists
+The file has the correct 3-table structure with "Paper-Reported" columns. All cells are TBD.
+The "Reproduction Status" section at the bottom tracks which tables have been filled.
 
 ### Decisions
-- **Four tables:** Overall (810), single-hop (238), multi-hop (460), visual-dependent (455: `multi-hop-visual` + `visual`). The visual-dependent table is the primary evidence for the paper's central claim.
-- **Format:** Markdown tables with metric rows and config columns. Config 2 values bolded where they exceed Config 1.
-- **Narrative:** 3–5 sentences per table noting direction of improvement and anomalies. Specifically: multi-hop IoU@0.5 is the one metric where Config 2 is marginally lower (0.072 vs 0.076) — this must be disclosed and explained (frame augmentation slightly inflates predicted spans on multi-hop).
-- **No "reported vs reproduced" diff:** Numbers are canonical from the one evaluation run. If the evaluation is re-run, `results.md` is updated in place.
+- Fill all TBD cells from `evaluation_results.json`. Numbers must match `reproduce_tables.py` output exactly.
+- "Paper-Reported" columns = same as reproduced numbers (single canonical evaluation run).
+  These columns exist to catch drift if the evaluation is re-run in the future.
+- Bold Config 2 values where they exceed Config 1 (already implied by the structure).
+- Multi-hop IoU@0.5 anomaly must be disclosed in Table 1 narrative: Config 2 (0.072) is
+  marginally below Config 1 (0.076) — frame augmentation slightly inflates predicted spans
+  on multi-hop pairs, reducing precision at the stricter 0.5 threshold.
+- Update "Last updated" date and flip Reproduction Status rows to ✅.
 
-### Source of truth
-`data/benchmark/evaluation_results.json` — generated by `run_part2.py` on 2026-05-15.
+### Table 2 — question type rows
+| Row | Filter |
+|-----|--------|
+| multi-hop-visual | `question_type == "multi-hop-visual"` |
+| visual | `question_type == "visual"` |
+| multi-hop | `question_type == "multi-hop"` |
+| text | `question_type == "text"` |
+| **all visual** | `question_type in {multi-hop-visual, visual}` — 455 pairs, primary claim |
 
 ---
 
 ## Out of scope
-
-- Plots / figures (roadmap 9.2 mentioned "summary plots" but these are deferred to Phase 10 paper work)
-- LaTeX table output from `reproduce_tables.py`
+- Plots / figures (deferred to Phase 10 paper work)
+- LaTeX table output
 - Third judge / re-evaluation
-- Any changes to `src/evaluator.py` or `src/generator.py`
+- Any changes to `src/evaluator.py`, `src/generator.py`, or `src/retriever.py`
