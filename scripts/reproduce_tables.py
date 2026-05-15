@@ -13,6 +13,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from contextlib import contextmanager
 from pathlib import Path
 
 import numpy as np
@@ -137,6 +138,30 @@ def reproduce_table_3(results_path: Path, benchmark_path: Path) -> None:
     print(sep)
 
 
+@contextmanager
+def _tee(output_path: Path | None):
+    """Write stdout to a file in addition to the terminal when output_path is given."""
+    if output_path is None:
+        yield
+        return
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with output_path.open("w") as fh:
+        class _Tee:
+            def write(self, msg):
+                sys.__stdout__.write(msg)
+                fh.write(msg)
+            def flush(self):
+                sys.__stdout__.flush()
+                fh.flush()
+        old = sys.stdout
+        sys.stdout = _Tee()
+        try:
+            yield
+        finally:
+            sys.stdout = old
+    print(f"\nOutput saved → {output_path}")
+
+
 def main() -> None:
     cfg = load_config()
     parser = argparse.ArgumentParser(description="Reproduce results tables from evaluation artifacts")
@@ -144,12 +169,15 @@ def main() -> None:
     parser.add_argument("--benchmark", type=Path, default=cfg.data.benchmark_dir / "benchmark_v1.json")
     parser.add_argument("--table", type=int, choices=[1, 2, 3],
                         help="Reproduce only one table (default: all)")
+    parser.add_argument("--output", type=Path, help="Also save output to this file")
     args = parser.parse_args()
 
     fns = {1: reproduce_table_1, 2: reproduce_table_2, 3: reproduce_table_3}
     targets = [fns[args.table]] if args.table else list(fns.values())
-    for fn in targets:
-        fn(args.results, args.benchmark)
+
+    with _tee(args.output):
+        for fn in targets:
+            fn(args.results, args.benchmark)
 
 
 if __name__ == "__main__":

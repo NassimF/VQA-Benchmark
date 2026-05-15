@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import argparse
 import sys
+from contextlib import contextmanager
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).parent
@@ -77,21 +78,47 @@ def run_demo(question: str, video_id: str | None, retrievers: dict, cfg) -> None
     print()
 
 
+@contextmanager
+def _tee(output_path: Path | None):
+    """Write stdout to a file in addition to the terminal when output_path is given."""
+    if output_path is None:
+        yield
+        return
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with output_path.open("w") as fh:
+        class _Tee:
+            def write(self, msg):
+                sys.__stdout__.write(msg)
+                fh.write(msg)
+            def flush(self):
+                sys.__stdout__.flush()
+                fh.flush()
+        old = sys.stdout
+        sys.stdout = _Tee()
+        try:
+            yield
+        finally:
+            sys.stdout = old
+    print(f"\nOutput saved → {output_path}")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="LectureBench RAG demo (Part 1)")
     parser.add_argument("--question", help="Question to answer")
     parser.add_argument("--video_id", help="Restrict retrieval to one lecture")
+    parser.add_argument("--output", type=Path, help="Also save output to this file")
     args = parser.parse_args()
 
     cfg = load_config()
     retrievers = {mode: Retriever(mode, cfg=cfg) for mode, _ in _CONFIGS}
 
-    if args.question:
-        run_demo(args.question, args.video_id, retrievers, cfg)
-    else:
-        print("No question provided — running 3 demo questions.\n")
-        for demo in _DEMO_QUESTIONS:
-            run_demo(demo["question"], demo["video_id"], retrievers, cfg)
+    with _tee(args.output):
+        if args.question:
+            run_demo(args.question, args.video_id, retrievers, cfg)
+        else:
+            print("No question provided — running 3 demo questions.\n")
+            for demo in _DEMO_QUESTIONS:
+                run_demo(demo["question"], demo["video_id"], retrievers, cfg)
 
 
 if __name__ == "__main__":
