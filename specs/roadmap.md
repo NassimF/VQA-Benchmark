@@ -33,7 +33,7 @@ Status: ✅ Complete | ⚠️ Partial | ⏳ Pending
 | 9.2 | `run_part2.py` — full benchmark eval, both configs | ✅ 1620 pairs evaluated |
 | 9.3 | `scripts/reproduce_tables.py` — one function per paper table | ✅ |
 | 9.4 | `results.md` — reproduced vs. reported numbers, Config 1 vs Config 2 | ✅ |
-| 10.1 | `overleaf/assets/vqa_benchmark.tex` — conference paper | ⚠️ |
+| 10.1 | `overleaf/assets/vqa_benchmark.tex` — conference paper | ✅ |
 | 10.2 | `README.md` | ✅ |
 
 ---
@@ -513,7 +513,7 @@ improvement on visual-dependent questions. Update whenever evaluation results ch
 
 ---
 
-## Phase 10 — Report & README ⏳
+## Phase 10 — Report & README ✅
 
 > **Post-evaluation reminder:** After Phase 8, replace all `\textcolor{red}{TBD}` placeholders
 > in the paper sections (results.tex, benchmark.tex) with real numbers, update the

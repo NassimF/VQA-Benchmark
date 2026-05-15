@@ -1,5 +1,22 @@
 # Changelog
 
+## 2026-05-15 (Phase 10)
+
+### Report & README
+
+- `overleaf/assets/vqa_benchmark.tex` — removed `\bmvcreviewcopy{??}` to eliminate blue review line numbers.
+- `overleaf/assets/sections/pipeline.tex` — fixed stale count (720→810 × 2=1,620 calls), fixed `\texttt{gpt-4o-mini}` overfull hbox in §3.5, added line break between long ChromaDB collection name tokens.
+- `overleaf/assets/sections/benchmark.tex` — replaced figure placeholder with `\includegraphics{fig_qa_dist}`, fixed `\shortcite` → `\cite` with `\etal`, fixed bare `e.g.,` → `\eg`, fixed schema line overflow.
+- `overleaf/assets/sections/results.tex` — replaced figure placeholder with `\includegraphics{fig_iou_by_type}`, updated caption with real percentages (+183%, +26%), removed stale TBD comment, rewrote failure mode prose to active voice (active-sentence leads, removed italics from failure mode names, split run-on sentences).
+- `overleaf/assets/sections/conclusion.tex` — rewrote opening paragraph: "We introduce LectureBench..." (active voice, concrete pair count), replaced vague gains sentence with specific percentages (65% visual, 13% text).
+- `overleaf/assets/sections/abstract.tex` — applied 2 style edits: concrete numbers upfront, cleaner visual-split framing.
+- `overleaf/assets/sections/introduction.tex` — applied 7 style edits: active voice ("we anchor", "we evaluate"), concrete multi-hop percentage (56.8%), split compound sentences, tightened visual-contribution framing.
+- `scripts/generate_figures.py` — new script: generates `fig_qa_dist` (horizontal bar chart) and `fig_iou_by_type` (grouped bar chart, Config 1 vs 2) as both PDF and PNG.
+- `overleaf/assets/images/fig_qa_dist.{pdf,png}` — QA type distribution figure.
+- `overleaf/assets/images/fig_iou_by_type.{pdf,png}` — tIoU by question type figure.
+- `README.md` — filled key results table, removed stale Phase 8 placeholder note.
+- `requirements.txt` — added `matplotlib>=3.8.0`.
+
 ## 2026-05-15 (Phase 9)
 
 ### Deliverable Scripts

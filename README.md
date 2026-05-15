@@ -146,14 +146,12 @@ Visual-dependent types (multi-hop-visual + visual) ≥ 60% of accepted pairs.
 
 ## Key Results
 
-*(Filled in after Phase 8 evaluation)*
-
 | Metric | Config 1: Transcript-Only | Config 2: Transcript+Frames |
 |--------|:---:|:---:|
-| Mean Temporal IoU | — | — |
-| IoU@0.3 | — | — |
-| Hit Rate@5 | — | — |
-| LLM-Judge Score (1–5) | — | — |
+| Mean Temporal IoU | 0.154 | **0.198** |
+| IoU@0.3 | 0.228 | **0.279** |
+| Hit Rate@5 | 0.515 | **0.565** |
+| LLM-Judge Score (1–5) | 3.03 | **3.56** |
 
 See `results.md` for full side-by-side table and `data/benchmark/evaluation_results.json`
 for raw numbers.
