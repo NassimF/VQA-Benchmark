@@ -1,5 +1,30 @@
 # Changelog
 
+## 2026-05-15
+
+### Evaluation (Phase 8)
+
+- `src/evaluator.py` — full evaluation module: temporal IoU, IoU@0.3/0.5, Hit Rate@k (k=1,3,5), multi-hop per-hop IoU, union IoU, complete retrieval rate, LLM-judge (G-Eval, 2 judges: Claude Sonnet 4.6 + GPT-4o), Krippendorff's α, citation accuracy. JSONL checkpointing with resume.
+- `run_part2.py` — rewritten to use `evaluate_all()` / `evaluate_question()` API; `--limit` and `--video_id` flags for smoke tests; partial results saved to separate file to protect canonical output.
+- Fixed `src/generator.py` `_parse_llm_output`: LaTeX escape sanitization now uses `(?<!\\)` lookbehind to avoid corrupting already-valid `\\(` sequences; tries `json.loads` first, sanitizes only on failure.
+- Fixed `src/evaluator.py` `_parse_judge_response`: 3-stage fallback — (1) standard JSON parse, (2) fix unquoted keys `{C1: 4}` → `{"C1": 4}`, (3) regex extraction without braces.
+- `tests/test_evaluator.py` — 40 new tests; full suite 104/104 passing.
+- Full evaluation run: 810 pairs × 2 configs = 1,620 evaluations. Results saved to `data/benchmark/evaluation_results.json`.
+- Paper (Overleaf): filled all TBD result cells, fixed factual errors (720→810 pairs, 67%→56.8% multi-hop, 455/819→455/810 visual), added GitHub URL to abstract.
+
+### Key results
+
+| Metric | Config 1 (Transcript-Only) | Config 2 (+Frames) |
+|---|---|---|
+| Mean tIoU | 0.154 | 0.198 (+29%) |
+| IoU@0.3 | 0.228 | 0.279 |
+| IoU@0.5 | 0.091 | 0.126 |
+| Hit Rate@5 | 0.515 | 0.565 |
+| LLM-Judge (1–5) | 3.03 | 3.56 |
+| Citation Accuracy | 23.4% | 31.6% |
+
+Visual-dependent questions: tIoU +65% (0.129 → 0.213). Config 2 wins on all metrics.
+
 ## 2026-05-14
 
 - chore: ignore literature-review/, untrack Excel and MD files (da7777c)

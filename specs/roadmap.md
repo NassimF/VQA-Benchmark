@@ -30,7 +30,7 @@ Status: ✅ Complete | ⚠️ Partial | ⏳ Pending
 | 7.5 | `scripts/audit_span_precision.py` — empirical span error → validate tIoU@0.3 | ✅ mean 25.8s, tIoU@0.3 valid |
 | 8.1 | `src/evaluator.py` — temporal IoU, hit rate@k, LLM-judge | ✅ |
 | 9.1 | `run_part1.py` — end-to-end RAG demo | ⚠️ placeholder |
-| 9.2 | `run_part2.py` — full benchmark eval, both configs | ⚠️ placeholder |
+| 9.2 | `run_part2.py` — full benchmark eval, both configs | ✅ 1620 pairs evaluated |
 | 9.3 | `scripts/reproduce_tables.py` — one function per paper table | ⚠️ placeholder |
 | 9.4 | `results.md` — reproduced vs. reported numbers, Config 1 vs Config 2 | ⚠️ placeholder |
 | 10.1 | `overleaf/assets/vqa_benchmark.tex` — conference paper | ⚠️ |
@@ -474,10 +474,10 @@ Fill these in after Phase 8. Both configs side by side, split by question type.
 
 ## Phase 9 — Deliverable Scripts ⏳
 
-> **Post-evaluation reminder:** All Phase 9 files are currently placeholders. After Phase 8
-> (evaluation) is complete, revisit every file in this phase: fill in real results in
-> `run_part2.py` output, populate `reproduce_tables.py` from `evaluation_results.json`,
-> and update `results.md` with reproduced vs. reported numbers side by side.
+> **Phase 8 complete (2026-05-15).** Full evaluation results are in
+> `data/benchmark/evaluation_results.json`. Key results:
+> Config 1 tIoU=0.154, Config 2 tIoU=0.198 (+29%); visual questions: +65% tIoU.
+> run_part2.py is complete (9.2 ✅). Remaining: 9.1 (run_part1.py), 9.3 (reproduce_tables.py), 9.4 (results.md).
 
 ### 9.1 — Demo script
 **File:** `run_part1.py`
