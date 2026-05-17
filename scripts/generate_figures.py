@@ -160,8 +160,8 @@ def generate_figure_b(results_path: Path, benchmark_path: Path, output_dir: Path
         ax.set_xticks(x)
         ax.set_xticklabels(labels, rotation=15, ha="right")
         ax.set_ylabel("Mean Temporal IoU")
-        ax.set_ylim(0, max(max(c1_vals), max(c2_vals)) * 1.3)
-        ax.legend(loc="upper right", frameon=False)
+        ax.set_ylim(0, max(max(c1_vals), max(c2_vals)) * 1.35)
+        ax.legend(loc="upper left", frameon=False)
         fig.tight_layout()
 
     _save(fig, "fig_iou_by_type", output_dir)
