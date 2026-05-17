@@ -70,47 +70,45 @@ def generate_figure_a(benchmark_path: Path, output_dir: Path) -> None:
         ("Control",          C2_COLOR, ["multi-hop", "text", "unanswerable"]),
     ]
 
-    # Build rows top-to-bottom (invert_yaxis will flip them correctly)
-    rows: list[tuple[str, int, str, bool]] = []  # (label, count, color, is_group)
-    for group_label, color, types in groups:
+    # Build rows top-to-bottom; None = blank spacer between groups
+    rows: list[tuple[str, int, str, bool] | None] = []
+    for idx, (group_label, color, types) in enumerate(groups):
+        if idx > 0:
+            rows.append(None)  # spacer
         group_total = sum(counts.get(t, 0) for t in types)
         rows.append((group_label, group_total, color, True))
         for t in types:
             rows.append((_TYPE_LABELS[t], counts.get(t, 0), color, False))
 
-    labels  = [r[0] for r in rows]
-    values  = [r[1] for r in rows]
-    colors  = [r[2] for r in rows]
-    is_grp  = [r[3] for r in rows]
-
     with plt.rc_context(_STYLE):
         fig, ax = plt.subplots(figsize=(3.8, 3.0))
 
-        for i, (label, val, color, grp) in enumerate(rows):
+        tick_pos, tick_labels = [], []
+        for i, row in enumerate(rows):
+            if row is None:
+                tick_pos.append(i)
+                tick_labels.append("")
+                continue
+            label, val, color, grp = row
             alpha  = 1.0 if grp else 0.55
             height = 0.65 if grp else 0.45
-            lw     = 0 if grp else 0
-            ax.barh(i, val, color=color, height=height, alpha=alpha,
-                    linewidth=lw, edgecolor="white")
+            ax.barh(i, val, color=color, height=height, alpha=alpha)
 
-            pct = 100 * val / total
-            suffix = f"  {val} ({pct:.0f}%)"
-            fontsize = 7.5 if grp else 6.5
-            weight   = "bold" if grp else "normal"
-            ax.text(val + 3, i, suffix, va="center", ha="left",
-                    fontsize=fontsize, fontweight=weight, color=color)
+            pct    = 100 * val / total
+            fsize  = 7.5 if grp else 6.5
+            weight = "bold" if grp else "normal"
+            ax.text(val + 3, i, f"  {val} ({pct:.0f}%)", va="center",
+                    ha="left", fontsize=fsize, fontweight=weight, color=color)
 
-            # Indent sub-type labels
-            if not grp:
-                labels[i] = "  " + label
+            tick_pos.append(i)
+            tick_labels.append(("  " + label) if not grp else label)
 
-        ax.set_yticks(range(len(rows)))
-        ax.set_yticklabels(labels, fontsize=8)
+        ax.set_yticks(tick_pos)
+        ax.set_yticklabels(tick_labels, fontsize=8)
         ax.set_xlabel("Number of QA pairs")
-        ax.set_xlim(0, max(values) * 1.32)
+        ax.set_xlim(0, max(r[1] for r in rows if r) * 1.32)
         ax.invert_yaxis()
         ax.xaxis.set_major_locator(mticker.MultipleLocator(100))
-        ax.spines["left"].set_visible(False)
         ax.tick_params(axis="y", length=0)
         fig.tight_layout()
 
