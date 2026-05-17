@@ -142,9 +142,9 @@ def generate_figure_b(results_path: Path, benchmark_path: Path, output_dir: Path
         fig, ax = plt.subplots(figsize=(3.4, 2.6))
 
         bars1 = ax.bar(x - width / 2, c1_vals, width, label="Config 1: Transcript-Only",
-                       color=C1_COLOR)
+                       color=C1_COLOR, hatch="///", edgecolor="white", linewidth=0.4)
         bars2 = ax.bar(x + width / 2, c2_vals, width, label="Config 2: +Frames",
-                       color=C2_COLOR)
+                       color=C2_COLOR, hatch="", edgecolor="white", linewidth=0.4)
 
         # Threshold line
         ax.axhline(0.3, color="gray", linestyle=":", linewidth=0.8, label="IoU@0.3 threshold")
