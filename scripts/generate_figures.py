@@ -39,9 +39,9 @@ _STYLE = {
 
 _TYPE_LABELS = {
     "multi-hop-visual": "Multi-hop visual",
-    "visual":           "Visual",
-    "multi-hop":        "Multi-hop",
-    "text":             "Text",
+    "visual":           "Single-hop visual",
+    "multi-hop":        "Multi-hop textual",
+    "text":             "Single-hop textual",
     "unanswerable":     "Unanswerable",
 }
 
@@ -55,35 +55,63 @@ def _save(fig: plt.Figure, stem: str, output_dir: Path) -> None:
 
 
 def generate_figure_a(benchmark_path: Path, output_dir: Path) -> None:
-    """Figure A — QA type distribution (horizontal bar chart)."""
+    """Figure A — QA type distribution, two-level grouped by visual vs control."""
     benchmark = json.loads(benchmark_path.read_text())
     counts: dict[str, int] = {}
     for qa in benchmark["qa_pairs"]:
         qt = qa["question_type"]
         counts[qt] = counts.get(qt, 0) + 1
 
-    # Order: descending count, unanswerable last
-    order = ["multi-hop-visual", "visual", "multi-hop", "text", "unanswerable"]
-    labels = [_TYPE_LABELS[t] for t in order]
-    values = [counts.get(t, 0) for t in order]
-    total = sum(values)
+    total = sum(counts.values())
+
+    # Two groups with their subtypes (visual-dependent first)
+    groups = [
+        ("Visual-dependent", C1_COLOR, ["multi-hop-visual", "visual"]),
+        ("Control",          C2_COLOR, ["multi-hop", "text", "unanswerable"]),
+    ]
+
+    # Build rows top-to-bottom (invert_yaxis will flip them correctly)
+    rows: list[tuple[str, int, str, bool]] = []  # (label, count, color, is_group)
+    for group_label, color, types in groups:
+        group_total = sum(counts.get(t, 0) for t in types)
+        rows.append((group_label, group_total, color, True))
+        for t in types:
+            rows.append((_TYPE_LABELS[t], counts.get(t, 0), color, False))
+
+    labels  = [r[0] for r in rows]
+    values  = [r[1] for r in rows]
+    colors  = [r[2] for r in rows]
+    is_grp  = [r[3] for r in rows]
 
     with plt.rc_context(_STYLE):
-        fig, ax = plt.subplots(figsize=(3.4, 2.4))
-        bars = ax.barh(labels, values, color=C1_COLOR, height=0.6)
+        fig, ax = plt.subplots(figsize=(3.8, 3.0))
 
-        for bar, v in zip(bars, values):
-            pct = 100 * v / total
-            ax.text(
-                v + 4, bar.get_y() + bar.get_height() / 2,
-                f"{v} ({pct:.0f}%)",
-                va="center", ha="left", fontsize=7,
-            )
+        for i, (label, val, color, grp) in enumerate(rows):
+            alpha  = 1.0 if grp else 0.55
+            height = 0.65 if grp else 0.45
+            lw     = 0 if grp else 0
+            ax.barh(i, val, color=color, height=height, alpha=alpha,
+                    linewidth=lw, edgecolor="white")
 
+            pct = 100 * val / total
+            suffix = f"  {val} ({pct:.0f}%)"
+            fontsize = 7.5 if grp else 6.5
+            weight   = "bold" if grp else "normal"
+            ax.text(val + 3, i, suffix, va="center", ha="left",
+                    fontsize=fontsize, fontweight=weight, color=color)
+
+            # Indent sub-type labels
+            if not grp:
+                labels[i] = "  " + label
+
+        ax.set_yticks(range(len(rows)))
+        ax.set_yticklabels(labels, fontsize=8)
         ax.set_xlabel("Number of QA pairs")
-        ax.set_xlim(0, max(values) * 1.28)
+        ax.set_xlim(0, max(values) * 1.32)
         ax.invert_yaxis()
-        ax.xaxis.set_major_locator(mticker.MultipleLocator(50))
+        ax.xaxis.set_major_locator(mticker.MultipleLocator(100))
+        ax.spines["left"].set_visible(False)
+        ax.tick_params(axis="y", length=0)
         fig.tight_layout()
 
     _save(fig, "fig_qa_dist", output_dir)
