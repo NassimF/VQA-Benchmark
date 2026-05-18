@@ -2,6 +2,10 @@
 
 ## 2026-05-18
 
+- review: fix §3 frame count (15020→17180) (e0da67d)
+
+## 2026-05-18
+
 - chore: sync §2 related work fixes to Overleaf (8baeb9b)
 
 ## 2026-05-18
