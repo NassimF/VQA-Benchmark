@@ -2,6 +2,10 @@
 
 ## 2026-05-18
 
+- review: trim §3 impl details; fix §3.5 cost argument (e4d795b)
+
+## 2026-05-18
+
 - review: strengthen §3 design-choice justifications (6b489e1)
 
 ## 2026-05-18
