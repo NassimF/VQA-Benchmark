@@ -1,9 +1,5 @@
 # LectureBench — Temporally Grounded QA for Long Lecture Videos
 
-**CS 6263: LLM and Agentic Systems — Assignment 4**
-**Track C: Long-Lecture Video RAG and Benchmark Construction**
-**UTSA | Dr. Peyman Najafirad | TA: Mohammad Bahrami**
-
 ---
 
 ## What This Is
@@ -180,7 +176,6 @@ CC BY-NC-SA 4.0 — required by the ShareAlike clause of the MIT OCW and Stanfor
 @dataset{lecturebench2026,
   title  = {LectureBench: Temporally Grounded QA for Long Lecture Videos},
   author = {Faridnia, Seyedehnasim},
-  year   = {2026},
-  note   = {CS 6263 Assignment 4, UTSA}
+  year   = {2026}
 }
 ```
