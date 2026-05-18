@@ -2,6 +2,10 @@
 
 ## 2026-05-18
 
+- review: fix §2 related work factual errors (610b2f9)
+
+## 2026-05-18
+
 - chore: ignore REVIEW_CHECKLIST.md (30b59c2)
 - checkpoint: BMVC compliance + figure layout polish complete (86e6943)
 
