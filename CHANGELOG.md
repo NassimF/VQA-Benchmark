@@ -1,5 +1,56 @@
 # Changelog
 
+## 2026-05-18
+
+- chore: ignore REVIEW_CHECKLIST.md (30b59c2)
+- checkpoint: BMVC compliance + figure layout polish complete (86e6943)
+
+## 2026-05-17
+
+- fix: fig1 arrow video→caps, neutral phase label colors (bd7af82)
+- fix: move fig4 back to top of §5 with [t] and intro sentence (35ee05e)
+- fix: remove line numbers, restore URL, fix float spacing (d3a0d20)
+- fix: BMVC compliance — blind review, URL, hatch, intextsep (bfda9af)
+- fix: add enumitem, replace unicode geq with \$\geq\$ (1b0e501)
+- fix: add amssymb for checkmark, replace invalid texttimes (2e549f5)
+- fix: update fig3 caption to reflect visual-dependent/control grouping (f422c50)
+- fix: move fig4 legend to upper left to clear bars (64d2c1a)
+- fix: update fig4 caption to new question type names (5f60a3a)
+- fix: rename question types in benchmark.tex to match new taxonomy (7e237ee)
+- fix: restore y-axis, add group spacer in fig_qa_dist (323686f)
+- feat: two-level grouped QA dist chart, rename question types (48ea11d)
+- feat: TikZ pipeline fig, author name/email fix (e6ce319)
+- feat: replace fig1 PNG with TikZ pipeline diagram (7542b9a)
+- fix: correct +183% -> +283% in fig4, add multi-hop regression note (2ee98b8)
+
+## 2026-05-15
+
+- fix: §4.5 Schema overflow — split long texttt, footnotesize+sloppy (535eb8f)
+- fix: reduce intextsep to close gap above [H] tables (791fedd)
+- fix: shrink fig4, raggedbottom to remove stretched whitespace (0e87042)
+- fix: fig3 smaller+pinned, §4.5 gap removed, Schema overflow fixed (6abcb4b)
+- fix: table overflow, §2 overflow, tab:qa_dist position, §4.5 gap (bc57a53)
+- fix: pin fig_qa_dist and fig_iou_by_type with [H] to correct sections (a9928b9)
+- fix: pin figures 4 and 5 with [H] to correct sections (40330ce)
+- fix: force tables 4+5 to exact position with [H] and float package (db094f7)
+- chore: sync Overleaf submodule after results table fix (1c0b6f6)
+- fix: results tables [t] -> [ht] to keep them in their subsections (c91d3bd)
+- fix: reposition all figures and tables to correct paper locations (ed00aba)
+- fix: change all tables [h] -> [t] for correct column placement (1a95703)
+- fix: scale figures to 0.82col, use [t] placement to fix refs bleed (aca2d76)
+- docs: Phase 10 complete — paper polish, figures, README (048867f)
+- docs: update Phase 10 spec — add TG5-8 (line numbers, overflow, BMVC format, style audit) (c674a0b)
+- docs: Phase 10 spec — paper figures, factual fixes, README (f6c97c8)
+- docs: Phase 9 complete — roadmap ✅, changelog updated (1fc68ad)
+- feat: add --output flag to run_part1 and reproduce_tables (8308032)
+- feat: Phase 9 complete — run_part1, reproduce_tables, results.md (36694d1)
+- docs: revise Phase 9 spec — reflect existing files and stale API (78fa01a)
+- docs: Phase 9 spec — deliverables plan, requirements, validation (79430dd)
+- docs: update roadmap Phase 9.2 complete, add Phase 8 changelog (3d786fe)
+- feat: Phase 8.2 complete — full eval results + paper updates (883de61)
+- feat: rewrite run_part2.py to use evaluate_all API (d8a3bad)
+- feat: Phase 8.1 complete — evaluator, tests, specs (fa222ec)
+
 ## 2026-05-15 (Phase 10)
 
 ### Report & README
