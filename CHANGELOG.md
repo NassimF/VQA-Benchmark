@@ -2,6 +2,10 @@
 
 ## 2026-05-18
 
+- fix: add citation accuracy to Figure 1 metrics box (c8c2629)
+
+## 2026-05-18
+
 - review: trim §3 impl details; fix §3.5 cost argument (e4d795b)
 
 ## 2026-05-18
