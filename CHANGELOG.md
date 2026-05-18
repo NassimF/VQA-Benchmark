@@ -2,6 +2,10 @@
 
 ## 2026-05-18
 
+- review: add 4 new §2 citations (LLM-judge, video RAG, aligned captions, negative queries) (769a73a)
+
+## 2026-05-18
+
 - review: fix §2 related work factual errors (610b2f9)
 
 ## 2026-05-18
