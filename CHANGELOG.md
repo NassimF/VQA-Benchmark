@@ -2,6 +2,10 @@
 
 ## 2026-05-18
 
+- review: strengthen §3 design-choice justifications (6b489e1)
+
+## 2026-05-18
+
 - review: fix §3 frame count (15020→17180) (e0da67d)
 
 ## 2026-05-18
