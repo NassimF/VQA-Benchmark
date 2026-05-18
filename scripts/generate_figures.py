@@ -81,7 +81,7 @@ def generate_figure_a(benchmark_path: Path, output_dir: Path) -> None:
             rows.append((_TYPE_LABELS[t], counts.get(t, 0), color, False))
 
     with plt.rc_context(_STYLE):
-        fig, ax = plt.subplots(figsize=(3.8, 3.0))
+        fig, ax = plt.subplots(figsize=(3.8, 2.3))
 
         tick_pos, tick_labels = [], []
         for i, row in enumerate(rows):
