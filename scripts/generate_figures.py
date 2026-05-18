@@ -168,6 +168,66 @@ def generate_figure_b(results_path: Path, benchmark_path: Path, output_dir: Path
     plt.close(fig)
 
 
+def generate_figure_c(results_path: Path, benchmark_path: Path, output_dir: Path) -> None:
+    """Figure C — Hit Rate @ k curve for k∈{1,3,5}, Config 1 vs Config 2, single- vs multi-hop."""
+    results = json.loads(results_path.read_text())["results"]
+    qa_type = {
+        qa["qa_id"]: qa["question_type"]
+        for qa in json.loads(benchmark_path.read_text())["qa_pairs"]
+    }
+
+    SH = {"visual", "text"}
+    MH = {"multi-hop-visual", "multi-hop"}
+
+    def mean_hr(config: str, qtypes: set[str], k: int) -> float:
+        key = f"hit_rate_at_{k}"
+        subset = [r[key] for r in results
+                  if r["config"] == config and qa_type.get(r["qa_id"]) in qtypes]
+        return float(np.mean(subset)) if subset else 0.0
+
+    ks = [1, 3, 5]
+    lines = [
+        ("Single-hop C1", SH, "transcript_only",         C1_COLOR, "-",  "o"),
+        ("Single-hop C2", SH, "transcript_plus_frames",  C2_COLOR, "-",  "o"),
+        ("Multi-hop C1",  MH, "transcript_only",         C1_COLOR, "--", "s"),
+        ("Multi-hop C2",  MH, "transcript_plus_frames",  C2_COLOR, "--", "s"),
+    ]
+
+    with plt.rc_context(_STYLE):
+        fig, ax = plt.subplots(figsize=(3.2, 2.4))
+
+        for label, qtypes, config, color, ls, marker in lines:
+            vals = [mean_hr(config, qtypes, k) for k in ks]
+            alpha = 1.0 if "C2" in label else 0.55
+            ax.plot(ks, vals, color=color, linestyle=ls, marker=marker,
+                    markersize=4, linewidth=1.4, alpha=alpha, label=label)
+            # Annotate last point
+            ax.text(5.1, vals[-1], f"{vals[-1]:.2f}", va="center",
+                    fontsize=6, color=color, alpha=alpha)
+
+        ax.set_xticks(ks)
+        ax.set_xlabel("$k$ (retrieved chunks)")
+        ax.set_ylabel("Hit Rate @ $k$")
+        ax.set_xlim(0.5, 6.2)
+        ax.set_ylim(0, 1.0)
+        ax.yaxis.set_major_locator(mticker.MultipleLocator(0.2))
+
+        # Manual legend with two groups
+        from matplotlib.lines import Line2D
+        handles = [
+            Line2D([0], [0], color="gray", linestyle="-",  marker="o", markersize=4, label="Single-hop"),
+            Line2D([0], [0], color="gray", linestyle="--", marker="s", markersize=4, label="Multi-hop"),
+            Line2D([0], [0], color=C1_COLOR, linewidth=2, alpha=0.55, label="Config 1"),
+            Line2D([0], [0], color=C2_COLOR, linewidth=2, label="Config 2"),
+        ]
+        ax.legend(handles=handles, frameon=False, ncol=2, fontsize=7,
+                  loc="upper left", handlelength=1.6)
+        fig.tight_layout()
+
+    _save(fig, "fig_hr_at_k", output_dir)
+    plt.close(fig)
+
+
 def main() -> None:
     cfg = load_config()
     default_out = PROJECT_ROOT / "overleaf" / "assets" / "images"
@@ -183,6 +243,9 @@ def main() -> None:
 
     print("Generating Figure B — tIoU by question type...")
     generate_figure_b(args.results, args.benchmark, args.output_dir)
+
+    print("Generating Figure C — Hit Rate @ k curve...")
+    generate_figure_c(args.results, args.benchmark, args.output_dir)
 
     print("Done.")
 
