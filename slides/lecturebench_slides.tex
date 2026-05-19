@@ -1,0 +1,968 @@
+\documentclass[aspectratio=169,t]{beamer}
+
+% ---- Theme ----
+\usetheme{Madrid}
+\usecolortheme{whale}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\setbeamerfont{footnote}{size=\tiny}
+
+% ---- Packages ----
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{multirow}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,backgrounds,positioning,fit,calc}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{xcolor}
+
+% ---- Colors (match paper) ----
+\definecolor{c1blue}{HTML}{4C72B0}
+\definecolor{c2orange}{HTML}{DD8452}
+\definecolor{neutralgray}{HTML}{666666}
+\definecolor{evalgreen}{HTML}{55A868}
+\definecolor{bgoffline}{HTML}{EEF2F8}
+\definecolor{bgonline}{HTML}{FEF6EF}
+\definecolor{highlight}{HTML}{E74C3C}
+
+% ---- Metadata ----
+\title[LectureBench]{LectureBench:\\Long-Lecture Video RAG Benchmark}
+\subtitle{Temporally Grounded QA over Academic Lectures}
+\author{Nasim Faridnia}
+\institute{Department of Computer Science\\University of Texas at San Antonio}
+\date{2026}
+
+% ---- Helper: table row highlight ----
+\newcommand{\rowhl}{\rowcolor{yellow!25}}
+
+%=============================================================
+\begin{document}
+%=============================================================
+
+%------------------------------------------------------------
+\begin{frame}
+\titlepage
+\note{Introduce the paper title and context. This is a benchmark paper for
+BMVC 2026 that proposes LectureBench — a temporally grounded QA dataset and
+RAG evaluation framework over long academic lecture videos.}
+\end{frame}
+
+%------------------------------------------------------------
+\begin{frame}{The Problem: Long Lectures Are Not Served by Existing Benchmarks}
+
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+  \textbf{Short-clip benchmarks dominate VideoQA}
+  \begin{itemize}
+    \item ActivityNet-QA, NExT-QA: avg $<$3 min per clip
+    \item EgoSchema: 3-minute egocentric clips
+    \item Optimized for moment classification, not evidence retrieval
+  \end{itemize}
+
+  \medskip
+  \textbf{Lecture videos are fundamentally different}
+  \begin{itemize}
+    \item \textbf{47--89 min} per lecture
+    \item Answers may span multiple evidence segments \textbf{60+ minutes apart}
+    \item Critical information lives on \textbf{slides and whiteboards} — absent from spoken transcript
+  \end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+  \textbf{Current lecture benchmarks fall short}
+  \begin{itemize}
+    \item EduVidQA: fixed 4-min context window — retrieval problem sidestepped entirely
+    \item No existing benchmark evaluates \textbf{temporal grounding} in lecture RAG
+    \item No benchmark requires multi-hop evidence spanning non-adjacent segments
+  \end{itemize}
+
+  \bigskip
+  \begin{alertblock}{The Gap}
+    No benchmark evaluates whether a RAG system retrieves the \emph{right moment}
+    from a long lecture — not merely a semantically similar one.
+  \end{alertblock}
+\end{column}
+\end{columns}
+
+\note{Emphasize: the core gap is temporal precision + multi-hop + visual grounding
+combined on lecture-length content. Existing work covers each property in isolation
+or on short clips.}
+\end{frame}
+
+%------------------------------------------------------------
+\begin{frame}{Comparison with Related Benchmarks}
+
+\begin{center}
+\small
+\begin{tabular}{lcccccc}
+\toprule
+Dataset & Domain & \#Videos & \#QA & Avg Dur. & Multi-hop & Temporal \& Visual \\
+\midrule
+NExT-QA           & General     & 5,440 & 52,044 & 44s     & $\times$ & $\times$ \\
+EgoSchema         & Egocentric  & —     &  5,031 & 3 min   & $\times$ & $\times$ \\
+NA-VQA            & Movies      &    88 &  4,442 & 80--200 min & implicit & $\times$ \\
+LongVidSearch     & Mixed       &   447 &  3,000 & 26 min  & \checkmark & $\times$ \\
+EduVidQA          & Lectures    &   296 &  5,252 & 68 min  & $\times$ & \checkmark \\
+\midrule
+\rowhl\textbf{LectureBench (ours)} & \textbf{Lectures} & \textbf{60} & \textbf{810}
+  & \textbf{63 min} & \checkmark & \checkmark \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\medskip
+\begin{columns}[T]
+\begin{column}{0.3\textwidth}
+  \textbf{Gap 1:} No benchmark is multi-hop \emph{and} lecture-domain
+\end{column}
+\begin{column}{0.3\textwidth}
+  \textbf{Gap 2:} No benchmark anchors answers to timestamps \emph{and} has a visual split
+\end{column}
+\begin{column}{0.3\textwidth}
+  \textbf{Gap 3:} EduVidQA sidesteps retrieval with fixed 4-min windows
+\end{column}
+\end{columns}
+
+\note{[TABLE] This reproduces Table 1 from the paper (benchmark\_comparison).
+You can use the paper's Table 1 directly as a high-resolution screenshot or
+re-typeset it on the slide.
+
+Key talking point: LectureBench is the ONLY benchmark that combines multi-hop,
+temporal span evaluation, visual-dependent questions, and lecture-length videos.}
+\end{frame}
+
+%------------------------------------------------------------
+\begin{frame}{Contributions}
+
+\begin{enumerate}
+  \setlength{\itemsep}{10pt}
+  \item \textbf{Corpus:} 60 CC-licensed academic lecture videos (62.6 hours) across
+        15 courses from MIT OCW, NYU Deep Learning, and Stanford SEE.
+
+  \item \textbf{Benchmark:} 810 LLM-reviewed QA pairs with precise temporal ground-truth
+        spans, typed by \emph{multi-hop-visual}, \emph{visual}, \emph{multi-hop},
+        \emph{text}, and \emph{unanswerable} categories.
+
+  \item \textbf{Open-source RAG pipeline} with two retrieval configurations and a
+        comprehensive evaluation suite measuring temporal IoU, Hit Rate@$k$,
+        LLM-judge score, and citation accuracy.
+
+  \item \textbf{Empirical finding:} visual frame captions yield \textbf{+65\% tIoU}
+        on visual-dependent questions but are \textbf{essentially unchanged} on
+        text-only questions, precisely isolating the multimodal contribution.
+\end{enumerate}
+
+\note{Contribution 4 is the central empirical result — frame captions help exactly
+where they should (visual evidence) and do not hurt where they are irrelevant
+(transcript-only questions). This is the paper's punchline.}
+\end{frame}
+
+%------------------------------------------------------------
+\begin{frame}{LectureBench at a Glance}
+
+\begin{columns}[T]
+\begin{column}{0.44\textwidth}
+  \small
+  \begin{tabular}{lc}
+  \toprule
+  Statistic & Value \\
+  \midrule
+  Lectures                      & 60 \\
+  Sources                       & MIT OCW, NYU DL, Stanford SEE \\
+  Total duration                & 62.6 hours \\
+  Duration range                & 47--89 min (avg 63 min) \\
+  Transcript chunks (45s/35s)   & 7,382 \\
+  Frames captioned (every 15s)  & 17,180 \\
+  QA pairs (accepted)           & 810 (avg 13.5/lecture) \\
+  Visual-dependent pairs        & 56.2\% (455/810) \\
+  \bottomrule
+  \end{tabular}
+
+  \medskip\footnotesize
+  Dataset released under CC BY-NC-SA 4.0.\\
+  All code and data: \texttt{github.com/NassimF/VQA-Benchmark}
+\end{column}
+\begin{column}{0.52\textwidth}
+  \textbf{Five question types:}
+  \medskip
+  \small
+  \begin{tabular}{lcl}
+  \toprule
+  Type & Count & Role \\
+  \midrule
+  Multi-hop visual & 320 & Primary \\
+  Single-hop visual & 135 & Primary \\
+  Multi-hop textual & 140 & Control \\
+  Single-hop textual & 103 & Control \\
+  Unanswerable & 112 & Required \\
+  \midrule
+  \textbf{Total} & \textbf{810} & \\
+  \bottomrule
+  \end{tabular}
+
+  \medskip
+  \textbf{Visual-dependent} (multi-hop-visual + visual) = 455 pairs (56.2\%)\\
+  \textbf{Text-only control} = 243 pairs (30\%)
+\end{column}
+\end{columns}
+
+\note{[TABLE] This reproduces Table 2 (corpus stats) from Section 4.1 of the paper.
+You can paste Table 2 on the left column as a figure for higher fidelity.
+
+[FIGURE] Optionally add Figure 6 (the QA distribution bar chart, fig\_qa\_dist) on
+the right side instead of the manual table — it gives a cleaner visual breakdown.}
+\end{frame}
+
+%------------------------------------------------------------
+\begin{frame}{End-to-End Pipeline (Figure 2)}
+
+\tikzset{
+  box/.style={rectangle, rounded corners=3pt, draw=#1, fill=#1!10,
+              text width=18mm, align=center, font=\small, inner sep=4pt,
+              minimum height=9mm},
+  cfgbox/.style={rectangle, rounded corners=3pt, draw=#1, fill=#1!15,
+              text width=22mm, align=center, font=\small, inner sep=4pt,
+              minimum height=9mm},
+  evalbox/.style={rectangle, rounded corners=3pt, draw=evalgreen, fill=evalgreen!10,
+              text width=24mm, align=center, font=\small, inner sep=4pt,
+              minimum height=9mm},
+  arr/.style={-{Stealth[length=5pt]}, semithick, #1},
+  seclabel/.style={font=\small\bfseries, text=#1},
+}
+
+\begin{center}
+\resizebox{0.96\textwidth}{!}{%
+\begin{tikzpicture}[node distance=7mm and 9mm]
+  \node[box=neutralgray] (video)  {Lecture Video};
+  \node[box=neutralgray, right=of video]  (vtt)   {VTT Transcript};
+  \node[box=neutralgray, right=of vtt]    (chunk) {Chunker\\{\small 45s/35s stride}};
+  \node[cfgbox=c1blue,   right=of chunk]  (db1)
+        {\textbf{\textcolor{c1blue}{Config~1}}\\{\small transcript only}\\[-1pt]
+         {\scriptsize\textcolor{c1blue!60!black}{\textit{ChromaDB}}}};
+  \node[box=neutralgray, right=22mm of db1] (retriever)
+        {Retriever\\{\small top-$k$, cosine}};
+  \node[box=neutralgray, right=of retriever] (gen)
+        {Generator\\{\small GPT-4o-mini}};
+  \node[box=neutralgray, right=of gen]       (answer)
+        {Answer +\\Citations};
+
+  \node[cfgbox=c2orange, below=16mm of chunk] (cap)
+        {\textbf{\textcolor{c2orange}{Frame Caps}}\\{\small Qwen2-VL-7B}};
+  \node[cfgbox=c2orange] (db2) at (db1 |- cap)
+        {\textbf{\textcolor{c2orange}{Config~2}}\\{\small text + captions}\\[-1pt]
+         {\scriptsize\textcolor{c2orange!60!black}{\textit{ChromaDB}}}};
+  \node[evalbox] (gt)      at (retriever |- cap) {GT Spans\\{\small (benchmark)}};
+  \node[evalbox] (eval)    at (gen      |- cap)  {Evaluator};
+  \node[evalbox] (metrics) at (answer   |- cap)  {tIoU $\cdot$ HR@$k$\\LLM-judge $\cdot$ Cit.~Acc.};
+
+  \draw[arr=neutralgray] (video) -- (vtt);
+  \draw[arr=neutralgray] (vtt)   -- (chunk);
+  \draw[arr=c1blue] (chunk) -- (db1);
+  \draw[arr=c1blue] (db1)   -- (retriever);
+  \draw[arr=c2orange] (video.south) |- (cap.west);
+  \draw[arr=c2orange] (cap) -- (db2);
+  \coordinate (c2exit) at ($(db1.east)!0.6!(retriever.west)$);
+  \draw[arr=c2orange] (db2.east) -- (c2exit |- db2) |- (retriever.west);
+  \draw[arr=neutralgray] (retriever) -- (gen);
+  \draw[arr=neutralgray] (gen)       -- (answer);
+  \draw[arr=evalgreen] (answer.south) -- (eval.north east);
+  \draw[arr=evalgreen] (gt)  -- (eval);
+  \draw[arr=evalgreen] (eval) -- (metrics);
+
+  \begin{scope}[on background layer]
+    \node[fill=bgoffline, rounded corners=5pt, inner sep=6pt,
+          fit=(video)(vtt)(chunk)(db1)(cap)(db2)] (offbox) {};
+    \node[fill=bgonline,  rounded corners=5pt, inner sep=6pt,
+          fit=(retriever)(gen)(answer)(gt)(eval)(metrics)] (onbox) {};
+  \end{scope}
+  \node[seclabel=neutralgray, above=2mm of offbox.north west, anchor=south west]
+        {Offline Indexing};
+  \node[seclabel=neutralgray, above=2mm of onbox.north west, anchor=south west]
+        {Online Query \& Evaluation};
+\end{tikzpicture}%
+}
+\end{center}
+
+\note{This is Figure 2 from the paper, reproduced directly as TikZ.
+
+Key points to narrate:
+- LEFT (blue background): offline preprocessing — same for both configs except
+  Config 2 appends Qwen2-VL-7B frame captions before indexing.
+- RIGHT (orange background): both configs share the SAME retriever, generator,
+  and evaluator — so any difference in results is purely due to chunk content.
+- The controlled comparison is the paper's main methodological contribution.}
+\end{frame}
+
+%------------------------------------------------------------
+\begin{frame}{Pipeline: Chunking \& Frame Captioning}
+
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+  \textbf{Temporal Chunking}
+  \begin{itemize}
+    \item \textbf{Window:} 45 seconds / \textbf{Stride:} 35 seconds (10s overlap)
+    \item 45s $\approx$ one complete concept explanation per lecture
+    \item Overlap ensures evidence near chunk boundaries appears in both neighbours
+    \item Result: \textbf{7,382 chunks} across 60 lectures
+  \end{itemize}
+
+  \medskip
+  \textbf{Why not shot-boundary chunking?}\\
+  Lecture recordings have no shot cuts — fixed-width windows are the only
+  principled alternative and keep the pipeline interpretable.
+\end{column}
+\begin{column}{0.48\textwidth}
+  \textbf{Frame Captioning (Config 2 only)}
+  \begin{itemize}
+    \item One frame extracted every \textbf{15s} via \texttt{ffmpeg}
+    \item Captioned by \textbf{Qwen2-VL-7B-Instruct} (bfloat16, single A100)
+    \item Prompt: describe all visible text, equations, diagrams in detail
+    \item Caption appended as \texttt{[frame caption: \ldots]} to chunk text
+    \item \textbf{17,180 frames} total; $\approx$3 frames per chunk
+    \item Cost: $\approx$2--8 GPU-hours for all 60 lectures
+  \end{itemize}
+
+  \medskip
+  \begin{exampleblock}{Key Design Choice}
+    Appending captions as text keeps the \textbf{embedding model fixed}
+    across both configs — differences in retrieval quality are due to chunk
+    content alone, not embedding architecture.
+  \end{exampleblock}
+\end{column}
+\end{columns}
+
+\note{The 15s frame interval guarantees at least one frame per distinct slide
+state within any 45s chunk (slides typically displayed 30--120s).
+
+Emphasize: fixing all-MiniLM-L6-v2 across both configs is a deliberate
+controlled-experiment decision. The only variable is what text is embedded.}
+\end{frame}
+
+%------------------------------------------------------------
+\begin{frame}{Pipeline: Retrieval \& Answer Generation}
+
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+  \textbf{Retrieval}
+  \begin{itemize}
+    \item Embedding: \textbf{all-MiniLM-L6-v2} (384-dim, Sentence-BERT)
+    \item Vector store: \textbf{ChromaDB} — two persistent collections:
+      \begin{itemize}
+        \item \textcolor{c1blue}{\texttt{transcript\_only}}
+        \item \textcolor{c2orange}{\texttt{transcript\_plus\_frames}}
+      \end{itemize}
+    \item Query-time: top-$k$ cosine similarity, $k \in \{1, 3, 5\}$
+    \item Same model + store for both configs — retrieval difference is \emph{only} chunk content
+  \end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+  \textbf{Answer Generation}
+  \begin{itemize}
+    \item Generator: \textbf{GPT-4o-mini}, temperature 0.1
+    \item Input: retrieved chunks as numbered excerpts
+    \item Output: structured JSON — \texttt{answer} + \texttt{citations} list
+    \item Predicted span = \textbf{union} of all cited chunk time windows
+    \item Citations rendered as \texttt{[video\_id @ mm:ss to mm:ss]}
+  \end{itemize}
+
+  \medskip
+  \begin{alertblock}{Why a weak generator?}
+    A lightweight generator isolates retrieval failures that a stronger model might
+    mask by drawing on world knowledge outside the retrieved chunks.
+  \end{alertblock}
+\end{column}
+\end{columns}
+
+\note{The choice of GPT-4o-mini as generator (rather than GPT-4o or Claude) is
+intentional and should be emphasized: the variable under study is RETRIEVAL CONFIG,
+not generator quality. A stronger generator would compress the gap between configs
+by hallucinating correct answers from parametric memory.}
+\end{frame}
+
+%------------------------------------------------------------
+\begin{frame}{Benchmark Construction: QA Generation}
+
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+  \textbf{Generation}
+  \begin{itemize}
+    \item \textbf{Claude Sonnet 4.6} generates \textbf{15 draft QA pairs} per lecture
+          from augmented chunks (transcript + frame captions)
+    \item 5 types targeted per lecture (7 multi-hop-visual, 2 visual, 3 multi-hop,
+          2 text, 1 unanswerable)
+    \item Multi-hop pairs must cite $\geq$2 \textbf{non-adjacent} spans
+          ($\geq$70s gap required)
+    \item Total cost: $\approx$\$8 for all 60 lectures
+  \end{itemize}
+
+  \medskip
+  \begin{exampleblock}{Generator $\neq$ Evaluator}
+    QA generation uses Claude Sonnet 4.6; answer generation at eval time uses
+    GPT-4o-mini. Using the same model for both would be circular.
+  \end{exampleblock}
+\end{column}
+\begin{column}{0.48\textwidth}
+  \textbf{LLM Review (two-pass filter)}
+  \begin{itemize}
+    \item \textbf{Pass 1 — Claude Sonnet 4.6:} three-criterion binary rubric:
+      \begin{itemize}
+        \item C1: answer correctness vs.\ chunk text
+        \item C2: span plausibility ($\geq$70s gap)
+        \item C3: question type accuracy
+      \end{itemize}
+    \item \textbf{Pass 2 — Cross-family check:} pairs passing C1 re-evaluated by
+          GPT-4o on C1 alone; disagreement triggers rejection
+    \item Atomic fact decomposition (FActScore) before C1 verification
+    \item Acceptance rate: $\approx$90\% (810 accepted / 900 target)
+  \end{itemize}
+\end{column}
+\end{columns}
+
+\note{The cross-family C1 check (Claude + GPT-4o) guards against knowledge-conflict
+failures where a judge accepts a claim based on its own parametric knowledge rather
+than the chunk evidence. This is the key quality-control innovation.}
+\end{frame}
+
+%------------------------------------------------------------
+\begin{frame}{Example QA Pair: Multi-hop Visual}
+
+\begin{center}
+\small
+\setlength{\fboxsep}{8pt}
+\fbox{
+\begin{minipage}{0.90\textwidth}
+\textbf{Question (multi-hop-visual):}
+What does the blackboard show as the theme of today's lecture, and how does the
+instructor connect this theme to the interval scheduling problems he discusses?
+
+\medskip
+\textbf{Ground-truth spans:}
+\begin{itemize}[noitemsep,topsep=2pt,leftmargin=*]
+  \item \textbf{Hop 1} [10:20--11:15] \emph{(visual)} ---
+        \texttt{[frame caption: Blackboard shows ``Theme of today's lecture ---
+        Very similar problems can have very different complexity.'']}
+  \item \textbf{Hop 2} [79:35--80:40] \emph{(transcript)} ---
+        ``\ldots interval scheduling is greedy $O(n)$; weighted interval scheduling
+        requires $O(n^2)$ DP; non-identical machines is NP-complete \ldots''
+\end{itemize}
+
+\textbf{Span gap:} $4775 - 675 = 4100$\,s (68 min) $\gg$ 70\,s required.
+\quad \textbf{Source:} \texttt{mit\_6046\_lec01\_q017}
+\end{minipage}
+}
+\end{center}
+
+\note{[FIGURE] This is a simplified reproduction of Figure 3 from the paper
+(fig:example\_qa). For the advisor presentation, consider adding the timeline
+diagram from Figure 3 showing Hop 1 at 10:20 and Hop 2 at 79:35 with the
+``68 min gap'' annotation — it visually makes the retrieval challenge clear.
+
+Key point: Hop 1's answer exists ONLY in the frame caption (blackboard text),
+not in the spoken transcript. Config 1 would retrieve the right time window
+but fail to answer because the evidence is invisible without frame captions.}
+\end{frame}
+
+%------------------------------------------------------------
+\begin{frame}{Question Type Distribution}
+
+\begin{columns}[T]
+\begin{column}{0.50\textwidth}
+  \small
+  \begin{tabular}{lcc}
+  \toprule
+  Type & Count & \% \\
+  \midrule
+  Multi-hop visual   & 320 & 39.5\% \\
+  Single-hop visual  & 135 & 16.7\% \\
+  \midrule
+  \textbf{Visual-dependent} & \textbf{455} & \textbf{56.2\%} \\
+  \midrule
+  Multi-hop textual  & 140 & 17.3\% \\
+  Single-hop textual & 103 & 12.7\% \\
+  \textbf{Text-only} & \textbf{243} & \textbf{30.0\%} \\
+  \midrule
+  Unanswerable & 112 & 13.8\% \\
+  \midrule
+  \textbf{Total} & \textbf{810} & \textbf{100\%} \\
+  \bottomrule
+  \end{tabular}
+
+  \medskip
+  \begin{itemize}
+    \item Multi-hop questions: \textbf{460/810 (56.8\%)}
+    \item Target was $\geq$60\% visual; achieved \textbf{56.2\%}
+    \item Gap reflects higher difficulty of $\geq$70s span requirement
+  \end{itemize}
+\end{column}
+\begin{column}{0.46\textwidth}
+  \begin{center}
+  \vspace{4pt}
+  \fbox{\rule{0pt}{4.8cm}\rule{5.5cm}{0pt}}
+  \end{center}
+  \vspace{-4pt}
+  \footnotesize\centering
+  \textit{[Insert Figure 6 — fig\_qa\_dist bar chart here]}
+\end{column}
+\end{columns}
+
+\note{[FIGURE] Place Figure 6 (images/fig\_qa\_dist.pdf) in the right column
+placeholder. The bar chart groups pairs into visual-dependent vs control categories
+and gives an immediate visual read of the 56\% / 44\% split.
+
+Design rationale to mention: the text-only control group (43.8\%) is essential for
+isolating Config 2's improvement — without it, we couldn't tell whether gains came
+from frame captions or from generally better embeddings.}
+\end{frame}
+
+%------------------------------------------------------------
+\begin{frame}{Evaluation Metrics}
+
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+  \textbf{Temporal Grounding}
+  \begin{itemize}
+    \item \textbf{Mean Temporal IoU} — overlap between predicted span (union of cited chunks)
+          and ground-truth span
+    \item \textbf{IoU@0.3} — fraction of pairs with tIoU $\geq$ 0.3
+    \item \textbf{IoU@0.5} — fraction with tIoU $\geq$ 0.5 (stricter)
+  \end{itemize}
+
+  \medskip
+  \textbf{Retrieval Coverage}
+  \begin{itemize}
+    \item \textbf{Hit Rate@$k$} ($k \in \{1,3,5\}$) — fraction where ground-truth span
+          is covered by at least one top-$k$ chunk at IoU $\geq$ 0.3
+  \end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+  \textbf{Answer Quality}
+  \begin{itemize}
+    \item \textbf{LLM-Judge Score (1--5)} — GPT-4o scores generated answer
+          against reference; 85\% agreement with human experts (Zheng et al.\ 2023)
+  \end{itemize}
+
+  \medskip
+  \textbf{Citation Accuracy}
+  \begin{itemize}
+    \item Fraction of cited time spans that overlap the correct ground-truth evidence window
+    \item Directly measures whether the system \emph{knows what it used}
+  \end{itemize}
+
+  \medskip
+  \begin{exampleblock}{Primary metric: mean tIoU}
+    At the $\pm$25.8s span annotation error, tIoU@0.3 remains a valid threshold
+    (IoU $\approx$ 0.4--0.6 at that error level).
+  \end{exampleblock}
+\end{column}
+\end{columns}
+
+\note{The LLM-judge is GPT-4o — distinct from both the QA generator (Claude Sonnet 4.6)
+and the answer generator (GPT-4o-mini). Three different models play three different roles,
+which prevents circular evaluation.}
+\end{frame}
+
+%------------------------------------------------------------
+\begin{frame}{Results: Single-Hop Questions ($n = 238$)}
+
+\begin{columns}[T]
+\begin{column}{0.52\textwidth}
+  \small
+  \begin{tabular}{lcc}
+  \toprule
+  Metric & Config 1 & Config 2 \\
+         & (Transcript) & (+Frames) \\
+  \midrule
+  Mean Temporal IoU & 0.175 & \textbf{0.281} \\
+  IoU@0.3           & 0.248 & \textbf{0.387} \\
+  IoU@0.5           & 0.164 & \textbf{0.290} \\
+  \midrule
+  Hit Rate@1        & 0.218 & \textbf{0.244} \\
+  Hit Rate@3        & 0.382 & \textbf{0.420} \\
+  Hit Rate@5        & 0.445 & \textbf{0.529} \\
+  \midrule
+  LLM-Judge (1--5)  & 2.68  & \textbf{3.53} \\
+  Citation Accuracy & 0.269 & \textbf{0.433} \\
+  \bottomrule
+  \end{tabular}
+\end{column}
+\begin{column}{0.44\textwidth}
+  \textbf{Key observations:}
+  \begin{itemize}
+    \item Config 2 wins on \textbf{all 8 metrics}
+    \item Largest gains: tIoU \textbf{+60\%}, citation accuracy \textbf{+61\%}
+    \item LLM-judge +32\%: better retrieval $\Rightarrow$ more accurate answers
+    \item Hit Rate gains are modest (+12\% at $k{=}1$): frame captions improve
+          \emph{quality} of retrieved chunks, not their presence in top-$k$
+  \end{itemize}
+
+  \medskip
+  135 of 238 pairs (57\%) are visual-dependent — these drive the large tIoU
+  and citation accuracy gains.
+\end{column}
+\end{columns}
+
+\note{[TABLE] This reproduces Table 3 (single-hop results) from Section 5.1.
+Use the paper's Table 3 as a high-res screenshot for the presentation if needed.
+
+Talking point: the modest HR@1 gain (+12\%) vs large tIoU gain (+60\%) tells an
+important story — frame captions don't help the retriever FIND chunks it would have
+missed, but they make the retrieved chunks CONTAIN the right evidence.}
+\end{frame}
+
+%------------------------------------------------------------
+\begin{frame}{Results: Multi-Hop Questions ($n = 460$)}
+
+\begin{columns}[T]
+\begin{column}{0.52\textwidth}
+  \small
+  \begin{tabular}{lcc}
+  \toprule
+  Metric & Config 1 & Config 2 \\
+         & (Transcript) & (+Frames) \\
+  \midrule
+  Mean Temporal IoU  & 0.180 & \textbf{0.204} \\
+  IoU@0.3            & 0.274 & \textbf{0.291} \\
+  IoU@0.5            & \textbf{0.076} & 0.072\textsuperscript{*} \\
+  \midrule
+  Hit Rate@1         & 0.326 & \textbf{0.341} \\
+  Hit Rate@3         & 0.563 & \textbf{0.620} \\
+  Hit Rate@5         & 0.676 & \textbf{0.722} \\
+  \midrule
+  LLM-Judge (1--5)   & 2.95  & \textbf{3.45} \\
+  Citation Accuracy  & 0.273 & \textbf{0.333} \\
+  \bottomrule
+  \end{tabular}
+
+  \footnotesize\textsuperscript{*}Frame-aug chunks are longer, widening the union
+  span and reducing tIoU even when the correct chunk is retrieved.
+\end{column}
+\begin{column}{0.44\textwidth}
+  \textbf{Key observations:}
+  \begin{itemize}
+    \item Config 2 wins 7/8 metrics
+    \item \textbf{Smaller gains} than single-hop (+13\% tIoU vs +60\%)
+    \item Mixed composition explains this: 320/460 are visual pairs (benefit from
+          captions), 140/460 are text-only (slight regression)
+    \item Hit Rate@5 is 107\% higher than Hit Rate@1 — multi-hop retrieval
+          is \textbf{$k$-sensitive}: larger $k$ budgets would help
+    \item One IoU@0.5 exception: larger union span from longer chunks
+  \end{itemize}
+\end{column}
+\end{columns}
+
+\note{[TABLE] This reproduces Table 4 (multi-hop results) from Section 5.2.
+
+The IoU@0.5 footnote is important: explain that when more chunks are cited
+(because captions make more of them seem relevant), the union span gets wider,
+which hurts precision but doesn't hurt Hit Rate since that only checks presence.}
+\end{frame}
+
+%------------------------------------------------------------
+\begin{frame}{Key Finding: Visual vs.\ Text-Only Split}
+
+\begin{center}
+\small
+\begin{tabular}{lcccccc}
+\toprule
+ & \multicolumn{3}{c}{\textbf{Config 1: Transcript-Only}}
+ & \multicolumn{3}{c}{\textbf{Config 2: Transcript+Frames}} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+Question type & tIoU & Judge & Cit.Acc & tIoU & Judge & Cit.Acc \\
+\midrule
+Visual-dep.\ ($n=455$) & 0.129 & 2.57 & 0.198
+                        & \cellcolor{green!20}\textbf{0.213} & \cellcolor{green!20}\textbf{3.52} & \cellcolor{green!20}\textbf{0.340} \\
+Text-only ($n=243$)    & \textbf{0.271} & 3.38 & 0.409
+                        & 0.263 & \textbf{3.41} & \textbf{0.418} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\bigskip
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+  \textbf{Visual-dependent questions:}\\
+  Frame captions yield \textbf{+65\% tIoU} (0.129 $\to$ 0.213),
+  \textbf{+37\% LLM-judge}, and \textbf{+72\% citation accuracy}
+\end{column}
+\begin{column}{0.48\textwidth}
+  \textbf{Text-only questions:}\\
+  Essentially \textbf{unchanged} ($-$3\% tIoU, $+$1\% judge):
+  frame captions add \textbf{no noise} and \textbf{no benefit}
+  where visual evidence is not needed
+\end{column}
+\end{columns}
+
+\medskip
+\begin{center}
+\textbf{\large Frame captions add signal only where visual evidence is required.}
+\end{center}
+
+\note{[TABLE] This is Table 5 from Section 5.2 (visual\_vs\_text). This is the most
+important table in the paper — use it directly as a screenshot for maximum impact.
+
+This is the central empirical claim of the paper. The isolation is clean:
++65\% on the group that needs visual evidence, essentially 0\% change on the
+group that doesn't. This demonstrates both (a) that frame captions work and
+(b) that they don't introduce noise into text-based retrieval.}
+\end{frame}
+
+%------------------------------------------------------------
+\begin{frame}{Failure Mode Analysis}
+
+\begin{columns}[T]
+\begin{column}{0.45\textwidth}
+  \textbf{Three recurring failure modes:}
+
+  \medskip
+  \textbf{1. Span inflation}\\
+  Entire 45s chunk cited when relevant evidence occupies only a small portion
+  $\Rightarrow$ tIoU penalty even on correct retrieval
+
+  \medskip
+  \textbf{2. Visual blindness (Config 1)}\\
+  Answer appears only on a lecture slide — absent from spoken transcript.
+  Config 2 recovers by reading frame caption.\\
+  {\small Mean tIoU: 0.129 $\to$ 0.213 (+65\%)}
+
+  \medskip
+  \textbf{3. Partial multi-hop retrieval}\\
+  Retriever surfaces one hop at rank 1 but misses the second.\\
+  Hit Rate@5 is \textbf{107\% higher} than Hit Rate@1 on multi-hop.
+
+\end{column}
+\begin{column}{0.52\textwidth}
+  \small
+  \setlength{\fboxsep}{6pt}
+  \fbox{
+  \begin{minipage}{\textwidth}
+  \textbf{Visual-blindness case} (\texttt{nyu\_dl\_week10\_q008})
+
+  \smallskip
+  \textbf{Q:} What are the three bullet points on the `Why self-supervision?' slide?
+
+  \smallskip
+  \textbf{Config 1} top chunk: spoken transcript only.\\
+  \textit{Answer:} ``The provided excerpts do not contain enough information.''\\
+  LLM-judge: \textbf{1.5/5}
+
+  \smallskip
+  \textbf{Config 2} same chunk, with frame caption:\\
+  \texttt{[frame: Slide `Why self-supervision?' --- (1) Helps us learn using
+  observations; (2) Does not require exhaustive annotation; (3) Leverage multiple
+  modalities]}\\
+  \textit{Answer:} lists all three bullets correctly.\\
+  LLM-judge: \textbf{5.0/5}
+  \end{minipage}
+  }
+
+  \smallskip
+  \footnotesize tIoU: 0.000 (Config 1) $\to$ 1.000 (Config 2)
+\end{column}
+\end{columns}
+
+\note{[FIGURE] This reproduces the content of Figure 5 (failure case, fig:failure\_case)
+from Section 5.3. The boxed example is already included on this slide, but you can
+swap it for the actual Figure 5 screenshot from the paper for consistency.
+
+The visual-blindness case is the paper's most concrete and compelling example.
+Both configs retrieve the SAME top chunk — the only difference is that Config 2's
+chunk contains the slide text. This eliminates any confound from retrieval differences.}
+\end{frame}
+
+%------------------------------------------------------------
+\begin{frame}{Hit Rate Analysis: $k$-Sensitivity of Multi-hop Retrieval}
+
+\begin{columns}[T]
+\begin{column}{0.44\textwidth}
+  \begin{center}
+  \fbox{\rule{0pt}{5.0cm}\rule{4.8cm}{0pt}}\\
+  \footnotesize\textit{[Insert Figure 4 — fig\_hr\_at\_k]}
+  \end{center}
+\end{column}
+\begin{column}{0.52\textwidth}
+  \textbf{Reading the plot:}
+  \begin{itemize}
+    \item Solid lines = single-hop; dashed = multi-hop
+    \item Config 2 (+Frames) consistently above Config 1 across all $k$
+  \end{itemize}
+
+  \medskip
+  \textbf{Key insight — multi-hop curves:}
+  \begin{itemize}
+    \item Steep rise from $k{=}1$ to $k{=}5$: the second hop is often ranked 2--5
+    \item Config 1 multi-hop: HR@1 = 0.326, HR@5 = 0.676 (\textbf{+107\%})
+    \item Config 2 multi-hop: HR@1 = 0.341, HR@5 = 0.722 (\textbf{+112\%})
+    \item $\Rightarrow$ increasing retrieval budget $k$ would directly improve multi-hop performance
+  \end{itemize}
+
+  \medskip
+  \textbf{Single-hop curves} plateau earlier — first hop dominates at low $k$.
+\end{column}
+\end{columns}
+
+\note{[FIGURE] Place Figure 4 (images/fig\_hr\_at\_k.pdf) in the left placeholder.
+This is the HR@k line plot from Section 5.2 (fig:hr\_at\_k).
+
+Key talking point: the steep multi-hop curve tells us that the retriever IS finding
+the second hop — it just lands at rank 3--5, not rank 1. A re-ranking step or
+larger $k$ budget would likely close most of the remaining gap on multi-hop.}
+\end{frame}
+
+%------------------------------------------------------------
+\begin{frame}{Summary of Results}
+
+\begin{center}
+\small
+\begin{tabular}{lcccc}
+\toprule
+Metric & Config 1 & Config 2 & $\Delta$ & Where the gain comes from \\
+\midrule
+Mean tIoU (all)         & 0.154 & \textbf{0.198} & +29\% & Visual-dep.\ +65\%, text 0\% \\
+IoU@0.3                 & 0.228 & \textbf{0.279} & +22\% & \\
+Hit Rate@5              & 0.515 & \textbf{0.565} & +10\% & \\
+LLM-Judge (1--5)        & 3.03  & \textbf{3.56}  & +17\% & \\
+Citation Accuracy       & 0.234 & \textbf{0.316} & +35\% & \\
+\midrule
+tIoU — visual-dep.\ ($n$=455)  & 0.129 & \textbf{0.213} & \textcolor{highlight}{\textbf{+65\%}} & Frame caps expose slide text \\
+tIoU — text-only ($n$=243)     & \textbf{0.271} & 0.263 & $-$3\% & No visual evidence needed \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\medskip
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+  \begin{exampleblock}{What works}
+    Frame captions close the visual-evidence gap precisely — +65\% tIoU and +72\%
+    citation accuracy on visual-dependent questions.
+  \end{exampleblock}
+\end{column}
+\begin{column}{0.48\textwidth}
+  \begin{alertblock}{What does not help}
+    Frame captions do not degrade transcript-only retrieval ($-$3\% tIoU,
+    within noise). No negative transfer observed at the aggregate level.
+  \end{alertblock}
+\end{column}
+\end{columns}
+
+\note{This is a synthesis slide with no direct paper figure — build from the numbers
+in Tables 3, 4, and 5. The $\Delta$ column is the paper's abstract numbers.
+
+Use this as your closing results slide before the conclusion.}
+\end{frame}
+
+%------------------------------------------------------------
+\begin{frame}{Limitations}
+
+\begin{itemize}
+  \setlength{\itemsep}{8pt}
+  \item \textbf{English-only:} corpus limited to English lectures with YouTube
+        auto-captions; low-quality VTT files introduce occasional transcription
+        errors in technical terms.
+
+  \item \textbf{LLM-only QA review:} ground-truth spans are estimated from chunk
+        boundaries ($\pm$15--30s) rather than human-tightened to exact evidence windows.
+        Mean annotation error $\approx$25.8s (worst case 82.5s).
+
+  \item \textbf{Frame captioner not fine-tuned:} Qwen2-VL-7B occasionally misreads
+        small mathematical notation on lecture slides.
+
+  \item \textbf{Scale:} 810 pairs across 60 lectures is smaller than existing benchmarks
+        (EduVidQA: 5,252; LongVidSearch: 3,000), justified by higher per-pair curation
+        cost (temporal grounding, multi-hop validation, cross-family review).
+
+  \item \textbf{Single embedding model:} results are specific to all-MiniLM-L6-v2;
+        stronger embeddings may compress the gap.
+\end{itemize}
+
+\note{Be prepared for the advisor to ask about the scale limitation. The response is:
+(1) 12 pairs/lecture exceeds LongVidSearch (6.7/lecture) in density; (2) Min et al.
+(2019) show that strict non-adjacency enforcement is more important than raw pair count
+for genuine multi-hop validity; (3) 3,000 pairs is feasible in ~$55 and ~5 hours
+of API calls if needed.}
+\end{frame}
+
+%------------------------------------------------------------
+\begin{frame}{Future Work}
+
+\begin{enumerate}
+  \setlength{\itemsep}{10pt}
+  \item \textbf{Non-English lectures:} extend the corpus to multi-lingual content
+        and evaluate ASR quality as a variable.
+
+  \item \textbf{Semantic chunking:} replace sliding-window with topic-boundary detection
+        to produce semantically coherent chunks.
+
+  \item \textbf{Joint text-visual embedding:} train a lecture-specific encoder that
+        directly maps frame+caption pairs into a shared retrieval space with transcript text.
+
+  \item \textbf{Stronger generators:} evaluate GPT-4o and Claude Opus on the benchmark
+        to measure the ceiling of RAG-constrained generation.
+
+  \item \textbf{Selective frame augmentation:} attach captions only to chunks where
+        visual evidence is detected — avoids the $-$5.5\% tIoU signal dilution observed
+        on transcript-only multi-hop pairs.
+\end{enumerate}
+
+\note{Item 5 (selective augmentation) is the most actionable near-term improvement —
+it directly addresses the one case where Config 2 underperforms Config 1 (text-only
+multi-hop pairs). The basic approach would be a visual-activity detector run on frames
+before the captioning step.}
+\end{frame}
+
+%------------------------------------------------------------
+\begin{frame}{Conclusion}
+
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+  \textbf{What we built:}
+  \begin{itemize}
+    \item LectureBench — 810 temporally grounded QA pairs over 60 long lectures
+    \item Only benchmark combining multi-hop + temporal spans + visual split for lecture-length video
+    \item Open-source RAG pipeline with two configurations and full evaluation suite
+  \end{itemize}
+
+  \medskip
+  \textbf{What we found:}
+  \begin{itemize}
+    \item Frame captions: \textbf{+65\% tIoU} on visual questions
+    \item Text-only questions: \textbf{$-$3\%} (no degradation)
+    \item Multimodal augmentation is \textbf{surgically precise}
+    \item Multi-hop retrieval is \textbf{$k$-sensitive} — larger budgets would help
+    \item Visual blindness is a real and measurable failure mode in transcript-only RAG
+  \end{itemize}
+\end{column}
+\begin{column}{0.42\textwidth}
+  \begin{exampleblock}{The one-slide answer}
+    Adding Qwen2-VL-7B frame captions to lecture chunks improves temporally
+    grounded retrieval by \textbf{+65\%} on visual-dependent questions
+    and leaves text-only questions unchanged, directly confirming that
+    transcript-only RAG has a structural visual-evidence blind spot.
+  \end{exampleblock}
+
+  \bigskip
+  \textbf{Code \& data:}\\
+  \small\texttt{github.com/NassimF/VQA-Benchmark}\\
+  CC BY-NC-SA 4.0
+\end{column}
+\end{columns}
+
+\note{Final talking point: the paper's value is not just the benchmark numbers —
+it is the controlled experimental design (single variable: chunk content) that
+makes the causal claim about visual evidence defensible. No joint embedding,
+no fine-tuning, no architecture change — just what you put in the text field.}
+\end{frame}
+
+%------------------------------------------------------------
+\begin{frame}[plain]
+\begin{center}
+  {\Large\bfseries Thank You}\\[12pt]
+  {\large Questions?}\\[24pt]
+  \texttt{seyedehnasim.faridnia@utsa.edu}\\[6pt]
+  \texttt{github.com/NassimF/VQA-Benchmark}
+\end{center}
+\end{frame}
+
+%=============================================================
+\end{document}
+%=============================================================
