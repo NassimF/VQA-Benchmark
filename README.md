@@ -68,20 +68,26 @@ python scripts/build_frame_captions.py --all --device cuda
 # 5. Ingest all chunks into both ChromaDB collections
 python scripts/build_index.py --all
 
-# 6. Build the benchmark  (requires data/qa_pairs/reviewed/ — see below)
+# 6. Generate draft QA pairs (~$8 in API costs, Claude Sonnet 4.6)
+python scripts/generate_qa.py --all
+
+# 7. Review and filter QA pairs (LLM review pass + GPT-4o cross-check, ~$8)
+python scripts/review_qa.py --all
+
+# 8. Build the benchmark
 python scripts/build_benchmark.py
 python scripts/validate_benchmark.py
 
-# 7. Run full evaluation — both configs, all QA pairs
+# 9. Run full evaluation — both configs, all QA pairs
 python run_part2.py
 
-# 8. Reproduce paper tables from evaluation output
+# 10. Reproduce paper tables from evaluation output
 python scripts/reproduce_tables.py
 ```
 
 > **Note on the benchmark file:** `data/benchmark/benchmark_v1.json` is committed to the
-> repo. Steps 6–8 only need to be re-run if you regenerate the QA pairs. To use the
-> pre-built benchmark directly, skip to step 7.
+> repo. Steps 6–10 only need to be re-run if you regenerate the QA pairs. To use the
+> pre-built benchmark directly, skip to step 9.
 
 **The improvement being measured:** Config 2 (transcript + Qwen2-VL-7B frame captions)
 vs Config 1 (transcript-only) on visual-dependent questions (multi-hop-visual and visual
@@ -116,7 +122,11 @@ scripts/build_frame_captions.py → data/chunks/{video_id}_chunks_augmented.json
         ↓
 scripts/build_index.py      → chroma_db/   (two collections)
         ↓
- [benchmark already in repo: data/benchmark/benchmark_v1.json]
+scripts/generate_qa.py      → data/qa_pairs/raw/
+        ↓
+scripts/review_qa.py        → data/qa_pairs/reviewed/
+        ↓
+scripts/build_benchmark.py  → data/benchmark/benchmark_v1.json
         ↓
 run_part2.py                → data/benchmark/evaluation_results.json
         ↓
@@ -148,6 +158,7 @@ Visual-dependent types (multi-hop-visual + visual) ≥ 60% of accepted pairs.
 | IoU@0.3 | 0.228 | **0.279** |
 | Hit Rate@5 | 0.515 | **0.565** |
 | LLM-Judge Score (1–5) | 3.03 | **3.56** |
+| Citation Accuracy | 0.234 | **0.316** |
 
 See `results.md` for full side-by-side table and `data/benchmark/evaluation_results.json`
 for raw numbers.
