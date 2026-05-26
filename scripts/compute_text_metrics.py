@@ -175,6 +175,26 @@ def _agg(scores: list[dict], include_entailment: bool = False) -> dict[str, floa
     return result
 
 
+def _print_single_model_table(title: str, agg: dict, include_entailment: bool = False) -> None:
+    w = 28
+    sep = "=" * (w * 2 + 4)
+    print(f"\n{title} (n={agg.get('n', 0)})")
+    print(sep)
+    print(f"{'Metric':<{w}}  {'Score':<{w}}")
+    print("-" * (w * 2 + 4))
+    rows = [
+        ("BLEU",    f"{agg['bleu']:.4f}"),
+        ("ROUGE-L", f"{agg['rougel']:.4f}"),
+        ("METEOR",  f"{agg['meteor']:.4f}"),
+    ]
+    if include_entailment:
+        rows.append(("Entailment-P (ref→gen)", f"{agg['entailment_p']:.4f}"))
+        rows.append(("Entailment-R (gen→ref)", f"{agg['entailment_r']:.4f}"))
+    for metric, val in rows:
+        print(f"{metric:<{w}}  {val:<{w}}")
+    print(sep)
+
+
 def _print_table(title: str, c1: dict, c2: dict, include_entailment: bool = False) -> None:
     w = 28
     sep = "=" * (w * 3 + 6)
@@ -259,6 +279,36 @@ def compute_text_metrics(
 
     c1 = [s for s in scored if s["config"] == "transcript_only"]
     c2 = [s for s in scored if s["config"] == "transcript_plus_frames"]
+
+    # LVLM single-model mode: when neither RAG config is present, print one-column results
+    configs = {s["config"] for s in scored}
+    rag_configs = {"transcript_only", "transcript_plus_frames"}
+    if not configs.intersection(rag_configs):
+        model_name = next(iter(configs), "model")
+        model_scored = scored
+        _print_single_model_table(
+            f"Text Generation Metrics — {model_name} — All Questions",
+            _agg(model_scored, include_entailment),
+            include_entailment,
+        )
+        _print_single_model_table(
+            f"Text Generation Metrics — {model_name} — Visual Questions",
+            _agg([s for s in model_scored if s["is_visual"]], include_entailment),
+            include_entailment,
+        )
+        _print_single_model_table(
+            f"Text Generation Metrics — {model_name} — Non-Visual (Control)",
+            _agg([s for s in model_scored if not s["is_visual"]], include_entailment),
+            include_entailment,
+        )
+        if by_type:
+            for qt in sorted({s["question_type"] for s in model_scored}):
+                _print_single_model_table(
+                    f"Text Generation Metrics — {model_name} — {qt}",
+                    _agg([s for s in model_scored if s["question_type"] == qt], include_entailment),
+                    include_entailment,
+                )
+        return
 
     _print_table(
         "Text Generation Metrics — All Questions",

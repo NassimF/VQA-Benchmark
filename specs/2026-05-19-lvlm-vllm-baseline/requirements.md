@@ -206,10 +206,10 @@ for RAG evaluation. Entailment-P numbers are retained here for internal referenc
 |---|---|
 | `cross-encoder/nli-deberta-v3-base` | Yes — downloaded by `compute_text_metrics.py` |
 | `transformers >= 4.45` | Yes (4.57.6 in vqa-benchmark env) |
-| Video-LLaVA-7B | HuggingFace — not yet downloaded |
-| mPLUG-Owl3-8B | HuggingFace — not yet downloaded |
-| Qwen2-VL-7B | Already on disk (used in Phase 4 frame captioning) |
-| LLaVA-13B | HuggingFace — not yet downloaded |
+| Video-LLaVA-7B (`LanguageBind/Video-LLaVA-7B-hf`) | HuggingFace — not yet downloaded |
+| mPLUG-Owl3-8B (`mPLUG/mPLUG-Owl3-7B-241101`) | HuggingFace — not yet downloaded |
+| Qwen2-VL-7B (`Qwen/Qwen2-VL-7B-Instruct`) | In HuggingFace cache (used in Phase 4) |
+| LLaVA-13B (`llava-hf/llava-1.5-13b-hf`) | HuggingFace — not yet downloaded |
 | `scripts/compute_factqa.py` | Implemented — no external clone needed |
 | OpenAI API key | Already in `.env` |
 | A100 80 GB | Available — all 4 models fit in bf16 |

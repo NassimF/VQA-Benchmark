@@ -4,29 +4,28 @@ Phase 11 — run Video LLM baselines on LectureBench and compare against Config 
 
 ---
 
-## 1. Frame extraction and windowing
+## 1. Frame extraction and windowing ✅
 
-- [ ] Implement oracle-windowed frame extractor: for each QA pair, extract frames from a ±120s window centered on each hop's `ground_truth_spans[i].start` using ffmpeg
-- [ ] Use per-model frame counts: mPLUG-Owl3-8B and Qwen-VL-7B → 30 frames/window; Video-LLaVA-7B and LLaVA-13B → 8 frames/window
-- [ ] For multi-hop pairs, concatenate frames from all hop windows into a single ordered input
-- [ ] Add frame extraction helper to `scripts/run_lvlm_baseline.py` (reuse ffmpeg logic from `scripts/build_frame_captions.py`)
-- [ ] Update `config.yaml` with per-model frame counts
+- [x] Implement oracle-windowed frame extractor: for each QA pair, extract frames from a ±120s window centered on each hop's `ground_truth_spans[i].start` using ffmpeg
+- [x] Use per-model frame counts: mPLUG-Owl3-8B and Qwen2-VL-7B → 30 frames/window; Video-LLaVA-7B and LLaVA-13B → 8 frames/window
+- [x] For multi-hop pairs, concatenate frames from all hop windows into a single ordered input
+- [x] Add frame extraction helper to `scripts/run_lvlm_baseline.py` (reuse ffmpeg logic from `scripts/build_frame_captions.py`)
+- [x] Update `config.yaml` with per-model frame counts (`lvlm.models` section)
 
-## 2. FactQA cost analysis and decision
+## 2. FactQA cost analysis and decision ✅
 
-- [ ] Compute exact token cost estimate for FactQA over 1,620 result pairs using GPT-4o-mini pricing ($0.15/1M input, $0.60/1M output)
-- [ ] Compute same estimate for GPT-4o pricing ($2.50/1M input, $10/1M output)
-- [ ] Document both scenarios in `requirements.md` and decide which model to use
-- [ ] Clone EduVidQA repo (`github.com/sourjyadip/eduvidqa-emnlp25`) and confirm FactQA scorer runs end-to-end on a sample pair
-- [ ] Add `scripts/compute_factqa.py` standalone script (mirrors pattern of `scripts/compute_text_metrics.py`)
+- [x] Compute exact token cost estimate for FactQA over 1,620 result pairs using GPT-4o-mini pricing ($0.15/1M input, $0.60/1M output)
+- [x] Compute same estimate for GPT-4o pricing ($2.50/1M input, $10/1M output)
+- [x] Document both scenarios in `requirements.md` and decide which model to use (GPT-4o-mini, ~$0.54)
+- [x] Add `scripts/compute_factqa.py` standalone script
 
-## 3. Video LLM inference script
+## 3. Video LLM inference script ✅
 
-- [ ] Implement `scripts/run_lvlm_baseline.py` — uniform frame extraction, model loading, answer generation for all 810 QA pairs
-- [ ] Support `--model` flag: `video-llava-7b`, `mplug-owl3-8b`, `qwen-vl-7b`, `llava-13b`
-- [ ] Support `--frames` flag (default: 32) for frame count
-- [ ] Save outputs to `data/benchmark/lvlm_results_{model}.json` with same schema as `evaluation_results.json` (minus tIoU fields)
-- [ ] Add progress checkpoint/resume so inference can be interrupted and continued
+- [x] Implement `scripts/run_lvlm_baseline.py` — oracle-windowed frame extraction, model loading, answer generation for 698 answerable QA pairs
+- [x] Support `--model` flag: `video-llava-7b`, `mplug-owl3-8b`, `qwen2-vl-7b`, `llava-13b`
+- [x] Save outputs to `data/benchmark/lvlm_results_{model}.json` with schema compatible with `compute_text_metrics.py`
+- [x] Add progress checkpoint/resume so inference can be interrupted and continued
+- [x] `--dry-run` flag verified: 698 pairs processed correctly
 
 ## 4. Metric computation for Video LLM outputs
 

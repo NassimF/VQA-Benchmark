@@ -310,7 +310,7 @@ def _make_cfg():
     from src.config import (
         Config, DataConfig, EmbeddingConfig, EvaluatorConfig, FrameCaptionerConfig,
         FrameExtractionConfig, GeneratorConfig, ChunkingConfig, QAGenerationConfig,
-        QAReviewConfig, RetrievalConfig, VectorDBConfig,
+        QAReviewConfig, RetrievalConfig, VectorDBConfig, LvlmConfig,
     )
     from pathlib import Path
     return Config(
@@ -338,6 +338,7 @@ def _make_cfg():
             iou_hit_threshold=0.3,
             output_path=Path("/tmp/eval_results.json"),
         ),
+        lvlm=LvlmConfig(oracle_window_seconds=120.0, models={}),
     )
 
 

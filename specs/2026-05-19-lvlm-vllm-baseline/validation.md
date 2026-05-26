@@ -4,7 +4,7 @@
 
 - [ ] `pytest tests/` passes with no regressions (existing tests must not break)
 - [ ] `scripts/run_lvlm_baseline.py --model video-llava-7b --dry-run` completes without error
-- [ ] Each `data/benchmark/lvlm_results_{model}.json` contains exactly 810 entries (one per QA pair)
+- [ ] Each `data/benchmark/lvlm_results_{model}.json` contains exactly 698 entries (112 unanswerable pairs excluded — oracle window requires non-empty `ground_truth_spans`)
 - [ ] `scripts/compute_text_metrics.py --results data/benchmark/lvlm_results_{model}.json` runs without error for all 4 models
 - [ ] `python scripts/reproduce_tables.py` runs end-to-end without error and prints the LVLM comparison table
 
