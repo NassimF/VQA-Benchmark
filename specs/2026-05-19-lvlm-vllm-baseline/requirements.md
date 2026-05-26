@@ -21,7 +21,7 @@ on the same 810 QA pairs and comparing on EduVidQA-compatible metrics.
 
 ## Out of Scope
 
-- Fine-tuning any Video LLM (off-the-shelf only)
+- Fine-tuning any Video LLM — dataset too small (810 pairs; ~690 train after split) to fine-tune 7–13B models without overfitting, and the off-the-shelf comparison is a stronger claim for the paper ("RAG beats Video LLMs with zero fine-tuning advantage")
 - tIoU as a primary metric for Video LLMs — models do not reliably output timestamps
 - Uniform full-video sampling — replaced by the oracle-windowed approach (see below)
 - Adding new QA pairs to the benchmark
