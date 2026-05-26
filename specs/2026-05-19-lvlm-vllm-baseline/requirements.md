@@ -16,6 +16,13 @@ on the same 810 QA pairs and comparing on EduVidQA-compatible metrics.
 - Text generation metrics for all models: BLEU, ROUGE-L, METEOR, Entailment-R
 - FactQA (FQA-P, FQA-R, FQA-F1) via `scripts/compute_factqa.py` (GPT-4o-mini, ~$0.54)
 - Unified comparison table: Config 1 | Config 2 | Video-LLaVA-7B | mPLUG-Owl3-8B | Qwen2-VL-7B | LLaVA-13B
+
+> **Note — LLM-Judge excluded from LVLM comparison table.**
+> Running C1+C2 with the same two judges used for RAG (Claude Sonnet 4.6 + GPT-4o) would cost
+> ~$38 for 4 models × 698 pairs. Excluded for now to avoid this cost. It would be better to
+> include it: using the same judges produces directly comparable scores and a richer quality
+> signal than BLEU/ROUGE alone. If budget allows, re-enable by running the existing judge
+> pipeline on each `lvlm_results_{model}.json` with C3 disabled.
 - Results breakdown by visual vs. non-visual question type (same split as existing paper tables)
 - Paper results section updated with the new table and analysis
 - Evaluated on n=698 answerable pairs (112 unanswerable excluded — oracle window not applicable)
