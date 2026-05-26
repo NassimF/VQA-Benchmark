@@ -148,6 +148,15 @@ scripts/reproduce_tables.py → paper tables (Tables 1, 2, 3)
 
 Visual-dependent types (multi-hop-visual + visual) ≥ 60% of accepted pairs.
 
+### Hop Count Distribution (810 accepted pairs)
+
+| Hops | Count | % |
+|------|------:|--:|
+| 1-hop | 350 | 43.2% |
+| 2-hop | 459 | 56.7% |
+| 3-hop | 1 | 0.1% |
+| **Total** | **810** | **100%** |
+
 ---
 
 ## Key Results
