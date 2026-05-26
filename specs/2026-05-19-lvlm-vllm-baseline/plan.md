@@ -4,13 +4,13 @@ Phase 11 — run Video LLM baselines on LectureBench and compare against Config 
 
 ---
 
-## 1. Frame sampling design decision
+## 1. Frame extraction and windowing
 
-- [ ] Decide N frames to sample uniformly per video (candidate: 32 frames; balances A100 VRAM vs coverage on 60-80 min videos)
-- [ ] Decide whether Video LLMs receive frames-only or frames + transcript text alongside (document tradeoffs)
-- [ ] Document the chosen setup in `requirements.md` under Key Decisions and update `config.yaml`
-- [ ] Confirm that tIoU is dropped for Video LLMs; document the rationale (models do not reliably output timestamps off-the-shelf)
-- [ ] Decide whether to add a timestamp prompt and report tIoU as an optional secondary metric in an appendix
+- [ ] Implement oracle-windowed frame extractor: for each QA pair, extract frames from a ±120s window centered on each hop's `ground_truth_spans[i].start` using ffmpeg
+- [ ] Use per-model frame counts: mPLUG-Owl3-8B and Qwen-VL-7B → 30 frames/window; Video-LLaVA-7B and LLaVA-13B → 8 frames/window
+- [ ] For multi-hop pairs, concatenate frames from all hop windows into a single ordered input
+- [ ] Add frame extraction helper to `scripts/run_lvlm_baseline.py` (reuse ffmpeg logic from `scripts/build_frame_captions.py`)
+- [ ] Update `config.yaml` with per-model frame counts
 
 ## 2. FactQA cost analysis and decision
 

@@ -23,8 +23,7 @@ on the same 810 QA pairs and comparing on EduVidQA-compatible metrics.
 
 - Fine-tuning any Video LLM (off-the-shelf only)
 - tIoU as a primary metric for Video LLMs — models do not reliably output timestamps
-- EduVidQA oracle-windowed setting (4-min window centered on ground-truth timestamp) —
-  that setting cheats the retrieval problem; LectureBench uses full-video sampling only
+- Uniform full-video sampling — replaced by the oracle-windowed approach (see below)
 - Adding new QA pairs to the benchmark
 - Whisper ASR or audio modality for Video LLMs
 
@@ -34,11 +33,25 @@ on the same 810 QA pairs and comparing on EduVidQA-compatible metrics.
 
 | Decision | Status | Notes |
 |---|---|---|
-| Frame count N | ⏳ TBD | Candidate: 32 frames uniform across full video. More = better coverage but slower; 32 is standard for 7-8B models on A100. |
-| Transcript alongside frames | ⏳ TBD | Option A: frames only (strictest baseline). Option B: frames + full transcript text (generous). Document whichever is chosen and report it in the paper. |
-| tIoU for Video LLMs | Dropped (primary) | Off-the-shelf models don't output timestamps. May add a timestamp prompt and report tIoU as appendix-only secondary metric if models follow the prompt. |
+| Windowing strategy | ✅ Locked | EduVidQA oracle-windowed: 4-min window (±120s) centered on each hop's GT span start time. One window per hop, frames concatenated. Fully scriptable from existing `ground_truth_spans` in `benchmark_v1.json` — no manual annotation needed. |
+| Multi-hop windowing | ✅ Locked | One window per hop. For a 2-hop question: 2 windows → frames concatenated into a single input. The 1 three-hop pair in the benchmark is handled the same way (3 windows). This covers 100% of benchmark pairs. |
+| Transcript alongside frames | ✅ Locked | Frames only — no transcript text. Strictest baseline; isolates the visual modality. Makes the comparison maximally favorable to Video LLMs (they're given the answer location via oracle window) and maximally honest (no text shortcut). |
+| tIoU for Video LLMs | ✅ Dropped | Off-the-shelf models don't output timestamps. May revisit as appendix-only if models follow a timestamp prompt. |
 | FactQA model | ⏳ TBD | See cost analysis below. GPT-4o-mini preferred if quality is adequate. |
-| Entailment direction | Both | Entailment-P (ref→gen): precision. Entailment-R (gen→ref): recall. Both computed by `scripts/compute_text_metrics.py` using `cross-encoder/nli-deberta-v3-base`. |
+| Entailment direction | ✅ Locked | Entailment-R (gen→ref) only reported in paper. Entailment-P computed but excluded (see reporting decision above). |
+
+### Frame count per model
+
+EduVidQA default is 30 frames per window. Frame counts are reduced for the two LLaVA
+models due to their smaller context windows. For multi-hop questions, multiply per-window
+count by number of hops (almost all pairs are 2-hop — 56.7%).
+
+| Model | Frames per window | 1-hop total | 2-hop total | Within context limit? |
+|---|---|---|---|---|
+| mPLUG-Owl3-8B | 30 (default) | 30 | 60 | Yes (~64 frame limit) |
+| Qwen-VL-7B | 30 (default) | 30 | 60 | Yes |
+| Video-LLaVA-7B | 8 (reduced) | 8 | 16 | Yes (~16 frame limit) |
+| LLaVA-13B | 8 (reduced) | 8 | 16 | Yes (~8–16 frame limit) |
 
 ### FactQA cost scenarios
 
