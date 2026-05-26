@@ -37,38 +37,63 @@ on the same 810 QA pairs and comparing on EduVidQA-compatible metrics.
 | Windowing strategy | ✅ Locked | EduVidQA oracle-windowed: 4-min window (±120s) centered on each hop's GT span start time. One window per hop, frames concatenated. Fully scriptable from existing `ground_truth_spans` in `benchmark_v1.json` — no manual annotation needed. |
 | Multi-hop windowing | ✅ Locked | One window per hop. For a 2-hop question: 2 windows → frames concatenated in chronological order (hop 1 first, hop 2 second). Segment labels added in the prompt ("Segment 1 / Segment 2") so the model doesn't treat them as a single continuous clip. The 1 three-hop pair is handled the same way (3 windows). Covers 100% of benchmark pairs. |
 | Transcript alongside frames | ✅ Locked | Frames + transcript text from the oracle window — matches EduVidQA Section 5.3 exactly. Transcript extracted from `data/chunks/` by filtering chunks whose `start_time` falls within [hop_start − 120s, hop_start + 120s]. For multi-hop, transcript from each hop window is included under its own segment label. No API calls needed. |
-| Inference prompt format | ✅ Locked | EduVidQA did not release inference code. Prompt designed for this project: system prompt establishes lecture expert role; user turn contains frames (as image list), segment-labelled transcript blocks, then the question. Single-hop omits segment labels. See prompt template below. |
+| Inference prompt format | ✅ Locked | Adapted directly from EduVidQA Appendix E.1 (verbatim prompts confirmed in paper PDF). System prompt establishes expert educator role; user turn contains transcript + question. LectureBench adaptation adds segment labels for multi-hop. See prompt template below. |
 | Frame captions | ✅ Excluded | Qwen2-VL-7B frame captions are NOT added. Captions are a text proxy for visual content used in Config 2 because the text embedding model cannot process images. Video LLMs have native visual encoders — adding captions would be redundant and contaminate the comparison. |
 | Unanswerable questions | ✅ Excluded | 112 unanswerable pairs excluded from LVLM evaluation (n=698 used). Oracle window requires `ground_truth_spans` to define the window center; unanswerable pairs have empty spans so the approach cannot be applied. Consistent with the existing tIoU exclusion. Precedent: Flanagan et al. (2025) evaluate unanswerable queries separately via Rejection Accuracy — optionally add as a supplementary metric. |
 | Model choice (Qwen) | ✅ Locked | **Qwen2-VL-7B** used instead of original Qwen-VL-7B. Qwen2-VL-7B is already downloaded on disk (used for frame captioning in Phase 4), significantly stronger on OCR and lecture slide content, and Apache 2.0 licensed. No additional download needed. |
-| tIoU for Video LLMs | ✅ Dropped | Off-the-shelf models don't output timestamps. May revisit as appendix-only if models follow a timestamp prompt. |
+| tIoU for Video LLMs | ✅ Excluded | Off-the-shelf Video LLMs and LVLMs generate free-form text answers — they produce no timestamps, span predictions, or temporal markers. tIoU requires a predicted time range to compare against the ground-truth span; without model output timestamps, the metric is undefined. Excluded from all LVLM results tables. tIoU remains a RAG-only metric in this paper. |
 | FactQA model | ✅ Locked | GPT-4o-mini. See rationale below. |
 | Entailment direction | ✅ Locked | Entailment-R (gen→ref) only reported in paper. Entailment-P computed but excluded (see reporting decision above). |
 
 ### Inference prompt template
 
+Source: EduVidQA Appendix E.1 (verbatim from paper PDF), adapted for multi-hop.
+
+**LVLM prompt (single frame, e.g. LLaVA-13B):**
 ```
-System:
-You are an expert at answering questions about academic lecture videos.
+SYSTEM_PROMPT = "You are an expert computer science educator. You have to answer a
+question that a student has asked from a video. For context, we have provided you with
+the transcript around the relevant timestamp, and the frame from the video corresponding
+to the relevant timestamp."
 
-User:
-[frames from segment 1 — images]
-[frames from segment 2 — images]   ← omit for single-hop
+QUESTION_PROMPT = "Make sure the answer has good clarity, uses pedagogical techniques
+and encourages critical thinking. Use the context from the transcript to answer the
+following question in a single paragraph."
 
-The following transcript excerpts are from the relevant portions of this lecture:
+final_prompt = "System Prompt: " + SYSTEM_PROMPT +
+               " Relevant transcript: " + transcript_text +
+               " Question Prompt: " + QUESTION_PROMPT +
+               " Question: " + question
+```
 
+**Video LLM prompt (multiple frames, e.g. mPLUG-Owl3-8B, Qwen2-VL-7B):**
+```
+SYSTEM_PROMPT = "You are an expert computer science educator. You have to answer a
+question that a student has asked from a video. For context, we have provided you with
+the transcript around the relevant timestamp, and the frames from the video corresponding
+to the relevant timestamp."
+
+QUESTION_PROMPT = "Make sure the answer has good clarity, uses pedagogical techniques
+and encourages critical thinking. Use the context from the transcript to answer the
+following question in a single paragraph."
+
+final_prompt = "System Prompt: " + SYSTEM_PROMPT +
+               " Relevant transcript: " + transcript_text +
+               " Question Prompt: " + QUESTION_PROMPT +
+               " Question: " + question
+```
+
+**LectureBench adaptation for multi-hop (2 windows):**
+Replace `transcript_text` with segment-labelled blocks:
+```
 --- Segment 1 ---
 {transcript_text_hop1}
 
---- Segment 2 ---                   ← omit for single-hop
+--- Segment 2 ---
 {transcript_text_hop2}
-
-Based on the video frames and transcript above, answer the following question concisely:
-{question}
 ```
-
-Frames are passed as an ordered image list in the model's native chat template format.
-For single-hop questions the segment labels and second block are dropped entirely.
+Frames from both windows are concatenated in chronological order (hop 1 first).
+Single-hop questions use the original EduVidQA format with no segment labels.
 
 ### Frame count per model
 
@@ -186,5 +211,4 @@ for RAG evaluation. Entailment-P numbers are retained here for internal referenc
 
 ## Open Questions
 
-1. **tIoU via timestamp prompt:** If a model follows a `"Estimate the time range [MM:SS–MM:SS] where the answer appears"` prompt, we get tIoU for free. Worth testing on one model before committing. Low priority — appendix-only if pursued.
-2. **LLM-judge for Video LLMs:** The existing LLM-judge (C1/C2/C3) requires retrieved chunks for C3 (groundedness). For Video LLMs there are no retrieved chunks — C3 is not applicable. Decision: use BLEU/ROUGE-L/METEOR/Entailment-R/FQA as the primary quality metrics for the LVLM comparison table; LLM-judge is RAG-only.
+1. **LLM-judge for Video LLMs:** The existing LLM-judge (C1/C2/C3) requires retrieved chunks for C3 (groundedness). For Video LLMs there are no retrieved chunks — C3 is not applicable. Decision: use BLEU/ROUGE-L/METEOR/Entailment-R/FQA as the primary quality metrics for the LVLM comparison table; LLM-judge is RAG-only.
