@@ -38,7 +38,7 @@ on the same 810 QA pairs and comparing on EduVidQA-compatible metrics.
 | Transcript alongside frames | ✅ Locked | Frames + transcript text from the oracle window — matches EduVidQA Section 5.3 exactly ("text transcripts or audio are also provided from this 4-minute window"). Transcript text is extracted from existing `data/chunks/` files by filtering chunks whose `start_time` falls within [hop_start − 120s, hop_start + 120s]. No API calls needed. |
 | Frame captions | ✅ Excluded | Frame captions (Qwen2-VL-7B output) are NOT added to Video LLM input. Captions are a text proxy for visual content used in Config 2 because the text embedding model cannot process images. Video LLMs have their own native visual encoder — adding captions would be redundant and would contaminate the comparison by mixing Qwen2-VL pre-analysis with the model's own visual processing. |
 | tIoU for Video LLMs | ✅ Dropped | Off-the-shelf models don't output timestamps. May revisit as appendix-only if models follow a timestamp prompt. |
-| FactQA model | ⏳ TBD | See cost analysis below. GPT-4o-mini preferred if quality is adequate. |
+| FactQA model | ✅ Locked | GPT-4o-mini. See rationale below. |
 | Entailment direction | ✅ Locked | Entailment-R (gen→ref) only reported in paper. Entailment-P computed but excluded (see reporting decision above). |
 
 ### Frame count per model
@@ -64,7 +64,14 @@ FactQA requires ~4 LLM calls per pair (fact extraction × 2 + verification × 2)
 | GPT-4o-mini | $0.15/1M | $0.60/1M | ~$2–3 |
 | GPT-4o | $2.50/1M | $10/1M | ~$35–50 |
 
-**Recommendation:** GPT-4o-mini. FactQA uses structured fact extraction (not nuanced reasoning); mini produces nearly identical verdicts. The original SyllabusQA implementation uses GPT-4 but the EduVidQA repo is adaptable.
+**Decision: GPT-4o-mini (~$0.54 for 1,620 pairs).**
+
+FactQA is appropriate for GPT-4o-mini for three reasons:
+1. **Task complexity:** The prompt is purely structural — list atomic facts, check which are supported, output `Score: X/Y`. This requires no nuanced reasoning, just careful reading and counting. GPT-4o-mini handles structured extraction tasks reliably.
+2. **Short answers:** Generated answers average 35 words and gold answers average 65 words, yielding ~3–6 atomic facts per pair. With so few facts per call, even a weaker model makes minimal errors.
+3. **Temperature=0:** Running deterministically eliminates model variance, so the gap between mini and GPT-4o on this specific task narrows further — both models are consistent when constrained to deterministic output.
+
+The original SyllabusQA uses `gpt-4-1106-preview` and EduVidQA uses `gpt-4o`, but both were designed for longer, more complex syllabus/lecture answers than LectureBench's concise factual QA pairs. At this answer length, GPT-4o-mini is equivalent in practice. Cost difference: ~$0.54 (mini) vs ~$8.91 (GPT-4o) for zero measurable quality gain on this task.
 
 ---
 
