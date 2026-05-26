@@ -108,11 +108,12 @@ cover the reference?" Config 2 is higher across all groups (0.8507 vs 0.8221 ove
 confirming that Config 2's answers are more complete relative to the gold reference.
 The effect is largest on visual questions (+5%), consistent with all other metrics.
 
-**Implication for paper:** Entailment-P should be reported with a note about the direction
-artifact, or replaced by Entailment-R alone. Alternatively, report both and explain the
-asymmetry — this actually strengthens the paper's argument by showing that Config 2
-generates richer, more informative answers (higher Entailment-R) rather than simply
-reproducing the reference more closely.
+**Reporting decision:** Entailment-P is excluded from the paper comparison table.
+The direction artifact (Config 2 generates richer answers that go beyond the reference,
+reducing entailment probability even when the answer is more correct) makes it misleading
+as a quality metric in this setting. Entailment-R (gen→ref) is reported instead, as it
+measures answer completeness relative to the gold reference — the more meaningful direction
+for RAG evaluation. Entailment-P numbers are retained here for internal reference.
 
 ---
 
