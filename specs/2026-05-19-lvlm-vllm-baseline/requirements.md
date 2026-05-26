@@ -12,12 +12,13 @@ on the same 810 QA pairs and comparing on EduVidQA-compatible metrics.
 
 ## In Scope
 
-- Inference for four Video LLMs: Video-LLaVA-7B, mPLUG-Owl3-8B, Qwen-VL-7B, LLaVA-13B
-- Text generation metrics for all models: BLEU, ROUGE-L, METEOR, Entailment-P, Entailment-R
-- FactQA (FQA-P, FQA-R) — subject to cost decision in Task Group 2
-- Unified comparison table: Config 1 | Config 2 | Video-LLaVA-7B | mPLUG-Owl3-8B | Qwen-VL-7B | LLaVA-13B
+- Inference for four Video LLMs: Video-LLaVA-7B, mPLUG-Owl3-8B, **Qwen2-VL-7B**, LLaVA-13B
+- Text generation metrics for all models: BLEU, ROUGE-L, METEOR, Entailment-R
+- FactQA (FQA-P, FQA-R, FQA-F1) via `scripts/compute_factqa.py` (GPT-4o-mini, ~$0.54)
+- Unified comparison table: Config 1 | Config 2 | Video-LLaVA-7B | mPLUG-Owl3-8B | Qwen2-VL-7B | LLaVA-13B
 - Results breakdown by visual vs. non-visual question type (same split as existing paper tables)
 - Paper results section updated with the new table and analysis
+- Evaluated on n=698 answerable pairs (112 unanswerable excluded — oracle window not applicable)
 
 ## Out of Scope
 
@@ -34,12 +35,40 @@ on the same 810 QA pairs and comparing on EduVidQA-compatible metrics.
 | Decision | Status | Notes |
 |---|---|---|
 | Windowing strategy | ✅ Locked | EduVidQA oracle-windowed: 4-min window (±120s) centered on each hop's GT span start time. One window per hop, frames concatenated. Fully scriptable from existing `ground_truth_spans` in `benchmark_v1.json` — no manual annotation needed. |
-| Multi-hop windowing | ✅ Locked | One window per hop. For a 2-hop question: 2 windows → frames concatenated into a single input. The 1 three-hop pair in the benchmark is handled the same way (3 windows). This covers 100% of benchmark pairs. |
-| Transcript alongside frames | ✅ Locked | Frames + transcript text from the oracle window — matches EduVidQA Section 5.3 exactly ("text transcripts or audio are also provided from this 4-minute window"). Transcript text is extracted from existing `data/chunks/` files by filtering chunks whose `start_time` falls within [hop_start − 120s, hop_start + 120s]. No API calls needed. |
-| Frame captions | ✅ Excluded | Frame captions (Qwen2-VL-7B output) are NOT added to Video LLM input. Captions are a text proxy for visual content used in Config 2 because the text embedding model cannot process images. Video LLMs have their own native visual encoder — adding captions would be redundant and would contaminate the comparison by mixing Qwen2-VL pre-analysis with the model's own visual processing. |
+| Multi-hop windowing | ✅ Locked | One window per hop. For a 2-hop question: 2 windows → frames concatenated in chronological order (hop 1 first, hop 2 second). Segment labels added in the prompt ("Segment 1 / Segment 2") so the model doesn't treat them as a single continuous clip. The 1 three-hop pair is handled the same way (3 windows). Covers 100% of benchmark pairs. |
+| Transcript alongside frames | ✅ Locked | Frames + transcript text from the oracle window — matches EduVidQA Section 5.3 exactly. Transcript extracted from `data/chunks/` by filtering chunks whose `start_time` falls within [hop_start − 120s, hop_start + 120s]. For multi-hop, transcript from each hop window is included under its own segment label. No API calls needed. |
+| Inference prompt format | ✅ Locked | EduVidQA did not release inference code. Prompt designed for this project: system prompt establishes lecture expert role; user turn contains frames (as image list), segment-labelled transcript blocks, then the question. Single-hop omits segment labels. See prompt template below. |
+| Frame captions | ✅ Excluded | Qwen2-VL-7B frame captions are NOT added. Captions are a text proxy for visual content used in Config 2 because the text embedding model cannot process images. Video LLMs have native visual encoders — adding captions would be redundant and contaminate the comparison. |
+| Unanswerable questions | ✅ Excluded | 112 unanswerable pairs excluded from LVLM evaluation (n=698 used). Oracle window requires `ground_truth_spans` to define the window center; unanswerable pairs have empty spans so the approach cannot be applied. Consistent with the existing tIoU exclusion. Precedent: Flanagan et al. (2025) evaluate unanswerable queries separately via Rejection Accuracy — optionally add as a supplementary metric. |
+| Model choice (Qwen) | ✅ Locked | **Qwen2-VL-7B** used instead of original Qwen-VL-7B. Qwen2-VL-7B is already downloaded on disk (used for frame captioning in Phase 4), significantly stronger on OCR and lecture slide content, and Apache 2.0 licensed. No additional download needed. |
 | tIoU for Video LLMs | ✅ Dropped | Off-the-shelf models don't output timestamps. May revisit as appendix-only if models follow a timestamp prompt. |
 | FactQA model | ✅ Locked | GPT-4o-mini. See rationale below. |
 | Entailment direction | ✅ Locked | Entailment-R (gen→ref) only reported in paper. Entailment-P computed but excluded (see reporting decision above). |
+
+### Inference prompt template
+
+```
+System:
+You are an expert at answering questions about academic lecture videos.
+
+User:
+[frames from segment 1 — images]
+[frames from segment 2 — images]   ← omit for single-hop
+
+The following transcript excerpts are from the relevant portions of this lecture:
+
+--- Segment 1 ---
+{transcript_text_hop1}
+
+--- Segment 2 ---                   ← omit for single-hop
+{transcript_text_hop2}
+
+Based on the video frames and transcript above, answer the following question concisely:
+{question}
+```
+
+Frames are passed as an ordered image list in the model's native chat template format.
+For single-hop questions the segment labels and second block are dropped entirely.
 
 ### Frame count per model
 
@@ -56,13 +85,14 @@ count by number of hops (almost all pairs are 2-hop — 56.7%).
 
 ### FactQA cost scenarios
 
-Using 1,620 evaluated pairs (810 × 2 RAG configs) + 810 × 4 LVLM outputs = 4,860 total pairs.
-FactQA requires ~4 LLM calls per pair (fact extraction × 2 + verification × 2).
+Using 1,620 evaluated pairs (810 × 2 RAG configs). FactQA requires **2 LLM calls per pair**
+(one for FQA-P, one for FQA-R — each call handles extraction + verification in a single prompt).
+Avg ~300 input tokens + ~200 output tokens per call.
 
-| Model | Input price | Output price | Est. total |
+| Model | Input (972K tok) | Output (648K tok) | Est. total |
 |---|---|---|---|
-| GPT-4o-mini | $0.15/1M | $0.60/1M | ~$2–3 |
-| GPT-4o | $2.50/1M | $10/1M | ~$35–50 |
+| GPT-4o-mini | $0.15/1M → $0.15 | $0.60/1M → $0.39 | **~$0.54** |
+| GPT-4o | $2.50/1M → $2.43 | $10/1M → $6.48 | **~$8.91** |
 
 **Decision: GPT-4o-mini (~$0.54 for 1,620 pairs).**
 
@@ -146,9 +176,9 @@ for RAG evaluation. Entailment-P numbers are retained here for internal referenc
 | `transformers >= 4.45` | Yes (4.57.6 in vqa-benchmark env) |
 | Video-LLaVA-7B | HuggingFace — not yet downloaded |
 | mPLUG-Owl3-8B | HuggingFace — not yet downloaded |
-| Qwen-VL-7B | HuggingFace — not yet downloaded (Qwen2-VL-7B is present for frame captioning) |
+| Qwen2-VL-7B | Already on disk (used in Phase 4 frame captioning) |
 | LLaVA-13B | HuggingFace — not yet downloaded |
-| EduVidQA FactQA scorer | GitHub clone needed: `github.com/sourjyadip/eduvidqa-emnlp25` |
+| `scripts/compute_factqa.py` | Implemented — no external clone needed |
 | OpenAI API key | Already in `.env` |
 | A100 80 GB | Available — all 4 models fit in bf16 |
 
@@ -156,7 +186,5 @@ for RAG evaluation. Entailment-P numbers are retained here for internal referenc
 
 ## Open Questions
 
-1. **Frame count N:** 32 frames for a 75-min video = 1 frame/2.3 min. Is this sufficient to recover single-hop visual answers? Consider running a quick ablation (16 vs 32 vs 64 frames) on a sample of 20 pairs before committing to the full evaluation.
-2. **Transcript access:** Providing the transcript makes Video LLMs significantly stronger. Is that a fair comparison to RAG, which also uses the transcript? The paper should be explicit about what information each system receives.
-3. **tIoU via timestamp prompt:** If a model follows a `"Estimate the time range [MM:SS–MM:SS] where the answer appears"` prompt, we get tIoU for free. Worth testing on one model before committing.
-4. **LLM-judge for Video LLMs:** The existing LLM-judge (C1/C2/C3) requires retrieved chunks for C3 (groundedness). For Video LLMs there are no retrieved chunks — C3 is not applicable. Use BLEU/ROUGE/METEOR/Entailment-R as the primary quality metrics for the LVLM comparison table.
+1. **tIoU via timestamp prompt:** If a model follows a `"Estimate the time range [MM:SS–MM:SS] where the answer appears"` prompt, we get tIoU for free. Worth testing on one model before committing. Low priority — appendix-only if pursued.
+2. **LLM-judge for Video LLMs:** The existing LLM-judge (C1/C2/C3) requires retrieved chunks for C3 (groundedness). For Video LLMs there are no retrieved chunks — C3 is not applicable. Decision: use BLEU/ROUGE-L/METEOR/Entailment-R/FQA as the primary quality metrics for the LVLM comparison table; LLM-judge is RAG-only.
