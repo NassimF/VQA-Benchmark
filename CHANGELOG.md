@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-05-28
+
+- fix: correct 10 invalid GT timestamps, remove 2 broken QA pairs (557553f)
+
 ## 2026-05-26
 
 - feat: add LVLM inference script and config (Phase 11) (c960a89)

@@ -107,6 +107,7 @@ class LvlmModelConfig:
     hub_id: str
     frames_per_window: int
     max_new_tokens: int
+    max_frames_total: int | None = None
 
 
 @dataclass
@@ -228,6 +229,7 @@ def load_config(config_path: Path | None = None) -> Config:
             hub_id=m["hub_id"],
             frames_per_window=int(m["frames_per_window"]),
             max_new_tokens=int(m["max_new_tokens"]),
+            max_frames_total=int(m["max_frames_total"]) if "max_frames_total" in m else None,
         )
         for name, m in lv_raw.get("models", {}).items()
     }
