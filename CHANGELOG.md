@@ -2,6 +2,10 @@
 
 ## 2026-05-28
 
+- fix: recover Video-LLaVA empty answers via max_frames_total (7c1a5b1)
+
+## 2026-05-28
+
 - fix: correct 10 invalid GT timestamps, remove 2 broken QA pairs (557553f)
 
 ## 2026-05-26

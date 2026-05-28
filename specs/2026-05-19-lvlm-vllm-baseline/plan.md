@@ -12,7 +12,7 @@ Phase 11 — run Video LLM baselines on LectureBench and compare against Config 
 - [x] Add frame extraction helper to `scripts/run_lvlm_baseline.py` (reuse ffmpeg logic from `scripts/build_frame_captions.py`)
 - [x] Update `config.yaml` with per-model frame counts (`lvlm.models` section)
 - [x] Fix `extract_oracle_frames` for AV1/VP9 `.webm`/`.mkv`: single-pass window extraction (seek once to window start, decode through); `.mp4` keeps fast per-frame seek
-- [x] Add `max_frames_total` param to `run_inference` — distributes frames evenly across hops to prevent context overflow (critical for LLaVA-13B with multi-hop questions)
+- [x] Add `max_frames_total` param to `run_inference` — distributes frames evenly across hops to prevent context overflow (critical for Video-LLaVA-7B `max_frames_total=8` and LLaVA-13B `max_frames_total=6`)
 
 ## 2. FactQA cost analysis and decision ✅
 
@@ -44,12 +44,37 @@ Root cause: `_parse_and_validate()` never checks that GT span timestamps fall wi
 
 ## 4. Metric computation for Video LLM outputs
 
-- [ ] **[PREREQUISITE]** Re-run Video-LLaVA-7B for 22 missing pairs (checkpoint already cleaned; 23 originally empty − 1 removed = 22 to recover): `python scripts/run_lvlm_baseline.py --model video-llava-7b --resume`
+- [x] **Video-LLaVA-7B re-run complete** — 690/696 scored (99.1% coverage). 6 persistent empty answers documented below.
 - [ ] Investigate mPLUG-Owl3 1 remaining empty pair (`mit_1806_lec10_q007`) — tensor size mismatch on that video
-- [ ] Run `scripts/compute_text_metrics.py` against each `lvlm_results_{model}.json`
+- [x] Run `scripts/compute_text_metrics.py` against Qwen2, Video-LLaVA, mPLUG-Owl3
+- [ ] Run `scripts/compute_text_metrics.py` against LLaVA-13B once inference done
 - [ ] Run `scripts/compute_factqa.py` against each model (if FactQA decision is yes)
 - [ ] Collect all scores into a unified comparison table (Config 1, Config 2, + 4 Video LLMs)
 - [ ] Add `reproduce_table_lvlm` function to `scripts/reproduce_tables.py`
+
+### Video-LLaVA-7B — 6 persistent empty answers (not fixable without methodology change)
+
+**Root cause A — context overflow (1 pair):**
+`mit_6006f11_lec09_q017`: long transcript context (±120s × 2 hops ≈ 14 chunks) pushes total tokens to 5823 > 4096 even with `max_frames_total=8`. Visual tokens are only ~2048; the transcript text fills the remaining budget. Would require truncating transcript context to fix.
+
+**Root cause B — oracle window mismatch (5 nyu_dl_week11 pairs):**
+- `nyu_dl_week11_q016`: hop1 GT span is 2s–185s (unusually wide); oracle window (center=2s, ±120s = 0–122s) misses content past 122s. Model gets no useful visual signal. Frames are valid (avg brightness ~150) but don't cover the relevant slide.
+- `nyu_dl_week11_q017/q018/q021/q027`: hop windows overlap heavily (hops only 80s apart); both hops receive nearly identical frames — model produces no output.
+
+**Fix cost vs benefit:** Recovering 5/696 pairs (0.7%) would require extending oracle window or deduplicating overlapping hop frames — non-trivial changes to oracle strategy. Not worth altering for paper.
+
+**Paper note:** Report Video-LLaVA as n=690 scored; footnote the 6 failures as context-overflow/oracle-window edge cases.
+
+### Preliminary text metrics (n=696, LLaVA-13B TBD)
+
+| Model | BLEU | ROUGE-L | METEOR | n scored |
+|---|---|---|---|---|
+| Config 1 (RAG, text only) | 0.0689 | 0.2662 | 0.2010 | 696 |
+| Config 2 (RAG, +frames) | 0.1086 | 0.3615 | 0.2736 | 696 |
+| Qwen2-VL-7B | 0.1522 | 0.3534 | 0.4072 | 696 |
+| mPLUG-Owl3-8B | 0.1420 | 0.3533 | 0.3569 | 696 |
+| Video-LLaVA-7B | 0.0428 | 0.1268 | 0.1300 | 690 |
+| LLaVA-13B | TBD | TBD | TBD | — |
 
 ## 4b. Recompute all RAG metrics after benchmark fix (n=698 → n=696) ⚠️ partially done
 
