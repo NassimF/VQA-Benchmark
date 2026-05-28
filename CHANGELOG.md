@@ -2,6 +2,22 @@
 
 ## 2026-05-26
 
+- feat: add LVLM inference script and config (Phase 11) (c960a89)
+- docs: exclude LLM-judge from LVLM comparison, note cost rationale (bb00755)
+- docs: update Phase 11 spec with EduVidQA prompts and tIoU exclusion (e9d5696)
+- docs: resolve all open questions in Phase 11 spec (f66b16b)
+- docs: lock FactQA model to GPT-4o-mini with rationale in Phase 11 spec (970b0db)
+- feat: add standalone FactQA scorer (FQA-P, FQA-R, FQA-F1) (450c4b9)
+- docs: lock transcript+frames input setup, exclude frame captions for LVLMs (dd8f442)
+- docs: document decision to skip fine-tuning in Phase 11 spec (bb71d94)
+- docs: lock windowing strategy and per-model frame counts in Phase 11 spec (cc7bb92)
+- docs: add hop count distribution table to README and benchmark section (c97efd5)
+- docs: document Entailment-P exclusion decision in Phase 11 spec (0f88794)
+- feat: add Phase 11 spec for LVLM/Video LLM baseline experiments (3d812f0)
+- chore: add CHANGELOG.md (171 commits across 18 dates) (35c1690)
+
+## 2026-05-26
+
 - feat: add standalone text metrics script (BLEU, ROUGE-L, METEOR, Entailment) (e98d7b5)
 
 ## 2026-05-19

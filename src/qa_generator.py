@@ -191,6 +191,23 @@ def parse_qa_response(video_id: str, raw_json: str) -> list[dict]:
         item["video_id"] = video_id
         validated.append(item)
 
+    # Reject spans whose start timestamp exceeds video duration (VTT ground truth)
+    vtt_path = _PROJECT_ROOT / "data" / "raw" / "videos" / f"{video_id}.en.vtt"
+    if vtt_path.exists():
+        import re as _re
+        vtt_dur = max(
+            int(h) * 3600 + int(m) * 60 + float(s)
+            for line in vtt_path.read_text().splitlines()
+            for h, m, s in _re.findall(r"(\d+):(\d+):(\d+\.\d+)", line)
+        )
+        for i, item in enumerate(validated):
+            for span in item.get("ground_truth_spans", []):
+                if span["start"] > vtt_dur:
+                    raise ValueError(
+                        f"Item {i} span start={span['start']}s exceeds video duration "
+                        f"{vtt_dur:.0f}s — LLM generated a timestamp beyond the last chunk"
+                    )
+
     # Validate exact question type distribution
     from collections import Counter
     counts = Counter(item["question_type"] for item in validated)

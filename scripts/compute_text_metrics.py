@@ -73,7 +73,7 @@ def _load_nli_pipeline():
     pipe = hf_pipeline(
         "zero-shot-classification",
         model="cross-encoder/nli-deberta-v3-base",
-        device=0 if _cuda_available() else -1,
+        device=-1,  # CPU — GPUs may be occupied by other inference jobs
     )
     print("NLI model loaded.")
     return pipe

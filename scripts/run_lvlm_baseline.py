@@ -86,24 +86,41 @@ def extract_oracle_frames(
     """Extract n_frames uniformly from [hop_start-window_secs, hop_start+window_secs]."""
     t_start = max(0.0, hop_start - window_secs)
     t_end = min(video_duration, hop_start + window_secs)
-    if n_frames <= 1:
-        timestamps = [(t_start + t_end) / 2.0]
-    else:
-        step = (t_end - t_start) / (n_frames - 1)
-        timestamps = [t_start + i * step for i in range(n_frames)]
 
     images: list[Image.Image] = []
     with tempfile.TemporaryDirectory() as tmp_dir:
         tmp = Path(tmp_dir)
-        for i, t in enumerate(timestamps):
-            out_path = tmp / f"frame_{i:03d}.jpg"
+        suffix = video_path.suffix.lower()
+        if suffix == ".mp4":
+            # Fast per-frame seek: .mp4 keyframe index makes -ss before -i instant.
+            if n_frames <= 1:
+                timestamps = [(t_start + t_end) / 2.0]
+            else:
+                step = (t_end - t_start) / (n_frames - 1)
+                timestamps = [t_start + i * step for i in range(n_frames)]
+            for i, t in enumerate(timestamps):
+                out_path = tmp / f"frame_{i:03d}.jpg"
+                subprocess.run(
+                    ["ffmpeg", "-threads", "1", "-ss", str(t), "-i", str(video_path),
+                     "-frames:v", "1", "-q:v", "2", str(out_path)],
+                    capture_output=True,
+                )
+                if out_path.exists():
+                    images.append(Image.open(out_path).convert("RGB").copy())
+        else:
+            # Single-pass window extraction for AV1/VP9 .webm and .mkv: seek once to
+            # window start, decode through to window end, then sample n_frames uniformly.
+            window_dur = t_end - t_start
             subprocess.run(
-                ["ffmpeg", "-threads", "1", "-ss", str(t), "-i", str(video_path),
-                 "-frames:v", "1", "-q:v", "2", str(out_path)],
+                ["ffmpeg", "-threads", "1",
+                 "-ss", str(t_start), "-to", str(t_end), "-i", str(video_path),
+                 "-vf", f"fps={n_frames}/{window_dur:.3f}",
+                 "-frames:v", str(n_frames), "-q:v", "2",
+                 str(tmp / "frame_%03d.jpg")],
                 capture_output=True,
             )
-            if out_path.exists():
-                images.append(Image.open(out_path).convert("RGB").copy())
+            for f in sorted(tmp.glob("frame_*.jpg")):
+                images.append(Image.open(f).convert("RGB").copy())
     return images
 
 
@@ -161,7 +178,15 @@ class Qwen2VLBackend(_ModelBackend):
         self._model = Qwen2VLForConditionalGeneration.from_pretrained(
             hub_id, torch_dtype=torch.bfloat16, device_map="cuda"
         ).eval()
-        self._processor = AutoProcessor.from_pretrained(hub_id)
+        # Cap image resolution to ~256 tokens/image so 60 frames (30/window × 2-hop)
+        # fits within the 32,768 token context limit. Default is ~2,700 tokens/image
+        # which causes CUDNN_STATUS_NOT_INITIALIZED from context overflow.
+        # 256*28*28 = 200,704 pixels ≈ 448×448 — adequate for lecture slide OCR.
+        _max_px = 256 * 28 * 28
+        processor = AutoProcessor.from_pretrained(hub_id)
+        processor.image_processor.max_pixels = _max_px
+        processor.image_processor.min_pixels = _max_px
+        self._processor = processor
         self._process_vision_info = process_vision_info
         self._max_new_tokens = max_new_tokens
 
@@ -228,12 +253,14 @@ class MPlugOwl3Backend(_ModelBackend):
         self._model = AutoModel.from_pretrained(
             hub_id,
             torch_dtype=torch.bfloat16,
-            device_map="cuda",
+            device_map="auto",  # split across available GPUs when VRAM is constrained
             trust_remote_code=True,
         ).eval()
         tokenizer = AutoTokenizer.from_pretrained(hub_id, trust_remote_code=True)
         self._processor = self._model.init_processor(tokenizer)
         self._max_new_tokens = max_new_tokens
+        # Primary device = device of the embedding layer (first layer)
+        self._device = self._model.language_model.model.embed_tokens.weight.device
 
     def generate(self, images: list[Image.Image], prompt: str) -> str:
         image_placeholders = "<|image|>" * len(images)
@@ -242,16 +269,19 @@ class MPlugOwl3Backend(_ModelBackend):
             {"role": "assistant", "content": ""},
         ]
         inputs = self._processor(messages, images=images, videos=None)
-        inputs = {k: v.to("cuda") if hasattr(v, "to") else v for k, v in inputs.items()}
-        input_len = inputs["input_ids"].shape[-1]
+        inputs = {k: v.to(self._device) if hasattr(v, "to") else v for k, v in inputs.items()}
 
         with torch.no_grad():
-            out_ids = self._model.generate(
-                **inputs, max_new_tokens=self._max_new_tokens, do_sample=False
+            # mPLUG-Owl3's custom generate() requires tokenizer= and returns decoded text
+            # when decode_text=True (already slices off the input prefix).
+            result = self._model.generate(
+                **inputs,
+                tokenizer=self._processor.tokenizer,
+                max_new_tokens=self._max_new_tokens,
+                do_sample=False,
+                decode_text=True,
             )
-        return self._processor.tokenizer.decode(
-            out_ids[0][input_len:], skip_special_tokens=True
-        ).strip()
+        return result[0].strip() if result else ""
 
 
 class LlavaBackend(_ModelBackend):
@@ -351,7 +381,12 @@ def run_inference(
     max_new_tokens: int,
     resume: bool,
     dry_run: bool,
+    max_frames_total: int | None = None,
 ) -> None:
+    # cuDNN 9.1.x fails on bfloat16 Conv operations in all four visual encoders.
+    # Disable globally before any model loads; native CUDA kernels are used instead.
+    torch.backends.cudnn.enabled = False
+
     output_path = benchmark_dir / f"lvlm_results_{model_name.replace('-', '_')}.json"
     ckpt_path = _checkpoint_path(model_name, benchmark_dir)
 
@@ -418,10 +453,14 @@ def run_inference(
         all_images: list[Image.Image] = []
         hop_transcripts: list[str] = []
 
+        # Distribute frames evenly across hops, capped by max_frames_total if set.
+        frames_this_hop = (
+            max(1, max_frames_total // n_hops) if max_frames_total else frames_per_window
+        )
         for span in sorted(spans, key=lambda s: s["hop"]):
             hop_start = float(span["start"])
             hop_frames = extract_oracle_frames(
-                video_path, hop_start, window_secs, frames_per_window, video_duration
+                video_path, hop_start, window_secs, frames_this_hop, video_duration
             )
             all_images.extend(hop_frames)
             hop_transcripts.append(get_window_transcript(chunks, hop_start, window_secs))
@@ -499,6 +538,7 @@ def main() -> None:
         max_new_tokens=model_cfg.max_new_tokens,
         resume=args.resume,
         dry_run=args.dry_run,
+        max_frames_total=getattr(model_cfg, "max_frames_total", None),
     )
 
 
