@@ -245,11 +245,15 @@ def compute_text_metrics(
     pairs_for_nli: list[tuple[str, str]] = []  # (premise=ref, hypothesis=hyp)
     pair_indices: list[int] = []               # maps NLI batch index → scored index
 
+    n_empty = 0
     for r in results:
         ref = gold.get(r["qa_id"])
         hyp = r.get("generated_answer", "")
         if not ref:
             missing += 1
+            continue
+        if not hyp.strip():
+            n_empty += 1
             continue
         entry = _score_pair(ref, hyp)
         entry["config"] = r["config"]
@@ -262,6 +266,8 @@ def compute_text_metrics(
 
     if missing:
         print(f"Warning: {missing} results had no matching gold answer and were skipped.")
+    if n_empty:
+        print(f"Note: {n_empty} empty answers excluded from scoring (n reflects non-empty only).")
 
     # Batch NLI entailment — both directions
     if include_entailment and pairs_for_nli:

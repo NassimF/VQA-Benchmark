@@ -2,6 +2,10 @@
 
 ## 2026-05-28
 
+- docs: update plan.md and changelog for phase 11 (50409fc)
+
+## 2026-05-28
+
 - fix: recover Video-LLaVA empty answers via max_frames_total (7c1a5b1)
 
 ## 2026-05-28

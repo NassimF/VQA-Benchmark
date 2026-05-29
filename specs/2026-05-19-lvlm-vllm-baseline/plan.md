@@ -45,9 +45,10 @@ Root cause: `_parse_and_validate()` never checks that GT span timestamps fall wi
 ## 4. Metric computation for Video LLM outputs
 
 - [x] **Video-LLaVA-7B re-run complete** — 690/696 scored (99.1% coverage). 6 persistent empty answers documented below.
+- [x] **LLaVA-13B inference complete** — 696 processed, but 259 empty (37%) due to positional overflow; re-run needed (see §4c)
 - [ ] Investigate mPLUG-Owl3 1 remaining empty pair (`mit_1806_lec10_q007`) — tensor size mismatch on that video
 - [x] Run `scripts/compute_text_metrics.py` against Qwen2, Video-LLaVA, mPLUG-Owl3
-- [ ] Run `scripts/compute_text_metrics.py` against LLaVA-13B once inference done
+- [ ] Run `scripts/compute_text_metrics.py` against LLaVA-13B once §4c re-run complete
 - [ ] Run `scripts/compute_factqa.py` against each model (if FactQA decision is yes)
 - [ ] Collect all scores into a unified comparison table (Config 1, Config 2, + 4 Video LLMs)
 - [ ] Add `reproduce_table_lvlm` function to `scripts/reproduce_tables.py`
@@ -65,16 +66,51 @@ Root cause: `_parse_and_validate()` never checks that GT span timestamps fall wi
 
 **Paper note:** Report Video-LLaVA as n=690 scored; footnote the 6 failures as context-overflow/oracle-window edge cases.
 
-### Preliminary text metrics (n=696, LLaVA-13B TBD)
+### mPLUG-Owl3-8B — 4 empty answers
+
+- **3 pairs** (`mit_6006sp20_lec04_q009`, `mit_6006sp20_lec11_q008`, `mit_6006sp20_lec17_q012`): **0 frames extracted** — inference ran before the 2026-05-28 benchmark fix; oracle window used the old invalid timestamps (beyond video duration) → ffmpeg returned 0 frames → empty output. Fixable by re-running just these 3 pairs.
+- **1 pair** (`mit_1806_lec10_q007`): **tensor size mismatch** in mPLUG-Owl3's vision encoder for that video's resolution. Not fixable without methodology change.
+
+### LLaVA-13B — 259 empty answers (37%)
+
+**Root cause — positional embedding overflow:**
+6 frames × 576 tokens/frame = 3456 image tokens + 2-hop transcript ≈ 1200–1600 tokens = **4600–5050 total**, well beyond the 4096-token position limit. At this range, RoPE extrapolation is unstable — 37% of pairs generate EOS immediately. Not a truncation issue (tokenizer has no length cap); the model receives the full sequence but position embeddings are out-of-distribution.
+
+**Fix:** reduce `max_frames_total` to 2 for llava-13b → 2 × 576 = 1152 image tokens; 2-hop pairs fit within ~2800 tokens total. Requires full re-run (~2 hrs).
+
+### Note on n_scored in metrics table
+
+`compute_text_metrics.py` currently includes empty answers as zero-scores in the mean, inflating n but depressing scores. Fix: filter empties before averaging. Impact by model:
+- Qwen2-VL-7B: 0 empty → unchanged
+- mPLUG-Owl3-8B: 4 empty → n=692 (negligible score change)
+- Video-LLaVA-7B: 6 empty → n=690 (minor score bump)
+- LLaVA-13B: 259 empty → n=437 (major change; current scores are meaningless)
+
+## 4c. Inference corrections before final metric computation ⚠️
+
+**Step 1 (fast, ~minutes) — Fix mPLUG-Owl3 3 stale-timestamp empties:** ✅
+- [x] Re-run inference for `mit_6006sp20_lec04_q009`, `mit_6006sp20_lec11_q008`, `mit_6006sp20_lec17_q012` with corrected benchmark timestamps
+- [x] Patch the 3 results into `lvlm_results_mplug_owl3_8b.json` — all 3 non-empty (89/207/473 chars); 1 unfixable empty remains (`mit_1806_lec10_q007`)
+
+**Step 2 (long, ~2 hrs) — Fix LLaVA-13B positional overflow:** ✅
+- [x] Set `max_frames_total: 2` for `llava-13b` in `config.yaml` (2 × 576 = 1152 img tokens; 2-hop total ≤ ~2800)
+- [x] Re-run full LLaVA-13B inference — 696/696, 0 empty answers
+
+**Step 3 (fast, ~20s, depends on steps 1+2) — Fix metric script and recompute all models:** ✅
+- [x] Update `scripts/compute_text_metrics.py`: filter empty `generated_answer` before computing mean
+- [x] Re-run metrics for all 4 LVLM models
+- [x] Updated results table with final corrected scores
+
+### Final text metrics — all models complete, empties filtered (2026-05-29)
 
 | Model | BLEU | ROUGE-L | METEOR | n scored |
 |---|---|---|---|---|
 | Config 1 (RAG, text only) | 0.0689 | 0.2662 | 0.2010 | 696 |
 | Config 2 (RAG, +frames) | 0.1086 | 0.3615 | 0.2736 | 696 |
 | Qwen2-VL-7B | 0.1522 | 0.3534 | 0.4072 | 696 |
-| mPLUG-Owl3-8B | 0.1420 | 0.3533 | 0.3569 | 696 |
-| Video-LLaVA-7B | 0.0428 | 0.1268 | 0.1300 | 690 |
-| LLaVA-13B | TBD | TBD | TBD | — |
+| mPLUG-Owl3-8B | 0.1424 | 0.3550 | 0.3584 | 695 |
+| Video-LLaVA-7B | 0.0432 | 0.1279 | 0.1312 | 690 |
+| LLaVA-13B | 0.1254 | 0.3181 | 0.3616 | 696 |
 
 ## 4b. Recompute all RAG metrics after benchmark fix (n=698 → n=696) ⚠️ partially done
 
