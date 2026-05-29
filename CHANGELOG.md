@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-05-29
+
+- feat: complete LVLM inference for all 4 models with fixes (9bdfbee)
+
 ## 2026-05-28
 
 - docs: update plan.md and changelog for phase 11 (50409fc)

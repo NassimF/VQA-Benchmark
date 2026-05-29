@@ -40,7 +40,7 @@ Root cause: `_parse_and_validate()` never checks that GT span timestamps fall wi
 - [x] Remove both qa_ids from all 3 existing LVLM result files and checkpoints; `n_pairs` updated
 - [x] Clean Video-LLaVA checkpoint of 22 empty-answer entries (ready for re-run with `--resume`)
 - [x] Add post-generation VTT bounds check to `src/qa_generator.py` `_parse_and_validate()`
-- [ ] **Start LLaVA-13B re-run** (config already fixed): `python scripts/run_lvlm_baseline.py --model llava-13b --no-resume >> logs/llava_rerun.log 2>&1 &` (~6 hrs)
+- [x] **LLaVA-13B re-run complete** — `max_frames_total=2` fix applied; 696/696, 0 empty (see §4c)
 
 ## 4. Metric computation for Video LLM outputs
 
@@ -48,7 +48,19 @@ Root cause: `_parse_and_validate()` never checks that GT span timestamps fall wi
 - [x] **LLaVA-13B inference complete** — 696 processed, but 259 empty (37%) due to positional overflow; re-run needed (see §4c)
 - [ ] Investigate mPLUG-Owl3 1 remaining empty pair (`mit_1806_lec10_q007`) — tensor size mismatch on that video
 - [x] Run `scripts/compute_text_metrics.py` against Qwen2, Video-LLaVA, mPLUG-Owl3
-- [ ] Run `scripts/compute_text_metrics.py` against LLaVA-13B once §4c re-run complete
+- [x] Run `scripts/compute_text_metrics.py` against LLaVA-13B — BLEU=0.1254, ROUGE-L=0.3181, METEOR=0.3616, n=696
+- [x] Run `scripts/compute_text_metrics.py` (with entailment) against all 4 LVLM models and Config 1 & 2 ✅
+
+**Entailment-R (gen→ref) — All Questions (primary metric for paper):**
+
+| Model | Entailment-R (all) | Entailment-R (visual) | Entailment-R (non-visual) | n |
+|---|---|---|---|---|
+| Config 1 (RAG, text only) | 0.8172 | 0.8118 | 0.8273 | 696 |
+| Config 2 (RAG, +frames)   | 0.8509 | 0.8498 | 0.8530 | 696 |
+| Qwen2-VL-7B               | 0.8079 | 0.8085 | 0.8068 | 696 |
+| mPLUG-Owl3-8B             | 0.8156 | 0.7988 | 0.8470 | 695 |
+| Video-LLaVA-7B            | 0.8149 | 0.8039 | 0.8352 | 690 |
+| LLaVA-13B                 | 0.8450 | 0.8385 | 0.8573 | 696 |
 - [ ] Run `scripts/compute_factqa.py` against each model (if FactQA decision is yes)
 - [ ] Collect all scores into a unified comparison table (Config 1, Config 2, + 4 Video LLMs)
 - [ ] Add `reproduce_table_lvlm` function to `scripts/reproduce_tables.py`
@@ -112,6 +124,24 @@ Root cause: `_parse_and_validate()` never checks that GT span timestamps fall wi
 | Video-LLaVA-7B | 0.0432 | 0.1279 | 0.1312 | 690 |
 | LLaVA-13B | 0.1254 | 0.3181 | 0.3616 | 696 |
 
+### Key findings — n-gram metrics (2026-05-29)
+
+**Overall:** No single system wins all three metrics. Config 2 leads ROUGE-L; Qwen2 leads BLEU and METEOR. 3 of 4 VLLMs beat Config 2 on BLEU and METEOR; Config 2 beats all VLLMs on ROUGE-L. Video-LLaVA is the clear outlier — worst on all metrics, below Config 1.
+
+**Why Config 2 leads ROUGE-L but not BLEU/METEOR:** Config 2 retrieves verbatim transcript text and injects it into answers. The reference answers are also derived from transcripts → long word-for-word matches → high ROUGE-L (LCS). But verbatim retrieval also includes filler words → lower precision → lower BLEU. Qwen2 generates concise paraphrases: high precision (high BLEU), synonym-rich (high METEOR), but shorter sequences (lower ROUGE-L).
+
+**Config 2 vs Config 1:** +58% BLEU, +36% ROUGE-L, +36% METEOR — frame captions consistently improve answer generation across all metrics.
+
+**Important caveat:** VLLMs receive oracle frame windows centered on GT timestamps — an advantage RAG doesn't have. The fair comparison is tIoU, LLM-judge, and citation accuracy where RAG must retrieve on its own.
+
+### Key findings — Entailment-R (2026-05-29)
+
+**Config 2 leads overall (0.8509)** — the only system above 0.85. Generated answers are the most factually grounded in the reference.
+
+**Strongest result: visual questions.** Config 2 (0.8498) leads all VLLMs on Entailment-R for visual questions (Qwen2: 0.8085, mPLUG: 0.7988). This is the clearest signal: frame-augmented RAG produces more factually correct answers on visual questions than Video LLMs given oracle frames.
+
+**Combined takeaway:** VLLMs score high on BLEU/METEOR (fluent paraphrases that sound right). Config 2 leads on ROUGE-L and Entailment-R (retrieves the right content in the right words, and answers are factually grounded). N-gram metrics measure phrasing quality; entailment measures factual correctness. Config 2 winning on both ROUGE-L and Entailment-R — especially on visual questions — is the paper's strongest result.
+
 ## 4b. Recompute all RAG metrics after benchmark fix (n=698 → n=696) ⚠️ partially done
 
 **No re-inference needed — all generated answers already stored.**
@@ -123,7 +153,17 @@ Root cause: `_parse_and_validate()` never checks that GT span timestamps fall wi
 
 - [x] Recompute Config 1 & Config 2 text metrics (BLEU/ROUGE-L/METEOR) on 696 pairs — C1: 0.0689/0.2662/0.2010, C2: 0.1086/0.3615/0.2736
 - [x] Re-run `scripts/reproduce_tables.py` (tIoU/Hit Rate tables regenerated from `evaluation_results.json`)
-- [ ] Recompute LLM-judge scores and citation accuracy on 696 pairs (need to filter `evaluation_results.json`)
+- [x] Recompute LLM-judge scores and citation accuracy on 696 pairs — filtered 4 stale entries (2 removed pairs × 2 configs)
+
+| | Config 1 | Config 2 |
+|---|---|---|
+| LLM-judge (all) | 3.027 | 3.564 |
+| LLM-judge (visual) | 2.574 | 3.520 |
+| LLM-judge (text) | 3.609 | 3.620 |
+| Citation acc (all) | 0.235 | 0.317 |
+| Citation acc (visual) | 0.198 | 0.340 |
+| Citation acc (text) | 0.281 | 0.287 |
+- [ ] **Full paper consistency pass** — search every `.tex` file for hardcoded numbers that changed: 810→808 (total), 698→696 (answerable), 460→458 (multi-hop), 698→698 unanswerable (unchanged). Check narrative claims ("+32% LLM-judge", "+72% citation accuracy", etc.) against recomputed values and correct any that shifted.
 - [ ] Update multi-hop counts in `overleaf/assets/sections/results.tex` (460 → 458) and any narrative percentages that shift
 - [ ] Update `results.md` side-by-side with corrected numbers
 
