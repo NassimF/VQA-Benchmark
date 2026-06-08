@@ -2,6 +2,10 @@
 
 ## 2026-06-08
 
+- feat: add LVLM comparison tables to results.tex (ffe68aa)
+
+## 2026-06-08
+
 - feat: add reproduce_table_lvlm and fix C1/C2 n-gram scores (7e376f2)
 
 ## 2026-06-08

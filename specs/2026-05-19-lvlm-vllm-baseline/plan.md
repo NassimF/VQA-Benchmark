@@ -62,8 +62,8 @@ Root cause: `_parse_and_validate()` never checks that GT span timestamps fall wi
 | Video-LLaVA-7B            | 0.8149 | 0.8039 | 0.8352 | 690 |
 | LLaVA-13B                 | 0.8450 | 0.8385 | 0.8573 | 696 |
 - [ ] Run `scripts/compute_factqa.py` against each model (if FactQA decision is yes)
-- [ ] Collect all scores into a unified comparison table (Config 1, Config 2, + 4 Video LLMs)
-- [ ] Add `reproduce_table_lvlm` function to `scripts/reproduce_tables.py`
+- [x] Collect all scores into a unified comparison table (Config 1, Config 2, + 4 Video LLMs)
+- [x] Add `reproduce_table_lvlm` function to `scripts/reproduce_tables.py`
 
 ### Video-LLaVA-7B — 6 persistent empty answers (not fixable without methodology change)
 
@@ -164,11 +164,11 @@ Root cause: `_parse_and_validate()` never checks that GT span timestamps fall wi
 | Citation acc (visual) | 0.198 | 0.340 |
 | Citation acc (text) | 0.281 | 0.287 |
 - [x] **Full paper consistency pass** — 810→808, 698→696, 460→458, 455→454, 243→242, 320→319, 140→139; tIoU visual-dep C1 0.129→0.130; +65%→+64% tIoU throughout; all 7 .tex files updated and pushed to Overleaf (2026-06-08)
-- [ ] Update `results.md` side-by-side with corrected numbers
+- [x] Update `results.md` side-by-side with corrected numbers
 
 ## 5. Results recording and paper update
 
-- [ ] Update `results.md` with the full LVLM comparison table
-- [ ] Update `overleaf/assets/sections/results.tex` with new Video LLM comparison table and analysis paragraph
-- [ ] Run `./push_to_overleaf.sh` after any Overleaf edit
-- [ ] Commit all new scripts, results JSON files, and paper changes
+- [x] Update `results.md` with the full LVLM comparison table
+- [x] Update `overleaf/assets/sections/results.tex` with new Video LLM comparison table and analysis paragraph
+- [x] Run `./push_to_overleaf.sh` after any Overleaf edit
+- [x] Commit all new scripts, results JSON files, and paper changes
