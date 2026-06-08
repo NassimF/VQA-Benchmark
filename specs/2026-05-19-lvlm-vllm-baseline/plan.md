@@ -117,8 +117,8 @@ Root cause: `_parse_and_validate()` never checks that GT span timestamps fall wi
 
 | Model | BLEU | ROUGE-L | METEOR | n scored |
 |---|---|---|---|---|
-| Config 1 (RAG, text only) | 0.0689 | 0.2662 | 0.2010 | 696 |
-| Config 2 (RAG, +frames) | 0.1086 | 0.3615 | 0.2736 | 696 |
+| Config 1 (RAG, text only) | 0.0790 | 0.2662 | 0.2211 | 696 |
+| Config 2 (RAG, +frames) | 0.1340 | 0.3615 | 0.3085 | 696 |
 | Qwen2-VL-7B | 0.1522 | 0.3534 | 0.4072 | 696 |
 | mPLUG-Owl3-8B | 0.1424 | 0.3550 | 0.3584 | 695 |
 | Video-LLaVA-7B | 0.0432 | 0.1279 | 0.1312 | 690 |
@@ -130,7 +130,7 @@ Root cause: `_parse_and_validate()` never checks that GT span timestamps fall wi
 
 **Why Config 2 leads ROUGE-L but not BLEU/METEOR:** Config 2 retrieves verbatim transcript text and injects it into answers. The reference answers are also derived from transcripts → long word-for-word matches → high ROUGE-L (LCS). But verbatim retrieval also includes filler words → lower precision → lower BLEU. Qwen2 generates concise paraphrases: high precision (high BLEU), synonym-rich (high METEOR), but shorter sequences (lower ROUGE-L).
 
-**Config 2 vs Config 1:** +58% BLEU, +36% ROUGE-L, +36% METEOR — frame captions consistently improve answer generation across all metrics.
+**Config 2 vs Config 1:** +70% BLEU, +36% ROUGE-L, +39% METEOR — frame captions consistently improve answer generation across all metrics. (Values reproducible via `scripts/reproduce_tables.py --table 4`)
 
 **Important caveat:** VLLMs receive oracle frame windows centered on GT timestamps — an advantage RAG doesn't have. The fair comparison is tIoU, LLM-judge, and citation accuracy where RAG must retrieve on its own.
 

@@ -2,6 +2,10 @@
 
 ## 2026-06-08
 
+- docs: update results.md with full LVLM comparison table (79c4aa7)
+
+## 2026-06-08
+
 - fix: paper consistency pass — correct benchmark counts after quality fix (5f30c23)
 
 ## 2026-05-29

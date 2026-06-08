@@ -75,8 +75,8 @@ does not meaningfully hurt recall on transcript-grounded questions at practical 
 
 | Model | BLEU | ROUGE-L | METEOR | n scored |
 |-------|:---:|:---:|:---:|:---:|
-| Config 1 (RAG, text only)  | 0.0689 | 0.2662 | 0.2010 | 696 |
-| Config 2 (RAG, +frames)    | 0.1086 | **0.3615** | 0.2736 | 696 |
+| Config 1 (RAG, text only)  | 0.0790 | 0.2662 | 0.2211 | 696 |
+| Config 2 (RAG, +frames)    | 0.1340 | **0.3615** | 0.3085 | 696 |
 | Qwen2-VL-7B                | **0.1522** | 0.3534 | **0.4072** | 696 |
 | mPLUG-Owl3-8B              | 0.1424 | 0.3550 | 0.3584 | 695 |
 | LLaVA-13B                  | 0.1254 | 0.3181 | 0.3616 | 696 |
@@ -139,4 +139,4 @@ confirming the improvement is causally tied to visual evidence access.
 | Table 4b — LVLM Entailment-R       | ✅ | ✅ |
 | Table 4c — LLM-judge/citation acc  | ✅ (C1/C2 only) | ✅ |
 
-Last updated: 2026-06-08 (benchmark fix: 810→808, 698→696, 460→458)
+Last updated: 2026-06-08 (benchmark fix: 810→808, 698→696, 460→458; C1/C2 BLEU/METEOR corrected via reproduce_tables.py)

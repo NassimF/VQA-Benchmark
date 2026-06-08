@@ -1,10 +1,12 @@
-"""Reproduce all results tables from evaluation_results.json.
+"""Reproduce all results tables from evaluation artifacts.
 
-Each function regenerates one results table from data/benchmark/evaluation_results.json.
-A single top-level call regenerates every table.
+Tables 1–3 regenerate from data/benchmark/evaluation_results.json (RAG configs).
+Table 4 (LVLM comparison) regenerates from data/benchmark/lvlm_results_*.json files.
 
 Usage:
-    python scripts/reproduce_tables.py
+    python scripts/reproduce_tables.py               # all tables (no entailment)
+    python scripts/reproduce_tables.py --table 4     # LVLM table only
+    python scripts/reproduce_tables.py --table 4 --entailment  # LVLM + Entailment-R
     python scripts/reproduce_tables.py --results path/to/evaluation_results.json
 """
 
@@ -138,6 +140,123 @@ def reproduce_table_3(results_path: Path, benchmark_path: Path) -> None:
     print(sep)
 
 
+def reproduce_table_lvlm(
+    lvlm_dir: Path,
+    benchmark_path: Path,
+    include_entailment: bool = False,
+) -> None:
+    """Table 4 — LVLM comparison: n-gram metrics + optional Entailment-R (6 systems, n≈696)."""
+    from scripts.compute_text_metrics import (  # type: ignore[import]
+        _bleu, _rougel, _meteor, _load_nli_pipeline, _entailment_scores_direct,
+    )
+
+    _VISUAL = {"multi-hop-visual", "visual"}
+
+    bm = json.loads(benchmark_path.read_text())
+    gold: dict[str, str] = {qa["qa_id"]: qa["answer"] for qa in bm["qa_pairs"]}
+    q_type: dict[str, str] = {qa["qa_id"]: qa["question_type"] for qa in bm["qa_pairs"]}
+
+    MODEL_FILES = [
+        ("Config 1 (RAG, text only)", "lvlm_results_config1_rag.json"),
+        ("Config 2 (RAG, +frames)",   "lvlm_results_config2_rag.json"),
+        ("Qwen2-VL-7B",               "lvlm_results_qwen2_vl_7b.json"),
+        ("mPLUG-Owl3-8B",             "lvlm_results_mplug_owl3_8b.json"),
+        ("LLaVA-13B",                 "lvlm_results_llava_13b.json"),
+        ("Video-LLaVA-7B",            "lvlm_results_video_llava_7b.json"),
+    ]
+
+    # Load all pairs per model
+    all_model_data: list[tuple[str, list[dict]]] = []
+    for display, fname in MODEL_FILES:
+        fpath = lvlm_dir / fname
+        if not fpath.exists():
+            print(f"  WARNING: {fname} not found — skipping {display}.")
+            all_model_data.append((display, []))
+            continue
+        records = json.loads(fpath.read_text())["results"]
+        pairs = [
+            {
+                "ref": gold[r["qa_id"]],
+                "hyp": r.get("generated_answer", ""),
+                "is_visual": q_type.get(r["qa_id"]) in _VISUAL,
+            }
+            for r in records
+            if r["qa_id"] in gold and r.get("generated_answer", "").strip()
+        ]
+        all_model_data.append((display, pairs))
+
+    # Batch-compute Entailment-R across all models in one NLI pass
+    ent_by_model: dict[str, dict[str, float]] = {}
+    if include_entailment:
+        flat_pairs: list[tuple[str, str]] = []
+        flat_tags: list[tuple[int, bool]] = []
+        for model_idx, (_, pairs) in enumerate(all_model_data):
+            for p in pairs:
+                flat_pairs.append((p["ref"], p["hyp"]))
+                flat_tags.append((model_idx, p["is_visual"]))
+
+        if flat_pairs:
+            nli_pipe = _load_nli_pipeline()
+            print(f"Computing Entailment-R for {len(flat_pairs)} pairs across {len(all_model_data)} models...")
+            rev_pairs = [(h, r) for r, h in flat_pairs]  # gen→ref direction
+            rev_scores = _entailment_scores_direct(rev_pairs, nli_pipe)
+
+            from collections import defaultdict
+            buckets: dict[int, dict[str, list[float]]] = defaultdict(
+                lambda: {"all": [], "vis": [], "nonvis": []}
+            )
+            for score, (model_idx, is_visual) in zip(rev_scores, flat_tags):
+                buckets[model_idx]["all"].append(score)
+                (buckets[model_idx]["vis"] if is_visual else buckets[model_idx]["nonvis"]).append(score)
+
+            for model_idx, (display, _) in enumerate(all_model_data):
+                b = buckets[model_idx]
+                ent_by_model[display] = {
+                    k: round(float(np.mean(v)), 4) if v else 0.0
+                    for k, v in b.items()
+                }
+
+    # Compute n-gram scores
+    rows: list[dict] = []
+    for display, pairs in all_model_data:
+        if not pairs:
+            rows.append({"model": display, "n": 0, "bleu": 0.0, "rougel": 0.0, "meteor": 0.0})
+            continue
+        rows.append({
+            "model":  display,
+            "n":      len(pairs),
+            "bleu":   round(float(np.mean([_bleu(p["ref"],   p["hyp"]) for p in pairs])), 4),
+            "rougel": round(float(np.mean([_rougel(p["ref"], p["hyp"]) for p in pairs])), 4),
+            "meteor": round(float(np.mean([_meteor(p["ref"], p["hyp"]) for p in pairs])), 4),
+        })
+
+    # --- Print tables ---
+    W = 26
+    sep = "=" * (W + 42)
+    print("\nTable 4 — LVLM Comparison (n=696 answerable pairs)")
+    print(sep)
+
+    # N-gram subtable
+    print(f"\n  {'Model':<{W}}  {'n':>5}  {'BLEU':>8}  {'ROUGE-L':>8}  {'METEOR':>8}")
+    print("  " + "-" * (W + 38))
+    for row in rows:
+        print(f"  {row['model']:<{W}}  {row['n']:>5}  "
+              f"{row['bleu']:>8.4f}  {row['rougel']:>8.4f}  {row['meteor']:>8.4f}")
+
+    # Entailment-R subtable
+    if include_entailment and ent_by_model:
+        print(f"\n  Entailment-R (gen→ref):")
+        print(f"  {'Model':<{W}}  {'n':>5}  {'All':>8}  {'Visual':>8}  {'Non-vis':>8}")
+        print("  " + "-" * (W + 38))
+        for row in rows:
+            e = ent_by_model.get(row["model"], {})
+            print(f"  {row['model']:<{W}}  {row['n']:>5}  "
+                  f"{e.get('all', 0.0):>8.4f}  {e.get('vis', 0.0):>8.4f}  "
+                  f"{e.get('nonvis', 0.0):>8.4f}")
+
+    print(sep)
+
+
 @contextmanager
 def _tee(output_path: Path | None):
     """Write stdout to a file in addition to the terminal when output_path is given."""
@@ -167,17 +286,26 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Reproduce results tables from evaluation artifacts")
     parser.add_argument("--results",   type=Path, default=cfg.evaluator.output_path)
     parser.add_argument("--benchmark", type=Path, default=cfg.data.benchmark_dir / "benchmark_v1.json")
-    parser.add_argument("--table", type=int, choices=[1, 2, 3],
+    parser.add_argument("--lvlm-dir",  type=Path, default=cfg.data.benchmark_dir,
+                        help="Directory containing lvlm_results_*.json files (table 4)")
+    parser.add_argument("--table", type=int, choices=[1, 2, 3, 4],
                         help="Reproduce only one table (default: all)")
+    parser.add_argument("--entailment", action="store_true",
+                        help="Include Entailment-R in table 4 (slow, requires NLI model)")
     parser.add_argument("--output", type=Path, help="Also save output to this file")
     args = parser.parse_args()
 
-    fns = {1: reproduce_table_1, 2: reproduce_table_2, 3: reproduce_table_3}
-    targets = [fns[args.table]] if args.table else list(fns.values())
+    rag_fns = [reproduce_table_1, reproduce_table_2, reproduce_table_3]
 
     with _tee(args.output):
-        for fn in targets:
-            fn(args.results, args.benchmark)
+        if args.table == 4:
+            reproduce_table_lvlm(args.lvlm_dir, args.benchmark, args.entailment)
+        elif args.table:
+            rag_fns[args.table - 1](args.results, args.benchmark)
+        else:
+            for fn in rag_fns:
+                fn(args.results, args.benchmark)
+            reproduce_table_lvlm(args.lvlm_dir, args.benchmark, args.entailment)
 
 
 if __name__ == "__main__":
