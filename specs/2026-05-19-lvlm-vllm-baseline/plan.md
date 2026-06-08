@@ -163,8 +163,7 @@ Root cause: `_parse_and_validate()` never checks that GT span timestamps fall wi
 | Citation acc (all) | 0.235 | 0.317 |
 | Citation acc (visual) | 0.198 | 0.340 |
 | Citation acc (text) | 0.281 | 0.287 |
-- [ ] **Full paper consistency pass** — search every `.tex` file for hardcoded numbers that changed: 810→808 (total), 698→696 (answerable), 460→458 (multi-hop), 698→698 unanswerable (unchanged). Check narrative claims ("+32% LLM-judge", "+72% citation accuracy", etc.) against recomputed values and correct any that shifted.
-- [ ] Update multi-hop counts in `overleaf/assets/sections/results.tex` (460 → 458) and any narrative percentages that shift
+- [x] **Full paper consistency pass** — 810→808, 698→696, 460→458, 455→454, 243→242, 320→319, 140→139; tIoU visual-dep C1 0.129→0.130; +65%→+64% tIoU throughout; all 7 .tex files updated and pushed to Overleaf (2026-06-08)
 - [ ] Update `results.md` side-by-side with corrected numbers
 
 ## 5. Results recording and paper update

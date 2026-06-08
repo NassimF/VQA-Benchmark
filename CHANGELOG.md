@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-06-08
+
+- fix: paper consistency pass — correct benchmark counts after quality fix (5f30c23)
+
 ## 2026-05-29
 
 - docs: add entailment scores and key findings to plan (18d93f7)
