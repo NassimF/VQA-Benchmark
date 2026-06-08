@@ -73,7 +73,7 @@ def _load_nli_pipeline():
     pipe = hf_pipeline(
         "zero-shot-classification",
         model="cross-encoder/nli-deberta-v3-base",
-        device=0 if _cuda_available() else -1,
+        device=-1,  # CPU — GPUs may be occupied by other inference jobs
     )
     print("NLI model loaded.")
     return pipe
@@ -175,6 +175,26 @@ def _agg(scores: list[dict], include_entailment: bool = False) -> dict[str, floa
     return result
 
 
+def _print_single_model_table(title: str, agg: dict, include_entailment: bool = False) -> None:
+    w = 28
+    sep = "=" * (w * 2 + 4)
+    print(f"\n{title} (n={agg.get('n', 0)})")
+    print(sep)
+    print(f"{'Metric':<{w}}  {'Score':<{w}}")
+    print("-" * (w * 2 + 4))
+    rows = [
+        ("BLEU",    f"{agg['bleu']:.4f}"),
+        ("ROUGE-L", f"{agg['rougel']:.4f}"),
+        ("METEOR",  f"{agg['meteor']:.4f}"),
+    ]
+    if include_entailment:
+        rows.append(("Entailment-P (ref→gen)", f"{agg['entailment_p']:.4f}"))
+        rows.append(("Entailment-R (gen→ref)", f"{agg['entailment_r']:.4f}"))
+    for metric, val in rows:
+        print(f"{metric:<{w}}  {val:<{w}}")
+    print(sep)
+
+
 def _print_table(title: str, c1: dict, c2: dict, include_entailment: bool = False) -> None:
     w = 28
     sep = "=" * (w * 3 + 6)
@@ -225,11 +245,15 @@ def compute_text_metrics(
     pairs_for_nli: list[tuple[str, str]] = []  # (premise=ref, hypothesis=hyp)
     pair_indices: list[int] = []               # maps NLI batch index → scored index
 
+    n_empty = 0
     for r in results:
         ref = gold.get(r["qa_id"])
         hyp = r.get("generated_answer", "")
         if not ref:
             missing += 1
+            continue
+        if not hyp.strip():
+            n_empty += 1
             continue
         entry = _score_pair(ref, hyp)
         entry["config"] = r["config"]
@@ -242,6 +266,8 @@ def compute_text_metrics(
 
     if missing:
         print(f"Warning: {missing} results had no matching gold answer and were skipped.")
+    if n_empty:
+        print(f"Note: {n_empty} empty answers excluded from scoring (n reflects non-empty only).")
 
     # Batch NLI entailment — both directions
     if include_entailment and pairs_for_nli:
@@ -259,6 +285,36 @@ def compute_text_metrics(
 
     c1 = [s for s in scored if s["config"] == "transcript_only"]
     c2 = [s for s in scored if s["config"] == "transcript_plus_frames"]
+
+    # LVLM single-model mode: when neither RAG config is present, print one-column results
+    configs = {s["config"] for s in scored}
+    rag_configs = {"transcript_only", "transcript_plus_frames"}
+    if not configs.intersection(rag_configs):
+        model_name = next(iter(configs), "model")
+        model_scored = scored
+        _print_single_model_table(
+            f"Text Generation Metrics — {model_name} — All Questions",
+            _agg(model_scored, include_entailment),
+            include_entailment,
+        )
+        _print_single_model_table(
+            f"Text Generation Metrics — {model_name} — Visual Questions",
+            _agg([s for s in model_scored if s["is_visual"]], include_entailment),
+            include_entailment,
+        )
+        _print_single_model_table(
+            f"Text Generation Metrics — {model_name} — Non-Visual (Control)",
+            _agg([s for s in model_scored if not s["is_visual"]], include_entailment),
+            include_entailment,
+        )
+        if by_type:
+            for qt in sorted({s["question_type"] for s in model_scored}):
+                _print_single_model_table(
+                    f"Text Generation Metrics — {model_name} — {qt}",
+                    _agg([s for s in model_scored if s["question_type"] == qt], include_entailment),
+                    include_entailment,
+                )
+        return
 
     _print_table(
         "Text Generation Metrics — All Questions",

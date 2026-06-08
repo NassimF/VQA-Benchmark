@@ -103,6 +103,20 @@ class EvaluatorConfig:
 
 
 @dataclass
+class LvlmModelConfig:
+    hub_id: str
+    frames_per_window: int
+    max_new_tokens: int
+    max_frames_total: int | None = None
+
+
+@dataclass
+class LvlmConfig:
+    oracle_window_seconds: float
+    models: dict[str, LvlmModelConfig]
+
+
+@dataclass
 class Config:
     data: DataConfig
     embedding: EmbeddingConfig
@@ -115,6 +129,7 @@ class Config:
     qa_generation: QAGenerationConfig
     qa_review: QAReviewConfig
     evaluator: EvaluatorConfig
+    lvlm: LvlmConfig
 
 
 def load_config(config_path: Path | None = None) -> Config:
@@ -208,6 +223,21 @@ def load_config(config_path: Path | None = None) -> Config:
         output_path=p(ev["output_path"]),
     )
 
+    lv_raw = raw.get("lvlm", {})
+    lv_models = {
+        name: LvlmModelConfig(
+            hub_id=m["hub_id"],
+            frames_per_window=int(m["frames_per_window"]),
+            max_new_tokens=int(m["max_new_tokens"]),
+            max_frames_total=int(m["max_frames_total"]) if "max_frames_total" in m else None,
+        )
+        for name, m in lv_raw.get("models", {}).items()
+    }
+    lvlm = LvlmConfig(
+        oracle_window_seconds=float(lv_raw.get("oracle_window_seconds", 120.0)),
+        models=lv_models,
+    )
+
     cfg = Config(
         data=data,
         embedding=embedding,
@@ -220,6 +250,7 @@ def load_config(config_path: Path | None = None) -> Config:
         qa_generation=qa_generation,
         qa_review=qa_review,
         evaluator=evaluator,
+        lvlm=lvlm,
     )
     logger.debug(f"Config loaded from {config_path}")
     return cfg

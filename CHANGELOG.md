@@ -1,5 +1,61 @@
 # Changelog
 
+## 2026-06-08
+
+- docs: mark phase 11 section 5 complete in plan.md (3fbb4e7)
+
+## 2026-06-08
+
+- feat: add LVLM comparison tables to results.tex (ffe68aa)
+
+## 2026-06-08
+
+- feat: add reproduce_table_lvlm and fix C1/C2 n-gram scores (7e376f2)
+
+## 2026-06-08
+
+- docs: update results.md with full LVLM comparison table (79c4aa7)
+
+## 2026-06-08
+
+- fix: paper consistency pass — correct benchmark counts after quality fix (5f30c23)
+
+## 2026-05-29
+
+- docs: add entailment scores and key findings to plan (18d93f7)
+
+## 2026-05-29
+
+- feat: complete LVLM inference for all 4 models with fixes (9bdfbee)
+
+## 2026-05-28
+
+- docs: update plan.md and changelog for phase 11 (50409fc)
+
+## 2026-05-28
+
+- fix: recover Video-LLaVA empty answers via max_frames_total (7c1a5b1)
+
+## 2026-05-28
+
+- fix: correct 10 invalid GT timestamps, remove 2 broken QA pairs (557553f)
+
+## 2026-05-26
+
+- feat: add LVLM inference script and config (Phase 11) (c960a89)
+- docs: exclude LLM-judge from LVLM comparison, note cost rationale (bb00755)
+- docs: update Phase 11 spec with EduVidQA prompts and tIoU exclusion (e9d5696)
+- docs: resolve all open questions in Phase 11 spec (f66b16b)
+- docs: lock FactQA model to GPT-4o-mini with rationale in Phase 11 spec (970b0db)
+- feat: add standalone FactQA scorer (FQA-P, FQA-R, FQA-F1) (450c4b9)
+- docs: lock transcript+frames input setup, exclude frame captions for LVLMs (dd8f442)
+- docs: document decision to skip fine-tuning in Phase 11 spec (bb71d94)
+- docs: lock windowing strategy and per-model frame counts in Phase 11 spec (cc7bb92)
+- docs: add hop count distribution table to README and benchmark section (c97efd5)
+- docs: document Entailment-P exclusion decision in Phase 11 spec (0f88794)
+- feat: add Phase 11 spec for LVLM/Video LLM baseline experiments (3d812f0)
+- chore: add CHANGELOG.md (171 commits across 18 dates) (35c1690)
+
 ## 2026-05-26
 
 - feat: add standalone text metrics script (BLEU, ROUGE-L, METEOR, Entailment) (e98d7b5)

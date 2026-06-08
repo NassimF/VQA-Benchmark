@@ -60,3 +60,25 @@ evaluator:
   judge_2_model: "gpt-4o"
   iou_hit_threshold: 0.3
   output_path: "data/benchmark/evaluation_results.json"
+
+lvlm:
+  oracle_window_seconds: 120  # ±120s centered on hop start time (EduVidQA Section 5.3)
+  models:
+    qwen2-vl-7b:
+      hub_id: "Qwen/Qwen2-VL-7B-Instruct"
+      frames_per_window: 30
+      max_new_tokens: 512
+    video-llava-7b:
+      hub_id: "LanguageBind/Video-LLaVA-7B-hf"
+      frames_per_window: 8
+      max_frames_total: 8  # 256 tokens/frame × 8 = 2048 visual tokens; leaves 2048 for text (4096 limit)
+      max_new_tokens: 512
+    mplug-owl3-8b:
+      hub_id: "mPLUG/mPLUG-Owl3-7B-241101"
+      frames_per_window: 30
+      max_new_tokens: 512
+    llava-13b:
+      hub_id: "llava-hf/llava-1.5-13b-hf"
+      frames_per_window: 3
+      max_frames_total: 2  # 2 × 576 = 1152 img tokens; keeps 2-hop total ≤ ~2800 (within 4096 limit)
+      max_new_tokens: 512
