@@ -2,6 +2,10 @@
 
 ## 2026-06-08
 
+- docs: mark phase 11 section 5 complete in plan.md (3fbb4e7)
+
+## 2026-06-08
+
 - feat: add LVLM comparison tables to results.tex (ffe68aa)
 
 ## 2026-06-08

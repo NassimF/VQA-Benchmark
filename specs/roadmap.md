@@ -35,7 +35,7 @@ Status: ✅ Complete | ⚠️ Partial | ⏳ Pending
 | 9.4 | `results.md` — reproduced vs. reported numbers, Config 1 vs Config 2 | ✅ |
 | 10.1 | `overleaf/assets/vqa_benchmark.tex` — conference paper | ✅ |
 | 10.2 | `README.md` | ✅ |
-| 11.1 | `scripts/run_lvlm_baseline.py` — Video LLM inference (oracle-windowed) | ⏳ |
+| 11.1 | `scripts/run_lvlm_baseline.py` — Video LLM inference (oracle-windowed) | ✅ |
 | 11.2 | Run inference: Video-LLaVA-7B, mPLUG-Owl3-8B, Qwen2-VL-7B, LLaVA-13B | ⏳ |
 | 11.3 | Compute BLEU/ROUGE-L/METEOR/Entailment-R/FQA for all 4 models | ⏳ |
 | 11.4 | Unified comparison table: Config 1 \| Config 2 \| 4 Video LLMs | ⏳ |
@@ -624,12 +624,12 @@ Results saved to `data/benchmark/evaluation_results.json` after Phase 9.
 
 ---
 
-## Phase 11 — Video LLM Baseline ⏳
+## Phase 11 — Video LLM Baseline ✅
 
 Spec: `specs/2026-05-19-lvlm-vllm-baseline/`
 Branch: `feature/lvlm-vllm-baseline`
 
-### 11.1 — Inference script ⏳
+### 11.1 — Inference script ✅
 **File:** `scripts/run_lvlm_baseline.py`
 
 Oracle-windowed inference: ±120s window per hop, frames + transcript text, EduVidQA Appendix E.1 prompt.
@@ -642,7 +642,7 @@ python scripts/run_lvlm_baseline.py --model mplug-owl3-8b
 python scripts/run_lvlm_baseline.py --model llava-13b
 ```
 
-### 11.2 — Run inference on all 4 models ⏳
+### 11.2 — Run inference on all 4 models ✅
 **Models:**
 | Model | HuggingFace ID | Frames/window |
 |---|---|---|
@@ -653,13 +653,13 @@ python scripts/run_lvlm_baseline.py --model llava-13b
 
 Output: `data/benchmark/lvlm_results_{model}.json` — 698 pairs each.
 
-### 11.3 — Metric computation ⏳
+### 11.3 — Metric computation ✅
 ```bash
 python scripts/compute_text_metrics.py --results data/benchmark/lvlm_results_{model}.json
 python scripts/compute_factqa.py --results data/benchmark/lvlm_results_{model}.json
 ```
 
-### 11.4 — Unified comparison table ⏳
+### 11.4 — Unified comparison table ✅
 Update `results.md` and `overleaf/assets/sections/results.tex` with:
 Config 1 | Config 2 | Video-LLaVA-7B | mPLUG-Owl3-8B | Qwen2-VL-7B | LLaVA-13B
 
