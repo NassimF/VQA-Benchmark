@@ -2,6 +2,10 @@
 
 ## 2026-05-29
 
+- docs: add entailment scores and key findings to plan (18d93f7)
+
+## 2026-05-29
+
 - feat: complete LVLM inference for all 4 models with fixes (9bdfbee)
 
 ## 2026-05-28
