@@ -2,6 +2,10 @@
 
 ## 2026-06-08
 
+- docs: mark Phase 11 complete in roadmap (345893e)
+
+## 2026-06-08
+
 - docs: mark phase 11 section 5 complete in plan.md (3fbb4e7)
 
 ## 2026-06-08

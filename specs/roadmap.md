@@ -39,6 +39,10 @@ Status: ✅ Complete | ⚠️ Partial | ⏳ Pending
 | 11.2 | Run inference: Video-LLaVA-7B, mPLUG-Owl3-8B, Qwen2-VL-7B, LLaVA-13B | ⏳ |
 | 11.3 | Compute BLEU/ROUGE-L/METEOR/Entailment-R/FQA for all 4 models | ⏳ |
 | 11.4 | Unified comparison table: Config 1 \| Config 2 \| 4 Video LLMs | ⏳ |
+| 12.1 | Clone KiRAG, download checkpoints + pre-built indices | ⏳ |
+| 12.2 | Reproduce Tables 1–3 on HotPotQA/2Wiki/MuSiQue (within ±2%) | ⏳ |
+| 12.3 | Adapt KiRAG to VQA benchmark transcript chunks | ⏳ |
+| 12.4 | `experiments/kirag/reproduce_kirag_tables.py` + update `results.md` | ⏳ |
 
 ---
 
@@ -662,6 +666,42 @@ python scripts/compute_factqa.py --results data/benchmark/lvlm_results_{model}.j
 ### 11.4 — Unified comparison table ✅
 Update `results.md` and `overleaf/assets/sections/results.tex` with:
 Config 1 | Config 2 | Video-LLaVA-7B | mPLUG-Owl3-8B | Qwen2-VL-7B | LLaVA-13B
+
+---
+
+## Phase 12 — KiRAG Experiment ⏳
+
+Spec: `specs/2026-06-09-kirag-reproduction/`
+Branch: `feature/kirag-reproduction`
+
+**Goal:** Reproduce KiRAG (ACL 2025) main results on HotPotQA/2WikiMultiHopQA/MuSiQue, then adapt KiRAG to the VQA benchmark transcript dataset as Config 3 (explicit multi-hop KG-RAG).
+
+**Conda env:** `kirag` (separate from `vqa-benchmark` — torch 2.2.1 + transformers 4.44.2)
+**Run scripts with:** `/root/miniconda3/envs/kirag/bin/python` (not `conda run` — PYTHONPATH conflict)
+
+### 12.1 — Environment and repo setup ⏳
+- [ ] Clone KiRAG into `experiments/kirag/` (`git clone https://github.com/jyfang6/kirag`)
+- [ ] Download pre-trained aligner checkpoints and pre-built corpus indices from KiRAG GitHub
+- [ ] Verify E5 (`intfloat/e5-large-v2`) and Llama3-8B available on HuggingFace (free, requires HF token)
+
+### 12.2 — Reproduce Tables 1–3 ⏳
+- [ ] Download HotPotQA, 2WikiMultiHopQA, MuSiQue to `experiments/kirag/original/data/`
+- [ ] Run `retrieve.py` + `retrieval_eval` → R@3, R@5 per dataset (Table 1)
+- [ ] Run `qa_eval` with Llama3-8B → EM, F1 per dataset (Table 2)
+- [ ] Run on Bamboogle, WebQA, NQ → generalization results (Table 3)
+- [ ] All results within ±2% of paper values; save to `experiments/kirag/original/results/`
+
+### 12.3 — Adapt KiRAG to VQA Benchmark ⏳
+- [ ] Write `experiments/kirag/vqa_benchmark/prepare_corpus.py` — converts `data/chunks/*.json` to KiRAG input format (preserving `chunk_id`, `start_s`, `end_s`)
+- [ ] Build KG corpus from VQA transcript chunks
+- [ ] Run KiRAG retrieval on `data/benchmark/benchmark_v1.json`
+- [ ] Post-process: map retrieved chunks → `[video_id @ mm:ss to mm:ss]` temporal citations
+- [ ] Compute temporal IoU, R@3, R@5, EM, F1 using `src/evaluator.py`
+
+### 12.4 — Results reporting ⏳
+- [ ] Write `experiments/kirag/reproduce_kirag_tables.py` — reproduced vs. paper numbers side-by-side
+- [ ] Update `results.md` with KiRAG column alongside Config 1 and Config 2
+- [ ] Add `.gitignore` entries for `experiments/kirag/data/`, `checkpoints/`, `indices/`
 
 ---
 
