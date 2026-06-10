@@ -50,7 +50,7 @@ Keep all Track A results — they are the baseline for comparison with Track B.
 - [x] Retrieval: `CUDA_VISIBLE_DEVICES=1 python -m retrieve --dataset musique --query_file original/data/musique/open_domain_data/dev_qa_pairs.json --corpus musique --index_folder checkpoint/e5_retriever/musique --embedding_size 1024 --retriever_name E5Retriever --hf_token $HF_TOK --llm llama3 --aligner_model e5 --aligner_model_name_or_path checkpoint/trained_e5_reasoning_chain_aligner --cached_kg_triples_file checkpoint/kg_corpus/musique/cached_kg_triples.pkl --save_dir checkpoint --name e5_retriever --save_file dev_musique_retrieval_results.json`
 - [x] Retrieval eval R@3 and R@5
 - [x] QA eval EM and F1: `CUDA_VISIBLE_DEVICES=1 python -m evaluation.qa_eval --hf_token $HF_TOK --save_file checkpoint/e5_retriever/dev_musique_retrieval_results.json --k 3`
-- Results saved: `original/results/musique_results.json`
+- Results saved: `original/results/musique_results.json` → committed copy at `data/kirag_results/musique_results.json`
 
 **MuSiQue results vs paper:**
 | Metric | Ours | Paper | Δ |
@@ -68,7 +68,7 @@ Note: consistently above paper by ~7% — likely due to improved KG triple cache
 - [x] Retrieval (500 questions): done → `checkpoint/e5_retriever/dev_2wiki_retrieval_results.json`
 - [x] Retrieval eval R@3=0.809, R@5=0.869
 - [x] QA eval EM=0.596, F1=0.692
-- Results saved: `original/results/2wiki_results.json`
+- Results saved: `original/results/2wiki_results.json` → committed copy at `data/kirag_results/2wiki_results.json`
 
 ### HotPotQA ⏳ NOT STARTED (Track A)
 - [ ] Corpus embeddings (5.2M docs — estimate ~3 hrs on A100): same command with `--corpus hotpotqa --index_folder hotpotqa`
