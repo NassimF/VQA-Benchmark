@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-06-09
+
+- docs: track literature review reports, exclude xlsx binaries (173a1b2)
+- feat: add KiRAG reproduction spec (Phase 12) (3c0a01c)
+
 ## 2026-06-08
 
 - docs: mark Phase 11 complete in roadmap (345893e)

@@ -36,11 +36,13 @@ Status: ✅ Complete | ⚠️ Partial | ⏳ Pending
 | 10.1 | `overleaf/assets/vqa_benchmark.tex` — conference paper | ✅ |
 | 10.2 | `README.md` | ✅ |
 | 11.1 | `scripts/run_lvlm_baseline.py` — Video LLM inference (oracle-windowed) | ✅ |
-| 11.2 | Run inference: Video-LLaVA-7B, mPLUG-Owl3-8B, Qwen2-VL-7B, LLaVA-13B | ⏳ |
-| 11.3 | Compute BLEU/ROUGE-L/METEOR/Entailment-R/FQA for all 4 models | ⏳ |
-| 11.4 | Unified comparison table: Config 1 \| Config 2 \| 4 Video LLMs | ⏳ |
-| 12.1 | Clone KiRAG, download checkpoints + pre-built indices | ⏳ |
-| 12.2 | Reproduce Tables 1–3 on HotPotQA/2Wiki/MuSiQue (within ±2%) | ⏳ |
+| 11.2 | Run inference: Video-LLaVA-7B, mPLUG-Owl3-8B, Qwen2-VL-7B, LLaVA-13B | ✅ |
+| 11.3 | Compute BLEU/ROUGE-L/METEOR/Entailment-R/FQA for all 4 models | ✅ |
+| 11.4 | Unified comparison table: Config 1 \| Config 2 \| 4 Video LLMs | ✅ |
+| 12.1 | Clone KiRAG, download checkpoints + pre-built indices | ✅ |
+| 12.2a | Reproduce Tables 1–3 with pre-trained OSF aligner (Track A) | ⚠️ MuSiQue ✅; 2wiki ⏳ running; hotpotqa ⏳ |
+| 12.2b | Train aligner from scratch on HotPotQA/2wiki/MuSiQue data (Track B) | ⏳ |
+| 12.2c | Re-run Tables 1–3 with trained aligner; compare Track A vs Track B vs paper | ⏳ |
 | 12.3 | Adapt KiRAG to VQA benchmark transcript chunks | ⏳ |
 | 12.4 | `experiments/kirag/reproduce_kirag_tables.py` + update `results.md` | ⏳ |
 
@@ -684,12 +686,21 @@ Branch: `feature/kirag-reproduction`
 - [ ] Download pre-trained aligner checkpoints and pre-built corpus indices from KiRAG GitHub
 - [ ] Verify E5 (`intfloat/e5-large-v2`) and Llama3-8B available on HuggingFace (free, requires HF token)
 
-### 12.2 — Reproduce Tables 1–3 ⏳
-- [ ] Download HotPotQA, 2WikiMultiHopQA, MuSiQue to `experiments/kirag/original/data/`
-- [ ] Run `retrieve.py` + `retrieval_eval` → R@3, R@5 per dataset (Table 1)
-- [ ] Run `qa_eval` with Llama3-8B → EM, F1 per dataset (Table 2)
-- [ ] Run on Bamboogle, WebQA, NQ → generalization results (Table 3)
-- [ ] All results within ±2% of paper values; save to `experiments/kirag/original/results/`
+### 12.2a — Reproduce Tables 1–3 with pre-trained OSF aligner (Track A) ⚠️
+- [x] MuSiQue: R@3=0.626, R@5=0.680, EM=0.266, F1=0.364 (saved to `original/results/musique_results.json`)
+- [ ] 2WikiMultiHopQA: retrieval running; eval pending
+- [ ] HotPotQA: corpus embeddings + index + retrieval + eval pending
+- Results saved to `experiments/kirag/original/results/{dataset}_results.json`
+
+### 12.2b — Train aligner from scratch (Track B) ⏳
+- [ ] Download `train_aligner.json` + `dev_aligner.json` for all 3 datasets from OSF
+- [ ] Build HotPotQA corpus index (prerequisite for training data)
+- [ ] Run `train_aligner.py` on 2× A100 (~4–8 hrs); save to `checkpoint/trained_e5_aligner_ours/`
+
+### 12.2c — Re-run Tables 1–3 with trained aligner; compare vs paper and Track A ⏳
+- [ ] Re-run retrieve + eval for all 3 datasets using `checkpoint/trained_e5_aligner_ours/`
+- [ ] Save to `original/results/{dataset}_results_ours.json`
+- [ ] Fill comparison table in `specs/2026-06-09-kirag-reproduction/plan.md`
 
 ### 12.3 — Adapt KiRAG to VQA Benchmark ⏳
 - [ ] Write `experiments/kirag/vqa_benchmark/prepare_corpus.py` — converts `data/chunks/*.json` to KiRAG input format (preserving `chunk_id`, `start_s`, `end_s`)

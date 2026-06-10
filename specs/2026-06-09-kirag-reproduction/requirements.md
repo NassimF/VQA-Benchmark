@@ -22,7 +22,6 @@ Code: https://github.com/jyfang6/kirag
 
 ## Out of Scope
 
-- Training the Reasoning Chain Aligner from scratch (pre-trained checkpoints used)
 - KiRAG ablation studies (Tables 4, 5) — main tables only
 - Appendix results with BGE retriever or Qwen2.5/Flan-T5 readers
 - Vgent or any other KG-RAG method — separate spec if needed
@@ -35,7 +34,8 @@ Code: https://github.com/jyfang6/kirag
 
 | Decision | Choice | Reason |
 |---|---|---|
-| Training | Use pre-trained checkpoints | Saves 4–10 GPU-hours; validate setup before committing to full retrain |
+| Training (Track A) | Use pre-trained OSF checkpoint | Fastest path to results; establishes baseline |
+| Training (Track B) | Train aligner from scratch on HotPotQA/2wiki/MuSiQue data | Measures how close self-trained results are to paper; validates reproducibility |
 | Retriever | E5 (`intfloat/e5-large-v2`) | Primary retriever in paper's main results |
 | Reader | Llama3-8B (`meta-llama/Meta-Llama-3-8B-Instruct`) | Primary reader in paper's main results |
 | Triple constructor | Llama3-8B | Same model as reader; no paid API required |
@@ -52,8 +52,9 @@ Code: https://github.com/jyfang6/kirag
 |---|---|---|
 | KiRAG codebase | https://github.com/jyfang6/kirag | Clone into `experiments/kirag/` |
 | kirag conda env | `/root/miniconda3/envs/kirag/` | Separate env from `vqa-benchmark` — torch 2.2.1 + transformers 4.44.2. Run all KiRAG scripts with `/root/miniconda3/envs/kirag/bin/python` (not `conda run` — PYTHONPATH conflict breaks faiss) |
-| Pre-trained aligner checkpoints | KiRAG GitHub releases | Download; add to `.gitignore` |
-| Pre-built corpus indices | KiRAG GitHub | Download; add to `.gitignore` |
+| Pre-trained aligner checkpoints | OSF (`osf.io/qw594`) | Track A; add to `.gitignore` |
+| Aligner training data (`train_aligner.json`, `dev_aligner.json`) | OSF (`osf.io/qw594`) | Track B; one file per dataset; add to `.gitignore` |
+| Pre-built corpus indices | OSF (`osf.io/qw594`) | Built ourselves; add to `.gitignore` |
 | E5 retriever | HuggingFace: `intfloat/e5-large-v2` | Free |
 | Llama3-8B | HuggingFace: `meta-llama/Meta-Llama-3-8B-Instruct` | Free; requires HF token |
 | HotPotQA, 2WikiMultiHopQA, MuSiQue | Public datasets | Download to `experiments/kirag/original/data/` |
@@ -68,4 +69,4 @@ Code: https://github.com/jyfang6/kirag
 1. **VQA chunk format**: KiRAG expects a flat document corpus — confirm whether chunk text alone or chunk text + frame captions (Config 2 style) should be used as the KiRAG document.
 2. **Aligner fine-tuning on VQA data**: The pre-trained aligner is trained on HotPotQA/2Wiki supervision signal. Performance on VQA may degrade. If R@3 on VQA is significantly lower than on HotPotQA, consider fine-tuning the aligner on a small VQA subset.
 3. **Multi-hop citation assembly**: KiRAG iteratively retrieves multiple chunks. For multi-hop questions, all retrieved chunks across all hops should contribute to the final citation span — confirm this assembly logic in `prepare_corpus.py`.
-4. **HuggingFace token**: Llama3-8B requires a HuggingFace access token. Confirm token is available in the environment before starting.
+4. **HuggingFace token**: Llama3-8B requires a HuggingFace access token. ✅ Token saved to `.env` as `HF_TOKEN`; load with `export $(cat .env | xargs)` at session start.
