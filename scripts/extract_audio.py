@@ -24,11 +24,25 @@ logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 logger = logging.getLogger(__name__)
 
 
+def _get_duration(path: Path) -> float:
+    """Return duration in seconds via ffprobe, or 0.0 on failure."""
+    result = subprocess.run(
+        ["ffprobe", "-v", "error", "-show_entries", "format=duration",
+         "-of", "default=noprint_wrappers=1", str(path)],
+        capture_output=True, text=True,
+    )
+    try:
+        return float(result.stdout.strip().split("=")[-1])
+    except (ValueError, IndexError):
+        return 0.0
+
+
 def extract_audio(video_path: Path, out_path: Path) -> None:
     """Extract audio from video_path and save as 16 kHz mono 16-bit PCM WAV."""
     out_path.parent.mkdir(parents=True, exist_ok=True)
     cmd = [
         "ffmpeg", "-y",
+        "-err_detect", "ignore_err",  # skip corrupt frames instead of aborting
         "-i", str(video_path),
         "-vn",                  # drop video stream
         "-acodec", "pcm_s16le", # 16-bit PCM
@@ -36,9 +50,20 @@ def extract_audio(video_path: Path, out_path: Path) -> None:
         "-ac", "1",             # mono
         str(out_path),
     ]
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    if result.returncode != 0:
-        raise RuntimeError(f"ffmpeg failed for {video_path.name}:\n{result.stderr[-500:]}")
+    subprocess.run(cmd, capture_output=True, text=True)
+
+    if not out_path.exists():
+        raise RuntimeError(f"ffmpeg produced no output for {video_path.name}")
+
+    src_duration = _get_duration(video_path)
+    out_duration = _get_duration(out_path)
+    if src_duration > 0 and out_duration < src_duration * 0.8:
+        out_path.unlink()
+        raise RuntimeError(
+            f"Audio extraction incomplete for {video_path.name}: "
+            f"got {out_duration:.0f}s, expected ~{src_duration:.0f}s. "
+            f"Source file may be corrupt — re-download with yt-dlp."
+        )
 
 
 def process(video_id: str, cfg) -> None:
